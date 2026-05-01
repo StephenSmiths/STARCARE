@@ -1,0 +1,10 @@
+# STARCARE：Supabase 本機／部署設定（請依專案調整 project_id）
+# 文件：https://supabase.com/docs/guides/cli/config
+
+[api]
+enabled = true
+
+[functions]
+# JWT 驗證改由 Supabase 平台函式設定管理；此檔案保留區塊供本機 CLI 解析。
+
+# 資料庫：npm run db:push（RLS：20260429130000、角色：20260429140000）

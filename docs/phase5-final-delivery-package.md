@@ -1,0 +1,56 @@
+# STARCARE Phase 5 最終打包寄送清單（Day 1）
+
+## 一、用途
+- 提供 Phase 5 Day 1 完成後的一次性寄送清單，分為「內部技術包」與「對外摘要包」。
+
+## 二、內部技術包（建議完整附上）
+
+### A. 收口與總結
+- `docs/phase5-day1-completion-report.md`
+- `docs/phase5-day1-delivery-index.md`
+- `docs/phase5-final-delivery-package.md`
+- `docs/phase5-delivery-message-template.md`
+
+### B. 驗收與操作
+- `docs/phase5-day1-automation-runbook.md`
+- `docs/phase5-day1-automation-report.md`
+- `docs/phase5-day1-delivery-verification-report.md`
+- `docs/phase5-day1-closeout-summary.md`
+
+### C. 後端實作與資料治理
+- `supabase/migrations/20260430195000_scheduling_kpi_history.sql`
+- `supabase/functions/scheduling-kpi-history-list/index.ts`
+- `supabase/functions/scheduling-kpi-history-upsert/index.ts`
+- `supabase/functions/scheduling-kpi-history-clear/index.ts`
+
+### D. 前端同步與容錯
+- `src/repositories/schedulingKpiHistoryRepository.ts`
+- `src/services/schedulingKpiHistorySyncService.ts`
+- `src/features/scheduling/hooks/useSchedulingKpiHistory.ts`
+
+## 三、對外摘要包（管理層 / 客戶）
+- `docs/phase5-day1-external-summary.md`
+
+## 四、建議寄送順序
+1. `phase5-day1-external-summary.md`（先給結論）
+2. `phase5-day1-completion-report.md`（再給細節）
+3. `phase5-day1-automation-report.md`（驗收證據）
+4. `phase5-day1-delivery-index.md`（交接導覽）
+
+## 五、寄送前最後檢查
+- [ ] `npm run acceptance:phase5` 已再次執行且 PASS
+- [ ] `docs/phase5-day1-automation-report.md` 為最新時間
+- [ ] `npm run db:push` 與 `npm run ops:deploy:all` 已完成
+- [ ] 對外包不含敏感環境資訊（token / key / 私密連線資訊）
+
+## 六、一鍵收口指令
+- `npm run closeout:phase5`
+  - 會依序執行：
+    1. `npm run acceptance:phase5`
+    2. `npm run delivery:phase5:zip`
+    3. `npm run delivery:phase5:verify`
+    4. `npm run closeout:phase5:summary`
+- `npm run closeout:phase5:status`
+  - 產出收口狀態快照：`docs/phase5-day1-closeout-status.md`
+- `npm run closeout:phase5:fresh`
+  - 會先清理舊交付產物，再執行完整收口流程

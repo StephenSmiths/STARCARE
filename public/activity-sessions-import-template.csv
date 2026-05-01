@@ -1,0 +1,2 @@
+id,facilityId,activityId,staffProfileId,sessionDate,timeSlot,capacity
+activity-session-import-001,facility-main,activity-rehab-01,staff-001,2026-05-01,AM,6

@@ -1,0 +1,51 @@
+import { describe, expect, it } from 'vitest'
+import type { SchedulingKpiRunRecord } from '../services/schedulingKpiService'
+import { InMemorySchedulingKpiHistoryRepository } from './schedulingKpiHistoryRepository'
+
+const makeRecord = (index: number): SchedulingKpiRunRecord => ({
+  ranAt: `2026-05-${String(index + 1).padStart(2, '0')}T10:00:00.000Z`,
+  kpis: {
+    coverageRate: 80 + index,
+    conflictRatePer100: index,
+    averageAssignmentsPerResident: 1.2,
+    underTargetRate: 20 - index,
+  },
+  residentCount: 10 + index,
+  assignmentCount: 12 + index,
+  conflictCount: index,
+})
+
+describe('InMemorySchedulingKpiHistoryRepository', () => {
+  it('append keeps latest 10 records in descending order', async () => {
+    const repo = new InMemorySchedulingKpiHistoryRepository()
+    for (let i = 0; i < 12; i += 1) {
+      await repo.appendRecord('facility-main', makeRecord(i))
+    }
+    const rows = await repo.listHistory('facility-main')
+    expect(rows).toHaveLength(10)
+    expect(rows[0].ranAt).toBe(makeRecord(11).ranAt)
+    expect(rows[9].ranAt).toBe(makeRecord(2).ranAt)
+  })
+
+  it('clear removes all records', async () => {
+    const repo = new InMemorySchedulingKpiHistoryRepository()
+    await repo.appendRecord('facility-main', makeRecord(0))
+    await repo.clearHistory('facility-main')
+    expect(await repo.listHistory('facility-main')).toEqual([])
+  })
+
+  it('supports from/to query filter', async () => {
+    const repo = new InMemorySchedulingKpiHistoryRepository()
+    for (let i = 0; i < 5; i += 1) {
+      await repo.appendRecord('facility-main', makeRecord(i))
+    }
+    const rows = await repo.listHistory('facility-main', {
+      from: '2026-05-03T00:00:00.000Z',
+      to: '2026-05-04T23:59:59.999Z',
+      limit: 10,
+    })
+    expect(rows).toHaveLength(2)
+    expect(rows[0].ranAt).toBe('2026-05-04T10:00:00.000Z')
+    expect(rows[1].ranAt).toBe('2026-05-03T10:00:00.000Z')
+  })
+})

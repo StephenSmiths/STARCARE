@@ -1,0 +1,3 @@
+name,bedNumber,area,gender,age,admissionDate,fundingType,serviceType,dementiaLevel,isSpecialCareCase,healthCondition,medicationRecord
+測試院友A,E201,E區,Female,79,2026-04-01,GradeA_Subsidized,Subsidized_Rehab,None,false,步態訓練中,每日晚間服藥
+測試院友B,,E區,Unknown,151,,BadType,Subsidized_Rehab,None,false,,
