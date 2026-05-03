@@ -43,6 +43,7 @@ describe('智能排班大批量（容量不足）', () => {
         timeSlot: '09:00-10:00',
         serviceType: 'Subsidized_Rehab',
         capacity: 1,
+        staffRoleType: 'OT',
       },
     ]
 

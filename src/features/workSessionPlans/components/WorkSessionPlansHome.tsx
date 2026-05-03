@@ -1,9 +1,12 @@
+import { AuditTrailPanel } from '../../shared/components/AuditTrailPanel'
+import { useAuditTrailList } from '../../shared/hooks/useAuditTrailList'
 import { MyWorkPlanPanel } from './MyWorkPlanPanel'
 import { TeamWorkPlanPanel } from './TeamWorkPlanPanel'
 import { useWorkSessionPlans } from '../hooks/useWorkSessionPlans'
 
 /** PDF 02【4】工作計劃入口（Seq 16） */
 export const WorkSessionPlansHome = () => {
+  const auditTrail = useAuditTrailList()
   const plans = useWorkSessionPlans()
 
   return (
@@ -34,6 +37,11 @@ export const WorkSessionPlansHome = () => {
         statusFilter={plans.statusFilter}
         onStatusFilterChange={plans.setStatusFilter}
         onBulkSoftDelete={plans.bulkSoftDelete}
+      />
+      <AuditTrailPanel
+        title="工作節與計劃審計（全域）"
+        help="含 WORK_SESSION_*、WORK_PLAN_SESSION_COMMIT 等（PDF 02【2】【4】／Seq 12）。"
+        auditTrail={auditTrail}
       />
     </div>
   )

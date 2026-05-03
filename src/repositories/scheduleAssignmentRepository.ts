@@ -13,6 +13,8 @@ export interface ScheduleAssignmentRecord {
 
 export interface ScheduleAssignmentRepository {
   saveBatch: (rows: ScheduleAssignmentRecord[]) => Promise<void>
+  /** 01 §5：依 batch_id 標記 scheduling_history is_deleted（Edge 或本機模擬） */
+  softDeleteHistoryBatch: (batchId: string) => Promise<void>
 }
 
 /** 本地開發：模擬批量寫入成功 */
@@ -21,6 +23,13 @@ export class InMemoryScheduleAssignmentRepository implements ScheduleAssignmentR
 
   async saveBatch(rows: ScheduleAssignmentRecord[]): Promise<void> {
     this.store.unshift(...rows)
+  }
+
+  async softDeleteHistoryBatch(batchId: string): Promise<void> {
+    let i = this.store.length
+    while (i--) {
+      if (this.store[i].batch_id === batchId) this.store.splice(i, 1)
+    }
   }
 }
 
@@ -63,6 +72,21 @@ export class EdgeScheduleAssignmentRepository implements ScheduleAssignmentRepos
     }
     if (!response.ok) {
       throw new Error(`儲存排班失敗（HTTP ${response.status}）`)
+    }
+  }
+
+  async softDeleteHistoryBatch(batchId: string): Promise<void> {
+    const headers = await buildEdgeInvokeHeaders(
+      this.anonKey,
+      `scheduling-history-soft-delete:${batchId}:${crypto.randomUUID()}`,
+    )
+    const response = await fetch(`${this.supabaseUrl}/functions/v1/scheduling-history-soft-delete`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ batch_id: batchId }),
+    })
+    if (!response.ok) {
+      throw new Error((await response.text()) || `軟刪除批次失敗（HTTP ${response.status}）`)
     }
   }
 }

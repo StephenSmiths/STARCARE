@@ -9,6 +9,7 @@ export const toResident = (record: ResidentRecord): Resident => {
     gender: record.gender,
     age: record.age,
     admissionDate: record.admission_date,
+    assessmentNextDueDate: record.assessment_next_due_date ?? null,
     fundingType: record.funding_type,
     serviceType: record.service_type,
     dementiaLevel: record.dementia_level,
@@ -28,6 +29,11 @@ export const toResidentRecord = (resident: Resident): ResidentRecord => {
     gender: resident.gender,
     age: resident.age,
     admission_date: resident.admissionDate,
+    assessment_next_due_date: (() => {
+      const v = resident.assessmentNextDueDate
+      if (v == null || String(v).trim() === '') return null
+      return String(v).trim()
+    })(),
     funding_type: resident.fundingType,
     service_type: resident.serviceType,
     dementia_level: resident.dementiaLevel,

@@ -111,7 +111,7 @@ const VIEW_TITLES: Record<ViewId, string> = {
 export const getViewTitle = (view: ViewId): string => VIEW_TITLES[view] ?? '儀表盤'
 
 const VIEW_DESCRIPTIONS: Record<ViewId, string> = {
-  dashboard: '院友／員工概況、今日工作節、合規摘要與待辦（PDF 02【1】Seq 13）。',
+  dashboard: '院友／員工概況、今日活動時段（資助／認知分計）、合規摘要與待辦（PDF 02【1】Seq 13）。',
   'work-plan': '日期、員工與工作節時段；預覽後儲存即發布活動時段（PDF 02【2】Seq 14）。',
   'work-session-plans': '我的工作計劃與團隊計劃：接收／拒絕工作節、主管批量軟刪（PDF 02【4】Seq 16）。',
   'service-forms':

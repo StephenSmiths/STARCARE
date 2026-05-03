@@ -1,33 +1,38 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import type { ActivitySession } from '../../../repositories/activitySessionRepository'
 import { activitySessionManagementService } from '../../../services/activitySessionManagementService'
+import { useInvalidateOnSystemSettingsExternalChange } from '../../systemSettings'
 
 export const useActivitySessionList = (facilityId = 'facility-main') => {
   const softDeleteLockRef = useRef(false)
+  const loadSeqRef = useRef(0)
   const [rows, setRows] = useState<ActivitySession[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [busySessionId, setBusySessionId] = useState<string | null>(null)
 
-  useEffect(() => {
-    let cancelled = false
-    const load = async () => {
-      setIsLoading(true)
-      setError('')
-      try {
-        const data = await activitySessionManagementService.listActivitySessions(facilityId)
-        if (!cancelled) setRows(data)
-      } catch {
-        if (!cancelled) setError('無法載入活動時段列表，請稍後再試。')
-      } finally {
-        if (!cancelled) setIsLoading(false)
+  const loadList = useCallback(async () => {
+    const seq = ++loadSeqRef.current
+    setIsLoading(true)
+    setError('')
+    try {
+      const data = await activitySessionManagementService.listActivitySessions(facilityId)
+      if (seq !== loadSeqRef.current) return
+      setRows(data)
+    } catch {
+      if (seq === loadSeqRef.current) {
+        setError('無法載入活動時段列表，請稍後重試。')
       }
-    }
-    void load()
-    return () => {
-      cancelled = true
+    } finally {
+      if (seq === loadSeqRef.current) setIsLoading(false)
     }
   }, [facilityId])
+
+  useEffect(() => {
+    queueMicrotask(() => void loadList())
+  }, [loadList])
+
+  useInvalidateOnSystemSettingsExternalChange(loadList)
 
   const softDeleteSession = async (actorId: string, session: ActivitySession): Promise<void> => {
     if (softDeleteLockRef.current) return

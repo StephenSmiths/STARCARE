@@ -1,4 +1,4 @@
-import { guardStaffUser } from '../_shared/guardStaffUser.ts'
+import { guardTeamLeadOrAdmin } from '../_shared/guardTeamLeadOrAdmin.ts'
 import { emptyOk, json } from '../_shared/http.ts'
 import { getServiceClient } from '../_shared/supabaseAdmin.ts'
 
@@ -32,7 +32,7 @@ const validateRow = (row: ReturnType<typeof normalize>, rowIndex: number): Error
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return emptyOk()
   if (req.method !== 'POST') return json({ error: '僅支援 POST' }, 405)
-  const denied = await guardStaffUser(req)
+  const denied = await guardTeamLeadOrAdmin(req)
   if (denied) return denied
   try {
     const body = (await req.json()) as { rows?: IncomingRow[] }

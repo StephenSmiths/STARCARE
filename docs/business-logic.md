@@ -49,7 +49,7 @@
 ### 2.1 工作節（Session）
 
 - `PENDING`（待接收）→ `ACCEPTED`（已接收）或 `REJECTED`（已拒絕）
-- `ACCEPTED` → `COMPLETED`（已完成服務）
+- `ACCEPTED` → `COMPLETED`（已完成服務；程式於表單 **APPROVED** 時寫入，見 `features/workSessions`）
 - **約束**：僅當工作節為 `ACCEPTED` 時，Staff 才可提交服務表單。
 
 ### 2.2 表單（Form）
@@ -158,10 +158,14 @@
 | **§1 RBAC**（Admin／TeamLead／Staff） | Auth／`user_roles` 與 Edge `requireStaffUser` 已有方向；**UI 層完整三分角色與權限矩陣**需再對照產品。 |
 | **§2 Session／Form 狀態機** | 若產品範圍含「工作節／服務表單審批」，需確認是否已有對應模組與 DB；**目前主畫面以排班／匯入／院友為主**。 |
 | **§3 後端 MUST 雙軌排班** | PDF 要求後端工作流；現行 **排班演算主要於前端 `schedulingService`**（與「優先 Edge／DB」工程規範有張力）。**建議**：文件化架構決策或規劃搬移後端。 |
-| **§3.1 間隔限制例外**（無其他時段） | 需確認演算法是否完整實作「除非無其他可用時段」之例外。 |
-| **§4.1 週三 Alert（次數仍為 0）** | 需對照 **TeamLead 儀表板** 是否有對應 Alert 元件與觸發條件。 |
-| **§4.2 認知服務統計獨立** | KPI／報表需確認 **未與資助復康混算**（PDF NEVER）。 |
-| **§4.3 評估表 14 天待辦** | 需確認是否有 Assessment 實體與 Staff 待辦 UI。 |
+| **§3.1 間隔限制例外**（無其他時段） | 已於 `schedulingCore.pickSession` 二階段選時段：先滿足相鄰日限制，若無任何可排時段再放寬相鄰限制；`schedulingService.section31.test.ts` 有單元測試。 |
+| **§3.2 週目標常數（Seq 6）** | `schedulingTargets.getWeeklyTargetByFundingType`：甲一／券=**2**、私位=**1**；券之「依評估」仍為固定 2（待 assessment）；私位若 02 訂「每週最多 2」須客戶裁定後再改程式。測試：`schedulingTargets.test.ts`。 |
+| **§3 雙軌隔離（Seq 4）** | 資助復康乾跑：`filterToSubsidizedRehabServiceOnly`＋`runSubsidizedRehabSchedulingOrchestration`；引擎內 `evalSessionCoreForPick` 對非 `Subsidized_Rehab` 為 `skip`。測試：`schedulingService.dualTrack.test.ts`、`schedulingCoreSessionGates.test.ts`、`schedulingSessionWindowFilterService.test.ts`。認知乾跑仍見 `dementiaTrackDryRunService`。 |
+| **§3.3 認知軌（Seq 7）** | `filterToDementiaServiceOnly`＋`buildDementiaServiceTrackSnapshot` 先依 `dementiaSeverityRank` 排序；`runDementiaTrackDryRun` 用 `isWithinGapDays` 與二階段間隔；`mapResidentToDementiaSchedulingResident` 固定 `fundingType: Private` 使週標不依資助類型。測試：`dementiaTrackDryRunService.test.ts`。廣泛覆蓋／週目標數仍待 PDF。 |
+| **§4.1 資助週三警示／排班名單（Seq 8）** | `residentCareTrackCohort.isSubsidizedRehabCohort` 經 **`mapActiveResidentsToSubsidizedSchedulingResidents`** 統一：`runSchedulingReloadPageData`、`runSubsidizedRehabSchedulingOrchestration`、`useDashboardOverview`（週三警示）、`buildSubsidizedRehabTrackSnapshot`；純 `Dementia_Service` 院友不混入資助復康合規計算；`DashboardTeamLeadWednesdayCard`；**`DashboardSummary.subsidizedRehabCohortCount`**／**`DashboardOverviewPanel`** 與全院友總數分示。測試：`residentCareTrackCohort.test.ts`、`schedulingReloadPageData.test.ts`、`mapActiveResidentsToSubsidizedSchedulingResidents.test.ts`。 |
+| **§4.2 認知服務統計獨立** | 儀表盤 **`countSessionsOnLocalDateByTrack`**、`DashboardSummary` 之今日兩軌時段計數；復康追蹤兩區塊。其餘 KPI／報表仍須逐頁確認 **未與資助復康混算**（PDF NEVER）。測試：`dashboardSummaryService.test.ts`。 |
+| **§4.3 評估表 14 天待辦（Seq 9）** | DB **`residents.assessment_next_due_date`**（可選）；有值且落在視窗內時優先於入住週期（**`assessmentDueDateResolve`**／**`_shared/assessmentDueFromAdmission`** 須同步）。**`assessmentDueTaskRepository`**＋Edge **`assessment-due-list`**；失敗或未登入回退本機。**錨點寫入**：單筆 **`residentService`**（更新合併後正規化、可清空）、批量 **`residents-import-validate`／`commit`** 與範本／匯出 CSV；Edge **`residents-create`／`residents-update`** 經 **`residentWritePayload`** 白名單與日期格式驗證。測試：`assessmentDueDateResolve.test.ts`、`assessmentDueTaskService.test.ts`、`assessmentDueTaskRepository.test.ts`、`residentService.test.ts`。 |
+| **PDF 02【9】評估完成紀錄（Seq 22）** | DB **`assessment_completion_records`**（PT／OT、`cycle_anchor_date`、軟刪 **`is_deleted`**）；RLS 與院友表一致（staff／teamlead／admin 可讀未刪）。Edge **`assessment-completion-records-list`**／**`assessment-completion-records-append`**（**`recorded_by_actor_id`** 須為 JWT 本人、單次最多 20 筆、**`X-Idempotency-Key`**）；append 成功後 **`audit_events`**（**`ASSESSMENT_COMPLETION_RECORD`**，見 **`appendAssessmentCompletionAudit`**）；**`assessmentCompletionRecordRepository`**；評估管理 **`useAssessmentManagementWorkspace`**：載入合併遠端／本機（**`mergeAssessmentCompletionRecordsRemotePrimary`**），補登先寫 **localStorage** 再 **`append`**，失敗提示仍保留本機；前端 **`globalAuditTrailService`** 仍寫本機審計軌跡。契約：**`docs/assessment-completion-records-contract.md`**。測試：`assessmentCompletionRecordMapper.test.ts`、`mergeAssessmentCompletionRecords.test.ts`。 |
 | **§5 Audit／防抖／軟刪** | 軟刪除（院友等）與方向一致；**審計完整寫入**與**全系統防抖**宜做逐功能盤點。 |
 
 ---
@@ -171,5 +175,21 @@
 | 日期 | 說明 |
 |------|------|
 | 2026-05-01 | 依根目錄 PDF `# STARCare 系統核心業務邏輯與 SOP 規範 (business-logic).pdf` 全文整理並增列程式對照／落差；取代先前僅占位之版本。 |
+| 2026-05-01 | §7：§3.1「無其他可用時段」間隔例外已對齊 `schedulingCore.pickSession` 二階段邏輯；測試見 `schedulingService.section31.test.ts`。 |
+| 2026-05-01 | §7：補 §3.2 週目標常數（Seq 6）與 `schedulingTargets.test.ts` 說明。 |
+| 2026-05-01 | §7：補 §3 雙軌隔離（Seq 4）與乾跑／門檻測試路徑。 |
+| 2026-05-01 | §7：補 §3.3 認知軌（Seq 7）與 `dementiaTrackDryRunService`／`filterToDementiaServiceOnly` 說明。 |
+| 2026-05-01 | §7：補 §4.1 兩軌分離（Seq 8）與 `residentCareTrackCohort`。 |
+| 2026-05-02 | §7：§4.1 補 **`mapActiveResidentsToSubsidizedSchedulingResidents`**（排班載入／乾跑 orchestration／儀表週三警示／復康追蹤資助軌共用）。 |
+| 2026-05-02 | §7：儀表 **`DashboardSummary.subsidizedRehabCohortCount`**；**`calculateSchedulingKpis`** 註解標明 KPI 分母須為 §4.1 族群。 |
+| 2026-05-02 | §7：§4.3 補 **`assessmentDueTaskRepository`**（待遠端 API 時替換實作）。 |
+| 2026-05-02 | §7：§4.3 補 Edge **`assessment-due-list`** 與 **`assessmentDueFromAdmission`**（與前端演算雙源同步維護）。 |
+| 2026-05-02 | §7：§4.3 補 **`residents.assessment_next_due_date`** migration 與 **`assessmentDueDateResolve`**（錨點優先）。 |
+| 2026-05-02 | §7：§4.3 院友單筆表單可維護評估到期日（**`residentService`** 正規化／審計沿用 UPDATE）。 |
+| 2026-05-02 | §7：§4.3 補錨點寫入閉環（批量匯入／匯出、**`residents-create`／`update`** 白名單、**`validateInput`** 接受清空）；**§7** 對照列同步。 |
+| 2026-05-02 | §7：補 PDF 02【9】**`assessment_completion_records`** 表、**`assessment-completion-records-list`**、Repository 與評估管理載入合併；§8 同步。 |
+| 2026-05-02 | §7：§4.3／02【9】補 Edge **`assessment-completion-records-append`**、Repository **`append`**、評估管理提交流程（本機＋雲端、**`reload`** 合併）。 |
+| 2026-05-02 | §7：02【9】**`assessment-completion-records-append`** 成功後寫 **`audit_events`**（**`appendAssessmentCompletionAudit`**）；契約見 **`docs/assessment-completion-records-contract.md`**。 |
+| 2026-05-01 | §7：補 §4.2 儀表盤今日時段分軌計數。 |
 | 2026-05-01 | 客戶三份 PDF 改存 **`docs/pdf/01…` `02…` `03…`**；更新本節權威路徑；移除根目錄舊 PDF。 |
 | 2026-05-01 | 新增 §0.1「三份母本版本追蹤（Seq 38）」；登錄三份 PDF 的 SHA-256 指紋，供客戶版本確認與稽核。 |

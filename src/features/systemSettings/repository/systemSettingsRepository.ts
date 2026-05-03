@@ -1,4 +1,5 @@
 import { SYSTEM_SETTINGS_STORAGE_KEY } from '../localStorageKeys'
+import { bumpSystemSettingsExternalVersion } from '../systemSettingsExternalStore'
 import type { SystemSettingsSnapshot } from '../types'
 
 export const DEFAULT_SYSTEM_SETTINGS: SystemSettingsSnapshot = {
@@ -65,4 +66,5 @@ export const loadSystemSettings = (): SystemSettingsSnapshot => {
 export const saveSystemSettings = (snapshot: SystemSettingsSnapshot): void => {
   if (typeof window === 'undefined') return
   window.localStorage.setItem(SYSTEM_SETTINGS_STORAGE_KEY, JSON.stringify(snapshot))
+  bumpSystemSettingsExternalVersion()
 }

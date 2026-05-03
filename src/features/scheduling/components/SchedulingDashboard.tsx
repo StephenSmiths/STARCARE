@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useAuth } from '../../auth'
 import { uiTokens } from '../../shared/ui/uiTokens'
 import { useScheduling } from '../hooks/useScheduling'
 import { SchedulingStatsCards } from './SchedulingStatsCards'
@@ -7,15 +8,18 @@ import { SchedulingResidentTable } from './SchedulingResidentTable'
 import { SchedulingConflictsPanel } from './SchedulingConflictsPanel'
 import { SchedulingDataAlerts } from './SchedulingDataAlerts'
 import { SchedulingSavePanel } from './SchedulingSavePanel'
+import { SchedulingHistoryUndoPanel } from './SchedulingHistoryUndoPanel'
 import { SchedulingReportBar } from './SchedulingReportBar'
 import { SchedulingKpiCards } from './SchedulingKpiCards'
 import { SchedulingKpiTrendPanel } from './SchedulingKpiTrendPanel'
 import { AuditTrailPanel } from '../../shared/components/AuditTrailPanel'
-import { globalAuditTrailService } from '../../../services/auditTrailService'
+import { useAuditTrailList } from '../../shared/hooks/useAuditTrailList'
 import { SchedulingWorkflowSection } from './SchedulingWorkflowSection'
 
 /** 智能排班儀表板主內容（統計卡、表格、排班結果） */
 export const SchedulingDashboard = () => {
+  const { role } = useAuth()
+  const auditTrail = useAuditTrailList()
   const [rosterConfirmed, setRosterConfirmed] = useState(false)
   const {
     totalResidents,
@@ -50,6 +54,10 @@ export const SchedulingDashboard = () => {
     applyHistoryFilter,
     resetHistoryFilter,
     isApplyingKpiFilter,
+    lastSchedulingBatchId,
+    undoLastSchedulingBatch,
+    isUndoingSchedulingBatch,
+    staffProfilesLoadDegraded,
   } = useScheduling()
 
   useEffect(() => {
@@ -71,6 +79,7 @@ export const SchedulingDashboard = () => {
         saveError={saveError}
         saveSuccess={saveSuccess}
         complianceAlerts={complianceAlerts}
+        staffProfilesLoadDegraded={staffProfilesLoadDegraded}
       />
       <SchedulingWorkflowSection
         sessionCount={sessionCount}
@@ -137,10 +146,26 @@ export const SchedulingDashboard = () => {
         isSaving={isSaving}
         onSave={() => void saveScheduleAssignments()}
       />
+      <SchedulingHistoryUndoPanel
+        role={role}
+        lastBatchId={lastSchedulingBatchId}
+        isUndoing={isUndoingSchedulingBatch}
+        onUndo={async () => {
+          if (!window.confirm('確定軟刪除上次「一鍵儲存」之排班歷史批次？（01 §5，DB is_deleted）')) {
+            return
+          }
+          try {
+            await undoLastSchedulingBatch()
+            window.alert('已軟刪除該批次')
+          } catch (error) {
+            window.alert(error instanceof Error ? error.message : '軟刪除失敗')
+          }
+        }}
+      />
       <AuditTrailPanel
         title="排班與相關操作審計"
         help="含排班執行／儲存、合規匯出；活動時段軟刪除列為 Scheduling；員工軟刪除請以類型 Staff 篩選。"
-        auditTrail={globalAuditTrailService.list()}
+        auditTrail={auditTrail}
       />
     </div>
   )

@@ -1,5 +1,7 @@
 import { useState, type ChangeEvent } from 'react'
-import { useAuthActorId } from '../../auth'
+import { useAuth, useAuthActorId } from '../../auth'
+import { AuditTrailPanel } from '../../shared/components/AuditTrailPanel'
+import { useAuditTrailList } from '../../shared/hooks/useAuditTrailList'
 import { uiTokens } from '../../shared/ui/uiTokens'
 import { ImportRunHistoryList } from '../../shared/components/ImportRunHistoryList'
 import { ImportRunSummaryCard } from '../../shared/components/ImportRunSummaryCard'
@@ -7,6 +9,9 @@ import { ActivitySessionListPanel } from './ActivitySessionListPanel'
 import { useActivitySessionImportDryRun } from '../hooks/useActivitySessionImportDryRun'
 
 export const ActivitySessionImportPanel = () => {
+  const { hasPermission } = useAuth()
+  const canMaintainSessions = hasPermission('view:activity-sessions-import')
+  const auditTrail = useAuditTrailList()
   const actorId = useAuthActorId()
   const [showAllErrors, setShowAllErrors] = useState(false)
   const {
@@ -23,6 +28,7 @@ export const ActivitySessionImportPanel = () => {
     useActivitySessionImportDryRun()
 
   const onFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    if (!canMaintainSessions) return
     const file = event.target.files?.[0]
     if (!file) return
     const text = await file.text()
@@ -34,6 +40,7 @@ export const ActivitySessionImportPanel = () => {
   const hasHiddenErrors = visibleErrors.length > 20
 
   return (
+    <div className={uiTokens.stackVertical}>
     <article className={uiTokens.surfaceCard}>
       <header className="mb-4">
         <h2 className={uiTokens.pageSectionHeading}>活動時段批量匯入</h2>
@@ -52,59 +59,73 @@ export const ActivitySessionImportPanel = () => {
         <p className="mt-2 rounded border border-amber-200 bg-amber-50 px-2 py-1 text-xs text-amber-800">
           提示：若出現本地格式錯誤（例如欄位缺漏、數值格式錯誤），系統會先停止預檢，請先修正 CSV 後再重試。
         </p>
-        <input
-          type="file"
-          accept=".csv,text/csv"
-          disabled={isBusy}
-          onChange={(event) => void onFileChange(event)}
-          className={`${uiTokens.formInput} mt-3 text-xs`}
-        />
-        {isBusy ? <p className="mt-2 text-xs text-slate-600">處理中...</p> : null}
-        {errorMessage ? <p className="mt-2 text-xs text-red-700">{errorMessage}</p> : null}
-        {parseErrors.length > 0 ? (
-          <ul className="mt-2 list-disc pl-5 text-xs text-red-700">
-            {parseErrors.map((item) => (
-              <li key={`${item.rowIndex}-${item.message}`}>第 {item.rowIndex} 行：{item.message}</li>
-            ))}
-          </ul>
-        ) : null}
-        {result ? (
-          <div className="mt-3 rounded bg-slate-50 p-2 text-xs text-slate-700">
-            <p>
-              預檢結果：總數 {result.summary.total}，可匯入 {result.summary.valid}，錯誤 {result.summary.invalid}
-            </p>
-            {visibleErrors.length > 0 ? (
-              <>
-                <ul className="mt-1 list-disc pl-5 text-red-700">
-                  {renderErrors.map((item, index) => (
-                    <li key={`${item.rowIndex}-${item.field}-${index}`}>
-                      第 {item.rowIndex} 行（{item.field}）：{item.message}
-                    </li>
-                  ))}
-                </ul>
-                {hasHiddenErrors ? (
-                  <button type="button" className={`${uiTokens.btnCompact} mt-2`} onClick={() => setShowAllErrors((prev) => !prev)}>
-                    {showAllErrors ? '收合錯誤列表' : `顯示全部錯誤（${visibleErrors.length}）`}
+        {canMaintainSessions ? (
+          <>
+            <input
+              type="file"
+              accept=".csv,text/csv"
+              disabled={isBusy}
+              onChange={(event) => void onFileChange(event)}
+              className={`${uiTokens.formInput} mt-3 text-xs`}
+            />
+            {isBusy ? <p className="mt-2 text-xs text-slate-600">處理中...</p> : null}
+            {errorMessage ? <p className="mt-2 text-xs text-red-700">{errorMessage}</p> : null}
+            {parseErrors.length > 0 ? (
+              <ul className="mt-2 list-disc pl-5 text-xs text-red-700">
+                {parseErrors.map((item) => (
+                  <li key={`${item.rowIndex}-${item.message}`}>第 {item.rowIndex} 行：{item.message}</li>
+                ))}
+              </ul>
+            ) : null}
+            {result ? (
+              <div className="mt-3 rounded bg-slate-50 p-2 text-xs text-slate-700">
+                <p>
+                  預檢結果：總數 {result.summary.total}，可匯入 {result.summary.valid}，錯誤 {result.summary.invalid}
+                </p>
+                {visibleErrors.length > 0 ? (
+                  <>
+                    <ul className="mt-1 list-disc pl-5 text-red-700">
+                      {renderErrors.map((item, index) => (
+                        <li key={`${item.rowIndex}-${item.field}-${index}`}>
+                          第 {item.rowIndex} 行（{item.field}）：{item.message}
+                        </li>
+                      ))}
+                    </ul>
+                    {hasHiddenErrors ? (
+                      <button type="button" className={`${uiTokens.btnCompact} mt-2`} onClick={() => setShowAllErrors((prev) => !prev)}>
+                        {showAllErrors ? '收合錯誤列表' : `顯示全部錯誤（${visibleErrors.length}）`}
+                      </button>
+                    ) : null}
+                  </>
+                ) : (
+                  <button
+                    type="button"
+                    className={`${uiTokens.btnSuccess} mt-2`}
+                    disabled={isBusy || result.preview.length === 0}
+                    onClick={() => void commitValidatedRows(actorId)}
+                  >
+                    確認匯入有效資料
                   </button>
-                ) : null}
-              </>
-            ) : (
-              <button
-                type="button"
-                className={`${uiTokens.btnSuccess} mt-2`}
-                disabled={isBusy || result.preview.length === 0}
-                onClick={() => void commitValidatedRows(actorId)}
-              >
-                確認匯入有效資料
-              </button>
-            )}
-          </div>
-        ) : null}
-        {commitMessage ? <p className="mt-2 text-xs text-emerald-700">{commitMessage}</p> : null}
-        {lastRunSummary ? <ImportRunSummaryCard summary={lastRunSummary} /> : null}
-        <ImportRunHistoryList runs={runHistory} />
-        <ActivitySessionListPanel actorId={actorId} />
+                )}
+              </div>
+            ) : null}
+            {commitMessage ? <p className="mt-2 text-xs text-emerald-700">{commitMessage}</p> : null}
+            {lastRunSummary ? <ImportRunSummaryCard summary={lastRunSummary} /> : null}
+            <ImportRunHistoryList runs={runHistory} />
+          </>
+        ) : (
+          <p className="mt-3 rounded-md border border-amber-200 bg-amber-50 px-2 py-2 text-xs text-amber-900">
+            CSV 預檢與確認匯入僅限 TeamLead／Admin（與 Edge 授權一致）；下方仍可檢視活動時段列表。
+          </p>
+        )}
+        <ActivitySessionListPanel actorId={actorId} canMaintainSessions={canMaintainSessions} />
       </div>
     </article>
+    <AuditTrailPanel
+      title="活動時段與排班審計（全域）"
+      help="含活動時段軟刪、排班儲存等審計（PDF 02【3】／Seq 12）。"
+      auditTrail={auditTrail}
+    />
+    </div>
   )
 }

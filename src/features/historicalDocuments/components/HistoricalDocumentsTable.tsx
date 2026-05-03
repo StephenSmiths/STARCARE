@@ -6,10 +6,10 @@ const td = 'max-w-[14rem] border-b border-slate-100 px-3 py-2 text-sm text-slate
 
 const excerpt = (text: string, max = 72): string => (text.length <= max ? text : `${text.slice(0, max)}…`)
 
-type Props = { rows: ServiceFormRecord[] }
+type Props = { rows: ServiceFormRecord[]; isLoading?: boolean }
 
 /** 歷史文件列表（不含草稿／待審／退件） */
-export const HistoricalDocumentsTable = ({ rows }: Props) => (
+export const HistoricalDocumentsTable = ({ rows, isLoading = false }: Props) => (
   <div className={tableWrap}>
     <table className="min-w-full border-collapse">
       <thead>
@@ -22,7 +22,13 @@ export const HistoricalDocumentsTable = ({ rows }: Props) => (
         </tr>
       </thead>
       <tbody>
-        {rows.length === 0 ? (
+        {isLoading ? (
+          <tr>
+            <td className={td} colSpan={5}>
+              自雲端載入已核准表單…
+            </td>
+          </tr>
+        ) : rows.length === 0 ? (
           <tr>
             <td className={td} colSpan={5}>
               無符合條件之已核准紀錄

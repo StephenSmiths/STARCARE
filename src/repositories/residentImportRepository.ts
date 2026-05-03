@@ -7,6 +7,8 @@ export type ResidentImportRow = {
   gender: 'Male' | 'Female'
   age: number
   admissionDate: string
+  /** PDF 01 §4.3；可選，YYYY-MM-DD */
+  assessmentNextDueDate?: string
   fundingType: 'GradeA_Subsidized' | 'Voucher' | 'Private'
   serviceType: 'Subsidized_Rehab' | 'Dementia_Service' | 'Both'
   dementiaLevel: 'Severe' | 'Moderate' | 'Mild' | 'None'
@@ -67,6 +69,9 @@ class InMemoryResidentImportRepository implements ResidentImportRepository {
       is_special_care: row.isSpecialCareCase,
       health_condition: row.healthCondition,
       medication_record: row.medicationRecord,
+      assessment_next_due_date: row.assessmentNextDueDate?.trim()
+        ? row.assessmentNextDueDate.trim()
+        : null,
     }))
     return {
       ok: true,

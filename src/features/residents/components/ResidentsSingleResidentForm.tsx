@@ -75,6 +75,21 @@ export const ResidentsSingleResidentForm = ({
       />
     </label>
     <label className={uiTokens.formFieldStack}>
+      <span className={uiTokens.formLabel}>下次評估到期日（可選）</span>
+      <input
+        className={uiTokens.formInput}
+        type="date"
+        value={form.assessmentNextDueDate ?? ''}
+        onChange={(event) =>
+          onChange({
+            ...form,
+            assessmentNextDueDate: event.target.value === '' ? null : event.target.value,
+          })
+        }
+      />
+      <span className="text-[11px] text-slate-500">PDF 01 §4.3；留白則依入住日 180 天估算（Seq 9）</span>
+    </label>
+    <label className={uiTokens.formFieldStack}>
       <span className={uiTokens.formLabel}>健康狀況</span>
       <textarea
         className={uiTokens.formTextarea}

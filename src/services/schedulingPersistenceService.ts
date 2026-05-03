@@ -1,4 +1,5 @@
 import { globalAuditTrailService } from './auditTrailService'
+import { writeLastSchedulingBatchId } from './schedulingLastBatchStorage'
 import type { SchedulingAssignment, SchedulingConflict } from './schedulingService'
 import {
   createScheduleAssignmentRepository,
@@ -42,6 +43,7 @@ export class SchedulingPersistenceService {
         batch_id: batchId,
       }))
       await this.repository.saveBatch(rows)
+      writeLastSchedulingBatchId(batchId)
       globalAuditTrailService.record({
         action: 'SCHEDULE_BATCH_SAVE',
         entityType: 'Scheduling',

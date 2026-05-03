@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { SchedulingSession } from '../../../services/schedulingService'
 import { schedulingConfigService } from '../../../services/schedulingConfigService'
 import { useAuth, useAuthActorId, resolveStaffProfileIdForWorkPlans } from '../../auth'
+import { useInvalidateOnSystemSettingsExternalChange } from '../../systemSettings'
 import {
   acceptWorkSession,
   bulkSoftDeleteWorkSessionsForTeam,
@@ -24,27 +25,32 @@ const todayYmd = (): string => {
 /** PDF 02【4】載入時段、篩選、接收／拒絕／主管批量軟刪（Seq 16） */
 export const useWorkSessionPlans = () => {
   const actorId = useAuthActorId()
-  const { user, role } = useAuth()
-  const effectiveStaffProfileId = resolveStaffProfileIdForWorkPlans(user)
+  const { user, role, isConfigured } = useAuth()
+  const effectiveStaffProfileId = resolveStaffProfileIdForWorkPlans(user, isConfigured)
   const [baseSessions, setBaseSessions] = useState<SchedulingSession[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState('')
+  const loadSeqRef = useRef(0)
   const [storeTick, setStoreTick] = useState(0)
   const [selectedDate, setSelectedDate] = useState(todayYmd)
   const [showAllDates, setShowAllDates] = useState(false)
   const [statusFilter, setStatusFilter] = useState<'all' | WorkSessionLifecycleStatus>('all')
 
   const reload = useCallback(async () => {
+    const seq = ++loadSeqRef.current
     setError('')
     setIsLoading(true)
     try {
       const sessions = await schedulingConfigService.listSchedulingSessions(FACILITY_ID)
+      if (seq !== loadSeqRef.current) return
       setBaseSessions(sessions)
     } catch {
-      setError('無法載入工作計劃時段，請稍後重試。')
-      setBaseSessions([])
+      if (seq === loadSeqRef.current) {
+        setError('無法載入工作計劃時段，請稍後重試。')
+        setBaseSessions([])
+      }
     } finally {
-      setIsLoading(false)
+      if (seq === loadSeqRef.current) setIsLoading(false)
     }
   }, [])
 
@@ -110,6 +116,8 @@ export const useWorkSessionPlans = () => {
       void reload()
     })
   }, [reload])
+
+  useInvalidateOnSystemSettingsExternalChange(reload)
 
   return {
     role,

@@ -1,6 +1,7 @@
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useAuthActorId } from '../../auth'
-import { listServiceFormsForHistoricalDocuments } from '../../../repositories/historicalDocumentsRepository'
+import { loadApprovedServiceFormsDbPrimary } from '../../../repositories/serviceFormSyncService'
+import { loadServiceForms } from '../../../services/serviceFormStorage'
 import { globalAuditTrailService } from '../../../services/auditTrailService'
 import type { ServiceFormRecord } from '../../serviceForms/types/serviceForm'
 import { downloadApprovedServiceFormsCsv } from '../services/approvedServiceFormsCsvService'
@@ -16,6 +17,10 @@ const defaultFilters = (): HistoricalDocumentsFilters => ({
   keyword: '',
 })
 
+const FACILITY_ID = 'facility-main'
+
+export type HistoricalDocumentsDataSource = 'db' | 'local-fallback'
+
 export type HistoricalDocumentsWorkspace = {
   rows: ServiceFormRecord[]
   approvedCount: number
@@ -24,19 +29,44 @@ export type HistoricalDocumentsWorkspace = {
   reload: () => void
   exportCsv: () => void
   isExporting: boolean
+  /** 遠端核准列載入中 */
+  isLoading: boolean
+  /** 展示主體：雲端表或本機快取（僅遠端失敗時） */
+  dataSource: HistoricalDocumentsDataSource
+  loadError: string
 }
 
 /** PDF 02【10】歷史文件：核准表單篩選與匯出 */
 export const useHistoricalDocumentsWorkspace = (): HistoricalDocumentsWorkspace => {
   const actorId = useAuthActorId()
-  const [forms, setForms] = useState<ServiceFormRecord[]>(() => listServiceFormsForHistoricalDocuments())
+  const [forms, setForms] = useState<ServiceFormRecord[]>([])
   const [filters, setFilters] = useState<HistoricalDocumentsFilters>(defaultFilters)
   const [isExporting, setIsExporting] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [dataSource, setDataSource] = useState<HistoricalDocumentsDataSource>('db')
+  const [loadError, setLoadError] = useState('')
   const exportLock = useRef(false)
 
-  const reload = useCallback(() => {
-    setForms(listServiceFormsForHistoricalDocuments())
+  const reload = useCallback(async () => {
+    setIsLoading(true)
+    setLoadError('')
+    const remote = await loadApprovedServiceFormsDbPrimary(FACILITY_ID)
+    if (remote !== null) {
+      setForms(remote)
+      setDataSource('db')
+    } else {
+      setForms(selectApprovedServiceForms(loadServiceForms()))
+      setDataSource('local-fallback')
+      setLoadError('無法自伺服器載入已核准表單，已改顯示本機快取（可能較舊）。')
+    }
+    setIsLoading(false)
   }, [])
+
+  useEffect(() => {
+    queueMicrotask(() => {
+      void reload()
+    })
+  }, [reload])
 
   const approved = useMemo(() => selectApprovedServiceForms(forms), [forms])
   const rows = useMemo(() => filterApprovedServiceFormsForArchive(approved, filters), [approved, filters])
@@ -71,5 +101,8 @@ export const useHistoricalDocumentsWorkspace = (): HistoricalDocumentsWorkspace 
     reload,
     exportCsv,
     isExporting,
+    isLoading,
+    dataSource,
+    loadError,
   }
 }

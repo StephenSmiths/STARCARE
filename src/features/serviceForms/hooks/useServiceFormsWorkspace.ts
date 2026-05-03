@@ -1,10 +1,13 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { SchedulingSession } from '../../../services/schedulingService'
 import { schedulingConfigService } from '../../../services/schedulingConfigService'
 import { residentService } from '../../residents/services/residentService'
 import type { Resident } from '../../residents/types/resident'
 import { loadServiceForms } from '../../../services/serviceFormStorage'
+import { createServiceFormRepository } from '../../../repositories/serviceFormRepository'
+import { mergeServiceFormsWithRemote } from '../../../repositories/serviceFormSyncService'
 import { useAuth, useAuthActorId, resolveStaffProfileIdForWorkPlans } from '../../auth'
+import { useInvalidateOnSystemSettingsExternalChange } from '../../systemSettings'
 import type { StarcareRole } from '../../auth/permissions'
 import { mergeSessionsWithResponses } from '../../workSessionPlans/services/workSessionPlanService'
 import type { ServiceFormRecord } from '../types/serviceForm'
@@ -14,23 +17,29 @@ import {
   submitServiceForm,
   upsertDraftServiceForm,
 } from '../services/serviceFormDomainService'
+import { softDeleteServiceForm } from '../services/serviceFormSoftDeleteService'
 
 const FACILITY_ID = 'facility-main'
 
 /** PDF 02【5】載入時段／院友／表單列表（Seq 17） */
 export const useServiceFormsWorkspace = () => {
   const actorId = useAuthActorId()
-  const { user, role } = useAuth()
-  const staffProfileId = resolveStaffProfileIdForWorkPlans(user)
+  const { user, role, isConfigured } = useAuth()
+  const staffProfileId = resolveStaffProfileIdForWorkPlans(user, isConfigured)
+  const serviceFormRepoRef = useRef(createServiceFormRepository())
   const [sessions, setSessions] = useState<SchedulingSession[]>([])
   const [residents, setResidents] = useState<Resident[]>([])
   const [forms, setForms] = useState<ServiceFormRecord[]>(() => loadServiceForms())
   const [isLoading, setIsLoading] = useState(true)
   const [loadError, setLoadError] = useState('')
+  const loadSeqRef = useRef(0)
 
   const refreshForms = useCallback(() => setForms(loadServiceForms()), [])
 
+  const mergeRemoteForms = useCallback(() => mergeServiceFormsWithRemote(FACILITY_ID), [])
+
   const reloadContext = useCallback(async () => {
+    const seq = ++loadSeqRef.current
     setLoadError('')
     setIsLoading(true)
     try {
@@ -38,21 +47,28 @@ export const useServiceFormsWorkspace = () => {
         schedulingConfigService.listSchedulingSessions(FACILITY_ID),
         residentService.listActiveResidents(),
       ])
+      if (seq !== loadSeqRef.current) return
       setSessions(sess)
       setResidents(res)
-      refreshForms()
+      const merged = await mergeRemoteForms()
+      if (seq !== loadSeqRef.current) return
+      setForms(merged)
     } catch {
-      setLoadError('無法載入時段或院友資料')
+      if (seq === loadSeqRef.current) {
+        setLoadError('無法載入時段或院友資料')
+      }
     } finally {
-      setIsLoading(false)
+      if (seq === loadSeqRef.current) setIsLoading(false)
     }
-  }, [refreshForms])
+  }, [mergeRemoteForms])
 
   useEffect(() => {
     queueMicrotask(() => {
       void reloadContext()
     })
   }, [reloadContext])
+
+  useInvalidateOnSystemSettingsExternalChange(reloadContext)
 
   const acceptedOwnSessions = useMemo(() => {
     const merged = mergeSessionsWithResponses(sessions)
@@ -87,6 +103,7 @@ export const useServiceFormsWorkspace = () => {
         existingId,
       )
       refreshForms()
+      void serviceFormRepoRef.current.upsertForm(FACILITY_ID, row).catch(() => {})
       return row
     },
     [actorId, staffProfileId, refreshForms],
@@ -94,23 +111,34 @@ export const useServiceFormsWorkspace = () => {
 
   const submit = useCallback(
     (record: ServiceFormRecord, sess: SchedulingSession) => {
-      submitServiceForm(actorId, staffProfileId, record, sess)
+      const next = submitServiceForm(actorId, staffProfileId, record, sess)
       refreshForms()
+      void serviceFormRepoRef.current.upsertForm(FACILITY_ID, next).catch(() => {})
     },
     [actorId, staffProfileId, refreshForms],
   )
 
   const approve = useCallback(
     (record: ServiceFormRecord) => {
-      approveServiceForm(role as StarcareRole, actorId, record)
+      const next = approveServiceForm(role as StarcareRole, actorId, record)
       refreshForms()
+      void serviceFormRepoRef.current.upsertForm(FACILITY_ID, next).catch(() => {})
     },
     [actorId, role, refreshForms],
   )
 
   const rejectRevision = useCallback(
     (record: ServiceFormRecord, note: string) => {
-      rejectServiceFormRevision(role as StarcareRole, actorId, record, note)
+      const next = rejectServiceFormRevision(role as StarcareRole, actorId, record, note)
+      refreshForms()
+      void serviceFormRepoRef.current.upsertForm(FACILITY_ID, next).catch(() => {})
+    },
+    [actorId, role, refreshForms],
+  )
+
+  const softDelete = useCallback(
+    async (record: ServiceFormRecord) => {
+      await softDeleteServiceForm(role as StarcareRole, actorId, record)
       refreshForms()
     },
     [actorId, role, refreshForms],
@@ -134,6 +162,7 @@ export const useServiceFormsWorkspace = () => {
     submit,
     approve,
     rejectRevision,
+    softDelete,
   }
   return value
 }

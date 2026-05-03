@@ -1,32 +1,39 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { useInvalidateOnSystemSettingsExternalChange } from '../../systemSettings'
 import { staffManagementService, type StaffOverviewRow } from '../services/staffManagementService'
 
 export const useStaffManagementOverview = (facilityId = 'facility-main') => {
   const softDeleteLockRef = useRef(false)
+  const loadSeqRef = useRef(0)
   const [rows, setRows] = useState<StaffOverviewRow[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const [softDeleteBusyStaffId, setSoftDeleteBusyStaffId] = useState<string | null>(null)
 
-  useEffect(() => {
-    let cancelled = false
-    const load = async () => {
-      setIsLoading(true)
-      setError('')
-      try {
-        const data = await staffManagementService.listStaffOverview(facilityId)
-        if (!cancelled) setRows(data)
-      } catch {
-        if (!cancelled) setError('無法載入員工資料概覽，請稍後再試。')
-      } finally {
-        if (!cancelled) setIsLoading(false)
+  const reload = useCallback(async () => {
+    const seq = ++loadSeqRef.current
+    setIsLoading(true)
+    setError('')
+    try {
+      const data = await staffManagementService.listStaffOverview(facilityId)
+      if (seq !== loadSeqRef.current) return
+      setRows(data)
+    } catch {
+      if (seq === loadSeqRef.current) {
+        setError('無法載入員工資料概覽，請稍後再試。')
       }
-    }
-    void load()
-    return () => {
-      cancelled = true
+    } finally {
+      if (seq === loadSeqRef.current) setIsLoading(false)
     }
   }, [facilityId])
+
+  useEffect(() => {
+    queueMicrotask(() => {
+      void reload()
+    })
+  }, [reload])
+
+  useInvalidateOnSystemSettingsExternalChange(reload)
 
   const softDeleteStaff = async (actorId: string, staffId: string): Promise<void> => {
     if (softDeleteLockRef.current) return
@@ -44,5 +51,5 @@ export const useStaffManagementOverview = (facilityId = 'facility-main') => {
     }
   }
 
-  return { rows, isLoading, error, softDeleteBusyStaffId, softDeleteStaff }
+  return { rows, isLoading, error, softDeleteBusyStaffId, softDeleteStaff, reload }
 }

@@ -1,5 +1,6 @@
 import { useCallback, useRef, useState } from 'react'
 import { globalAuditTrailService } from '../../../services/auditTrailService'
+/** 勿自 `../index` barrel 匯入：index 匯出之 `SystemSettingsHome` 依賴本 hook，會循環依賴 */
 import { validateSystemSettings } from '../domain/systemSettingsValidation'
 import { loadSystemSettings, saveSystemSettings } from '../repository/systemSettingsRepository'
 import type { SystemSettingsSnapshot } from '../types'

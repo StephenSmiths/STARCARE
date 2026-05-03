@@ -1,4 +1,5 @@
 import type { Resident } from '../../residents/types/resident'
+import { isDementiaCareCohort } from '../../residents/utils/residentCareTrackCohort'
 import type { SchedulingConstraints } from '../../../services/schedulingService'
 import {
   schedulingService,
@@ -6,8 +7,12 @@ import {
   type SchedulingSession,
 } from '../../../services/schedulingService'
 import { getWeeklyTargetByFundingType } from '../../../services/schedulingTargets'
-import { mapResidentToSchedulingResident } from '../../scheduling/utils/mapResidentToSchedulingResident'
+import { mapActiveResidentsToSubsidizedSchedulingResidents } from '../../scheduling/utils/mapActiveResidentsToSubsidizedSchedulingResidents'
 import { cloneResidents, cloneSessions } from '../../scheduling/hooks/schedulingHookHelpers'
+import {
+  filterSchedulingSessionsForSubsidizedEngine,
+  filterToDementiaServiceOnly,
+} from '../../scheduling/services/schedulingSessionWindowFilterService'
 import { DEMENTIA_WEEKLY_TARGET, runDementiaTrackDryRun } from './dementiaTrackDryRunService'
 
 /** PDF 02【8】完成列表列（單一軌道） */
@@ -30,12 +35,6 @@ export type RehabActivityTrackSnapshot = {
   conflictCount: number
   rows: RehabActivityTrackRow[]
 }
-
-const isRehabCohort = (r: Resident): boolean =>
-  r.serviceType === 'Subsidized_Rehab' || r.serviceType === 'Both'
-
-const isDementiaCohort = (r: Resident): boolean =>
-  (r.serviceType === 'Dementia_Service' || r.serviceType === 'Both') && r.dementiaLevel !== 'None'
 
 const dementiaSeverityRank = (level: Resident['dementiaLevel']): number => {
   if (level === 'Severe') return 0
@@ -61,11 +60,11 @@ export const buildSubsidizedRehabTrackSnapshot = (
   sessionsAll: SchedulingSession[],
   constraints: SchedulingConstraints,
 ): RehabActivityTrackSnapshot => {
-  const cohort = residentsAll.filter(isRehabCohort)
+  const mappedBase = mapActiveResidentsToSubsidizedSchedulingResidents(residentsAll)
   const rehabSessions = sessionsAll.filter((s) => s.serviceType === 'Subsidized_Rehab')
-  const mapped = cohort.map(mapResidentToSchedulingResident)
-  const residentsIn = cloneResidents(mapped)
-  const sessionsIn = cloneSessions(rehabSessions)
+  const engineSessions = filterSchedulingSessionsForSubsidizedEngine(rehabSessions)
+  const residentsIn = cloneResidents(mappedBase)
+  const sessionsIn = cloneSessions(engineSessions)
   const result = schedulingService.runSubsidizedRehabScheduling(actorId, residentsIn, sessionsIn, constraints, {
     recordAudit: false,
   })
@@ -84,8 +83,8 @@ export const buildSubsidizedRehabTrackSnapshot = (
   })
   return {
     trackLabel: '資助復康服務',
-    cohortCount: cohort.length,
-    sessionCount: rehabSessions.length,
+    cohortCount: mappedBase.length,
+    sessionCount: engineSessions.length,
     compliantCount,
     assignmentCount: result.assignments.length,
     conflictCount: result.conflicts.length,
@@ -99,14 +98,16 @@ export const buildDementiaServiceTrackSnapshot = (
   sessionsAll: SchedulingSession[],
   constraints: SchedulingConstraints,
 ): RehabActivityTrackSnapshot => {
-  const cohort = [...residentsAll.filter(isDementiaCohort)].sort(
+  const cohort = [...residentsAll.filter(isDementiaCareCohort)].sort(
     (a, b) => dementiaSeverityRank(a.dementiaLevel) - dementiaSeverityRank(b.dementiaLevel),
   )
-  const dementiaSessions = sessionsAll.filter((s) => s.serviceType === 'Dementia_Service')
+  const dementiaEngineSessions = filterToDementiaServiceOnly(
+    filterSchedulingSessionsForSubsidizedEngine(sessionsAll),
+  )
   const mapped = cohort.map(mapResidentToDementiaSchedulingResident)
   const { assignments, conflicts, residentsOut } = runDementiaTrackDryRun(
     mapped,
-    dementiaSessions,
+    dementiaEngineSessions,
     constraints,
   )
   const levelById = new Map(cohort.map((c) => [c.id, c.dementiaLevel]))
@@ -122,7 +123,7 @@ export const buildDementiaServiceTrackSnapshot = (
   return {
     trackLabel: '認知障礙症服務',
     cohortCount: cohort.length,
-    sessionCount: dementiaSessions.length,
+    sessionCount: dementiaEngineSessions.length,
     compliantCount,
     assignmentCount: assignments.length,
     conflictCount: conflicts.length,

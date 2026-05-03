@@ -6,7 +6,7 @@ import { ImportRunSummaryCard } from '../../shared/components/ImportRunSummaryCa
 
 interface ResidentsImportPanelProps {
   actorId: string
-  onImportCommitted: () => Promise<void>
+  onImportCommitted: () => void | Promise<void>
 }
 
 export const ResidentsImportPanel = ({ actorId, onImportCommitted }: ResidentsImportPanelProps) => {
@@ -37,7 +37,7 @@ export const ResidentsImportPanel = ({ actorId, onImportCommitted }: ResidentsIm
       </div>
       <p className="mt-1 text-xs text-slate-600">
         CSV 欄位需含：name, bedNumber, area, gender, age, admissionDate, fundingType, serviceType, dementiaLevel,
-        isSpecialCareCase, healthCondition, medicationRecord
+        isSpecialCareCase, healthCondition, medicationRecord；可選 **assessmentNextDueDate**（YYYY-MM-DD，PDF 01 §4.3）
       </p>
       <div className="mt-2 flex flex-wrap gap-2 text-xs">
         <span className="rounded-full bg-slate-100 px-2 py-1 text-slate-700">1. 上傳 CSV</span>

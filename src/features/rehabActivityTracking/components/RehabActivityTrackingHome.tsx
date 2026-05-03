@@ -1,9 +1,12 @@
+import { AuditTrailPanel } from '../../shared/components/AuditTrailPanel'
+import { useAuditTrailList } from '../../shared/hooks/useAuditTrailList'
 import { uiTokens } from '../../shared/ui/uiTokens'
 import { useRehabActivityTracking } from '../hooks/useRehabActivityTracking'
 import { RehabTrackSection } from './RehabTrackSection'
 
 /** PDF 02【8】復康活動追蹤（兩軌獨立） */
 export const RehabActivityTrackingHome = () => {
+  const auditTrail = useAuditTrailList()
   const { loadError, isLoading, rehabSnapshot, dementiaSnapshot, reload } = useRehabActivityTracking()
 
   if (isLoading) {
@@ -28,6 +31,11 @@ export const RehabActivityTrackingHome = () => {
       </p>
       <RehabTrackSection snapshot={rehabSnapshot} showDementiaColumn={false} />
       <RehabTrackSection snapshot={dementiaSnapshot} showDementiaColumn />
+      <AuditTrailPanel
+        title="復康／排班相關審計（全域）"
+        help="本頁乾跑不寫 SCHEDULING_RUN；其他模組之排班／匯出審計仍見此處（PDF 02【8】／Seq 12）。"
+        auditTrail={auditTrail}
+      />
     </div>
   )
 }

@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { useAuthActorId } from '../../auth'
+import { AuditTrailPanel } from '../../shared/components/AuditTrailPanel'
+import { useAuditTrailList } from '../../shared/hooks/useAuditTrailList'
 import { uiTokens } from '../../shared/ui/uiTokens'
 import { ImportRunHistoryList } from '../../shared/components/ImportRunHistoryList'
 import { useStaffImportDryRun } from '../hooks/useStaffImportDryRun'
@@ -7,6 +9,7 @@ import { ImportRunSummaryCard } from '../../shared/components/ImportRunSummaryCa
 import { StaffOverviewPanel } from './StaffOverviewPanel'
 
 export const StaffImportPanel = () => {
+  const auditTrail = useAuditTrailList()
   const actorId = useAuthActorId()
   const [showAllErrors, setShowAllErrors] = useState(false)
   const {
@@ -110,6 +113,11 @@ export const StaffImportPanel = () => {
         {lastRunSummary ? <ImportRunSummaryCard summary={lastRunSummary} /> : null}
         <ImportRunHistoryList runs={runHistory} />
       </article>
+      <AuditTrailPanel
+        title="員工與匯入審計（全域）"
+        help="含 STAFF_EXPORT、排班／活動相關審計等（PDF 02【13】／Seq 12）。"
+        auditTrail={auditTrail}
+      />
     </div>
   )
 }

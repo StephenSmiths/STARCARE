@@ -1,9 +1,12 @@
 import { useAuth } from '../../auth'
+import { AuditTrailPanel } from '../../shared/components/AuditTrailPanel'
+import { useAuditTrailList } from '../../shared/hooks/useAuditTrailList'
 import { uiTokens } from '../../shared/ui/uiTokens'
 import { useSystemSettings } from '../hooks/useSystemSettings'
 
 export const SystemSettingsHome = () => {
   const { user } = useAuth()
+  const auditTrail = useAuditTrailList()
   const actorId = user?.id ?? 'anonymous'
   const { draft, setField, validationErrors, savedMessage, save, isSaving } = useSystemSettings(actorId)
 
@@ -66,7 +69,7 @@ export const SystemSettingsHome = () => {
               checked={draft.rulesEngineEnabled}
               onChange={(e) => setField('rulesEngineEnabled', e.target.checked)}
             />
-            啟用排班規則引擎
+            啟用排班規則引擎（開啟時：智能排班與復康／認知乾跑套用上方排班視窗，並於非治療時段排除資助復康時段）
           </label>
           <label className="flex cursor-pointer items-center gap-2 text-sm text-slate-800">
             <input
@@ -89,7 +92,9 @@ export const SystemSettingsHome = () => {
 
       <article className={uiTokens.surfaceCard}>
         <h2 className={uiTokens.pageSectionHeading}>特別照護（SC）</h2>
-        <p className={uiTokens.sectionHelp}>對齊 SOP：SC 是否僅分配予治療師（待排班指派規則接入）。</p>
+        <p className={uiTokens.sectionHelp}>
+          勾選時與資料庫排班規則之「僅治療師」併用：SC 院友僅能使用職類為 PT／OT 之活動時段（須有員工主檔職類）。
+        </p>
         <label className="mt-4 flex cursor-pointer items-center gap-2 text-sm text-slate-800">
           <input
             type="checkbox"
@@ -122,6 +127,12 @@ export const SystemSettingsHome = () => {
           儲存設定
         </button>
       </div>
+
+      <AuditTrailPanel
+        title="系統設定與相關審計（全域）"
+        help="含 SYSTEM_SETTINGS_SAVE 等（PDF 02【16】／Seq 29／Seq 12）。"
+        auditTrail={auditTrail}
+      />
     </div>
   )
 }

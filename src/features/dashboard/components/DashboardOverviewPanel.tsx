@@ -24,7 +24,7 @@ const StatCard = ({
   </div>
 )
 
-/** PDF 02【1】核心指標卡片（不含獨立「今日工作節」模組，此處為跨模組彙總） */
+/** PDF 02【1】／01 §4.2：核心指標卡片（今日時段分軌顯示） */
 export const DashboardOverviewPanel = ({ summary, isLoading, error, onRetry }: DashboardOverviewPanelProps) => {
   if (isLoading) {
     return (
@@ -57,19 +57,31 @@ export const DashboardOverviewPanel = ({ summary, isLoading, error, onRetry }: D
   return (
     <div className="space-y-4">
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        <StatCard label="院友總數（在住）" value={String(summary.residentTotal)} />
+        <StatCard
+          label="院友總數（在住）"
+          value={String(summary.residentTotal)}
+          hint={`§4.1 資助復康排班／KPI 族群：${summary.subsidizedRehabCohortCount} 人（純認知軌不計入）`}
+        />
         <StatCard label="員工總數（概覽）" value={String(summary.staffTotal)} />
-        <StatCard label="今日工作節" value={String(summary.todaySessionCount)} hint="對應已發布之活動時段／排班時段列" />
-        <StatCard label="本週合規（最近 KPI）" value={coverageDisplay} hint={coverageHint} />
+        <StatCard
+          label="今日活動時段（分軌）"
+          value={`${summary.todaySubsidizedRehabSessionCount} · ${summary.todayDementiaServiceSessionCount}`}
+          hint="左：資助復康；右：認知障礙症服務（01 §4.2 兩軌獨立計數）"
+        />
+        <StatCard
+          label="本週合規（最近 KPI）"
+          value={coverageDisplay}
+          hint={`${coverageHint}；分母為 §4.1 族群（${summary.subsidizedRehabCohortCount} 人）`}
+        />
         <StatCard
           label="待辦（評估 14 天內到期）"
           value={String(summary.assessmentDueWithin14Count)}
           hint="Seq 9 骨架；正式資料模型上線後替換"
         />
         <StatCard
-          label="今日團隊 PT / OT（推斷）"
+          label="今日團隊 PT / OT"
           value={`${summary.teamPtFamilyCount} / ${summary.teamOtFamilyCount}`}
-          hint={`未標示職類：${summary.teamOtherDisciplineCount}；待 role_type 欄位`}
+          hint={`TeamLead／未填職類歸「其他」：${summary.teamOtherDisciplineCount}；僅 staff_profiles.role_type`}
         />
       </div>
     </div>

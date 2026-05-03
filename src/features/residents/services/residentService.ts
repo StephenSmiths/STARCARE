@@ -22,10 +22,11 @@ export class ResidentService {
 
   async createResident(actorId: string, input: ResidentInput): Promise<void> {
     return this.runWithSubmitLock(`create:${actorId}:${input.bedNumber}`, async () => {
-      this.validateInput(input)
+      const clean = this.normalizeResidentInput(input)
+      this.validateInput(clean)
       const resident: Resident = {
         id: `resident-${crypto.randomUUID()}`,
-        ...input,
+        ...clean,
         isDeleted: false,
       }
       await this.repository.createResident(resident)
@@ -44,9 +45,10 @@ export class ResidentService {
 
   async updateResident(actorId: string, id: string, input: ResidentInput): Promise<void> {
     return this.runWithSubmitLock(`update:${actorId}:${id}`, async () => {
-      this.validateInput(input)
       const previous = await this.getResidentOrThrow(id)
-      const updated: Resident = { ...previous, ...input }
+      const merged: Resident = { ...previous, ...input }
+      const updated = this.normalizeResidentAssessmentAnchor(merged)
+      this.validateInput(this.residentToInput(updated))
       await this.repository.updateResident(updated)
       this.auditTrailService.record({
         action: 'UPDATE',
@@ -79,16 +81,50 @@ export class ResidentService {
     })
   }
 
-  listAuditTrail() {
-    return this.auditTrailService.list()
-  }
-
   private async getResidentOrThrow(id: string): Promise<Resident> {
     const resident = await this.repository.findResidentById(id)
     if (!resident) {
       throw new Error('找不到院友資料')
     }
     return resident
+  }
+
+  /** 合併後院友主檔：§4.3 錨點空白字串正規化為 null（與 `normalizeResidentInput` 一致） */
+  private normalizeResidentAssessmentAnchor(resident: Resident): Resident {
+    const raw = resident.assessmentNextDueDate
+    if (raw === undefined || raw === null) {
+      return { ...resident, assessmentNextDueDate: null }
+    }
+    const t = String(raw).trim()
+    return { ...resident, assessmentNextDueDate: t === '' ? null : t }
+  }
+
+  private residentToInput(resident: Resident): ResidentInput {
+    return {
+      name: resident.name,
+      bedNumber: resident.bedNumber,
+      area: resident.area,
+      gender: resident.gender,
+      age: resident.age,
+      admissionDate: resident.admissionDate,
+      assessmentNextDueDate: resident.assessmentNextDueDate ?? null,
+      fundingType: resident.fundingType,
+      serviceType: resident.serviceType,
+      dementiaLevel: resident.dementiaLevel,
+      isSpecialCareCase: resident.isSpecialCareCase,
+      healthCondition: resident.healthCondition,
+      medicationRecord: resident.medicationRecord,
+    }
+  }
+
+  /** 空白評估錨點正規化為 null，供 DB／Edge 寫入 */
+  private normalizeResidentInput(input: ResidentInput): ResidentInput {
+    const raw = input.assessmentNextDueDate
+    if (raw === undefined || raw === null) {
+      return { ...input, assessmentNextDueDate: null }
+    }
+    const t = String(raw).trim()
+    return { ...input, assessmentNextDueDate: t === '' ? null : t }
   }
 
   private validateInput(input: ResidentInput): void {
@@ -103,6 +139,15 @@ export class ResidentService {
     }
     if (!['GradeA_Subsidized', 'Voucher', 'Private'].includes(input.fundingType)) {
       throw new Error('funding_type 僅允許 GradeA_Subsidized、Voucher、Private')
+    }
+    const rawDue = input.assessmentNextDueDate
+    let due: string | null = null
+    if (rawDue != null) {
+      const t = String(rawDue).trim()
+      if (t !== '') due = t
+    }
+    if (due != null && !/^\d{4}-\d{2}-\d{2}$/.test(due)) {
+      throw new Error('下次評估到期日須為 YYYY-MM-DD')
     }
   }
 

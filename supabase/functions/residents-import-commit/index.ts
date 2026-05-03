@@ -1,4 +1,4 @@
-import { guardStaffUser } from '../_shared/guardStaffUser.ts'
+import { guardTeamLeadOrAdmin } from '../_shared/guardTeamLeadOrAdmin.ts'
 import { emptyOk, json } from '../_shared/http.ts'
 import { getServiceClient } from '../_shared/supabaseAdmin.ts'
 
@@ -9,6 +9,7 @@ type PreviewRow = {
   gender: 'Male' | 'Female'
   age: number
   admission_date: string
+  assessment_next_due_date?: string | null
   funding_type: 'GradeA_Subsidized' | 'Voucher' | 'Private'
   service_type: 'Subsidized_Rehab' | 'Dementia_Service' | 'Both'
   dementia_level: 'Severe' | 'Moderate' | 'Mild' | 'None'
@@ -32,8 +33,8 @@ const assertRows = (rows: PreviewRow[]): string | null => {
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return emptyOk()
   if (req.method !== 'POST') return json({ error: '僅支援 POST' }, 405)
-  const staff = await guardStaffUser(req)
-  if (staff) return staff
+  const denied = await guardTeamLeadOrAdmin(req)
+  if (denied) return denied
   try {
     const body = (await req.json()) as { rows?: PreviewRow[]; actorId?: string }
     const rows = body.rows ?? []

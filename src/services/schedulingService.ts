@@ -4,6 +4,8 @@ import { executePass, fillWeeklyTargets, sortBySC } from './schedulingCore'
 
 export type FundingType = 'GradeA_Subsidized' | 'Voucher' | 'Private'
 export type ServiceType = 'Subsidized_Rehab' | 'Dementia_Service'
+/** 對齊 `staff_profiles.role_type`；活動時段載入時附帶（PDF 02【16】SC 僅治療師） */
+export type StaffProfileRoleType = 'PT' | 'OT' | 'PTA' | 'OTA' | 'TeamLead'
 export type ConflictType =
   | 'NO_CAPACITY'
   | 'DAILY_LIMIT'
@@ -31,6 +33,7 @@ export interface SchedulingSession {
   serviceType: ServiceType
   capacity: number
   skillMatched?: boolean
+  staffRoleType?: StaffProfileRoleType
 }
 
 export interface SchedulingAssignment {
@@ -58,6 +61,8 @@ export interface SchedulingConstraints {
   dailySameServiceLimit: number
   minGapDaysSameService: number
   groupCapacityLimit: number
+  /** 與 `scheduling_rules.allow_sc_therapist_only`＋系統設定「SC 僅治療師」合併後傳入；true 時 SC 院友不可使用 PTA／OTA／TeamLead 時段（有職類主檔時） */
+  allowScTherapistOnly?: boolean
 }
 
 export class SchedulingService {
@@ -75,6 +80,7 @@ export class SchedulingService {
       dailySameServiceLimit: 1,
       minGapDaysSameService: 1,
       groupCapacityLimit: Number.POSITIVE_INFINITY,
+      allowScTherapistOnly: false,
     },
     options?: { recordAudit?: boolean },
   ): SchedulingResult {
@@ -91,7 +97,7 @@ export class SchedulingService {
       (a, b) => a.weeklyCompletedCount - b.weeklyCompletedCount,
     )
 
-    // SOP 3.2 Pass 1（甲一買位 EA1）+ SOP 3.1 優先級別：SC 院友必須最高優先分配。
+    // PDF 01 §3.2：Pass 1 甲一（EA1）→ Pass 2 院舍券 → fillWeeklyTargets 補週標 → Pass 3 私位；SC 於 sortBySC 內最高優先。
     executePass(1, pass1, sessions, context, constraints)
     executePass(2, pass2, sessions, context, constraints)
     fillWeeklyTargets(sessions, residents, context, constraints)

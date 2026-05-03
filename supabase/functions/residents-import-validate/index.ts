@@ -1,4 +1,4 @@
-import { guardStaffUser } from '../_shared/guardStaffUser.ts'
+import { guardTeamLeadOrAdmin } from '../_shared/guardTeamLeadOrAdmin.ts'
 import { emptyOk, json } from '../_shared/http.ts'
 import { getServiceClient } from '../_shared/supabaseAdmin.ts'
 
@@ -16,20 +16,24 @@ const toBool = (v: unknown): boolean => {
   return s === 'true' || s === '1' || s === 'yes' || s === 'y'
 }
 
-const normalize = (row: IncomingRow) => ({
-  name: toStr(row.name),
-  bed_number: toStr(row.bedNumber ?? row.bed_number),
-  area: toStr(row.area),
-  gender: toStr(row.gender),
-  age: Number(row.age),
-  admission_date: toStr(row.admissionDate ?? row.admission_date),
-  funding_type: toStr(row.fundingType ?? row.funding_type),
-  service_type: toStr(row.serviceType ?? row.service_type),
-  dementia_level: toStr(row.dementiaLevel ?? row.dementia_level),
-  is_special_care: toBool(row.isSpecialCareCase ?? row.is_special_care),
-  health_condition: toStr(row.healthCondition ?? row.health_condition),
-  medication_record: toStr(row.medicationRecord ?? row.medication_record),
-})
+const normalize = (row: IncomingRow) => {
+  const dueRaw = toStr(row.assessmentNextDueDate ?? row.assessment_next_due_date)
+  return {
+    name: toStr(row.name),
+    bed_number: toStr(row.bedNumber ?? row.bed_number),
+    area: toStr(row.area),
+    gender: toStr(row.gender),
+    age: Number(row.age),
+    admission_date: toStr(row.admissionDate ?? row.admission_date),
+    funding_type: toStr(row.fundingType ?? row.funding_type),
+    service_type: toStr(row.serviceType ?? row.service_type),
+    dementia_level: toStr(row.dementiaLevel ?? row.dementia_level),
+    is_special_care: toBool(row.isSpecialCareCase ?? row.is_special_care),
+    health_condition: toStr(row.healthCondition ?? row.health_condition),
+    medication_record: toStr(row.medicationRecord ?? row.medication_record),
+    assessment_next_due_date: dueRaw === '' ? null : dueRaw,
+  }
+}
 
 const validateRow = (row: ReturnType<typeof normalize>, rowIndex: number): ErrorItem[] => {
   const errors: ErrorItem[] = []
@@ -50,13 +54,20 @@ const validateRow = (row: ReturnType<typeof normalize>, rowIndex: number): Error
   if (!DEMENTIA.has(row.dementia_level)) {
     errors.push({ rowIndex, field: 'dementia_level', message: 'dementia_level 非法' })
   }
+  if (
+    row.assessment_next_due_date != null &&
+    row.assessment_next_due_date !== '' &&
+    !/^\d{4}-\d{2}-\d{2}$/.test(row.assessment_next_due_date)
+  ) {
+    errors.push({ rowIndex, field: 'assessment_next_due_date', message: '須為 YYYY-MM-DD 或留空' })
+  }
   return errors
 }
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return emptyOk()
   if (req.method !== 'POST') return json({ error: '僅支援 POST' }, 405)
-  const denied = await guardStaffUser(req)
+  const denied = await guardTeamLeadOrAdmin(req)
   if (denied) return denied
   try {
     const body = (await req.json()) as { rows?: IncomingRow[] }

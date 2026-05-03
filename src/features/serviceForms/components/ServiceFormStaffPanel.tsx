@@ -2,7 +2,8 @@ import { useMemo, useState } from 'react'
 import { uiTokens } from '../../shared/ui/uiTokens'
 import type { ServiceFormsWorkspace } from '../hooks/useServiceFormsWorkspace'
 import type { ServiceFormRecord } from '../types/serviceForm'
-import { statusZh, todayYmd } from './serviceFormStaffPanelUtils'
+import { todayYmd } from './serviceFormStaffPanelUtils'
+import { ServiceFormMyFormsList } from './ServiceFormMyFormsList'
 
 export const ServiceFormStaffPanel = ({ workspace }: { workspace: ServiceFormsWorkspace }) => {
   const [selectedDate, setSelectedDate] = useState(todayYmd())
@@ -51,6 +52,18 @@ export const ServiceFormStaffPanel = ({ workspace }: { workspace: ServiceFormsWo
       window.alert('草稿已儲存')
     } catch (error) {
       window.alert(error instanceof Error ? error.message : '儲存失敗')
+    }
+  }
+
+  const runSoftDelete = async (row: ServiceFormRecord) => {
+    if (!window.confirm('確定軟刪除此表單？核准後之紀錄不可刪；刪除後將自清單移除。')) return
+    try {
+      await workspace.softDelete(row)
+      if (editingId === row.id) resetEmpty()
+      window.alert('已軟刪除')
+      void workspace.reloadContext()
+    } catch (error) {
+      window.alert(error instanceof Error ? error.message : '軟刪除失敗')
     }
   }
 
@@ -168,24 +181,8 @@ export const ServiceFormStaffPanel = ({ workspace }: { workspace: ServiceFormsWo
 
       <div className="mt-8">
         <h3 className={uiTokens.blockHeading}>我的表單</h3>
-        {workspace.myForms.length === 0 ? (
-          <p className="mt-2 text-sm text-slate-500">尚無紀錄。</p>
-        ) : (
-          <ul className="mt-3 divide-y divide-slate-100 rounded-lg border border-slate-200 text-sm">
-            {workspace.myForms.map((row) => (
-              <li key={row.id} className="flex flex-wrap items-center justify-between gap-2 px-3 py-2">
-                <div>
-                  <span className="font-medium">{row.sessionDate}</span>
-                  <span className="ml-2 text-slate-600">{row.residentName}</span>
-                  <span className="ml-2 rounded bg-slate-100 px-2 py-0.5 text-xs">{statusZh(row.status)}</span>
-                </div>
-                <button type="button" className={uiTokens.linkDownload} onClick={() => loadForm(row)}>
-                  {row.status === 'APPROVED' || row.status === 'SUBMITTED' ? '檢視' : '載入編輯'}
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
+        <p className="mt-1 text-xs text-slate-500">01 §5：非核准表單可軟刪除（本機＋資料庫 is_deleted）。</p>
+        <ServiceFormMyFormsList forms={workspace.myForms} onLoadForm={loadForm} onSoftDelete={runSoftDelete} />
       </div>
     </section>
   )

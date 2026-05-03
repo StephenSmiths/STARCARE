@@ -1,10 +1,14 @@
 import { useCallback, useEffect, useState } from 'react'
+import { useInvalidateOnSystemSettingsExternalChange } from '../../systemSettings'
 import { schedulingConfigService } from '../../../services/schedulingConfigService'
 import { schedulingKpiHistorySyncService } from '../../../services/schedulingKpiHistorySyncService'
 import { residentService } from '../../residents/services/residentService'
 import { staffManagementService } from '../../staff/services/staffManagementService'
-import { buildAssessmentDueTasks } from '../../residents/services/assessmentDueTaskService'
+import { assessmentDueTaskRepository } from '../../../repositories/assessmentDueTaskRepository'
+import { buildMidweekSubsidizedZeroAlerts } from '../../../services/schedulingComplianceAlertService'
+import { mapActiveResidentsToSubsidizedSchedulingResidents } from '../../scheduling/utils/mapActiveResidentsToSubsidizedSchedulingResidents'
 import { buildDashboardSummary, type DashboardSummary } from '../services/dashboardSummaryService'
+import type { SchedulingComplianceAlert } from '../../../services/schedulingComplianceAlertService'
 
 const FACILITY_ID = 'facility-main'
 
@@ -19,6 +23,7 @@ const localDateYmd = (): string => {
 /** PDF 02【1】儀表盤資料載入（Seq 13 骨架） */
 export const useDashboardOverview = () => {
   const [summary, setSummary] = useState<DashboardSummary | null>(null)
+  const [teamLeadWednesdayAlerts, setTeamLeadWednesdayAlerts] = useState<SchedulingComplianceAlert[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState('')
 
@@ -32,10 +37,13 @@ export const useDashboardOverview = () => {
         schedulingConfigService.listSchedulingSessions(FACILITY_ID),
       ])
       const kpiHistory = schedulingKpiHistorySyncService.loadLocal(FACILITY_ID)
-      const dueTasks = buildAssessmentDueTasks(residents)
+      const dueTasks = await assessmentDueTaskRepository.listDueWithinLeadDays(residents)
+      const subsidizedRehabResidents = mapActiveResidentsToSubsidizedSchedulingResidents(residents)
+      setTeamLeadWednesdayAlerts(buildMidweekSubsidizedZeroAlerts(subsidizedRehabResidents))
       setSummary(
         buildDashboardSummary({
           residentTotal: residents.length,
+          subsidizedRehabCohortCount: subsidizedRehabResidents.length,
           staffRows,
           schedulingSessions: sessions,
           todayLocalYmd: localDateYmd(),
@@ -51,6 +59,8 @@ export const useDashboardOverview = () => {
     }
   }, [])
 
+  useInvalidateOnSystemSettingsExternalChange(reload)
+
   useEffect(() => {
     // 首次載入延後至 microtask，避免 effect 內同步觸發 setState 之級聯渲染告警
     queueMicrotask(() => {
@@ -58,5 +68,5 @@ export const useDashboardOverview = () => {
     })
   }, [reload])
 
-  return { summary, isLoading, error, reload }
+  return { summary, teamLeadWednesdayAlerts, isLoading, error, reload }
 }

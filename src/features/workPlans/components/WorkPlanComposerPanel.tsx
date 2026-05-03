@@ -68,7 +68,7 @@ export const WorkPlanComposerPanel = () => {
             <option value="">請選擇</option>
             {staffRows.map((row) => (
               <option key={row.staffId} value={row.staffId}>
-                {row.staffName} ({row.staffId})
+                {row.roleType ? `${row.staffName}（${row.roleType}）` : row.staffName} · {row.staffId}
               </option>
             ))}
           </select>

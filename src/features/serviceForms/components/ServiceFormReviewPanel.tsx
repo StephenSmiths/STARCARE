@@ -27,6 +27,21 @@ export const ServiceFormReviewPanel = ({ workspace }: { workspace: ServiceFormsW
     }
   }
 
+  const runSoftDelete = async (formId: string) => {
+    if (!window.confirm('確定軟刪除此待審表單？（01 §5，將標記 is_deleted）')) return
+    const row = workspace.pendingReview.find((item) => item.id === formId)
+    if (!row) return
+    try {
+      await workspace.softDelete(row)
+      window.alert('已軟刪除')
+      setTargetId(null)
+      setRejectNote('')
+      void workspace.reloadContext()
+    } catch (error) {
+      window.alert(error instanceof Error ? error.message : '軟刪除失敗')
+    }
+  }
+
   const runReject = () => {
     if (!targetId) return
     const row = workspace.pendingReview.find((item) => item.id === targetId)
@@ -65,6 +80,9 @@ export const ServiceFormReviewPanel = ({ workspace }: { workspace: ServiceFormsW
                   onClick={() => setTargetId(targetId === row.id ? null : row.id)}
                 >
                   {targetId === row.id ? '取消退回' : '退回重改'}
+                </button>
+                <button type="button" className={uiTokens.btnCompact} onClick={() => void runSoftDelete(row.id)}>
+                  軟刪除
                 </button>
               </div>
               {targetId === row.id ? (

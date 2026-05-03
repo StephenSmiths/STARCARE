@@ -50,12 +50,13 @@ export const parseResidentCsv = (
       errors.push({ rowIndex: idx + 1, message: '欄位數量不足' })
       continue
     }
-    const map = Object.fromEntries(headers.map((h, i) => [h, cols[i] ?? '']))
+    const map = Object.fromEntries(headers.map((h, i) => [h.trim(), cols[i] ?? '']))
     const age = Number(map.age)
     if (!Number.isFinite(age)) {
       errors.push({ rowIndex: idx + 1, message: 'age 需為數字' })
       continue
     }
+    const dueRaw = (map.assessmentNextDueDate ?? map.assessment_next_due_date ?? '').trim()
     rows.push({
       name: map.name ?? '',
       bedNumber: map.bedNumber ?? '',
@@ -63,6 +64,7 @@ export const parseResidentCsv = (
       gender: (map.gender as ResidentImportRow['gender']) ?? 'Female',
       age,
       admissionDate: map.admissionDate ?? '',
+      ...(dueRaw ? { assessmentNextDueDate: dueRaw } : {}),
       fundingType: (map.fundingType as ResidentImportRow['fundingType']) ?? 'GradeA_Subsidized',
       serviceType: (map.serviceType as ResidentImportRow['serviceType']) ?? 'Subsidized_Rehab',
       dementiaLevel: (map.dementiaLevel as ResidentImportRow['dementiaLevel']) ?? 'None',

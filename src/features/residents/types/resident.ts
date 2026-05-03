@@ -14,6 +14,8 @@ export interface Resident {
   gender: Gender
   age: number
   admissionDate: string
+  /** DB `assessment_next_due_date`；有值且落在 14 天視窗內時優先於入住週期估算（Seq 9） */
+  assessmentNextDueDate?: string | null
   fundingType: FundingType
   serviceType: ServiceType
   dementiaLevel: DementiaLevel
@@ -30,6 +32,7 @@ export interface ResidentInput {
   gender: Gender
   age: number
   admissionDate: string
+  assessmentNextDueDate?: string | null
   fundingType: FundingType
   serviceType: ServiceType
   dementiaLevel: DementiaLevel
@@ -46,6 +49,7 @@ export interface ResidentRecord {
   gender: Gender
   age: number
   admission_date: string
+  assessment_next_due_date?: string | null
   funding_type: FundingType
   service_type: ServiceType
   dementia_level: DementiaLevel

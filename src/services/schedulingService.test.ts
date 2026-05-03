@@ -24,8 +24,26 @@ describe('schedulingService 補齊邏輯', () => {
       },
     ]
     const sessions: SchedulingSession[] = [
-      { id: 's1', staffId: 'st1', staffName: 'OT A', date: '2026-05-01', timeSlot: '09:00', serviceType: 'Subsidized_Rehab', capacity: 1 },
-      { id: 's2', staffId: 'st2', staffName: 'OT B', date: '2026-05-03', timeSlot: '09:00', serviceType: 'Subsidized_Rehab', capacity: 1 },
+      {
+        id: 's1',
+        staffId: 'st1',
+        staffName: 'OT A',
+        date: '2026-05-01',
+        timeSlot: '09:00',
+        serviceType: 'Subsidized_Rehab',
+        capacity: 1,
+        staffRoleType: 'OT',
+      },
+      {
+        id: 's2',
+        staffId: 'st2',
+        staffName: 'OT B',
+        date: '2026-05-03',
+        timeSlot: '09:00',
+        serviceType: 'Subsidized_Rehab',
+        capacity: 1,
+        staffRoleType: 'OT',
+      },
     ]
 
     const result = service.runSubsidizedRehabScheduling('TeamLead_test', residents, sessions)
@@ -35,5 +53,40 @@ describe('schedulingService 補齊邏輯', () => {
     expect(ea1Assigned).toBeGreaterThanOrEqual(2)
     expect(privateAssigned).toBe(0)
     expect(result.underTargetResidents.some((item) => item.residentId === 'r-ea1')).toBe(false)
+  })
+
+  it('SC＋allowScTherapistOnly：僅 PTA 時段時不指派（PDF 02【16】）', () => {
+    const service = new SchedulingService(new AuditTrailService())
+    const residents: SchedulingResident[] = [
+      {
+        id: 'r-sc',
+        name: 'SC 院友',
+        fundingType: 'GradeA_Subsidized',
+        isSpecialCareCase: true,
+        weeklyCompletedCount: 0,
+        assignedDates: [],
+      },
+    ]
+    const sessions: SchedulingSession[] = [
+      {
+        id: 'pta-only',
+        staffId: 'st-pta',
+        staffName: '助理',
+        date: '2026-05-10',
+        timeSlot: '09:00',
+        serviceType: 'Subsidized_Rehab',
+        capacity: 1,
+        skillMatched: true,
+        staffRoleType: 'PTA',
+      },
+    ]
+    const result = service.runSubsidizedRehabScheduling('TeamLead_test', residents, sessions, {
+      dailySameServiceLimit: 1,
+      minGapDaysSameService: 1,
+      groupCapacityLimit: Number.POSITIVE_INFINITY,
+      allowScTherapistOnly: true,
+    })
+    expect(result.assignments).toHaveLength(0)
+    expect(result.conflicts.some((c) => c.residentId === 'r-sc' && c.type === 'SKILL_MISMATCH')).toBe(true)
   })
 })

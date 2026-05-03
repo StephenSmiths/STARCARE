@@ -54,6 +54,13 @@
    - 側欄顯示十八個入口，行為與 TeamLead 一致。
 4. 後端授權驗證（任一角色）：
    - 呼叫任一受保護 Edge Function（例如 `residents-list`）應成功。
+4b. **員工寫入／維護 Edge**（對齊 `view:staff-import` 僅 TeamLead／Admin）：
+   - 以 **Staff** JWT 呼叫 `staff-import-validate`、`staff-import-commit`、`staff-soft-delete`、`staff-profile-update` 應回 **`403`**。
+   - 以 **TeamLead** 或 **Admin** JWT 呼叫上述函式（測試用小額 `rows`／單筆更新）應成功。
+4c. **院友寫入／批量匯入、活動時段寫入 Edge**（對齊 `view:residents`、`view:activity-sessions-import` 僅 TeamLead／Admin；前端已同步隱藏對應表單／按鈕）：
+   - 以 **Staff** JWT 呼叫 `residents-create`、`residents-update`、`residents-soft-delete`、`residents-import-validate`、`residents-import-commit`、`activity-sessions-import-validate`、`activity-sessions-import-commit`、`activity-sessions-soft-delete` 應回 **`403`**。
+   - **`residents-list`**、**`residents-get`** 仍為已登入 **Staff／TeamLead／Admin** 可讀（供排班等）。
+   - 以 **TeamLead** 或 **Admin** JWT 呼叫上述寫入／匯入函式應成功。
 5. 負面案例：
    - 將某帳號 `user_roles` 改為非法值或移除該列，再呼叫 Edge Function 應回 `403`。
 

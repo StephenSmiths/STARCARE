@@ -11,6 +11,11 @@
 - [ ] 未授權帳號呼叫 Edge API 時，回應 `401/403`（抽測至少 1 次）。
 - [ ] `residents` / `scheduling_history` 的讀取符合 RLS 預期。
 
+### 1.1 可選：Playwright（demo 煙霧／登入，本機或 CI）
+- [ ] 本機 **`npm run ci`**（`lint`→`typecheck`→`vitest`→demo 煙霧）已通過；與 GitHub Actions 對照見 `docs/feature-list.md` §8。
+- [ ] `.env` 已設 `VITE_SUPABASE_URL`、`VITE_SUPABASE_ANON_KEY`，並設測試帳號之 `E2E_AUTH_EMAIL`、`E2E_AUTH_PASSWORD`（見 `.env.example`）。
+- [ ] `npm run test:e2e:auth` 通過（`playwright.auth.config.ts`：登入後見儀表盤審計區、側欄「登出」；`/#service-forms` 見 **Staff／待審** 與審計標題且無「無法載入時段或院友資料」；`/#work-session-plans` 見 **我的工作計劃** 與審計標題且無「無法載入工作計劃時段，請稍後重試。」；`/#residents` 見 **院友資料概覽** 與 **最近審計紀錄** 且無「無法載入院友名單，請稍後重試。」；`/#scheduling` 見 **本次排班指派** 與 **排班與相關操作審計** 且無「無法連線載入院友或時段資料，請檢查網路與 API 設定。」；`/#notification-center` 見 **未讀通知** 與 **審計紀錄節錄**；`/#historical-documents` 見 **母本要求僅展示** 與 **匯出審計**；並涵蓋 **開工／收工交更**、**復康追蹤**、**評估管理**、**用戶手冊** 等 Staff 可進 hash，詳見 `e2e/auth-login.spec.ts`、`e2e/auth-login.staff-modules.spec.ts`）；或本機一鍵 **`npm run test:e2e:all`**（先 demo 煙霧再可選登入）。
+
 ## 2. 部署與版本一致性（DB / Functions）
 - [ ] `npx supabase migration list`：`Local` 與 `Remote` 完全一致。
 - [ ] `npx supabase functions list`：所有已部署 functions 皆為 `ACTIVE`（含 residents/staff/activity-sessions import validate+commit）。
@@ -54,10 +59,10 @@ limit 20;
 ```
 
 ## 4.1 批量匯入壓測紀錄（500 筆）
-- [x] `docs/residents-import-500-valid.csv`：500 筆全合法，預檢快速完成。
-- [x] `docs/residents-import-500-mixed-errors.csv`：500 筆（約 10% 錯誤），預檢快速完成且錯誤回報正確。
+- [x] `docs/residents-import-500-valid.csv`：500 筆全合法，預檢快速完成（欄位與 **`/residents-import-template.csv`** 一致，含可選 **`assessmentNextDueDate`**）。
+- [x] `docs/residents-import-500-mixed-errors.csv`：500 筆（約 10% 錯誤），預檢快速完成且錯誤回報正確（同上欄位結構）。
 - [x] 已完成確認匯入流程（可匯入資料成功寫入院友清單）。
-- [ ] 匯入後 SQL 驗證完成（請執行 `docs/residents-import-verification.sql`）。
+- [ ] 匯入後 SQL 驗證完成（請執行 `docs/residents-import-verification.sql`，已含 **`admission_date`**／**`assessment_next_due_date`**）。
 
 ## 4.2 Phase 3 Day 5（匯入 UX 與驗收收口）
 - [x] 三個匯入模組已統一「本地格式錯誤先修正，再進行預檢」防呆。

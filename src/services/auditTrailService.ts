@@ -1,3 +1,5 @@
+import { mergeRemoteAuditTrail } from './auditTrailMergeUtils'
+
 export interface AuditTrailRecord {
   action:
     | 'CREATE'
@@ -5,6 +7,8 @@ export interface AuditTrailRecord {
     | 'SOFT_DELETE'
     | 'SCHEDULING_RUN'
     | 'SCHEDULE_BATCH_SAVE'
+    /** 01 §5：scheduling_history 依 batch 軟刪（Seq 10） */
+    | 'SCHEDULING_HISTORY_BATCH_SOFT_DELETE'
     | 'COMPLIANCE_ALERT_EXPORT'
     /** PDF 02【13】員工概覽匯出（CSV） */
     | 'STAFF_EXPORT'
@@ -26,11 +30,15 @@ export interface AuditTrailRecord {
     | 'WORK_SESSION_ACCEPT'
     | 'WORK_SESSION_REJECT'
     | 'WORK_SESSION_TEAM_BULK_SOFT_DELETE'
+    /** 01 §2.1 工作節 COMPLETED（表單核准後） */
+    | 'WORK_SESSION_COMPLETED'
     /** 01 §2.2 服務表單（Seq 17） */
     | 'FORM_DRAFT_UPSERT'
     | 'FORM_SUBMIT'
     | 'FORM_APPROVE'
     | 'FORM_REJECT_REVISION'
+    /** 01 §5 服務表單軟刪除（非 APPROVED） */
+    | 'FORM_SOFT_DELETE'
     /** PDF 02【5b】開工接更 */
     | 'SHIFT_START_HANDOVER_DRAFT_UPSERT'
     | 'SHIFT_START_HANDOVER_SUBMIT'
@@ -46,13 +54,54 @@ export interface AuditTrailRecord {
   afterState: string | null
   detail: string
   occurredAt: string
+  /** `audit_events.id`；僅遠端合併寫入，本機 `record` 不帶 */
+  remoteId?: string
+}
+
+/** 非阻塞落庫（Seq 12）；由 AuthProvider 於已設定 Supabase 時註冊 */
+export type AuditTrailPersistFn = (event: AuditTrailRecord) => Promise<void>
+
+let persistFn: AuditTrailPersistFn | null = null
+
+export const registerAuditTrailPersistence = (fn: AuditTrailPersistFn | null): void => {
+  persistFn = fn
 }
 
 export class AuditTrailService {
-  private readonly records: AuditTrailRecord[] = []
+  private records: AuditTrailRecord[] = []
+  private readonly listeners = new Set<() => void>()
+
+  subscribe(listener: () => void): () => void {
+    this.listeners.add(listener)
+    return () => {
+      this.listeners.delete(listener)
+    }
+  }
+
+  private notify(): void {
+    this.listeners.forEach((fn) => {
+      try {
+        fn()
+      } catch {
+        /* 訂閱端錯誤不向上拋 */
+      }
+    })
+  }
+
+  /** 登入後遠端列與本機工作階段列合併（見 `auditTrailMergeUtils`） */
+  mergeRemoteRecords(remote: AuditTrailRecord[]): void {
+    this.records = mergeRemoteAuditTrail(remote, this.records)
+    this.notify()
+  }
 
   record(event: AuditTrailRecord): void {
     this.records.unshift(event)
+    this.notify()
+    if (persistFn) {
+      void persistFn(event).catch(() => {
+        /* 遠端失敗不阻斷 UI；記憶體軌跡已寫入 */
+      })
+    }
   }
 
   list(): AuditTrailRecord[] {

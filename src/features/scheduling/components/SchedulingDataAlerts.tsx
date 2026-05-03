@@ -5,6 +5,8 @@ interface SchedulingDataAlertsProps {
   saveError: string
   saveSuccess: boolean
   complianceAlerts: SchedulingComplianceAlert[]
+  /** 員工主檔職類載入失敗；時段仍可用，SC 僅治療師規則暫不依職類檢查 */
+  staffProfilesLoadDegraded?: boolean
 }
 
 /** 載入／儲存 API 錯誤與成功提示 */
@@ -13,9 +15,17 @@ export const SchedulingDataAlerts = ({
   saveError,
   saveSuccess,
   complianceAlerts,
+  staffProfilesLoadDegraded = false,
 }: SchedulingDataAlertsProps) => {
+  const staffProfilesMessage =
+    '員工主檔職類（staff-profiles-list）暫時無法載入；活動時段仍可使用。若已啟用「SC 僅治療師」將暫無法依職類檢查，請待主檔 API 恢復後重新整理本頁。'
   return (
     <div className="space-y-2">
+      {staffProfilesLoadDegraded ? (
+        <div className="rounded-lg border border-sky-200 bg-sky-50 px-4 py-3 text-sm text-sky-900" role="status">
+          {staffProfilesMessage}
+        </div>
+      ) : null}
       {complianceAlerts.map((alert) => (
         <div
           key={`${alert.code}-${alert.residentId}`}

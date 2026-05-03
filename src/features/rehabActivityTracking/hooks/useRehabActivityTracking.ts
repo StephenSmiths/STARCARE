@@ -5,7 +5,11 @@ import { schedulingConfigService } from '../../../services/schedulingConfigServi
 import { residentService } from '../../residents/services/residentService'
 import type { Resident } from '../../residents/types/resident'
 import type { SchedulingSession } from '../../../services/schedulingService'
-import { mapRulesToConstraints } from '../../scheduling/hooks/schedulingHookHelpers'
+import { buildEngineConstraintsFromRulesAndUi } from '../../scheduling/hooks/schedulingHookHelpers'
+import {
+  useInvalidateOnSystemSettingsExternalChange,
+  useSystemSettingsExternalVersion,
+} from '../../systemSettings'
 import {
   buildDementiaServiceTrackSnapshot,
   buildSubsidizedRehabTrackSnapshot,
@@ -57,7 +61,13 @@ export const useRehabActivityTracking = (): RehabActivityTrackingState => {
     queueMicrotask(() => void reload())
   }, [reload])
 
-  const constraints = useMemo(() => mapRulesToConstraints(rules), [rules])
+  useInvalidateOnSystemSettingsExternalChange(reload)
+
+  const systemSettingsVersion = useSystemSettingsExternalVersion()
+  const constraints = useMemo(() => {
+    void systemSettingsVersion
+    return buildEngineConstraintsFromRulesAndUi(rules)
+  }, [rules, systemSettingsVersion])
 
   const rehabSnapshot = useMemo(
     () => buildSubsidizedRehabTrackSnapshot(actorId, residents, sessions, constraints),

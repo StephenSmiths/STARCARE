@@ -19,6 +19,9 @@ const serviceTypeLabel = (value: Resident['serviceType']): string => {
   return '雙軌'
 }
 
+/** 與 `residents-import-template.csv` 欄位語意一致（含可選評估到期）；末三欄仍為機讀代碼 */
+const specialCareCaseCode = (row: Resident): string => (row.isSpecialCareCase ? 'true' : 'false')
+
 const dateStamp = (): string => {
   const d = new Date()
   const y = d.getFullYear()
@@ -37,12 +40,16 @@ export const buildResidentsExportCsv = (rows: Resident[]): string => {
     '性別',
     '年齡',
     '入院日期',
+    '下次評估到期日',
     '資助類別',
     '服務類型',
     '認知程度',
     '特殊照護',
     '健康狀況',
     '用藥紀錄',
+    '資助類別代碼',
+    '服務類型代碼',
+    '特殊照護代碼',
   ]
   const lines = rows.map((row) => [
     escapeCsv(row.id),
@@ -52,12 +59,16 @@ export const buildResidentsExportCsv = (rows: Resident[]): string => {
     escapeCsv(row.gender),
     escapeCsv(String(row.age)),
     escapeCsv(row.admissionDate),
+    escapeCsv(row.assessmentNextDueDate ?? ''),
     escapeCsv(fundingLabel(row.fundingType)),
     escapeCsv(serviceTypeLabel(row.serviceType)),
     escapeCsv(row.dementiaLevel),
     escapeCsv(row.isSpecialCareCase ? '是' : '否'),
     escapeCsv(row.healthCondition),
     escapeCsv(row.medicationRecord),
+    escapeCsv(row.fundingType),
+    escapeCsv(row.serviceType),
+    escapeCsv(specialCareCaseCode(row)),
   ])
   const bom = '\uFEFF'
   return bom + [header.join(','), ...lines.map((cols) => cols.join(','))].join('\n')

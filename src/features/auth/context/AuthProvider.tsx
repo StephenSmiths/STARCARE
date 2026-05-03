@@ -1,6 +1,9 @@
 import type { Session } from '@supabase/supabase-js'
 import { useCallback, useEffect, useLayoutEffect, useMemo, useState, type ReactNode } from 'react'
+import { createAuditTrailRepository } from '../../../repositories/auditTrailRepository'
 import { registerEdgeAccessTokenGetter } from '../../../repositories/edgeAuth'
+import { hydrateAuditTrailFromRemote } from '../../../services/auditTrailHydrationService'
+import { registerAuditTrailPersistence } from '../../../services/auditTrailService'
 import { getBrowserSupabaseClient } from '../supabaseBrowserClient'
 import { canApproveForm, hasPermission, resolveStarcareRole } from '../permissions'
 import { AuthContext, type AuthContextValue } from './authContext'
@@ -10,6 +13,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const isConfigured = Boolean(supabase)
   const [session, setSession] = useState<Session | null>(null)
   const [isLoading, setIsLoading] = useState(() => Boolean(supabase))
+
+  useEffect(() => {
+    if (!supabase) {
+      registerAuditTrailPersistence(null)
+      return () => {
+        registerAuditTrailPersistence(null)
+      }
+    }
+    const repo = createAuditTrailRepository()
+    registerAuditTrailPersistence((e) => repo.append(e))
+    return () => {
+      registerAuditTrailPersistence(null)
+    }
+  }, [supabase])
 
   useEffect(() => {
     if (!supabase) {
@@ -26,6 +43,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       sub.subscription.unsubscribe()
     }
   }, [supabase])
+
+  useEffect(() => {
+    if (!supabase || !session) return
+    queueMicrotask(() => {
+      void hydrateAuditTrailFromRemote()
+    })
+  }, [supabase, session])
 
   useLayoutEffect(() => {
     if (!supabase) {

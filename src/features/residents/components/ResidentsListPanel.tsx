@@ -5,6 +5,8 @@ import type { Resident, ResidentInput } from '../types/resident'
 interface ResidentsListPanelProps {
   residents: Resident[]
   actorId: string
+  /** 與 `view:residents`／Edge 寫入權限一致；false 時隱藏編輯／軟刪除 */
+  canMaintainResidentRecords: boolean
   /** 非 null 時禁用所有軟刪除按鈕（進行中請求） */
   softDeleteBusyResidentId?: string | null
   onEdit: (residentId: string) => void
@@ -14,6 +16,7 @@ interface ResidentsListPanelProps {
 export const ResidentsListPanel = ({
   residents,
   actorId,
+  canMaintainResidentRecords,
   softDeleteBusyResidentId = null,
   onEdit,
   onSoftDelete,
@@ -91,17 +94,23 @@ export const ResidentsListPanel = ({
               {resident.fundingType} / {resident.dementiaLevel} / {resident.isSpecialCareCase ? 'SC' : '非SC'}
             </p>
             <div className="mt-2 flex gap-2">
-              <button className={uiTokens.btnSecondary} type="button" onClick={() => onEdit(resident.id)}>
-                編輯
-              </button>
-              <button
-                className={`${uiTokens.btnDangerOutline} disabled:cursor-not-allowed disabled:opacity-50`}
-                type="button"
-                disabled={softDeleteLocked}
-                onClick={() => void onSoftDelete(actorId, resident.id)}
-              >
-                {softDeleteBusyResidentId === resident.id ? '處理中…' : '軟刪除'}
-              </button>
+              {canMaintainResidentRecords ? (
+                <>
+                  <button className={uiTokens.btnSecondary} type="button" onClick={() => onEdit(resident.id)}>
+                    編輯
+                  </button>
+                  <button
+                    className={`${uiTokens.btnDangerOutline} disabled:cursor-not-allowed disabled:opacity-50`}
+                    type="button"
+                    disabled={softDeleteLocked}
+                    onClick={() => void onSoftDelete(actorId, resident.id)}
+                  >
+                    {softDeleteBusyResidentId === resident.id ? '處理中…' : '軟刪除'}
+                  </button>
+                </>
+              ) : (
+                <span className="text-xs text-slate-400">—</span>
+              )}
             </div>
           </li>
         ))}

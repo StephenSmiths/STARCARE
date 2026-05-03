@@ -1,3 +1,4 @@
+import { AuditTrailPanel } from '../../shared/components/AuditTrailPanel'
 import { uiTokens } from '../../shared/ui/uiTokens'
 import { useNotificationCenter } from '../hooks/useNotificationCenter'
 
@@ -9,7 +10,7 @@ const badgeClass = (severity: 'high' | 'medium' | 'low'): string => {
 
 /** PDF 02【14】通知中心（骨架）：審計事件衍生通知 */
 export const NotificationCenterHome = () => {
-  const { items, unreadCount, markRead, markAllRead, reload } = useNotificationCenter()
+  const { items, unreadCount, markRead, markAllRead, reload, auditTrail } = useNotificationCenter()
   return (
     <div className={uiTokens.stackVertical}>
       <div className={uiTokens.surfaceCardCompact}>
@@ -55,6 +56,11 @@ export const NotificationCenterHome = () => {
           ))
         )}
       </div>
+      <AuditTrailPanel
+        title="審計紀錄節錄（與通知同源資料）"
+        help="上方為篩選後之通知；此處為可篩選之完整審計列（PDF 02【14】／Seq 12）。"
+        auditTrail={auditTrail}
+      />
     </div>
   )
 }

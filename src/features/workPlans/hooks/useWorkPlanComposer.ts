@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useAuthActorId } from '../../auth'
+import { useInvalidateOnSystemSettingsExternalChange } from '../../systemSettings'
 import { createActivityRepository } from '../../../repositories/activityRepository'
 import type { Activity } from '../../../repositories/activityRepository'
 import { staffManagementService } from '../../staff/services/staffManagementService'
@@ -35,35 +36,35 @@ export const useWorkPlanComposer = () => {
   const [commitError, setCommitError] = useState('')
   const [commitSuccess, setCommitSuccess] = useState('')
   const [isCommitting, setIsCommitting] = useState(false)
+  const loadMetaSeqRef = useRef(0)
 
-  useEffect(() => {
-    let cancelled = false
-    const load = async () => {
-      setMetaLoading(true)
-      setMetaError('')
-      try {
-        const activityRepo = createActivityRepository()
-        const [staff, acts] = await Promise.all([
-          staffManagementService.listStaffOverview(FACILITY_ID),
-          activityRepo.listActivities(FACILITY_ID),
-        ])
-        if (!cancelled) {
-          setStaffRows(staff)
-          setActivities(acts)
-        }
-      } catch {
-        if (!cancelled) setMetaError('無法載入員工或活動主檔，請稍後重試。')
-      } finally {
-        if (!cancelled) setMetaLoading(false)
+  const loadMeta = useCallback(async () => {
+    const seq = ++loadMetaSeqRef.current
+    setMetaLoading(true)
+    setMetaError('')
+    try {
+      const activityRepo = createActivityRepository()
+      const [staff, acts] = await Promise.all([
+        staffManagementService.listStaffOverview(FACILITY_ID),
+        activityRepo.listActivities(FACILITY_ID),
+      ])
+      if (seq !== loadMetaSeqRef.current) return
+      setStaffRows(staff)
+      setActivities(acts)
+    } catch {
+      if (seq === loadMetaSeqRef.current) {
+        setMetaError('無法載入員工或活動主檔，請稍後重試。')
       }
-    }
-    queueMicrotask(() => {
-      void load()
-    })
-    return () => {
-      cancelled = true
+    } finally {
+      if (seq === loadMetaSeqRef.current) setMetaLoading(false)
     }
   }, [])
+
+  useEffect(() => {
+    queueMicrotask(() => void loadMeta())
+  }, [loadMeta])
+
+  useInvalidateOnSystemSettingsExternalChange(loadMeta)
 
   const staffDisplayName =
     staffRows.find((row) => row.staffId === staffProfileId)?.staffName ?? ''

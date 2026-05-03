@@ -1,0 +1,11 @@
+# 依賴更新 PR（與 Seq 37 漸進收斂、供安全修補追蹤）。
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 8
+    labels:
+      - dependencies

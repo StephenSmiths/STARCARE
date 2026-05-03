@@ -1,2 +1,2 @@
-name,bedNumber,area,gender,age,admissionDate,fundingType,serviceType,dementiaLevel,isSpecialCareCase,healthCondition,medicationRecord
-示例院友A,T001,A區,Female,78,2026-04-01,GradeA_Subsidized,Subsidized_Rehab,None,false,步態訓練中,每日晚間服藥
+name,bedNumber,area,gender,age,admissionDate,assessmentNextDueDate,fundingType,serviceType,dementiaLevel,isSpecialCareCase,healthCondition,medicationRecord
+示例院友A,T001,A區,Female,78,2026-04-01,,GradeA_Subsidized,Subsidized_Rehab,None,false,步態訓練中,每日晚間服藥

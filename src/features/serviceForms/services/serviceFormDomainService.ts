@@ -5,6 +5,7 @@ import {
   upsertServiceForm,
 } from '../../../services/serviceFormStorage'
 import { resolveLifecycleStatus } from '../../workSessionPlans/services/workSessionPlanService'
+import { completeWorkSessionAfterFormApproved } from '../../workSessions/domain/workSessionCompletionService'
 import type { ServiceFormRecord, ServiceFormStatus } from '../types/serviceForm'
 import type { StarcareRole } from '../../auth/permissions'
 import { canApproveForm, hasPermission } from '../../auth/permissions'
@@ -152,6 +153,7 @@ export const approveServiceForm = (
     detail: '核准服務表單（已鎖定）',
     occurredAt: ts,
   })
+  completeWorkSessionAfterFormApproved(form.sessionId, reviewerActorId)
   return next
 }
 

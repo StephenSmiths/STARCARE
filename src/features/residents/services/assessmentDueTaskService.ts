@@ -1,4 +1,11 @@
 import type { Resident } from '../types/resident'
+import {
+  dueInDaysFrom,
+  resolveNextAssessmentDueUtc,
+  toDateOnly,
+} from './assessmentDueDateResolve'
+
+export { ASSESSMENT_CYCLE_DAYS } from './assessmentDueDateResolve'
 
 export interface AssessmentDueTask {
   residentId: string
@@ -8,24 +15,11 @@ export interface AssessmentDueTask {
   dueInDays: number
 }
 
-const DAY_MS = 24 * 60 * 60 * 1000
-/** Seq 9／22：評估週期（天）；正式版應由 assessment 母資料驅動 */
-export const ASSESSMENT_CYCLE_DAYS = 180
-
-const toUtcDate = (value: string): Date | null => {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return null
-  const parsed = new Date(`${value}T00:00:00.000Z`)
-  if (Number.isNaN(parsed.getTime())) return null
-  return parsed
-}
-
-const toDateOnly = (date: Date): string => date.toISOString().slice(0, 10)
-
-const addDays = (date: Date, days: number): Date => new Date(date.getTime() + days * DAY_MS)
+const addDays = (date: Date, days: number): Date => new Date(date.getTime() + days * 24 * 60 * 60 * 1000)
 
 /**
- * Seq 9 骨架：先以「入住日起每 180 天」估算下一次評估到期日。
- * 待評估模組上線後，改由正式 assessment_due_date 欄位取代。
+ * Seq 9：`residents.assessment_next_due_date`（對應 **`assessmentNextDueDate`**）有值且落在視窗內則採用；否則以入住日起每 180 天估算。
+ * 呼叫端宜經 **`assessmentDueTaskRepository`**（`src/repositories/assessmentDueTaskRepository.ts`；有 Supabase 時走 **`assessment-due-list`**）。
  */
 export const buildAssessmentDueTasks = (
   residents: Resident[],
@@ -38,19 +32,21 @@ export const buildAssessmentDueTasks = (
 
   return residents
     .map((resident) => {
-      const admission = toUtcDate(resident.admissionDate)
-      if (!admission) return null
-      let nextDue = admission
-      while (nextDue < todayUtc) {
-        nextDue = addDays(nextDue, ASSESSMENT_CYCLE_DAYS)
-      }
-      if (nextDue > endDate) return null
+      const nextDue = resolveNextAssessmentDueUtc(
+        {
+          admissionDate: resident.admissionDate,
+          assessmentNextDueDate: resident.assessmentNextDueDate,
+        },
+        todayUtc,
+        endDate,
+      )
+      if (!nextDue) return null
       return {
         residentId: resident.id,
         residentName: resident.name,
         bedNumber: resident.bedNumber,
         dueDate: toDateOnly(nextDue),
-        dueInDays: Math.round((nextDue.getTime() - todayUtc.getTime()) / DAY_MS),
+        dueInDays: dueInDaysFrom(nextDue, todayUtc),
       }
     })
     .filter((task): task is AssessmentDueTask => Boolean(task))

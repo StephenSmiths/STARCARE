@@ -14,6 +14,7 @@ const isFundingInScope = (fundingType: SchedulingResident['fundingType']): boole
 
 /**
  * 01 §4.1：若週三時甲一／院舍券院友之資助復康完成次數仍為 0，需觸發高優先 Alert。
+ * 呼叫端應僅傳入資助復康合規族群（見 `isSubsidizedRehabCohort`）；純認知軌院友不納入本警示。
  */
 export const buildMidweekSubsidizedZeroAlerts = (
   residents: SchedulingResident[],

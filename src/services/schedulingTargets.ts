@@ -1,5 +1,10 @@
 import type { FundingType, SchedulingResident } from './schedulingService'
 
+/**
+ * PDF 01 §3.2 表：甲一（EA1）、院舍券之「每週最低／目標次數」於 MVP 固定為 2。
+ * 券「依評估等級」之動態次數仍待 assessment 綁定（Seq 6／9）。
+ * 私位（Private）現程為每週 **1** 次；`pdf-alignment-p0-backlog` Seq 6 載 02 可能為「每週最多 2 次」—須客戶單一裁定前 **不得**逕改為 2。
+ */
 export const getWeeklyTargetByFundingType = (fundingType: FundingType): number => {
   if (fundingType === 'GradeA_Subsidized') return 2
   if (fundingType === 'Voucher') return 2

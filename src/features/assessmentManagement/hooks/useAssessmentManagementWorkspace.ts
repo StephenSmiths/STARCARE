@@ -8,6 +8,7 @@ import {
   loadAssessmentCompletions,
   saveAssessmentCompletions,
 } from '../../../services/assessmentCompletionStorage'
+import { assessmentCompletionRecordRepository } from '../../../repositories/assessmentCompletionRecordRepository'
 import type { AssessmentCompletionRecord } from '../types/assessmentManagement'
 import type { AssessmentOverdueRow } from '../services/assessmentManagementDomainService'
 import {
@@ -16,6 +17,7 @@ import {
   buildAssessmentOverdueRows,
   computeAssessmentCompletionRatePercent,
 } from '../services/assessmentManagementDomainService'
+import { mergeAssessmentCompletionRecordsRemotePrimary } from '../services/mergeAssessmentCompletionRecords'
 
 export type AssessmentManagementWorkspaceState = {
   residents: Resident[]
@@ -40,6 +42,7 @@ export const useAssessmentManagementWorkspace = (): AssessmentManagementWorkspac
   const [isLoading, setIsLoading] = useState(true)
   const [submitError, setSubmitError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [dueSoonTasks, setDueSoonTasks] = useState<AssessmentDueTask[]>([])
   const submittingLock = useRef(false)
 
   const reload = useCallback(async () => {
@@ -48,11 +51,19 @@ export const useAssessmentManagementWorkspace = (): AssessmentManagementWorkspac
     try {
       const rows = await residentService.listActiveResidents()
       setResidents(rows)
-      setCompletions(loadAssessmentCompletions())
+      const local = loadAssessmentCompletions()
+      try {
+        const remote = await assessmentCompletionRecordRepository.listActive()
+        setCompletions(mergeAssessmentCompletionRecordsRemotePrimary(remote, local))
+      } catch {
+        setCompletions(local)
+      }
+      setDueSoonTasks(await buildAssessmentDueSoonTasks(rows, new Date()))
     } catch {
       setLoadError('無法載入院友資料')
       setResidents([])
       setCompletions([])
+      setDueSoonTasks([])
     } finally {
       setIsLoading(false)
     }
@@ -64,7 +75,6 @@ export const useAssessmentManagementWorkspace = (): AssessmentManagementWorkspac
 
   const now = new Date()
   const overdueRows = buildAssessmentOverdueRows(residents, completions, now)
-  const dueSoonTasks = buildAssessmentDueSoonTasks(residents, now)
   const completionRatePercent = computeAssessmentCompletionRatePercent(residents, completions, now)
 
   const submitCompletion = useCallback(
@@ -87,7 +97,12 @@ export const useAssessmentManagementWorkspace = (): AssessmentManagementWorkspac
         const addedLen = next.length - existing.length
         const added = next.slice(0, addedLen)
         saveAssessmentCompletions(next)
-        setCompletions(next)
+        try {
+          await assessmentCompletionRecordRepository.append(added)
+        } catch (e) {
+          const msg = e instanceof Error ? e.message : '雲端同步失敗'
+          setSubmitError(`已寫入本機；${msg}`)
+        }
         globalAuditTrailService.record({
           action: 'ASSESSMENT_COMPLETION_RECORD',
           entityType: 'Resident',

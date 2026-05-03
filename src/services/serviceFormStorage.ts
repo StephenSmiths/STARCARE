@@ -27,3 +27,9 @@ export const upsertServiceForm = (form: ServiceFormRecord): ServiceFormRecord[] 
   saveServiceForms(next)
   return next
 }
+
+/** 從本機清單移除（01 §5 軟刪除後之本地快取） */
+export const removeServiceFormById = (id: string): void => {
+  const next = loadServiceForms().filter((item) => item.id !== id)
+  saveServiceForms(next)
+}

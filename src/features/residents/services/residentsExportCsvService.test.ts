@@ -12,6 +12,7 @@ describe('residentsExportCsvService', () => {
         gender: 'Male',
         age: 78,
         admissionDate: '2025-01-01',
+        assessmentNextDueDate: '2026-01-15',
         fundingType: 'GradeA_Subsidized',
         serviceType: 'Both',
         dementiaLevel: 'Mild',
@@ -23,8 +24,14 @@ describe('residentsExportCsvService', () => {
     ])
     const lines = csv.replace(/^\uFEFF/, '').split('\n').filter((line) => line.length > 0)
     expect(lines[0]).toContain('院友ID,姓名,床號')
+    expect(lines[0]).toContain('下次評估到期日')
+    expect(lines[0]).toContain('資助類別代碼,服務類型代碼,特殊照護代碼')
     expect(lines[1]).toContain('"王,小明"')
     expect(lines[1]).toContain('甲一買位（EA1）')
     expect(lines[1]).toContain('雙軌')
+    expect(lines[1]).toContain('2026-01-15')
+    expect(lines[1]).toMatch(/GradeA_Subsidized/)
+    expect(lines[1]).toMatch(/Both/)
+    expect(lines[1]).toMatch(/true/)
   })
 })

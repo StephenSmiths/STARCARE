@@ -4,7 +4,7 @@
 > **狀態欄建議填**：`未開始`／`進行中`／`已驗證`（已驗證＝對照 PDF 有證據，非僅自認完成）。  
 > **02 編號**：PDF 內 **【5】出現兩次**（填寫表單、開工接更），本清單拆成 **【5】** 與 **【5b】** 以利追蹤。
 
-**相關檔**：`docs/feature-list.md`（現況盤點）、`docs/business-logic.md`（01 條文整理）、`docs/client-delivery-remediation-plan.md`（對客戶流程）。
+**相關檔**：`docs/feature-list.md`（現況盤點）、`docs/business-logic.md`（01 條文整理）、`docs/client-delivery-remediation-plan.md`（對客戶流程）、`docs/pdf-alignment-p0-backlog.md`（母本全對齊 P0 可勾選項）。
 
 ---
 
@@ -13,17 +13,17 @@
 | Seq | PDF／條款 | 補回項目／缺漏細節 | 與現況對照（摘要） | 驗收提示 |
 |-----|------------|--------------------|-------------------|----------|
 | 1 | 01 §1 RBAC | Admin／TeamLead／Staff **三分權限**於 UI／API 完整落地（含「Staff 不可審批自己」） | 已補前端角色解析＋權限矩陣雛型、migration/Edge 三角色授權，並新增 `docs/rbac-seq1-verification-checklist.md` 與單元測試；待實庫執行抽測 | 權限矩陣表＋抽測帳號 |
-| 2 | 01 §2 Session | 工作節 `PENDING→ACCEPTED/REJECTED→COMPLETED` 與「僅 ACCEPTED 可填表」 | **未見**獨立工作節模組 | 狀態流 E2E |
-| 3 | 01 §2 Form | 表單 `DRAFT→SUBMITTED→APPROVED/REJECTED…`；`APPROVED` 後鎖定 | 已見前端 `serviceForms`（Seq 17）；仍待後端持久化與正式審批鏈 | 狀態＋不可編輯證明 |
-| 4 | 01 §3 | **雙軌**（資助復康 vs 認知）**絕不混用**；演算與 02 Pass 細節一致 | 有排班；**須逐條對照** Pass／間隔／SC | 測試案例＋對照 02 文字 |
-| 5 | 01 §3.1 | **單日 1 次同類**、**不可連續兩日**及「無其他時段」例外 | 需程式碼審查是否完整 | 邊界週測 |
-| 6 | 01 §3.2 | Pass1/2/3 順序與目標（甲一每週 2 次、券依評估、私位剩餘）與 **02** 私位「每週最多 2 次」等是否一致 | 有 Pass 概念；**與 02 數值需對表** | 客戶裁定單一版本 |
-| 7 | 01 §3.3 | 認知軌道：**忽略資助**、嚴重度優先、廣泛覆蓋 | 需對照演算法欄位 | 同上 |
-| 8 | 01 §4.1 | 合規統計**兩軌獨立**；**週三**甲一／券資助復康仍 0 次→**TeamLead Alert** | 已補前端週三 0 次高優先提醒（甲一/券）、KPI 摘要卡、提醒 CSV 匯出與單元測試；待 TeamLead 專屬儀表板頁面整合 | 模擬週三情境 |
-| 9 | 01 §4.3 | 評估到期前 **14 天** 進 Staff 待辦 | 已補 Residents 頁「14 天到期待辦」骨架（含 service+測試，暫以入住日 180 天週期估算）；待正式 assessment 資料模型/API | 待辦 API＋UI |
-| 10 | 01 §5 | **全系統**軟刪除（院友外：員工／表單／排班） | 院友軟刪既有；已補員工軟刪（連動 skills/activity/scheduling sessions）與活動時段手動軟刪入口；表單/排班其餘實體待補 | DB `is_deleted` 抽樣 |
+| 2 | 01 §2 Session | 工作節 `PENDING→ACCEPTED/REJECTED→COMPLETED` 與「僅 ACCEPTED 可填表」 | 已補 `features/workSessions`：`completeWorkSessionAfterFormApproved`（表單核准→`COMPLETED`）、審計 `WORK_SESSION_COMPLETED`；`resolveLifecycleStatus`／接收拒絕仍於 `workSessionPlans`；表單域已用 `assertSessionAcceptedForSubmit`；仍待 **DB 真相**、與活動時段／排班寫回之正式狀態機 | 狀態流 E2E |
+| 3 | 01 §2 Form | 表單 `DRAFT→SUBMITTED→APPROVED/REJECTED…`；`APPROVED` 後鎖定 | 已補 `service_forms` migration、`service-forms-list`／`service-forms-upsert` Edge、`serviceFormRepository` 與 `useServiceFormsWorkspace` 合併遠端＋localStorage 雙寫；已補 **authenticated SELECT RLS**；**歷史文件**頁已改以 Edge `approvedOnly` 為展示主體（`loadApprovedServiceFormsDbPrimary`），失敗時備援本機已核准；已補 **Playwright 煙霧**（`playwright.config.ts`：`webServer` 清空 `VITE_SUPABASE_*` 走 demo；`e2e/smoke.spec.ts` 已涵蓋 `src/app/viewRouting.ts` 之 **全部** `ViewId` hash：各測模組標題＋頁底審計或手冊「快速上手」）；**表單狀態 E2E**：`e2e/service-forms-state.spec.ts`、**`e2e/service-forms-readonly.spec.ts`**＋`e2e/helpers/serviceFormsDemo.ts`（demo：`staff-ot-1`＋種子院友；localStorage 以 **goto→evaluate→reload** 種入，避免與首屏 hydrate 競態）；已接收節次儲存草稿見「草稿」；**草稿→提交審核** 後「我的表單」為待審且紀要出現在待審區；**01 §1**：本人提交後點 **核准** 或 **退回重改**→**確認退回** 時 `alert` 均含「不可審批本人表單」；他人 `SUBMITTED` 可核准／待審 **退回重改**＋**確認退回** 後待審清空；**`REJECTED_NEEDS_REVISION`** 可再儲存草稿；**`APPROVED`**／**`SUBMITTED`** 檢視鎖定見 **`service-forms-readonly`**；本人 **`SUBMITTED`** 可於「我的表單」**軟刪除**（§5）；共用 **`expectStaffServiceFormFieldsReadOnly`**、**`loadServiceFormsDemoPage`**；`npm run test:e2e`（本機預設 `build && preview`；CI 先 **demo `npm run build`** 再 **`PW_PREVIEW_ONLY=1`** 僅 preview，避免 webServer 重複建置）；**GitHub Actions** `.github/workflows/ci.yml` 已串 `lint`／**`typecheck`**／`test`／建置／`test:e2e`（含 `concurrency`、Playwright 快取、`develop` 分支）；本機 **`npm run ci`** 對應 smoke 路徑；**可選登入 E2E**：`playwright.auth.config.ts`（保留 `VITE_*` 建置、`4174` preview）、`e2e/auth-login.spec.ts`、`npm run test:e2e:auth`（需 `E2E_AUTH_EMAIL`／`E2E_AUTH_PASSWORD`；未設則 skip；通過時驗證側欄「登出」與 `#app-sidebar-nav`、`/#service-forms`（模組標題、**Staff／待審** 面板、審計區；排除 **無法載入時段或院友資料**）**、**`/#work-session-plans`**（**我的工作計劃**、審計區；排除 **無法載入工作計劃時段，請稍後重試。**）**、**`/#residents`**（**院友資料概覽**、**最近審計紀錄** 標題；排除 **無法載入院友名單，請稍後重試。**）**、**`/#scheduling`**（**本次排班指派**、審計區；排除 **無法連線載入院友或時段資料，請檢查網路與 API 設定。**）；仍待登入真庫之完整表單審批閉環 E2E | 狀態＋不可編輯證明 |
+| 4 | 01 §3 | **雙軌**（資助復康 vs 認知）**絕不混用**；演算與 02 Pass 細節一致 | 已補 **`filterToSubsidizedRehabServiceOnly`** 於 **`runSubsidizedRehabSchedulingOrchestration`**；**`evalSessionCoreForPick`** 略過非資助時段；**`schedulingService.dualTrack.test.ts`**、**`schedulingCoreSessionGates.test.ts`**、視窗服務測試；認知軌仍 **`dementiaTrackDryRunService`**；**仍待**與 02 **逐條對表**簽核 | 測試案例＋對照 02 文字 |
+| 5 | 01 §3.1 | **單日 1 次同類**、**不可連續兩日**及「無其他時段」例外 | 已補 **`schedulingCore.pickSession`** 二階段選時段（先滿足間隔，別無他選再放寬相鄰日）＋**`schedulingCoreSessionGates`**；**`schedulingService.section31.test.ts`** 覆蓋同日、僅相鄰兩日、有週三替代三情境；仍待 **PDF 頁碼簽核** | 邊界週測 |
+| 6 | 01 §3.2 | Pass1/2/3 順序與目標（甲一每週 2 次、券依評估、私位剩餘）與 **02** 私位「每週最多 2 次」等是否一致 | **`schedulingTargets`** 已註解現況數值；**`schedulingTargets.test.ts`** 鎖定甲一／券=2、私位=1 與 **`buildTopUpQueue`** 缺額排序；券動態次數、私位是否改 2 **仍待客戶對表裁定** | 客戶裁定單一版本 |
+| 7 | 01 §3.3 | 認知軌道：**忽略資助**、嚴重度優先、廣泛覆蓋 | **`dementiaTrackDryRunService`**：`isWithinGapDays`、與資助軌一致之**二階段間隔**；**`filterToDementiaServiceOnly`**＋快照先 **`dementiaSeverityRank`** 排序；**`dementiaTrackDryRunService.test.ts`**；**仍待**與 PDF「廣泛覆蓋」演算法逐欄對表 | 同上 |
+| 8 | 01 §4.1 | 合規統計**兩軌獨立**；**週三**甲一／券資助復康仍 0 次→**TeamLead Alert** | 已補 **`residentCareTrackCohort`**；**`mapActiveResidentsToSubsidizedSchedulingResidents`** 供 **`runSchedulingReloadPageData`**、**`runSubsidizedRehabSchedulingOrchestration`**、**`useDashboardOverview`**（週三警示）、**`buildSubsidizedRehabTrackSnapshot`** 共用；**`residentCareTrackCohort.test.ts`**、**`mapActiveResidentsToSubsidizedSchedulingResidents.test.ts`**；**§4.2**：儀表盤 **`countSessionsOnLocalDateByTrack`** 分軌顯示今日時段；仍待與 PDF 逐欄對表及正式庫週完成次 | 模擬週三情境 |
+| 9 | 01 §4.3 | 評估到期前 **14 天** 進 Staff 待辦 | 已補 **`residents.assessment_next_due_date`**、**`assessmentDueDateResolve`**、院友單筆表單「下次評估到期日」＋**`residentService`** 正規化／驗證；**`residents-import-validate`／`commit`** 可選 **`assessmentNextDueDate`**／**`assessment_next_due_date`**（`YYYY-MM-DD`）；**`public/residents-import-template.csv`** 與 **`parseResidentCsv`** 對齊；Residents／儀表／評估管理經 **`assessmentDueTaskRepository`**（async；**`assessment-due-list`**）；仍待正式 assessment 全流程與 PDF 簽核 | 待辦 API＋UI |
+| 10 | 01 §5 | **全系統**軟刪除（院友外：員工／表單／排班） | 院友軟刪既有；已補員工軟刪（連動 skills/activity/scheduling sessions）與活動時段手動軟刪入口；**服務表單**已補 `service-forms-soft-delete` 等；**排班歷史**已補 `scheduling-history-soft-delete` Edge、`schedulingHistoryBatchSoftDeleteService`、智能排班頁「軟刪除上次儲存批次」（TeamLead／Admin）、`SCHEDULING_HISTORY_BATCH_SOFT_DELETE` 審計、`schedulingLastBatchStorage` | DB `is_deleted` 抽樣 |
 | 11 | 01 §5 | **全系統**表單提交＋排班確認 **防抖／鎖定** | 已完成排班儲存、院友表單、三大匯入確認、登入、軟刪除、KPI 重試同步之 UI＋Hook 鎖；關鍵 Edge POST 已附 `X-Idempotency-Key`（待後端端到端驗證） | 雙擊測試＋網路延遲重入測試 |
-| 12 | 01 §5 | **Audit Trail** 寫入：操作者、時間、變更前後（表單審批、排班修改） | 院友 CRUD、排班執行/儲存已寫入；新增「週三提醒匯出」與「評估到期待辦匯出」審計事件；共用 `AuditTrailPanel` 支援 action/entity（含 Staff）/keyword，且排班儀表亦顯示全域軌跡；已補 `FORM_*`、`SHIFT_START_HANDOVER_*`、`SHIFT_END_HANDOVER_*`；仍待 Edge／表設計與正式庫 | Edge／表設計＋畫面 |
+| 12 | 01 §5 | **Audit Trail** 寫入：操作者、時間、變更前後（表單審批、排班修改） | 院友 CRUD、排班執行/儲存已寫入；新增「週三提醒匯出」與「評估到期待辦匯出」審計事件；共用 `AuditTrailPanel` 支援 action/entity（含 Staff）/keyword，且排班儀表亦顯示全域軌跡；已補 `FORM_*`、`SHIFT_START_HANDOVER_*`、`SHIFT_END_HANDOVER_*`；**`scheduling_history`** 已補 authenticated **SELECT** RLS；**審計落庫**：`audit_events`、RLS、Edge **`audit-trail-append`**／**`audit-trail-list`**、`auditTrailRepository.append`／`listRecent`；登入後 **`hydrateAuditTrailFromRemote`** 合併遠端列；**`useAuditTrailList`** 訂閱更新（排班／歷史文件／評估／AI 報告／院友／通知中心）；通知項 **`remoteId`** 為 id；仍待正式庫抽測 | Edge／表設計＋畫面 |
 
 ---
 
@@ -31,23 +31,23 @@
 
 | Seq | 02 編號 | 補回項目／缺漏細節 | 與現況對照（摘要） | 驗收提示 |
 |-----|---------|--------------------|-------------------|----------|
-| 13 | 【1】 | 儀表盤：院友／員工總數、今日工作節、本週合規、待辦、今日團隊分 PT/OT | 已新增 `features/dashboard`：`dashboardSummaryService` 彙總、`DashboardHome`、RBAC `view:dashboard`、側欄／預設路由 `#dashboard`；本週合規取最近 KPI 快取、PT/OT 暫由員工顯示名推斷（待 `role_type`）；仍待與 02 逐欄對表 | 對照 02 欄位逐項 |
-| 14 | 【2】 | 創建工作計劃：日期、員工、工作節欄位、列表預覽、儲存即指派 | 已新增 `features/workPlans`：`workPlanDraftService`／`workPlanCommitService`（預檢→`activity-sessions-import-commit`）、`WorkPlansHome`、`view:work-plan-compose`（Admin／TeamLead）；審計 `WORK_PLAN_SESSION_COMMIT`；migration 種子認知活動 `activity-dementia-01`；仍待與 PDF SOP 五步 UI／狀態機逐屏對表 | SOP 1～5 步 |
-| 15 | 【3】 | 智能排班：**導入週更表→確認→排班→預覽→確認採用**；雙軌與 Pass 與 02 備註 | 已補五步進度 UI（`SchedulingWorkflowStepper`）、排班頁內 CSV 週更表（共用活動時段預檢／提交）、確認勾選後才可「啟動智能排班」、`sessionCount`／`reloadSchedulingData`；仍待與 02 逐步 UI 逐字對表及更表欄位客製 | 流程錄影＋資料 |
-| 16 | 【4】 | 我的工作計劃（選日／狀態／列表／詳情／接收或拒絕）；**團隊計劃**（TeamLead、批量刪除） | 已新增 `features/workSessionPlans`、`view:work-session-plans`（Staff／TeamLead／Admin）；`workSessionResponseStore`（localStorage）+ `WORK_SESSION_ACCEPT`／`REJECT`／`TEAM_BULK_SOFT_DELETE` 審計；Staff 憑 `starcare_staff_profile_id` 對齊時段；主管批量軟刪走 activity_sessions；仍待 DB 正式 session 狀態與 Seq 17 COMPLETED 連動 | 角色分測 |
-| 17 | 【5】 | 填寫表單：選日、找工作節、填寫、提交→同步表單審核 | 已新增 `features/serviceForms`：`serviceFormDomainService`（01 §2.1／§2.2）、localStorage、`FORM_*` 審計、`view:service-forms`、`#service-forms`；仍待 DB／Edge 與 JWT 員工對齊、以及工作節 COMPLETED 連動（見 Seq 2／16） | 與 §2 表單狀態連動 |
-| 18 | 【5b】 | 開工接更：代表、部門概覽、院舍資訊、注意事項、歷史、簽名 | 已新增 `features/shiftStartHandover`、`shiftStartHandoverDomainService`（對齊六步）、localStorage、`SHIFT_START_HANDOVER_*` 審計、`view:shift-start-handover`、`#shift-start-handover`；仍待 DB／電子簽與 PDF 逐字對表 | PDF SOP 六步 |
-| 19 | 【6】 | 收工交更：數據概覽、跟進、新增事項、提醒、報告、簽名 | 已新增 `features/endShiftHandover`、`endShiftHandoverDomainService`（對齊五步＋簽名）、localStorage、`SHIFT_END_HANDOVER_*` 審計、`view:shift-end-handover`、`#shift-end-handover`；仍待 DB／電子簽與 PDF 逐字對表 | |
-| 20 | 【7】 | 智能工作分析／表單審核：提交概況、團隊報告、審批、回饋、通知 | 已新增 `features/workAnalysisReview`（`workAnalysisReviewSummaryService`、`SubmissionOverviewCards`、`TeamReportActionsPanel`）、複用 `ServiceFormReviewPanel`、回饋／通知占位；`view:work-analysis-review`（TeamLead／Admin）、`#work-analysis-review`；`useServiceFormsWorkspace.allForms` 供全系統聚合；仍待後端報表、真正通知（Seq 27）與 PDF 逐字對表 | |
-| 21 | 【8】 | 復康活動追蹤：兩軌統計、合規總覽、院友完成列表 | 已新增 `features/rehabActivityTracking`：`rehabActivityTrackingSnapshotService`（資助復康乾跑呼叫 `runSubsidizedRehabScheduling` 且 `recordAudit:false`）、`dementiaTrackDryRunService`（認知時段獨立乾跑）、`#rehab-activity-tracking`、`view:rehab-activity-tracking`；仍待與 02 完整看板逐欄對表及認知引擎與正式 SOP 完全對齊 | 與 01 §4 不混算 |
-| 22 | 【9】 | 評估管理：到期追蹤、歷史、待處理／逾期、完成率；**版本管理** PT/OT | 已補 `features/assessmentManagement`：`assessmentManagementDomainService`（180 日錨點、14 日逾期寬限、完成率）、localStorage、`ASSESSMENT_COMPLETION_RECORD` 審計、`view:assessment-management`（Staff／TeamLead／Admin）、`#assessment-management`；仍待 DB／正式 assessment API 與 PDF 逐字對表 | 與 Seq 9 呼應 |
-| 23 | 【10】 | 歷史文件：僅 `APPROVED`、篩選、匯出 Excel | 已補 `features/historicalDocuments`：`historicalDocumentsDomainService`、`historicalDocumentsRepository`（暫讀本地表單）、UTF-8 BOM CSV（Excel 可開）、`HISTORICAL_DOCUMENTS_EXPORT` 審計、`view:historical-documents`、`#historical-documents`；仍待後端僅 APPROVED API／真正 Excel xlsx／PDF 逐字對表 | |
+| 13 | 【1】 | 儀表盤：院友／員工總數、今日工作節、本週合規、待辦、今日團隊分 PT/OT | 已新增 `features/dashboard`：`dashboardSummaryService` 彙總（含 **`subsidizedRehabCohortCount`** 與全院友總數分示 §4.1）、`DashboardHome`、`DashboardDailyFlowPanel`、`DashboardTeamLeadWednesdayCard`（Seq 8 週三零次預覽）、`useDashboardOverview` 合併 `buildMidweekSubsidizedZeroAlerts`；**儀表盤底部**已嵌入 **`AuditTrailPanel`**＋`useAuditTrailList`（與 Seq 12 遠端合併同源）；**Playwright** 首屏煙霧已斷言「**全域審計摘要**」標題；RBAC `view:dashboard`、側欄分組；本週合規取最近 KPI 快取、PT/OT **僅**依 **`staff_profiles.role_type`**（無主檔／TeamLead 歸「其他」，**已移除顯示名推斷**）；仍待與 02 逐欄對表 | 對照 02 欄位逐項 |
+| 14 | 【2】 | 創建工作計劃：日期、員工、工作節欄位、列表預覽、儲存即指派 | 已新增 `features/workPlans`：`workPlanDraftService`／`workPlanCommitService`（預檢→`activity-sessions-import-commit`）、`WorkPlansHome`（頁底 **`AuditTrailPanel`**＋`useAuditTrailList`）、`view:work-plan-compose`（Admin／TeamLead）；審計 `WORK_PLAN_SESSION_COMMIT`；migration 種子認知活動 `activity-dementia-01`；仍待與 PDF SOP 五步 UI／狀態機逐屏對表 | SOP 1～5 步 |
+| 15 | 【3】 | 智能排班：**導入週更表→確認→排班→預覽→確認採用**；雙軌與 Pass 與 02 備註 | 已補五步進度 UI（`SchedulingWorkflowStepper`）、排班頁內 CSV 週更表（共用活動時段預檢／提交）、確認勾選後才可「啟動智能排班」、`sessionCount`／`reloadSchedulingData`；**活動時段匯入** `ActivitySessionImportPanel` 頁底 **`AuditTrailPanel`**＋`useAuditTrailList`；**`schedulingDataLoadMessage`** 統一 **`useScheduling`** 初始載入／乾跑錯誤句；**`e2e/auth-login`** 已驗 **`/#scheduling`**（排除該句）。仍待與 02 逐步 UI 逐字對表及更表欄位客製 | 流程錄影＋資料 |
+| 16 | 【4】 | 我的工作計劃（選日／狀態／列表／詳情／接收或拒絕）；**團隊計劃**（TeamLead、批量刪除） | 已新增 `features/workSessionPlans`、`view:work-session-plans`（Staff／TeamLead／Admin）；`WorkSessionPlansHome` 頁底 **`AuditTrailPanel`**＋`useAuditTrailList`；`workSessionResponseStore`（localStorage）+ `WORK_SESSION_ACCEPT`／`REJECT`／`TEAM_BULK_SOFT_DELETE`／`WORK_SESSION_COMPLETED` 審計；表單核准後工作節標 `COMPLETED`（`features/workSessions`）；**`e2e/auth-login`**（可選登入）已驗 **`/#work-session-plans`** 載入（**我的工作計劃**、**工作節與計劃審計**；排除 **無法載入工作計劃時段，請稍後重試。**）；仍待 DB 正式 session 狀態與活動時段寫回 | 角色分測 |
+| 17 | 【5】 | 填寫表單：選日、找工作節、填寫、提交→同步表單審核 | 已新增 `features/serviceForms`：`serviceFormDomainService`（01 §2.1／§2.2）、localStorage、`FORM_*` 審計、`ServiceFormsHome` 頁底 **`AuditTrailPanel`**＋`useAuditTrailList`、`view:service-forms`、`#service-forms`；已接 **Edge 表單 list/upsert** 與 `service_forms` 表（見 Seq 3）；工作節 COMPLETED 見 Seq 2／16；**RLS**：`service_forms_rls`；歷史文件讀庫主體見 Seq 23；**單元測試**拆為 **`serviceFormDomainService.guards.test.ts`**（Node：`assertSessionAcceptedForSubmit`、`assertFormEditable` 之 `APPROVED`／`SUBMITTED` 鎖定，§2.2）與 **`serviceFormDomainService.lifecycle.test.ts`**（happy-dom：提交／核准／`REJECTED_NEEDS_REVISION` 後再 `upsertDraft`；**SUBMITTED**／**APPROVED** 後再儲存拒絕）；已移除併存之單檔以避免重複執行 | 與 §2 表單狀態連動 |
+| 18 | 【5b】 | 開工接更：代表、部門概覽、院舍資訊、注意事項、歷史、簽名 | 已新增 `features/shiftStartHandover`、`shiftStartHandoverDomainService`（對齊六步）、localStorage、`SHIFT_START_HANDOVER_*` 審計、`ShiftStartHandoverHome` 頁底 **`AuditTrailPanel`**＋`useAuditTrailList`、`view:shift-start-handover`、`#shift-start-handover`；仍待 DB／電子簽與 PDF 逐字對表 | PDF SOP 六步 |
+| 19 | 【6】 | 收工交更：數據概覽、跟進、新增事項、提醒、報告、簽名 | 已新增 `features/endShiftHandover`、`endShiftHandoverDomainService`（對齊五步＋簽名）、localStorage、`SHIFT_END_HANDOVER_*` 審計、`EndShiftHandoverHome` 頁底 **`AuditTrailPanel`**＋`useAuditTrailList`、`view:shift-end-handover`、`#shift-end-handover`；仍待 DB／電子簽與 PDF 逐字對表 | |
+| 20 | 【7】 | 智能工作分析／表單審核：提交概況、團隊報告、審批、回饋、通知 | 已新增 `features/workAnalysisReview`（`workAnalysisReviewSummaryService`、`SubmissionOverviewCards`、`TeamReportActionsPanel`）、複用 `ServiceFormReviewPanel`、回饋占位；`view:work-analysis-review`（TeamLead／Admin）、`#work-analysis-review`；`useServiceFormsWorkspace.allForms` 供全系統聚合；頁底 **`AuditTrailPanel`**＋`useAuditTrailList`（與 Seq 12 審計同源）；**站內通知**：`FORM_SUBMIT`／`FORM_APPROVE`／`FORM_REJECT_REVISION`／`FORM_SOFT_DELETE` 已進通知中心（審計衍生）；仍待後端報表、推送通道（電郵／即時）與 PDF 逐字對表 | |
+| 21 | 【8】 | 復康活動追蹤：兩軌統計、合規總覽、院友完成列表 | 已新增 `features/rehabActivityTracking`：`rehabActivityTrackingSnapshotService`（資助復康乾跑呼叫 `runSubsidizedRehabScheduling` 且 `recordAudit:false`）、`dementiaTrackDryRunService`（認知時段獨立乾跑）、`RehabActivityTrackingHome` 成功載入後頁底 **`AuditTrailPanel`**＋`useAuditTrailList`、`#rehab-activity-tracking`、`view:rehab-activity-tracking`；仍待與 02 完整看板逐欄對表及認知引擎與正式 SOP 完全對齊 | 與 01 §4 不混算 |
+| 22 | 【9】 | 評估管理：到期追蹤、歷史、待處理／逾期、完成率；**版本管理** PT/OT | 已補 `features/assessmentManagement`：`assessmentManagementDomainService`（180 日錨點、14 日逾期寬限、完成率）、localStorage、`ASSESSMENT_COMPLETION_RECORD` 審計、`view:assessment-management`（Staff／TeamLead／Admin）、`#assessment-management`；已補 DB **`assessment_completion_records`**、Edge **`assessment-completion-records-list`**／**`append`**（append 後 **`audit_events`**，**`audit_ok`** 欄位）、**`assessmentCompletionRecordRepository`** 與載入／補登寫庫（本機備援）；仍待 PDF 逐字對表 | 與 Seq 9 呼應 |
+| 23 | 【10】 | 歷史文件：僅 `APPROVED`、篩選、匯出 Excel | 已補 `features/historicalDocuments`：展示以 **`loadApprovedServiceFormsDbPrimary`**（遠端核准列為主、成功後併入本機快取）為主，`mergeApprovedFormsFromRemote` 仍保留供他處；載入／備援狀態與說明文案；`mergeServiceFormSnapshotsById` 等單元測試；仍待 xlsx／PDF 逐字對表 | |
 | 24 | 【11】 | AI 報告中心（Team Lead）：生成、編輯／採用、發放 | 已補 `features/aiReportCenter`：`aiReportCenterDomainService`（DRAFT→ADOPTED→DISTRIBUTED）、`aiReportCenterRepository`／localStorage、`AI_REPORT_CENTER_*` 審計、`view:ai-report-center`（TeamLead／Admin）、`#ai-report-center`；仍待真正 AI、發放對象／Seq 27 通知與 PDF 逐字對表 | |
-| 25 | 【12】 | 院友管理：單筆欄位、批量、**預覽**、**匯出 Excel** | 已補院友名單匯出（UTF-8 BOM CSV，Excel 可開）與 `RESIDENTS_EXPORT` 審計；單筆＋批量預檢流程既有。仍待真正 xlsx 與 02 用語逐字對照 | 對照 02 SOP |
-| 26 | 【13】 | 員工管理：單筆、批量、預覽、**匯出**；部門／TeamLead／Member 架構 | 已補員工概覽匯出（UTF-8 BOM CSV，Excel 可開）與 `STAFF_EXPORT` 審計；批量匯入/預檢既有。仍待單筆維護流程與部門/TeamLead/Member 完整架構 | |
-| 27 | 【14】 | 通知中心 | 已補 `features/notificationCenter`：以審計事件衍生通知（未讀/已讀/重整）、`view:notification-center`、`#notification-center`；仍待真正推送通道（站內/電郵/即時）與收件對象規則 | |
-| 28 | 【15】 | 用戶手冊 | 已補 `features/userManual` 站內指引頁（快速上手、閉環流程、文件參考）與 `view:user-manual`、`#user-manual`；仍待正式圖文版手冊與角色分章節 | 可先做連結／PDF |
-| 29 | 【16】 | 系統設定：排班時間、非治療時段、規則、固定活動、服務類型啟用、SC 是否僅治療師等 | 已補 `features/systemSettings`：`SystemSettingsHome`（時段／開關／SC 占位）、`localStorage` repository、`SYSTEM_SETTINGS_SAVE` 審計、`view:system-settings`（Admin／TeamLead）、`#system-settings`；仍待後端院舍設定 API、排班引擎讀取與 PDF 逐欄對表 | 對照 02 表單欄位 |
+| 25 | 【12】 | 院友管理：單筆欄位、批量、**預覽**、**匯出 Excel** | 已補院友名單匯出（UTF-8 BOM CSV，Excel 可開；含 **下次評估到期日**（§4.3 錨點）；末三欄 **資助類別代碼／服務類型代碼／特殊照護代碼** 與 `residents-import-template.csv` 機讀欄語意一致）與 `RESIDENTS_EXPORT` 審計；單筆＋批量預檢流程既有；**`useResidents`** 名單載入失敗寫入固定 **`無法載入院友名單，請稍後重試。`**；**`e2e/auth-login`**（可選登入）已驗 **`/#residents`** 載入（**院友資料概覽**、**最近審計紀錄** 標題並排除該錯誤句）。仍待真正 xlsx 與 02 用語逐字對照 | 對照 02 SOP |
+| 26 | 【13】 | 員工管理：單筆、批量、預覽、**匯出**；部門／TeamLead／Member 架構 | 已補員工概覽匯出（UTF-8 BOM CSV，Excel 可開；欄位含 **職類**＝`staff_profiles.role_type`，無主檔時空白）與 `STAFF_EXPORT` 審計；**單筆主檔**：Edge **`staff-profile-update`**（`guardTeamLeadOrAdmin`）、`staffProfileUpdateRepository`、`StaffProfileEditSheet`＋`StaffOverviewPanel` 編輯；**`staff-profiles-list`** 增 **`service_scope`**；審計 `UPDATE`；`ops:deploy:all` 納入 deploy。仍待部門/TeamLead/Member 完整架構與 PDF 逐字對表 | |
+| 27 | 【14】 | 通知中心 | 已補 `features/notificationCenter`：以審計事件衍生通知（未讀/已讀/重整）、`view:notification-center`、`#notification-center`；`NotificationCenterHome` 底部 **`AuditTrailPanel`**（與 `useNotificationCenter` 內 **`auditTrail`** 同源，不重複訂閱）；已納入服務表單相關審計 `FORM_SUBMIT`、`FORM_APPROVE`、`FORM_REJECT_REVISION`、`FORM_SOFT_DELETE` 及排班 **`SCHEDULING_HISTORY_BATCH_SOFT_DELETE`**（標題／嚴重度）；仍待推送通道（電郵/即時）與收件對象規則 | |
+| 28 | 【15】 | 用戶手冊 | 已補 `features/userManual` 站內指引頁（快速上手含左側選單分組說明、閉環流程、文件參考）與 `view:user-manual`、`#user-manual`；**Playwright** 煙霧已覆蓋 `#user-manual`（模組標題＋「快速上手」）；仍待正式圖文版手冊與角色分章節 | 可先做連結／PDF |
+| 29 | 【16】 | 系統設定：排班時間、非治療時段、規則、固定活動、服務類型啟用、SC 是否僅治療師等 | 已補 `features/systemSettings` 與 `schedulingSessionWindowFilterService`：`SystemSettingsHome` 頁底 **`AuditTrailPanel`**＋`useAuditTrailList`；`rulesEngineEnabled` 為真時，智能排班與復康／認知乾跑以**排班視窗＋非治療時段（僅資助復康）**過濾 sessions；**SC 僅治療師**：`scheduling_rules.allow_sc_therapist_only` 與本機 **`specialCareTherapistOnly`** 經 **`buildEngineConstraintsFromRulesAndUi`** 合併後驅動 **`pickSession`**（時段帶 **`staffRoleType`**）；仍待後端院舍設定 API、與 PDF 逐欄對表 | 對照 02 表單欄位 |
 
 ---
 
@@ -55,9 +55,9 @@
 
 | Seq | PDF／條款 | 補回項目／缺漏細節 | 與現況對照（摘要） | 驗收提示 |
 |-----|------------|--------------------|-------------------|----------|
-| 35 | 03 | 與 `.cursorrules` **並讀**；若有衝突，**客戶簽核 PDF 優先** | 已存檔；未強制逐條勾選 | 差異表 |
-| 36 | 03＋01 | 「複雜邏輯優先 Edge／DB」vs 現行**前端排班** | **架構張力** | 書面架構決策 |
-| 37 | 03 | 閉環／SRP／200 行等工程約束於**新模組**落實 | 既有碼漸進 | Code review 規則 |
+| 35 | 03 | 與 `.cursorrules` **並讀**；若有衝突，**客戶簽核 PDF 優先** | 已補 `docs/pdf03-cursorrules-alignment.md`（對照矩陣＋維護說明）；仍待客戶 PDF 換版後覆核 | 差異表 |
+| 36 | 03＋01 | 「複雜邏輯優先 Edge／DB」vs 現行**前端排班** | 已補 `docs/adr-0001-scheduling-logic-placement.md`（MVP 前端／上線後端權威之遷移原則） | 書面架構決策 |
+| 37 | 03 | 閉環／SRP／200 行等工程約束於**新模組**落實 | 已於 `docs/pdf03-cursorrules-alignment.md` §3 納入 PR 檢核表；**Dependabot** `.github/dependabot.yml`（npm 週一檢查、上限 8 PR）；既有碼仍漸進收斂 | Code review 規則 |
 | 38 | 全份 | **三 PDF 版本號／日期**寫入 `docs/business-logic.md` 修訂或獨立 `VERSIONS` | 已補 `docs/business-logic.md` §0.1（含三份母本 SHA-256）；等待客戶補版次／日期 | 客戶確認信 |
 
 ---
@@ -98,3 +98,103 @@
 | 2026-05-01 | 更新 Seq 26：員工概覽新增「匯出 Excel（CSV）」與 `STAFF_EXPORT` 審計事件。 |
 | 2026-05-01 | 更新 Seq 27：通知中心骨架（審計事件衍生通知、已讀狀態、RBAC 與路由）。 |
 | 2026-05-01 | 更新 Seq 28：新增用戶手冊頁（站內操作摘要）與 `view:user-manual` 路由入口。 |
+| 2026-05-01 | 更新 Seq 29：排班／復康乾跑讀取系統設定之排班視窗與非治療時段（`schedulingSessionWindowFilterService`＋單元測試）。 |
+| 2026-05-01 | 更新 Seq 2／16：`features/workSessions`＋表單核准寫入 `COMPLETED` 與 `WORK_SESSION_COMPLETED` 審計；Seq 35–37：`pdf03-cursorrules-alignment.md`、`adr-0001-scheduling-logic-placement.md`。 |
+| 2026-05-01 | 更新 Seq 3／17：`service_forms` migration、`service-forms-list`／`service-forms-upsert`、`serviceFormRepository` 與表單工作區遠端合併。 |
+| 2026-05-01 | 更新 Seq 23：`serviceFormSyncService` 共用合併；歷史文件頁載入／重整會拉 Edge 表單；刪除 `historicalDocumentsRepository.ts`。 |
+| 2026-05-01 | 更新 Seq 23：`service-forms-list` 支援 `approvedOnly`；歷史文件改 `mergeApprovedFormsFromRemote`。 |
+| 2026-05-01 | 更新 Seq 10：服務表單軟刪除（Edge `service-forms-soft-delete`、Repository、`useServiceFormsWorkspace.softDelete`、UI、`FORM_SOFT_DELETE`）。 |
+| 2026-05-01 | 更新 Seq 27：`notificationCenterService` 納入 `FORM_SOFT_DELETE` 審計衍生通知（標題／嚴重度）。 |
+| 2026-05-01 | 更新 Seq 20／27：通知中心納入 `FORM_SUBMIT`、`FORM_APPROVE`、`FORM_REJECT_REVISION`（與既有 `FORM_SOFT_DELETE`）審計衍生站內通知。 |
+| 2026-05-01 | 更新 Seq 3／17：`service_forms` 補 authenticated **SELECT** RLS（staff 本人／teamlead+admin 全院未刪；寫入仍僅 Edge／service_role）。 |
+| 2026-05-02 | 更新 Seq 13／28：儀表盤新增「建議從哪裡開始」、側欄分組導覽、手冊快速上手補充選單說明（新手上手）。 |
+| 2026-05-02 | 更新 Seq 3／17／23：歷史文件頁以 Edge 核准列為展示主體（`loadApprovedServiceFormsDbPrimary`）、遠端失敗備援本機與 UI 狀態。 |
+| 2026-05-02 | 更新 Seq 10：`scheduling_history` 依 batch 軟刪（Edge、Repository、`SchedulingHistoryUndoPanel`、審計）。 |
+| 2026-05-02 | 更新 Seq 27：通知中心納入 `SCHEDULING_HISTORY_BATCH_SOFT_DELETE`。 |
+| 2026-05-02 | 更新 Seq 8／13：儀表盤為 TeamLead／Admin 增加週三資助復康零次提醒預覽卡（`DashboardTeamLeadWednesdayCard`）。 |
+| 2026-05-02 | 更新 Seq 12：`scheduling_history` 補 authenticated SELECT RLS（staff 本人 actor／teamlead+admin 全院未刪）。 |
+| 2026-05-02 | 更新 Seq 3：Playwright E2E 骨架與煙霧測試（`test:e2e`）；Vitest 排除 `e2e/`（`vitest.config.ts`）。 |
+| 2026-05-02 | 更新 Seq 12：`audit_events`＋`audit-trail-append`＋Repository；`globalAuditTrailService.record` 非阻塞落庫；`ops:deploy:all` 納入 deploy。 |
+| 2026-05-02 | 更新 Seq 12：`audit-trail-list`、`hydrateAuditTrailFromRemote`、`mergeRemoteAuditTrail`、`useAuditTrailList`；通知 id 支援 `remoteId`。 |
+| 2026-05-02 | 更新 Seq 13：`DashboardHome` 底部嵌入 `AuditTrailPanel`（與審計遠端合併同源）。 |
+| 2026-05-02 | 更新 Seq 20／3：`WorkAnalysisReviewHome` 嵌入 `AuditTrailPanel`；E2E 補 `#work-analysis-review` 煙霧。 |
+| 2026-05-02 | 更新 Seq 14／16／17／29／3：`ServiceFormsHome`、`WorkSessionPlansHome`、`SystemSettingsHome`、`WorkPlansHome` 頁底審計面板；E2E 補 `#work-session-plans`。 |
+| 2026-05-02 | 更新 Seq 18／19／21／3：`ShiftStartHandoverHome`、`EndShiftHandoverHome`、`RehabActivityTrackingHome` 頁底審計；E2E 補 `#shift-start-handover`。 |
+| 2026-05-02 | 更新 Seq 15／26／27／3：`ActivitySessionImportPanel`、`StaffImportPanel`、`NotificationCenterHome` 審計區；`useNotificationCenter` 回傳 `auditTrail`；E2E 補 `#staff-import`。 |
+| 2026-05-01 | 更新 Seq 3：E2E 煙霧補 `#activity-sessions-import`、`#notification-center`（模組標題＋審計標題）。 |
+| 2026-05-01 | 更新 Seq 3／28：E2E 煙霧補 `#user-manual`（模組標題＋「快速上手」）；與 `docs/feature-list.md` §8 雙向註記 Playwright 覆蓋 hash。 |
+| 2026-05-01 | 更新 Seq 3：`e2e/smoke.spec.ts` 擴至 **全部** `ViewId`（含 `#scheduling`、`#service-forms`、`#historical-documents`、`#work-plan`、`#residents`、`#shift-end-handover`、`#rehab-activity-tracking`、`#assessment-management`、`#system-settings`、`#ai-report-center`）；`feature-list` §8 同步。 |
+| 2026-05-01 | 更新 Seq 3／13：`e2e/smoke.spec.ts` 改為 **`HASH_AUDIT_CASES` 資料驅動**；首屏補 **`全域審計摘要`** 斷言；`toHaveURL` 改為不含誤判之必填尾斜線。 |
+| 2026-05-01 | 更新 Seq 3：`playwright.auth.config.ts`、`e2e/auth-login.spec.ts`、`npm run test:e2e:auth`；`playwright.config.ts` 排除 `auth-login`；`.env.example` 補 `E2E_AUTH_*`。 |
+| 2026-05-01 | 更新 Seq 3：`auth-login` 登入後補側欄 **`#app-sidebar-nav`**、**「登出」** 斷言；`docs/go-live-checklist.md` §1.1 可選 Playwright 登入項。 |
+| 2026-05-01 | 更新 Seq 3：`.github/workflows/ci.yml`（`lint`／`test`／`test:e2e`）；`npm run test:e2e:all`（煙霧＋可選登入）。 |
+| 2026-05-01 | 更新 Seq 3：`playwright.config.ts` 支援 **`PW_PREVIEW_ONLY`**；CI 分步 demo `build`＋煙霧；workflow 加 **`concurrency`**。 |
+| 2026-05-01 | 更新 Seq 3：CI 加 **Playwright 瀏覽器 cache**、push 分支含 **`develop`**；`package.json` 新增 **`npm run ci`**。 |
+| 2026-05-01 | 更新 Seq 37：新增 **`.github/dependabot.yml`**（npm 依賴週更 PR）。 |
+| 2026-05-01 | 更新 `README.md`：STARCARE 入口、文件表、常用指令與 CI；呼應 `feature-list` §8 第 3 點。 |
+| 2026-05-01 | 更新 Seq 3／37：`npm run typecheck`（`tsc -b --noEmit`）納入 **`npm run ci`** 與 GitHub Actions；`pdf03-cursorrules-alignment` PR 檢核表補文件同步項。 |
+| 2026-05-01 | 更新 Seq 3／17：`serviceFormDomainService.test.ts` 補 **01 §2.2** `assertFormEditable`（`APPROVED`／`SUBMITTED`）單元測試。 |
+| 2026-05-01 | 更新 Seq 17：`serviceFormDomainService.test.ts` 設 **`@vitest-environment happy-dom`**，補 **核准後** `upsertDraftServiceForm` 再儲存拒絕之整合測試。 |
+| 2026-05-01 | 更新 Seq 17：同上檔補 **SUBMITTED** 後 `upsertDraftServiceForm` 再儲存拒絕（happy-dom）。 |
+| 2026-05-01 | 更新 Seq 17：同上檔補 **退回後** `REJECTED_NEEDS_REVISION` 可再 `upsertDraft`（happy-dom）。 |
+| 2026-05-02 | 更新 Seq 17：`serviceFormDomainService` 測試拆分為 **`serviceFormDomainService.guards.test.ts`**（Node）與 **`serviceFormDomainService.lifecycle.test.ts`**（happy-dom）；移除併存之 **`serviceFormDomainService.test.ts`**，避免同一案例重複跑兩次。 |
+| 2026-05-02 | 更新 Seq 3：demo 綁定 `staff-ot-1`（`resolveStaffProfileIdForWorkPlans`）、`InMemoryResidentRepository` 種子院友；新增 **`e2e/service-forms-state.spec.ts`**（草稿／待審核准）。 |
+| 2026-05-02 | 更新 Seq 3：**`e2e/service-forms-state.spec.ts`** 補 **退回重改**（`REJECTED_NEEDS_REVISION`）後載入再儲存草稿之 E2E（01 §2.2）。 |
+| 2026-05-02 | 更新 Seq 3：**`e2e/service-forms-state.spec.ts`** 補待審區 **退回重改**→**確認退回** UI 路徑（01 §2.2）。 |
+| 2026-05-02 | 更新 Seq 3：**`APPROVED` 檢視鎖定** E2E；抽 **`e2e/helpers/serviceFormsDemo.ts`**；表單種子改 **goto→evaluate→reload** 以穩定 hydrate。 |
+| 2026-05-02 | 更新 Seq 3：**`SUBMITTED`（待審）檢視鎖定** E2E；**`expectStaffServiceFormFieldsReadOnly`** 共用唯讀斷言。 |
+| 2026-05-02 | 更新 Seq 3：**草稿→提交審核** 閉環 E2E；**`loadServiceFormsDemoPage`** 收斂種子後定位器。 |
+| 2026-05-02 | 更新 Seq 1／3：demo E2E **不可審批本人已提交表單**（`fillAcceptedSessionDraftAndSubmit`＋`alert` 斷言，01 §1）。 |
+| 2026-05-02 | 更新 Seq 1／3：同上 E2E 補 **退回重改** 路徑之自審阻擋（`rejectServiceFormRevision` 與核准同規則）。 |
+| 2026-05-02 | 更新 Seq 3／5：抽 **`e2e/service-forms-readonly.spec.ts`**（唯讀檢視）；**本人 SUBMITTED 軟刪除** E2E（`service-forms-state`）。 |
+| 2026-05-02 | 更新 Seq 3：**`e2e/auth-login.spec.ts`** 於可選登入通過時另驗 **`/#service-forms`**（模組標題與審計區）；`feature-list` §8、`go-live-checklist` §1.1 同步。 |
+| 2026-05-02 | 更新 Seq 3：**`auth-login`** 之 **`/#service-forms`** 案例補 **Staff／待審** 標題可見與排除 **`無法載入時段或院友資料`**（真庫工作區載入）。 |
+| 2026-05-02 | 更新 Seq 3：抽 **`e2e/helpers/authLogin.ts`**（可選登入憑證＋`loginWithE2ECredentials`）；`.env.example` 補 **`starcare_staff_profile_id`** 與 E2E 關係說明。 |
+| 2026-05-02 | 更新 Seq 3／16：**`e2e/auth-login.spec.ts`** 增 **`/#work-session-plans`** 可選登入載入斷言（對齊 **`useWorkSessionPlans`** 時段來源）。 |
+| 2026-05-02 | 更新 Seq 3／25：**`e2e/auth-login.spec.ts`** 增 **`/#residents`** 可選登入載入斷言（**院友資料概覽**、審計區標題）。 |
+| 2026-05-02 | 更新 Seq 25／3：**`useResidents`** 名單 **`refresh`** 補 try/catch 與固定錯誤句；**`auth-login`** **`/#residents`** 斷言排除該句。 |
+| 2026-05-02 | 更新 Seq 25：抽 **`residentListRefreshOutcome`**（`runResidentListRefresh`＋**`RESIDENT_LIST_LOAD_ERROR_MESSAGE`**）與 **`residentListRefreshOutcome.test.ts`**；**`useResidents`**／**`auth-login`** 共用常數。 |
+| 2026-05-02 | 更新 Seq 3／15：**`schedulingDataLoadMessage`**；**`e2e/auth-login`** 增 **`/#scheduling`** 可選登入斷言。 |
+| 2026-05-02 | 更新 Seq 15：抽 **`schedulingReloadPageData`**（`runSchedulingReloadPageData`＋測試）以收斂 **`useScheduling`** 行數。 |
+| 2026-05-02 | 更新 Seq 3／23／27：**`e2e/auth-login`** 增 **`/#notification-center`**、**`/#historical-documents`** 可選登入斷言；`feature-list` §8、`go-live-checklist` §1.1 同步。 |
+| 2026-05-02 | 更新 Seq 3／18／19／21／22／28：**`e2e/auth-login`** 增 **開工／收工交更**、**復康追蹤**、**評估管理**、**用戶手冊** hash；註記預設 Staff 與 **`playwright.auth.config`** 範圍。 |
+| 2026-05-02 | 更新 Seq 3／37：可選登入拆 **`e2e/auth-login.staff-modules.spec.ts`**；**`playwright.auth.config`**／**`playwright.config`** 改 **`auth-login*.spec.ts`**；`feature-list` §8、`go-live-checklist` §1.1 同步。 |
+| 2026-05-02 | 更新 Seq 13／母本 P0：`staff-profiles-list` Edge、**`staffProfilesListRepository`**、**`StaffOverviewRow.roleType`**；**`rehabDisciplineFamilyFromStaff`** 優先 `role_type`；**`ops:deploy:all`** 納入 deploy；`pdf-alignment-p0-backlog` changelog；主清單「相關檔」連結 P0 backlog。 |
+| 2026-05-02 | 更新 Seq 26：`staffOverviewExportCsv` 匯出增 **職類** 欄（`role_type`）；`StaffOverviewPanel` 說明同步。 |
+| 2026-05-02 | 更新 Seq 25：`residentsExportCsv` 匯出增機讀代碼末三欄（對齊批量匯入範本）；`ResidentsDashboard` 說明、`feature-list` RES-04 備註同步。 |
+| 2026-05-02 | 更新 Seq 14／26：`WorkPlanComposerPanel` 員工選單顯示 **role_type**；`StaffOverviewPanel` 表格增 **職類** 欄。 |
+| 2026-05-02 | 更新 Seq 26：`staff-profile-update` Edge、**`guardTeamLeadOrAdmin`**、**`staffProfileUpdateRepository`**、**`StaffProfileEditSheet`**；**`staff-profiles-list`** 回傳 **service_scope**；**`StaffOverviewRow.serviceScope`**；**`useStaffManagementOverview.reload`**。 |
+| 2026-05-02 | 更新 Seq 1／26：**`staff-import-validate`**、**`staff-import-commit`**、**`staff-soft-delete`** 改 **`guardTeamLeadOrAdmin`**（Staff JWT 一律 403）；**`StaffOverviewPanel`** 無 `view:staff-import` 時操作欄顯示「—」；**`rbac-seq1-verification-checklist`** 增 4b。 |
+| 2026-05-02 | 更新 Seq 1／25／15：**`residents-create`**／**update**／**soft-delete**、**`residents-import-validate`**／**commit**、**`activity-sessions-import-validate`**／**commit**、**`activity-sessions-soft-delete`** 改 **`guardTeamLeadOrAdmin`**；**`rbac-seq1-verification-checklist`** 增 4c。 |
+| 2026-05-02 | 更新 Seq 1／25／15：前端 **`ResidentsDashboard`**（**`ResidentsAdminWriteSections`**、`ResidentsListPanel`）、**`ActivitySessionImportPanel`**／**`ActivitySessionListPanel`** 依 **`view:residents`**／**`view:activity-sessions-import`** 隱藏寫入 UI，與 Edge 403 一致。 |
+| 2026-05-02 | 更新 Seq 13／29：**`rehabDisciplineFamilyFromStaff`** 移除顯示名推斷（無 `role_type` 歸其他）；**`schedulingCore.pickSession`** 於 **`allowScTherapistOnly`** 時擋 SC→PTA／OTA／TeamLead（有 **`staffRoleType`** 時）；**`schedulingConfigService.listSchedulingSessions`** 併 **`staff-profiles-list`**；**`buildEngineConstraintsFromRulesAndUi`** 合併 **`scheduling_rules`** 與本機 **SC 僅治療師**；種子時段補 **`staffRoleType`**。 |
+| 2026-05-02 | 更新 Seq 29：**`systemSettingsExternalStore`**（bump＋`storage`）與 **`saveSystemSettings`** 聯動；**`useRehabActivityTracking`** 以 **`useSyncExternalStore`** 訂閱，使乾跑約束於儲存設定或他分頁變更後重算。 |
+| 2026-05-02 | 更新 Seq 15／29：**`schedulingConfigService.listSchedulingSessions`** 對 **`staff-profiles-list`** **`.catch(() => [])`**，主檔失敗時仍載入活動時段（略過 **`staffRoleType`**）。 |
+| 2026-05-02 | 更新 Seq 15／29：**`useInvalidateOnSystemSettingsExternalChange`**／**`useSystemSettingsExternalVersion`**（抽離 **`useReloadWhenSystemSettingsChange`**）；**`useScheduling`**、**`useDashboardOverview`**、**`useRehabActivityTracking`** 於本機設定變更時重載或重算；**`getStaffProfilesUnavailableLastList`**＋**`SchedulingDataAlerts`** 主檔降級提示。 |
+| 2026-05-02 | 更新 Seq 37：**`useSchedulingRunAndSave`** 抽離啟動排班／儲存指派；**`systemSettings/index`** 匯出 **`useInvalidateOnSystemSettingsExternalChange`**、**`useSystemSettingsExternalVersion`**。 |
+| 2026-05-02 | 更新 Seq 29／37：排班／儀表盤／復康追蹤改由 **`../../systemSettings`** barrel import；**`systemSettingsExternalStore.test.ts`**。 |
+| 2026-05-02 | 更新 Seq 14／29：**`systemSettings/index`** 增 **`loadSystemSettings`**、**`saveSystemSettings`**、**`SystemSettingsSnapshot`**、**`isValidHm`**／**`hmLessThan`**；排班 **`schedulingHookHelpers`**／**`schedulingSessionWindowFilterService`** 改 barrel；**`useWorkPlanComposer`** 以 **`loadMeta` 序號**＋**`useInvalidateOnSystemSettingsExternalChange`** 於設定變更時重載員工／活動。 |
+| 2026-05-02 | 更新 Seq 10／15／29：**`useActivitySessionList`** 抽 **`loadList`** 序號防競態＋**`useInvalidateOnSystemSettingsExternalChange`**；**`useSystemSettings`** 註解說明不可自 **`index`** barrel 匯入（循環依賴）。 |
+| 2026-05-02 | 更新 Seq 26／29：**`useStaffManagementOverview`** 增 **`loadSeqRef`** 與 **`useInvalidateOnSystemSettingsExternalChange(reload)`**（職類主檔與他分頁設定同步）。 |
+| 2026-05-02 | 更新 Seq 16／29：**`useWorkSessionPlans`** 之 **`reload`** 增 **`loadSeqRef`**＋**`useInvalidateOnSystemSettingsExternalChange(reload)`**（時段含 **`staffRoleType`** 與本機設定同步）。 |
+| 2026-05-01 | 更新 Seq 17／29：**`useServiceFormsWorkspace`** 以 **`loadSeqRef`**／**`reloadContext`** 防遠端合併競態、**`mergeRemoteForms`** 僅回傳合併結果並由通過序號之 **`reloadContext`** 寫入 **`setForms`**；**`useInvalidateOnSystemSettingsExternalChange(reloadContext)`**；**`npm run lint`／`typecheck`／`test`** 已通過。 |
+| 2026-05-01 | 更新 Seq 5／13：**`schedulingService.test.ts`** 補 **01 §3.1** 同日上限與相鄰日間隔之單元測試；**`pdf-alignment-p0-backlog`** 勾選「PT/OT 以 `role_type`」子項（逐欄對表仍待）。 |
+| 2026-05-01 | 更新 Seq 5：**`schedulingCore`** 二階段選時段實作「無其他可用時段」例外；**`schedulingCoreSessionGates`**；§3.1 測試拆 **`schedulingService.section31.test.ts`**（`schedulingService.test.ts` 控行數）。 |
+| 2026-05-01 | 更新 Seq 6：**`schedulingTargets`** 註解現況數值與私位／券待裁定事項；新增 **`schedulingTargets.test.ts`**。 |
+| 2026-05-01 | 更新 Seq 4：**`filterToSubsidizedRehabServiceOnly`**、乾跑串接、**`schedulingService.dualTrack.test.ts`**／**`schedulingCoreSessionGates.test.ts`**。 |
+| 2026-05-01 | 更新 Seq 7：**`filterToDementiaServiceOnly`**、認知軌 **`pickDementiaSession`** 二階段間隔＋**`dementiaTrackDryRunService.test.ts`**。 |
+| 2026-05-01 | 更新 Seq 8：**`residentCareTrackCohort`**；排班載入／儀表週三警示僅資助復康合規族群；**`schedulingReloadPageData`** 測試。 |
+| 2026-05-01 | 更新 Seq 8／§4.2：**`dashboardSummaryService`** 今日時段分軌欄位、**`DashboardOverviewPanel`** 文案。 |
+| 2026-05-02 | 更新 Seq 8：**`mapActiveResidentsToSubsidizedSchedulingResidents`** 擴及 **`useDashboardOverview`** 週三警示與 **`buildSubsidizedRehabTrackSnapshot`**（與排班載入／乾跑 orchestration 同源篩選）。 |
+| 2026-05-02 | 更新 Seq 13：**`DashboardSummary.subsidizedRehabCohortCount`**／**`DashboardOverviewPanel`** 提示與 KPI 分母 §4.1 族群一致；**`calculateSchedulingKpis`** 註解。 |
+| 2026-05-02 | 更新 Seq 9：**`assessmentDueTaskRepository`**（MVP 委派入住週期估算）；儀表盤／院友頁／評估管理統一走 Repository。 |
+| 2026-05-02 | 更新 Seq 9：Edge **`assessment-due-list`**、**`ops:deploy:all`** 納入 deploy；Repository 改 **`src/repositories`** async＋Edge 失敗回退。 |
+| 2026-05-02 | 更新 Seq 9：**`assessment_next_due_date`** migration、**`assessmentDueDateResolve`**、院友 **`Resident`**／mapper 對齊。 |
+| 2026-05-02 | 更新 Seq 9：院友 **`ResidentsSingleResidentForm`**／**`ResidentsDashboard`** 可維護評估到期日；**`residentService`** 驗證與單元測試。 |
+| 2026-05-02 | 更新 Seq 9／25：批量匯入／匯出 CSV 納入可選 **下次評估到期日**（Edge validate／commit、**`residentsExportCsvService`**、範本、**`docs/residents-import-*.csv`**）；**`residents-edge-function-contract`** 補匯入契約。 |
+| 2026-05-02 | 更新 Seq 9：**`docs/residents-import-verification.sql`** 納入 **`admission_date`**／**`assessment_next_due_date`** 與錨點篩選查詢；**`go-live-checklist`** §4.1 勾選說明同步。 |
+| 2026-05-02 | 更新 Seq 9／契約：**`residents-create`**／**`residents-update`** Edge 改白名單寫入＋**`assessment_next_due_date`** 格式驗證（**`_shared/residentWritePayload.ts`**）；**`is_deleted`** 僅經 **`residents-soft-delete`**。 |
+| 2026-05-02 | 更新 Seq 9：**`business-logic.md`** §7 §4.3／§8 補錨點寫入路徑與 **`residentService`** 更新正規化；**`pdf-alignment-p0-backlog`** changelog 同步。 |
+| 2026-05-02 | 更新 Seq 22：migration **`assessment_completion_records`**、Edge **`assessment-completion-records-list`**、**`assessmentCompletionRecordRepository`**、評估管理載入合併遠端／本機；**`ops:deploy:all`** 納入 deploy。 |
+| 2026-05-02 | 更新 Seq 22：Edge **`assessment-completion-records-append`**、Repository **`append`**、**`useAssessmentManagementWorkspace`** 提交流程；**`ops:deploy:all`** 納入 deploy。 |
+| 2026-05-02 | 更新 Seq 12／22：**`appendAssessmentCompletionAudit`**（**`audit_events`**）；**`docs/assessment-completion-records-contract.md`**。 |

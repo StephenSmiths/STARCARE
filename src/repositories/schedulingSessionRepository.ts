@@ -14,6 +14,7 @@ const defaultSessions: SchedulingSession[] = [
     timeSlot: '09:00-10:00',
     serviceType: 'Subsidized_Rehab',
     capacity: 1,
+    staffRoleType: 'OT',
   },
   {
     id: 'session-2',
@@ -23,6 +24,7 @@ const defaultSessions: SchedulingSession[] = [
     timeSlot: '09:00-10:00',
     serviceType: 'Subsidized_Rehab',
     capacity: 1,
+    staffRoleType: 'PTA',
   },
   {
     id: 'session-3',
@@ -32,6 +34,7 @@ const defaultSessions: SchedulingSession[] = [
     timeSlot: '14:00-15:00',
     serviceType: 'Subsidized_Rehab',
     capacity: 1,
+    staffRoleType: 'OT',
   },
 ]
 

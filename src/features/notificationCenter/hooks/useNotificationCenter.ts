@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
-import { globalAuditTrailService } from '../../../services/auditTrailService'
+import { useAuditTrailList } from '../../shared/hooks/useAuditTrailList'
+import { hydrateAuditTrailFromRemote } from '../../../services/auditTrailHydrationService'
 import { buildNotificationCenterItems } from '../services/notificationCenterService'
 import {
   loadReadNotificationIds,
@@ -9,12 +10,7 @@ import {
 /** PDF 02【14】通知中心：由審計事件衍生，支援已讀狀態 */
 export const useNotificationCenter = () => {
   const [readIds, setReadIds] = useState<string[]>(() => loadReadNotificationIds())
-  const [refreshTick, setRefreshTick] = useState(0)
-
-  const logs = useMemo(() => {
-    void refreshTick
-    return globalAuditTrailService.list()
-  }, [refreshTick])
+  const logs = useAuditTrailList()
   const readSet = useMemo(() => new Set(readIds), [readIds])
   const items = useMemo(() => buildNotificationCenterItems(logs, readSet), [logs, readSet])
 
@@ -34,7 +30,16 @@ export const useNotificationCenter = () => {
     saveReadNotificationIds(ids)
   }, [items])
 
-  const reload = useCallback(() => setRefreshTick((v) => v + 1), [])
+  const reload = useCallback(() => {
+    void hydrateAuditTrailFromRemote()
+  }, [])
 
-  return { items, unreadCount: items.filter((item) => !item.isRead).length, markRead, markAllRead, reload }
+  return {
+    items,
+    unreadCount: items.filter((item) => !item.isRead).length,
+    markRead,
+    markAllRead,
+    reload,
+    auditTrail: logs,
+  }
 }

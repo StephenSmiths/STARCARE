@@ -1,7 +1,7 @@
 /** 01 §2.2 表單狀態機（Seq 17） */
 export type ServiceFormStatus = 'DRAFT' | 'SUBMITTED' | 'APPROVED' | 'REJECTED_NEEDS_REVISION'
 
-/** 服務紀錄表單（本地骨架；正式環境應搬至 Edge／PostgreSQL） */
+/** 服務紀錄表單（localStorage ＋ Edge `service-forms-*` 雙寫；見 Seq 3） */
 export interface ServiceFormRecord {
   id: string
   sessionId: string

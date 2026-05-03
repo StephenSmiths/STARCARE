@@ -1,9 +1,10 @@
-import { useMemo } from 'react'
+import { useEffect, useState } from 'react'
 import { uiTokens } from '../../shared/ui/uiTokens'
 import { globalAuditTrailService } from '../../../services/auditTrailService'
-import { buildAssessmentDueTasks } from '../services/assessmentDueTaskService'
+import { assessmentDueTaskRepository } from '../../../repositories/assessmentDueTaskRepository'
 import { downloadAssessmentDueTasksCsv } from '../services/assessmentDueTaskCsvService'
 import type { Resident } from '../types/resident'
+import type { AssessmentDueTask } from '../services/assessmentDueTaskService'
 
 interface ResidentsAssessmentDuePanelProps {
   actorId: string
@@ -11,7 +12,17 @@ interface ResidentsAssessmentDuePanelProps {
 }
 
 export const ResidentsAssessmentDuePanel = ({ actorId, residents }: ResidentsAssessmentDuePanelProps) => {
-  const assessmentDueTasks = useMemo(() => buildAssessmentDueTasks(residents), [residents])
+  const [assessmentDueTasks, setAssessmentDueTasks] = useState<AssessmentDueTask[]>([])
+
+  useEffect(() => {
+    let cancelled = false
+    void assessmentDueTaskRepository.listDueWithinLeadDays(residents).then((rows) => {
+      if (!cancelled) setAssessmentDueTasks(rows)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [residents])
 
   const exportDueTasksCsv = () => {
     if (assessmentDueTasks.length === 0) return
@@ -44,7 +55,7 @@ export const ResidentsAssessmentDuePanel = ({ actorId, residents }: ResidentsAss
         </button>
       </div>
       <p className={uiTokens.blockHelp}>
-        Seq 9 骨架：暫以入住日 180 天週期估算，待評估模組上線後改為正式到期欄位。
+        Seq 9：院友編輯表單可填「下次評估到期日」寫入 **`assessment_next_due_date`**；未填則以入住日 180 天週期估算。
       </p>
       {assessmentDueTasks.length === 0 ? (
         <p className="mt-2 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs text-emerald-800">

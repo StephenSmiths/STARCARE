@@ -1,9 +1,6 @@
 import type { Resident } from '../../residents/types/resident'
-import {
-  ASSESSMENT_CYCLE_DAYS,
-  buildAssessmentDueTasks,
-  type AssessmentDueTask,
-} from '../../residents/services/assessmentDueTaskService'
+import { ASSESSMENT_CYCLE_DAYS, type AssessmentDueTask } from '../../residents/services/assessmentDueTaskService'
+import { assessmentDueTaskRepository } from '../../../repositories/assessmentDueTaskRepository'
 import type { AssessmentCompletionRecord } from '../types/assessmentManagement'
 
 const DAY_MS = 24 * 60 * 60 * 1000
@@ -115,11 +112,12 @@ export const computeAssessmentCompletionRatePercent = (
   return Math.round((100 * ok) / eligible.length)
 }
 
-export const buildAssessmentDueSoonTasks = (
+export const buildAssessmentDueSoonTasks = async (
   residents: Resident[],
   now: Date,
   leadDays: number = 14,
-): AssessmentDueTask[] => buildAssessmentDueTasks(residents, { now, leadDays })
+): Promise<AssessmentDueTask[]> =>
+  assessmentDueTaskRepository.listDueWithinLeadDays(residents, { now, leadDays })
 
 /** 補登目前錨點尚缺之 PT／OT（可單獨補一科） */
 export const appendAssessmentCompletionsForCurrentAnchor = (

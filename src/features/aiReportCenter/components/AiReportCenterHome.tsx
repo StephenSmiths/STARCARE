@@ -1,12 +1,13 @@
 import { AuditTrailPanel } from '../../shared/components/AuditTrailPanel'
+import { useAuditTrailList } from '../../shared/hooks/useAuditTrailList'
 import { uiTokens } from '../../shared/ui/uiTokens'
-import { globalAuditTrailService } from '../../../services/auditTrailService'
 import { useAiReportCenterWorkspace } from '../hooks/useAiReportCenterWorkspace'
 import { AiReportComposer } from './AiReportComposer'
 import { AiReportList } from './AiReportList'
 
 /** PDF 02【11】AI 報告中心（Team Lead／Admin） */
 export const AiReportCenterHome = () => {
+  const auditTrail = useAuditTrailList()
   const ws = useAiReportCenterWorkspace()
 
   return (
@@ -38,7 +39,7 @@ export const AiReportCenterHome = () => {
       <AuditTrailPanel
         title="報告中心審計"
         help="含 AI_REPORT_CENTER_* 動作。"
-        auditTrail={globalAuditTrailService.list()}
+        auditTrail={auditTrail}
       />
     </div>
   )

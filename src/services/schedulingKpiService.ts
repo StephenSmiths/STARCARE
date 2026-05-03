@@ -23,6 +23,7 @@ const toPercent = (numerator: number, denominator: number): number => {
   return (numerator / denominator) * 100
 }
 
+/** 01 §4.1：`residents` 須為資助復康合規族群（與 `mapActiveResidentsToSubsidizedSchedulingResidents` 一致），KPI 方與母本語意對齊 */
 export const calculateSchedulingKpis = (
   residents: SchedulingResident[],
   assignments: SchedulingAssignment[],

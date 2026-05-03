@@ -15,12 +15,16 @@ const dateStamp = (): string => {
   return `${y}-${m}-${day}`
 }
 
+/** 對齊 staff_profiles.role_type；無主檔資料時留空 */
+const roleTypeCell = (row: StaffOverviewRow): string => escapeCsv(row.roleType ?? '')
+
 /** PDF 02【13】員工概覽匯出（CSV + UTF-8 BOM，Excel 可開） */
 export const buildStaffOverviewExportCsv = (rows: StaffOverviewRow[]): string => {
-  const header = ['員工ID', '名稱', '可排時段數', '技能數']
+  const header = ['員工ID', '名稱', '職類', '可排時段數', '技能數']
   const lines = rows.map((row) => [
     escapeCsv(row.staffId),
     escapeCsv(row.staffName),
+    roleTypeCell(row),
     escapeCsv(String(row.sessionCount)),
     escapeCsv(String(row.skillCount)),
   ])

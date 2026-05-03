@@ -17,6 +17,7 @@ const resident = (overrides: Partial<Resident>): Resident => ({
   healthCondition: overrides.healthCondition ?? '',
   medicationRecord: overrides.medicationRecord ?? '',
   isDeleted: overrides.isDeleted ?? false,
+  ...overrides,
 })
 
 describe('assessmentDueTaskService', () => {
@@ -40,5 +41,22 @@ describe('assessmentDueTaskService', () => {
       { now: new Date('2026-05-01T08:00:00.000Z') },
     )
     expect(tasks).toHaveLength(0)
+  })
+
+  it('有 assessmentNextDueDate 且在視窗內時優先於入院週期', () => {
+    const tasks = buildAssessmentDueTasks(
+      [
+        resident({
+          id: 'd1',
+          name: '錨點院友',
+          admissionDate: '2020-01-01',
+          assessmentNextDueDate: '2026-05-08',
+        }),
+      ],
+      { now: new Date('2026-05-01T08:00:00.000Z'), leadDays: 14 },
+    )
+    expect(tasks).toHaveLength(1)
+    expect(tasks[0]?.dueDate).toBe('2026-05-08')
+    expect(tasks[0]?.dueInDays).toBe(7)
   })
 })

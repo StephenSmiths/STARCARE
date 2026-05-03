@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState, type FormEvent } from 'react'
-import { useAuthActorId } from '../../auth'
+import { useAuth, useAuthActorId } from '../../auth'
 import { globalAuditTrailService } from '../../../services/auditTrailService'
-import { ResidentsImportPanel } from './ResidentsImportPanel'
+import { ResidentsAdminWriteSections } from './ResidentsAdminWriteSections'
 import { ResidentsListPanel } from './ResidentsListPanel'
 import { ResidentsOverviewPanel } from './ResidentsOverviewPanel'
 import { ResidentsAssessmentDuePanel } from './ResidentsAssessmentDuePanel'
@@ -20,6 +20,7 @@ const defaultForm: ResidentInput = {
   gender: 'Female',
   age: 70,
   admissionDate: '',
+  assessmentNextDueDate: null,
   fundingType: 'GradeA_Subsidized',
   serviceType: 'Subsidized_Rehab',
   dementiaLevel: 'None',
@@ -29,6 +30,8 @@ const defaultForm: ResidentInput = {
 }
 
 export const ResidentsDashboard = () => {
+  const { hasPermission } = useAuth()
+  const canMaintainResidentRecords = hasPermission('view:residents')
   const actorId = useAuthActorId()
   const {
     residents,
@@ -62,6 +65,7 @@ export const ResidentsDashboard = () => {
       gender: selected.gender,
       age: selected.age,
       admissionDate: selected.admissionDate,
+      assessmentNextDueDate: selected.assessmentNextDueDate ?? null,
       fundingType: selected.fundingType,
       serviceType: selected.serviceType,
       dementiaLevel: selected.dementiaLevel,
@@ -82,17 +86,20 @@ export const ResidentsDashboard = () => {
   }
 
   const openCreateResidentSheet = () => {
+    if (!canMaintainResidentRecords) return
     resetForm()
     setFormSheetOpen(true)
   }
 
   const openEditResidentSheet = (residentId: string) => {
+    if (!canMaintainResidentRecords) return
     fillForm(residentId)
     setFormSheetOpen(true)
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    if (!canMaintainResidentRecords) return
     if (residentSubmitLockRef.current) return
     residentSubmitLockRef.current = true
     setIsSubmittingResident(true)
@@ -130,31 +137,21 @@ export const ResidentsDashboard = () => {
       <p className={uiTokens.sectionHelp}>欄位對齊院友管理 SOP，支援新增、修改與軟刪除。</p>
       <div className={`${uiTokens.stackVertical} mt-4`}>
         <ResidentsOverviewPanel residents={residents} />
-        <section aria-labelledby="residents-bulk-import-heading">
-          <h3 id="residents-bulk-import-heading" className={uiTokens.blockHeading}>
-            院友批量匯入
-          </h3>
-          <p className={uiTokens.blockHelp}>以 CSV 預檢後匯入；通過預檢後再確認寫入名單。</p>
-          <ResidentsImportPanel actorId={actorId} onImportCommitted={refreshResidents} />
-        </section>
-        <section aria-labelledby="residents-single-heading">
-          <h3 id="residents-single-heading" className={uiTokens.blockHeading}>
-            新增個別院友
-          </h3>
-          <p className={uiTokens.blockHelp}>
-            以表單逐筆建立院友資料（含資助類別與照護標記）。桌機為右側抽屜，手機為全螢幕。
-          </p>
-          <button className={`${uiTokens.btnPrimary} mt-3 w-fit`} type="button" onClick={openCreateResidentSheet}>
-            開啟院友資料表單
-          </button>
-        </section>
+        <ResidentsAdminWriteSections
+          actorId={actorId}
+          canMaintain={canMaintainResidentRecords}
+          onImportCommitted={refreshResidents}
+          onOpenCreateSheet={openCreateResidentSheet}
+        />
         {errorMessage ? <p className="text-sm text-red-600">{errorMessage}</p> : null}
         <ResidentsAssessmentDuePanel actorId={actorId} residents={residents} />
         <section aria-labelledby="residents-list-heading">
           <h3 id="residents-list-heading" className={uiTokens.blockHeading}>
             院友名單
           </h3>
-          <p className={uiTokens.blockHelp}>支援搜尋、篩選與軟刪除；編輯會開啟同一張表單。</p>
+          <p className={uiTokens.blockHelp}>
+            支援搜尋、篩選與軟刪除；編輯會開啟同一張表單。匯出 CSV 末三欄為機讀代碼（資助／服務類型／特殊照護），語意與批量匯入範本一致。
+          </p>
           <button
             type="button"
             className={`${uiTokens.btnSecondary} mt-3`}
@@ -166,6 +163,7 @@ export const ResidentsDashboard = () => {
           <ResidentsListPanel
             residents={residents}
             actorId={actorId}
+            canMaintainResidentRecords={canMaintainResidentRecords}
             softDeleteBusyResidentId={softDeleteBusyResidentId}
             onEdit={openEditResidentSheet}
             onSoftDelete={softDeleteResident}
@@ -174,7 +172,7 @@ export const ResidentsDashboard = () => {
         <AuditTrailPanel auditTrail={auditTrail} />
       </div>
       <ResponsiveFormSheet
-        open={formSheetOpen}
+        open={formSheetOpen && canMaintainResidentRecords}
         onClose={closeFormSheet}
         title={formSheetTitle}
         description="欄位對齊院友管理 SOP；儲存後寫入名單並留下審計紀錄。"

@@ -3,7 +3,14 @@ import type { HistoricalDocumentsWorkspace } from '../hooks/useHistoricalDocumen
 
 type Props = Pick<
   HistoricalDocumentsWorkspace,
-  'filters' | 'setFilters' | 'reload' | 'exportCsv' | 'isExporting' | 'approvedCount' | 'rows'
+  | 'filters'
+  | 'setFilters'
+  | 'reload'
+  | 'exportCsv'
+  | 'isExporting'
+  | 'approvedCount'
+  | 'rows'
+  | 'isLoading'
 >
 
 /** PDF 02【10】篩選列與匯出（CSV 含 BOM，Excel 可開） */
@@ -15,6 +22,7 @@ export const HistoricalDocumentsToolbar = ({
   isExporting,
   approvedCount,
   rows,
+  isLoading,
 }: Props) => (
   <div className={`${uiTokens.surfaceCardCompact} flex flex-col gap-4 md:flex-row md:flex-wrap md:items-end`}>
     <label className={`${uiTokens.formFieldStack} min-w-[10rem]`}>
@@ -22,6 +30,7 @@ export const HistoricalDocumentsToolbar = ({
       <input
         type="date"
         className={uiTokens.formInput}
+        disabled={isLoading}
         value={filters.dateFrom}
         onChange={(ev) => setFilters({ ...filters, dateFrom: ev.target.value })}
       />
@@ -31,6 +40,7 @@ export const HistoricalDocumentsToolbar = ({
       <input
         type="date"
         className={uiTokens.formInput}
+        disabled={isLoading}
         value={filters.dateTo}
         onChange={(ev) => setFilters({ ...filters, dateTo: ev.target.value })}
       />
@@ -39,19 +49,20 @@ export const HistoricalDocumentsToolbar = ({
       <span className={uiTokens.formLabel}>關鍵字（院友／紀要）</span>
       <input
         className={uiTokens.formInput}
+        disabled={isLoading}
         value={filters.keyword}
         onChange={(ev) => setFilters({ ...filters, keyword: ev.target.value })}
         placeholder="可留空"
       />
     </label>
     <div className="flex flex-wrap gap-2">
-      <button type="button" className={uiTokens.btnSecondary} onClick={reload}>
-        重新載入
+      <button type="button" className={uiTokens.btnSecondary} disabled={isLoading} onClick={() => void reload()}>
+        {isLoading ? '載入中…' : '重新載入'}
       </button>
       <button
         type="button"
         className={uiTokens.btnPrimary}
-        disabled={isExporting}
+        disabled={isExporting || isLoading}
         onClick={() => exportCsv()}
       >
         {isExporting ? '匯出中…' : '匯出 Excel（CSV）'}

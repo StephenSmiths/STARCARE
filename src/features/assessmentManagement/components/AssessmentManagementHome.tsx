@@ -1,6 +1,6 @@
 import { AuditTrailPanel } from '../../shared/components/AuditTrailPanel'
+import { useAuditTrailList } from '../../shared/hooks/useAuditTrailList'
 import { uiTokens } from '../../shared/ui/uiTokens'
-import { globalAuditTrailService } from '../../../services/auditTrailService'
 import { useAssessmentManagementWorkspace } from '../hooks/useAssessmentManagementWorkspace'
 import { AssessmentCompletionForm } from './AssessmentCompletionForm'
 import { AssessmentManagementTables } from './AssessmentManagementTables'
@@ -8,6 +8,7 @@ import { AssessmentSummaryCards } from './AssessmentSummaryCards'
 
 /** PDF 02【9】評估管理（到期／逾期／完成率／PT·OT 版本本地紀錄） */
 export const AssessmentManagementHome = () => {
+  const auditTrail = useAuditTrailList()
   const {
     residents,
     completions,
@@ -61,7 +62,7 @@ export const AssessmentManagementHome = () => {
       <AuditTrailPanel
         title="評估相關審計（全域軌跡節錄）"
         help="含 ASSESSMENT_COMPLETION_RECORD；完整軌跡亦見智能排班／院友頁。"
-        auditTrail={globalAuditTrailService.list()}
+        auditTrail={auditTrail}
       />
     </div>
   )
