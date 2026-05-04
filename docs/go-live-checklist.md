@@ -87,3 +87,21 @@ limit 20;
 - [ ] 產品/業務確認：排班結果符合預期。
 - [ ] 技術確認：部署、RLS、審計資料正常。
 - [ ] 決策人確認：允許正式上線。
+
+## 8. 審計紀錄（RES-06）正式庫抽測
+與 **`docs/feature-list.md`** 之 **RES-06** 對照；本節勾選完成後，可將該功能列狀態改為 **`已完成`**。
+
+- [ ] 以 **`teamlead`** 或 **`admin`** 登入：儀表 **`/#dashboard`** 首屏底部見 **全域審計摘要**（或等效區塊），列表可載入、無持續性錯誤提示。
+- [ ] 至少開啟一處含 **`AuditTrailPanel`** 的模組（例如 **`/#scheduling`**、**`/#residents`**、**`/#service-forms`**），見審計標題與列表區；與 **`e2e/auth-login.spec.ts`**／**`e2e/auth-login.staff-modules.spec.ts`** 預期一致。
+- [ ] 於 UI 執行 **1 次**會觸發 **`audit-trail-append`** 的操作（例如排班儲存、院友主檔更新、服務表單送審等，依當日上線範圍）；成功後重新整理該頁或返回儀表，新事件出現於審計列表或摘要（依產品行為）。
+- [ ] （建議）於 Supabase SQL Editor 執行下列查詢，確認 **`public.audit_events`** 有對應時間之新列、**`actor_id`** 為目前登入使用者 UUID（文字）、**`is_deleted`** 為 **false**：
+
+```sql
+select id, action, entity_type, entity_id, actor_id, occurred_at
+from public.audit_events
+where is_deleted = false
+order by occurred_at desc
+limit 20;
+```
+
+- [ ] **RLS 抽測**：**`staff`** 帳號僅能見 **`actor_id`＝本人** 之事件；**`teamlead`／`admin`** 可見全院 **`is_deleted = false`** 列（與 **`supabase/migrations/20260502133000_audit_events.sql`** 註解一致）。

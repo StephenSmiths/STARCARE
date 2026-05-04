@@ -55,7 +55,7 @@
 | RES-03 | 新增／編輯單一院友 | 逐筆維護 SOP 欄位 | `ResponsiveFormSheet` + `ResidentsSingleResidentForm` | `residents-create`、`residents-update`（**`guardTeamLeadOrAdmin`**） | 已完成 | 桌機 Drawer／手機全螢幕 |
 | RES-04 | 院友名單與篩選 | 搜尋、資助類別、分頁 | `ResidentsListPanel`、`ResidentsDashboard` 匯出 | `residents-list`；匯出見 `residentsExportCsvService`（含下次評估到期日；末三欄機讀代碼對齊匯入範本） | 已完成 | — |
 | RES-05 | 院友軟刪除 | 名單不打掉資料、標記刪除 | 名單「軟刪除」 | `residents-soft-delete`（**`guardTeamLeadOrAdmin`**） | 已完成 | 符合軟刪除政策 |
-| RES-06 | 審計紀錄（前端顯示） | 最近變更可追溯 | `DashboardHome` 底部、`AuditTrailPanel`（多模組） | `globalAuditTrailService`＋`useAuditTrailList`；落庫 `audit-trail-append`、登入拉取 `audit-trail-list` 合併（Seq 12） | 部分 | 待正式庫抽測 |
+| RES-06 | 審計紀錄（前端顯示） | 最近變更可追溯 | `DashboardHome` 底部、`AuditTrailPanel`（多模組） | `globalAuditTrailService`＋`useAuditTrailList`；落庫 `audit-trail-append`、登入拉取 `audit-trail-list` 合併（Seq 12） | 部分 | 待正式庫抽測（步驟見 **`docs/go-live-checklist.md`** §8） |
 
 ---
 
