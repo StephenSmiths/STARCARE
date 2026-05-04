@@ -179,19 +179,16 @@ export class ResidentService {
 }
 
 const createResidentRepository = (): ResidentRepository => {
-  const runtimeEnv: Record<string, string | undefined> = (() => {
-    try {
-      return (import.meta as ImportMeta & { env?: Record<string, string> }).env ?? {}
-    } catch {
-      return {}
-    }
-  })()
-  const supabaseUrl = runtimeEnv.VITE_SUPABASE_URL
-  const supabaseAnonKey = runtimeEnv.VITE_SUPABASE_ANON_KEY
-  if (supabaseUrl && supabaseAnonKey) {
-    return new ResidentEdgeRepository({ supabaseUrl, anonKey: supabaseAnonKey })
+  if (!isSupabaseBrowserConfigured()) {
+    return new InMemoryResidentRepository()
   }
-  return new InMemoryResidentRepository()
+  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
+  const supabaseUrl = env.VITE_SUPABASE_URL
+  const supabaseAnonKey = env.VITE_SUPABASE_ANON_KEY
+  if (!supabaseUrl || !supabaseAnonKey) {
+    return new InMemoryResidentRepository()
+  }
+  return new ResidentEdgeRepository({ supabaseUrl, anonKey: supabaseAnonKey })
 }
 
 const residentRepo = createResidentRepository()
