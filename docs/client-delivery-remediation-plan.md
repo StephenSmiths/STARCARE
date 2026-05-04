@@ -140,6 +140,7 @@
 | 2026-05-03 | **`.cursorrules`** §3 與 **`business-logic.md`** §0、**`feature-list.md`** §8：工程規範與運維入口連動說明對齊。 |
 | 2026-05-03 | **`README.md`** **`business-logic`** 列、**`pdf-alignment-p0-backlog.md`** 工程附錄、**`pdf03-cursorrules-alignment.md`** §3：**`.cursorrules`** §3／**`business-logic`** §0 對照補強。 |
 | 2026-05-03 | **`README.md`** 開頭、`pdf-sequenced-gap-checklist.md`「相關檔」、**`feature-list.md`** 頁尾／§8：**`.cursorrules`** §3 一句式入口。 |
+| 2026-05-03 | **`security-token-rotation-checklist.md`** 標題下增對照 **`business-logic.md`** §0、**`go-live-checklist.md`**、**`supabase-deploy-runbook.md`**（與上線／runbook／pdf03 一致）。 |
 
 ---
 
