@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { SchedulingSession } from '../../../services/schedulingService'
 import { schedulingConfigService } from '../../../services/schedulingConfigService'
-import { hydrateAuditTrailFromRemote } from '../../../services/auditTrailHydrationService'
-import { isSupabaseBrowserConfigured } from '../../../services/supabaseBrowserEnv'
+import { hydrateAuditTrailAfterLocalRecord } from '../../../services/auditTrailHydrationService'
 import { useAuth, useAuthActorId, resolveStaffProfileIdForWorkPlans } from '../../auth'
 import { useInvalidateOnSystemSettingsExternalChange } from '../../systemSettings'
 import {
@@ -85,9 +84,7 @@ export const useWorkSessionPlans = () => {
       try {
         acceptWorkSession(actorId, sessionId)
         bumpStore()
-        if (isSupabaseBrowserConfigured()) {
-          void hydrateAuditTrailFromRemote().catch(() => {})
-        }
+        hydrateAuditTrailAfterLocalRecord()
       } catch (error) {
         window.alert(error instanceof Error ? error.message : '接收失敗')
       }
@@ -100,9 +97,7 @@ export const useWorkSessionPlans = () => {
       try {
         rejectWorkSession(actorId, sessionId)
         bumpStore()
-        if (isSupabaseBrowserConfigured()) {
-          void hydrateAuditTrailFromRemote().catch(() => {})
-        }
+        hydrateAuditTrailAfterLocalRecord()
       } catch (error) {
         window.alert(error instanceof Error ? error.message : '拒絕失敗')
       }
@@ -115,9 +110,7 @@ export const useWorkSessionPlans = () => {
       await bulkSoftDeleteWorkSessionsForTeam(actorId, sessionIds)
       bumpStore()
       await reload()
-      if (isSupabaseBrowserConfigured()) {
-        void hydrateAuditTrailFromRemote().catch(() => {})
-      }
+      hydrateAuditTrailAfterLocalRecord()
     },
     [actorId, bumpStore, reload],
   )

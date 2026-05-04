@@ -1,5 +1,6 @@
 import { createAuditTrailRepository } from '../repositories/auditTrailRepository'
 import { globalAuditTrailService } from './auditTrailService'
+import { isSupabaseBrowserConfigured } from './supabaseBrowserEnv'
 
 let inFlight = false
 
@@ -16,4 +17,10 @@ export const hydrateAuditTrailFromRemote = async (): Promise<void> => {
   } finally {
     inFlight = false
   }
+}
+
+/** 本機 `record`／domain 審計後：若瀏覽器已設定 Supabase，非阻塞合併遠端列（Seq 12 UX） */
+export const hydrateAuditTrailAfterLocalRecord = (): void => {
+  if (!isSupabaseBrowserConfigured()) return
+  void hydrateAuditTrailFromRemote().catch(() => {})
 }

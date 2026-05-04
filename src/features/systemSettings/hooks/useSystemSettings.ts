@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from 'react'
+import { hydrateAuditTrailAfterLocalRecord } from '../../../services/auditTrailHydrationService'
 import { globalAuditTrailService } from '../../../services/auditTrailService'
 /** 勿自 `../index` barrel 匯入：index 匯出之 `SystemSettingsHome` 依賴本 hook，會循環依賴 */
 import { validateSystemSettings } from '../domain/systemSettingsValidation'
@@ -48,6 +49,7 @@ export const useSystemSettings = (actorId: string): UseSystemSettingsResult => {
       detail: '儲存院舍系統設定（本地暫存）（PDF 02【16】Seq 29）',
       occurredAt: new Date().toISOString(),
     })
+    hydrateAuditTrailAfterLocalRecord()
     setSavedMessage('已儲存（僅本機瀏覽器；後端同步待接）')
     setIsSaving(false)
     lockRef.current = false

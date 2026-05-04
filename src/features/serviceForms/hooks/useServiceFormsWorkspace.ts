@@ -18,7 +18,7 @@ import {
   upsertDraftServiceForm,
 } from '../services/serviceFormDomainService'
 import { softDeleteServiceForm } from '../services/serviceFormSoftDeleteService'
-import { hydrateAuditTrailFromRemote } from '../../../services/auditTrailHydrationService'
+import { hydrateAuditTrailAfterLocalRecord } from '../../../services/auditTrailHydrationService'
 import { isSupabaseBrowserConfigured } from '../../../services/supabaseBrowserEnv'
 
 const FACILITY_ID = 'facility-main'
@@ -130,7 +130,7 @@ export const useServiceFormsWorkspace = () => {
       void (async () => {
         try {
           await serviceFormRepoRef.current.upsertForm(FACILITY_ID, next)
-          if (skipAudit) await hydrateAuditTrailFromRemote()
+          if (skipAudit) hydrateAuditTrailAfterLocalRecord()
         } catch {
           /* 樂觀本機列保留；審計刷新失敗不阻斷 UI */
         }

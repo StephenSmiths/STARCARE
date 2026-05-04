@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from 'react'
+import { hydrateAuditTrailAfterLocalRecord } from '../../../services/auditTrailHydrationService'
 import { loadShiftStartHandovers } from '../../../services/shiftStartHandoverStorage'
 import { useAuthActorId } from '../../auth'
 import {
@@ -38,6 +39,7 @@ export const useShiftStartHandoverWorkspace = (): ShiftStartHandoverWorkspace =>
       try {
         const row = upsertShiftStartHandoverDraft(actorId, shiftDate, fields, editingId)
         refresh()
+        hydrateAuditTrailAfterLocalRecord()
         return row
       } finally {
         busyRef.current = false
@@ -53,6 +55,7 @@ export const useShiftStartHandoverWorkspace = (): ShiftStartHandoverWorkspace =>
       try {
         submitShiftStartHandover(actorId, record)
         refresh()
+        hydrateAuditTrailAfterLocalRecord()
       } finally {
         busyRef.current = false
       }
