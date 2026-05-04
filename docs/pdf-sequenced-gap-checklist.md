@@ -4,7 +4,8 @@
 > **狀態欄建議填**：`未開始`／`進行中`／`已驗證`（已驗證＝對照 PDF 有證據，非僅自認完成）。  
 > **02 編號**：PDF 內 **【5】出現兩次**（填寫表單、開工接更），本清單拆成 **【5】** 與 **【5b】** 以利追蹤。
 
-**相關檔**：`docs/feature-list.md`（現況盤點）、`docs/business-logic.md`（01 條文整理）、`docs/client-delivery-remediation-plan.md`（對客戶流程）、`docs/pdf-alignment-p0-backlog.md`（母本全對齊 P0 可勾選項）。
+**相關檔**：`docs/feature-list.md`（現況盤點）、`docs/business-logic.md`（01 條文整理）、`docs/client-delivery-remediation-plan.md`（對客戶流程）、`docs/pdf-alignment-p0-backlog.md`（母本全對齊 P0 可勾選項）。  
+**運維與工程**：`docs/go-live-checklist.md`（上線）、`docs/supabase-deploy-runbook.md`（**`ops:deploy:all`**、**`npm run ci`**）、`docs/security-token-rotation-checklist.md`（PAT）、`docs/pdf03-cursorrules-alignment.md`（Seq 37 PR 檢核）。
 
 ---
 
@@ -247,3 +248,4 @@
 | 2026-05-03 | **`go-live-checklist.md`** §0：PAT／部署目標鏈結憑證清單與 runbook；**`business-logic.md`** §0 增憑證清單一行。 |
 | 2026-05-03 | **`client-delivery-remediation-plan.md`** §2 增上線／runbook／憑證附件說明；**`feature-list.md`** 頁尾、**`pdf03-cursorrules-alignment.md`** §4 維護項補 **`security-token-rotation-checklist`**。 |
 | 2026-05-03 | **`README.md`** 文件表增 **client-delivery**、**pdf03**；**`phase4-day4-automation-runbook.md`**／**`phase5-day1-automation-runbook.md`** 雲端檢查項補 **runbook** §3 與 **`npm run ops:verify`**；**`feature-list.md`** §8 README 項同步；**`client-delivery-remediation-plan.md`** §8 修訂紀錄對照 README。 |
+| 2026-05-03 | 主檔「**相關檔**」增 **運維與工程** 一行（**go-live**／**runbook**／憑證／**pdf03**）；**`pdf-alignment-p0-backlog.md`** 首段增 **工程／驗收附錄**（**`npm run ci`**、**`ops:deploy:all`**、§8、憑證清單）及修訂紀錄 **2026-05-03**。 |

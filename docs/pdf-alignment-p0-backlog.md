@@ -4,6 +4,8 @@
 > **用法**：每項 `- [ ]` 完成後改 `- [x]`，並在內部 issue 或 PR 附 **PDF 頁碼／【N】／SQL／E2E 連結**。  
 > **母本**：`docs/pdf/01-…`、`02-…`、`03-…`；條文整理見 `docs/business-logic.md`。
 
+**工程／驗收附錄**：本機全閘 **`npm run ci`**（**`README.md`**、`docs/feature-list.md` §8）；遠端部署 **`npm run ops:deploy:all`** 見 **`docs/supabase-deploy-runbook.md`** §2；審計正式庫抽測見 **`docs/go-live-checklist.md`** §8；PAT 與部署後自檢見 **`docs/security-token-rotation-checklist.md`**。
+
 ---
 
 ## A 區：Seq 1～12（01 鐵律與資料治理）
@@ -73,6 +75,7 @@
 
 | 日期 | 說明 |
 |------|------|
+| 2026-05-03 | 首段增 **工程／驗收附錄**（**`npm run ci`**、**`ops:deploy:all`**、**go-live** §8、憑證清單）；與 **`pdf-sequenced-gap-checklist.md`** 主檔「運維與工程」對照。 |
 | 2026-05-02 | 初版：依 `docs/pdf-sequenced-gap-checklist.md` Seq 1～38 摘要「仍待／待／需」拆為可勾選 P0。 |
 | 2026-05-02 | 程式進度：`staff-profiles-list` Edge＋`StaffOverviewRow.roleType`；儀表盤 PT/OT 以 DB `role_type` 為優先（P0「Seq 13 PT/OT」之實作面；**逐欄對表簽核**仍待）。 |
 | 2026-05-02 | 程式進度：員工概覽 CSV 匯出增 **職類** 欄（Seq 26 匯出面向；**xlsx／母本逐字**仍待）。 |
