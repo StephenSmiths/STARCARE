@@ -89,13 +89,14 @@
 
 ## 7. Edge Functions 對照（技術索引）
 
-下列為 `package.json`／部署腳本中出現之 **Edge Functions**（供與上表核對；**不作為業務功能編號**）。
+下列為 `package.json`／部署腳本中出現之 **Edge Functions**（供與上表核對；**不作為業務功能編號**）。**遠端一鍵部署**以 **`npm run ops:deploy:all`** 為準（與下表及 **`ops:deploy:all`** 列舉一致；步驟見 **`docs/supabase-deploy-runbook.md`** §2）。
 
 | Function | 關聯功能編號（示例） |
 |-----------|----------------------|
 | `residents-list` / `residents-get`（Staff 可讀）／`residents-create`／`residents-update`／`residents-soft-delete`（寫入：**`guardTeamLeadOrAdmin`**） | RES-04～RES-05、RES-03 |
 | `residents-import-validate` / `residents-import-commit` | RES-02 |
 | `staff-import-validate` / `staff-import-commit` | STF-02 |
+| `staff-soft-delete` | STF-01、STF-02（連動 skills／sessions 等） |
 | `staff-skills-list` | STF-01 |
 | `staff-profiles-list` | STF-01、Seq 13（儀表盤 PT/OT 讀 `role_type`；`service_scope`） |
 | `staff-profile-update` | Seq 26（TeamLead／Admin 單筆主檔） |
@@ -106,6 +107,7 @@
 | `activity-sessions-list` | ACT-02 |
 | `activity-sessions-import-validate` / `activity-sessions-import-commit`；`activity-sessions-soft-delete`（寫入：**`guardTeamLeadOrAdmin`**） | ACT-01、活動時段手動軟刪 |
 | `service-forms-list`（`approvedOnly=1` 僅 APPROVED）／`service-forms-upsert`／`service-forms-soft-delete`；DB `service_forms` **SELECT RLS**（`20260502103000_service_forms_rls`） | Seq 3／10／17／23 |
+| `audit-trail-append` / `audit-trail-list` | RES-06、Seq 12 |
 | `_shared/requireStaffUser` 等 | CORE-01 授權鏈 | 
 
 ---
@@ -123,4 +125,4 @@
 
 ---
 
-*文件產生：依倉庫 `src/`、`supabase/functions/`、`docs/go-live-checklist.md` 與 `docs/supabase-deploy-runbook.md`（§6 前端 CI）整理；若與實機行為不符，以程式與 DB 為準。*
+*文件產生：依倉庫 `src/`、`supabase/functions/`、`docs/go-live-checklist.md` 與 `docs/supabase-deploy-runbook.md`（§2 遠端部署、§6 前端 CI）整理；若與實機行為不符，以程式與 DB 為準。*

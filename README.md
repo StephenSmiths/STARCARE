@@ -27,6 +27,7 @@ npm run build:demo       # 清空 VITE_SUPABASE_* 之 production bundle（與 CI
 ```
 
 - **Supabase**：複製 `.env.example` 為 `.env` 並填入 `VITE_SUPABASE_URL`、`VITE_SUPABASE_ANON_KEY` 後即可走真實登入與 Edge。
+- **後端部署**：見 [docs/supabase-deploy-runbook.md](docs/supabase-deploy-runbook.md)；建議 **`npm run ops:deploy:all`**（含 migration 與目前倉庫所列 Edge，**§2**）。
 - **CI**：推上 GitHub 後由 [`.github/workflows/ci.yml`](.github/workflows/ci.yml) 執行（含 Playwright 快取；demo 建置為 **`npm run build:demo`**，避免與本機 `.env` 內嵌 Supabase 混用）。
 
 ## 技術棧
