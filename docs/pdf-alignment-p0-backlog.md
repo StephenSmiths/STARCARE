@@ -81,6 +81,7 @@
 | 2026-05-03 | **工程／驗收附錄**補 **`residents-edge-function-contract`**、**`assessment-completion-records-contract`** 鏈結；補 **`phase4-day4-delivery-index`**／**`phase5-day1-delivery-index`** 與 **`acceptance:*`** 對照；**`pdf03-cursorrules-alignment.md`** §3 文件入口檢核補 **`README`** 交付索引列；補 **`.cursorrules`** §3／**`business-logic.md`** §0／**`pdf03`** §4 並讀一句。 |
 | 2026-05-04 | **`business-logic.md`** §0、**`README.md`**、**`feature-list.md`** §8：補 Stage 2／Phase 3 **歷史追溯**路徑（權威仍為 **§0** 與現行分階索引）。 |
 | 2026-05-06 | **工程／驗收附錄**：補 **`pdf-sequenced-gap-checklist.md`** 主檔「**運維與工程**」列與 §0／**Stage 2／Phase 3** 互鏈；**`.cursorrules`** §3、**`feature-list.md`** §8、**`pdf03`** §3 PR 檢核同步。 |
+| 2026-05-07 | **`README.md`** 開頭／文件表與 **`pdf03`** §3：補序號主檔「**運維與工程**」與 **§0**／**§3** 對齊敘述；**`feature-list.md`** §8 README 項同步。 |
 | 2026-05-02 | 初版：依 `docs/pdf-sequenced-gap-checklist.md` Seq 1～38 摘要「仍待／待／需」拆為可勾選 P0。 |
 | 2026-05-02 | 程式進度：`staff-profiles-list` Edge＋`StaffOverviewRow.roleType`；儀表盤 PT/OT 以 DB `role_type` 為優先（P0「Seq 13 PT/OT」之實作面；**逐欄對表簽核**仍待）。 |
 | 2026-05-02 | 程式進度：員工概覽 CSV 匯出增 **職類** 欄（Seq 26 匯出面向；**xlsx／母本逐字**仍待）。 |

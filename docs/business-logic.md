@@ -214,3 +214,4 @@
 | 2026-05-04 | §0：增 **Stage 2／Phase 3 歷史追溯**一行；**`README.md`** 文件表、**`feature-list.md`** 頁尾／§8、**`pdf03-cursorrules-alignment.md`** §3 PR 檢核／§4、**`pdf-alignment-p0-backlog.md`** 修訂紀錄同步。 |
 | 2026-05-05 | **`pdf-sequenced-gap-checklist.md`** 主檔「**運維與工程**」：補 **Stage 2／Phase 3** 與 **§0**／**`README`** 互鏈一句；**`pdf03-cursorrules-alignment.md`** §4 維護項補「主檔「**運維與工程**」列」同步對象。 |
 | 2026-05-06 | **`.cursorrules`** §3：補 **`pdf-sequenced-gap-checklist.md`** 主檔「**運維與工程**」與 §0 對齊；**`pdf-alignment-p0-backlog.md`** 工程附錄、**`feature-list.md`** §8 README 項／頁尾、**`pdf03-cursorrules-alignment.md`** §3 PR 檢核（**`.cursorrules`** §3 專項）同步。 |
+| 2026-05-07 | **`README.md`** 開頭與文件表 **`pdf-sequenced-gap-checklist.md`** 列：補「**運維與工程**」與 **§0**／**§3** 對齊說明；**`feature-list.md`** §8 README 項、**`pdf03-cursorrules-alignment.md`** §3「文件入口」同步。 |

@@ -148,6 +148,7 @@
 | 2026-05-04 | **`business-logic.md`** §0、**`README.md`** 文件表、**`feature-list.md`** 頁尾／§8、**`pdf03-cursorrules-alignment.md`** §3／§4、**`pdf-alignment-p0-backlog.md`**：補 Stage 2／Phase 3 **歷史追溯**路徑（非現行交付權威）。 |
 | 2026-05-05 | **`pdf-sequenced-gap-checklist.md`** 主檔「**運維與工程**」補歷史入口；**`pdf03-cursorrules-alignment.md`** §4 維護項補主檔該列；**`business-logic.md`** §8 一筆。 |
 | 2026-05-06 | **`.cursorrules`** §3、**`pdf-alignment-p0-backlog.md`** 工程附錄、**`feature-list.md`** §8、**`pdf03`** §3：與序號主檔「**運維與工程**」列閉環對齊。 |
+| 2026-05-07 | **`README.md`** 開頭／文件表、**`pdf03-cursorrules-alignment.md`** §3、**`feature-list.md`** §8：補 **`pdf-sequenced-gap-checklist.md`**「**運維與工程**」與 **§0**／**§3** 對齊敘述。 |
 
 ---
 

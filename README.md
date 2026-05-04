@@ -1,13 +1,13 @@
 # STARCARE System
 
-智能院舍照護管理前端（React + TypeScript + Vite）。業務母本與缺口追蹤見 `docs/pdf/` 與下列文件。工程規範與部署／驗收閘門見專案根目錄 **`.cursorrules`**（**§3**）及 **`docs/business-logic.md`** §0。
+智能院舍照護管理前端（React + TypeScript + Vite）。業務母本與缺口追蹤見 `docs/pdf/` 與下列文件。工程規範與部署／驗收閘門見專案根目錄 **`.cursorrules`**（**§3**）及 **`docs/business-logic.md`** §0；序號清單主檔「**運維與工程**」路徑彙列見 **`docs/pdf-sequenced-gap-checklist.md`**（與 **§0**／**§3** 對齊）。
 
 ## 文件入口
 
 | 文件 | 用途 |
 |------|------|
 | [docs/feature-list.md](docs/feature-list.md) | 功能清單、CI／E2E／Dependabot 說明（§8） |
-| [docs/pdf-sequenced-gap-checklist.md](docs/pdf-sequenced-gap-checklist.md) | PDF 對齊序號檢核（Seq 1～38） |
+| [docs/pdf-sequenced-gap-checklist.md](docs/pdf-sequenced-gap-checklist.md) | PDF 對齊序號檢核（Seq 1～38）；主檔「**運維與工程**」列彙列 go-live／runbook／憑證等（與 [business-logic.md](docs/business-logic.md) §0、**`.cursorrules`** §3 一致） |
 | [docs/pdf-alignment-p0-backlog.md](docs/pdf-alignment-p0-backlog.md) | 母本全對齊 P0 可勾選 backlog |
 | [docs/business-logic.md](docs/business-logic.md) | 01 條文整理；**§0** 權威入口（含 **`.cursorrules`** §3 部署／驗收閘門連動） |
 | [docs/adr-0001-scheduling-logic-placement.md](docs/adr-0001-scheduling-logic-placement.md) | ADR：排班演算放置（前端 vs Edge／DB，Seq 36） |
