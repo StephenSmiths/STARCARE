@@ -269,3 +269,4 @@
 | 2026-05-03 | **`security-token-rotation-checklist.md`** §D：部署後自檢增可選 **`npm run ci`**；**`adr-0001-scheduling-logic-placement.md`**「相關文件」補 **`feature-list`** §8 與 Phase 交付索引。 |
 | 2026-05-03 | **`go-live-checklist.md`** §6：PAT 驗證部署項補鏈結 **`security-token-rotation-checklist.md`** §D（可選 **`npm run ci`**、**`acceptance:*`** 對照）；**`business-logic.md`** §0 憑證一行同步。 |
 | 2026-05-03 | 主檔「**運維與工程**」、**`rbac-seq1-verification-checklist.md`** §1、**`pdf-alignment-p0-backlog.md`** 工程附錄、**`feature-list.md`** 頁尾、**`client-delivery-remediation-plan.md`** §2：憑證敘述統一標 **§D**／可選 **`npm run ci`**。 |
+| 2026-05-03 | **`README.md`** 憑證列、**`go-live-checklist.md`** §0、**`supabase-deploy-runbook.md`** §6、**`feature-list.md`** §8 README 項：補 **§D**／可選 **`npm run ci`** 與 **`go-live`** §6 鏈結。 |

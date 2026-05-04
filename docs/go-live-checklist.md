@@ -2,7 +2,7 @@
 
 ## 0. 今日上線目標
 - [ ] 完成最小閉環驗收（登入 -> 排班 -> 儲存 -> DB 驗證）
-- [ ] 完成安全收尾（PAT 輪替、舊 PAT 停用；見 **`docs/security-token-rotation-checklist.md`**）
+- [ ] 完成安全收尾（PAT 輪替、舊 PAT 停用；見 **`docs/security-token-rotation-checklist.md`**；**§D** 可選 **`npm run ci`**）
 - [ ] 完成部署狀態確認（migration/functions；見 **`docs/supabase-deploy-runbook.md`** §2／§3）
 
 ## 1. 身分與授權（Auth / RLS）
