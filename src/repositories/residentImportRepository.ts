@@ -1,4 +1,4 @@
-import { isSupabaseBrowserConfigured } from '../services/supabaseBrowserEnv'
+import { getSupabaseBrowserCredentials } from '../services/supabaseBrowserEnv'
 import { buildEdgeInvokeHeaders } from './edgeFunctionHeaders'
 
 export type ResidentImportRow = {
@@ -130,14 +130,9 @@ class EdgeResidentImportRepository implements ResidentImportRepository {
 }
 
 export const createResidentImportRepository = (): ResidentImportRepository => {
-  if (!isSupabaseBrowserConfigured()) {
+  const creds = getSupabaseBrowserCredentials()
+  if (!creds) {
     return new InMemoryResidentImportRepository()
   }
-  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
-  const supabaseUrl = env.VITE_SUPABASE_URL
-  const anonKey = env.VITE_SUPABASE_ANON_KEY
-  if (!supabaseUrl || !anonKey) {
-    return new InMemoryResidentImportRepository()
-  }
-  return new EdgeResidentImportRepository({ supabaseUrl, anonKey })
+  return new EdgeResidentImportRepository({ supabaseUrl: creds.supabaseUrl, anonKey: creds.anonKey })
 }

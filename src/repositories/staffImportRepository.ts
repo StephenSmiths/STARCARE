@@ -1,4 +1,4 @@
-import { isSupabaseBrowserConfigured } from '../services/supabaseBrowserEnv'
+import { getSupabaseBrowserCredentials } from '../services/supabaseBrowserEnv'
 import { buildEdgeInvokeHeaders } from './edgeFunctionHeaders'
 
 export type StaffImportRow = {
@@ -99,14 +99,9 @@ class EdgeStaffImportRepository implements StaffImportRepository {
 }
 
 export const createStaffImportRepository = (): StaffImportRepository => {
-  if (!isSupabaseBrowserConfigured()) {
+  const creds = getSupabaseBrowserCredentials()
+  if (!creds) {
     return new InMemoryStaffImportRepository()
   }
-  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
-  const supabaseUrl = env.VITE_SUPABASE_URL
-  const anonKey = env.VITE_SUPABASE_ANON_KEY
-  if (!supabaseUrl || !anonKey) {
-    return new InMemoryStaffImportRepository()
-  }
-  return new EdgeStaffImportRepository({ supabaseUrl, anonKey })
+  return new EdgeStaffImportRepository({ supabaseUrl: creds.supabaseUrl, anonKey: creds.anonKey })
 }

@@ -1,4 +1,4 @@
-import { isSupabaseBrowserConfigured } from '../services/supabaseBrowserEnv'
+import { getSupabaseBrowserCredentials } from '../services/supabaseBrowserEnv'
 import { buildEdgeInvokeHeaders } from './edgeFunctionHeaders'
 
 export interface StaffProfileRepository {
@@ -36,14 +36,9 @@ class EdgeStaffProfileRepository implements StaffProfileRepository {
 }
 
 export const createStaffProfileRepository = (): StaffProfileRepository => {
-  if (!isSupabaseBrowserConfigured()) {
+  const creds = getSupabaseBrowserCredentials()
+  if (!creds) {
     return new InMemoryStaffProfileRepository()
   }
-  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
-  const supabaseUrl = env.VITE_SUPABASE_URL
-  const anonKey = env.VITE_SUPABASE_ANON_KEY
-  if (!supabaseUrl || !anonKey) {
-    return new InMemoryStaffProfileRepository()
-  }
-  return new EdgeStaffProfileRepository({ supabaseUrl, anonKey })
+  return new EdgeStaffProfileRepository({ supabaseUrl: creds.supabaseUrl, anonKey: creds.anonKey })
 }

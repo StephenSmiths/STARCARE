@@ -1,4 +1,4 @@
-import { isSupabaseBrowserConfigured } from '../services/supabaseBrowserEnv'
+import { getSupabaseBrowserCredentials } from '../services/supabaseBrowserEnv'
 import { buildEdgeInvokeHeaders } from './edgeFunctionHeaders'
 
 /** 寫入 public.scheduling_history（snake_case；由 Edge 批量 INSERT） */
@@ -93,14 +93,9 @@ export class EdgeScheduleAssignmentRepository implements ScheduleAssignmentRepos
 }
 
 export const createScheduleAssignmentRepository = (): ScheduleAssignmentRepository => {
-  if (!isSupabaseBrowserConfigured()) {
+  const creds = getSupabaseBrowserCredentials()
+  if (!creds) {
     return new InMemoryScheduleAssignmentRepository()
   }
-  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
-  const url = env.VITE_SUPABASE_URL
-  const key = env.VITE_SUPABASE_ANON_KEY
-  if (!url || !key) {
-    return new InMemoryScheduleAssignmentRepository()
-  }
-  return new EdgeScheduleAssignmentRepository({ supabaseUrl: url, anonKey: key })
+  return new EdgeScheduleAssignmentRepository({ supabaseUrl: creds.supabaseUrl, anonKey: creds.anonKey })
 }

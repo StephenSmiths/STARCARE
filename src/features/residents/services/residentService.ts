@@ -1,5 +1,8 @@
 import { globalAuditTrailService } from '../../../services/auditTrailService'
-import { isSupabaseBrowserConfigured } from '../../../services/supabaseBrowserEnv'
+import {
+  getSupabaseBrowserCredentials,
+  isSupabaseBrowserConfigured,
+} from '../../../services/supabaseBrowserEnv'
 import {
   InMemoryResidentRepository,
   type ResidentRepository,
@@ -179,16 +182,11 @@ export class ResidentService {
 }
 
 const createResidentRepository = (): ResidentRepository => {
-  if (!isSupabaseBrowserConfigured()) {
+  const creds = getSupabaseBrowserCredentials()
+  if (!creds) {
     return new InMemoryResidentRepository()
   }
-  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
-  const supabaseUrl = env.VITE_SUPABASE_URL
-  const supabaseAnonKey = env.VITE_SUPABASE_ANON_KEY
-  if (!supabaseUrl || !supabaseAnonKey) {
-    return new InMemoryResidentRepository()
-  }
-  return new ResidentEdgeRepository({ supabaseUrl, anonKey: supabaseAnonKey })
+  return new ResidentEdgeRepository({ supabaseUrl: creds.supabaseUrl, anonKey: creds.anonKey })
 }
 
 const residentRepo = createResidentRepository()
