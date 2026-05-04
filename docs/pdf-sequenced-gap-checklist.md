@@ -249,3 +249,4 @@
 | 2026-05-03 | **`client-delivery-remediation-plan.md`** §2 增上線／runbook／憑證附件說明；**`feature-list.md`** 頁尾、**`pdf03-cursorrules-alignment.md`** §4 維護項補 **`security-token-rotation-checklist`**。 |
 | 2026-05-03 | **`README.md`** 文件表增 **client-delivery**、**pdf03**；**`phase4-day4-automation-runbook.md`**／**`phase5-day1-automation-runbook.md`** 雲端檢查項補 **runbook** §3 與 **`npm run ops:verify`**；**`feature-list.md`** §8 README 項同步；**`client-delivery-remediation-plan.md`** §8 修訂紀錄對照 README。 |
 | 2026-05-03 | 主檔「**相關檔**」增 **運維與工程** 一行（**go-live**／**runbook**／憑證／**pdf03**）；**`pdf-alignment-p0-backlog.md`** 首段增 **工程／驗收附錄**（**`npm run ci`**、**`ops:deploy:all`**、§8、憑證清單）及修訂紀錄 **2026-05-03**。 |
+| 2026-05-03 | **`README.md`** 文件表增 **`pdf-alignment-p0-backlog.md`**；**`business-logic.md`** §0 增 P0 backlog 一行；**`feature-list.md`** §8 README 項同步；**`client-delivery-remediation-plan.md`** §2 第 4 點補 P0 backlog。 |

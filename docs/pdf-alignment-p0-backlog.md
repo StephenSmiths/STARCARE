@@ -75,7 +75,7 @@
 
 | 日期 | 說明 |
 |------|------|
-| 2026-05-03 | 首段增 **工程／驗收附錄**（**`npm run ci`**、**`ops:deploy:all`**、**go-live** §8、憑證清單）；與 **`pdf-sequenced-gap-checklist.md`** 主檔「運維與工程」對照。 |
+| 2026-05-03 | 首段增 **工程／驗收附錄**（**`npm run ci`**、**`ops:deploy:all`**、**go-live** §8、憑證清單）；與 **`pdf-sequenced-gap-checklist.md`** 主檔「運維與工程」對照；**`README.md`**／**`business-logic.md`** §0 增本檔入口。 |
 | 2026-05-02 | 初版：依 `docs/pdf-sequenced-gap-checklist.md` Seq 1～38 摘要「仍待／待／需」拆為可勾選 P0。 |
 | 2026-05-02 | 程式進度：`staff-profiles-list` Edge＋`StaffOverviewRow.roleType`；儀表盤 PT/OT 以 DB `role_type` 為優先（P0「Seq 13 PT/OT」之實作面；**逐欄對表簽核**仍待）。 |
 | 2026-05-02 | 程式進度：員工概覽 CSV 匯出增 **職類** 欄（Seq 26 匯出面向；**xlsx／母本逐字**仍待）。 |
