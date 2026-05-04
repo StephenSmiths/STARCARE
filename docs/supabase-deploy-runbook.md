@@ -16,6 +16,8 @@ npm run ops:deploy:all
 
 若需單支除錯，可改 **`npx supabase functions deploy <function-name>`**（名稱與 **`ops:deploy:all`** 內之 **`deploy …`** 一致）。
 
+- 遠端若曾以**舊版** **`ops:deploy:all`**（未含 **`service-forms-list`**／**`upsert`**／**`soft-delete`**）部署，請再執行一次 **`npm run ops:deploy:all`** 以補齊服務表單 Edge；變更說明見 **`docs/pdf-sequenced-gap-checklist.md`**（**2026-05-03**）。
+
 ## 3) 快速狀態檢查
 ```bash
 SUPABASE_ACCESS_TOKEN="<PAT>" npx supabase migration list

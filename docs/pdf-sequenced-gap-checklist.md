@@ -57,7 +57,7 @@
 |-----|------------|--------------------|-------------------|----------|
 | 35 | 03 | 與 `.cursorrules` **並讀**；若有衝突，**客戶簽核 PDF 優先** | 已補 `docs/pdf03-cursorrules-alignment.md`（對照矩陣＋維護說明）；仍待客戶 PDF 換版後覆核 | 差異表 |
 | 36 | 03＋01 | 「複雜邏輯優先 Edge／DB」vs 現行**前端排班** | 已補 `docs/adr-0001-scheduling-logic-placement.md`（MVP 前端／上線後端權威之遷移原則） | 書面架構決策 |
-| 37 | 03 | 閉環／SRP／200 行等工程約束於**新模組**落實 | 已於 `docs/pdf03-cursorrules-alignment.md` §3 納入 PR 檢核表（含 CI／E2E 變更時 **`build:demo`**／**`.env.example`** 同步項）；**Dependabot** `.github/dependabot.yml`（npm 週一檢查、上限 8 PR）；既有碼仍漸進收斂 | Code review 規則 |
+| 37 | 03 | 閉環／SRP／200 行等工程約束於**新模組**落實 | 已於 `docs/pdf03-cursorrules-alignment.md` §3 納入 PR 檢核表（含 CI／E2E 變更時 **`build:demo`**／**`.env.example`** 同步項；**新 Edge** 時 **`ops:deploy:all`**／**`feature-list.md` §7**／日誌）；**Dependabot** `.github/dependabot.yml`（npm 週一檢查、上限 8 PR）；既有碼仍漸進收斂 | Code review 規則 |
 | 38 | 全份 | **三 PDF 版本號／日期**寫入 `docs/business-logic.md` 修訂或獨立 `VERSIONS` | 已補 `docs/business-logic.md` §0.1（含三份母本 SHA-256）；等待客戶補版次／日期 | 客戶確認信 |
 
 ---
@@ -242,3 +242,4 @@
 | 2026-05-03 | **`phase5-day1-delivery-index.md`**：§4／§6 與 **`ops:deploy:all`**（含 db push）及 runbook §2 對齊。 |
 | 2026-05-03 | **`feature-list.md`** §7：補 **`ops:deploy:all`**／runbook §2 說明；Edge 表增 **`staff-soft-delete`**、**`audit-trail-append`**／**`list`**；頁尾 runbook 註記 §2／§6；**`README.md`** 增後端部署要點。 |
 | 2026-05-03 | **`package.json`** **`ops:deploy:all`**：補 **`service-forms-list`**／**`upsert`**／**`soft-delete`**（與 **`supabase/functions/`** 一致）；**`feature-list.md`** §7 改列 **`scheduling-kpi-history-upsert`**／**`clear`** 全名並註明新增 Edge 須同步腳本與本表。 |
+| 2026-05-03 | **`supabase-deploy-runbook.md`** §2：補舊版 **`ops:deploy:all`** 須重跑以佈署 **service-forms-*** 之說明；**`pdf03-cursorrules-alignment.md`** §3／§4 增新 Edge 與 **`ops:deploy:all`** 同步項；主表 Seq 37「與現況對照」同步。 |
