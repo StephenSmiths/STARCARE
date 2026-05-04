@@ -1,5 +1,7 @@
 # STARCARE Phase 4 最終打包寄送清單
 
+> **對照**：交付索引 **`docs/phase4-day4-delivery-index.md`**；運維與 CI 總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）、**`docs/feature-list.md`** §8（**`npm run ci`**／**`acceptance:day4`**）。
+
 ## 一、用途
 - 提供 Phase 4 完成後的一次性寄送清單，分為「內部技術包」與「對外摘要包」。
 

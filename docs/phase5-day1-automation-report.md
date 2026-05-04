@@ -1,8 +1,10 @@
 # Phase 5 Day 1 自動驗收報告
 
-- 開始時間：5/4/2026, 2:38:59 AM
-- 結束時間：5/4/2026, 2:39:09 AM
-- 總耗時：10.60 秒
+> **對照**：運維與文件總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；交付索引 **`docs/phase5-day1-delivery-index.md`**；末節與 **`docs/phase5-day1-automation-runbook.md`** §三、**`docs/feature-list.md`** §8（**`npm run ci`**／**`acceptance:phase5`**）。
+
+- 開始時間：5/4/2026, 3:07:22 AM
+- 結束時間：5/4/2026, 3:07:34 AM
+- 總耗時：11.35 秒
 - 結果：PASS
 
 ## 一、文件存在檢查
@@ -16,8 +18,8 @@
 - [x] `docs/phase5-day1-automation-runbook.md`
 
 ## 二、本機品質閘門
-- [x] `npm run lint`（6875 ms）
-- [x] `npm run test`（3722 ms）
+- [x] `npm run lint`（6877 ms）
+- [x] `npm run test`（4473 ms）
 
 ## 三、Supabase 狀態（可選）
 - 已略過（未提供 `SUPABASE_ACCESS_TOKEN`）

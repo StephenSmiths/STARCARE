@@ -1,5 +1,7 @@
 # STARCARE Phase 5 Day 1 自動驗收 Runbook
 
+> **對照**：運維與文件總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；交付索引 **`docs/phase5-day1-delivery-index.md`**；窄版 **`acceptance:phase5`** 與全閘 **`npm run ci`** 見 **§三**、**`docs/feature-list.md`** §8。
+
 ## 一、目標
 - 驗證 KPI 趨勢伺服端持久化基礎能力（migration、Edge Functions、前端同步層）已就緒。
 

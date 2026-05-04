@@ -1,5 +1,7 @@
 # STARCARE Phase 4 對外進度摘要（一頁版）
 
+> **對照**：內部技術索引 **`docs/phase4-day4-delivery-index.md`**；運維與驗證閘門總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）。
+
 ## 專案狀態
 - **階段**：Phase 4 Day 1-4 已完成，Day 5 收口文件已建立。
 - **整體結論**：系統已由「可運行」進一步提升至「可量度、可驗收、可交接」。

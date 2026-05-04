@@ -1,6 +1,8 @@
 # Phase 5 Day 1 交付物驗證報告
 
-- 時間：2026-04-30T19:44:25.669Z
+> **對照**：**`docs/business-logic.md`** §0；**`docs/phase5-day1-delivery-index.md`**；關聯自動驗收 **`docs/phase5-day1-automation-report.md`**（**`npm run acceptance:phase5`**）。
+
+- 時間：2026-05-04T02:07:39.538Z
 - 結果：PASS
 
 ## 檢查項目

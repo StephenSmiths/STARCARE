@@ -1,5 +1,7 @@
 # STARCARE Phase 4 Day 5 完成報告
 
+> **對照**：交付索引 **`docs/phase4-day4-delivery-index.md`**、打包清單 **`docs/phase4-final-delivery-package.md`**；運維總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）。
+
 ## 一、範圍與結論
 - Phase 4 目標：將系統由「功能可用」提升為「品質可視化、驗收可自動化、運營可持續」。
 - 結論：Phase 4 Day 1-4 核心交付已完成，並通過本機技術閘門與自動驗收腳本（Day 4）。

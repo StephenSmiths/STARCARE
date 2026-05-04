@@ -49,6 +49,10 @@ const now = new Date().toISOString()
 const lines = []
 lines.push('# Phase 5 Day 1 交付物驗證報告')
 lines.push('')
+lines.push(
+  '> **對照**：**`docs/business-logic.md`** §0；**`docs/phase5-day1-delivery-index.md`**；關聯自動驗收 **`docs/phase5-day1-automation-report.md`**（**`npm run acceptance:phase5`**）。',
+)
+lines.push('')
 lines.push(`- 時間：${now}`)
 lines.push(`- 結果：${pass ? 'PASS' : 'FAIL'}`)
 lines.push('')

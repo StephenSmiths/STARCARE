@@ -1,5 +1,7 @@
 # STARCARE Phase 5 Day 1 完成報告
 
+> **對照**：交付索引 **`docs/phase5-day1-delivery-index.md`**、打包清單 **`docs/phase5-final-delivery-package.md`**；運維總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）。
+
 ## 一、範圍與結論
 - 本階段目標：將排班 KPI 趨勢由「本機快取」升級為「伺服端可持久化與可重試同步」。
 - 結論：Phase 5 Day 1 已完成資料層、API 層、前端同步層與驗收自動化，達到可部署狀態。

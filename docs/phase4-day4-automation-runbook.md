@@ -1,5 +1,7 @@
 # STARCARE Phase 4 Day 4 自動驗收 Runbook
 
+> **對照**：運維與文件總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；交付索引 **`docs/phase4-day4-delivery-index.md`**；窄版 **`acceptance:day4`** 與全閘 **`npm run ci`** 見 **§三**、**`docs/feature-list.md`** §8。
+
 ## 一、目標
 - 以一條指令完成本機驗收閘門與關鍵文件檢查，並輸出可留存的驗收報告。
 

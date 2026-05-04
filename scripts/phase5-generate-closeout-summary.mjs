@@ -35,6 +35,10 @@ const pass = acceptanceResult === 'PASS' && verifyResult === 'PASS' && Boolean(l
 const lines = []
 lines.push('# Phase 5 Day 1 收口摘要')
 lines.push('')
+lines.push(
+  '> **對照**：**`docs/business-logic.md`** §0；**`docs/phase5-day1-delivery-index.md`**；本檔由 **`npm run closeout:phase5:summary`**（或等價收口鏈）依驗收／交付驗證報告彙整。',
+)
+lines.push('')
 lines.push(`- 產生時間：${new Date().toISOString()}`)
 lines.push(`- 收口結果：${pass ? 'PASS' : 'FAIL'}`)
 lines.push('')

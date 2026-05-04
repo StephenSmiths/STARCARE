@@ -1,5 +1,7 @@
 # STARCARE Phase 5 Day 1 發送模板（可直接複製）
 
+> **對照**：打包清單 **`docs/phase5-final-delivery-package.md`**、交付索引 **`docs/phase5-day1-delivery-index.md`**；運維總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）。
+
 ## 1) 內部技術交接模板
 
 主旨：STARCARE Phase 5 Day 1 交付包（內部技術版）
