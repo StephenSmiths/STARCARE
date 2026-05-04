@@ -1,7 +1,7 @@
 # STARCARE 評估完成紀錄（Assessment Completion）契約
 
 > **範圍**：PDF 02【9】／01 §5；資料表 **`assessment_completion_records`**；讀寫經 Edge；**爭議以 `docs/pdf/01-STARCare-核心業務邏輯與-SOP.pdf` 為準**。  
-> **對照**：運維與文件總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；審計正式庫抽測 **`docs/go-live-checklist.md`** §8（RES-06）。
+> **對照**：運維與文件總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**；審計正式庫抽測 **`docs/go-live-checklist.md`** §8（RES-06）。
 
 ## 1. 資料表（PostgreSQL）
 

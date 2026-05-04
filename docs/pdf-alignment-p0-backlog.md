@@ -84,6 +84,7 @@
 | 2026-05-07 | **`README.md`** 開頭／文件表與 **`pdf03`** §3：補序號主檔「**運維與工程**」與 **§0**／**§3** 對齊敘述；**`feature-list.md`** §8 README 項同步。 |
 | 2026-05-08 | **`pdf-sequenced-gap-checklist.md`** 開首 **對照**；**`go-live-checklist.md`** 開首 **對照**；**`.github/workflows/ci.yml`** 註解補文件入口；**`pdf03`** §3／§4；**`feature-list.md`** §8 CI 項。 |
 | 2026-05-09 | **`supabase-deploy-runbook.md`**、**`security-token-rotation-checklist.md`**、**`rbac-seq1-verification-checklist.md`** 開首 **對照** 補 **`pdf-sequenced`**「**運維與工程**」列。 |
+| 2026-05-10 | **`residents-edge-function-contract.md`**、**`assessment-completion-records-contract.md`**、**`feature-list.md`**、**`pdf03`**（標題區／§4）、**`adr-0001`**：補 **`pdf-sequenced`**「**運維與工程**」列互鏈。 |
 | 2026-05-02 | 初版：依 `docs/pdf-sequenced-gap-checklist.md` Seq 1～38 摘要「仍待／待／需」拆為可勾選 P0。 |
 | 2026-05-02 | 程式進度：`staff-profiles-list` Edge＋`StaffOverviewRow.roleType`；儀表盤 PT/OT 以 DB `role_type` 為優先（P0「Seq 13 PT/OT」之實作面；**逐欄對表簽核**仍待）。 |
 | 2026-05-02 | 程式進度：員工概覽 CSV 匯出增 **職類** 欄（Seq 26 匯出面向；**xlsx／母本逐字**仍待）。 |

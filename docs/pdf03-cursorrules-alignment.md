@@ -5,7 +5,7 @@
 
 **母本**：`docs/pdf/03-STARCARE-工程規範-Closed-Loop.pdf`  
 **內部規範**：專案根目錄 `.cursorrules`  
-**與 `business-logic.md` §0**：**`.cursorrules`** §3「部署與驗收閘門」入口見 **`docs/business-logic.md`** §0；變更 **`.cursorrules`** 之同步責任見本文 **§4**。
+**與 `business-logic.md` §0**：**`.cursorrules`** §3「部署與驗收閘門」入口見 **`docs/business-logic.md`** §0；序號主檔「**運維與工程**」路徑彙列見 **`docs/pdf-sequenced-gap-checklist.md`**（開首 **對照**）；變更 **`.cursorrules`** 之同步責任見本文 **§4**。
 
 ---
 
@@ -54,4 +54,4 @@
 - 客戶更新 `03` PDF 後：修訂本表「對照矩陣」與 `docs/business-logic.md` §0.1 指紋。  
 - 若 `.cursorrules` 與本表衝突：以 **客戶簽核 PDF** 為準，並於本表註記日期與決策人。  
 - 變更 **`.cursorrules`** 之 **§3 部署與驗收閘門**（runbook／憑證／**`npm run ci`**），或 **`docs/business-logic.md`** §0 **運維與索引列**（含分階交付、Stage 2／Phase 3 歷史追溯路徑）時，視需要同步 **`README.md`** 文件表與 **`docs/pdf-sequenced-gap-checklist.md`** 日誌及主檔「**運維與工程**」列與標題下 **對照**（**`business-logic.md`** §0 為運維總覽權威）。  
-- 變更 **Supabase 部署步驟**、**SQL 驗收**、**`ops:deploy:all` 列舉**、**PAT／憑證自檢**、**排班架構（`adr-0001`／Seq 36）**、**領域契約**（例：**`docs/residents-edge-function-contract.md`**、**`docs/assessment-completion-records-contract.md`**）或**前端 CI 煙霧（§6）**時，同步 **`docs/supabase-deploy-runbook.md`**、**`docs/security-token-rotation-checklist.md`**（若涉及 PAT／§D）、**`docs/adr-0001-scheduling-logic-placement.md`**（若涉及排班權威層級），並視需要更新 **`README.md`** 文件表（含 **`docs/phase4-day4-delivery-index.md`**／**`docs/phase5-day1-delivery-index.md`** 與 **`npm run ci`**／**`acceptance:*`** 對照）、**`docs/feature-list.md` §7** 與 **`docs/pdf-sequenced-gap-checklist.md`** 日誌。
+- 變更 **Supabase 部署步驟**、**SQL 驗收**、**`ops:deploy:all` 列舉**、**PAT／憑證自檢**、**排班架構（`adr-0001`／Seq 36）**、**領域契約**（例：**`docs/residents-edge-function-contract.md`**、**`docs/assessment-completion-records-contract.md`**）或**前端 CI 煙霧（§6）**時，同步 **`docs/supabase-deploy-runbook.md`**、**`docs/security-token-rotation-checklist.md`**（若涉及 PAT／§D）、**`docs/adr-0001-scheduling-logic-placement.md`**（若涉及排班權威層級），並視需要更新 **`README.md`** 文件表（含 **`docs/phase4-day4-delivery-index.md`**／**`docs/phase5-day1-delivery-index.md`** 與 **`npm run ci`**／**`acceptance:*`** 對照）、**`docs/feature-list.md` §7** 與 **`docs/pdf-sequenced-gap-checklist.md`** 日誌；**領域契約**開首 **對照** 須互鏈 **`pdf-sequenced`** 主檔「**運維與工程**」列。
