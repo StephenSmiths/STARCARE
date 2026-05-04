@@ -1,5 +1,7 @@
 # STARCARE Residents Edge Function 契約
 
+> **對照**：運維與文件總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3「部署與驗收閘門」）；院友功能列 **`docs/feature-list.md`**（§2／§7 Edge 表）；上線抽測 **`docs/go-live-checklist.md`**。
+
 ## 1. 目標與範圍
 - 本文件定義 `residents` 模組對 Supabase Edge Function 的請求/回應契約。
 - 本契約對應欄位以資料庫 snake_case 為準，避免前後端命名歧異。
