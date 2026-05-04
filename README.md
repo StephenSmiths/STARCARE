@@ -9,7 +9,7 @@
 | [docs/feature-list.md](docs/feature-list.md) | 功能清單、CI／E2E／Dependabot 說明（§8） |
 | [docs/pdf-sequenced-gap-checklist.md](docs/pdf-sequenced-gap-checklist.md) | PDF 對齊序號檢核（Seq 1～38） |
 | [docs/pdf-alignment-p0-backlog.md](docs/pdf-alignment-p0-backlog.md) | 母本全對齊 P0 可勾選 backlog |
-| [docs/business-logic.md](docs/business-logic.md) | 01 條文整理 |
+| [docs/business-logic.md](docs/business-logic.md) | 01 條文整理；**§0** 權威入口（含 **`.cursorrules`** §3 部署／驗收閘門連動） |
 | [docs/adr-0001-scheduling-logic-placement.md](docs/adr-0001-scheduling-logic-placement.md) | ADR：排班演算放置（前端 vs Edge／DB，Seq 36） |
 | [docs/residents-edge-function-contract.md](docs/residents-edge-function-contract.md) | 院友 Edge（CRUD／匯入）契約 |
 | [docs/assessment-completion-records-contract.md](docs/assessment-completion-records-contract.md) | 評估完成紀錄 Edge 契約與審計（Seq 22） |

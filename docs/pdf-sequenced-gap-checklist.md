@@ -273,3 +273,4 @@
 | 2026-05-03 | **`README.md`** 常用指令區增「憑證與部署後自檢」短文（**`security-token-rotation-checklist.md`** §D、**`go-live-checklist.md`** §6）；**`feature-list.md`** §8 README 項同步。 |
 | 2026-05-03 | **`.cursorrules`** §3 增「部署與驗收閘門」；**`pdf03-cursorrules-alignment.md`** §4 維護項補 **`.cursorrules`** 變更時之同步對象。 |
 | 2026-05-03 | **`business-logic.md`** §0：補 **`.cursorrules`** §3 與運維文件連動及 **`pdf03`** §4 維護責任；**§8** 修訂紀錄一筆；**`feature-list.md`** §8 README 項同步。 |
+| 2026-05-03 | **`README.md`** **`business-logic`** 列、**`pdf-alignment-p0-backlog.md`** 工程附錄、**`pdf03-cursorrules-alignment.md`** §3、**`feature-list.md`** §8 README 項：補 **`.cursorrules`** §3／**`business-logic`** §0 對照。 |
