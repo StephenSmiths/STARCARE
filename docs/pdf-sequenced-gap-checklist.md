@@ -251,3 +251,4 @@
 | 2026-05-03 | 主檔「**相關檔**」增 **運維與工程** 一行（**go-live**／**runbook**／憑證／**pdf03**）；**`pdf-alignment-p0-backlog.md`** 首段增 **工程／驗收附錄**（**`npm run ci`**、**`ops:deploy:all`**、§8、憑證清單）及修訂紀錄 **2026-05-03**。 |
 | 2026-05-03 | **`README.md`** 文件表增 **`pdf-alignment-p0-backlog.md`**；**`business-logic.md`** §0 增 P0 backlog 一行；**`feature-list.md`** §8 README 項同步；**`client-delivery-remediation-plan.md`** §2 第 4 點補 P0 backlog。 |
 | 2026-05-03 | **`README.md`** 文件表增 **`adr-0001-scheduling-logic-placement.md`**；**`business-logic.md`** §0 增 Seq 36 ADR 一行；**`pdf03-cursorrules-alignment.md`** §3 增排班權威檢核、§4 維護補 **`adr-0001`**；**`feature-list.md`** §8 同步；主表 Seq 37「與現況對照」一句話補 **Seq 36**／**`adr-0001`**；主檔「**運維與工程**」增 **`adr-0001`** 鏈結。 |
+| 2026-05-03 | **`adr-0001-scheduling-logic-placement.md`** 文末增「相關文件」；**`README.md`** 文件表增 **`assessment-completion-records-contract.md`**；**`business-logic.md`** §0、**`feature-list.md`** §8 同步；**`pdf03-cursorrules-alignment.md`** §4 維護補領域契約例。 |

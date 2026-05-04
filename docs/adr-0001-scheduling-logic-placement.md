@@ -30,3 +30,10 @@
 ## 與 Seq 29 的關係
 
 `schedulingSessionWindowFilterService` 為 **引擎輸入過濾**；未來若後端接管，應在 **同一層級**（Edge 入參或 DB view）複製規則，並以 **契約測試** 對齊前端舊行為。
+
+---
+
+## 相關文件
+- 序號對照：**`docs/pdf-sequenced-gap-checklist.md`**（Seq **36**）。  
+- 工程規範 PR 檢核：**`docs/pdf03-cursorrules-alignment.md`** §3。  
+- 專案入口：**`README.md`**（文件表）。
