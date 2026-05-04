@@ -1,4 +1,5 @@
 import { globalAuditTrailService } from '../../../services/auditTrailService'
+import { isSupabaseBrowserConfigured } from '../../../services/supabaseBrowserEnv'
 import {
   InMemoryResidentRepository,
   type ResidentRepository,
@@ -194,7 +195,4 @@ const createResidentRepository = (): ResidentRepository => {
 }
 
 const residentRepo = createResidentRepository()
-export const residentService = new ResidentService(
-  residentRepo,
-  residentRepo instanceof ResidentEdgeRepository,
-)
+export const residentService = new ResidentService(residentRepo, isSupabaseBrowserConfigured())
