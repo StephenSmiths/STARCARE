@@ -66,3 +66,6 @@
 - `docs/phase4-day4-delivery-index.md`
 - `docs/phase3-day5-acceptance.md`
 - `docs/phase3-day5-acceptance-result-2026-04-30.md`
+
+## 七、續維護（與 CI 全閘對齊）
+- **`acceptance:day4`** 僅涵蓋 `lint`／`test`／`build`（及可選遠端檢查）；與 **`.github/workflows/ci.yml`** **指令集合一致**之程式全閘請執行 **`npm run ci`**（含 **`typecheck`**、**`build:demo`**、Playwright）。見 **`docs/feature-list.md`** §8、**`docs/phase4-day4-automation-runbook.md`** §三、**`docs/supabase-deploy-runbook.md`** §6。

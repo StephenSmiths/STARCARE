@@ -63,3 +63,6 @@
 - `docs/phase5-day1-delivery-index.md`
 - `docs/phase5-day1-automation-runbook.md`
 - `docs/phase5-day1-automation-report.md`
+
+## 七、續維護（與 CI 全閘對齊）
+- **`acceptance:phase5`** 僅涵蓋 `lint`／`test`（及可選遠端檢查）；與 **`.github/workflows/ci.yml`** **指令集合一致**之程式全閘請執行 **`npm run ci`**（含 **`typecheck`**、**`build:demo`**、Playwright）。見 **`docs/feature-list.md`** §8、**`docs/phase5-day1-automation-runbook.md`** §三、**`docs/supabase-deploy-runbook.md`** §6。
