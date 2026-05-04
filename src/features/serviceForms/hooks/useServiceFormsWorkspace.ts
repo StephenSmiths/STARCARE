@@ -18,13 +18,9 @@ import {
   upsertDraftServiceForm,
 } from '../services/serviceFormDomainService'
 import { softDeleteServiceForm } from '../services/serviceFormSoftDeleteService'
+import { isSupabaseBrowserConfigured } from '../../../services/supabaseBrowserEnv'
 
 const FACILITY_ID = 'facility-main'
-
-const skipRemoteFormAuditPersist = (): boolean => {
-  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
-  return !!(env.VITE_SUPABASE_URL && env.VITE_SUPABASE_ANON_KEY)
-}
 
 /** PDF 02【5】載入時段／院友／表單列表（Seq 17） */
 export const useServiceFormsWorkspace = () => {
@@ -98,7 +94,7 @@ export const useServiceFormsWorkspace = () => {
       narrative: string,
       existingId: string | null,
     ) => {
-      const skipAudit = skipRemoteFormAuditPersist()
+      const skipAudit = isSupabaseBrowserConfigured()
       const row = upsertDraftServiceForm(
         actorId,
         staffProfileId,
@@ -118,7 +114,7 @@ export const useServiceFormsWorkspace = () => {
 
   const submit = useCallback(
     (record: ServiceFormRecord, sess: SchedulingSession) => {
-      const next = submitServiceForm(actorId, staffProfileId, record, sess, skipRemoteFormAuditPersist())
+      const next = submitServiceForm(actorId, staffProfileId, record, sess, isSupabaseBrowserConfigured())
       refreshForms()
       void serviceFormRepoRef.current.upsertForm(FACILITY_ID, next).catch(() => {})
     },
@@ -127,7 +123,7 @@ export const useServiceFormsWorkspace = () => {
 
   const approve = useCallback(
     (record: ServiceFormRecord) => {
-      const next = approveServiceForm(role as StarcareRole, actorId, record, skipRemoteFormAuditPersist())
+      const next = approveServiceForm(role as StarcareRole, actorId, record, isSupabaseBrowserConfigured())
       refreshForms()
       void serviceFormRepoRef.current.upsertForm(FACILITY_ID, next).catch(() => {})
     },
@@ -141,7 +137,7 @@ export const useServiceFormsWorkspace = () => {
         actorId,
         record,
         note,
-        skipRemoteFormAuditPersist(),
+        isSupabaseBrowserConfigured(),
       )
       refreshForms()
       void serviceFormRepoRef.current.upsertForm(FACILITY_ID, next).catch(() => {})
@@ -151,7 +147,7 @@ export const useServiceFormsWorkspace = () => {
 
   const softDelete = useCallback(
     async (record: ServiceFormRecord) => {
-      await softDeleteServiceForm(role as StarcareRole, actorId, record, skipRemoteFormAuditPersist())
+      await softDeleteServiceForm(role as StarcareRole, actorId, record, isSupabaseBrowserConfigured())
       refreshForms()
     },
     [actorId, role, refreshForms],

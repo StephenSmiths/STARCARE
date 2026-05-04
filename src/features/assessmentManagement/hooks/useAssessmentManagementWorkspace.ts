@@ -18,13 +18,11 @@ import {
   computeAssessmentCompletionRatePercent,
 } from '../services/assessmentManagementDomainService'
 import { mergeAssessmentCompletionRecordsRemotePrimary } from '../services/mergeAssessmentCompletionRecords'
+import { isSupabaseBrowserConfigured } from '../../../services/supabaseBrowserEnv'
 
 /** Edge `assessment-completion-records-append` 已成功時已落庫審計，避免重複 append */
-const skipRemoteAssessmentAuditPersist = (remoteAppendSucceeded: boolean): boolean => {
-  if (!remoteAppendSucceeded) return false
-  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
-  return !!(env.VITE_SUPABASE_URL && env.VITE_SUPABASE_ANON_KEY)
-}
+const skipRemoteAssessmentAuditPersist = (remoteAppendSucceeded: boolean): boolean =>
+  remoteAppendSucceeded && isSupabaseBrowserConfigured()
 
 export type AssessmentManagementWorkspaceState = {
   residents: Resident[]

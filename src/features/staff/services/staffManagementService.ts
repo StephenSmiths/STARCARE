@@ -10,11 +10,7 @@ import {
 } from '../../../repositories/staffProfileUpdateRepository'
 import { createStaffSkillsRepository } from '../../../repositories/staffSkillsRepository'
 import { schedulingConfigService } from '../../../services/schedulingConfigService'
-
-const skipRemoteStaffAuditPersist = (): boolean => {
-  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
-  return !!(env.VITE_SUPABASE_URL && env.VITE_SUPABASE_ANON_KEY)
-}
+import { isSupabaseBrowserConfigured } from '../../../services/supabaseBrowserEnv'
 
 export type StaffServiceScope = 'Subsidized_Rehab' | 'Dementia_Care' | 'Both'
 
@@ -92,7 +88,7 @@ export class StaffManagementService {
         detail: '更新員工主檔（display_name／role_type／service_scope）',
         occurredAt: new Date().toISOString(),
       },
-      skipRemoteStaffAuditPersist(),
+      isSupabaseBrowserConfigured(),
     )
   }
 
@@ -109,7 +105,7 @@ export class StaffManagementService {
         detail: '軟刪除員工資料',
         occurredAt: new Date().toISOString(),
       },
-      skipRemoteStaffAuditPersist(),
+      isSupabaseBrowserConfigured(),
     )
   }
 }

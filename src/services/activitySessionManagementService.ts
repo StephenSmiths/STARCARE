@@ -1,12 +1,8 @@
 import { globalAuditTrailService } from './auditTrailService'
 import { createActivitySessionRepository, type ActivitySession } from '../repositories/activitySessionRepository'
+import { isSupabaseBrowserConfigured } from './supabaseBrowserEnv'
 
 const repository = createActivitySessionRepository()
-
-const skipRemoteActivitySessionAuditPersist = (): boolean => {
-  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
-  return !!(env.VITE_SUPABASE_URL && env.VITE_SUPABASE_ANON_KEY)
-}
 
 export class ActivitySessionManagementService {
   async listActivitySessions(facilityId = 'facility-main'): Promise<ActivitySession[]> {
@@ -26,7 +22,7 @@ export class ActivitySessionManagementService {
         detail: '軟刪除活動時段',
         occurredAt: new Date().toISOString(),
       },
-      skipRemoteActivitySessionAuditPersist(),
+      isSupabaseBrowserConfigured(),
     )
   }
 }

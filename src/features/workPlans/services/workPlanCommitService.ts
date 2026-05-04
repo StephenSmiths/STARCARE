@@ -4,12 +4,7 @@ import {
   createActivitySessionImportRepository,
   type ActivitySessionImportRepository,
 } from '../../../repositories/activitySessionImportRepository'
-
-/** Edge 已落庫 WORK_PLAN_SESSION_COMMIT 時不重複呼叫 audit-trail-append */
-const skipRemoteWorkPlanAuditPersist = (): boolean => {
-  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
-  return !!(env.VITE_SUPABASE_URL && env.VITE_SUPABASE_ANON_KEY)
-}
+import { isSupabaseBrowserConfigured } from '../../../services/supabaseBrowserEnv'
 import {
   buildActivitySessionImportRows,
   type WorkPlanDraftLine,
@@ -59,7 +54,7 @@ export class WorkPlanCommitService {
         detail: `工作計劃：批量發布 ${committed.inserted} 個活動時段`,
         occurredAt: new Date().toISOString(),
       },
-      skipRemoteWorkPlanAuditPersist(),
+      isSupabaseBrowserConfigured(),
     )
 
     return { inserted: committed.inserted, sessionIds: committed.sessionIds }

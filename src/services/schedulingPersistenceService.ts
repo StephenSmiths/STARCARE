@@ -6,6 +6,7 @@ import {
   createScheduleAssignmentRepository,
   type ScheduleAssignmentRepository,
 } from '../repositories/scheduleAssignmentRepository'
+import { isSupabaseBrowserConfigured } from './supabaseBrowserEnv'
 
 /** 將排班結果批量持久化並寫入審計軌跡 */
 export class SchedulingPersistenceService {
@@ -45,8 +46,7 @@ export class SchedulingPersistenceService {
       }))
       await this.repository.saveBatch(rows)
       writeLastSchedulingBatchId(batchId)
-      const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
-      if (env.VITE_SUPABASE_URL && env.VITE_SUPABASE_ANON_KEY) {
+      if (isSupabaseBrowserConfigured()) {
         await hydrateAuditTrailFromRemote()
       } else {
         globalAuditTrailService.record({
