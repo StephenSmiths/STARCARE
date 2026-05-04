@@ -3,6 +3,7 @@ import { useAuthActorId } from '../../auth'
 import { residentService } from '../../residents/services/residentService'
 import type { Resident } from '../../residents/types/resident'
 import type { AssessmentDueTask } from '../../residents/services/assessmentDueTaskService'
+import { hydrateAuditTrailAfterLocalRecord } from '../../../services/auditTrailHydrationService'
 import { globalAuditTrailService } from '../../../services/auditTrailService'
 import {
   loadAssessmentCompletions,
@@ -129,6 +130,7 @@ export const useAssessmentManagementWorkspace = (): AssessmentManagementWorkspac
           },
           skipRemoteAssessmentAuditPersist(remoteAppendSucceeded),
         )
+        hydrateAuditTrailAfterLocalRecord()
       } catch (e) {
         const msg = e instanceof Error ? e.message : '儲存失敗'
         setSubmitError(msg)

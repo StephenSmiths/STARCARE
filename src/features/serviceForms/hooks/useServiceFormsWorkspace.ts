@@ -20,6 +20,7 @@ import {
 import { softDeleteServiceForm } from '../services/serviceFormSoftDeleteService'
 import { hydrateAuditTrailAfterLocalRecord } from '../../../services/auditTrailHydrationService'
 import { isSupabaseBrowserConfigured } from '../../../services/supabaseBrowserEnv'
+import { scheduleUpsertServiceFormThenHydrate } from './serviceFormWorkspaceEdgeUpsert'
 
 const FACILITY_ID = 'facility-main'
 
@@ -107,7 +108,7 @@ export const useServiceFormsWorkspace = () => {
         skipAudit,
       )
       refreshForms()
-      void serviceFormRepoRef.current.upsertForm(FACILITY_ID, row).catch(() => {})
+      scheduleUpsertServiceFormThenHydrate(serviceFormRepoRef.current, FACILITY_ID, row, skipAudit)
       return row
     },
     [actorId, staffProfileId, refreshForms],
@@ -115,9 +116,10 @@ export const useServiceFormsWorkspace = () => {
 
   const submit = useCallback(
     (record: ServiceFormRecord, sess: SchedulingSession) => {
-      const next = submitServiceForm(actorId, staffProfileId, record, sess, isSupabaseBrowserConfigured())
+      const skipAudit = isSupabaseBrowserConfigured()
+      const next = submitServiceForm(actorId, staffProfileId, record, sess, skipAudit)
       refreshForms()
-      void serviceFormRepoRef.current.upsertForm(FACILITY_ID, next).catch(() => {})
+      scheduleUpsertServiceFormThenHydrate(serviceFormRepoRef.current, FACILITY_ID, next, skipAudit)
     },
     [actorId, staffProfileId, refreshForms],
   )
@@ -127,37 +129,33 @@ export const useServiceFormsWorkspace = () => {
       const skipAudit = isSupabaseBrowserConfigured()
       const next = approveServiceForm(role as StarcareRole, actorId, record, skipAudit)
       refreshForms()
-      void (async () => {
-        try {
-          await serviceFormRepoRef.current.upsertForm(FACILITY_ID, next)
-          if (skipAudit) hydrateAuditTrailAfterLocalRecord()
-        } catch {
-          /* 樂觀本機列保留；審計刷新失敗不阻斷 UI */
-        }
-      })()
+      scheduleUpsertServiceFormThenHydrate(serviceFormRepoRef.current, FACILITY_ID, next, skipAudit)
     },
     [actorId, role, refreshForms],
   )
 
   const rejectRevision = useCallback(
     (record: ServiceFormRecord, note: string) => {
+      const skipAudit = isSupabaseBrowserConfigured()
       const next = rejectServiceFormRevision(
         role as StarcareRole,
         actorId,
         record,
         note,
-        isSupabaseBrowserConfigured(),
+        skipAudit,
       )
       refreshForms()
-      void serviceFormRepoRef.current.upsertForm(FACILITY_ID, next).catch(() => {})
+      scheduleUpsertServiceFormThenHydrate(serviceFormRepoRef.current, FACILITY_ID, next, skipAudit)
     },
     [actorId, role, refreshForms],
   )
 
   const softDelete = useCallback(
     async (record: ServiceFormRecord) => {
-      await softDeleteServiceForm(role as StarcareRole, actorId, record, isSupabaseBrowserConfigured())
+      const skipAudit = isSupabaseBrowserConfigured()
+      await softDeleteServiceForm(role as StarcareRole, actorId, record, skipAudit)
       refreshForms()
+      if (skipAudit) hydrateAuditTrailAfterLocalRecord()
     },
     [actorId, role, refreshForms],
   )

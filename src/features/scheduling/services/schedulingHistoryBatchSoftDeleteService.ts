@@ -3,6 +3,7 @@
  * 僅 TeamLead／Admin；成功後清除本機記住之 last batch id。
  */
 import { createScheduleAssignmentRepository } from '../../../repositories/scheduleAssignmentRepository'
+import { hydrateAuditTrailAfterLocalRecord } from '../../../services/auditTrailHydrationService'
 import { globalAuditTrailService } from '../../../services/auditTrailService'
 import { clearLastSchedulingBatchId } from '../../../services/schedulingLastBatchStorage'
 import type { StarcareRole } from '../../auth/permissions'
@@ -39,4 +40,5 @@ export const softDeleteSchedulingHistoryBatch = async (
     },
     isSupabaseBrowserConfigured(),
   )
+  hydrateAuditTrailAfterLocalRecord()
 }
