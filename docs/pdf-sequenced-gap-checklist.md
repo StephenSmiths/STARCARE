@@ -244,3 +244,4 @@
 | 2026-05-03 | **`package.json`** **`ops:deploy:all`**：補 **`service-forms-list`**／**`upsert`**／**`soft-delete`**（與 **`supabase/functions/`** 一致）；**`feature-list.md`** §7 改列 **`scheduling-kpi-history-upsert`**／**`clear`** 全名並註明新增 Edge 須同步腳本與本表。 |
 | 2026-05-03 | **`supabase-deploy-runbook.md`** §2：補舊版 **`ops:deploy:all`** 須重跑以佈署 **service-forms-*** 之說明；**`pdf03-cursorrules-alignment.md`** §3／§4 增新 Edge 與 **`ops:deploy:all`** 同步項；主表 Seq 37「與現況對照」同步。 |
 | 2026-05-03 | **`go-live-checklist.md`** §2：functions 項補 **service-forms-***、runbook §2 舊腳本補佈、**pdf03** §3；**§6** PAT 項鏈結憑證清單；**`security-token-rotation-checklist.md`** §D 補 **`ops:verify`**／**`ops:deploy:all`** 對照 runbook；**`README.md`** 文件表增憑證清單連結。 |
+| 2026-05-03 | **`go-live-checklist.md`** §0：PAT／部署目標鏈結憑證清單與 runbook；**`business-logic.md`** §0 增憑證清單一行。 |
