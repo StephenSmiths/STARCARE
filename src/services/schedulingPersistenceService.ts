@@ -1,3 +1,4 @@
+import { hydrateAuditTrailFromRemote } from './auditTrailHydrationService'
 import { globalAuditTrailService } from './auditTrailService'
 import { writeLastSchedulingBatchId } from './schedulingLastBatchStorage'
 import type { SchedulingAssignment, SchedulingConflict } from './schedulingService'
@@ -44,16 +45,21 @@ export class SchedulingPersistenceService {
       }))
       await this.repository.saveBatch(rows)
       writeLastSchedulingBatchId(batchId)
-      globalAuditTrailService.record({
-        action: 'SCHEDULE_BATCH_SAVE',
-        entityType: 'Scheduling',
-        entityId: `batch-${Date.now()}`,
-        actorId,
-        beforeState: null,
-        afterState: JSON.stringify({ count: assignments.length, batchId, assignments }),
-        detail: '一鍵儲存：批量寫入 scheduling_history',
-        occurredAt: new Date().toISOString(),
-      })
+      const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
+      if (env.VITE_SUPABASE_URL && env.VITE_SUPABASE_ANON_KEY) {
+        await hydrateAuditTrailFromRemote()
+      } else {
+        globalAuditTrailService.record({
+          action: 'SCHEDULE_BATCH_SAVE',
+          entityType: 'Scheduling',
+          entityId: batchId,
+          actorId,
+          beforeState: null,
+          afterState: JSON.stringify({ count: assignments.length, batchId, assignments }),
+          detail: '一鍵儲存：批量寫入 scheduling_history（demo／本機模擬）',
+          occurredAt: new Date().toISOString(),
+        })
+      }
     } finally {
       this.inFlightKeys.delete(key)
     }

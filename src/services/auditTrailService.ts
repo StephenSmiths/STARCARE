@@ -94,10 +94,11 @@ export class AuditTrailService {
     this.notify()
   }
 
-  record(event: AuditTrailRecord): void {
+  /** @param skipRemotePersist 為 true 時不呼叫 `audit-trail-append`（已由後端 Edge 落庫，如批次排班儲存） */
+  record(event: AuditTrailRecord, skipRemotePersist = false): void {
     this.records.unshift(event)
     this.notify()
-    if (persistFn) {
+    if (persistFn && !skipRemotePersist) {
       void persistFn(event).catch(() => {
         /* 遠端失敗不阻斷 UI；記憶體軌跡已寫入 */
       })

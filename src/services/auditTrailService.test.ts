@@ -29,6 +29,26 @@ describe('AuditTrailService', () => {
     await vi.waitFor(() => expect(persist).toHaveBeenCalledWith(ev))
   })
 
+  it('skipRemotePersist 時不呼叫落庫函式', async () => {
+    const persist = vi.fn().mockResolvedValue(undefined)
+    registerAuditTrailPersistence(persist)
+    const svc = new AuditTrailService()
+    const ev: AuditTrailRecord = {
+      action: 'SCHEDULE_BATCH_SAVE',
+      entityType: 'Scheduling',
+      entityId: 'batch-x',
+      actorId: 'a1',
+      beforeState: null,
+      afterState: '{}',
+      detail: 't',
+      occurredAt: new Date().toISOString(),
+    }
+    svc.record(ev, true)
+    expect(svc.list()[0]).toEqual(ev)
+    await new Promise((r) => setTimeout(r, 10))
+    expect(persist).not.toHaveBeenCalled()
+  })
+
   it('record 會通知訂閱者；mergeRemoteRecords 合併遠端列', () => {
     const svc = new AuditTrailService()
     const sub = vi.fn()
