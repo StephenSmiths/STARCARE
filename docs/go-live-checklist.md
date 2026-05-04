@@ -73,7 +73,7 @@ limit 20;
   - `docs/phase3-day5-acceptance-result-2026-04-30.md`
 
 ## 5. 風險與回復方案
-- [ ] 已備妥回復路徑：`supabase-deploy-runbook.md`。
+- [ ] 已備妥回復路徑：`docs/supabase-deploy-runbook.md`（含可選 **`npm run ci`** 與審計 §8 交叉引用）。
 - [ ] 已確認 Edge function contract：`residents-edge-function-contract.md`。
 - [ ] 若儲存失敗，先看前端錯誤訊息，再查 function logs 與 SQL 寫入狀態。
 
