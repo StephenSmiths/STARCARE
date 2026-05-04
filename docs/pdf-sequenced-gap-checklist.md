@@ -1,5 +1,7 @@
 # PDF 對齊：依序補回／缺漏檢核清單（Sequenced Checklist）
 
+> **對照**：運維與文件總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3「部署與驗收閘門」）；**`README.md`** 文件表；P0 可勾選 **`docs/pdf-alignment-p0-backlog.md`**；主檔「**運維與工程**」列與 **§0**／**§3**／**`README`** 對齊。
+
 > **用途**：依 **客戶 PDF**（`docs/pdf/01…`、`02…`、`03…`）與現行程式對照，列出**建議執行順序**（Seq）；每項勾選後代表「已對母本驗證或已補齊」。  
 > **狀態欄建議填**：`未開始`／`進行中`／`已驗證`（已驗證＝對照 PDF 有證據，非僅自認完成）。  
 > **02 編號**：PDF 內 **【5】出現兩次**（填寫表單、開工接更），本清單拆成 **【5】** 與 **【5b】** 以利追蹤。
@@ -287,3 +289,4 @@
 | 2026-05-05 | 主檔「**運維與工程**」句末補 **Stage 2／Phase 3** 歷史追溯入口（**`business-logic.md`** §0、**`README.md`**）；**`pdf03-cursorrules-alignment.md`** §4 維護項補主檔該列之同步責任。 |
 | 2026-05-06 | **`.cursorrules`** §3、**`pdf-alignment-p0-backlog.md`** 工程附錄、**`feature-list.md`** §8／頁尾、**`pdf03-cursorrules-alignment.md`** §3：補 **`.cursorrules`** §3 與序號主檔「**運維與工程**」列之閉環同步說明。 |
 | 2026-05-07 | **`README.md`** 開頭與文件表 **`pdf-sequenced-gap-checklist.md`** 列：補「**運維與工程**」與 **§0**／**§3** 對齊；**`feature-list.md`** §8 README 項、**`pdf03`** §3「文件入口」同步。 |
+| 2026-05-08 | 標題下增 **對照**（**`business-logic.md`** §0、**`README`**、**`pdf-alignment-p0-backlog.md`**、主檔「**運維與工程**」）；**`go-live-checklist.md`** 開首 **對照** 補 **`pdf-sequenced`**；**`ci.yml`** 註解補文件入口；**`pdf03`** §3「文件入口」補 **`ci.yml`**、§4 維護補主檔 **對照**；**`feature-list.md`** §8 CI 項同步。 |

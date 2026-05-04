@@ -1,6 +1,6 @@
 # STARCARE 正式上線檢查清單（Go-Live）
 
-> **對照**：運維、憑證與前端 **`npm run ci`** 等文件總覽見 **`docs/business-logic.md`** §0（**`.cursorrules`** §3「部署與驗收閘門」、**`README.md`** 文件表）。
+> **對照**：運維、憑證與前端 **`npm run ci`** 等文件總覽見 **`docs/business-logic.md`** §0（**`.cursorrules`** §3「部署與驗收閘門」、**`README.md`** 文件表）；序號清單主檔「**運維與工程**」路徑彙列見 **`docs/pdf-sequenced-gap-checklist.md`**。
 
 ## 0. 今日上線目標
 - [ ] 完成最小閉環驗收（登入 -> 排班 -> 儲存 -> DB 驗證）
