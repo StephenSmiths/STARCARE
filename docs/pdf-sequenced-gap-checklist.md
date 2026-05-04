@@ -237,3 +237,4 @@
 | 2026-05-03 | **`supabase-deploy-runbook.md`** 新增 §6（前端 **`npm run ci`**／**`build:demo`**、可選 **`test:e2e:auth`**、鏈結 **go-live** §8）；§7 為常見問題；**`feature-list.md`** §8 CI 項補 **pdf03** §3；**`go-live-checklist.md`** §5 回復路徑改 **`docs/`** 前綴。 |
 | 2026-05-03 | **`README.md`** 文件表增 **`docs/supabase-deploy-runbook.md`**；**`feature-list.md`** 頁尾產生說明納入 runbook §6。 |
 | 2026-05-03 | **`business-logic.md`** §0 增運維 Runbook 連結（§6 **`npm run ci`**）；**`pdf03-cursorrules-alignment.md`** §4 維護項補 runbook／README／清單日誌同步。 |
+| 2026-05-03 | **`supabase-deploy-runbook.md`** §2／§3：改推 **`npm run ops:deploy:all`**（權威清單見 **`package.json`**）；驗收改 **`ops:verify`**／`functions list`，移除過時「7 支」；常見問題補 **`ops:deploy:all`**；**`client-delivery-remediation-plan.md`** §7.3 行 9 鏈結 **go-live**／runbook。 |

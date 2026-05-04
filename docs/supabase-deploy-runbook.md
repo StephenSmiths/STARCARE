@@ -6,29 +6,27 @@
 - 已有 Supabase `Project Ref` 與 `Personal Access Token`（PAT）。
 
 ## 2) 一次性綁定與部署
-在專案根目錄執行（`<...>` 請替換）：
+在專案根目錄執行（`<...>` 請替換）。**建議**以 **`package.json`** 之 **`ops:deploy:all`** 為權威清單（含 **`db push --yes`** 與目前倉庫所列全部 Edge functions）；數量隨版本變更，**勿**再以固定支數對照。
 
 ```bash
-SUPABASE_ACCESS_TOKEN="<PAT>" npx supabase link --project-ref "<PROJECT_REF>" --yes
-SUPABASE_ACCESS_TOKEN="<PAT>" npx supabase db push --yes
-SUPABASE_ACCESS_TOKEN="<PAT>" npx supabase functions deploy residents-create
-SUPABASE_ACCESS_TOKEN="<PAT>" npx supabase functions deploy residents-get
-SUPABASE_ACCESS_TOKEN="<PAT>" npx supabase functions deploy residents-list
-SUPABASE_ACCESS_TOKEN="<PAT>" npx supabase functions deploy residents-soft-delete
-SUPABASE_ACCESS_TOKEN="<PAT>" npx supabase functions deploy residents-update
-SUPABASE_ACCESS_TOKEN="<PAT>" npx supabase functions deploy schedule-assignments-batch
-SUPABASE_ACCESS_TOKEN="<PAT>" npx supabase functions deploy scheduling-sessions-list
+export SUPABASE_ACCESS_TOKEN="<PAT>"
+npx supabase link --project-ref "<PROJECT_REF>" --yes
+npm run ops:deploy:all
 ```
+
+若需單支除錯，可改 **`npx supabase functions deploy <function-name>`**（名稱與 **`ops:deploy:all`** 內之 **`deploy …`** 一致）。
 
 ## 3) 快速狀態檢查
 ```bash
 SUPABASE_ACCESS_TOKEN="<PAT>" npx supabase migration list
 SUPABASE_ACCESS_TOKEN="<PAT>" npx supabase functions list
+# 或專案腳本（同上需 PAT／已 link）
+npm run ops:verify
 ```
 
 驗收標準：
 - migration 的 `Local` 與 `Remote` 版本一致。
-- 7 支 function 皆為 `ACTIVE`。
+- **`supabase functions list`**（或 **`npm run ops:verify`**）所見之已部署 functions 皆為 **`ACTIVE`**，且覆蓋 **`ops:deploy:all`** 目前列舉範圍（以倉庫 **`package.json`** 為準）。
 
 ## 4) 功能驗收（閉環）
 1. 前端登入（應先看到登入頁，登入後可見左下 email / 登出）。
@@ -76,5 +74,5 @@ limit 20;
 ## 7) 常見問題
 - `Cannot find project ref`：先執行 `supabase link`。
 - `Access token not provided`：設定 `SUPABASE_ACCESS_TOKEN` 或先 `supabase login`。
-- `unknown flag: --all`：目前 CLI 不支援 `functions deploy --all`，請逐支部署。
+- `unknown flag: --all`：CLI 不支援 `functions deploy --all`；請用 **`npm run ops:deploy:all`** 或逐支 **`supabase functions deploy <name>`**。
 - `verify_jwt expected map/struct`：不要在 `config.toml` 寫舊版布林格式。
