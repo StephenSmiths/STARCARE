@@ -134,6 +134,7 @@
 | 2026-05-03 | 對照 **`README.md`** 文件表：已納入本檔與 **`pdf03-cursorrules-alignment.md`** 入口連結。 |
 | 2026-05-03 | §2 第 4 點：補 **`pdf-alignment-p0-backlog.md`**（P0 勾選項）。 |
 | 2026-05-03 | §2 第 4 點：補院友／評估完成 **Edge 契約**路徑；**`pdf-alignment-p0-backlog.md`** 首段附錄同步。 |
+| 2026-05-03 | 對照 **`README.md`** 文件表：增 **Phase 4／5 交付索引**（**`phase4-day4-delivery-index`**、**`phase5-day1-delivery-index`**）與 **`npm run ci`** 對照說明；**`pdf03-cursorrules-alignment.md`** §4 維護項同步。 |
 
 ---
 

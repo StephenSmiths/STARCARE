@@ -264,3 +264,4 @@
 | 2026-05-03 | **`scripts/phase4-day4-acceptance.mjs`**／**`phase5-day1-acceptance.mjs`**：自動驗收報告增「與 **`npm run ci`** 對照」段落；**`phase3-day5-acceptance-result-2026-04-30.md`** 增 §六；已重產 **`phase4-day4-automation-report.md`**、**`phase5-day1-automation-report.md`**。 |
 | 2026-05-03 | **`phase3-day5-acceptance.md`** 增 §九；**`business-logic.md`** §0 增分階交付索引（Phase 4／5）鏈結；**`feature-list.md`** 頁尾產生說明補 **`acceptance:*`**／**`npm run ci`** 索引。 |
 | 2026-05-03 | **`README.md`** 文件表增 Phase 4／5 **交付索引**列；**`feature-list.md`** §8 README 項同步。 |
+| 2026-05-03 | **`pdf03-cursorrules-alignment.md`** §4：維護項補 **`README`** 文件表之交付索引與 **`npm run ci`**／**`acceptance:*`** 對照；**`client-delivery-remediation-plan.md`** §8 修訂紀錄對照。 |
