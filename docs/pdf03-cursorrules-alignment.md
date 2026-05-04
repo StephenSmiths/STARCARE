@@ -48,4 +48,5 @@
 ## 4) 維護
 
 - 客戶更新 `03` PDF 後：修訂本表「對照矩陣」與 `docs/business-logic.md` §0.1 指紋。  
-- 若 `.cursorrules` 與本表衝突：以 **客戶簽核 PDF** 為準，並於本表註記日期與決策人。
+- 若 `.cursorrules` 與本表衝突：以 **客戶簽核 PDF** 為準，並於本表註記日期與決策人。  
+- 變更 **Supabase 部署步驟**、**SQL 驗收**或**前端 CI 煙霧（§6）**時，同步 **`docs/supabase-deploy-runbook.md`**，並視需要更新 **`README.md`** 文件表與 **`docs/pdf-sequenced-gap-checklist.md`** 日誌。

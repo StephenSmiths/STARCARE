@@ -236,3 +236,4 @@
 | 2026-05-03 | 更新 Seq 37：**`pdf03-cursorrules-alignment.md`** §3 PR 檢核表補 **`.env.example`**、**`build:demo`**／**`npm run ci`** 與 **`playwright.auth`** 例外；主表 Seq 37「與現況對照」同步。 |
 | 2026-05-03 | **`supabase-deploy-runbook.md`** 新增 §6（前端 **`npm run ci`**／**`build:demo`**、可選 **`test:e2e:auth`**、鏈結 **go-live** §8）；§7 為常見問題；**`feature-list.md`** §8 CI 項補 **pdf03** §3；**`go-live-checklist.md`** §5 回復路徑改 **`docs/`** 前綴。 |
 | 2026-05-03 | **`README.md`** 文件表增 **`docs/supabase-deploy-runbook.md`**；**`feature-list.md`** 頁尾產生說明納入 runbook §6。 |
+| 2026-05-03 | **`business-logic.md`** §0 增運維 Runbook 連結（§6 **`npm run ci`**）；**`pdf03-cursorrules-alignment.md`** §4 維護項補 runbook／README／清單日誌同步。 |

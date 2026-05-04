@@ -14,7 +14,8 @@
 **備註**：專案根目錄舊版 PDF（含 `#` 檔名或空檔）已移除，請一律以 **`docs/pdf/`** 內三份為準。
 
 **對客戶之補強與分期交付說明**：見 **`docs/client-delivery-remediation-plan.md`**（會議邀請範本、對照矩陣範本、驗收階段）。  
-**依序補回 Feature／缺漏**：見 **`docs/pdf-sequenced-gap-checklist.md`**（Seq **1～38**：01 鐵律→02【1】～【16】→03 工程對照）。
+**依序補回 Feature／缺漏**：見 **`docs/pdf-sequenced-gap-checklist.md`**（Seq **1～38**：01 鐵律→02【1】～【16】→03 工程對照）。  
+**運維與部署 Runbook**：見 **`docs/supabase-deploy-runbook.md`**（Supabase 部署、SQL 驗收；**§6** 可選前端 **`npm run ci`**，與 GitHub Actions 同源）。
 
 ### 0.1 三份母本版本追蹤（Seq 38）
 
