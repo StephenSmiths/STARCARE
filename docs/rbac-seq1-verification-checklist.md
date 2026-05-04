@@ -13,6 +13,7 @@
   - TeamLead（`role = 'teamlead'`）
   - Staff（`role = 'staff'`）
 - 三個帳號都可正常登入系統。
+- （選擇）審計 **`audit_events`** 之 **RLS**（staff 僅本人／TeamLead·Admin 全院）與 UI 抽測，可併參 **`docs/go-live-checklist.md`** §8（RES-06）。
 
 ---
 
