@@ -204,3 +204,4 @@
 | 2026-05-03 | §0：補 **`.cursorrules`** §3「部署與驗收閘門」與本節運維／憑證／**`README`**／**`go-live`** 連動；維護責任見 **`docs/pdf03-cursorrules-alignment.md`** §4。 |
 | 2026-05-03 | **`go-live-checklist.md`**、**`supabase-deploy-runbook.md`**、**`pdf03-cursorrules-alignment.md`** 標題下增對照 **`business-logic.md`** §0／**`.cursorrules`** §3 之引導。 |
 | 2026-05-03 | **`security-token-rotation-checklist.md`** 標題下增對照 **`business-logic.md`** §0、**`go-live-checklist.md`**、**`supabase-deploy-runbook.md`** 之引導。 |
+| 2026-05-03 | **`feature-list.md`** 開首、**`pdf-alignment-p0-backlog.md`**、**`adr-0001`**、**`rbac-seq1-verification-checklist.md`**：增對照 **`business-logic.md`** §0／**`.cursorrules`** §3；**`feature-list.md`** §8 SOP 欄一句同步。 |

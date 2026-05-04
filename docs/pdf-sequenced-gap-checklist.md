@@ -277,3 +277,4 @@
 | 2026-05-03 | **`README.md`** 開頭、`pdf-sequenced-gap-checklist.md`「相關檔」、**`feature-list.md`** 頁尾：補 **`.cursorrules`** §3 與 **`business-logic.md`** §0 一句式入口。 |
 | 2026-05-03 | **`go-live-checklist.md`**、**`supabase-deploy-runbook.md`**、`pdf03-cursorrules-alignment.md` 標題下增 **對照／與 §0** 引導至 **`business-logic.md`** §0、**`.cursorrules`** §3。 |
 | 2026-05-03 | **`security-token-rotation-checklist.md`** 標題下增對照 **`business-logic.md`** §0、**`go-live-checklist.md`**、**`supabase-deploy-runbook.md`** 之引導。 |
+| 2026-05-03 | **`feature-list.md`** 開首維護方式、**`pdf-alignment-p0-backlog.md`**、**`adr-0001-scheduling-logic-placement.md`**、**`rbac-seq1-verification-checklist.md`**：增 **對照** 引導至 **`business-logic.md`** §0／**`.cursorrules`** §3（及 **`go-live`** §8／**`pdf03`**／序號表）。 |

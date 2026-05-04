@@ -1,5 +1,7 @@
 # PDF 母本全對齊：P0 Backlog（可勾選）
 
+> **對照**：**`docs/business-logic.md`** §0（**`.cursorrules`** §3「部署與驗收閘門」）、**`README.md`**；母本序號總表 **`docs/pdf-sequenced-gap-checklist.md`**。
+
 > **完成定義**：選項 2 — 三份客戶 PDF 為準，`pdf-sequenced-gap-checklist.md` 各 Seq 可標「已驗證」（對照 PDF 有證據）。  
 > **用法**：每項 `- [ ]` 完成後改 `- [x]`，並在內部 issue 或 PR 附 **PDF 頁碼／【N】／SQL／E2E 連結**。  
 > **母本**：`docs/pdf/01-…`、`02-…`、`03-…`；條文整理見 `docs/business-logic.md`。

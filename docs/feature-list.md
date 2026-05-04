@@ -1,6 +1,6 @@
 # STARCARE 功能清單（Feature List）
 
-> **維護方式**：本清單由 **程式路由、`src/features/`、Supabase Edge Functions** 反推而成；與《STARCARE 智能院舍照護管理系統》PDF／`business-logic.md`（若存在）對照後，請補上 **SOP 章節** 欄並視需要調整 **狀態**。  
+> **維護方式**：本清單由 **程式路由、`src/features/`、Supabase Edge Functions** 反推而成；與《STARCARE 智能院舍照護管理系統》PDF／**`docs/business-logic.md`**（**§0** 為運維與 **`.cursorrules`** §3 入口）對照後，請補上 **SOP 章節** 欄並視需要調整 **狀態**。  
 > **狀態定義**：`已完成`＝可於 UI 完成閉環；`部分`＝有介面或 API 但缺驗收／缺文件對照；`未開始`＝未見於主程式流程。
 
 ---
@@ -114,7 +114,7 @@
 
 ## 8. 建議後續補強（非功能清單本體）
 
-1. **SOP 欄**：與 PDF／`business-logic.md` 對照後，於各列補 **章節編號**。  
+1. **SOP 欄**：與 PDF／**`docs/business-logic.md`**（**§0**；運維與 **`.cursorrules`** §3 入口）對照後，於各列補 **章節編號**。  
 2. **RES-06**：審計已落庫並於登入後經 `audit-trail-list` 合併；待實庫抽測後再改為 `已完成`（抽測勾選項見 **`docs/go-live-checklist.md`** §8）。  
 3. **README**：已改為 STARCARE 專案入口（開頭短文含 **`.cursorrules`** §3／**`business-logic.md`** §0；文件表含 **`pdf-alignment-p0-backlog`**、**`business-logic`**（**§0** 含 **`.cursorrules`** §3 連動說明）、**`adr-0001-scheduling-logic-placement`**、**`residents-edge-function-contract`**、**`assessment-completion-records-contract`**、**`client-delivery-remediation-plan`**、**`phase4-day4-delivery-index`**／**`phase5-day1-delivery-index`**、**`pdf03-cursorrules-alignment`**、憑證清單（**§D** 可選 **`npm run ci`**）、runbook；常用指令區含 **CI**、**憑證與部署後自檢（§D）** 短文；**`.cursorrules`** §3 與 **`business-logic.md`** §0 運維列連動；範本長文已收斂為選讀連結。  
 4. **Release**：版本發佈時更新「狀態」與「未開始」列，避免與銷售／驗收口徑漂移。  
