@@ -125,4 +125,4 @@
 
 ---
 
-*文件產生：依倉庫 `src/`、`supabase/functions/`、`docs/go-live-checklist.md` 與 `docs/supabase-deploy-runbook.md`（§2 遠端部署、§6 前端 CI）整理；若與實機行為不符，以程式與 DB 為準。*
+*文件產生：依倉庫 `src/`、`supabase/functions/`、`docs/go-live-checklist.md`、`docs/supabase-deploy-runbook.md`（§2 遠端部署、§6 前端 CI）與 `docs/security-token-rotation-checklist.md`（憑證）整理；若與實機行為不符，以程式與 DB 為準。*

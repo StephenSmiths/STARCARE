@@ -19,7 +19,8 @@
 
 1. **三份母本**已固定存放於專案 **`docs/pdf/`**，檔名統一、便於版控與搜尋。  
 2. **`docs/business-logic.md`**：已依 **01 核心業務邏輯與 SOP** 整理為工程可讀之條目，並載明與 **02** 之分工及**程式落差摘要**（供內部與客戶技術窗口查閱）。  
-3. **`.cursorrules`（工程規範）**已更新為**明列三份 PDF 路徑**，後續開發一律以此對齊。
+3. **`.cursorrules`（工程規範）**已更新為**明列三份 PDF 路徑**，後續開發一律以此對齊。  
+4. **上線／部署／憑證**：內部可引用 **`docs/go-live-checklist.md`**、**`docs/supabase-deploy-runbook.md`**（含 **`npm run ops:deploy:all`**、**`npm run ci`**）、**`docs/security-token-rotation-checklist.md`**（PAT 輪替與部署後自檢），作為對外「有書面程序」之補充附件。
 
 ---
 
@@ -129,6 +130,7 @@
 | 2026-05-01 | 初版：補強與對客戶交付之方法與階段說明。 |
 | 2026-05-01 | 新增 **§7 行動方案**（檢核清單與負責分工）。 |
 | 2026-05-03 | §7.3 行 9：補 **`docs/go-live-checklist.md`**、**`docs/supabase-deploy-runbook.md`**（含 **`npm run ci`**）路徑。 |
+| 2026-05-03 | §2：增第 4 點（上線／runbook／憑證清單可作對外補充附件）。 |
 
 ---
 
