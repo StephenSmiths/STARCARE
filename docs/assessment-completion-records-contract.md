@@ -20,10 +20,10 @@
 - **授權**：**`requireStaffUser`**。
 - **請求 Body**：`{ "records": [ … ] }`，單次 **1～20** 筆；每筆 snake_case 與 §1 一致；**`recorded_by_actor_id` 必須等於 JWT `sub`**。
 - **`completed_at`**：可選；空或無效則伺服端 **`now()`**。
-- **成功**：`200 + { "ok": true, "inserted": number, "audit_ok": boolean }`。
+- **成功**：`200 + { "ok": true, "inserted": number }`。
   - 主檔寫入後依 **院友** 分組寫入 **`audit_events`**（**`action`** = **`ASSESSMENT_COMPLETION_RECORD`**、**`entity_type`** = **`Resident`**、**`entity_id`** = **`resident_id`**）；**`after_state`**／**`detail`** 長度與 **`audit-trail-append`** 同上限（32000）。
-  - 若審計寫入失敗：**`audit_ok`** 為 **`false`**（主檔不回溯）；伺服端 **`console.error`** 記錄。
-- **錯誤**：`409`（唯一索引衝突，訊息：**此週期該科別已有紀錄（不可重複登錄）**）；`400`／`401`／`403` 同既有 Edge 慣例。
+  - 若審計寫入失敗：本次插入之列標 **`is_deleted = true`**（軟刪回溯），回應 **`500`**；不回傳成功 **`ok`**。
+- **錯誤**：`409`（唯一索引衝突，訊息：**此週期該科別已有紀錄（不可重複登錄）**）；`400`／`401`／`403`／`500` 同既有 Edge 慣例。
 
 ## 4. 前端 Repository
 

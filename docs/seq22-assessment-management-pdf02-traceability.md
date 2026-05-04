@@ -36,7 +36,7 @@
 | 層 | 路徑 | 驗收備註 |
 |----|------|----------|
 | 本機 | **`assessmentCompletionStorage`**（與 **`loadAssessmentCompletions`**／**`saveAssessmentCompletions`**） | 遠端失敗時仍顯示本機 |
-| 遠端 | **`assessmentCompletionRecordRepository`**（**`assessment-completion-records-list`**／**`append`**） | 契約見 **`docs/assessment-completion-records-contract.md`**；append 後 **`audit_events`**（**`audit_ok`**） |
+| 遠端 | **`assessmentCompletionRecordRepository`**（**`assessment-completion-records-list`**／**`append`**） | 契約見 **`docs/assessment-completion-records-contract.md`**；append 後 **`audit_events`**；審計失敗則軟刪本次列並 **`500`** |
 
 ---
 

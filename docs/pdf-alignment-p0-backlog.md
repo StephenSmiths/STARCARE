@@ -135,4 +135,4 @@
 | 2026-05-02 | Seq 9 程式進度：批量匯入／匯出錨點欄、Edge **`residents-create`／`update`** 白名單（**`residentWritePayload`**）、**`residentService`** 更新合併正規化可清空；P0「正式 assessment 資料模型」主項仍不勾。 |
 | 2026-05-02 | Seq 22 程式進度：**`assessment_completion_records`** 表＋RLS、**`assessment-completion-records-list`**、**`assessmentCompletionRecordRepository`**、評估管理讀取合併；寫入仍本機，P0「正式 assessment API／寫入閉環」主項仍不勾。 |
 | 2026-05-02 | Seq 22 程式進度：**`assessment-completion-records-append`**（**`requireStaffUser`**、本人 **`recorded_by_actor_id`**）、補登雙寫本機＋DB；P0「審計落庫／PDF 對表」主項仍不勾。 |
-| 2026-05-02 | Seq 22／12：**`assessment-completion-records-append`** 成功後寫 **`audit_events`**（**`audit_ok`**）；**`docs/assessment-completion-records-contract.md`**；P0「審計與主檔單一交易」仍不勾。 |
+| 2026-05-02 | Seq 22／12：**`assessment-completion-records-append`** 成功後寫 **`audit_events`**；審計失敗軟刪回溯／**`500`**（見契約）；**`docs/assessment-completion-records-contract.md`**；P0「審計與主檔單一交易」仍以資料庫交易為終極方案（現為 Edge 程式回溯）。 |
