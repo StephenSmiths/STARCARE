@@ -36,4 +36,4 @@
 ## 相關文件
 - 序號對照：**`docs/pdf-sequenced-gap-checklist.md`**（Seq **36**）。  
 - 工程規範 PR 檢核：**`docs/pdf03-cursorrules-alignment.md`** §3。  
-- 專案入口：**`README.md`**（文件表）。
+- 專案入口：**`README.md`**（文件表）；前端 **`npm run ci`**／E2E 見 **`docs/feature-list.md`** §8；分階 **`acceptance:*`** 與全閘對照見 **`docs/phase4-day4-delivery-index.md`**、**`docs/phase5-day1-delivery-index.md`**。

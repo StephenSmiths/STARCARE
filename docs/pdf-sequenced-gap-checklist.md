@@ -266,3 +266,4 @@
 | 2026-05-03 | **`README.md`** 文件表增 Phase 4／5 **交付索引**列；**`feature-list.md`** §8 README 項同步。 |
 | 2026-05-03 | **`pdf03-cursorrules-alignment.md`** §4：維護項補 **`README`** 文件表之交付索引與 **`npm run ci`**／**`acceptance:*`** 對照；**`client-delivery-remediation-plan.md`** §8 修訂紀錄對照。 |
 | 2026-05-03 | **`pdf03-cursorrules-alignment.md`** §3 PR 檢核「文件入口」補 **`README`** 交付索引列；**`pdf-alignment-p0-backlog.md`** 工程附錄補分階 **`acceptance:*`** 鏈結。 |
+| 2026-05-03 | **`security-token-rotation-checklist.md`** §D：部署後自檢增可選 **`npm run ci`**；**`adr-0001-scheduling-logic-placement.md`**「相關文件」補 **`feature-list`** §8 與 Phase 交付索引。 |

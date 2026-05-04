@@ -24,3 +24,4 @@
 1. `npx supabase migration list`：本地/遠端一致（或 **`npm run ops:verify`**，見 **`docs/supabase-deploy-runbook.md`** §3）。
 2. `npx supabase functions list`：目標 functions 為 **`ACTIVE`**，且與 **`package.json`** 之 **`ops:deploy:all`** 列舉一致。
 3. 前端走一次「登入 -> 排班 -> 一鍵儲存」閉環測試。
+4. （可選）於前端 repo 執行 **`npm run ci`**（與 **`.github/workflows/ci.yml`** 指令集合同源；見 **`docs/supabase-deploy-runbook.md`** §6、**`docs/feature-list.md`** §8；**`acceptance:*`** 與全閘對照見 **`docs/phase4-day4-delivery-index.md`**、**`docs/phase5-day1-delivery-index.md`**）。
