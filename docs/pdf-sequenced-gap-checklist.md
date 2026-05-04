@@ -294,3 +294,4 @@
 | 2026-05-10 | **`residents-edge-function-contract.md`**、**`assessment-completion-records-contract.md`**、**`feature-list.md`** 開首、**`pdf03`** 標題區／§4、**`adr-0001`** 開首 **對照** 補 **`pdf-sequenced`**「**運維與工程**」列。 |
 | 2026-05-11 | **`business-logic.md`** §0 **`pdf-sequenced`** 敘述；**`client-delivery-remediation-plan.md`** 內部入口／**§2**；**`pdf-alignment-p0-backlog.md`** 開首 **對照**；**`feature-list.md`** §8。 |
 | 2026-05-12 | **`phase*.md`**、**`stage*.md`** 開首 **對照** 補 **`pdf-sequenced`**「**運維與工程**」列；acceptance／verify／closeout **腳本** 產出 **對照** 同步。 |
+| 2026-05-13 | **`.cursorrules`** §3、**`README.md`**、**`business-logic.md`** §0、**`pdf03`** §3、**`feature-list.md`** §8、**`ci.yml`**：明示 **`phase*.md`**／**`stage*.md`** 與 **`pdf-sequenced`**「**運維與工程**」互鏈。 |
