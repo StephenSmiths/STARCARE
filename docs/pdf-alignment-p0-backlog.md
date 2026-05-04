@@ -4,7 +4,7 @@
 > **用法**：每項 `- [ ]` 完成後改 `- [x]`，並在內部 issue 或 PR 附 **PDF 頁碼／【N】／SQL／E2E 連結**。  
 > **母本**：`docs/pdf/01-…`、`02-…`、`03-…`；條文整理見 `docs/business-logic.md`。
 
-**工程／驗收附錄**：本機全閘 **`npm run ci`**（**`README.md`** 文件表、`docs/feature-list.md` §8；**`acceptance:*`** 與 **`npm run ci`** 分階對照見 **`docs/phase4-day4-delivery-index.md`**、**`docs/phase5-day1-delivery-index.md`**）；遠端部署 **`npm run ops:deploy:all`** 見 **`docs/supabase-deploy-runbook.md`** §2；審計正式庫抽測見 **`docs/go-live-checklist.md`** §8；PAT 與部署後自檢見 **`docs/security-token-rotation-checklist.md`**。院友／評估完成之 Edge 契約見 **`docs/residents-edge-function-contract.md`**、**`docs/assessment-completion-records-contract.md`**。
+**工程／驗收附錄**：本機全閘 **`npm run ci`**（**`README.md`** 文件表、`docs/feature-list.md` §8；**`acceptance:*`** 與 **`npm run ci`** 分階對照見 **`docs/phase4-day4-delivery-index.md`**、**`docs/phase5-day1-delivery-index.md`**）；遠端部署 **`npm run ops:deploy:all`** 見 **`docs/supabase-deploy-runbook.md`** §2；審計正式庫抽測見 **`docs/go-live-checklist.md`** §8；PAT 與部署後自檢見 **`docs/security-token-rotation-checklist.md`**（**§D** 含可選 **`npm run ci`**）。院友／評估完成之 Edge 契約見 **`docs/residents-edge-function-contract.md`**、**`docs/assessment-completion-records-contract.md`**。
 
 ---
 

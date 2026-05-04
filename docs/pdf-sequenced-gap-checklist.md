@@ -5,7 +5,7 @@
 > **02 編號**：PDF 內 **【5】出現兩次**（填寫表單、開工接更），本清單拆成 **【5】** 與 **【5b】** 以利追蹤。
 
 **相關檔**：`docs/feature-list.md`（現況盤點）、`docs/business-logic.md`（01 條文整理）、`docs/client-delivery-remediation-plan.md`（對客戶流程）、`docs/pdf-alignment-p0-backlog.md`（母本全對齊 P0 可勾選項）。  
-**運維與工程**：`docs/go-live-checklist.md`（上線）、`docs/supabase-deploy-runbook.md`（**`ops:deploy:all`**、**`npm run ci`**）、`docs/security-token-rotation-checklist.md`（PAT）、`docs/adr-0001-scheduling-logic-placement.md`（Seq 36 排班放置）、`docs/pdf03-cursorrules-alignment.md`（Seq 37 PR 檢核）。
+**運維與工程**：`docs/go-live-checklist.md`（上線）、`docs/supabase-deploy-runbook.md`（**`ops:deploy:all`**、**`npm run ci`**）、`docs/security-token-rotation-checklist.md`（PAT；**§D** 部署後自檢含可選 **`npm run ci`**）、`docs/adr-0001-scheduling-logic-placement.md`（Seq 36 排班放置）、`docs/pdf03-cursorrules-alignment.md`（Seq 37 PR 檢核）。
 
 ---
 
@@ -268,3 +268,4 @@
 | 2026-05-03 | **`pdf03-cursorrules-alignment.md`** §3 PR 檢核「文件入口」補 **`README`** 交付索引列；**`pdf-alignment-p0-backlog.md`** 工程附錄補分階 **`acceptance:*`** 鏈結。 |
 | 2026-05-03 | **`security-token-rotation-checklist.md`** §D：部署後自檢增可選 **`npm run ci`**；**`adr-0001-scheduling-logic-placement.md`**「相關文件」補 **`feature-list`** §8 與 Phase 交付索引。 |
 | 2026-05-03 | **`go-live-checklist.md`** §6：PAT 驗證部署項補鏈結 **`security-token-rotation-checklist.md`** §D（可選 **`npm run ci`**、**`acceptance:*`** 對照）；**`business-logic.md`** §0 憑證一行同步。 |
+| 2026-05-03 | 主檔「**運維與工程**」、**`rbac-seq1-verification-checklist.md`** §1、**`pdf-alignment-p0-backlog.md`** 工程附錄、**`feature-list.md`** 頁尾、**`client-delivery-remediation-plan.md`** §2：憑證敘述統一標 **§D**／可選 **`npm run ci`**。 |
