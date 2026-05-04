@@ -41,7 +41,7 @@
 - [ ] **防重複提交**：表單／儲存有 debounce 或鎖。  
 - [ ] **註解**：業務邏輯註解標 **PDF 章節或 Seq**（繁中）。  
 - [ ] **測試**：網域規則至少一則單元測試（若可測）。  
-- [ ] **文件入口**：若變更 CI、E2E 或主要指令，同步 `README.md`、`docs/feature-list.md` §8 或 `docs/pdf-sequenced-gap-checklist.md` 變更紀錄（與 Seq 3／37）。
+- [ ] **文件入口**：若變更 CI、E2E 或主要指令，同步 `README.md`、**`.env.example`**、`docs/feature-list.md` §8 或 `docs/pdf-sequenced-gap-checklist.md` 變更紀錄（與 Seq 3／37）；**demo 煙霧**與 **`npm run ci`** 以 **`npm run build:demo`** 為準（**`playwright.auth.config.ts`** 可選登入 E2E 仍保留 **`VITE_*`** 建置者除外）。
 
 ---
 

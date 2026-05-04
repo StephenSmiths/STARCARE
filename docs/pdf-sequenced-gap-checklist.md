@@ -57,7 +57,7 @@
 |-----|------------|--------------------|-------------------|----------|
 | 35 | 03 | 與 `.cursorrules` **並讀**；若有衝突，**客戶簽核 PDF 優先** | 已補 `docs/pdf03-cursorrules-alignment.md`（對照矩陣＋維護說明）；仍待客戶 PDF 換版後覆核 | 差異表 |
 | 36 | 03＋01 | 「複雜邏輯優先 Edge／DB」vs 現行**前端排班** | 已補 `docs/adr-0001-scheduling-logic-placement.md`（MVP 前端／上線後端權威之遷移原則） | 書面架構決策 |
-| 37 | 03 | 閉環／SRP／200 行等工程約束於**新模組**落實 | 已於 `docs/pdf03-cursorrules-alignment.md` §3 納入 PR 檢核表；**Dependabot** `.github/dependabot.yml`（npm 週一檢查、上限 8 PR）；既有碼仍漸進收斂 | Code review 規則 |
+| 37 | 03 | 閉環／SRP／200 行等工程約束於**新模組**落實 | 已於 `docs/pdf03-cursorrules-alignment.md` §3 納入 PR 檢核表（含 CI／E2E 變更時 **`build:demo`**／**`.env.example`** 同步項）；**Dependabot** `.github/dependabot.yml`（npm 週一檢查、上限 8 PR）；既有碼仍漸進收斂 | Code review 規則 |
 | 38 | 全份 | **三 PDF 版本號／日期**寫入 `docs/business-logic.md` 修訂或獨立 `VERSIONS` | 已補 `docs/business-logic.md` §0.1（含三份母本 SHA-256）；等待客戶補版次／日期 | 客戶確認信 |
 
 ---
@@ -233,3 +233,4 @@
 | 2026-05-03 | 新增 **`docs/go-live-checklist.md`** §8：**RES-06** 審計正式庫抽測（儀表摘要、`AuditTrailPanel`、`audit_events` SQL、RLS）；**`feature-list.md`** RES-06 備註與 §8「建議後續補強」第 2 點交叉引用 go-live §8。 |
 | 2026-05-03 | 校正 Seq 3 摘要：本機／CI 與 **`build:demo`**、**`PW_PREVIEW_ONLY`** 一致敘述；Seq 12 驗收提示鏈結 **go-live** §8；**`playwright.config.ts`** 註解改 **`npm run build:demo`**（取代過時「先 build」）。 |
 | 2026-05-03 | 日誌 **`2026-05-01`** Seq 3 列：將「demo `build`」改為註明 **2026-05-03** 起 **`npm run build:demo`**；**`go-live-checklist.md`** §7 技術確認項鏈結審計 **§8**；Seq 1 驗收提示＋**`rbac-seq1-verification-checklist.md`** 前置條件鏈結 **go-live** §8（審計 RLS）。 |
+| 2026-05-03 | 更新 Seq 37：**`pdf03-cursorrules-alignment.md`** §3 PR 檢核表補 **`.env.example`**、**`build:demo`**／**`npm run ci`** 與 **`playwright.auth`** 例外；主表 Seq 37「與現況對照」同步。 |
