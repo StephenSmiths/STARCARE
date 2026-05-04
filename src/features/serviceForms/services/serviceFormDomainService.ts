@@ -165,7 +165,7 @@ export const approveServiceForm = (
     },
     skipRemoteAuditPersist,
   )
-  completeWorkSessionAfterFormApproved(form.sessionId, reviewerActorId)
+  completeWorkSessionAfterFormApproved(form.sessionId, reviewerActorId, skipRemoteAuditPersist)
   return next
 }
 

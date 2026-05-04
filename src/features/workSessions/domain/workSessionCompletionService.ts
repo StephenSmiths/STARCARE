@@ -1,6 +1,7 @@
 /**
  * 01 §2.1 工作節：ACCEPTED → COMPLETED（已完成服務）。
- * 與 Seq 17 閉環：主管核准服務表單後，將對應工作節標為完成（本地 store；正式環境改 DB）。
+ * Seq 17：`FORM_APPROVE` 經 **`service-forms-upsert`** 時 Edge 同步落庫 **`WORK_SESSION_COMPLETED`**；
+ * `skipRemotePersist=true` 時僅更新本機 store，不重複 `audit-trail-append`／避免與遠端 fingerprint 分叉。
  */
 import { globalAuditTrailService } from '../../../services/auditTrailService'
 import { workSessionResponseStore } from '../../../services/workSessionResponseStore'
@@ -9,6 +10,7 @@ import { resolveLifecycleStatus } from '../../workSessionPlans/services/workSess
 export const completeWorkSessionAfterFormApproved = (
   sessionId: string,
   completedByActorId: string,
+  skipRemotePersist = false,
 ): void => {
   const current = resolveLifecycleStatus(sessionId)
   if (current === 'COMPLETED') return
@@ -23,6 +25,7 @@ export const completeWorkSessionAfterFormApproved = (
     actorId: completedByActorId,
     occurredAt: now,
   })
+  if (skipRemotePersist) return
   globalAuditTrailService.record({
     action: 'WORK_SESSION_COMPLETED',
     entityType: 'Scheduling',

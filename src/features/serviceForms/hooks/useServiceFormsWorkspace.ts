@@ -18,6 +18,7 @@ import {
   upsertDraftServiceForm,
 } from '../services/serviceFormDomainService'
 import { softDeleteServiceForm } from '../services/serviceFormSoftDeleteService'
+import { hydrateAuditTrailFromRemote } from '../../../services/auditTrailHydrationService'
 import { isSupabaseBrowserConfigured } from '../../../services/supabaseBrowserEnv'
 
 const FACILITY_ID = 'facility-main'
@@ -123,9 +124,17 @@ export const useServiceFormsWorkspace = () => {
 
   const approve = useCallback(
     (record: ServiceFormRecord) => {
-      const next = approveServiceForm(role as StarcareRole, actorId, record, isSupabaseBrowserConfigured())
+      const skipAudit = isSupabaseBrowserConfigured()
+      const next = approveServiceForm(role as StarcareRole, actorId, record, skipAudit)
       refreshForms()
-      void serviceFormRepoRef.current.upsertForm(FACILITY_ID, next).catch(() => {})
+      void (async () => {
+        try {
+          await serviceFormRepoRef.current.upsertForm(FACILITY_ID, next)
+          if (skipAudit) await hydrateAuditTrailFromRemote()
+        } catch {
+          /* 樂觀本機列保留；審計刷新失敗不阻斷 UI */
+        }
+      })()
     },
     [actorId, role, refreshForms],
   )

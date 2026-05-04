@@ -20,18 +20,24 @@ export const insertAuditEvent = async (
     detail: string
     occurred_at?: string
   },
-): Promise<{ ok: true } | { ok: false; message: string }> => {
+): Promise<{ ok: true; id: string } | { ok: false; message: string }> => {
   const occurred_at = params.occurred_at ?? new Date().toISOString()
-  const { error } = await supabase.from('audit_events').insert({
-    action: params.action,
-    entity_type: params.entity_type,
-    entity_id: params.entity_id,
-    actor_id: params.actor_id,
-    before_state: params.before_state == null ? null : clamp(params.before_state),
-    after_state: params.after_state == null ? null : clamp(params.after_state),
-    detail: clamp(params.detail),
-    occurred_at,
-  })
+  const { data, error } = await supabase
+    .from('audit_events')
+    .insert({
+      action: params.action,
+      entity_type: params.entity_type,
+      entity_id: params.entity_id,
+      actor_id: params.actor_id,
+      before_state: params.before_state == null ? null : clamp(params.before_state),
+      after_state: params.after_state == null ? null : clamp(params.after_state),
+      detail: clamp(params.detail),
+      occurred_at,
+    })
+    .select('id')
+    .single()
   if (error) return { ok: false, message: error.message }
-  return { ok: true }
+  const id = data?.id
+  if (typeof id !== 'string' || !id) return { ok: false, message: '審計 INSERT 未回傳 id' }
+  return { ok: true, id }
 }

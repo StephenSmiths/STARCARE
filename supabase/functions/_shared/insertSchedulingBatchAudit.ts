@@ -11,7 +11,7 @@ export const insertSchedulingBatchAuditEvent = async (
   supabase: SupabaseClient,
   actorId: string,
   rows: BatchRow[],
-): Promise<{ ok: true } | { ok: false; message: string }> => {
+): Promise<{ ok: true; id: string } | { ok: false; message: string }> => {
   if (!rows.length) return { ok: false, message: 'rows 不可為空' }
   const batchId = rows[0]?.batch_id?.trim()
   if (!batchId) return { ok: false, message: 'batch_id 無效' }

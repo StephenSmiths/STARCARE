@@ -12,6 +12,21 @@ import { deriveServiceFormUpsertAudit } from '../_shared/serviceFormUpsertAudit.
 
 type Body = { facilityId?: string; form?: unknown }
 
+type ServiceSupabase = ReturnType<typeof getServiceClient>
+
+/** 審計失敗時回溯本次 service_forms upsert（01 §5） */
+const rollbackServiceFormUpsert = async (
+  supabase: ServiceSupabase,
+  prevDb: Record<string, unknown> | null,
+  formId: string,
+): Promise<void> => {
+  if (prevDb) {
+    await supabase.from('service_forms').upsert(prevDb, { onConflict: 'id' })
+  } else {
+    await supabase.from('service_forms').update({ is_deleted: true }).eq('id', formId).eq('is_deleted', false)
+  }
+}
+
 const assertAuditActor = (
   auditAction: string,
   staffUserId: string,
@@ -52,6 +67,7 @@ Deno.serve(async (req) => {
     const { error } = await supabase.from('service_forms').upsert(row, { onConflict: 'id' })
     if (error) return json({ error: error.message }, 400)
 
+    const occurredAt = new Date().toISOString()
     const audit = await insertAuditEvent(supabase, {
       action: plan.action,
       entity_type: 'Scheduling',
@@ -60,15 +76,37 @@ Deno.serve(async (req) => {
       before_state: plan.beforeState,
       after_state: plan.afterState,
       detail: plan.detail,
+      occurred_at: occurredAt,
     })
     if (!audit.ok) {
-      if (prevDb) {
-        await supabase.from('service_forms').upsert(prevDb as Record<string, unknown>, { onConflict: 'id' })
-      } else {
-        await supabase.from('service_forms').update({ is_deleted: true }).eq('id', f.id).eq('is_deleted', false)
-      }
+      await rollbackServiceFormUpsert(supabase, prevDb as Record<string, unknown> | null, f.id)
       return json({ error: `審計落庫失敗，已回溯本次 upsert：${audit.message}` }, 500)
     }
+
+    if (plan.action === 'FORM_APPROVE') {
+      const sessionId = (f.sessionId ?? '').trim()
+      if (!sessionId) {
+        await supabase.from('audit_events').update({ is_deleted: true }).eq('id', audit.id).eq('is_deleted', false)
+        await rollbackServiceFormUpsert(supabase, prevDb as Record<string, unknown> | null, f.id)
+        return json({ error: '表單缺少 sessionId，無法落庫 WORK_SESSION_COMPLETED 審計' }, 500)
+      }
+      const completion = await insertAuditEvent(supabase, {
+        action: 'WORK_SESSION_COMPLETED',
+        entity_type: 'Scheduling',
+        entity_id: sessionId,
+        actor_id: staff.user.id,
+        before_state: JSON.stringify({ status: 'ACCEPTED' }),
+        after_state: JSON.stringify({ status: 'COMPLETED' }),
+        detail: '表單已核准：工作節標示為已完成（COMPLETED）（PDF 02【5】／Edge）',
+        occurred_at: occurredAt,
+      })
+      if (!completion.ok) {
+        await supabase.from('audit_events').update({ is_deleted: true }).eq('id', audit.id).eq('is_deleted', false)
+        await rollbackServiceFormUpsert(supabase, prevDb as Record<string, unknown> | null, f.id)
+        return json({ error: `審計落庫失敗，已回溯本次 upsert：${completion.message}` }, 500)
+      }
+    }
+
     return json({ ok: true })
   } catch (e) {
     return json({ error: String(e) }, 500)
