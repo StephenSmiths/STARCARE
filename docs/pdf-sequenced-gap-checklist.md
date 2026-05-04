@@ -5,7 +5,7 @@
 > **02 編號**：PDF 內 **【5】出現兩次**（填寫表單、開工接更），本清單拆成 **【5】** 與 **【5b】** 以利追蹤。
 
 **相關檔**：`docs/feature-list.md`（現況盤點）、`docs/business-logic.md`（01 條文整理；**§0** 並讀 **`.cursorrules`** §3「部署與驗收閘門」）、`docs/client-delivery-remediation-plan.md`（對客戶流程）、`docs/pdf-alignment-p0-backlog.md`（母本全對齊 P0 可勾選項）。  
-**運維與工程**：`docs/go-live-checklist.md`（上線）、`docs/supabase-deploy-runbook.md`（**`ops:deploy:all`**、**`npm run ci`**）、`docs/security-token-rotation-checklist.md`（PAT；**§D** 部署後自檢含可選 **`npm run ci`**）、`docs/adr-0001-scheduling-logic-placement.md`（Seq 36 排班放置）、`docs/pdf03-cursorrules-alignment.md`（Seq 37 PR 檢核）。
+**運維與工程**：`docs/go-live-checklist.md`（上線）、`docs/supabase-deploy-runbook.md`（**`ops:deploy:all`**、**`npm run ci`**）、`docs/security-token-rotation-checklist.md`（PAT；**§D** 部署後自檢含可選 **`npm run ci`**）、`docs/adr-0001-scheduling-logic-placement.md`（Seq 36 排班放置）、`docs/pdf03-cursorrules-alignment.md`（Seq 37 PR 檢核）。**Stage 2／Phase 3 歷史追溯**（非現行交付權威）：路徑彙列於 **`docs/business-logic.md`** §0；**`README.md`** 文件表有入口列。
 
 ---
 
@@ -284,3 +284,4 @@
 | 2026-05-03 | Phase 4／5 **Runbook**、**UI smoke**、**完成報告**、**對外摘要**、**打包／發送模板** 開首增 **對照**；acceptance／verify／closeout **腳本**產出之報告／摘要／狀態開首增 **對照**。 |
 | 2026-05-04 | **`stage2-completion-report.md`**、**`stage2-external-summary.md`**、**`stage3-day3-completion-note.md`**、**`stage3-day5-external-summary.md`**：開首增 **對照**（**`business-logic.md`** §0、Phase 3／4 鏈）。 |
 | 2026-05-04 | **`business-logic.md`** §0、**`README.md`**、**`feature-list.md`** 頁尾、**`pdf03-cursorrules-alignment.md`** §3／§4、**`pdf-alignment-p0-backlog.md`**：Stage 2／Phase 3 **歷史追溯**路徑與 **§0** 互鏈。 |
+| 2026-05-05 | 主檔「**運維與工程**」句末補 **Stage 2／Phase 3** 歷史追溯入口（**`business-logic.md`** §0、**`README.md`**）；**`pdf03-cursorrules-alignment.md`** §4 維護項補主檔該列之同步責任。 |

@@ -212,3 +212,4 @@
 | 2026-05-03 | Phase 4／5 **Runbook**、**UI smoke**、**完成報告**、**對外摘要**、**打包／發送模板** 開首增 **對照**；**`scripts/phase4-day4-acceptance.mjs`**、**`phase5-day1-acceptance.mjs`**、**`phase5-verify-delivery-artifacts.mjs`**、**`phase5-generate-closeout-summary.mjs`**、**`phase5-print-closeout-status.mjs`**：產出 Markdown 開首增 **對照**（與 **`business-logic.md`** §0、交付索引一致）。 |
 | 2026-05-04 | **`stage2-completion-report.md`**、**`stage2-external-summary.md`**、**`stage3-day3-completion-note.md`**、**`stage3-day5-external-summary.md`**：開首增 **對照**（**`business-logic.md`** §0、Phase 3 驗收與 Phase 4 索引）。 |
 | 2026-05-04 | §0：增 **Stage 2／Phase 3 歷史追溯**一行；**`README.md`** 文件表、**`feature-list.md`** 頁尾／§8、**`pdf03-cursorrules-alignment.md`** §3 PR 檢核／§4、**`pdf-alignment-p0-backlog.md`** 修訂紀錄同步。 |
+| 2026-05-05 | **`pdf-sequenced-gap-checklist.md`** 主檔「**運維與工程**」：補 **Stage 2／Phase 3** 與 **§0**／**`README`** 互鏈一句；**`pdf03-cursorrules-alignment.md`** §4 維護項補「主檔「**運維與工程**」列」同步對象。 |
