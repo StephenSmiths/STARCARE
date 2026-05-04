@@ -4,7 +4,7 @@
 > **狀態欄建議填**：`未開始`／`進行中`／`已驗證`（已驗證＝對照 PDF 有證據，非僅自認完成）。  
 > **02 編號**：PDF 內 **【5】出現兩次**（填寫表單、開工接更），本清單拆成 **【5】** 與 **【5b】** 以利追蹤。
 
-**相關檔**：`docs/feature-list.md`（現況盤點）、`docs/business-logic.md`（01 條文整理）、`docs/client-delivery-remediation-plan.md`（對客戶流程）、`docs/pdf-alignment-p0-backlog.md`（母本全對齊 P0 可勾選項）。  
+**相關檔**：`docs/feature-list.md`（現況盤點）、`docs/business-logic.md`（01 條文整理；**§0** 並讀 **`.cursorrules`** §3「部署與驗收閘門」）、`docs/client-delivery-remediation-plan.md`（對客戶流程）、`docs/pdf-alignment-p0-backlog.md`（母本全對齊 P0 可勾選項）。  
 **運維與工程**：`docs/go-live-checklist.md`（上線）、`docs/supabase-deploy-runbook.md`（**`ops:deploy:all`**、**`npm run ci`**）、`docs/security-token-rotation-checklist.md`（PAT；**§D** 部署後自檢含可選 **`npm run ci`**）、`docs/adr-0001-scheduling-logic-placement.md`（Seq 36 排班放置）、`docs/pdf03-cursorrules-alignment.md`（Seq 37 PR 檢核）。
 
 ---
@@ -274,3 +274,4 @@
 | 2026-05-03 | **`.cursorrules`** §3 增「部署與驗收閘門」；**`pdf03-cursorrules-alignment.md`** §4 維護項補 **`.cursorrules`** 變更時之同步對象。 |
 | 2026-05-03 | **`business-logic.md`** §0：補 **`.cursorrules`** §3 與運維文件連動及 **`pdf03`** §4 維護責任；**§8** 修訂紀錄一筆；**`feature-list.md`** §8 README 項同步。 |
 | 2026-05-03 | **`README.md`** **`business-logic`** 列、**`pdf-alignment-p0-backlog.md`** 工程附錄、**`pdf03-cursorrules-alignment.md`** §3、**`feature-list.md`** §8 README 項：補 **`.cursorrules`** §3／**`business-logic`** §0 對照。 |
+| 2026-05-03 | **`README.md`** 開頭、`pdf-sequenced-gap-checklist.md`「相關檔」、**`feature-list.md`** 頁尾：補 **`.cursorrules`** §3 與 **`business-logic.md`** §0 一句式入口。 |
