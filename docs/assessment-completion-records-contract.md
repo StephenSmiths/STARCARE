@@ -28,6 +28,7 @@
 ## 4. 前端 Repository
 
 - **`assessmentCompletionRecordRepository`**（`src/repositories/assessmentCompletionRecordRepository.ts`）：**`listActive`**、**`append`**；**`append`** 附 **`X-Idempotency-Key`**。
+- **`useAssessmentManagementWorkspace`**：**`append`** 成功且已設定 Supabase 環境時，記憶體審計仍寫入，但 **不再呼叫 `audit-trail-append`**（與 Edge 已寫入之 **`ASSESSMENT_COMPLETION_RECORD`** 去重）；僅本機成功、雲端失敗時仍會嘗試遠端 append。
 - **型別映射**：**`assessmentCompletionRecordMapper.ts`**（**`mapAssessmentCompletionRecordRow`**、**`toAssessmentCompletionAppendPayload`**）。
 
 ## 5. 與本機儲存

@@ -19,6 +19,13 @@ import {
 } from '../services/assessmentManagementDomainService'
 import { mergeAssessmentCompletionRecordsRemotePrimary } from '../services/mergeAssessmentCompletionRecords'
 
+/** Edge `assessment-completion-records-append` 已成功時已落庫審計，避免重複 append */
+const skipRemoteAssessmentAuditPersist = (remoteAppendSucceeded: boolean): boolean => {
+  if (!remoteAppendSucceeded) return false
+  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
+  return !!(env.VITE_SUPABASE_URL && env.VITE_SUPABASE_ANON_KEY)
+}
+
 export type AssessmentManagementWorkspaceState = {
   residents: Resident[]
   completions: AssessmentCompletionRecord[]
@@ -97,28 +104,33 @@ export const useAssessmentManagementWorkspace = (): AssessmentManagementWorkspac
         const addedLen = next.length - existing.length
         const added = next.slice(0, addedLen)
         saveAssessmentCompletions(next)
+        let remoteAppendSucceeded = false
         try {
           await assessmentCompletionRecordRepository.append(added)
+          remoteAppendSucceeded = true
         } catch (e) {
           const msg = e instanceof Error ? e.message : '雲端同步失敗'
           setSubmitError(`已寫入本機；${msg}`)
         }
-        globalAuditTrailService.record({
-          action: 'ASSESSMENT_COMPLETION_RECORD',
-          entityType: 'Resident',
-          entityId: resident.id,
-          actorId,
-          beforeState: null,
-          afterState: JSON.stringify(
-            added.map((row) => ({
-              discipline: row.discipline,
-              versionLabel: row.versionLabel,
-              cycleAnchorDate: row.cycleAnchorDate,
-            })),
-          ),
-          detail: `評估完成紀錄：${resident.name}（${added.map((r) => `${r.discipline} ${r.versionLabel}`).join('、')}）`,
-          occurredAt: new Date().toISOString(),
-        })
+        globalAuditTrailService.record(
+          {
+            action: 'ASSESSMENT_COMPLETION_RECORD',
+            entityType: 'Resident',
+            entityId: resident.id,
+            actorId,
+            beforeState: null,
+            afterState: JSON.stringify(
+              added.map((row) => ({
+                discipline: row.discipline,
+                versionLabel: row.versionLabel,
+                cycleAnchorDate: row.cycleAnchorDate,
+              })),
+            ),
+            detail: `評估完成紀錄：${resident.name}（${added.map((r) => `${r.discipline} ${r.versionLabel}`).join('、')}）`,
+            occurredAt: new Date().toISOString(),
+          },
+          skipRemoteAssessmentAuditPersist(remoteAppendSucceeded),
+        )
       } catch (e) {
         const msg = e instanceof Error ? e.message : '儲存失敗'
         setSubmitError(msg)
