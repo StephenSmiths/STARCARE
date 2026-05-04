@@ -1,5 +1,7 @@
 # STARCARE 正式上線檢查清單（Go-Live）
 
+> **對照**：運維、憑證與前端 **`npm run ci`** 等文件總覽見 **`docs/business-logic.md`** §0（**`.cursorrules`** §3「部署與驗收閘門」、**`README.md`** 文件表）。
+
 ## 0. 今日上線目標
 - [ ] 完成最小閉環驗收（登入 -> 排班 -> 儲存 -> DB 驗證）
 - [ ] 完成安全收尾（PAT 輪替、舊 PAT 停用；見 **`docs/security-token-rotation-checklist.md`**；**§D** 可選 **`npm run ci`**）

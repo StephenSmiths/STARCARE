@@ -4,7 +4,8 @@
 > **Seq 37**：新模組工程約束（閉環、SRP、200 行、Repository）之 **Code review 檢核表**。
 
 **母本**：`docs/pdf/03-STARCARE-工程規範-Closed-Loop.pdf`  
-**內部規範**：專案根目錄 `.cursorrules`
+**內部規範**：專案根目錄 `.cursorrules`  
+**與 `business-logic.md` §0**：**`.cursorrules`** §3「部署與驗收閘門」入口見 **`docs/business-logic.md`** §0；變更 **`.cursorrules`** 之同步責任見本文 **§4**。
 
 ---
 

@@ -1,5 +1,7 @@
 # STARCARE Supabase 部署與驗收 Runbook
 
+> **對照**：**`docs/business-logic.md`** §0（**`.cursorrules`** §3「部署與驗收閘門」）；PAT／部署後自檢（可選 **`npm run ci`**）見 **`docs/security-token-rotation-checklist.md`** **§D**。
+
 ## 1) 前置條件
 - 已安裝 Node.js 與 npm。
 - 專案根目錄已有 `.env`（包含 `VITE_SUPABASE_URL`、`VITE_SUPABASE_ANON_KEY`）。

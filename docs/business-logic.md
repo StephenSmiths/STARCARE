@@ -202,3 +202,4 @@
 | 2026-05-01 | 客戶三份 PDF 改存 **`docs/pdf/01…` `02…` `03…`**；更新本節權威路徑；移除根目錄舊 PDF。 |
 | 2026-05-01 | 新增 §0.1「三份母本版本追蹤（Seq 38）」；登錄三份 PDF 的 SHA-256 指紋，供客戶版本確認與稽核。 |
 | 2026-05-03 | §0：補 **`.cursorrules`** §3「部署與驗收閘門」與本節運維／憑證／**`README`**／**`go-live`** 連動；維護責任見 **`docs/pdf03-cursorrules-alignment.md`** §4。 |
+| 2026-05-03 | **`go-live-checklist.md`**、**`supabase-deploy-runbook.md`**、**`pdf03-cursorrules-alignment.md`** 標題下增對照 **`business-logic.md`** §0／**`.cursorrules`** §3 之引導。 |

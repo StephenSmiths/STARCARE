@@ -275,3 +275,4 @@
 | 2026-05-03 | **`business-logic.md`** §0：補 **`.cursorrules`** §3 與運維文件連動及 **`pdf03`** §4 維護責任；**§8** 修訂紀錄一筆；**`feature-list.md`** §8 README 項同步。 |
 | 2026-05-03 | **`README.md`** **`business-logic`** 列、**`pdf-alignment-p0-backlog.md`** 工程附錄、**`pdf03-cursorrules-alignment.md`** §3、**`feature-list.md`** §8 README 項：補 **`.cursorrules`** §3／**`business-logic`** §0 對照。 |
 | 2026-05-03 | **`README.md`** 開頭、`pdf-sequenced-gap-checklist.md`「相關檔」、**`feature-list.md`** 頁尾：補 **`.cursorrules`** §3 與 **`business-logic.md`** §0 一句式入口。 |
+| 2026-05-03 | **`go-live-checklist.md`**、**`supabase-deploy-runbook.md`**、`pdf03-cursorrules-alignment.md` 標題下增 **對照／與 §0** 引導至 **`business-logic.md`** §0、**`.cursorrules`** §3。 |
