@@ -1,7 +1,7 @@
 # 閉環：lint → 單元測試 → demo 建置 → Playwright 煙霧（`PW_PREVIEW_ONLY` 不重複 vite build）。
 # 可選登入 E2E（`npm run test:e2e:auth`）需 E2E_AUTH_*，預設於本機／有密鑰之 pipeline 執行。
 # 本 job 之分步指令集合等同 **`npm run ci`**（`package.json`），僅拆成多個 step 以利 Actions 快取與日誌分段。
-# 文件入口：`docs/business-logic.md` §0、專案根 `.cursorrules` §3、`README.md`、`docs/pdf-sequenced-gap-checklist.md` 主檔「運維與工程」列、`docs/feature-list.md` §8；`docs/phase*.md`／`stage*.md` 開首對照互鏈該「運維與工程」列。
+# 文件入口：`docs/business-logic.md` §0、專案根 `.cursorrules` §3、`README.md`、`docs/pdf-sequenced-gap-checklist.md` 主檔「運維與工程」列、`docs/pdf-sequenced-gap-checklist-revision-log.md`（日誌）、`docs/feature-list.md` §8；`docs/phase*.md`／`stage*.md` 開首對照互鏈該「運維與工程」列。
 name: CI
 
 on:

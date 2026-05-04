@@ -7,7 +7,7 @@
 | 文件 | 用途 |
 |------|------|
 | [docs/feature-list.md](docs/feature-list.md) | 功能清單、CI／E2E／Dependabot 說明（§8） |
-| [docs/pdf-sequenced-gap-checklist.md](docs/pdf-sequenced-gap-checklist.md) | PDF 對齊序號檢核（Seq 1～38）；主檔「**運維與工程**」列彙列 go-live／runbook／憑證等（與 [business-logic.md](docs/business-logic.md) §0、**`.cursorrules`** §3 一致） |
+| [docs/pdf-sequenced-gap-checklist.md](docs/pdf-sequenced-gap-checklist.md) | PDF 對齊序號檢核（Seq 1～38）；主檔「**運維與工程**」列彙列 go-live／runbook／憑證等（與 [business-logic.md](docs/business-logic.md) §0、**`.cursorrules`** §3 一致）；修訂日誌 [pdf-sequenced-gap-checklist-revision-log.md](docs/pdf-sequenced-gap-checklist-revision-log.md) |
 | [docs/pdf-alignment-p0-backlog.md](docs/pdf-alignment-p0-backlog.md) | 母本全對齊 P0 可勾選 backlog |
 | [docs/business-logic.md](docs/business-logic.md) | 01 條文整理；**§0** 權威入口（含 **`.cursorrules`** §3 部署／驗收閘門連動）；**§8** 修訂表見 [business-logic-revision-log.md](docs/business-logic-revision-log.md) |
 | [docs/phase3-day5-acceptance.md](docs/phase3-day5-acceptance.md) | Phase 3 Day 5 驗收（銜接 Phase 4 索引）；開首 **對照** 互鏈 [pdf-sequenced-gap-checklist.md](docs/pdf-sequenced-gap-checklist.md)「**運維與工程**」列 |
