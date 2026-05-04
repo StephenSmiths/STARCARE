@@ -1,9 +1,5 @@
 import type { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2.49.1'
-
-/** 與 `audit-trail-append` 同欄位上限（01 §5／Seq 12） */
-const MAX_TEXT = 32000
-
-const clamp = (s: string): string => (s.length <= MAX_TEXT ? s : s.slice(0, MAX_TEXT))
+import { insertAuditEvent } from './insertAuditEvent.ts'
 
 type BatchRow = { batch_id: string }
 
@@ -19,19 +15,15 @@ export const insertSchedulingBatchAuditEvent = async (
   if (!rows.length) return { ok: false, message: 'rows 不可為空' }
   const batchId = rows[0]?.batch_id?.trim()
   if (!batchId) return { ok: false, message: 'batch_id 無效' }
-  const occurredAt = new Date().toISOString()
   const afterState = JSON.stringify({ count: rows.length, batchId })
   const detail = `一鍵儲存：批量寫入 scheduling_history（batch=${batchId}）`
-  const { error } = await supabase.from('audit_events').insert({
+  return insertAuditEvent(supabase, {
     action: 'SCHEDULE_BATCH_SAVE',
     entity_type: 'Scheduling',
     entity_id: batchId,
     actor_id: actorId,
     before_state: null,
-    after_state: clamp(afterState),
-    detail: clamp(detail),
-    occurred_at: occurredAt,
+    after_state: afterState,
+    detail,
   })
-  if (error) return { ok: false, message: error.message }
-  return { ok: true }
 }

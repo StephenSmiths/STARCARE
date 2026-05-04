@@ -10,9 +10,12 @@ export class ResidentService {
   private readonly repository: ResidentRepository
   private readonly auditTrailService = globalAuditTrailService
   private readonly inFlightKeys = new Set<string>()
+  /** Supabase 模式下院友寫入已由 Edge 落庫 `audit_events`，僅更新記憶體軌跡避免重覆 append */
+  private readonly skipRemoteAuditPersist: boolean
 
-  constructor(repository: ResidentRepository) {
+  constructor(repository: ResidentRepository, skipRemoteAuditPersist = false) {
     this.repository = repository
+    this.skipRemoteAuditPersist = skipRemoteAuditPersist
   }
 
   async listActiveResidents(): Promise<Resident[]> {
@@ -30,16 +33,19 @@ export class ResidentService {
         isDeleted: false,
       }
       await this.repository.createResident(resident)
-      this.auditTrailService.record({
-        action: 'CREATE',
-        entityType: 'Resident',
-        entityId: resident.id,
-        actorId,
-        beforeState: null,
-        afterState: JSON.stringify(resident),
-        detail: '新增院友資料',
-        occurredAt: new Date().toISOString(),
-      })
+      this.auditTrailService.record(
+        {
+          action: 'CREATE',
+          entityType: 'Resident',
+          entityId: resident.id,
+          actorId,
+          beforeState: null,
+          afterState: JSON.stringify(resident),
+          detail: '新增院友資料',
+          occurredAt: new Date().toISOString(),
+        },
+        this.skipRemoteAuditPersist,
+      )
     })
   }
 
@@ -50,16 +56,19 @@ export class ResidentService {
       const updated = this.normalizeResidentAssessmentAnchor(merged)
       this.validateInput(this.residentToInput(updated))
       await this.repository.updateResident(updated)
-      this.auditTrailService.record({
-        action: 'UPDATE',
-        entityType: 'Resident',
-        entityId: id,
-        actorId,
-        beforeState: JSON.stringify(previous),
-        afterState: JSON.stringify(updated),
-        detail: '修改院友資料',
-        occurredAt: new Date().toISOString(),
-      })
+      this.auditTrailService.record(
+        {
+          action: 'UPDATE',
+          entityType: 'Resident',
+          entityId: id,
+          actorId,
+          beforeState: JSON.stringify(previous),
+          afterState: JSON.stringify(updated),
+          detail: '修改院友資料',
+          occurredAt: new Date().toISOString(),
+        },
+        this.skipRemoteAuditPersist,
+      )
     })
   }
 
@@ -68,16 +77,19 @@ export class ResidentService {
       const previous = await this.getResidentOrThrow(id)
       await this.repository.softDeleteResident(id)
       const updated: Resident = { ...previous, isDeleted: true }
-      this.auditTrailService.record({
-        action: 'SOFT_DELETE',
-        entityType: 'Resident',
-        entityId: id,
-        actorId,
-        beforeState: JSON.stringify(previous),
-        afterState: JSON.stringify(updated),
-        detail: '軟刪除院友資料',
-        occurredAt: new Date().toISOString(),
-      })
+      this.auditTrailService.record(
+        {
+          action: 'SOFT_DELETE',
+          entityType: 'Resident',
+          entityId: id,
+          actorId,
+          beforeState: JSON.stringify(previous),
+          afterState: JSON.stringify(updated),
+          detail: '軟刪除院友資料',
+          occurredAt: new Date().toISOString(),
+        },
+        this.skipRemoteAuditPersist,
+      )
     })
   }
 
@@ -181,4 +193,8 @@ const createResidentRepository = (): ResidentRepository => {
   return new InMemoryResidentRepository()
 }
 
-export const residentService = new ResidentService(createResidentRepository())
+const residentRepo = createResidentRepository()
+export const residentService = new ResidentService(
+  residentRepo,
+  residentRepo instanceof ResidentEdgeRepository,
+)
