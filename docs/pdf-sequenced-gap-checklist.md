@@ -285,3 +285,4 @@
 | 2026-05-04 | **`stage2-completion-report.md`**、**`stage2-external-summary.md`**、**`stage3-day3-completion-note.md`**、**`stage3-day5-external-summary.md`**：開首增 **對照**（**`business-logic.md`** §0、Phase 3／4 鏈）。 |
 | 2026-05-04 | **`business-logic.md`** §0、**`README.md`**、**`feature-list.md`** 頁尾、**`pdf03-cursorrules-alignment.md`** §3／§4、**`pdf-alignment-p0-backlog.md`**：Stage 2／Phase 3 **歷史追溯**路徑與 **§0** 互鏈。 |
 | 2026-05-05 | 主檔「**運維與工程**」句末補 **Stage 2／Phase 3** 歷史追溯入口（**`business-logic.md`** §0、**`README.md`**）；**`pdf03-cursorrules-alignment.md`** §4 維護項補主檔該列之同步責任。 |
+| 2026-05-06 | **`.cursorrules`** §3、**`pdf-alignment-p0-backlog.md`** 工程附錄、**`feature-list.md`** §8／頁尾、**`pdf03-cursorrules-alignment.md`** §3：補 **`.cursorrules`** §3 與序號主檔「**運維與工程**」列之閉環同步說明。 |

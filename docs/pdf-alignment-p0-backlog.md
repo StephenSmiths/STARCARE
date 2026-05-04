@@ -6,7 +6,7 @@
 > **用法**：每項 `- [ ]` 完成後改 `- [x]`，並在內部 issue 或 PR 附 **PDF 頁碼／【N】／SQL／E2E 連結**。  
 > **母本**：`docs/pdf/01-…`、`02-…`、`03-…`；條文整理見 `docs/business-logic.md`。
 
-**工程／驗收附錄**：本機全閘 **`npm run ci`**（**`README.md`** 文件表、`docs/feature-list.md` §8；**`acceptance:*`** 與 **`npm run ci`** 分階對照見 **`docs/phase4-day4-delivery-index.md`**、**`docs/phase5-day1-delivery-index.md`**）；遠端部署 **`npm run ops:deploy:all`** 見 **`docs/supabase-deploy-runbook.md`** §2；審計正式庫抽測見 **`docs/go-live-checklist.md`** §8；PAT 與部署後自檢見 **`docs/security-token-rotation-checklist.md`**（**§D** 含可選 **`npm run ci`**）。專案根 **`/.cursorrules`** §3「部署與驗收閘門」與 **`docs/business-logic.md`** §0、**`docs/pdf03-cursorrules-alignment.md`** §4 並讀。院友／評估完成之 Edge 契約見 **`docs/residents-edge-function-contract.md`**、**`docs/assessment-completion-records-contract.md`**。
+**工程／驗收附錄**：本機全閘 **`npm run ci`**（**`README.md`** 文件表、`docs/feature-list.md` §8；**`acceptance:*`** 與 **`npm run ci`** 分階對照見 **`docs/phase4-day4-delivery-index.md`**、**`docs/phase5-day1-delivery-index.md`**）；遠端部署 **`npm run ops:deploy:all`** 見 **`docs/supabase-deploy-runbook.md`** §2；審計正式庫抽測見 **`docs/go-live-checklist.md`** §8；PAT 與部署後自檢見 **`docs/security-token-rotation-checklist.md`**（**§D** 含可選 **`npm run ci`**）。專案根 **`/.cursorrules`** §3「部署與驗收閘門」與 **`docs/business-logic.md`** §0、**`docs/pdf03-cursorrules-alignment.md`** §4 並讀。序號清單主檔「**運維與工程**」列見 **`docs/pdf-sequenced-gap-checklist.md`**（與 §0 分階／**Stage 2／Phase 3** 歷史路徑互鏈）。院友／評估完成之 Edge 契約見 **`docs/residents-edge-function-contract.md`**、**`docs/assessment-completion-records-contract.md`**。
 
 ---
 
@@ -80,6 +80,7 @@
 | 2026-05-03 | 首段增 **工程／驗收附錄**（**`npm run ci`**、**`ops:deploy:all`**、**go-live** §8、憑證清單）；與 **`pdf-sequenced-gap-checklist.md`** 主檔「運維與工程」對照；**`README.md`**／**`business-logic.md`** §0 增本檔入口。 |
 | 2026-05-03 | **工程／驗收附錄**補 **`residents-edge-function-contract`**、**`assessment-completion-records-contract`** 鏈結；補 **`phase4-day4-delivery-index`**／**`phase5-day1-delivery-index`** 與 **`acceptance:*`** 對照；**`pdf03-cursorrules-alignment.md`** §3 文件入口檢核補 **`README`** 交付索引列；補 **`.cursorrules`** §3／**`business-logic.md`** §0／**`pdf03`** §4 並讀一句。 |
 | 2026-05-04 | **`business-logic.md`** §0、**`README.md`**、**`feature-list.md`** §8：補 Stage 2／Phase 3 **歷史追溯**路徑（權威仍為 **§0** 與現行分階索引）。 |
+| 2026-05-06 | **工程／驗收附錄**：補 **`pdf-sequenced-gap-checklist.md`** 主檔「**運維與工程**」列與 §0／**Stage 2／Phase 3** 互鏈；**`.cursorrules`** §3、**`feature-list.md`** §8、**`pdf03`** §3 PR 檢核同步。 |
 | 2026-05-02 | 初版：依 `docs/pdf-sequenced-gap-checklist.md` Seq 1～38 摘要「仍待／待／需」拆為可勾選 P0。 |
 | 2026-05-02 | 程式進度：`staff-profiles-list` Edge＋`StaffOverviewRow.roleType`；儀表盤 PT/OT 以 DB `role_type` 為優先（P0「Seq 13 PT/OT」之實作面；**逐欄對表簽核**仍待）。 |
 | 2026-05-02 | 程式進度：員工概覽 CSV 匯出增 **職類** 欄（Seq 26 匯出面向；**xlsx／母本逐字**仍待）。 |
