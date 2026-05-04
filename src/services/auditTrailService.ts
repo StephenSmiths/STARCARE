@@ -10,6 +10,8 @@ export interface AuditTrailRecord {
     /** 01 §5：scheduling_history 依 batch 軟刪（Seq 10） */
     | 'SCHEDULING_HISTORY_BATCH_SOFT_DELETE'
     | 'COMPLIANCE_ALERT_EXPORT'
+    /** 排班儀表：週合規達成匯出（CSV） */
+    | 'WEEKLY_COMPLIANCE_EXPORT'
     /** PDF 02【13】員工概覽匯出（CSV） */
     | 'STAFF_EXPORT'
     /** PDF 02【12】院友名單匯出（CSV） */

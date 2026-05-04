@@ -1,3 +1,4 @@
+import { hydrateAuditTrailAfterLocalRecord } from './auditTrailHydrationService'
 import { globalAuditTrailService } from './auditTrailService'
 import { createActivitySessionRepository, type ActivitySession } from '../repositories/activitySessionRepository'
 import { isSupabaseBrowserConfigured } from './supabaseBrowserEnv'
@@ -24,6 +25,7 @@ export class ActivitySessionManagementService {
       },
       isSupabaseBrowserConfigured(),
     )
+    hydrateAuditTrailAfterLocalRecord()
   }
 }
 

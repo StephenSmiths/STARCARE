@@ -1,3 +1,4 @@
+import { hydrateAuditTrailAfterLocalRecord } from '../../../services/auditTrailHydrationService'
 import { globalAuditTrailService } from '../../../services/auditTrailService'
 import { createStaffProfileRepository } from '../../../repositories/staffProfileRepository'
 import {
@@ -90,6 +91,7 @@ export class StaffManagementService {
       },
       isSupabaseBrowserConfigured(),
     )
+    hydrateAuditTrailAfterLocalRecord()
   }
 
   async softDeleteStaff(actorId: string, staffId: string): Promise<void> {
@@ -107,6 +109,7 @@ export class StaffManagementService {
       },
       isSupabaseBrowserConfigured(),
     )
+    hydrateAuditTrailAfterLocalRecord()
   }
 }
 

@@ -21,7 +21,18 @@ export const useSchedulingCsvExports = (
         isCompliant: r.weeklyCompletedCount >= getWeeklyTargetByFundingType(r.fundingType),
       })),
     )
-  }, [residents])
+    globalAuditTrailService.record({
+      action: 'WEEKLY_COMPLIANCE_EXPORT',
+      entityType: 'Reporting',
+      entityId: `weekly-compliance-${Date.now()}`,
+      actorId,
+      beforeState: null,
+      afterState: JSON.stringify({ residentCount: residents.length }),
+      detail: '匯出本週服務達成／合規清單（CSV）',
+      occurredAt: new Date().toISOString(),
+    })
+    hydrateAuditTrailAfterLocalRecord()
+  }, [actorId, residents])
 
   const exportComplianceAlertsCsv = useCallback(() => {
     if (complianceAlerts.length === 0) return

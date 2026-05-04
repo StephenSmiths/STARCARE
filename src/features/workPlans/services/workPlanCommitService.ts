@@ -1,3 +1,4 @@
+import { hydrateAuditTrailAfterLocalRecord } from '../../../services/auditTrailHydrationService'
 import { globalAuditTrailService } from '../../../services/auditTrailService'
 import { createActivityRepository, type ActivityRepository } from '../../../repositories/activityRepository'
 import {
@@ -56,6 +57,7 @@ export class WorkPlanCommitService {
       },
       isSupabaseBrowserConfigured(),
     )
+    hydrateAuditTrailAfterLocalRecord()
 
     return { inserted: committed.inserted, sessionIds: committed.sessionIds }
   }
