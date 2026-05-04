@@ -90,6 +90,12 @@ if (failed.length === 0) {
   }
 }
 
+lines.push('')
+lines.push('## 六、與前端全閘（`npm run ci`）對照')
+lines.push(
+  '- 本報告僅涵蓋本腳本所列檢查；與 **`.github/workflows/ci.yml`** 指令集合一致之全閘請執行 **`npm run ci`**（含 **`typecheck`**、**`build:demo`**、Playwright）。見 **`docs/feature-list.md`** §8、**`docs/phase4-day4-automation-runbook.md`** §三、**`docs/supabase-deploy-runbook.md`** §6。',
+)
+
 if (!existsSync('docs')) mkdirSync('docs', { recursive: true })
 const reportPath = 'docs/phase4-day4-automation-report.md'
 writeFileSync(reportPath, lines.join('\n') + '\n', 'utf-8')

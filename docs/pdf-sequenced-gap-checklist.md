@@ -261,3 +261,4 @@
 | 2026-05-03 | **`phase4-delivery-message-template.md`**／**`phase5-delivery-message-template.md`**、**`phase4-day4-ui-smoke-checklist.md`** §一：補 **`npm run ci`**（全閘）說明。 |
 | 2026-05-03 | **`phase4-day5-external-summary.md`**／**`phase5-day1-external-summary.md`**（驗收結果）；**`phase4-day4-delivery-index.md`** §七、**`phase5-day1-delivery-index.md`** §六：補 **`npm run ci`**（建議／續維護）說明或勾選項。 |
 | 2026-05-03 | **`phase4-day5-completion-report.md`**／**`phase5-day1-completion-report.md`**：新增 §七「續維護（與 CI 全閘對齊）」。 |
+| 2026-05-03 | **`scripts/phase4-day4-acceptance.mjs`**／**`phase5-day1-acceptance.mjs`**：自動驗收報告增「與 **`npm run ci`** 對照」段落；**`phase3-day5-acceptance-result-2026-04-30.md`** 增 §六；已重產 **`phase4-day4-automation-report.md`**、**`phase5-day1-automation-report.md`**。 |

@@ -31,3 +31,6 @@
 - 驗收人：________________
 - 結果：**Go / No-Go**（請圈選）
 - 備註：________________________________________
+
+## 六、續維護（與 CI 全閘對齊）
+- 本文件為 **2026-04-30** 當日紀錄；當時技術閘門為 `lint`／`test`／`build`。後續與 GitHub Actions **一致**之程式全閘請執行 **`npm run ci`**（含 **`typecheck`**、**`build:demo`**、Playwright），見 **`docs/feature-list.md`** §8、**`docs/supabase-deploy-runbook.md`** §6。

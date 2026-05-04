@@ -1,8 +1,8 @@
 # Phase 4 Day 4 自動驗收報告
 
-- 開始時間：4/30/2026, 7:04:10 PM
-- 結束時間：4/30/2026, 7:04:18 PM
-- 總耗時：7.95 秒
+- 開始時間：5/4/2026, 2:38:42 AM
+- 結束時間：5/4/2026, 2:38:58 AM
+- 總耗時：16.07 秒
 - 結果：PASS
 
 ## 一、文件存在檢查
@@ -15,9 +15,9 @@
 - [x] `docs/activity-sessions-import-200-valid.csv`
 
 ## 二、本機品質閘門
-- [x] `npm run lint`（3500 ms）
-- [x] `npm run test`（1675 ms）
-- [x] `npm run build`（2779 ms）
+- [x] `npm run lint`（6574 ms）
+- [x] `npm run test`（4139 ms）
+- [x] `npm run build`（5354 ms）
 
 ## 三、Supabase 狀態（可選）
 - 已略過（未提供 `SUPABASE_ACCESS_TOKEN`）
@@ -28,3 +28,6 @@
 
 ## 五、失敗摘要
 - 無失敗項目
+
+## 六、與前端全閘（`npm run ci`）對照
+- 本報告僅涵蓋本腳本所列檢查；與 **`.github/workflows/ci.yml`** 指令集合一致之全閘請執行 **`npm run ci`**（含 **`typecheck`**、**`build:demo`**、Playwright）。見 **`docs/feature-list.md`** §8、**`docs/phase4-day4-automation-runbook.md`** §三、**`docs/supabase-deploy-runbook.md`** §6。
