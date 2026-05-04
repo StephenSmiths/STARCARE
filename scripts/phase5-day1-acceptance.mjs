@@ -42,7 +42,7 @@ const lines = []
 lines.push('# Phase 5 Day 1 自動驗收報告')
 lines.push('')
 lines.push(
-  '> **對照**：運維與文件總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；交付索引 **`docs/phase5-day1-delivery-index.md`**；末節與 **`docs/phase5-day1-automation-runbook.md`** §三、**`docs/feature-list.md`** §8（**`npm run ci`**／**`acceptance:phase5`**）。',
+  '> **對照**：運維與文件總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；交付索引 **`docs/phase5-day1-delivery-index.md`**；末節與 **`docs/phase5-day1-automation-runbook.md`** §三、**`docs/feature-list.md`** §8（**`npm run ci`**／**`acceptance:phase5`**）；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**。',
 )
 lines.push('')
 lines.push(`- 開始時間：${new Date(startedAt).toLocaleString()}`)

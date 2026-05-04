@@ -1,6 +1,6 @@
 # STARCARE Phase 3 Day 5 對外摘要（一頁版）
 
-> **對照**：技術驗收 **`docs/phase3-day5-acceptance.md`**；運維總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；Phase 4 起 **`docs/phase4-day4-delivery-index.md`**。
+> **對照**：技術驗收 **`docs/phase3-day5-acceptance.md`**；運維總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；Phase 4 起 **`docs/phase4-day4-delivery-index.md`**；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**。
 
 ## 專案狀態
 - **階段**：Phase 3 Day 5 已完成。

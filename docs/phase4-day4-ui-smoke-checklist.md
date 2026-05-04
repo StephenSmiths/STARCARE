@@ -1,6 +1,6 @@
 # STARCARE Phase 4 Day 4 UI 快速檢核清單
 
-> **對照**：自動驗收 **`docs/phase4-day4-automation-runbook.md`**、交付索引 **`docs/phase4-day4-delivery-index.md`**；運維總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；全閘 **`npm run ci`** 見 **§一**、**`docs/feature-list.md`** §8。
+> **對照**：自動驗收 **`docs/phase4-day4-automation-runbook.md`**、交付索引 **`docs/phase4-day4-delivery-index.md`**；運維總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；全閘 **`npm run ci`** 見 **§一**、**`docs/feature-list.md`** §8；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**。
 
 ## 一、用途
 - 配合 `npm run acceptance:day4` 的自動驗收，補上人工 UI Smoke Test（約 5-10 分鐘）。

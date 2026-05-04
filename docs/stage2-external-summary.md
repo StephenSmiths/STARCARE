@@ -1,6 +1,6 @@
 # STARCARE Stage 2 對外進度摘要（一頁版）
 
-> **對照**：內部完成報告 **`docs/stage2-completion-report.md`**；後續階段與閘門 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）、**`docs/phase3-day5-acceptance.md`**（及 Phase 4／5 交付索引）。
+> **對照**：內部完成報告 **`docs/stage2-completion-report.md`**；後續階段與閘門 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）、**`docs/phase3-day5-acceptance.md`**（及 Phase 4／5 交付索引）；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**。
 
 ## 專案狀態
 - **階段**：Stage 2 已完成核心交付。

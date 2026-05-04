@@ -1,6 +1,6 @@
 # STARCARE Phase 5 Day 1 發送模板（可直接複製）
 
-> **對照**：打包清單 **`docs/phase5-final-delivery-package.md`**、交付索引 **`docs/phase5-day1-delivery-index.md`**；運維總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）。
+> **對照**：打包清單 **`docs/phase5-final-delivery-package.md`**、交付索引 **`docs/phase5-day1-delivery-index.md`**；運維總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**。
 
 ## 1) 內部技術交接模板
 

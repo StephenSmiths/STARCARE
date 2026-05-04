@@ -1,8 +1,8 @@
 # Phase 5 Day 1 交付物驗證報告
 
-> **對照**：**`docs/business-logic.md`** §0；**`docs/phase5-day1-delivery-index.md`**；關聯自動驗收 **`docs/phase5-day1-automation-report.md`**（**`npm run acceptance:phase5`**）。
+> **對照**：**`docs/business-logic.md`** §0；**`docs/phase5-day1-delivery-index.md`**；關聯自動驗收 **`docs/phase5-day1-automation-report.md`**（**`npm run acceptance:phase5`**）；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**。
 
-- 時間：2026-05-04T02:07:39.538Z
+- 時間：2026-05-04T02:38:04.253Z
 - 結果：PASS
 
 ## 檢查項目

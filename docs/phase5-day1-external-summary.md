@@ -1,6 +1,6 @@
 # STARCARE Phase 5 Day 1 對外進度摘要（一頁版）
 
-> **對照**：內部技術索引 **`docs/phase5-day1-delivery-index.md`**；運維與驗證閘門總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）。
+> **對照**：內部技術索引 **`docs/phase5-day1-delivery-index.md`**；運維與驗證閘門總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**。
 
 ## 專案狀態
 - **階段**：Phase 5 Day 1 已完成（KPI 趨勢伺服端持久化）。

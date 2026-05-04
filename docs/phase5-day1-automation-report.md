@@ -1,10 +1,10 @@
 # Phase 5 Day 1 自動驗收報告
 
-> **對照**：運維與文件總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；交付索引 **`docs/phase5-day1-delivery-index.md`**；末節與 **`docs/phase5-day1-automation-runbook.md`** §三、**`docs/feature-list.md`** §8（**`npm run ci`**／**`acceptance:phase5`**）。
+> **對照**：運維與文件總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；交付索引 **`docs/phase5-day1-delivery-index.md`**；末節與 **`docs/phase5-day1-automation-runbook.md`** §三、**`docs/feature-list.md`** §8（**`npm run ci`**／**`acceptance:phase5`**）；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**。
 
-- 開始時間：5/4/2026, 3:07:22 AM
-- 結束時間：5/4/2026, 3:07:34 AM
-- 總耗時：11.35 秒
+- 開始時間：5/4/2026, 3:37:52 AM
+- 結束時間：5/4/2026, 3:38:04 AM
+- 總耗時：11.33 秒
 - 結果：PASS
 
 ## 一、文件存在檢查
@@ -18,8 +18,8 @@
 - [x] `docs/phase5-day1-automation-runbook.md`
 
 ## 二、本機品質閘門
-- [x] `npm run lint`（6877 ms）
-- [x] `npm run test`（4473 ms）
+- [x] `npm run lint`（6627 ms）
+- [x] `npm run test`（4707 ms）
 
 ## 三、Supabase 狀態（可選）
 - 已略過（未提供 `SUPABASE_ACCESS_TOKEN`）

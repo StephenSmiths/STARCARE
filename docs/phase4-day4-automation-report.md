@@ -1,10 +1,10 @@
 # Phase 4 Day 4 自動驗收報告
 
-> **對照**：運維與文件總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；交付索引 **`docs/phase4-day4-delivery-index.md`**；末節與 **`docs/phase4-day4-automation-runbook.md`** §三、**`docs/feature-list.md`** §8（**`npm run ci`**／**`acceptance:day4`**）。
+> **對照**：運維與文件總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；交付索引 **`docs/phase4-day4-delivery-index.md`**；末節與 **`docs/phase4-day4-automation-runbook.md`** §三、**`docs/feature-list.md`** §8（**`npm run ci`**／**`acceptance:day4`**）；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**。
 
-- 開始時間：5/4/2026, 3:07:06 AM
-- 結束時間：5/4/2026, 3:07:22 AM
-- 總耗時：16.51 秒
+- 開始時間：5/4/2026, 3:37:35 AM
+- 結束時間：5/4/2026, 3:37:52 AM
+- 總耗時：17.28 秒
 - 結果：PASS
 
 ## 一、文件存在檢查
@@ -17,9 +17,9 @@
 - [x] `docs/activity-sessions-import-200-valid.csv`
 
 ## 二、本機品質閘門
-- [x] `npm run lint`（6859 ms）
-- [x] `npm run test`（4925 ms）
-- [x] `npm run build`（4730 ms）
+- [x] `npm run lint`（6807 ms）
+- [x] `npm run test`（5411 ms）
+- [x] `npm run build`（5064 ms）
 
 ## 三、Supabase 狀態（可選）
 - 已略過（未提供 `SUPABASE_ACCESS_TOKEN`）

@@ -1,6 +1,6 @@
 # STARCARE Phase 4 Day 5 完成報告
 
-> **對照**：交付索引 **`docs/phase4-day4-delivery-index.md`**、打包清單 **`docs/phase4-final-delivery-package.md`**；運維總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）。
+> **對照**：交付索引 **`docs/phase4-day4-delivery-index.md`**、打包清單 **`docs/phase4-final-delivery-package.md`**；運維總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**。
 
 ## 一、範圍與結論
 - Phase 4 目標：將系統由「功能可用」提升為「品質可視化、驗收可自動化、運營可持續」。
