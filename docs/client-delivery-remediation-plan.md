@@ -20,7 +20,7 @@
 1. **三份母本**已固定存放於專案 **`docs/pdf/`**，檔名統一、便於版控與搜尋。  
 2. **`docs/business-logic.md`**：已依 **01 核心業務邏輯與 SOP** 整理為工程可讀之條目，並載明與 **02** 之分工及**程式落差摘要**（供內部與客戶技術窗口查閱）。  
 3. **`.cursorrules`（工程規範）**已更新為**明列三份 PDF 路徑**，後續開發一律以此對齊。  
-4. **上線／部署／憑證／母本 P0**：內部可引用 **`docs/go-live-checklist.md`**、**`docs/supabase-deploy-runbook.md`**（含 **`npm run ops:deploy:all`**、**`npm run ci`**）、**`docs/security-token-rotation-checklist.md`**（PAT 輪替與部署後自檢）、**`docs/pdf-alignment-p0-backlog.md`**（P0 勾選項），作為對外「有書面程序」之補充附件。
+4. **上線／部署／憑證／母本 P0**：內部可引用 **`docs/go-live-checklist.md`**、**`docs/supabase-deploy-runbook.md`**（含 **`npm run ops:deploy:all`**、**`npm run ci`**）、**`docs/security-token-rotation-checklist.md`**（PAT 輪替與部署後自檢）、**`docs/pdf-alignment-p0-backlog.md`**（P0 勾選項），作為對外「有書面程序」之補充附件；院友／評估完成之 Edge 行為見 **`docs/residents-edge-function-contract.md`**、**`docs/assessment-completion-records-contract.md`**。
 
 ---
 
@@ -133,6 +133,7 @@
 | 2026-05-03 | §2：增第 4 點（上線／runbook／憑證清單可作對外補充附件）。 |
 | 2026-05-03 | 對照 **`README.md`** 文件表：已納入本檔與 **`pdf03-cursorrules-alignment.md`** 入口連結。 |
 | 2026-05-03 | §2 第 4 點：補 **`pdf-alignment-p0-backlog.md`**（P0 勾選項）。 |
+| 2026-05-03 | §2 第 4 點：補院友／評估完成 **Edge 契約**路徑；**`pdf-alignment-p0-backlog.md`** 首段附錄同步。 |
 
 ---
 
