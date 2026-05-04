@@ -22,6 +22,7 @@
 **運維與部署 Runbook**：見 **`docs/supabase-deploy-runbook.md`**（Supabase 部署、SQL 驗收；**§6** 可選前端 **`npm run ci`**，與 GitHub Actions 同源）。  
 **憑證與 PAT 輪替**：見 **`docs/security-token-rotation-checklist.md`**（**§D** 部署後自檢含可選 **`npm run ci`**）。  
 **分階交付與自動驗收索引**：**`docs/phase4-day4-delivery-index.md`**、**`docs/phase5-day1-delivery-index.md`**（窄版 **`acceptance:*`** 與 **`npm run ci`** 全閘對照見各索引及 **`docs/feature-list.md`** §8）。  
+**Stage 2／Phase 3 歷史追溯（非現行交付權威）**：**`docs/stage2-completion-report.md`**、**`docs/stage2-external-summary.md`**、**`docs/stage3-day3-completion-note.md`**、**`docs/stage3-day5-external-summary.md`**（各開首 **對照** 鏈回本節）；正式分階驗收自 **`docs/phase3-day5-acceptance.md`** 起。  
 **專案工程規範（`.cursorrules`）**：**§3**「部署與驗收閘門」與上列 **`runbook`**／憑證／**`README.md`**／**`go-live-checklist.md`** 連動並讀；修訂該段時見 **`docs/pdf03-cursorrules-alignment.md`** §4。
 
 ### 0.1 三份母本版本追蹤（Seq 38）
@@ -210,3 +211,4 @@
 | 2026-05-03 | **`phase3-day5-acceptance-result-2026-04-30.md`**、**`phase4-day4-delivery-index.md`**、**`phase5-day1-delivery-index.md`**：開首增 **對照**（**`business-logic.md`** §0、Phase 鏈、**`npm run ci`**／**`acceptance:*`**）。 |
 | 2026-05-03 | Phase 4／5 **Runbook**、**UI smoke**、**完成報告**、**對外摘要**、**打包／發送模板** 開首增 **對照**；**`scripts/phase4-day4-acceptance.mjs`**、**`phase5-day1-acceptance.mjs`**、**`phase5-verify-delivery-artifacts.mjs`**、**`phase5-generate-closeout-summary.mjs`**、**`phase5-print-closeout-status.mjs`**：產出 Markdown 開首增 **對照**（與 **`business-logic.md`** §0、交付索引一致）。 |
 | 2026-05-04 | **`stage2-completion-report.md`**、**`stage2-external-summary.md`**、**`stage3-day3-completion-note.md`**、**`stage3-day5-external-summary.md`**：開首增 **對照**（**`business-logic.md`** §0、Phase 3 驗收與 Phase 4 索引）。 |
+| 2026-05-04 | §0：增 **Stage 2／Phase 3 歷史追溯**一行；**`README.md`** 文件表、**`feature-list.md`** 頁尾／§8、**`pdf03-cursorrules-alignment.md`** §3 PR 檢核／§4、**`pdf-alignment-p0-backlog.md`** 修訂紀錄同步。 |

@@ -15,6 +15,7 @@
 | [docs/assessment-completion-records-contract.md](docs/assessment-completion-records-contract.md) | 評估完成紀錄 Edge 契約與審計（Seq 22） |
 | [docs/client-delivery-remediation-plan.md](docs/client-delivery-remediation-plan.md) | 對客戶補強與分期交付說明 |
 | [docs/phase4-day4-delivery-index.md](docs/phase4-day4-delivery-index.md)、[docs/phase5-day1-delivery-index.md](docs/phase5-day1-delivery-index.md) | 分階交付索引；**`acceptance:*`** 與 **`npm run ci`** 對照（見 [docs/feature-list.md](docs/feature-list.md) §8） |
+| [docs/stage2-completion-report.md](docs/stage2-completion-report.md) 等（`stage2-*`、`stage3-*`） | Stage 2／Phase 3 歷史摘要與完成紀錄（追溯；開首 **對照** → [business-logic.md](docs/business-logic.md) §0） |
 | [docs/pdf03-cursorrules-alignment.md](docs/pdf03-cursorrules-alignment.md) | PDF 03 × 工程規範對齊、PR 檢核表（Seq 37） |
 | [docs/go-live-checklist.md](docs/go-live-checklist.md) | 上線檢核 |
 | [docs/security-token-rotation-checklist.md](docs/security-token-rotation-checklist.md) | PAT／憑證輪替；**§D** 部署後自檢（可選 **`npm run ci`**） |

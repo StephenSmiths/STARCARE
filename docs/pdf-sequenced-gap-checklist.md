@@ -283,3 +283,4 @@
 | 2026-05-03 | **`phase3-day5-acceptance-result-2026-04-30.md`**、**`phase4-day4-delivery-index.md`**、**`phase5-day1-delivery-index.md`**：開首增 **對照**（**`business-logic.md`** §0、Phase 鏈、**`npm run ci`**／**`acceptance:*`**）。 |
 | 2026-05-03 | Phase 4／5 **Runbook**、**UI smoke**、**完成報告**、**對外摘要**、**打包／發送模板** 開首增 **對照**；acceptance／verify／closeout **腳本**產出之報告／摘要／狀態開首增 **對照**。 |
 | 2026-05-04 | **`stage2-completion-report.md`**、**`stage2-external-summary.md`**、**`stage3-day3-completion-note.md`**、**`stage3-day5-external-summary.md`**：開首增 **對照**（**`business-logic.md`** §0、Phase 3／4 鏈）。 |
+| 2026-05-04 | **`business-logic.md`** §0、**`README.md`**、**`feature-list.md`** 頁尾、**`pdf03-cursorrules-alignment.md`** §3／§4、**`pdf-alignment-p0-backlog.md`**：Stage 2／Phase 3 **歷史追溯**路徑與 **§0** 互鏈。 |

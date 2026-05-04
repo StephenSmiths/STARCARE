@@ -42,7 +42,7 @@
 - [ ] **防重複提交**：表單／儲存有 debounce 或鎖。  
 - [ ] **註解**：業務邏輯註解標 **PDF 章節或 Seq**（繁中）。  
 - [ ] **測試**：網域規則至少一則單元測試（若可測）。  
-- [ ] **文件入口**：若變更 CI、E2E 或主要指令，同步 `README.md`（含 **`docs/phase4-day4-delivery-index.md`**／**`docs/phase5-day1-delivery-index.md`** 與 **`acceptance:*`**／**`npm run ci`** 對照列）、**`.env.example`**、`docs/feature-list.md` §8 或 `docs/pdf-sequenced-gap-checklist.md` 變更紀錄（與 Seq 3／37）；並視需要對照 **`docs/business-logic.md`** §0 與 **`.cursorrules`** §3「部署與驗收閘門」；**demo 煙霧**與 **`npm run ci`** 以 **`npm run build:demo`** 為準（**`playwright.auth.config.ts`** 可選登入 E2E 仍保留 **`VITE_*`** 建置者除外）。  
+- [ ] **文件入口**：若變更 CI、E2E 或主要指令，同步 `README.md`（含 **`docs/phase4-day4-delivery-index.md`**／**`docs/phase5-day1-delivery-index.md`** 與 **`acceptance:*`**／**`npm run ci`** 對照列，及 **`docs/stage2-completion-report.md`** 等 **Stage 2／Phase 3** 歷史追溯列）、**`.env.example`**、`docs/feature-list.md` §8 或 `docs/pdf-sequenced-gap-checklist.md` 變更紀錄（與 Seq 3／37）；並視需要對照 **`docs/business-logic.md`** §0 與 **`.cursorrules`** §3「部署與驗收閘門」；**demo 煙霧**與 **`npm run ci`** 以 **`npm run build:demo`** 為準（**`playwright.auth.config.ts`** 可選登入 E2E 仍保留 **`VITE_*`** 建置者除外）。  
 - [ ] **新 Edge Function**：新增 **`supabase/functions/<name>/`** 時，同步 **`package.json`** 之 **`ops:deploy:all`**、**`docs/feature-list.md` §7** 表格與 **`docs/pdf-sequenced-gap-checklist.md`** 日誌。  
 - [ ] **排班權威層級（Seq 36）**：若變更「前端試算 vs 後端權威」策略或 **`adr-0001`** 狀態，同步 **`docs/adr-0001-scheduling-logic-placement.md`** 與 **`docs/pdf-sequenced-gap-checklist.md`** Seq 36「與現況對照」摘要。
 
@@ -52,5 +52,5 @@
 
 - 客戶更新 `03` PDF 後：修訂本表「對照矩陣」與 `docs/business-logic.md` §0.1 指紋。  
 - 若 `.cursorrules` 與本表衝突：以 **客戶簽核 PDF** 為準，並於本表註記日期與決策人。  
-- 變更 **`.cursorrules`** 之 **§3 部署與驗收閘門**（runbook／憑證／**`npm run ci`**）時，視需要同步 **`docs/business-logic.md`** §0、**`README.md`** 文件表與 **`docs/pdf-sequenced-gap-checklist.md`** 日誌。  
+- 變更 **`.cursorrules`** 之 **§3 部署與驗收閘門**（runbook／憑證／**`npm run ci`**），或 **`docs/business-logic.md`** §0 **運維與索引列**（含分階交付、Stage 2／Phase 3 歷史追溯路徑）時，視需要同步 **`README.md`** 文件表與 **`docs/pdf-sequenced-gap-checklist.md`** 日誌（**`business-logic.md`** §0 為運維總覽權威）。  
 - 變更 **Supabase 部署步驟**、**SQL 驗收**、**`ops:deploy:all` 列舉**、**PAT／憑證自檢**、**排班架構（`adr-0001`／Seq 36）**、**領域契約**（例：**`docs/residents-edge-function-contract.md`**、**`docs/assessment-completion-records-contract.md`**）或**前端 CI 煙霧（§6）**時，同步 **`docs/supabase-deploy-runbook.md`**、**`docs/security-token-rotation-checklist.md`**（若涉及 PAT／§D）、**`docs/adr-0001-scheduling-logic-placement.md`**（若涉及排班權威層級），並視需要更新 **`README.md`** 文件表（含 **`docs/phase4-day4-delivery-index.md`**／**`docs/phase5-day1-delivery-index.md`** 與 **`npm run ci`**／**`acceptance:*`** 對照）、**`docs/feature-list.md` §7** 與 **`docs/pdf-sequenced-gap-checklist.md`** 日誌。

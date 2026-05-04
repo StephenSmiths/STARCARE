@@ -145,6 +145,7 @@
 | 2026-05-03 | **`feature-list.md`**、**`pdf-alignment-p0-backlog.md`**、**`adr-0001`**、**`rbac-seq1-verification-checklist.md`**：開首增 **對照** **`business-logic.md`** §0／**`.cursorrules`** §3。 |
 | 2026-05-03 | **`residents-edge-function-contract.md`**、**`assessment-completion-records-contract.md`**：開首增 **對照**（**`business-logic.md`** §0、**`go-live-checklist.md`**）。 |
 | 2026-05-03 | 開首增 **內部工程入口**（**`business-logic.md`** §0、**`.cursorrules`** §3、**`README.md`**）；**`phase3-day5-acceptance.md`** 增 Phase 4／5 與 **`business-logic.md`** §0 **對照**。 |
+| 2026-05-04 | **`business-logic.md`** §0、**`README.md`** 文件表、**`feature-list.md`** 頁尾／§8、**`pdf03-cursorrules-alignment.md`** §3／§4、**`pdf-alignment-p0-backlog.md`**：補 Stage 2／Phase 3 **歷史追溯**路徑（非現行交付權威）。 |
 
 ---
 
