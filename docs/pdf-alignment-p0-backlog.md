@@ -1,6 +1,6 @@
 # PDF 母本全對齊：P0 Backlog（可勾選）
 
-> **對照**：**`docs/business-logic.md`** §0（**`.cursorrules`** §3「部署與驗收閘門」）、**`README.md`**；母本序號總表 **`docs/pdf-sequenced-gap-checklist.md`**。
+> **對照**：**`docs/business-logic.md`** §0（**`.cursorrules`** §3「部署與驗收閘門」）、**`README.md`**；母本序號總表 **`docs/pdf-sequenced-gap-checklist.md`**（開首 **對照**；主檔「**運維與工程**」列與 **§0**／**`README`** 對齊）。
 
 > **完成定義**：選項 2 — 三份客戶 PDF 為準，`pdf-sequenced-gap-checklist.md` 各 Seq 可標「已驗證」（對照 PDF 有證據）。  
 > **用法**：每項 `- [ ]` 完成後改 `- [x]`，並在內部 issue 或 PR 附 **PDF 頁碼／【N】／SQL／E2E 連結**。  
@@ -85,6 +85,7 @@
 | 2026-05-08 | **`pdf-sequenced-gap-checklist.md`** 開首 **對照**；**`go-live-checklist.md`** 開首 **對照**；**`.github/workflows/ci.yml`** 註解補文件入口；**`pdf03`** §3／§4；**`feature-list.md`** §8 CI 項。 |
 | 2026-05-09 | **`supabase-deploy-runbook.md`**、**`security-token-rotation-checklist.md`**、**`rbac-seq1-verification-checklist.md`** 開首 **對照** 補 **`pdf-sequenced`**「**運維與工程**」列。 |
 | 2026-05-10 | **`residents-edge-function-contract.md`**、**`assessment-completion-records-contract.md`**、**`feature-list.md`**、**`pdf03`**（標題區／§4）、**`adr-0001`**：補 **`pdf-sequenced`**「**運維與工程**」列互鏈。 |
+| 2026-05-11 | 開首 **對照** 補 **`pdf-sequenced`** 開首 **對照**／「**運維與工程**」與 **§0**／**`README`**；**`business-logic.md`** §0、**`client-delivery-remediation-plan.md`**、**`feature-list.md`** §8 同步。 |
 | 2026-05-02 | 初版：依 `docs/pdf-sequenced-gap-checklist.md` Seq 1～38 摘要「仍待／待／需」拆為可勾選 P0。 |
 | 2026-05-02 | 程式進度：`staff-profiles-list` Edge＋`StaffOverviewRow.roleType`；儀表盤 PT/OT 以 DB `role_type` 為優先（P0「Seq 13 PT/OT」之實作面；**逐欄對表簽核**仍待）。 |
 | 2026-05-02 | 程式進度：員工概覽 CSV 匯出增 **職類** 欄（Seq 26 匯出面向；**xlsx／母本逐字**仍待）。 |

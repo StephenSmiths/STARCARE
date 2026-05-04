@@ -14,7 +14,7 @@
 **備註**：專案根目錄舊版 PDF（含 `#` 檔名或空檔）已移除，請一律以 **`docs/pdf/`** 內三份為準。
 
 **對客戶之補強與分期交付說明**：見 **`docs/client-delivery-remediation-plan.md`**（會議邀請範本、對照矩陣範本、驗收階段）。  
-**依序補回 Feature／缺漏**：見 **`docs/pdf-sequenced-gap-checklist.md`**（Seq **1～38**：01 鐵律→02【1】～【16】→03 工程對照）。  
+**依序補回 Feature／缺漏**：見 **`docs/pdf-sequenced-gap-checklist.md`**（Seq **1～38**：01 鐵律→02【1】～【16】→03 工程對照；開首 **對照**；主檔「**運維與工程**」列與本節及 **`README.md`**、**`.cursorrules`** §3 對齊）。  
 **母本 P0 可勾選 backlog**：見 **`docs/pdf-alignment-p0-backlog.md`**（與上列序號檢核配套）。  
 **架構決策（排班演算放置，Seq 36）**：見 **`docs/adr-0001-scheduling-logic-placement.md`**。  
 **評估完成紀錄 Edge 契約（Seq 22）**：見 **`docs/assessment-completion-records-contract.md`**。  
@@ -218,3 +218,4 @@
 | 2026-05-08 | **`pdf-sequenced-gap-checklist.md`** 標題下增 **對照**；**`go-live-checklist.md`** 開首 **對照** 補 **`pdf-sequenced`**「**運維與工程**」；**`.github/workflows/ci.yml`** 註解補文件入口一句；**`pdf03-cursorrules-alignment.md`** §3「文件入口」補 **`ci.yml`** 註解、§4 維護補序號主檔 **對照**；**`feature-list.md`** §8 CI 項同步。 |
 | 2026-05-09 | **`supabase-deploy-runbook.md`**、**`security-token-rotation-checklist.md`**、**`rbac-seq1-verification-checklist.md`** 開首 **對照**：補 **`pdf-sequenced-gap-checklist.md`** 主檔「**運維與工程**」列（與 **go-live**／runbook／憑證同列）。 |
 | 2026-05-10 | **`residents-edge-function-contract.md`**、**`assessment-completion-records-contract.md`**、**`feature-list.md`** 開首、**`pdf03-cursorrules-alignment.md`** 標題區／§4、**`adr-0001-scheduling-logic-placement.md`** 開首 **對照**：補 **`pdf-sequenced-gap-checklist.md`**「**運維與工程**」列。 |
+| 2026-05-11 | §0 **`pdf-sequenced`** 一行補開首 **對照**／「**運維與工程**」與本節及 **`README`**／**§3** 對齊；**`client-delivery-remediation-plan.md`** 內部入口／**§2**、**`pdf-alignment-p0-backlog.md`** 開首 **對照**、**`feature-list.md`** §8 README 項同步。 |
