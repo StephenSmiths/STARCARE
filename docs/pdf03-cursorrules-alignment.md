@@ -41,7 +41,7 @@
 - [ ] **防重複提交**：表單／儲存有 debounce 或鎖。  
 - [ ] **註解**：業務邏輯註解標 **PDF 章節或 Seq**（繁中）。  
 - [ ] **測試**：網域規則至少一則單元測試（若可測）。  
-- [ ] **文件入口**：若變更 CI、E2E 或主要指令，同步 `README.md`、**`.env.example`**、`docs/feature-list.md` §8 或 `docs/pdf-sequenced-gap-checklist.md` 變更紀錄（與 Seq 3／37）；**demo 煙霧**與 **`npm run ci`** 以 **`npm run build:demo`** 為準（**`playwright.auth.config.ts`** 可選登入 E2E 仍保留 **`VITE_*`** 建置者除外）。  
+- [ ] **文件入口**：若變更 CI、E2E 或主要指令，同步 `README.md`（含 **`docs/phase4-day4-delivery-index.md`**／**`docs/phase5-day1-delivery-index.md`** 與 **`acceptance:*`**／**`npm run ci`** 對照列）、**`.env.example`**、`docs/feature-list.md` §8 或 `docs/pdf-sequenced-gap-checklist.md` 變更紀錄（與 Seq 3／37）；**demo 煙霧**與 **`npm run ci`** 以 **`npm run build:demo`** 為準（**`playwright.auth.config.ts`** 可選登入 E2E 仍保留 **`VITE_*`** 建置者除外）。  
 - [ ] **新 Edge Function**：新增 **`supabase/functions/<name>/`** 時，同步 **`package.json`** 之 **`ops:deploy:all`**、**`docs/feature-list.md` §7** 表格與 **`docs/pdf-sequenced-gap-checklist.md`** 日誌。  
 - [ ] **排班權威層級（Seq 36）**：若變更「前端試算 vs 後端權威」策略或 **`adr-0001`** 狀態，同步 **`docs/adr-0001-scheduling-logic-placement.md`** 與 **`docs/pdf-sequenced-gap-checklist.md`** Seq 36「與現況對照」摘要。
 
