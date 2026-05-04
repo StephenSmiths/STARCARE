@@ -49,3 +49,4 @@
 | 2026-05-14 | **`feature-list.md`** 頁尾、**`pdf03-cursorrules-alignment.md`** §4：補 **`README`**／**§0**／**`ci.yml`**／**`phase*.md`**／**`stage*.md`** 與 **`pdf-sequenced`** 之維護閉環。 |
 | 2026-05-15 | **§8** 修訂表全文重出至本檔（**`business-logic.md`** 遵守單檔 ≤200 行）；**`README.md`** 文件表、**`pdf03`** §4、**`feature-list.md`** 頁尾、**`pdf-alignment-p0-backlog.md`** Seq 38 敘述同步。 |
 | 2026-05-16 | **`pdf-sequenced-gap-checklist.md`** 修訂表重出 **`pdf-sequenced-gap-checklist-revision-log.md`**（及 **`pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**）；**`pdf03`** §3／§4、**`README.md`**、**`feature-list.md`** 頁尾同步。 |
+| 2026-05-17 | **`pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**；主修訂日誌再瘦身；**`pdf03`** §4、**`README.md`**、**`.cursorrules`** §3。 |

@@ -91,6 +91,7 @@
 | 2026-05-14 | **`feature-list.md`** 頁尾、**`pdf03`** §4：維護閉環（**`README`**／**§0**／**`ci.yml`**／**`phase*.md`**／**`stage*.md`**／**`pdf-sequenced`**）。 |
 | 2026-05-15 | **`business-logic-revision-log.md`**（**`business-logic.md`** §8 拆出）；**`README.md`**、**`pdf03`** §4、**`feature-list.md`** 頁尾、本檔 Seq 38 敘述。 |
 | 2026-05-16 | **`pdf-sequenced-gap-checklist-revision-log.md`**／**`pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**；**`pdf-sequenced-gap-checklist.md`** 主檔；**`pdf03`**、**`README.md`**、**`feature-list.md`**。 |
+| 2026-05-17 | **`pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**；主修訂日誌再瘦身；**`pdf03`**、**`README.md`**、**`.cursorrules`** §3。 |
 | 2026-05-02 | 初版：依 `docs/pdf-sequenced-gap-checklist.md` Seq 1～38 摘要「仍待／待／需」拆為可勾選 P0。 |
 | 2026-05-02 | 程式進度：`staff-profiles-list` Edge＋`StaffOverviewRow.roleType`；儀表盤 PT/OT 以 DB `role_type` 為優先（P0「Seq 13 PT/OT」之實作面；**逐欄對表簽核**仍待）。 |
 | 2026-05-02 | 程式進度：員工概覽 CSV 匯出增 **職類** 欄（Seq 26 匯出面向；**xlsx／母本逐字**仍待）。 |

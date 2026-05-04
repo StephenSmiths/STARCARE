@@ -1,6 +1,6 @@
 # PDF 對齊：依序補回／缺漏檢核清單（Sequenced Checklist）
 
-> **對照**：運維與文件總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3「部署與驗收閘門」）；**`README.md`** 文件表；P0 可勾選 **`docs/pdf-alignment-p0-backlog.md`**；主檔「**運維與工程**」列與 **§0**／**§3**／**`README`** 對齊；修訂日誌 **`docs/pdf-sequenced-gap-checklist-revision-log.md`**。
+> **對照**：運維與文件總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3「部署與驗收閘門」）；**`README.md`** 文件表；P0 可勾選 **`docs/pdf-alignment-p0-backlog.md`**；主檔「**運維與工程**」列與 **§0**／**§3**／**`README`** 對齊；修訂日誌 **`docs/pdf-sequenced-gap-checklist-revision-log.md`**（歸檔 **`…-2026-05-01a.md`**、**`…-revision-log-archive-p2.md`**）。
 
 > **用途**：依 **客戶 PDF**（`docs/pdf/01…`、`02…`、`03…`）與現行程式對照，列出**建議執行順序**（Seq）；每項勾選後代表「已對母本驗證或已補齊」。  
 > **狀態欄建議填**：`未開始`／`進行中`／`已驗證`（已驗證＝對照 PDF 有證據，非僅自認完成）。  
@@ -75,5 +75,5 @@
 
 ## 修改／日誌
 
-**全文表**：主檔歷次修訂列已重出至 **`docs/pdf-sequenced-gap-checklist-revision-log.md`**（仍視為本序號清單之稽核附錄；新增一筆請寫入該檔；**2026-05-01** 同日最早列見 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**）。與 **`docs/pdf03-cursorrules-alignment.md`** §4 維護閉環並讀。
+**全文表**：主檔歷次修訂列已重出至 **`docs/pdf-sequenced-gap-checklist-revision-log.md`**（仍視為本序號清單之稽核附錄；新增一筆請寫入該檔；**2026-05-01a**、**`archive-p2`** 見 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**）。與 **`docs/pdf03-cursorrules-alignment.md`** §4 維護閉環並讀。
 
