@@ -10,8 +10,11 @@ export interface AuditTrailPanelProps {
   auditTrail: AuditTrailRecord[]
 }
 
-/** 與 `AuditTrailRecord['action']` 對齊，供下拉篩選（缺漏會導致無法篩到該類紀錄） */
-const ACTION_OPTIONS: Array<AuditTrailRecord['action']> = [
+/**
+ * 與 `AuditTrailRecord['action']` 對齊供下拉篩選；
+ * `satisfies` 確保每項合法，`Missing*` 確保涵蓋 Union 全集（新增 action 未補列會編譯失敗）。
+ */
+const ACTION_OPTIONS = [
   'CREATE',
   'UPDATE',
   'SOFT_DELETE',
@@ -49,14 +52,20 @@ const ACTION_OPTIONS: Array<AuditTrailRecord['action']> = [
   'SHIFT_END_HANDOVER_DRAFT_UPSERT',
   'SHIFT_END_HANDOVER_SUBMIT',
   'SYSTEM_SETTINGS_SAVE',
-]
+] as const satisfies readonly AuditTrailRecord['action'][]
 
-const ENTITY_OPTIONS: Array<AuditTrailRecord['entityType']> = [
-  'Resident',
-  'Staff',
-  'Scheduling',
-  'Reporting',
-]
+type MissingAuditActionsForPanel = Exclude<AuditTrailRecord['action'], (typeof ACTION_OPTIONS)[number]>
+
+const ENTITY_OPTIONS = ['Resident', 'Staff', 'Scheduling', 'Reporting'] as const satisfies readonly AuditTrailRecord['entityType'][]
+
+type MissingEntityTypesForPanel = Exclude<AuditTrailRecord['entityType'], (typeof ENTITY_OPTIONS)[number]>
+
+type _ExpectNeverForAuditPanel<T extends never> = T
+
+/** 編譯期：下拉選項須涵蓋 audit action／entityType 全集（未補列時無法通過型別檢查） */
+export type AuditTrailPanelFilterCoversUnions = _ExpectNeverForAuditPanel<
+  MissingAuditActionsForPanel | MissingEntityTypesForPanel
+>
 
 /** 全域審計列表：支援動作／實體類型／關鍵字篩選（Seq 12） */
 export const AuditTrailPanel = ({
