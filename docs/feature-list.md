@@ -89,7 +89,7 @@
 
 ## 7. Edge Functions 對照（技術索引）
 
-下列為 `package.json`／部署腳本中出現之 **Edge Functions**（供與上表核對；**不作為業務功能編號**）。**遠端一鍵部署**以 **`npm run ops:deploy:all`** 為準（與下表及 **`ops:deploy:all`** 列舉一致；步驟見 **`docs/supabase-deploy-runbook.md`** §2）。
+下列為 **`supabase/functions/`** 已實作、且與 **`package.json`** 之 **`ops:deploy:all`** 列舉一致之 **Edge Functions**（供與上表核對；**不作為業務功能編號**）。**遠端一鍵部署**以 **`npm run ops:deploy:all`** 為準（步驟見 **`docs/supabase-deploy-runbook.md`** §2）；若新增 Edge，務必同步擴充 **`ops:deploy:all`** 與本表。
 
 | Function | 關聯功能編號（示例） |
 |-----------|----------------------|
@@ -102,7 +102,7 @@
 | `staff-profile-update` | Seq 26（TeamLead／Admin 單筆主檔） |
 | `schedule-assignments-batch`／`scheduling-history-soft-delete` | SCH-10（Seq 10 批次軟刪） |
 | `scheduling-sessions-list` / `scheduling-rules-get` / `activities-list` | SCH-11、SCH-12、STF-01 |
-| `scheduling-kpi-history-list` / `upsert` / `clear` | SCH-05 |
+| `scheduling-kpi-history-list` / `scheduling-kpi-history-upsert` / `scheduling-kpi-history-clear` | SCH-05 |
 | `assessment-due-list` / `assessment-completion-records-list` / `assessment-completion-records-append`（審計見 **`docs/assessment-completion-records-contract.md`**） | Seq 9（§4.3 待辦）／Seq 22（評估完成紀錄讀寫） |
 | `activity-sessions-list` | ACT-02 |
 | `activity-sessions-import-validate` / `activity-sessions-import-commit`；`activity-sessions-soft-delete`（寫入：**`guardTeamLeadOrAdmin`**） | ACT-01、活動時段手動軟刪 |

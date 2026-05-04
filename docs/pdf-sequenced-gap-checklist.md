@@ -241,3 +241,4 @@
 | 2026-05-03 | **`go-live-checklist.md`** §2 對齊 **`ops:deploy:all`**／**`ops:verify`** 與 runbook；**`phase5-day1-automation-runbook.md`**／**`phase5-final-delivery-package.md`** 收口改單一 **`ops:deploy:all`**（含 db push）。 |
 | 2026-05-03 | **`phase5-day1-delivery-index.md`**：§4／§6 與 **`ops:deploy:all`**（含 db push）及 runbook §2 對齊。 |
 | 2026-05-03 | **`feature-list.md`** §7：補 **`ops:deploy:all`**／runbook §2 說明；Edge 表增 **`staff-soft-delete`**、**`audit-trail-append`**／**`list`**；頁尾 runbook 註記 §2／§6；**`README.md`** 增後端部署要點。 |
+| 2026-05-03 | **`package.json`** **`ops:deploy:all`**：補 **`service-forms-list`**／**`upsert`**／**`soft-delete`**（與 **`supabase/functions/`** 一致）；**`feature-list.md`** §7 改列 **`scheduling-kpi-history-upsert`**／**`clear`** 全名並註明新增 Edge 須同步腳本與本表。 |
