@@ -29,13 +29,13 @@ const manualSections = [
 /** PDF 02【15】用戶手冊（骨架）：站內操作指引與文件入口 */
 export const UserManualHome = () => (
   <div className={uiTokens.stackVertical}>
-    <p className="text-sm text-slate-600">
+    <p className={uiTokens.moduleDescription}>
       此頁提供站內操作摘要；正式交付版可再補圖文教學、角色分章節與常見問題。
     </p>
     {manualSections.map((section) => (
       <section key={section.title} className={uiTokens.surfaceCardCompact}>
         <h2 className={uiTokens.blockHeading}>{section.title}</h2>
-        <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-700">
+        <ul className={uiTokens.bulletListDiscSm}>
           {section.items.map((item) => (
             <li key={item}>{item}</li>
           ))}

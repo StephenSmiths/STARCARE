@@ -23,7 +23,7 @@
 | CORE-02 | 工作階段載入 | 知道系統是否已連線 Auth | 全螢幕「載入工作階段…」 | — | 已完成 | — |
 | CORE-03 | 應用程式版面（Layout + Page Shell） | 各模組標題與導覽一致 | `SchedulingAppLayout`、`PageShell`、`SchedulingSidebar`（hash 路由） | — | 已完成 | `#scheduling` `#residents` `#staff-import` `#activity-sessions-import` |
 | CORE-04 | 小螢幕側欄 | 手機可開合選單 | 頂欄「選單／收合」、抽屜側欄、backdrop | — | 已完成 | — |
-| CORE-05 | 設計約束（uiTokens） | 表單／按鈕／卡片樣式一致 | `src/features/shared/ui/uiTokens.ts` | — | 部分 | 排班子元件尚未全面套用 |
+| CORE-05 | 設計約束（uiTokens） | 表單／按鈕／卡片樣式一致 | `uiTokens.ts`（**`base`**、**`extended`**、**`extendedComposites`**、**`schedulingSurfaces`**） | — | 已完成 | **`src/**/*.tsx`** 已統一走 **`uiTokens`**；**`className="…"`** 裸字串與 **`className={…}`** 內 Tailwind 字面量已清；token 檔維持 **單檔 ≤200 行**；**新增模組**時須沿用既有 token 或補檔（持續維護項） |
 
 ---
 

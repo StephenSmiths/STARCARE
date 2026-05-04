@@ -17,7 +17,7 @@ export const ResidentsAdminWriteSections = ({
 }: ResidentsAdminWriteSectionsProps) => {
   if (!canMaintain) {
     return (
-      <p className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-900">
+      <p className={uiTokens.inlineNoticeWarn}>
         院友批量匯入與個別新增／編輯僅限 TeamLead／Admin；名單與匯出仍可檢視。
       </p>
     )
@@ -38,7 +38,7 @@ export const ResidentsAdminWriteSections = ({
         <p className={uiTokens.blockHelp}>
           以表單逐筆建立院友資料（含資助類別與照護標記）。桌機為右側抽屜，手機為全螢幕。
         </p>
-        <button className={`${uiTokens.btnPrimary} mt-3 w-fit`} type="button" onClick={onOpenCreateSheet}>
+        <button className={uiTokens.btnPrimaryMt3WFit} type="button" onClick={onOpenCreateSheet}>
           開啟院友資料表單
         </button>
       </section>

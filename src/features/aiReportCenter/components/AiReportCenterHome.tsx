@@ -12,10 +12,10 @@ export const AiReportCenterHome = () => {
 
   return (
     <div className={uiTokens.stackVertical}>
-      <p className="text-sm text-slate-600">
+      <p className={uiTokens.textBodySubtleSm}>
         生成為占位文案；編輯後採用鎖定，再發放標記完成。AI 推理與對象發送後端接上後取代占位。
       </p>
-      <div className="flex gap-2">
+      <div className={uiTokens.layoutFlexGap2}>
         <button type="button" className={uiTokens.btnSecondary} onClick={() => ws.reload()}>
           重新載入
         </button>
@@ -25,7 +25,7 @@ export const AiReportCenterHome = () => {
         onTitleChange={ws.setTitleInput}
         onGenerate={() => ws.generateDraft()}
       />
-      {ws.error ? <p className="text-sm text-red-700">{ws.error}</p> : null}
+      {ws.error ? <p className={uiTokens.formInlineError}>{ws.error}</p> : null}
       <AiReportList
         rows={ws.reports}
         editId={ws.editId}

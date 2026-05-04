@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import type { FundingType } from '../../../services/schedulingService'
+import { uiTokens } from '../../shared/ui/uiTokens'
 
 export interface ResidentTableRow {
   id: string
@@ -18,10 +19,10 @@ const fundingLabel = (type: FundingType): string => {
   return '私位'
 }
 
-const fundingBadgeClass = (type: FundingType): string => {
-  if (type === 'GradeA_Subsidized') return 'bg-blue-100 text-blue-800 ring-blue-600/20'
-  if (type === 'Voucher') return 'bg-emerald-100 text-emerald-800 ring-emerald-600/20'
-  return 'bg-slate-100 text-slate-700 ring-slate-500/15'
+const residentFundingBadgeClass = (type: FundingType) => {
+  if (type === 'GradeA_Subsidized') return uiTokens.residentTableFundingBadgeGradeA
+  if (type === 'Voucher') return uiTokens.residentTableFundingBadgeVoucher
+  return uiTokens.residentTableFundingBadgePrivate
 }
 
 interface SchedulingResidentTableProps {
@@ -56,14 +57,14 @@ export const SchedulingResidentTable = ({ rows }: SchedulingResidentTableProps) 
   }, [filteredRows, safePage, pageSize])
 
   return (
-    <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
-      <div className="border-b border-slate-200 bg-slate-50 px-4 py-3">
-        <h3 className="text-sm font-semibold text-slate-800">院友本週資助復康次數</h3>
+    <div className={uiTokens.surfaceTableShell}>
+      <div className={uiTokens.residentTableHeaderBar}>
+        <h3 className={uiTokens.panelTitleSm}>院友本週資助復康次數</h3>
       </div>
-      <div className="border-b border-slate-200 bg-white px-4 py-3">
-        <div className="flex flex-wrap items-center gap-2 text-xs">
+      <div className={uiTokens.residentTableToolbarBar}>
+        <div className={uiTokens.residentTableToolbarInner}>
           <input
-            className="w-56 rounded border border-slate-300 px-2 py-1.5 text-sm"
+            className={uiTokens.residentTableToolbarSearchInput}
             placeholder="搜尋院友姓名"
             value={keyword}
             onChange={(event) => {
@@ -72,7 +73,7 @@ export const SchedulingResidentTable = ({ rows }: SchedulingResidentTableProps) 
             }}
           />
           <select
-            className="rounded border border-slate-300 px-2 py-1.5 text-sm"
+            className={uiTokens.residentTableToolbarSelect}
             value={statusFilter}
             onChange={(event) => {
               setStatusFilter(event.target.value as StatusFilter)
@@ -84,7 +85,7 @@ export const SchedulingResidentTable = ({ rows }: SchedulingResidentTableProps) 
             <option value="completed">已達標</option>
           </select>
           <select
-            className="rounded border border-slate-300 px-2 py-1.5 text-sm"
+            className={uiTokens.residentTableToolbarSelect}
             value={pageSize}
             onChange={(event) => {
               setPageSize(Number(event.target.value))
@@ -94,48 +95,46 @@ export const SchedulingResidentTable = ({ rows }: SchedulingResidentTableProps) 
             <option value={20}>每頁 20</option>
             <option value={50}>每頁 50</option>
           </select>
-          <span className="ml-auto text-slate-500">共 {filteredRows.length} 筆</span>
+          <span className={uiTokens.residentListToolbarMeta}>共 {filteredRows.length} 筆</span>
         </div>
       </div>
-      <div className="max-h-[60vh] overflow-auto">
-        <table className="min-w-full text-left text-sm">
-          <thead className="sticky top-0 z-10 bg-slate-50 text-xs font-semibold uppercase text-slate-500">
+      <div className={uiTokens.residentTableBodyScroll}>
+        <table className={uiTokens.residentTableData}>
+          <thead className={uiTokens.residentTableHeadStickyZ}>
             <tr>
-              <th className="px-4 py-3">院友姓名</th>
-              <th className="px-4 py-3">資助類別</th>
-              <th className="px-4 py-3">週目標</th>
-              <th className="px-4 py-3">本週已完成</th>
-              <th className="px-4 py-3">狀態</th>
+              <th className={uiTokens.residentTableCellLg}>院友姓名</th>
+              <th className={uiTokens.residentTableCellLg}>資助類別</th>
+              <th className={uiTokens.residentTableCellLg}>週目標</th>
+              <th className={uiTokens.residentTableCellLg}>本週已完成</th>
+              <th className={uiTokens.residentTableCellLg}>狀態</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className={uiTokens.tableBodyDivideSlate100}>
             {pagedRows.map((row) => (
               <tr
                 key={row.id}
-                className={row.isUnderTarget ? 'bg-red-50/80' : 'bg-white'}
+                className={row.isUnderTarget ? uiTokens.residentTableRowUnderTarget : uiTokens.residentTableRowDefault}
               >
-                <td className="px-4 py-3 font-medium text-slate-900">{row.name}</td>
-                <td className="px-4 py-3">
-                  <span
-                    className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ring-1 ring-inset ${fundingBadgeClass(row.fundingType)}`}
-                  >
+                <td className={uiTokens.residentTableCellLgStrong}>{row.name}</td>
+                <td className={uiTokens.residentTableCellLg}>
+                  <span className={residentFundingBadgeClass(row.fundingType)}>
                     {fundingLabel(row.fundingType)}
                   </span>
                 </td>
-                <td className="px-4 py-3 text-slate-600">{row.weeklyTarget}</td>
-                <td className="px-4 py-3 text-slate-600">{row.weeklyCompleted}</td>
-                <td className="px-4 py-3">
+                <td className={uiTokens.residentTableCellLgMuted}>{row.weeklyTarget}</td>
+                <td className={uiTokens.residentTableCellLgMuted}>{row.weeklyCompleted}</td>
+                <td className={uiTokens.residentTableCellLg}>
                   {row.isUnderTarget ? (
-                    <span className="text-amber-700">待補齊</span>
+                    <span className={uiTokens.rosterStatusUnderTarget}>待補齊</span>
                   ) : (
-                    <span className="text-emerald-700">已達標</span>
+                    <span className={uiTokens.rosterStatusMet}>已達標</span>
                   )}
                 </td>
               </tr>
             ))}
             {pagedRows.length === 0 ? (
               <tr>
-                <td colSpan={5} className="px-4 py-6 text-center text-slate-500">
+                <td colSpan={5} className={uiTokens.residentTableEmptyCell}>
                   沒有符合條件的資料
                 </td>
               </tr>
@@ -143,20 +142,20 @@ export const SchedulingResidentTable = ({ rows }: SchedulingResidentTableProps) 
           </tbody>
         </table>
       </div>
-      <div className="flex items-center justify-end gap-2 border-t border-slate-200 px-4 py-3 text-xs">
+      <div className={uiTokens.residentTableFooterBar}>
         <button
-          className="rounded border border-slate-300 px-2 py-1 text-slate-700 disabled:cursor-not-allowed disabled:opacity-50"
+          className={uiTokens.btnCompactDisabled}
           type="button"
           disabled={safePage <= 1}
           onClick={() => setPage((prev) => Math.max(1, prev - 1))}
         >
           上一頁
         </button>
-        <span className="text-slate-500">
+        <span className={uiTokens.residentListPagerMeta}>
           第 {safePage} / {pageCount} 頁
         </span>
         <button
-          className="rounded border border-slate-300 px-2 py-1 text-slate-700 disabled:cursor-not-allowed disabled:opacity-50"
+          className={uiTokens.btnCompactDisabled}
           type="button"
           disabled={safePage >= pageCount}
           onClick={() => setPage((prev) => Math.min(pageCount, prev + 1))}

@@ -29,7 +29,7 @@ export const AssessmentCompletionForm = ({
     <div className={uiTokens.surfaceCard}>
       <h2 className={uiTokens.blockHeading}>登錄評估完成（PT／OT 版本）</h2>
       <p className={uiTokens.blockHelp}>以「最近已過錨點」為準；若僅缺單科可只填該科。</p>
-      <form className="mt-4 flex flex-col gap-4" onSubmit={(ev) => void handleSubmit(ev)}>
+      <form className={uiTokens.layoutFlexColGap4Mt4} onSubmit={(ev) => void handleSubmit(ev)}>
         <label className={uiTokens.formFieldStack}>
           <span className={uiTokens.formLabel}>院友</span>
           <select
@@ -64,7 +64,7 @@ export const AssessmentCompletionForm = ({
             placeholder="若本週期仍需 OT 請填"
           />
         </label>
-        {submitError ? <p className="text-sm text-red-700">{submitError}</p> : null}
+        {submitError ? <p className={uiTokens.formInlineError}>{submitError}</p> : null}
         <button type="submit" className={uiTokens.btnPrimary} disabled={isSubmitting}>
           {isSubmitting ? '儲存中…' : '提交紀錄'}
         </button>

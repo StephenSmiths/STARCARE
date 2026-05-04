@@ -17,7 +17,7 @@ export const SchedulingAppLayout = ({ children }: SchedulingAppLayoutProps) => {
   }, [])
 
   return (
-    <div className="flex min-h-screen bg-slate-100">
+    <div className={uiTokens.schedulingAppShell}>
       <div className={uiTokens.mobileTopBar}>
         <button
           type="button"
@@ -28,18 +28,18 @@ export const SchedulingAppLayout = ({ children }: SchedulingAppLayoutProps) => {
         >
           {mobileNavOpen ? '收合' : '選單'}
         </button>
-        <span className="text-sm font-semibold text-slate-800">STARCARE</span>
+        <span className={uiTokens.mobileTopBarTitle}>STARCARE</span>
       </div>
       {mobileNavOpen ? (
         <button
           type="button"
-          className="fixed inset-x-0 bottom-0 top-14 z-40 bg-slate-900/50 md:hidden"
+          className={uiTokens.mobileNavBackdrop}
           aria-label="關閉選單"
           onClick={() => setMobileNavOpen(false)}
         />
       ) : null}
       <SchedulingSidebar isMobileOpen={mobileNavOpen} onRequestClose={() => setMobileNavOpen(false)} />
-      <div className="flex min-h-0 min-w-0 flex-1 flex-col">{children}</div>
+      <div className={uiTokens.schedulingAppMainColumn}>{children}</div>
     </div>
   )
 }

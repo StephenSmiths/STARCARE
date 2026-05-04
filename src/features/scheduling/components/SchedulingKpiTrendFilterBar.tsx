@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import type { SchedulingKpiRunRecord } from '../../../services/schedulingKpiService'
 import type { SchedulingKpiHistoryFilter } from '../hooks/useSchedulingKpiHistory'
+import { uiTokens } from '../../shared/ui/uiTokens'
 
 interface SchedulingKpiTrendFilterBarProps {
   history: SchedulingKpiRunRecord[]
@@ -48,25 +49,25 @@ export const SchedulingKpiTrendFilterBar = ({
   }
 
   return (
-    <div className="mt-2 rounded border border-slate-200 bg-slate-50 p-3 text-xs">
-      <p className="mb-2 text-slate-600">{filterSummary(currentFilter)}</p>
-      <div className="grid gap-2 lg:grid-cols-4">
+    <div className={uiTokens.schedulingKpiTrendFilterInset}>
+      <p className={uiTokens.schedulingKpiTrendFilterSummary}>{filterSummary(currentFilter)}</p>
+      <div className={uiTokens.schedulingKpiTrendFilterGrid}>
         <input
           type="date"
           value={from}
           onChange={(e) => setFrom(e.target.value)}
-          className="rounded border border-slate-300 px-2 py-1"
+          className={uiTokens.schedulingKpiTrendDateInput}
         />
         <input
           type="date"
           value={to}
           onChange={(e) => setTo(e.target.value)}
-          className="rounded border border-slate-300 px-2 py-1"
+          className={uiTokens.schedulingKpiTrendDateInput}
         />
         <select
           value={actorId}
           onChange={(e) => setActorId(e.target.value)}
-          className="rounded border border-slate-300 px-2 py-1"
+          className={uiTokens.schedulingKpiTrendActorSelect}
         >
           <option value="">所有操作者</option>
           {actorOptions.map((id) => (
@@ -75,21 +76,11 @@ export const SchedulingKpiTrendFilterBar = ({
             </option>
           ))}
         </select>
-        <div className="flex gap-2">
-          <button
-            type="button"
-            className="rounded border border-slate-300 px-2 py-1 hover:bg-white disabled:opacity-50"
-            onClick={handleApply}
-            disabled={isApplyingFilter}
-          >
+        <div className={uiTokens.layoutFlexGap2}>
+          <button type="button" className={uiTokens.btnCompact} onClick={handleApply} disabled={isApplyingFilter}>
             {isApplyingFilter ? '查詢中...' : '套用過濾'}
           </button>
-          <button
-            type="button"
-            className="rounded border border-slate-300 px-2 py-1 hover:bg-white disabled:opacity-50"
-            onClick={handleReset}
-            disabled={isApplyingFilter}
-          >
+          <button type="button" className={uiTokens.btnCompact} onClick={handleReset} disabled={isApplyingFilter}>
             重置
           </button>
         </div>

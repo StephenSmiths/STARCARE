@@ -12,8 +12,8 @@ type Props = {
 export const SchedulingHistoryUndoPanel = ({ role, lastBatchId, isUndoing, onUndo }: Props) => {
   if (role === 'Staff') {
     return (
-      <section className={`${uiTokens.surfaceCardCompact} border-slate-100 bg-slate-50`}>
-        <p className="text-xs text-slate-600">
+      <section className={uiTokens.schedulingHistoryUndoSection}>
+        <p className={uiTokens.textSubtleXs}>
           排班歷史批次撤銷僅 TeamLead／Admin 可操作（01 §5）；若誤存請聯絡組長。
         </p>
       </section>
@@ -22,16 +22,16 @@ export const SchedulingHistoryUndoPanel = ({ role, lastBatchId, isUndoing, onUnd
   return (
     <section className={uiTokens.surfaceCardCompact}>
       <h3 className={uiTokens.blockHeading}>排班歷史（批次軟刪）</h3>
-      <p className="mt-1 text-xs text-slate-600">
+      <p className={uiTokens.blockHelp}>
         成功「一鍵儲存」後，本瀏覽器分頁會記住該次 batch id。可將該批次寫入之{' '}
-        <span className="font-mono text-[11px]">scheduling_history</span> 標為已刪除（不影響其他批次）。
+        <span className={uiTokens.textMono11}>scheduling_history</span> 標為已刪除（不影響其他批次）。
       </p>
-      <p className="mt-2 font-mono text-[11px] text-slate-500 break-all">
+      <p className={uiTokens.monoBreakAllNote}>
         上次 batch：{lastBatchId ?? '（尚無，請先成功儲存）'}
       </p>
       <button
         type="button"
-        className={`${uiTokens.btnDangerOutline} mt-3`}
+        className={uiTokens.btnDangerOutlineMt3}
         disabled={!lastBatchId || isUndoing}
         onClick={() => void onUndo()}
       >

@@ -73,7 +73,7 @@ export const SchedulingDashboard = () => {
   }, [sessionCount, rosterConfirmed, totalResidents])
 
   return (
-    <div className="space-y-8">
+    <div className={uiTokens.layoutSpaceY8}>
       <SchedulingDataAlerts
         loadError={loadError}
         saveError={saveError}
@@ -126,14 +126,14 @@ export const SchedulingDashboard = () => {
       <div className={uiTokens.surfaceCardCompact}>
         <h3 className={uiTokens.blockHeading}>本次排班指派</h3>
         {assignments.length === 0 ? (
-          <p className="mt-2 text-sm text-slate-500">尚未執行排班，請點選右上角「啟動智能排班」。</p>
+          <p className={uiTokens.sectionHelp}>尚未執行排班，請點選右上角「啟動智能排班」。</p>
         ) : (
-          <ul className="mt-3 max-h-72 divide-y divide-slate-100 overflow-auto text-sm">
+          <ul className={uiTokens.schedulingAssignmentList}>
             {assignments.map((a) => (
-              <li key={`${a.sessionId}-${a.residentId}`} className="py-2">
-                <span className="font-medium text-slate-900">{a.residentName}</span>
-                <span className="ml-2 text-slate-500">Pass {a.pass}</span>
-                <span className="ml-2 text-xs text-slate-400">（{a.sessionId}）</span>
+              <li key={`${a.sessionId}-${a.residentId}`} className={uiTokens.layoutListItemPy2}>
+                <span className={uiTokens.reviewQueueTitle}>{a.residentName}</span>
+                <span className={uiTokens.residentListPagerMetaMl2}>Pass {a.pass}</span>
+                <span className={uiTokens.textSubtleXsMl2Slate400}>（{a.sessionId}）</span>
               </li>
             ))}
           </ul>

@@ -1,5 +1,6 @@
 import type { SchedulingKpiSnapshot } from '../../../services/schedulingKpiService'
 import type { SchedulingComplianceAlert } from '../../../services/schedulingComplianceAlertService'
+import { uiTokens } from '../../shared/ui/uiTokens'
 
 interface SchedulingKpiCardsProps {
   kpis: SchedulingKpiSnapshot
@@ -25,26 +26,30 @@ export const SchedulingKpiCards = ({ kpis, complianceAlerts }: SchedulingKpiCard
   const previewNames = complianceAlerts.slice(0, 3).map((item) => item.residentName)
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+    <div className={uiTokens.schedulingKpiCardsGrid}>
       {cards.map((card) => (
-        <div key={card.title} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-          <p className="text-sm font-medium text-slate-500">{card.title}</p>
-          <p className="mt-2 text-2xl font-bold tracking-tight text-slate-900">{card.value}</p>
-          <p className="mt-1 text-xs text-slate-400">{card.hint}</p>
+        <div key={card.title} className={uiTokens.surfaceCardCompact}>
+          <p className={uiTokens.statCardTitleMuted}>{card.title}</p>
+          <p className={uiTokens.schedulingStatValue2xl}>{card.value}</p>
+          <p className={uiTokens.dashboardStatTileHint}>{card.hint}</p>
         </div>
       ))}
-      <div
-        className={`rounded-xl border p-5 shadow-sm ${
-          hasMidweekAlert ? 'border-amber-200 bg-amber-50' : 'border-slate-200 bg-white'
-        }`}
-      >
-        <p className={`text-sm font-medium ${hasMidweekAlert ? 'text-amber-900' : 'text-slate-500'}`}>
+      <div className={hasMidweekAlert ? uiTokens.surfaceCardCompactWarn : uiTokens.surfaceCardCompact}>
+        <p
+          className={
+            hasMidweekAlert ? uiTokens.schedulingStatCardTitleAmber900 : uiTokens.statCardTitleMuted
+          }
+        >
           週三 0 次提醒
         </p>
-        <p className={`mt-2 text-2xl font-bold tracking-tight ${hasMidweekAlert ? 'text-amber-900' : 'text-slate-900'}`}>
+        <p
+          className={
+            hasMidweekAlert ? uiTokens.schedulingStatValue2xlAmber900 : uiTokens.schedulingStatValue2xl
+          }
+        >
           {complianceAlerts.length}
         </p>
-        <p className={`mt-1 text-xs ${hasMidweekAlert ? 'text-amber-800' : 'text-slate-400'}`}>
+        <p className={hasMidweekAlert ? uiTokens.schedulingMidweekKpiHintAmber : uiTokens.dashboardStatTileHint}>
           {hasMidweekAlert
             ? `需優先跟進：${previewNames.join('、')}${complianceAlerts.length > 3 ? '…' : ''}`
             : '目前無需跟進個案'}

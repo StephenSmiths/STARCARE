@@ -20,11 +20,11 @@ export const WorkAnalysisReviewHome = () => {
   )
 
   if (workspace.isLoading) {
-    return <p className="text-sm text-slate-600">載入分析模組…</p>
+    return <p className={uiTokens.textBodySubtleSm}>載入分析模組…</p>
   }
 
   if (workspace.loadError) {
-    return <p className="text-sm text-red-700">{workspace.loadError}</p>
+    return <p className={uiTokens.formInlineError}>{workspace.loadError}</p>
   }
 
   return (

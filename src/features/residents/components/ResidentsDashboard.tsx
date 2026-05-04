@@ -135,7 +135,7 @@ export const ResidentsDashboard = () => {
   return (
     <article className={uiTokens.surfaceCard}>
       <p className={uiTokens.sectionHelp}>欄位對齊院友管理 SOP，支援新增、修改與軟刪除。</p>
-      <div className={`${uiTokens.stackVertical} mt-4`}>
+      <div className={uiTokens.stackVerticalMt4}>
         <ResidentsOverviewPanel residents={residents} />
         <ResidentsAdminWriteSections
           actorId={actorId}
@@ -143,7 +143,7 @@ export const ResidentsDashboard = () => {
           onImportCommitted={refreshResidents}
           onOpenCreateSheet={openCreateResidentSheet}
         />
-        {errorMessage ? <p className="text-sm text-red-600">{errorMessage}</p> : null}
+        {errorMessage ? <p className={uiTokens.formInlineError}>{errorMessage}</p> : null}
         <ResidentsAssessmentDuePanel actorId={actorId} residents={residents} />
         <section aria-labelledby="residents-list-heading">
           <h3 id="residents-list-heading" className={uiTokens.blockHeading}>
@@ -154,7 +154,7 @@ export const ResidentsDashboard = () => {
           </p>
           <button
             type="button"
-            className={`${uiTokens.btnSecondary} mt-3`}
+            className={uiTokens.btnSecondaryMt3}
             onClick={exportResidentsCsv}
             disabled={residents.length === 0}
           >

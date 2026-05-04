@@ -100,20 +100,18 @@ export const ServiceFormStaffPanel = ({ workspace }: { workspace: ServiceFormsWo
       <h2 className={uiTokens.pageSectionHeading}>填寫服務表單（Staff）</h2>
       <p className={uiTokens.sectionHelp}>
         01 §2.1／§2.2：僅<strong>已接收</strong>工作節可提交；核准後鎖定不可編輯。
-        <a href="#work-session-plans" className="ml-2 text-violet-700 underline">
+        <a href="#work-session-plans" className={uiTokens.hashLinkAccentMl2}>
           前往工作計劃接收班次
         </a>
       </p>
       {workspace.staffProfileId === null ? (
-        <p className="mt-2 text-xs text-amber-800">請設定 starcare_staff_profile_id 以載入您的已接收班次。</p>
+        <p className={uiTokens.textUrgentHintMt2}>請設定 starcare_staff_profile_id 以載入您的已接收班次。</p>
       ) : null}
       {sessionsOfDay.length === 0 ? (
-        <p className="mt-2 text-xs text-slate-600">
-          此日期無「已接收」工作節（或尚未於工作計劃按接收）。
-        </p>
+        <p className={uiTokens.blockHelpMt2}>此日期無「已接收」工作節（或尚未於工作計劃按接收）。</p>
       ) : null}
 
-      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+      <div className={uiTokens.formGridTwoCol}>
         <label className={uiTokens.formFieldStack}>
           <span className={uiTokens.formLabel}>服務日期</span>
           <input
@@ -140,7 +138,7 @@ export const ServiceFormStaffPanel = ({ workspace }: { workspace: ServiceFormsWo
             ))}
           </select>
         </label>
-        <label className={`${uiTokens.formFieldStack} sm:col-span-2`}>
+        <label className={uiTokens.formFieldStackSmColSpan2}>
           <span className={uiTokens.formLabel}>院友</span>
           <select
             className={uiTokens.formSelect}
@@ -156,7 +154,7 @@ export const ServiceFormStaffPanel = ({ workspace }: { workspace: ServiceFormsWo
             ))}
           </select>
         </label>
-        <label className={`${uiTokens.formFieldStack} sm:col-span-2`}>
+        <label className={uiTokens.formFieldStackSmColSpan2}>
           <span className={uiTokens.formLabel}>服務紀要</span>
           <textarea
             className={uiTokens.formTextarea}
@@ -167,7 +165,7 @@ export const ServiceFormStaffPanel = ({ workspace }: { workspace: ServiceFormsWo
           />
         </label>
       </div>
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className={uiTokens.formToolbarRow}>
         <button type="button" className={uiTokens.btnSecondary} disabled={readOnly} onClick={runSaveDraft}>
           儲存草稿
         </button>
@@ -179,9 +177,9 @@ export const ServiceFormStaffPanel = ({ workspace }: { workspace: ServiceFormsWo
         </button>
       </div>
 
-      <div className="mt-8">
+      <div className={uiTokens.layoutSpacerMt8}>
         <h3 className={uiTokens.blockHeading}>我的表單</h3>
-        <p className="mt-1 text-xs text-slate-500">01 §5：非核准表單可軟刪除（本機＋資料庫 is_deleted）。</p>
+        <p className={uiTokens.helpFinePrint}>01 §5：非核准表單可軟刪除（本機＋資料庫 is_deleted）。</p>
         <ServiceFormMyFormsList forms={workspace.myForms} onLoadForm={loadForm} onSoftDelete={runSoftDelete} />
       </div>
     </section>

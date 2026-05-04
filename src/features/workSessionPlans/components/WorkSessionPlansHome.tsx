@@ -1,3 +1,4 @@
+import { uiTokens } from '../../shared/ui/uiTokens'
 import { AuditTrailPanel } from '../../shared/components/AuditTrailPanel'
 import { useAuditTrailList } from '../../shared/hooks/useAuditTrailList'
 import { MyWorkPlanPanel } from './MyWorkPlanPanel'
@@ -10,7 +11,7 @@ export const WorkSessionPlansHome = () => {
   const plans = useWorkSessionPlans()
 
   return (
-    <div className="space-y-8">
+    <div className={uiTokens.layoutSpaceY8}>
       <MyWorkPlanPanel
         role={plans.role}
         effectiveStaffProfileId={plans.effectiveStaffProfileId}

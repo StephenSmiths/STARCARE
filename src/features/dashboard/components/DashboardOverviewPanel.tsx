@@ -17,28 +17,24 @@ const StatCard = ({
   value: string
   hint?: string
 }) => (
-  <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-    <p className="text-[11px] font-medium uppercase tracking-wide text-slate-500">{label}</p>
-    <p className="mt-1 text-2xl font-semibold text-slate-900">{value}</p>
-    {hint ? <p className="mt-1 text-[11px] text-slate-400">{hint}</p> : null}
+  <div className={uiTokens.dashboardStatTile}>
+    <p className={uiTokens.dashboardStatTileLabel}>{label}</p>
+    <p className={uiTokens.dashboardStatTileValue}>{value}</p>
+    {hint ? <p className={uiTokens.dashboardStatTileHint}>{hint}</p> : null}
   </div>
 )
 
 /** PDF 02【1】／01 §4.2：核心指標卡片（今日時段分軌顯示） */
 export const DashboardOverviewPanel = ({ summary, isLoading, error, onRetry }: DashboardOverviewPanelProps) => {
   if (isLoading) {
-    return (
-      <div className="rounded-lg border border-dashed border-slate-300 bg-slate-50 p-8 text-center text-sm text-slate-600">
-        載入儀表盤…
-      </div>
-    )
+    return <div className={uiTokens.dashboardLoadingPanel}>載入儀表盤…</div>
   }
 
   if (error) {
     return (
-      <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+      <div className={uiTokens.bannerDanger}>
         <p>{error}</p>
-        <button type="button" className={`${uiTokens.btnSecondary} mt-3 text-xs`} onClick={() => void onRetry()}>
+        <button type="button" className={uiTokens.btnSecondaryMt3TextXs} onClick={() => void onRetry()}>
           重試
         </button>
       </div>
@@ -55,8 +51,8 @@ export const DashboardOverviewPanel = ({ summary, isLoading, error, onRetry }: D
     summary.lastKpiRanAt !== null ? `最近排班：${summary.lastKpiRanAt}` : '尚未於本裝置記錄排班 KPI，請至排班頁執行'
 
   return (
-    <div className="space-y-4">
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    <div className={uiTokens.layoutSpaceY4}>
+      <div className={uiTokens.dashboardStatGrid}>
         <StatCard
           label="院友總數（在住）"
           value={String(summary.residentTotal)}

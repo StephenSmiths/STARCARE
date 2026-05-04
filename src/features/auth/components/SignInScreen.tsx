@@ -30,11 +30,11 @@ export const SignInScreen = () => {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-slate-100 px-4">
-      <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
-        <h1 className="text-xl font-semibold text-slate-900">STARCARE 登入</h1>
-        <p className="mt-2 text-sm text-slate-600">請使用院舍管理員於 Supabase Auth 建立之帳號。</p>
-        <form className="mt-6 space-y-4" onSubmit={onSubmit}>
+    <div className={uiTokens.authSignInRoot}>
+      <div className={uiTokens.authSignInCard}>
+        <h1 className={uiTokens.pageSectionHeading}>STARCARE 登入</h1>
+        <p className={uiTokens.moduleDescription}>請使用院舍管理員於 Supabase Auth 建立之帳號。</p>
+        <form className={uiTokens.authSignInFormStack} onSubmit={onSubmit}>
           <div className={uiTokens.formFieldStack}>
             <label className={uiTokens.formLabel} htmlFor="email">
               電子郵件
@@ -63,11 +63,11 @@ export const SignInScreen = () => {
               onChange={(ev) => setPassword(ev.target.value)}
             />
           </div>
-          {error ? <p className="text-sm text-red-600">{error}</p> : null}
+          {error ? <p className={uiTokens.formInlineError}>{error}</p> : null}
           <button
             type="submit"
             disabled={pending}
-            className={`${uiTokens.btnAccent} w-full`}
+            className={uiTokens.signInAccentButtonFullWidth}
           >
             {pending ? '登入中…' : '登入'}
           </button>

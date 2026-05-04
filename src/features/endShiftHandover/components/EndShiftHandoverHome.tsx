@@ -10,7 +10,7 @@ export const EndShiftHandoverHome = () => {
   const workspace = useEndShiftHandoverWorkspace()
 
   return (
-    <div className={`mx-auto w-full max-w-5xl ${uiTokens.stackVertical}`}>
+    <div className={uiTokens.handoverHomeContentWidth}>
       <EndShiftHandoverPanel workspace={workspace} />
       <AuditTrailPanel
         title="收工交更審計（全域）"

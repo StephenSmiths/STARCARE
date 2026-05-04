@@ -81,7 +81,7 @@ export const TeamWorkPlanPanel = ({
     <section className={uiTokens.surfaceCardCompact}>
       <h2 className={uiTokens.pageSectionHeading}>團隊計劃（批量軟刪）</h2>
       <p className={uiTokens.sectionHelp}>選取列後批量軟刪 activity_sessions；與「活動時段」模組同一後端。</p>
-      <div className="mt-4 flex flex-wrap items-end gap-3">
+      <div className={uiTokens.layoutFlexWrapItemsEndGap3Mt4}>
         <label className={uiTokens.formFieldStack}>
           <span className={uiTokens.formLabel}>日期</span>
           <input
@@ -92,7 +92,7 @@ export const TeamWorkPlanPanel = ({
             onChange={(event) => onSelectedDateChange(event.target.value)}
           />
         </label>
-        <label className="flex items-center gap-2 text-sm text-slate-700">
+        <label className={uiTokens.formCheckboxRow}>
           <input type="checkbox" checked={showAllDates} onChange={(e) => onShowAllDatesChange(e.target.checked)} />
           全部日期
         </label>
@@ -119,20 +119,20 @@ export const TeamWorkPlanPanel = ({
           {selected.size === rows.length ? '取消全選' : '全選可見'}
         </button>
       </div>
-      {localError ? <p className="mt-2 text-sm text-red-700">{localError}</p> : null}
-      {isLoading ? <p className="mt-3 text-sm text-slate-600">載入中…</p> : null}
+      {localError ? <p className={uiTokens.formInlineErrorMt2}>{localError}</p> : null}
+      {isLoading ? <p className={uiTokens.moduleDescription}>載入中…</p> : null}
       {!isLoading && rows.length === 0 ? (
-        <p className="mt-3 text-sm text-slate-500">目前篩選下沒有團隊時段。</p>
+        <p className={uiTokens.emptyStateMuted}>目前篩選下沒有團隊時段。</p>
       ) : (
-        <ul className="mt-4 divide-y divide-slate-100 rounded-lg border border-slate-200">
+        <ul className={uiTokens.listDivideShellMt4TextSm}>
           {rows.map((row) => (
-            <li key={row.id} className="flex flex-wrap items-center gap-3 px-3 py-2 text-sm">
+            <li key={row.id} className={uiTokens.workPlanTeamListRow}>
               <input type="checkbox" checked={selected.has(row.id)} onChange={() => toggle(row.id)} />
-              <span className="font-mono text-xs text-slate-500">{row.id}</span>
-              <span className="text-slate-900">
+              <span className={uiTokens.textSubtleXsMono}>{row.id}</span>
+              <span className={uiTokens.reviewQueueTitle}>
                 {row.date} {row.timeSlot} · {row.staffName}
               </span>
-              <span className="rounded bg-slate-100 px-2 py-0.5 text-xs">{statusLabel(row.responseStatus)}</span>
+              <span className={uiTokens.metaChip}>{statusLabel(row.responseStatus)}</span>
             </li>
           ))}
         </ul>

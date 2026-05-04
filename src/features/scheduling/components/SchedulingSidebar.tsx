@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useAuth } from '../../auth'
+import { uiTokens } from '../../shared/ui/uiTokens'
 import { SCHEDULING_NAV_GROUPS } from '../config/schedulingNavConfig'
 
 interface SchedulingSidebarProps {
@@ -21,42 +22,33 @@ export const SchedulingSidebar = ({ isMobileOpen, onRequestClose }: SchedulingSi
     return () => window.removeEventListener('hashchange', syncHash)
   }, [])
 
-  const asideTransform = isMobileOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
-
   return (
     <aside
       id="app-sidebar-nav"
-      className={`flex w-64 shrink-0 flex-col border-r border-slate-800 bg-slate-900 text-slate-100
-        fixed bottom-0 left-0 top-14 z-50 transition-transform duration-200 ease-out
-        md:static md:top-auto md:z-auto md:h-auto md:translate-x-0
-        ${asideTransform}`}
+      className={isMobileOpen ? uiTokens.sidebarShellMobileOpen : uiTokens.sidebarShellMobileClosed}
     >
-      <div className="border-b border-slate-800 px-5 py-6">
-        <p className="text-xs font-medium uppercase tracking-wider text-violet-300">STARCARE</p>
-        <p className="mt-1 text-lg font-semibold text-white">智能院舍照護</p>
-        <p className="mt-2 text-[11px] leading-relaxed text-slate-400">
-          選單已分組；不確定時先到「儀表盤」或「用戶手冊」。
-        </p>
+      <div className={uiTokens.sidebarHeader}>
+        <p className={uiTokens.sidebarBrandKicker}>STARCARE</p>
+        <p className={uiTokens.sidebarBrandTitle}>智能院舍照護</p>
+        <p className={uiTokens.sidebarBrandHint}>選單已分組；不確定時先到「儀表盤」或「用戶手冊」。</p>
       </div>
-      <nav className="flex-1 space-y-4 overflow-y-auto p-3">
+      <nav className={uiTokens.sidebarNavScrollStack}>
         {SCHEDULING_NAV_GROUPS.map((group) => {
           const items = group.items.filter((item) => hasPermission(item.permission))
           if (items.length === 0) return null
           return (
             <div key={group.heading}>
-              <p className="mb-1.5 px-3 text-[11px] font-semibold tracking-wide text-slate-500">
-                {group.heading}
-              </p>
-              <div className="space-y-1">
+              <p className={uiTokens.sidebarNavGroupLabel}>{group.heading}</p>
+              <div className={uiTokens.sidebarNavItemsStack}>
                 {items.map((item) => (
                   <a
                     key={item.href}
                     href={item.href}
-                    className={`block rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                    className={
                       activeHash === item.href
-                        ? 'bg-violet-600/20 text-violet-200 ring-1 ring-violet-500/40'
-                        : 'text-slate-300 hover:bg-slate-800 hover:text-white'
-                    }`}
+                        ? uiTokens.sidebarNavLinkRowActive
+                        : uiTokens.sidebarNavLinkRowInactive
+                    }
                     onClick={() => onRequestClose()}
                   >
                     {item.label}
@@ -67,18 +59,14 @@ export const SchedulingSidebar = ({ isMobileOpen, onRequestClose }: SchedulingSi
           )
         })}
       </nav>
-      <div className="border-t border-slate-800 p-4 text-xs text-slate-500">
+      <div className={uiTokens.sidebarFooter}>
         {isConfigured && user?.email ? (
-          <div className="mb-3 space-y-2">
-            <p className="truncate text-slate-400" title={user.email}>
+          <div className={uiTokens.sidebarFooterUserStack}>
+            <p className={uiTokens.sidebarUserEmail} title={user.email}>
               {user.email}
             </p>
-            <p className="text-[11px] uppercase tracking-wide text-violet-300">角色：{role}</p>
-            <button
-              type="button"
-              className="w-full rounded-lg border border-slate-600 px-2 py-1.5 text-slate-200 hover:bg-slate-800"
-              onClick={() => void signOut()}
-            >
+            <p className={uiTokens.sidebarRoleLine}>角色：{role}</p>
+            <button type="button" className={uiTokens.sidebarMutedButton} onClick={() => void signOut()}>
               登出
             </button>
           </div>

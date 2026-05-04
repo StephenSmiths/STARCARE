@@ -25,29 +25,33 @@ export const SchedulingWorkflowStepper = ({ model, sessionCount }: SchedulingWor
   }
 
   return (
-    <section className="rounded-xl border border-violet-200 bg-violet-50/60 p-4" aria-label="智能排班五步流程">
-      <div className="flex flex-wrap items-end justify-between gap-2">
-        <h2 className={`${uiTokens.blockHeading} text-violet-950`}>智能排班流程（五步）</h2>
-        <span className="rounded-full bg-white px-3 py-1 text-xs font-medium text-violet-800 ring-1 ring-violet-200">
+    <section className={uiTokens.schedulingWorkflowStepperSection} aria-label="智能排班五步流程">
+      <div className={uiTokens.stepperHeaderRow}>
+        <h2 className={uiTokens.schedulingWorkflowStepperTitle}>智能排班流程（五步）</h2>
+        <span className={uiTokens.schedulingWorkflowSessionCountBadge}>
           已載入時段：{sessionCount} 節
         </span>
       </div>
-      <ol className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
+      <ol className={uiTokens.stepperStepsOlGrid}>
         {STEPS.map((step, index) => {
           const done = doneFlags[step.id]
           const active = model.activeStep === step.id
+          const cardClass = active
+            ? uiTokens.schedulingWorkflowStepCardActive
+            : done
+              ? uiTokens.schedulingWorkflowStepCardDone
+              : uiTokens.schedulingWorkflowStepCardPending
+          const hintClass = active
+            ? uiTokens.schedulingWorkflowStepHintActive
+            : uiTokens.schedulingWorkflowStepHintIdle
           return (
             <li key={step.id}>
-              <div
-                className={`flex h-full flex-col rounded-lg px-3 py-2 text-xs ${
-                  active ? 'bg-violet-600 text-white shadow-md' : done ? 'bg-emerald-100 text-emerald-900' : 'bg-white text-slate-600 ring-1 ring-slate-200'
-                }`}
-              >
-                <span className="font-semibold">
+              <div className={cardClass}>
+                <span className={uiTokens.textWeightSemibold}>
                   {done ? '✓ ' : ''}
                   {index + 1}. {step.label}
                 </span>
-                <span className={`mt-1 leading-snug ${active ? 'text-violet-100' : 'text-slate-500'}`}>{step.hint}</span>
+                <span className={hintClass}>{step.hint}</span>
               </div>
             </li>
           )

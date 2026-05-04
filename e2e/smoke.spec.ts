@@ -8,6 +8,8 @@ const HASH_AUDIT_CASES: ReadonlyArray<{
   hash: string
   moduleTitle: string
   auditHeading: RegExp
+  /** 頁內次要標題（例如 Seq 14 五步進度列） */
+  pageHeading?: RegExp
 }> = [
   { hash: 'work-analysis-review', moduleTitle: '工作分析／表單審核', auditHeading: /表單與審批相關審計/ },
   { hash: 'work-session-plans', moduleTitle: '工作計劃', auditHeading: /工作節與計劃審計/ },
@@ -18,7 +20,12 @@ const HASH_AUDIT_CASES: ReadonlyArray<{
   { hash: 'scheduling', moduleTitle: '智能排班', auditHeading: /排班與相關操作審計/ },
   { hash: 'service-forms', moduleTitle: '服務表單', auditHeading: /服務表單相關審計/ },
   { hash: 'historical-documents', moduleTitle: '歷史文件', auditHeading: /匯出審計/ },
-  { hash: 'work-plan', moduleTitle: '創建工作計劃', auditHeading: /工作計劃發布審計/ },
+  {
+    hash: 'work-plan',
+    moduleTitle: '創建工作計劃',
+    auditHeading: /工作計劃發布審計/,
+    pageHeading: /創建工作計劃（五步）/,
+  },
   { hash: 'residents', moduleTitle: '院友管理', auditHeading: /最近審計紀錄/ },
   { hash: 'shift-end-handover', moduleTitle: '收工交更', auditHeading: /收工交更審計/ },
   { hash: 'rehab-activity-tracking', moduleTitle: '復康活動追蹤', auditHeading: /復康／排班相關審計/ },
@@ -41,6 +48,9 @@ test.describe('smoke', () => {
       await page.goto(`/#${row.hash}`)
       await expect(page).toHaveURL(new RegExp(`#${row.hash}`))
       await expect(page.getByRole('heading', { name: row.moduleTitle, exact: true })).toBeVisible()
+      if (row.pageHeading) {
+        await expect(page.getByRole('heading', { name: row.pageHeading })).toBeVisible()
+      }
       await expect(page.getByRole('heading', { name: row.auditHeading })).toBeVisible()
     })
   }

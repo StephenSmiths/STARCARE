@@ -42,7 +42,7 @@ const App = () => {
 
   if (isConfigured && isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-slate-100 text-slate-600">
+      <div className={uiTokens.appAuthSessionLoadingRoot}>
         載入工作階段…
       </div>
     )
@@ -55,7 +55,7 @@ const App = () => {
   return (
     <SchedulingAppLayout>
       <main
-        className={`mx-auto w-full max-w-6xl flex-1 overflow-auto p-4 md:p-6 lg:p-8 ${uiTokens.mainWithMobileNavPad}`}
+        className={uiTokens.appMainContentArea}
       >
         <PageShell moduleTitle={viewTitle} moduleDescription={moduleDescription}>
           <AppMainViews effectiveView={effectiveView} hasPermission={hasPermission} />

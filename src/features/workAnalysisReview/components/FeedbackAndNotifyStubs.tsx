@@ -27,24 +27,24 @@ export const FeedbackAndNotifyStubs = () => {
   }
 
   return (
-    <div className="grid gap-4 md:grid-cols-2">
+    <div className={uiTokens.stubTwoColGrid}>
       <section className={uiTokens.surfaceCardCompact}>
         <h2 className={uiTokens.blockHeading}>回饋</h2>
         <p className={uiTokens.sectionHelp}>記錄對團隊表現或流程之回饋草稿（不取代表單審核批示）。</p>
         <textarea
-          className={`${uiTokens.formTextarea} mt-2`}
+          className={uiTokens.formTextareaMt2}
           value={feedback}
           onChange={(event) => setFeedback(event.target.value)}
           placeholder="例：本週待審偏長，建議…"
           rows={4}
         />
-        <button type="button" className={`${uiTokens.btnCompact} mt-2`} onClick={persist}>
+        <button type="button" className={uiTokens.btnCompactMt2} onClick={persist}>
           儲存回饋草稿
         </button>
       </section>
       <section className={uiTokens.surfaceCardCompact}>
         <h2 className={uiTokens.blockHeading}>通知</h2>
-        <p className="text-sm text-slate-600">
+        <p className={uiTokens.moduleDescription}>
           推播／站內通知將於 <strong>Seq 27【14】通知中心</strong> 統一規劃；本頁可先搭配團隊報告文字手動發送。
         </p>
       </section>

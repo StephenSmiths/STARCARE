@@ -10,13 +10,13 @@ export const RehabActivityTrackingHome = () => {
   const { loadError, isLoading, rehabSnapshot, dementiaSnapshot, reload } = useRehabActivityTracking()
 
   if (isLoading) {
-    return <p className="text-sm text-slate-600">載入兩軌追蹤資料…</p>
+    return <p className={uiTokens.moduleDescription}>載入兩軌追蹤資料…</p>
   }
 
   if (loadError) {
     return (
-      <div className="space-y-2">
-        <p className="text-sm text-red-700">{loadError}</p>
+      <div className={uiTokens.layoutSpaceY2}>
+        <p className={uiTokens.formInlineError}>{loadError}</p>
         <button type="button" className={uiTokens.btnSecondary} onClick={() => void reload()}>
           重試
         </button>
@@ -26,7 +26,7 @@ export const RehabActivityTrackingHome = () => {
 
   return (
     <div className={uiTokens.stackVertical}>
-      <p className="text-sm text-slate-600">
+      <p className={uiTokens.moduleDescription}>
         以下為依目前院友與活動時段之<strong>乾跑預覽</strong>（未儲存排班、不寫入 SCHEDULING_RUN）；正式採用以智能排班頁為準。
       </p>
       <RehabTrackSection snapshot={rehabSnapshot} showDementiaColumn={false} />

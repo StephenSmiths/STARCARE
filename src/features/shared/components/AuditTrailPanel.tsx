@@ -79,19 +79,19 @@ export const AuditTrailPanel = ({
   }, [actionFilter, auditTrail, entityFilter, keyword])
 
   return (
-    <section className="rounded-md bg-slate-50 p-3 text-xs text-slate-600" aria-labelledby="audit-trail-heading">
-      <div className="flex flex-wrap items-center gap-2">
-        <h3 id="audit-trail-heading" className="text-sm font-semibold text-slate-800">
+    <section className={uiTokens.auditTrailPanel} aria-labelledby="audit-trail-heading">
+      <div className={uiTokens.layoutFlexWrapItemsCenterGap2}>
+        <h3 id="audit-trail-heading" className={uiTokens.panelTitleSm}>
           {title}
         </h3>
-        <span className="rounded bg-slate-200 px-2 py-0.5 text-[11px] text-slate-700">
+        <span className={uiTokens.metaChip}>
           顯示 {filtered.length} / {auditTrail.length}
         </span>
       </div>
-      {help ? <p className="mt-1 text-[11px] text-slate-500">{help}</p> : null}
-      <div className="mt-2 flex flex-wrap items-center gap-2">
+      {help ? <p className={uiTokens.helpFinePrint}>{help}</p> : null}
+      <div className={uiTokens.layoutFlexWrapItemsCenterGap2Mt2}>
         <select
-          className={`${uiTokens.formSelect} w-auto min-w-[9rem] text-xs`}
+          className={uiTokens.auditTrailFilterSelectMin9}
           value={actionFilter}
           onChange={(event) =>
             setActionFilter(event.target.value as 'all' | AuditTrailRecord['action'])
@@ -105,7 +105,7 @@ export const AuditTrailPanel = ({
           ))}
         </select>
         <select
-          className={`${uiTokens.formSelect} w-auto min-w-[8rem] text-xs`}
+          className={uiTokens.auditTrailFilterSelectMin8}
           value={entityFilter}
           onChange={(event) =>
             setEntityFilter(event.target.value as 'all' | AuditTrailRecord['entityType'])
@@ -119,15 +119,15 @@ export const AuditTrailPanel = ({
           ))}
         </select>
         <input
-          className={`${uiTokens.formInput} max-w-xs text-xs`}
+          className={uiTokens.formInputMaxXsTextXs}
           placeholder="搜尋 actor / entity / detail"
           value={keyword}
           onChange={(event) => setKeyword(event.target.value)}
         />
       </div>
-      <div className="mt-2 space-y-1">
+      <div className={uiTokens.layoutSpaceY1Mt2}>
         {filtered.length === 0 ? (
-          <p className="rounded border border-slate-200 bg-white px-2 py-1 text-slate-500">沒有符合條件的審計紀錄。</p>
+          <p className={uiTokens.emptyStatePill}>沒有符合條件的審計紀錄。</p>
         ) : (
           filtered.map((log, index) => (
             <p key={`${log.entityId}-${log.occurredAt}-${log.action}-${index}`}>

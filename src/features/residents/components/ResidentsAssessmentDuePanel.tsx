@@ -41,7 +41,7 @@ export const ResidentsAssessmentDuePanel = ({ actorId, residents }: ResidentsAss
 
   return (
     <section aria-labelledby="residents-assessment-due-heading">
-      <div className="flex items-center justify-between gap-2">
+      <div className={uiTokens.layoutFlexBetweenGap2}>
         <h3 id="residents-assessment-due-heading" className={uiTokens.blockHeading}>
           評估到期待辦（14 天）
         </h3>
@@ -58,11 +58,9 @@ export const ResidentsAssessmentDuePanel = ({ actorId, residents }: ResidentsAss
         Seq 9：院友編輯表單可填「下次評估到期日」寫入 **`assessment_next_due_date`**；未填則以入住日 180 天週期估算。
       </p>
       {assessmentDueTasks.length === 0 ? (
-        <p className="mt-2 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs text-emerald-800">
-          目前沒有 14 天內到期評估。
-        </p>
+        <p className={uiTokens.inlineNoticeSuccess}>目前沒有 14 天內到期評估。</p>
       ) : (
-        <ul className="mt-2 space-y-1 rounded-md border border-amber-200 bg-amber-50 p-2 text-xs text-amber-900">
+        <ul className={uiTokens.listCalloutAmber}>
           {assessmentDueTasks.slice(0, 5).map((task) => (
             <li key={task.residentId}>
               {task.residentName}（{task.bedNumber}）於 {task.dueDate} 到期（{task.dueInDays} 天內）

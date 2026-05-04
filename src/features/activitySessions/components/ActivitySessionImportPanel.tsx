@@ -42,21 +42,19 @@ export const ActivitySessionImportPanel = () => {
   return (
     <div className={uiTokens.stackVertical}>
     <article className={uiTokens.surfaceCard}>
-      <header className="mb-4">
+      <header className={uiTokens.layoutMb4}>
         <h2 className={uiTokens.pageSectionHeading}>活動時段批量匯入</h2>
         <p className={uiTokens.sectionHelp}>流程：上傳 CSV {'->'} 預檢 {'->'} 確認匯入</p>
       </header>
-      <div className="rounded-md border border-slate-200 p-3 text-sm">
-        <div className="flex items-center justify-between gap-2">
+      <div className={uiTokens.residentImportSection}>
+        <div className={uiTokens.layoutFlexBetweenGap2}>
           <h3 className={uiTokens.blockHeading}>預檢（Dry-run）</h3>
           <a className={uiTokens.linkDownload} href="/activity-sessions-import-template.csv" download>
             下載 CSV 範本
           </a>
         </div>
-        <p className="mt-1 text-xs text-slate-600">
-          欄位：id, facilityId, activityId, staffProfileId, sessionDate, timeSlot, capacity
-        </p>
-        <p className="mt-2 rounded border border-amber-200 bg-amber-50 px-2 py-1 text-xs text-amber-800">
+        <p className={uiTokens.blockHelp}>欄位：id, facilityId, activityId, staffProfileId, sessionDate, timeSlot, capacity</p>
+        <p className={uiTokens.inlineNoticeWarn}>
           提示：若出現本地格式錯誤（例如欄位缺漏、數值格式錯誤），系統會先停止預檢，請先修正 CSV 後再重試。
         </p>
         {canMaintainSessions ? (
@@ -66,25 +64,25 @@ export const ActivitySessionImportPanel = () => {
               accept=".csv,text/csv"
               disabled={isBusy}
               onChange={(event) => void onFileChange(event)}
-              className={`${uiTokens.formInput} mt-3 text-xs`}
+              className={uiTokens.formInputMt3TextXs}
             />
-            {isBusy ? <p className="mt-2 text-xs text-slate-600">處理中...</p> : null}
-            {errorMessage ? <p className="mt-2 text-xs text-red-700">{errorMessage}</p> : null}
+            {isBusy ? <p className={uiTokens.blockHelpMt2}>處理中...</p> : null}
+            {errorMessage ? <p className={uiTokens.formInlineErrorMt2Xs}>{errorMessage}</p> : null}
             {parseErrors.length > 0 ? (
-              <ul className="mt-2 list-disc pl-5 text-xs text-red-700">
+              <ul className={uiTokens.listDiscError}>
                 {parseErrors.map((item) => (
                   <li key={`${item.rowIndex}-${item.message}`}>第 {item.rowIndex} 行：{item.message}</li>
                 ))}
               </ul>
             ) : null}
             {result ? (
-              <div className="mt-3 rounded bg-slate-50 p-2 text-xs text-slate-700">
+              <div className={uiTokens.residentDryRunResultShell}>
                 <p>
                   預檢結果：總數 {result.summary.total}，可匯入 {result.summary.valid}，錯誤 {result.summary.invalid}
                 </p>
                 {visibleErrors.length > 0 ? (
                   <>
-                    <ul className="mt-1 list-disc pl-5 text-red-700">
+                    <ul className={uiTokens.listDiscErrorTight}>
                       {renderErrors.map((item, index) => (
                         <li key={`${item.rowIndex}-${item.field}-${index}`}>
                           第 {item.rowIndex} 行（{item.field}）：{item.message}
@@ -92,7 +90,7 @@ export const ActivitySessionImportPanel = () => {
                       ))}
                     </ul>
                     {hasHiddenErrors ? (
-                      <button type="button" className={`${uiTokens.btnCompact} mt-2`} onClick={() => setShowAllErrors((prev) => !prev)}>
+                      <button type="button" className={uiTokens.btnCompactMt2} onClick={() => setShowAllErrors((prev) => !prev)}>
                         {showAllErrors ? '收合錯誤列表' : `顯示全部錯誤（${visibleErrors.length}）`}
                       </button>
                     ) : null}
@@ -100,7 +98,7 @@ export const ActivitySessionImportPanel = () => {
                 ) : (
                   <button
                     type="button"
-                    className={`${uiTokens.btnSuccess} mt-2`}
+                    className={uiTokens.btnSuccessMt2}
                     disabled={isBusy || result.preview.length === 0}
                     onClick={() => void commitValidatedRows(actorId)}
                   >
@@ -109,12 +107,12 @@ export const ActivitySessionImportPanel = () => {
                 )}
               </div>
             ) : null}
-            {commitMessage ? <p className="mt-2 text-xs text-emerald-700">{commitMessage}</p> : null}
+            {commitMessage ? <p className={uiTokens.textCommitSuccess}>{commitMessage}</p> : null}
             {lastRunSummary ? <ImportRunSummaryCard summary={lastRunSummary} /> : null}
             <ImportRunHistoryList runs={runHistory} />
           </>
         ) : (
-          <p className="mt-3 rounded-md border border-amber-200 bg-amber-50 px-2 py-2 text-xs text-amber-900">
+          <p className={uiTokens.listCalloutAmber}>
             CSV 預檢與確認匯入僅限 TeamLead／Admin（與 Edge 授權一致）；下方仍可檢視活動時段列表。
           </p>
         )}

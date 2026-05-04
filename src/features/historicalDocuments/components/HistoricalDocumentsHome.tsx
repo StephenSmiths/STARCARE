@@ -13,16 +13,14 @@ export const HistoricalDocumentsHome = () => {
   return (
     <div className={uiTokens.stackVertical}>
       {workspace.loadError ? (
-        <p className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-950">
-          {workspace.loadError}
-        </p>
+        <p className={uiTokens.bannerWarn}>{workspace.loadError}</p>
       ) : null}
-      <p className="text-sm text-slate-600">
-        母本要求僅展示 <span className="font-semibold text-slate-800">APPROVED</span> 鎖定紀錄。
+      <p className={uiTokens.moduleDescription}>
+        母本要求僅展示 <span className={uiTokens.textSemiboldSlate800}>APPROVED</span> 鎖定紀錄。
         {workspace.dataSource === 'db' ? (
-          <>目前以<strong className="mx-0.5">雲端資料庫</strong>為展示主體（Edge `approvedOnly`）；本機快取會同步更新供離線參考。</>
+          <>目前以<strong className={uiTokens.proseStrongInset}>雲端資料庫</strong>為展示主體（Edge `approvedOnly`）；本機快取會同步更新供離線參考。</>
         ) : (
-          <>目前以<strong className="mx-0.5">本機已核准快取</strong>顯示（遠端不可用時之備援）。</>
+          <>目前以<strong className={uiTokens.proseStrongInset}>本機已核准快取</strong>顯示（遠端不可用時之備援）。</>
         )}
         匯出為 UTF-8 CSV，可直接以 Excel 開啟。
       </p>

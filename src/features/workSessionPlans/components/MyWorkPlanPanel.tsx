@@ -51,19 +51,19 @@ export const MyWorkPlanPanel = ({
       <h2 className={uiTokens.pageSectionHeading}>我的工作計劃</h2>
       <p className={uiTokens.sectionHelp}>
         對齊 01 §2.1：待接收（PENDING）可選接收或拒絕；僅 Staff 可操作接收／拒絕。登入身分請以
-        <code className="mx-1 rounded bg-slate-100 px-1">starcare_staff_profile_id</code>
+        <code className={uiTokens.inlineKbd}>starcare_staff_profile_id</code>
         對應 staff_profiles.id（否則列表可能為空）。
       </p>
       {effectiveStaffProfileId === null ? (
-        <p className="mt-2 rounded border border-amber-200 bg-amber-50 px-2 py-1 text-xs text-amber-900">
+        <p className={uiTokens.listCalloutAmber}>
           未解析到員工主檔編號：請在 Supabase user_metadata 設定 starcare_staff_profile_id。
         </p>
       ) : (
-        <p className="mt-2 text-xs text-slate-600">
-          目前綁定 staff_profiles.id：<span className="font-mono">{effectiveStaffProfileId}</span>
+        <p className={uiTokens.blockHelpMt2}>
+          目前綁定 staff_profiles.id：<span className={uiTokens.textMono}>{effectiveStaffProfileId}</span>
         </p>
       )}
-      <div className="mt-4 flex flex-wrap items-end gap-3">
+      <div className={uiTokens.layoutFlexWrapItemsEndGap3Mt4}>
         <label className={uiTokens.formFieldStack}>
           <span className={uiTokens.formLabel}>日期</span>
           <input
@@ -74,7 +74,7 @@ export const MyWorkPlanPanel = ({
             onChange={(event) => onSelectedDateChange(event.target.value)}
           />
         </label>
-        <label className="flex items-center gap-2 text-sm text-slate-700">
+        <label className={uiTokens.formCheckboxRow}>
           <input type="checkbox" checked={showAllDates} onChange={(e) => onShowAllDatesChange(e.target.checked)} />
           全部日期
         </label>
@@ -95,31 +95,31 @@ export const MyWorkPlanPanel = ({
           </select>
         </label>
       </div>
-      {error ? <p className="mt-3 text-sm text-red-700">{error}</p> : null}
-      {isLoading ? <p className="mt-3 text-sm text-slate-600">載入中…</p> : null}
+      {error ? <p className={uiTokens.formInlineErrorMt3}>{error}</p> : null}
+      {isLoading ? <p className={uiTokens.moduleDescription}>載入中…</p> : null}
       {!isLoading && rows.length === 0 ? (
-        <p className="mt-3 text-sm text-slate-500">目前篩選下沒有工作節。</p>
+        <p className={uiTokens.emptyStateMuted}>目前篩選下沒有工作節。</p>
       ) : (
-        <ul className="mt-4 divide-y divide-slate-100 rounded-lg border border-slate-200">
+        <ul className={uiTokens.listDivideShellMt4TextSm}>
           {rows.map((row) => (
-            <li key={row.id} className="flex flex-col gap-2 px-3 py-3 text-sm sm:flex-row sm:items-center sm:justify-between">
+            <li key={row.id} className={uiTokens.workPlanMyListRow}>
               <div>
-                <p className="font-medium text-slate-900">
+                <p className={uiTokens.reviewQueueTitle}>
                   {row.date} {row.timeSlot} · {row.staffName}
                 </p>
-                <p className="text-xs text-slate-600">
+                <p className={uiTokens.textMutedBodyXs}>
                   {serviceLabel(row)} · 名額 {row.capacity}
                   {row.skillMatched === false ? ' · 技能未匹配' : ''}
                 </p>
-                <p className="mt-1 text-xs">
-                  <span className="rounded bg-slate-100 px-2 py-0.5">{statusLabel(row.responseStatus)}</span>
+                <p className={uiTokens.textXsMt1}>
+                  <span className={uiTokens.metaChip}>{statusLabel(row.responseStatus)}</span>
                   {row.response ? (
-                    <span className="ml-2 text-slate-500">更新於 {row.response.occurredAt}</span>
+                    <span className={uiTokens.textSubtleXsMl2}>更新於 {row.response.occurredAt}</span>
                   ) : null}
                 </p>
               </div>
               {canRespondAsStaff && row.responseStatus === 'PENDING' ? (
-                <div className="flex shrink-0 gap-2">
+                <div className={uiTokens.layoutFlexShrink0Gap2}>
                   <button type="button" className={uiTokens.btnSuccess} onClick={() => onAccept(row.id)}>
                     接收
                   </button>

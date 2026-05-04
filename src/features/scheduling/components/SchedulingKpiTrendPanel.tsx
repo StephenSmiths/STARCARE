@@ -1,5 +1,6 @@
 import type { SchedulingKpiRunRecord } from '../../../services/schedulingKpiService'
 import type { SchedulingKpiHistoryFilter } from '../hooks/useSchedulingKpiHistory'
+import { uiTokens } from '../../shared/ui/uiTokens'
 import { formatDeltaDecimal, formatDeltaPercentPoints } from '../utils/schedulingKpiTrendFormat'
 import { SchedulingKpiTrendFilterBar } from './SchedulingKpiTrendFilterBar'
 
@@ -39,14 +40,14 @@ export const SchedulingKpiTrendPanel = ({
   isApplyingFilter,
 }: SchedulingKpiTrendPanelProps) => {
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-      <div className="flex flex-wrap items-start justify-between gap-2">
+    <div className={uiTokens.surfaceCardCompact}>
+      <div className={uiTokens.panelHeaderSplit}>
         <div>
-          <h3 className="text-sm font-semibold text-slate-800">排班 KPI 趨勢</h3>
-          <p className="mt-1 text-xs text-slate-500">
+          <h3 className={uiTokens.panelTitleSm}>排班 KPI 趨勢</h3>
+          <p className={uiTokens.schedulingKpiTrendIntroLine}>
             由上而下為新至舊；Δ 為與上一次快照之差（覆蓋率、平均指派上升為正向；待補齊比例、衝突率下降為較佳）。
           </p>
-          <p className="mt-1 text-xs text-slate-500">資料存於本機瀏覽器，可用下方按鈕匯出 CSV 留存。</p>
+          <p className={uiTokens.schedulingKpiTrendIntroLine}>資料存於本機瀏覽器，可用下方按鈕匯出 CSV 留存。</p>
           <SchedulingKpiTrendFilterBar
             history={history}
             currentFilter={currentFilter}
@@ -55,22 +56,22 @@ export const SchedulingKpiTrendPanel = ({
             isApplyingFilter={isApplyingFilter}
           />
           {syncError ? (
-            <div className="mt-2 rounded border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800">
+            <div className={uiTokens.inlineNoticeWarn}>
               <p>{syncError}</p>
-              {hasPendingSync ? <p className="mt-1">系統偵測到待同步項目。</p> : null}
+              {hasPendingSync ? <p className={uiTokens.blockHelp}>系統偵測到待同步項目。</p> : null}
             </div>
           ) : null}
           {syncNotice ? (
-            <div className="mt-2 rounded border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs text-emerald-800">
+            <div className={uiTokens.inlineNoticeSuccess}>
               <p>{syncNotice}</p>
             </div>
           ) : null}
         </div>
-        <div className="flex gap-2">
+        <div className={uiTokens.layoutFlexGap2}>
           {onRetrySync ? (
             <button
               type="button"
-              className="rounded border border-amber-300 px-3 py-1.5 text-xs font-medium text-amber-800 hover:bg-amber-50 disabled:opacity-50"
+              className={uiTokens.schedulingKpiTrendToolbarBtnWarn}
               onClick={() => onRetrySync()}
               disabled={isRetryingSync}
             >
@@ -80,7 +81,7 @@ export const SchedulingKpiTrendPanel = ({
           {onDownloadCsv ? (
             <button
               type="button"
-              className="rounded border border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50"
+              className={uiTokens.schedulingKpiTrendToolbarBtnSecondary}
               onClick={() => onDownloadCsv()}
             >
               下載 KPI 趨勢 CSV
@@ -89,7 +90,7 @@ export const SchedulingKpiTrendPanel = ({
           {onClearHistory ? (
             <button
               type="button"
-              className="rounded border border-red-200 px-3 py-1.5 text-xs font-medium text-red-700 hover:bg-red-50"
+              className={uiTokens.schedulingKpiTrendToolbarBtnDanger}
               onClick={() => onClearHistory()}
             >
               清除歷史
@@ -98,45 +99,45 @@ export const SchedulingKpiTrendPanel = ({
         </div>
       </div>
       {history.length === 0 ? (
-        <p className="mt-3 text-xs text-slate-500">目前沒有符合條件的趨勢資料。</p>
+        <p className={uiTokens.schedulingKpiTrendEmptyHint}>目前沒有符合條件的趨勢資料。</p>
       ) : (
-        <div className="mt-3 max-h-56 overflow-auto text-xs">
-          <table className="min-w-full text-left">
-            <thead className="sticky top-0 bg-slate-50 text-[11px] font-semibold uppercase text-slate-500">
+        <div className={uiTokens.schedulingKpiTrendTableArea}>
+          <table className={uiTokens.tableCompact}>
+            <thead className={uiTokens.tableHeadSticky}>
               <tr>
-                <th className="px-2 py-2">時間</th>
-                <th className="px-2 py-2">覆蓋率</th>
-                <th className="px-2 py-2">Δ</th>
-                <th className="px-2 py-2">衝突率/百</th>
-                <th className="px-2 py-2">Δ</th>
-                <th className="px-2 py-2">均值指派</th>
-                <th className="px-2 py-2">Δ</th>
-                <th className="px-2 py-2">待補齊%</th>
-                <th className="px-2 py-2">Δ</th>
+                <th className={uiTokens.tableCell}>時間</th>
+                <th className={uiTokens.tableCell}>覆蓋率</th>
+                <th className={uiTokens.tableCell}>Δ</th>
+                <th className={uiTokens.tableCell}>衝突率/百</th>
+                <th className={uiTokens.tableCell}>Δ</th>
+                <th className={uiTokens.tableCell}>均值指派</th>
+                <th className={uiTokens.tableCell}>Δ</th>
+                <th className={uiTokens.tableCell}>待補齊%</th>
+                <th className={uiTokens.tableCell}>Δ</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className={uiTokens.tableBodyDivided}>
               {history.map((row, index) => {
                 const prev = history[index + 1]
                 const k = row.kpis
                 const p = prev?.kpis
                 return (
-                  <tr key={`${row.ranAt}-${index}`} className="text-slate-700">
-                    <td className="whitespace-nowrap px-2 py-2">{formatTime(row.ranAt)}</td>
-                    <td className="px-2 py-2">{k.coverageRate.toFixed(1)}%</td>
-                    <td className="px-2 py-2 text-slate-600">
+                  <tr key={`${row.ranAt}-${index}`}>
+                    <td className={uiTokens.tableCellNowrap}>{formatTime(row.ranAt)}</td>
+                    <td className={uiTokens.tableCell}>{k.coverageRate.toFixed(1)}%</td>
+                    <td className={uiTokens.tableCellNowrapMuted}>
                       {formatDeltaPercentPoints(k.coverageRate, p?.coverageRate)}
                     </td>
-                    <td className="px-2 py-2">{k.conflictRatePer100.toFixed(1)}%</td>
-                    <td className="px-2 py-2 text-slate-600">
+                    <td className={uiTokens.tableCell}>{k.conflictRatePer100.toFixed(1)}%</td>
+                    <td className={uiTokens.tableCellNowrapMuted}>
                       {formatDeltaPercentPoints(k.conflictRatePer100, p?.conflictRatePer100)}
                     </td>
-                    <td className="px-2 py-2">{k.averageAssignmentsPerResident.toFixed(2)}</td>
-                    <td className="px-2 py-2 text-slate-600">
+                    <td className={uiTokens.tableCell}>{k.averageAssignmentsPerResident.toFixed(2)}</td>
+                    <td className={uiTokens.tableCellNowrapMuted}>
                       {formatDeltaDecimal(k.averageAssignmentsPerResident, p?.averageAssignmentsPerResident)}
                     </td>
-                    <td className="px-2 py-2">{k.underTargetRate.toFixed(1)}%</td>
-                    <td className="px-2 py-2 text-slate-600">
+                    <td className={uiTokens.tableCell}>{k.underTargetRate.toFixed(1)}%</td>
+                    <td className={uiTokens.tableCellNowrapMuted}>
                       {formatDeltaPercentPoints(k.underTargetRate, p?.underTargetRate)}
                     </td>
                   </tr>

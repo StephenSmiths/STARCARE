@@ -10,7 +10,7 @@ export const ShiftStartHandoverHome = () => {
   const workspace = useShiftStartHandoverWorkspace()
 
   return (
-    <div className={`mx-auto w-full max-w-5xl ${uiTokens.stackVertical}`}>
+    <div className={uiTokens.handoverHomeContentWidth}>
       <ShiftStartHandoverPanel workspace={workspace} />
       <AuditTrailPanel
         title="開工接更審計（全域）"

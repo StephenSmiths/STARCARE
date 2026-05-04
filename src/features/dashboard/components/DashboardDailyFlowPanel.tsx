@@ -10,17 +10,15 @@ export const DashboardDailyFlowPanel = () => {
   const isStaff = role === 'Staff'
 
   return (
-    <section className={`${uiTokens.surfaceCardCompact} border-violet-200 bg-violet-50/50`}>
-      <h3 className="text-sm font-semibold text-violet-950">建議從哪裡開始？</h3>
-      <p className="mt-1 text-xs text-slate-600">
-        左側選單已分組；多數同仁每日會用到「工作節與表單」區塊。
-      </p>
-      <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm text-slate-800">
+    <section className={uiTokens.dashboardFlowPanel}>
+      <h3 className={uiTokens.dashboardFlowTitle}>建議從哪裡開始？</h3>
+      <p className={uiTokens.dashboardFlowIntro}>左側選單已分組；多數同仁每日會用到「工作節與表單」區塊。</p>
+      <ol className={uiTokens.dashboardFlowOrderedList}>
         <li>先看本頁上方<strong>摘要</strong>，掌握今日概況。</li>
         {hasPermission('view:user-manual') ? (
           <li>
             第一次使用請先開
-            <a href="#user-manual" className="mx-1 font-medium text-violet-800 underline">
+            <a href="#user-manual" className={uiTokens.hashLinkProse}>
               用戶手冊
             </a>
             （閉環與常用入口）。
@@ -31,14 +29,14 @@ export const DashboardDailyFlowPanel = () => {
             {hasPermission('view:work-session-plans') ? (
               <li>
                 到「工作計劃」
-                <strong className="mx-0.5">接收</strong>
+                <strong className={uiTokens.proseStrongInset}>接收</strong>
                 今日工作節（未接收則無法填寫服務表單）。
               </li>
             ) : null}
             {hasPermission('view:service-forms') ? (
               <li>
                 到
-                <a href="#service-forms" className="mx-1 font-medium text-violet-800 underline">
+                <a href="#service-forms" className={uiTokens.hashLinkProse}>
                   服務表單
                 </a>
                 選日、選節、填寫後提交。
@@ -60,7 +58,7 @@ export const DashboardDailyFlowPanel = () => {
             {hasPermission('view:work-analysis-review') ? (
               <li>
                 表單審閱可到
-                <a href="#work-analysis-review" className="mx-1 font-medium text-violet-800 underline">
+                <a href="#work-analysis-review" className={uiTokens.hashLinkProse}>
                   工作分析／審核
                 </a>
                 。

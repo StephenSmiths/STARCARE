@@ -1,5 +1,6 @@
 import { uiTokens } from '../../shared/ui/uiTokens'
 import { useWorkPlanComposer } from '../hooks/useWorkPlanComposer'
+import { WorkPlanSopStepper } from './WorkPlanSopStepper'
 
 /** PDF 02【2】日期／員工／工作節欄位、預覽、儲存即發布時段（Seq 14） */
 export const WorkPlanComposerPanel = () => {
@@ -32,23 +33,32 @@ export const WorkPlanComposerPanel = () => {
   const dementiaCount = activities.filter((a) => a.serviceType === 'Dementia_Care').length
 
   if (metaLoading) {
-    return <p className="text-sm text-slate-600">載入工作計劃表單…</p>
+    return <p className={uiTokens.moduleDescription}>載入工作計劃表單…</p>
   }
 
   if (metaError) {
-    return <p className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-800">{metaError}</p>
+    return <p className={uiTokens.inlineDangerCompact}>{metaError}</p>
   }
 
   return (
-    <div className={`${uiTokens.stackVertical}`}>
+    <div className={uiTokens.stackVertical}>
+      <WorkPlanSopStepper
+        sessionDate={sessionDate}
+        staffProfileId={staffProfileId}
+        timeSlot={timeSlot}
+        capacity={capacity}
+        draftsCount={drafts.length}
+        commitSuccess={commitSuccess}
+        isCommitting={isCommitting}
+      />
       <p className={uiTokens.sectionHelp}>
         選擇日期與員工後加入預覽；儲存後將寫入活動時段主檔（等同指派該員工於該時段承接工作節）。活動項目暫依服務類型自動對應主檔第一筆。
       </p>
-      <p className="text-xs text-slate-500">
+      <p className={uiTokens.textSubtleXs}>
         已載入活動主檔：資助復康 {rehabCount} 筆、認知 {dementiaCount} 筆
       </p>
 
-      <div className="grid gap-4 rounded-xl border border-slate-200 bg-white p-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className={uiTokens.composerFieldGrid}>
         <label className={uiTokens.formFieldStack}>
           <span className={uiTokens.formLabel}>日期</span>
           <input
@@ -92,7 +102,7 @@ export const WorkPlanComposerPanel = () => {
             onChange={(event) => setCapacity(Number(event.target.value))}
           />
         </label>
-        <label className={`${uiTokens.formFieldStack} sm:col-span-2 lg:col-span-1`}>
+        <label className={uiTokens.formFieldStackSmColSpan2Lg1}>
           <span className={uiTokens.formLabel}>服務類型（01 §3 軌道）</span>
           <select
             className={uiTokens.formSelect}
@@ -107,9 +117,9 @@ export const WorkPlanComposerPanel = () => {
         </label>
       </div>
 
-      {formError ? <p className="text-sm text-red-700">{formError}</p> : null}
+      {formError ? <p className={uiTokens.formInlineError}>{formError}</p> : null}
 
-      <div className="flex flex-wrap gap-2">
+      <div className={uiTokens.layoutFlexWrapGap2}>
         <button type="button" className={uiTokens.btnSecondary} onClick={addDraft}>
           加入預覽
         </button>
@@ -123,17 +133,17 @@ export const WorkPlanComposerPanel = () => {
         </button>
       </div>
 
-      {commitError ? <p className="text-sm text-red-700">{commitError}</p> : null}
-      {commitSuccess ? <p className="text-sm text-emerald-800">{commitSuccess}</p> : null}
+      {commitError ? <p className={uiTokens.formInlineError}>{commitError}</p> : null}
+      {commitSuccess ? <p className={uiTokens.inlineSuccessText}>{commitSuccess}</p> : null}
 
-      <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+      <div className={uiTokens.composerPreviewShell}>
         <h3 className={uiTokens.blockHeading}>預覽列表</h3>
         {drafts.length === 0 ? (
-          <p className={`${uiTokens.blockHelp} mt-2`}>尚無列；請填妥上方欄位後按「加入預覽」。</p>
+          <p className={uiTokens.blockHelpMt2}>尚無列；請填妥上方欄位後按「加入預覽」。</p>
         ) : (
-          <ul className="mt-3 divide-y divide-slate-200 text-sm">
+          <ul className={uiTokens.composerDraftList}>
             {drafts.map((row, index) => (
-              <li key={`${row.sessionDate}-${row.staffProfileId}-${row.timeSlot}-${index}`} className="flex flex-wrap items-center justify-between gap-2 py-2">
+              <li key={`${row.sessionDate}-${row.staffProfileId}-${row.timeSlot}-${index}`} className={uiTokens.layoutFlexWrapBetweenGap2Py2}>
                 <span>
                   {row.sessionDate} · {row.staffDisplayName || row.staffProfileId} · {row.timeSlot} · 名額{' '}
                   {row.capacity} ·{' '}

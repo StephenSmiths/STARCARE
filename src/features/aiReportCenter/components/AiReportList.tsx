@@ -29,20 +29,20 @@ export const AiReportList = ({
   onAdopt,
   onDistribute,
 }: Props) => (
-  <div className="space-y-4">
+  <div className={uiTokens.layoutSpaceY4}>
     {rows.length === 0 ? (
-      <p className="text-sm text-slate-600">尚無報告，請先建立草稿。</p>
+      <p className={uiTokens.moduleDescription}>尚無報告，請先建立草稿。</p>
     ) : (
       rows.map((row) => (
         <div key={row.id} className={uiTokens.surfaceCardCompact}>
-          <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className={uiTokens.layoutFlexWrapBetweenGap2}>
             <div>
-              <p className="text-sm font-semibold text-slate-900">{row.title}</p>
-              <p className="text-xs text-slate-500">
+              <p className={uiTokens.panelTitleSm}>{row.title}</p>
+              <p className={uiTokens.textSubtleXs}>
                 {statusLabel(row.status)} · {row.createdAt.slice(0, 16).replace('T', ' ')}
               </p>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className={uiTokens.layoutFlexWrapGap2}>
               {row.status === 'DRAFT' ? (
                 <>
                   <button type="button" className={uiTokens.btnSecondary} onClick={() => onOpenDraft(row)}>
@@ -61,7 +61,7 @@ export const AiReportList = ({
             </div>
           </div>
           {row.status === 'DRAFT' && editId === row.id ? (
-            <div className="mt-3 space-y-2">
+            <div className={uiTokens.reviewRejectBlock}>
               <label className={uiTokens.formFieldStack}>
                 <span className={uiTokens.formLabel}>內容</span>
                 <textarea
@@ -76,15 +76,13 @@ export const AiReportList = ({
               </button>
             </div>
           ) : (
-            <pre className="mt-3 max-h-48 overflow-auto whitespace-pre-wrap rounded bg-slate-50 p-3 text-xs text-slate-800">
-              {row.bodyText}
-            </pre>
+            <pre className={uiTokens.aiReportBodyPre}>{row.bodyText}</pre>
           )}
           {row.adoptedAt ? (
-            <p className="mt-2 text-[11px] text-slate-500">採用時間：{row.adoptedAt}</p>
+            <p className={uiTokens.helpFinePrintMt2}>採用時間：{row.adoptedAt}</p>
           ) : null}
           {row.distributedAt ? (
-            <p className="text-[11px] text-slate-500">發放時間：{row.distributedAt}</p>
+            <p className={uiTokens.helpFinePrint}>發放時間：{row.distributedAt}</p>
           ) : null}
         </div>
       ))

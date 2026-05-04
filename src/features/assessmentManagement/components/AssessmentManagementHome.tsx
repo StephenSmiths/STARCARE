@@ -24,13 +24,13 @@ export const AssessmentManagementHome = () => {
   } = useAssessmentManagementWorkspace()
 
   if (isLoading) {
-    return <p className="text-sm text-slate-600">載入評估管理資料…</p>
+    return <p className={uiTokens.moduleDescription}>載入評估管理資料…</p>
   }
 
   if (loadError) {
     return (
-      <div className="space-y-2">
-        <p className="text-sm text-red-700">{loadError}</p>
+      <div className={uiTokens.layoutSpaceY2}>
+        <p className={uiTokens.formInlineError}>{loadError}</p>
         <button type="button" className={uiTokens.btnSecondary} onClick={() => void reload()}>
           重試
         </button>
@@ -40,7 +40,7 @@ export const AssessmentManagementHome = () => {
 
   return (
     <div className={uiTokens.stackVertical}>
-      <p className="text-sm text-slate-600">
+      <p className={uiTokens.moduleDescription}>
         週期與待辦規則對齊 Seq 9（入住起每 180 日）；完成紀錄暫存於瀏覽器，正式環境應寫入資料庫並軟刪除。
       </p>
       <AssessmentSummaryCards

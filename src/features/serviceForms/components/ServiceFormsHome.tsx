@@ -11,15 +11,15 @@ export const ServiceFormsHome = () => {
   const workspace = useServiceFormsWorkspace()
 
   if (workspace.isLoading) {
-    return <p className="text-sm text-slate-600">載入服務表單模組…</p>
+    return <p className={uiTokens.moduleDescription}>載入服務表單模組…</p>
   }
 
   if (workspace.loadError) {
-    return <p className="text-sm text-red-700">{workspace.loadError}</p>
+    return <p className={uiTokens.formInlineError}>{workspace.loadError}</p>
   }
 
   return (
-    <div className={`${uiTokens.stackVertical}`}>
+    <div className={uiTokens.stackVertical}>
       <ServiceFormStaffPanel workspace={workspace} />
       <ServiceFormReviewPanel workspace={workspace} />
       <AuditTrailPanel

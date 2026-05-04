@@ -23,38 +23,36 @@ export const RehabTrackSection = ({ snapshot, showDementiaColumn }: Props) => {
         納入院友 {snapshot.cohortCount} 人｜本週可用時段 {snapshot.sessionCount} 個｜乾跑指派 {snapshot.assignmentCount}{' '}
         筆｜未滿足 {snapshot.conflictCount} 筆｜達標 {snapshot.compliantCount} 人（兩軌分開計算，與 01 §4 一致）。
       </p>
-      <div className="mt-4 overflow-x-auto">
-        <table className="min-w-full border-collapse text-left text-sm">
+      <div className={uiTokens.rehabTrackTableWrap}>
+        <table className={uiTokens.rehabTrackTable}>
           <thead>
-            <tr className="border-b border-slate-200 bg-slate-50">
-              <th className="px-3 py-2 font-medium">院友</th>
-              {showDementiaColumn ? <th className="px-3 py-2 font-medium">認知嚴重度</th> : null}
-              <th className="px-3 py-2 font-medium">週目標</th>
-              <th className="px-3 py-2 font-medium">預覽完成</th>
-              <th className="px-3 py-2 font-medium">達標</th>
+            <tr className={uiTokens.rehabTrackTheadRow}>
+              <th className={uiTokens.rehabTrackTh}>院友</th>
+              {showDementiaColumn ? <th className={uiTokens.rehabTrackTh}>認知嚴重度</th> : null}
+              <th className={uiTokens.rehabTrackTh}>週目標</th>
+              <th className={uiTokens.rehabTrackTh}>預覽完成</th>
+              <th className={uiTokens.rehabTrackTh}>達標</th>
             </tr>
           </thead>
           <tbody>
             {snapshot.rows.length === 0 ? (
               <tr>
-                <td className="px-3 py-4 text-slate-500" colSpan={colSpan}>
+                <td className={uiTokens.rehabTrackTdEmpty} colSpan={colSpan}>
                   此軌道目前無納入院友。
                 </td>
               </tr>
             ) : (
               snapshot.rows.map((row) => (
-                <tr key={row.id} className="border-b border-slate-100">
-                  <td className="px-3 py-2 font-medium text-slate-900">{row.name}</td>
+                <tr key={row.id} className={uiTokens.rehabTrackRowDivider}>
+                  <td className={uiTokens.rehabTrackTdName}>{row.name}</td>
                   {showDementiaColumn ? (
-                    <td className="px-3 py-2 text-slate-600">{dementiaZh(row.dementiaLevel)}</td>
+                    <td className={uiTokens.rehabTrackTdMuted}>{dementiaZh(row.dementiaLevel)}</td>
                   ) : null}
-                  <td className="px-3 py-2">{row.weeklyTarget}</td>
-                  <td className="px-3 py-2">{row.weeklyCompleted}</td>
-                  <td className="px-3 py-2">
+                  <td className={uiTokens.rehabTrackTd}>{row.weeklyTarget}</td>
+                  <td className={uiTokens.rehabTrackTd}>{row.weeklyCompleted}</td>
+                  <td className={uiTokens.rehabTrackTd}>
                     <span
-                      className={
-                        row.isCompliant ? 'rounded bg-emerald-100 px-2 py-0.5 text-emerald-900' : 'rounded bg-amber-100 px-2 py-0.5 text-amber-900'
-                      }
+                      className={row.isCompliant ? uiTokens.rehabCompliantPillYes : uiTokens.rehabCompliantPillNo}
                     >
                       {row.isCompliant ? '是' : '否'}
                     </span>

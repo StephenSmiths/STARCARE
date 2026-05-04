@@ -24,8 +24,8 @@ export const HistoricalDocumentsToolbar = ({
   rows,
   isLoading,
 }: Props) => (
-  <div className={`${uiTokens.surfaceCardCompact} flex flex-col gap-4 md:flex-row md:flex-wrap md:items-end`}>
-    <label className={`${uiTokens.formFieldStack} min-w-[10rem]`}>
+  <div className={uiTokens.historicalDocumentsToolbarShell}>
+    <label className={uiTokens.historicalDocumentsFilterFieldDate}>
       <span className={uiTokens.formLabel}>工作節日起（含）</span>
       <input
         type="date"
@@ -35,7 +35,7 @@ export const HistoricalDocumentsToolbar = ({
         onChange={(ev) => setFilters({ ...filters, dateFrom: ev.target.value })}
       />
     </label>
-    <label className={`${uiTokens.formFieldStack} min-w-[10rem]`}>
+    <label className={uiTokens.historicalDocumentsFilterFieldDate}>
       <span className={uiTokens.formLabel}>工作節日止（含）</span>
       <input
         type="date"
@@ -45,7 +45,7 @@ export const HistoricalDocumentsToolbar = ({
         onChange={(ev) => setFilters({ ...filters, dateTo: ev.target.value })}
       />
     </label>
-    <label className={`${uiTokens.formFieldStack} min-w-[12rem] flex-1`}>
+    <label className={uiTokens.historicalDocumentsFilterFieldKeyword}>
       <span className={uiTokens.formLabel}>關鍵字（院友／紀要）</span>
       <input
         className={uiTokens.formInput}
@@ -55,7 +55,7 @@ export const HistoricalDocumentsToolbar = ({
         placeholder="可留空"
       />
     </label>
-    <div className="flex flex-wrap gap-2">
+    <div className={uiTokens.layoutFlexWrapGap2}>
       <button type="button" className={uiTokens.btnSecondary} disabled={isLoading} onClick={() => void reload()}>
         {isLoading ? '載入中…' : '重新載入'}
       </button>
@@ -68,7 +68,7 @@ export const HistoricalDocumentsToolbar = ({
         {isExporting ? '匯出中…' : '匯出 Excel（CSV）'}
       </button>
     </div>
-    <p className="w-full text-xs text-slate-600">
+    <p className={uiTokens.historicalDocumentsToolbarHelpFullWidth}>
       已核准總數 {approvedCount}；目前篩選 {rows.length} 筆（僅 status=APPROVED）。
     </p>
   </div>

@@ -83,8 +83,8 @@ export const EndShiftHandoverPanel = ({ workspace }: { workspace: EndShiftHandov
       <h2 className={uiTokens.pageSectionHeading}>收工交更（PDF 02【6】）</h2>
       <p className={uiTokens.sectionHelp}>填寫五類摘要並簽名後提交；提交後鎖定不可編輯。</p>
 
-      <div className="mt-4 grid gap-3 lg:grid-cols-[1fr_280px]">
-        <div className="grid gap-3">
+      <div className={uiTokens.handoverEditorGrid}>
+        <div className={uiTokens.layoutGridGap3}>
           <label className={uiTokens.formFieldStack}>
             <span className={uiTokens.formLabel}>收工／交班日期</span>
             <input
@@ -118,7 +118,7 @@ export const EndShiftHandoverPanel = ({ workspace }: { workspace: EndShiftHandov
               placeholder="請輸入全名"
             />
           </label>
-          <div className="flex flex-wrap gap-2">
+          <div className={uiTokens.layoutFlexWrapGap2}>
             <button type="button" className={uiTokens.btnSecondary} disabled={readOnly} onClick={runSaveDraft}>
               儲存草稿
             </button>
@@ -134,17 +134,17 @@ export const EndShiftHandoverPanel = ({ workspace }: { workspace: EndShiftHandov
         <EndShiftHandoverHistoryAside submittedHistory={workspace.submittedHistory} onSelect={loadRow} />
       </div>
 
-      <div className="mt-8">
+      <div className={uiTokens.layoutSpacerMt8}>
         <h3 className={uiTokens.blockHeading}>我的草稿與紀錄</h3>
         {myRecords.length === 0 ? (
-          <p className="mt-2 text-sm text-slate-500">尚無紀錄。</p>
+          <p className={uiTokens.recordsEmptyHint}>尚無紀錄。</p>
         ) : (
-          <ul className="mt-3 divide-y divide-slate-100 rounded-lg border border-slate-200 text-sm">
+          <ul className={uiTokens.myFormsList}>
             {myRecords.map((row) => (
-              <li key={row.id} className="flex flex-wrap items-center justify-between gap-2 px-3 py-2">
+              <li key={row.id} className={uiTokens.myFormsListRow}>
                 <div>
-                  <span className="font-medium">{row.shiftDate}</span>
-                  <span className="ml-2 rounded bg-slate-100 px-2 py-0.5 text-xs">
+                  <span className={uiTokens.textWeightMedium}>{row.shiftDate}</span>
+                  <span className={uiTokens.metaChipMl2}>
                     {row.status === 'DRAFT' ? '草稿' : '已提交'}
                   </span>
                 </div>

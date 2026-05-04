@@ -1,3 +1,4 @@
+import { uiTokens } from '../../shared/ui/uiTokens'
 import { AuditTrailPanel } from '../../shared/components/AuditTrailPanel'
 import { useAuditTrailList } from '../../shared/hooks/useAuditTrailList'
 import { WorkPlanComposerPanel } from './WorkPlanComposerPanel'
@@ -6,7 +7,7 @@ import { WorkPlanComposerPanel } from './WorkPlanComposerPanel'
 export const WorkPlansHome = () => {
   const auditTrail = useAuditTrailList()
   return (
-    <div className="space-y-6">
+    <div className={uiTokens.layoutSpaceY6}>
       <WorkPlanComposerPanel />
       <AuditTrailPanel
         title="工作計劃發布審計（全域）"

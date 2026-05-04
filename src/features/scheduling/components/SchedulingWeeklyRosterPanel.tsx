@@ -36,40 +36,40 @@ export const SchedulingWeeklyRosterPanel = ({ onCommitSuccess }: SchedulingWeekl
   const hasHiddenErrors = visibleErrors.length > 15
 
   return (
-    <div className={`${uiTokens.surfaceCardCompact}`}>
+    <div className={uiTokens.surfaceCardCompact}>
       <h3 className={uiTokens.blockHeading}>① 導入週更表（活動時段 CSV）</h3>
-      <p className={`${uiTokens.blockHelp}`}>
+      <p className={uiTokens.blockHelp}>
         欄位：id, facilityId, activityId, staffProfileId, sessionDate, timeSlot, capacity。亦可於「活動時段匯入」頁維護同一批資料。
       </p>
-      <div className="mt-2 flex flex-wrap items-center gap-2">
+      <div className={uiTokens.layoutFlexWrapItemsCenterGap2Mt2}>
         <input
           type="file"
           accept=".csv,text/csv"
           disabled={isBusy}
           onChange={(event) => void onFileChange(event)}
-          className={`${uiTokens.formInput} max-w-xs text-xs`}
+          className={uiTokens.formInputMaxXsTextXs}
         />
         <a className={uiTokens.linkDownload} href="/activity-sessions-import-template.csv" download>
           下載範本
         </a>
       </div>
-      {isBusy ? <p className="mt-2 text-xs text-slate-600">處理中…</p> : null}
-      {errorMessage ? <p className="mt-2 text-xs text-red-700">{errorMessage}</p> : null}
+      {isBusy ? <p className={uiTokens.blockHelpMt2}>處理中…</p> : null}
+      {errorMessage ? <p className={uiTokens.formInlineErrorMt2Xs}>{errorMessage}</p> : null}
       {parseErrors.length > 0 ? (
-        <ul className="mt-2 list-disc pl-5 text-xs text-red-700">
+        <ul className={uiTokens.listDiscError}>
           {parseErrors.map((item) => (
             <li key={`${item.rowIndex}-${item.message}`}>第 {item.rowIndex} 行：{item.message}</li>
           ))}
         </ul>
       ) : null}
       {result ? (
-        <div className="mt-3 rounded border border-slate-100 bg-slate-50 p-2 text-xs text-slate-700">
+        <div className={uiTokens.residentDryRunResultShell}>
           <p>
             預檢：總數 {result.summary.total}，可匯入 {result.summary.valid}，錯誤 {result.summary.invalid}
           </p>
           {visibleErrors.length > 0 ? (
             <>
-              <ul className="mt-1 list-disc pl-5 text-red-700">
+              <ul className={uiTokens.listDiscErrorTight}>
                 {renderErrors.map((item, index) => (
                   <li key={`${item.rowIndex}-${item.field}-${index}`}>
                     第 {item.rowIndex} 行（{item.field}）：{item.message}
@@ -77,7 +77,7 @@ export const SchedulingWeeklyRosterPanel = ({ onCommitSuccess }: SchedulingWeekl
                 ))}
               </ul>
               {hasHiddenErrors ? (
-                <button type="button" className={`${uiTokens.btnCompact} mt-2`} onClick={() => setShowAllErrors((v) => !v)}>
+                <button type="button" className={uiTokens.btnCompactMt2} onClick={() => setShowAllErrors((v) => !v)}>
                   {showAllErrors ? '收合' : `顯示全部錯誤（${visibleErrors.length}）`}
                 </button>
               ) : null}
@@ -85,7 +85,7 @@ export const SchedulingWeeklyRosterPanel = ({ onCommitSuccess }: SchedulingWeekl
           ) : (
             <button
               type="button"
-              className={`${uiTokens.btnSuccess} mt-2`}
+              className={uiTokens.btnSuccessMt2}
               disabled={isBusy || result.preview.length === 0}
               onClick={() => void commitValidatedRows(actorId)}
             >
@@ -94,7 +94,7 @@ export const SchedulingWeeklyRosterPanel = ({ onCommitSuccess }: SchedulingWeekl
           )}
         </div>
       ) : null}
-      {commitMessage ? <p className="mt-2 text-xs text-emerald-800">{commitMessage}</p> : null}
+      {commitMessage ? <p className={uiTokens.textCommitSuccess}>{commitMessage}</p> : null}
     </div>
   )
 }

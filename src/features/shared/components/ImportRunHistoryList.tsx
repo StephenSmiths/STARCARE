@@ -1,4 +1,5 @@
 import type { ImportRunSummary } from '../importRunSummary'
+import { uiTokens } from '../ui/uiTokens'
 
 interface ImportRunHistoryListProps {
   runs: ImportRunSummary[]
@@ -19,11 +20,11 @@ const formatTime = (iso: string): string => {
 export const ImportRunHistoryList = ({ runs }: ImportRunHistoryListProps) => {
   if (runs.length === 0) return null
   return (
-    <div className="mt-2 rounded-md border border-slate-200 bg-white p-2 text-xs text-slate-700">
-      <p className="font-semibold text-slate-800">最近 10 次匯入歷史</p>
-      <ul className="mt-1 max-h-40 space-y-1 overflow-auto">
+    <div className={uiTokens.importRunHistoryShell}>
+      <p className={uiTokens.panelTitleSm}>最近 10 次匯入歷史</p>
+      <ul className={uiTokens.importRunHistoryScrollList}>
         {runs.map((run, index) => (
-          <li key={`${run.ranAt}-${index}`} className="rounded bg-slate-50 px-2 py-1">
+          <li key={`${run.ranAt}-${index}`} className={uiTokens.importRunHistoryRow}>
             {stageLabel(run.stage)} / 總數 {run.total} / 成功 {run.success} / 失敗 {run.failed} / 耗時{' '}
             {formatDuration(run.durationMs)} / {formatTime(run.ranAt)}
           </li>

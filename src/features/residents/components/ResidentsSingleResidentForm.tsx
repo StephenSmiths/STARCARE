@@ -25,7 +25,7 @@ export const ResidentsSingleResidentForm = ({
   embedded = false,
 }: ResidentsSingleResidentFormProps) => (
   <form
-    className={`grid gap-3 text-sm ${embedded ? '' : 'mt-3'}`}
+    className={embedded ? uiTokens.residentFormGrid : uiTokens.residentFormGridMt3}
     onSubmit={onSubmit}
     aria-busy={isSubmitting}
   >
@@ -87,7 +87,7 @@ export const ResidentsSingleResidentForm = ({
           })
         }
       />
-      <span className="text-[11px] text-slate-500">PDF 01 §4.3；留白則依入住日 180 天估算（Seq 9）</span>
+      <span className={uiTokens.helpFinePrint}>PDF 01 §4.3；留白則依入住日 180 天估算（Seq 9）</span>
     </label>
     <label className={uiTokens.formFieldStack}>
       <span className={uiTokens.formLabel}>健康狀況</span>
@@ -107,11 +107,11 @@ export const ResidentsSingleResidentForm = ({
         onChange={(event) => onChange({ ...form, medicationRecord: event.target.value })}
       />
     </label>
-    <label className={`flex items-center gap-2 ${uiTokens.formLabel}`}>
+    <label className={uiTokens.residentFormCheckboxLabel}>
       <input type="checkbox" checked={form.isSpecialCareCase} onChange={(event) => onChange({ ...form, isSpecialCareCase: event.target.checked })} />
       Special Care 個案
     </label>
-    <div className="grid grid-cols-2 gap-2">
+    <div className={uiTokens.layoutGrid2ColGap2}>
       <select className={uiTokens.formSelect} value={form.gender} onChange={(event) => onChange({ ...form, gender: event.target.value as ResidentInput['gender'] })}>
         <option value="Female">女</option>
         <option value="Male">男</option>
@@ -133,7 +133,7 @@ export const ResidentsSingleResidentForm = ({
         <option value="Severe">重度</option>
       </select>
     </div>
-    <div className="flex flex-wrap gap-2">
+    <div className={uiTokens.layoutFlexWrapGap2}>
       <button className={uiTokens.btnPrimary} type="submit" disabled={isSubmitting}>
         {isSubmitting ? '送出中…' : submitLabel}
       </button>

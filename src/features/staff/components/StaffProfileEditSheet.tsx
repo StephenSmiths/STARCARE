@@ -63,22 +63,19 @@ const StaffProfileEditForm = ({ row, actorId, onClose, onSaved }: InnerProps) =>
 
   return (
     <div
-      className="fixed inset-0 z-40 flex items-end justify-center bg-black/40 sm:items-center"
+      className={uiTokens.modalBackdrop}
       role="dialog"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose()
       }}
     >
-      <div
-        className="max-h-[90vh] w-full max-w-md overflow-auto rounded-t-xl border border-slate-200 bg-white p-4 shadow-xl sm:rounded-xl"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className={uiTokens.modalPanelSheetMd} onClick={(e) => e.stopPropagation()}>
         <h3 className={uiTokens.blockHeading}>編輯員工主檔</h3>
-        <p className="mt-1 text-xs text-slate-500">ID：{row.staffId}</p>
+        <p className={uiTokens.helpFinePrint}>ID：{row.staffId}</p>
         {!canSave ? (
-          <p className="mt-2 text-xs text-amber-700">此列尚無完整主檔（職類／服務範圍），無法寫入後端。</p>
+          <p className={uiTokens.textUrgentHintMt2}>此列尚無完整主檔（職類／服務範圍），無法寫入後端。</p>
         ) : null}
-        <div className={`${uiTokens.stackVertical} mt-3`}>
+        <div className={uiTokens.stackVerticalMt3}>
           <label className={uiTokens.formFieldStack}>
             <span className={uiTokens.formLabel}>顯示名稱</span>
             <input className={uiTokens.formInput} value={name} onChange={(e) => setName(e.target.value)} />
@@ -111,9 +108,9 @@ const StaffProfileEditForm = ({ row, actorId, onClose, onSaved }: InnerProps) =>
               ))}
             </select>
           </label>
-          {error ? <p className="text-xs text-red-600">{error}</p> : null}
+          {error ? <p className={uiTokens.formInlineErrorXs}>{error}</p> : null}
         </div>
-        <div className="mt-4 flex justify-end gap-2">
+        <div className={uiTokens.formFooterActions}>
           <button type="button" className={uiTokens.btnSecondary} onClick={onClose} disabled={busy}>
             取消
           </button>
