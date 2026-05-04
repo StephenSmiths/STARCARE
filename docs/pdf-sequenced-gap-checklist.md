@@ -238,3 +238,4 @@
 | 2026-05-03 | **`README.md`** 文件表增 **`docs/supabase-deploy-runbook.md`**；**`feature-list.md`** 頁尾產生說明納入 runbook §6。 |
 | 2026-05-03 | **`business-logic.md`** §0 增運維 Runbook 連結（§6 **`npm run ci`**）；**`pdf03-cursorrules-alignment.md`** §4 維護項補 runbook／README／清單日誌同步。 |
 | 2026-05-03 | **`supabase-deploy-runbook.md`** §2／§3：改推 **`npm run ops:deploy:all`**（權威清單見 **`package.json`**）；驗收改 **`ops:verify`**／`functions list`，移除過時「7 支」；常見問題補 **`ops:deploy:all`**；**`client-delivery-remediation-plan.md`** §7.3 行 9 鏈結 **go-live**／runbook。 |
+| 2026-05-03 | **`go-live-checklist.md`** §2 對齊 **`ops:deploy:all`**／**`ops:verify`** 與 runbook；**`phase5-day1-automation-runbook.md`**／**`phase5-final-delivery-package.md`** 收口改單一 **`ops:deploy:all`**（含 db push）。 |

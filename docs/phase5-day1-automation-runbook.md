@@ -61,7 +61,7 @@ npm run closeout:phase5:status
 - 全部通過則報告顯示 `PASS`。
 
 ## 六、收口建議
-- 驗收通過後先執行 `npm run db:push`，再執行 `npm run ops:deploy:all`。
+- 驗收通過後執行 **`npm run ops:deploy:all`**（已含 **`db push --yes`**；見 **`docs/supabase-deploy-runbook.md`** §2）。
 - 部署完成後在 UI 實測一次「執行排班 -> KPI 趨勢新增 -> 清除趨勢」閉環流程。
 - 若網路中斷或 Edge 暫時不可用，KPI 趨勢面板應顯示同步失敗提示（黃色警示），並保留本機快取資料。
 - 操作「重試同步」成功後，面板應顯示一次性同步成功提示（綠色訊息），約 4 秒後自動消失。
