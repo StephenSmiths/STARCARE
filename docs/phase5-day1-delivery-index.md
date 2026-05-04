@@ -53,5 +53,6 @@
 
 ## 六、完成判定
 - [ ] `npm run acceptance:phase5` 結果為 PASS
+- [ ] （建議）**`npm run ci`** 已通過（與 **`.github/workflows/ci.yml`** 指令集合一致；見 **`docs/feature-list.md`** §8）
 - [ ] UI 已驗證同步失敗提示與重試成功提示
 - [ ] Migration 與三個 KPI Edge Functions 已完成部署（建議 **`npm run ops:deploy:all`**；見 **`docs/supabase-deploy-runbook.md`** §2）

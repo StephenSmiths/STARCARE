@@ -15,6 +15,7 @@
 ## 驗收結果
 - 技術閘門：`lint` / `test` / `build` 全部通過。
 - 自動驗收：`npm run acceptance:day4` 通過（PASS）。
+- （續維護、與 GitHub Actions 一致）全閘為 **`npm run ci`**（含 **`typecheck`**、**`build:demo`**、Playwright）；**`acceptance:day4`** 為較窄閘門，見 **`docs/feature-list.md`** §8。
 - 匯入與排班核心流程維持可用，未引入阻塞回歸。
 
 ## 對業務的直接價值

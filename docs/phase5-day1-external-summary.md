@@ -16,6 +16,7 @@
 ## 驗收結果
 - `lint` / `test` 均通過。
 - `npm run acceptance:phase5` 結果為 PASS。
+- （續維護、與 GitHub Actions 一致）全閘為 **`npm run ci`**（含 **`typecheck`**、**`build:demo`**、Playwright）；**`acceptance:phase5`** 為較窄閘門，見 **`docs/feature-list.md`** §8。
 - 交付包可一鍵產生與清理（delivery/zip/clean）。
 
 ## 對業務的直接價值

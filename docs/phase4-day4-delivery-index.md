@@ -39,4 +39,5 @@
 ## 七、驗收完成判定
 - [ ] 自動驗收報告為 PASS
 - [ ] UI smoke checklist 已完成勾選
+- [ ] （建議）**`npm run ci`** 已通過（與 **`.github/workflows/ci.yml`** 指令集合一致；見 **`docs/feature-list.md`** §8）
 - [ ] 當日驗收人與 Go/No-Go 已填寫
