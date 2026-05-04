@@ -16,7 +16,7 @@ export type AssessmentAuditRow = {
 
 /**
  * 評估完成寫入後之審計（`action=ASSESSMENT_COMPLETION_RECORD`）；依院友分筆落庫。
- * 失敗不回溯主檔寫入；回傳供 Edge 記錄日誌。
+ * 失敗時由呼叫端回溯主檔（見 `assessment-completion-records-append`）。
  */
 export const insertAssessmentCompletionAuditEvents = async (
   supabase: SupabaseClient,

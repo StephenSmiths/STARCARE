@@ -4,6 +4,12 @@ import {
   createActivitySessionImportRepository,
   type ActivitySessionImportRepository,
 } from '../../../repositories/activitySessionImportRepository'
+
+/** Edge 已落庫 WORK_PLAN_SESSION_COMMIT 時不重複呼叫 audit-trail-append */
+const skipRemoteWorkPlanAuditPersist = (): boolean => {
+  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
+  return !!(env.VITE_SUPABASE_URL && env.VITE_SUPABASE_ANON_KEY)
+}
 import {
   buildActivitySessionImportRows,
   type WorkPlanDraftLine,
@@ -37,19 +43,24 @@ export class WorkPlanCommitService {
       throw new Error(msg || '預檢未通過')
     }
 
-    const committed = await this.sessionImporter.commitRows(actorId, validated.preview)
+    const committed = await this.sessionImporter.commitRows(actorId, validated.preview, {
+      auditAction: 'WORK_PLAN_SESSION_COMMIT',
+    })
     if (!committed.ok) throw new Error('儲存失敗')
 
-    globalAuditTrailService.record({
-      action: 'WORK_PLAN_SESSION_COMMIT',
-      entityType: 'Scheduling',
-      entityId: `work-plan-${Date.now()}`,
-      actorId,
-      beforeState: null,
-      afterState: JSON.stringify({ inserted: committed.inserted, sessionIds: committed.sessionIds }),
-      detail: `工作計劃：批量發布 ${committed.inserted} 個活動時段`,
-      occurredAt: new Date().toISOString(),
-    })
+    globalAuditTrailService.record(
+      {
+        action: 'WORK_PLAN_SESSION_COMMIT',
+        entityType: 'Scheduling',
+        entityId: `work-plan-${Date.now()}`,
+        actorId,
+        beforeState: null,
+        afterState: JSON.stringify({ inserted: committed.inserted, sessionIds: committed.sessionIds }),
+        detail: `工作計劃：批量發布 ${committed.inserted} 個活動時段`,
+        occurredAt: new Date().toISOString(),
+      },
+      skipRemoteWorkPlanAuditPersist(),
+    )
 
     return { inserted: committed.inserted, sessionIds: committed.sessionIds }
   }

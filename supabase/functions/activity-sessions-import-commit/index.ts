@@ -13,14 +13,20 @@ type PreviewRow = {
   capacity: number
 }
 
+type AuditAction = 'ACTIVITY_SESSIONS_IMPORT_COMMIT' | 'WORK_PLAN_SESSION_COMMIT'
+
+const parseAuditAction = (raw: unknown): AuditAction =>
+  raw === 'WORK_PLAN_SESSION_COMMIT' ? 'WORK_PLAN_SESSION_COMMIT' : 'ACTIVITY_SESSIONS_IMPORT_COMMIT'
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return emptyOk()
   if (req.method !== 'POST') return json({ error: '僅支援 POST' }, 405)
   const auth = await requireTeamLeadOrAdmin(req)
   if (auth instanceof Response) return auth
   try {
-    const body = (await req.json()) as { rows?: PreviewRow[]; actorId?: string }
+    const body = (await req.json()) as { rows?: PreviewRow[]; actorId?: string; auditAction?: unknown }
     const rows = body.rows ?? []
+    const auditAction = parseAuditAction(body.auditAction)
     const actorId = String(body.actorId ?? '').trim()
     if (!actorId) return json({ error: '缺少 actorId' }, 400)
     if (actorId !== auth.user.id) return json({ error: 'actorId 必須為目前登入者' }, 403)
@@ -50,14 +56,18 @@ Deno.serve(async (req) => {
     if (error) return json({ error: error.message }, 400)
 
     const sessionIds = insertRows.map((row) => row.id)
+    const detail =
+      auditAction === 'WORK_PLAN_SESSION_COMMIT'
+        ? `工作計劃：批量發布活動時段（batch=${batchId}）`
+        : `活動時段 CSV 批量匯入（batch=${batchId}）`
     const audit = await insertAuditEvent(supabase, {
-      action: 'ACTIVITY_SESSIONS_IMPORT_COMMIT',
+      action: auditAction,
       entity_type: 'Scheduling',
       entity_id: batchId,
       actor_id: actorId,
       before_state: null,
       after_state: JSON.stringify({ count: insertRows.length, batchId, sessionIds }),
-      detail: `活動時段 CSV 批量匯入（batch=${batchId}）`,
+      detail,
     })
     if (!audit.ok) {
       await supabase.from('activity_sessions').update({ is_deleted: true }).in('id', sessionIds).eq('is_deleted', false)

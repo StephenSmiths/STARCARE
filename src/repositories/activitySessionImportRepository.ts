@@ -34,11 +34,17 @@ export type ActivitySessionImportCommitResult = {
   sessionIds: string[]
 }
 
+/** Edge：預設 CSV 為 ACTIVITY_SESSIONS_IMPORT_COMMIT；工作計劃發布為 WORK_PLAN_SESSION_COMMIT（PDF 02【2】） */
+export type ActivitySessionImportCommitOptions = {
+  auditAction?: 'ACTIVITY_SESSIONS_IMPORT_COMMIT' | 'WORK_PLAN_SESSION_COMMIT'
+}
+
 export interface ActivitySessionImportRepository {
   validateRows: (rows: ActivitySessionImportRow[]) => Promise<ActivitySessionImportValidationResult>
   commitRows: (
     actorId: string,
     rows: ActivitySessionImportPreviewRow[],
+    options?: ActivitySessionImportCommitOptions,
   ) => Promise<ActivitySessionImportCommitResult>
 }
 
@@ -59,7 +65,9 @@ class InMemoryActivitySessionImportRepository implements ActivitySessionImportRe
   async commitRows(
     actorId: string,
     rows: ActivitySessionImportPreviewRow[],
+    _options?: ActivitySessionImportCommitOptions,
   ): Promise<ActivitySessionImportCommitResult> {
+    void _options
     return { ok: true, inserted: rows.length, actorId, sessionIds: rows.map((_x, i) => `mock-${i}`) }
   }
 }
@@ -87,15 +95,18 @@ class EdgeActivitySessionImportRepository implements ActivitySessionImportReposi
   async commitRows(
     actorId: string,
     rows: ActivitySessionImportPreviewRow[],
+    options?: ActivitySessionImportCommitOptions,
   ): Promise<ActivitySessionImportCommitResult> {
     const headers = await buildEdgeInvokeHeaders(
       this.anonKey,
       `activity-sessions-import-commit:${actorId}:${crypto.randomUUID()}`,
     )
+    const payload: Record<string, unknown> = { actorId, rows }
+    if (options?.auditAction) payload.auditAction = options.auditAction
     const response = await fetch(`${this.supabaseUrl}/functions/v1/activity-sessions-import-commit`, {
       method: 'POST',
       headers,
-      body: JSON.stringify({ actorId, rows }),
+      body: JSON.stringify(payload),
     })
     if (!response.ok) throw new Error(`活動時段批量匯入失敗（HTTP ${response.status}）`)
     return (await response.json()) as ActivitySessionImportCommitResult

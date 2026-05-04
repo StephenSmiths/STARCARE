@@ -101,7 +101,9 @@ Deno.serve(async (req) => {
   }
   const audit = await insertAssessmentCompletionAuditEvents(supabase, actorId, rows)
   if (!audit.auditOk) {
-    console.error('[assessment-completion-records-append] audit_events', audit.auditMessage ?? '')
+    const ids = rows.map((r) => r.id)
+    await supabase.from('assessment_completion_records').update({ is_deleted: true }).in('id', ids)
+    return json({ error: `審計落庫失敗，已回溯評估紀錄（軟刪）：${audit.auditMessage ?? ''}` }, 500)
   }
-  return json({ ok: true, inserted: rows.length, audit_ok: audit.auditOk })
+  return json({ ok: true, inserted: rows.length })
 })

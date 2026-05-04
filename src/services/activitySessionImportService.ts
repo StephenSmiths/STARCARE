@@ -1,5 +1,6 @@
 import {
   createActivitySessionImportRepository,
+  type ActivitySessionImportCommitOptions,
   type ActivitySessionImportCommitResult,
   type ActivitySessionImportPreviewRow,
   type ActivitySessionImportRow,
@@ -16,8 +17,9 @@ export class ActivitySessionImportService {
   async commitRows(
     actorId: string,
     rows: ActivitySessionImportPreviewRow[],
+    options?: ActivitySessionImportCommitOptions,
   ): Promise<ActivitySessionImportCommitResult> {
-    return repository.commitRows(actorId, rows)
+    return repository.commitRows(actorId, rows, options)
   }
 }
 
