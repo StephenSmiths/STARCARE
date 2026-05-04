@@ -1,5 +1,7 @@
 # STARCARE Phase 3 Day 5 驗收結果（2026-04-30）
 
+> **對照**：對應清單 **`docs/phase3-day5-acceptance.md`**；**`npm run ci`**／**`acceptance:*`** 續維護見 **§六** 及 **`docs/phase4-day4-delivery-index.md`**、**`docs/phase5-day1-delivery-index.md`**；運維總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）。
+
 ## 一、今日已完成項目（已確認）
 - [x] 活動時段匯入（valid 檔）預檢成功：`總數 200 / 可匯入 200 / 錯誤 0`
 - [x] 活動時段匯入（valid 檔）commit 成功：`已成功匯入 200 筆活動時段資料`

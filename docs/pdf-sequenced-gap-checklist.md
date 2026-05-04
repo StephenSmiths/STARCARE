@@ -280,3 +280,4 @@
 | 2026-05-03 | **`feature-list.md`** 開首維護方式、**`pdf-alignment-p0-backlog.md`**、**`adr-0001-scheduling-logic-placement.md`**、**`rbac-seq1-verification-checklist.md`**：增 **對照** 引導至 **`business-logic.md`** §0／**`.cursorrules`** §3（及 **`go-live`** §8／**`pdf03`**／序號表）。 |
 | 2026-05-03 | **`residents-edge-function-contract.md`**、**`assessment-completion-records-contract.md`**：開首增 **對照** **`business-logic.md`** §0／**`go-live-checklist.md`**（§8）。 |
 | 2026-05-03 | **`client-delivery-remediation-plan.md`** 開首增 **內部工程入口**；**`phase3-day5-acceptance.md`** 增 **對照** Phase 4／5 索引與 **`business-logic.md`** §0。 |
+| 2026-05-03 | **`phase3-day5-acceptance-result-2026-04-30.md`**、**`phase4-day4-delivery-index.md`**、**`phase5-day1-delivery-index.md`**：開首增 **對照**（**`business-logic.md`** §0、Phase 鏈、**`npm run ci`**／**`acceptance:*`**）。 |
