@@ -45,7 +45,7 @@ npm run closeout:phase5:status
 2. 依序執行：
    - `npm run lint`
    - `npm run test`
-3. 若有 `SUPABASE_ACCESS_TOKEN`，額外執行：
+3. 若有 `SUPABASE_ACCESS_TOKEN`，額外執行（與 **`docs/supabase-deploy-runbook.md`** §3 對照；亦可 **`npm run ops:verify`**）：
    - `npx supabase migration list`
    - `npx supabase functions list`
 4. 產生報告：

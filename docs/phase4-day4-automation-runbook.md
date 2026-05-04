@@ -14,7 +14,7 @@ npm run acceptance:day4
    - `npm run lint`
    - `npm run test`
    - `npm run build`
-3. 若有 `SUPABASE_ACCESS_TOKEN`，額外執行：
+3. 若有 `SUPABASE_ACCESS_TOKEN`，額外執行（與 **`docs/supabase-deploy-runbook.md`** §3 對照；亦可 **`npm run ops:verify`**）：
    - `npx supabase migration list`
    - `npx supabase functions list`
 4. 產生報告：

@@ -131,6 +131,7 @@
 | 2026-05-01 | 新增 **§7 行動方案**（檢核清單與負責分工）。 |
 | 2026-05-03 | §7.3 行 9：補 **`docs/go-live-checklist.md`**、**`docs/supabase-deploy-runbook.md`**（含 **`npm run ci`**）路徑。 |
 | 2026-05-03 | §2：增第 4 點（上線／runbook／憑證清單可作對外補充附件）。 |
+| 2026-05-03 | 對照 **`README.md`** 文件表：已納入本檔與 **`pdf03-cursorrules-alignment.md`** 入口連結。 |
 
 ---
 

@@ -246,3 +246,4 @@
 | 2026-05-03 | **`go-live-checklist.md`** §2：functions 項補 **service-forms-***、runbook §2 舊腳本補佈、**pdf03** §3；**§6** PAT 項鏈結憑證清單；**`security-token-rotation-checklist.md`** §D 補 **`ops:verify`**／**`ops:deploy:all`** 對照 runbook；**`README.md`** 文件表增憑證清單連結。 |
 | 2026-05-03 | **`go-live-checklist.md`** §0：PAT／部署目標鏈結憑證清單與 runbook；**`business-logic.md`** §0 增憑證清單一行。 |
 | 2026-05-03 | **`client-delivery-remediation-plan.md`** §2 增上線／runbook／憑證附件說明；**`feature-list.md`** 頁尾、**`pdf03-cursorrules-alignment.md`** §4 維護項補 **`security-token-rotation-checklist`**。 |
+| 2026-05-03 | **`README.md`** 文件表增 **client-delivery**、**pdf03**；**`phase4-day4-automation-runbook.md`**／**`phase5-day1-automation-runbook.md`** 雲端檢查項補 **runbook** §3 與 **`npm run ops:verify`**；**`feature-list.md`** §8 README 項同步；**`client-delivery-remediation-plan.md`** §8 修訂紀錄對照 README。 |
