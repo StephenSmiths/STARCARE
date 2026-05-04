@@ -12,6 +12,9 @@ const webServerCommand = previewOnly
  * 未設 Supabase 時 App 以 TeamLead demo 權限載入儀表盤，無需真實登入。
  * `auth-login*.spec.ts` 僅供 `playwright.auth.config.ts`（含 Supabase 建置），見 `npm run test:e2e:auth`。
  * CI 可設 **`PW_PREVIEW_ONLY=1`** 並先 `npm run build`（同清空 `VITE_SUPABASE_*`），避免 webServer 重複建置。
+ * 快速煙霧：`npm run test:e2e:smoke`（先 **`build:demo`** 再跑 `smoke.spec.ts`）。
+ * 若本機 `.env` 含 Supabase，**務必**以 **`build:demo`** 建置後再跑 E2E，否則 bundle 內嵌真實 URL 會破壞 demo 流程（與 CI 不一致）。
+ * 部分受限執行環境下 Chromium 可能 SIGSEGV，請於一般終端或 CI（Ubuntu）重跑。
  */
 export default defineConfig({
   testDir: 'e2e',
