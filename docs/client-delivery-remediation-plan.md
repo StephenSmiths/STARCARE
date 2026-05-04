@@ -156,6 +156,7 @@
 | 2026-05-12 | **`phase*.md`**、**`stage*.md`** 與 acceptance／closeout **腳本** 產出：開首 **對照** 補 **`pdf-sequenced`**「**運維與工程**」列。 |
 | 2026-05-13 | **`.cursorrules`** §3、**`README.md`**、**`business-logic.md`** §0、**`pdf03`** §3、**`feature-list.md`** §8、**`ci.yml`**：**`phase*.md`**／**`stage*.md`** 與 **`pdf-sequenced`** 互鏈敘述。 |
 | 2026-05-14 | **`feature-list.md`** 頁尾、**`pdf03`** §4：維護閉環（**`README`**／**§0**／**`ci.yml`**／**`phase*.md`**／**`stage*.md`**／**`pdf-sequenced`**）。 |
+| 2026-05-15 | **`business-logic-revision-log.md`**（**`business-logic.md`** §8 拆出）；**`README.md`**、**`pdf03`** §4、**`feature-list.md`** 頁尾、**`pdf-alignment-p0-backlog.md`** Seq 38。 |
 
 ---
 

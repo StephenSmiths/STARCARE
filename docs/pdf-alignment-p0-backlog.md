@@ -58,7 +58,7 @@
 - [ ] **Seq 35** — 客戶 PDF **換版**後，重跑 `docs/pdf03-cursorrules-alignment.md` 差異並簽核。
 - [ ] **Seq 36** — 客戶書面確認 `docs/adr-0001-scheduling-logic-placement.md` 與母本 **03／01** 無未解衝突（或備註豁免）。
 - [ ] **Seq 37** — 訂立「既有碼收斂至工程規（含 200 行）」之 **里程碑或豁免清單** 並經治理／客戶同意（若適用）。
-- [ ] **Seq 38** — 三份 PDF **版次／日期** 由客戶確認後，更新 `docs/business-logic.md` §0.1（或獨立 `VERSIONS`）與簽收紀錄。
+- [ ] **Seq 38** — 三份 PDF **版次／日期** 由客戶確認後，更新 `docs/business-logic.md` §0.1（或獨立 `VERSIONS`）與簽收紀錄；若本次變更亦屬 **`business-logic.md`** **§8** 範疇，同步 **`docs/business-logic-revision-log.md`**。
 
 ---
 
@@ -89,6 +89,7 @@
 | 2026-05-12 | **`phase*.md`**、**`stage*.md`** 與 acceptance／closeout **腳本** 產出：開首 **對照** 補 **`pdf-sequenced`**「**運維與工程**」列。 |
 | 2026-05-13 | **`.cursorrules`** §3、**`README.md`**、**`business-logic.md`** §0、**`pdf03`** §3、**`feature-list.md`** §8、**`ci.yml`**：**`phase*.md`**／**`stage*.md`** 與 **`pdf-sequenced`** 互鏈。 |
 | 2026-05-14 | **`feature-list.md`** 頁尾、**`pdf03`** §4：維護閉環（**`README`**／**§0**／**`ci.yml`**／**`phase*.md`**／**`stage*.md`**／**`pdf-sequenced`**）。 |
+| 2026-05-15 | **`business-logic-revision-log.md`**（**`business-logic.md`** §8 拆出）；**`README.md`**、**`pdf03`** §4、**`feature-list.md`** 頁尾、本檔 Seq 38 敘述。 |
 | 2026-05-02 | 初版：依 `docs/pdf-sequenced-gap-checklist.md` Seq 1～38 摘要「仍待／待／需」拆為可勾選 P0。 |
 | 2026-05-02 | 程式進度：`staff-profiles-list` Edge＋`StaffOverviewRow.roleType`；儀表盤 PT/OT 以 DB `role_type` 為優先（P0「Seq 13 PT/OT」之實作面；**逐欄對表簽核**仍待）。 |
 | 2026-05-02 | 程式進度：員工概覽 CSV 匯出增 **職類** 欄（Seq 26 匯出面向；**xlsx／母本逐字**仍待）。 |
