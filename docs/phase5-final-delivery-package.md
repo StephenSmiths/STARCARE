@@ -39,6 +39,7 @@
 
 ## 五、寄送前最後檢查
 - [ ] `npm run acceptance:phase5` 已再次執行且 PASS
+- [ ] （建議）**`npm run ci`** 已通過（與 **`.github/workflows/ci.yml`** 指令集合一致；**`acceptance:phase5`** 為較窄閘門，見 **`docs/feature-list.md`** §8）
 - [ ] `docs/phase5-day1-automation-report.md` 為最新時間
 - [ ] **`npm run ops:deploy:all`** 已完成（已含 **`db push --yes`**；見 **`docs/supabase-deploy-runbook.md`** §2）
 - [ ] 對外包不含敏感環境資訊（token / key / 私密連線資訊）

@@ -8,6 +8,7 @@
   - `scripts/phase4-day4-acceptance.mjs`
 - npm 指令：
   - `npm run acceptance:day4`
+- （可選、與 GitHub Actions 全閘一致）**`npm run ci`**：`acceptance:day4` **不含** **`typecheck`**、**`build:demo`**、Playwright；見 **`docs/phase4-day4-automation-runbook.md`** §三、**`docs/feature-list.md`** §8、**`docs/supabase-deploy-runbook.md`** §6。
 
 ## 三、操作文件
 - 自動驗收 Runbook：

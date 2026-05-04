@@ -40,6 +40,7 @@
 
 ## 五、寄送前最後檢查
 - [ ] `npm run acceptance:day4` 已再次執行且 PASS
+- [ ] （建議）**`npm run ci`** 已通過（與 **`.github/workflows/ci.yml`** 指令集合一致；**`acceptance:day4`** 為較窄閘門，見 **`docs/feature-list.md`** §8）
 - [ ] `docs/phase4-day4-automation-report.md` 為最新時間
 - [ ] 若有人工驗收，`phase4-day4-ui-smoke-checklist.md` 已填寫驗收人與結果
 - [ ] 對外包不含敏感環境資訊（token / key / 私密連線資訊）

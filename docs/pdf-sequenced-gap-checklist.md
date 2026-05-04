@@ -257,3 +257,4 @@
 | 2026-05-03 | **`feature-list.md`** Edge 表：院友列補 **`residents-edge-function-contract.md`** 鏈結。 |
 | 2026-05-03 | **`go-live-checklist.md`** §8：補 **`assessment-completion-records-contract.md`** 對照；**`.github/workflows/ci.yml`** 註解標明與 **`npm run ci`** 指令集合等同；**`supabase-deploy-runbook.md`** §6 補一句與 **`ci.yml`** 分步對照。 |
 | 2026-05-03 | **`phase5-day1-delivery-index.md`** §四：補 **`npm run ci`** 與 runbook／**`feature-list`** §8；**`phase4-day4-automation-runbook.md`**／**`phase5-day1-automation-runbook.md`**：標明 **`acceptance:day4`**／**`acceptance:phase5`** 與 **`npm run ci`** 之差異。 |
+| 2026-05-03 | **`phase4-day4-delivery-index.md`** §二、**`phase4-final-delivery-package.md`**／**`phase5-final-delivery-package.md`** §五：補 **`npm run ci`**（建議）與窄版 acceptance 之對照。 |
