@@ -5,7 +5,7 @@
 > **02 編號**：PDF 內 **【5】出現兩次**（填寫表單、開工接更），本清單拆成 **【5】** 與 **【5b】** 以利追蹤。
 
 **相關檔**：`docs/feature-list.md`（現況盤點）、`docs/business-logic.md`（01 條文整理）、`docs/client-delivery-remediation-plan.md`（對客戶流程）、`docs/pdf-alignment-p0-backlog.md`（母本全對齊 P0 可勾選項）。  
-**運維與工程**：`docs/go-live-checklist.md`（上線）、`docs/supabase-deploy-runbook.md`（**`ops:deploy:all`**、**`npm run ci`**）、`docs/security-token-rotation-checklist.md`（PAT）、`docs/pdf03-cursorrules-alignment.md`（Seq 37 PR 檢核）。
+**運維與工程**：`docs/go-live-checklist.md`（上線）、`docs/supabase-deploy-runbook.md`（**`ops:deploy:all`**、**`npm run ci`**）、`docs/security-token-rotation-checklist.md`（PAT）、`docs/adr-0001-scheduling-logic-placement.md`（Seq 36 排班放置）、`docs/pdf03-cursorrules-alignment.md`（Seq 37 PR 檢核）。
 
 ---
 
@@ -58,7 +58,7 @@
 |-----|------------|--------------------|-------------------|----------|
 | 35 | 03 | 與 `.cursorrules` **並讀**；若有衝突，**客戶簽核 PDF 優先** | 已補 `docs/pdf03-cursorrules-alignment.md`（對照矩陣＋維護說明）；仍待客戶 PDF 換版後覆核 | 差異表 |
 | 36 | 03＋01 | 「複雜邏輯優先 Edge／DB」vs 現行**前端排班** | 已補 `docs/adr-0001-scheduling-logic-placement.md`（MVP 前端／上線後端權威之遷移原則） | 書面架構決策 |
-| 37 | 03 | 閉環／SRP／200 行等工程約束於**新模組**落實 | 已於 `docs/pdf03-cursorrules-alignment.md` §3 納入 PR 檢核表（含 CI／E2E 變更時 **`build:demo`**／**`.env.example`** 同步項；**新 Edge** 時 **`ops:deploy:all`**／**`feature-list.md` §7**／日誌）；**Dependabot** `.github/dependabot.yml`（npm 週一檢查、上限 8 PR）；既有碼仍漸進收斂 | Code review 規則 |
+| 37 | 03 | 閉環／SRP／200 行等工程約束於**新模組**落實 | 已於 `docs/pdf03-cursorrules-alignment.md` §3 納入 PR 檢核表（含 CI／E2E 變更時 **`build:demo`**／**`.env.example`** 同步項；**新 Edge** 時 **`ops:deploy:all`**／**`feature-list.md` §7**／日誌；**排班權威／`adr-0001`** 時 Seq 36 摘要）；**Dependabot** `.github/dependabot.yml`（npm 週一檢查、上限 8 PR）；既有碼仍漸進收斂 | Code review 規則 |
 | 38 | 全份 | **三 PDF 版本號／日期**寫入 `docs/business-logic.md` 修訂或獨立 `VERSIONS` | 已補 `docs/business-logic.md` §0.1（含三份母本 SHA-256）；等待客戶補版次／日期 | 客戶確認信 |
 
 ---
@@ -250,3 +250,4 @@
 | 2026-05-03 | **`README.md`** 文件表增 **client-delivery**、**pdf03**；**`phase4-day4-automation-runbook.md`**／**`phase5-day1-automation-runbook.md`** 雲端檢查項補 **runbook** §3 與 **`npm run ops:verify`**；**`feature-list.md`** §8 README 項同步；**`client-delivery-remediation-plan.md`** §8 修訂紀錄對照 README。 |
 | 2026-05-03 | 主檔「**相關檔**」增 **運維與工程** 一行（**go-live**／**runbook**／憑證／**pdf03**）；**`pdf-alignment-p0-backlog.md`** 首段增 **工程／驗收附錄**（**`npm run ci`**、**`ops:deploy:all`**、§8、憑證清單）及修訂紀錄 **2026-05-03**。 |
 | 2026-05-03 | **`README.md`** 文件表增 **`pdf-alignment-p0-backlog.md`**；**`business-logic.md`** §0 增 P0 backlog 一行；**`feature-list.md`** §8 README 項同步；**`client-delivery-remediation-plan.md`** §2 第 4 點補 P0 backlog。 |
+| 2026-05-03 | **`README.md`** 文件表增 **`adr-0001-scheduling-logic-placement.md`**；**`business-logic.md`** §0 增 Seq 36 ADR 一行；**`pdf03-cursorrules-alignment.md`** §3 增排班權威檢核、§4 維護補 **`adr-0001`**；**`feature-list.md`** §8 同步；主表 Seq 37「與現況對照」一句話補 **Seq 36**／**`adr-0001`**；主檔「**運維與工程**」增 **`adr-0001`** 鏈結。 |

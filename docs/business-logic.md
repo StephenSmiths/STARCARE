@@ -16,6 +16,7 @@
 **對客戶之補強與分期交付說明**：見 **`docs/client-delivery-remediation-plan.md`**（會議邀請範本、對照矩陣範本、驗收階段）。  
 **依序補回 Feature／缺漏**：見 **`docs/pdf-sequenced-gap-checklist.md`**（Seq **1～38**：01 鐵律→02【1】～【16】→03 工程對照）。  
 **母本 P0 可勾選 backlog**：見 **`docs/pdf-alignment-p0-backlog.md`**（與上列序號檢核配套）。  
+**架構決策（排班演算放置，Seq 36）**：見 **`docs/adr-0001-scheduling-logic-placement.md`**。  
 **運維與部署 Runbook**：見 **`docs/supabase-deploy-runbook.md`**（Supabase 部署、SQL 驗收；**§6** 可選前端 **`npm run ci`**，與 GitHub Actions 同源）。  
 **憑證與 PAT 輪替**：見 **`docs/security-token-rotation-checklist.md`**。
 

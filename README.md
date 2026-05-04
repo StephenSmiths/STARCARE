@@ -10,6 +10,7 @@
 | [docs/pdf-sequenced-gap-checklist.md](docs/pdf-sequenced-gap-checklist.md) | PDF 對齊序號檢核（Seq 1～38） |
 | [docs/pdf-alignment-p0-backlog.md](docs/pdf-alignment-p0-backlog.md) | 母本全對齊 P0 可勾選 backlog |
 | [docs/business-logic.md](docs/business-logic.md) | 01 條文整理 |
+| [docs/adr-0001-scheduling-logic-placement.md](docs/adr-0001-scheduling-logic-placement.md) | ADR：排班演算放置（前端 vs Edge／DB，Seq 36） |
 | [docs/client-delivery-remediation-plan.md](docs/client-delivery-remediation-plan.md) | 對客戶補強與分期交付說明 |
 | [docs/pdf03-cursorrules-alignment.md](docs/pdf03-cursorrules-alignment.md) | PDF 03 × 工程規範對齊、PR 檢核表（Seq 37） |
 | [docs/go-live-checklist.md](docs/go-live-checklist.md) | 上線檢核 |
