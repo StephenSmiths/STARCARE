@@ -18,6 +18,12 @@ export interface AuditTrailRecord {
     | 'RESIDENTS_IMPORT_COMMIT'
     /** 員工 CSV 批量匯入 commit（Edge 落庫審計） */
     | 'STAFF_IMPORT_COMMIT'
+    /** 活動時段 CSV 批量匯入 commit（Edge 落庫審計） */
+    | 'ACTIVITY_SESSIONS_IMPORT_COMMIT'
+    /** 排班 KPI 歷史單筆寫入（Edge） */
+    | 'SCHEDULING_KPI_HISTORY_APPEND'
+    /** 排班 KPI 歷史依 facility 清除（軟刪，Edge） */
+    | 'SCHEDULING_KPI_HISTORY_CLEAR'
     /** PDF 02【11】Team Lead AI 報告中心 */
     | 'AI_REPORT_CENTER_DRAFT_CREATE'
     | 'AI_REPORT_CENTER_BODY_SAVE'
