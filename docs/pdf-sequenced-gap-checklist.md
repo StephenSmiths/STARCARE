@@ -255,3 +255,4 @@
 | 2026-05-03 | **`go-live-checklist.md`** §5：Edge 契約改 **`docs/`** 路徑並納入評估契約；**`README.md`** 增 **`residents-edge-function-contract.md`**；**`business-logic.md`** §0、**`feature-list.md`** §8、**`pdf03`** §4 例句同步。 |
 | 2026-05-03 | **`pdf-alignment-p0-backlog.md`** 工程附錄、**`client-delivery-remediation-plan.md`** §2：補 **`residents-edge-function-contract`**／**`assessment-completion-records-contract`** 鏈結。 |
 | 2026-05-03 | **`feature-list.md`** Edge 表：院友列補 **`residents-edge-function-contract.md`** 鏈結。 |
+| 2026-05-03 | **`go-live-checklist.md`** §8：補 **`assessment-completion-records-contract.md`** 對照；**`.github/workflows/ci.yml`** 註解標明與 **`npm run ci`** 指令集合等同；**`supabase-deploy-runbook.md`** §6 補一句與 **`ci.yml`** 分步對照。 |

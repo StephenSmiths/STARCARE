@@ -89,7 +89,8 @@ limit 20;
 - [ ] 決策人確認：允許正式上線。
 
 ## 8. 審計紀錄（RES-06）正式庫抽測
-與 **`docs/feature-list.md`** 之 **RES-06** 對照；本節勾選完成後，可將該功能列狀態改為 **`已完成`**。
+與 **`docs/feature-list.md`** 之 **RES-06** 對照；本節勾選完成後，可將該功能列狀態改為 **`已完成`**。  
+若上線範圍含評估完成補登，**`assessment-completion-records-append`** 成功後寫入 **`audit_events`** 之欄位與預期，見 **`docs/assessment-completion-records-contract.md`**。
 
 - [ ] 以 **`teamlead`** 或 **`admin`** 登入：儀表 **`/#dashboard`** 首屏底部見 **全域審計摘要**（或等效區塊），列表可載入、無持續性錯誤提示。
 - [ ] 至少開啟一處含 **`AuditTrailPanel`** 的模組（例如 **`/#scheduling`**、**`/#residents`**、**`/#service-forms`**），見審計標題與列表區；與 **`e2e/auth-login.spec.ts`**／**`e2e/auth-login.staff-modules.spec.ts`** 預期一致。
