@@ -21,6 +21,6 @@
 - 前端只使用 `anon` key；`service role` 僅在 Edge/後端環境使用。
 
 ## D. 每次部署後自檢
-1. `npx supabase migration list`：本地/遠端一致。
-2. `npx supabase functions list`：目標 functions 為 `ACTIVE`。
+1. `npx supabase migration list`：本地/遠端一致（或 **`npm run ops:verify`**，見 **`docs/supabase-deploy-runbook.md`** §3）。
+2. `npx supabase functions list`：目標 functions 為 **`ACTIVE`**，且與 **`package.json`** 之 **`ops:deploy:all`** 列舉一致。
 3. 前端走一次「登入 -> 排班 -> 一鍵儲存」閉環測試。

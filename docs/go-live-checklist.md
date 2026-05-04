@@ -18,7 +18,7 @@
 
 ## 2. 部署與版本一致性（DB / Functions）
 - [ ] `npx supabase migration list`：`Local` 與 `Remote` 完全一致（亦可 **`npm run ops:verify`** 併查，見 **`docs/supabase-deploy-runbook.md`** §3）。
-- [ ] `npx supabase functions list`：所有已部署 functions 皆為 **`ACTIVE`**，且覆蓋 **`package.json`** 之 **`ops:deploy:all`** 所列範圍（含 import validate+commit、審計等；**§2** 為建議部署指令）。
+- [ ] `npx supabase functions list`：所有已部署 functions 皆為 **`ACTIVE`**，且覆蓋 **`package.json`** 之 **`ops:deploy:all`** 所列範圍（含 import validate+commit、審計、**service-forms-*** 等；**§2** 為建議部署指令；舊版腳本遺漏之補佈見 **`docs/supabase-deploy-runbook.md`** §2）。新增 Edge 之 PR 檢核見 **`docs/pdf03-cursorrules-alignment.md`** §3。
 - [ ] 本次上線時間與操作者已記錄（留存於內部紀錄）。
 
 ## 3. 智能排班閉環驗收（業務）
@@ -78,7 +78,7 @@ limit 20;
 - [ ] 若儲存失敗，先看前端錯誤訊息，再查 function logs 與 SQL 寫入狀態。
 
 ## 6. 憑證與安全（必做）
-- [ ] 產生新 PAT 後，完成驗證部署。
+- [ ] 產生新 PAT 後，完成驗證部署（細節與部署後自檢見 **`docs/security-token-rotation-checklist.md`**）。
 - [ ] 停用舊 PAT。
 - [ ] 確認 `.env` 未入版控（`.gitignore` 生效）。
 - [ ] 不在聊天與文件中貼出新 PAT/service role key。
