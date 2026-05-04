@@ -1,3 +1,4 @@
+import { isSupabaseBrowserConfigured } from '../services/supabaseBrowserEnv'
 import { buildEdgeInvokeHeaders } from './edgeFunctionHeaders'
 
 export type SchedulingRules = {
@@ -52,12 +53,14 @@ class EdgeSchedulingRulesRepository implements SchedulingRulesRepository {
 }
 
 export const createSchedulingRulesRepository = (): SchedulingRulesRepository => {
-  const env = (import.meta as ImportMeta & { env?: Record<string, string> }).env ?? {}
-  if (env.VITE_SUPABASE_URL && env.VITE_SUPABASE_ANON_KEY) {
-    return new EdgeSchedulingRulesRepository({
-      supabaseUrl: env.VITE_SUPABASE_URL,
-      anonKey: env.VITE_SUPABASE_ANON_KEY,
-    })
+  if (!isSupabaseBrowserConfigured()) {
+    return new InMemorySchedulingRulesRepository()
   }
-  return new InMemorySchedulingRulesRepository()
+  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
+  const supabaseUrl = env.VITE_SUPABASE_URL
+  const anonKey = env.VITE_SUPABASE_ANON_KEY
+  if (!supabaseUrl || !anonKey) {
+    return new InMemorySchedulingRulesRepository()
+  }
+  return new EdgeSchedulingRulesRepository({ supabaseUrl, anonKey })
 }

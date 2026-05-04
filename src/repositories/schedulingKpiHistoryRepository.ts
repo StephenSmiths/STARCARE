@@ -1,4 +1,5 @@
 import type { SchedulingKpiRunRecord } from '../services/schedulingKpiService'
+import { isSupabaseBrowserConfigured } from '../services/supabaseBrowserEnv'
 import { buildEdgeInvokeHeaders } from './edgeFunctionHeaders'
 
 export interface SchedulingKpiHistoryQuery {
@@ -133,15 +134,14 @@ export class EdgeSchedulingKpiHistoryRepository implements SchedulingKpiHistoryR
 }
 
 export const createSchedulingKpiHistoryRepository = (): SchedulingKpiHistoryRepository => {
-  const env: Record<string, string | undefined> = (() => {
-    try {
-      return (import.meta as ImportMeta & { env?: Record<string, string> }).env ?? {}
-    } catch {
-      return {}
-    }
-  })()
+  if (!isSupabaseBrowserConfigured()) {
+    return new InMemorySchedulingKpiHistoryRepository()
+  }
+  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
   const url = env.VITE_SUPABASE_URL
   const key = env.VITE_SUPABASE_ANON_KEY
-  if (url && key) return new EdgeSchedulingKpiHistoryRepository({ supabaseUrl: url, anonKey: key })
-  return new InMemorySchedulingKpiHistoryRepository()
+  if (!url || !key) {
+    return new InMemorySchedulingKpiHistoryRepository()
+  }
+  return new EdgeSchedulingKpiHistoryRepository({ supabaseUrl: url, anonKey: key })
 }

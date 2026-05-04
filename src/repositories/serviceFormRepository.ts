@@ -1,4 +1,5 @@
 import type { ServiceFormRecord } from '../features/serviceForms/types/serviceForm'
+import { isSupabaseBrowserConfigured } from '../services/supabaseBrowserEnv'
 import { buildEdgeInvokeHeaders } from './edgeFunctionHeaders'
 
 export type ServiceFormListOptions = {
@@ -83,12 +84,14 @@ class EdgeServiceFormRepository implements ServiceFormRepository {
 }
 
 export const createServiceFormRepository = (): ServiceFormRepository => {
-  const env = (import.meta as ImportMeta & { env?: Record<string, string> }).env ?? {}
-  if (env.VITE_SUPABASE_URL && env.VITE_SUPABASE_ANON_KEY) {
-    return new EdgeServiceFormRepository({
-      supabaseUrl: env.VITE_SUPABASE_URL,
-      anonKey: env.VITE_SUPABASE_ANON_KEY,
-    })
+  if (!isSupabaseBrowserConfigured()) {
+    return new NullServiceFormRepository()
   }
-  return new NullServiceFormRepository()
+  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
+  const supabaseUrl = env.VITE_SUPABASE_URL
+  const anonKey = env.VITE_SUPABASE_ANON_KEY
+  if (!supabaseUrl || !anonKey) {
+    return new NullServiceFormRepository()
+  }
+  return new EdgeServiceFormRepository({ supabaseUrl, anonKey })
 }

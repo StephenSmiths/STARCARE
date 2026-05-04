@@ -1,4 +1,5 @@
 import type { SchedulingSession } from '../services/schedulingService'
+import { isSupabaseBrowserConfigured } from '../services/supabaseBrowserEnv'
 import { buildEdgeInvokeHeaders } from './edgeFunctionHeaders'
 
 export interface SchedulingSessionRepository {
@@ -81,15 +82,14 @@ export class EdgeSchedulingSessionRepository implements SchedulingSessionReposit
 }
 
 export const createSchedulingSessionRepository = (): SchedulingSessionRepository => {
-  const env: Record<string, string | undefined> = (() => {
-    try {
-      return (import.meta as ImportMeta & { env?: Record<string, string> }).env ?? {}
-    } catch {
-      return {}
-    }
-  })()
+  if (!isSupabaseBrowserConfigured()) {
+    return new InMemorySchedulingSessionRepository()
+  }
+  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
   const url = env.VITE_SUPABASE_URL
   const key = env.VITE_SUPABASE_ANON_KEY
-  if (url && key) return new EdgeSchedulingSessionRepository({ supabaseUrl: url, anonKey: key })
-  return new InMemorySchedulingSessionRepository()
+  if (!url || !key) {
+    return new InMemorySchedulingSessionRepository()
+  }
+  return new EdgeSchedulingSessionRepository({ supabaseUrl: url, anonKey: key })
 }

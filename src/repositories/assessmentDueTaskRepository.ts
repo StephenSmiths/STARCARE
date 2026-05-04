@@ -3,6 +3,7 @@ import {
   buildAssessmentDueTasks,
   type AssessmentDueTask,
 } from '../features/residents/services/assessmentDueTaskService'
+import { isSupabaseBrowserConfigured } from '../services/supabaseBrowserEnv'
 import { buildEdgeInvokeHeaders } from './edgeFunctionHeaders'
 
 /**
@@ -54,20 +55,17 @@ class EdgeBackedAssessmentDueTaskRepository implements AssessmentDueTaskReposito
   }
 }
 
-const readViteEnv = (): Record<string, string | undefined> => {
-  try {
-    return (import.meta as ImportMeta & { env?: Record<string, string> }).env ?? {}
-  } catch {
-    return {}
-  }
-}
-
 export const createAssessmentDueTaskRepository = (): AssessmentDueTaskRepository => {
-  const env = readViteEnv()
+  if (!isSupabaseBrowserConfigured()) {
+    return new LocalAdmissionCycleAssessmentDueTaskRepository()
+  }
+  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
   const url = env.VITE_SUPABASE_URL
   const key = env.VITE_SUPABASE_ANON_KEY
-  if (url && key) return new EdgeBackedAssessmentDueTaskRepository(url, key)
-  return new LocalAdmissionCycleAssessmentDueTaskRepository()
+  if (!url || !key) {
+    return new LocalAdmissionCycleAssessmentDueTaskRepository()
+  }
+  return new EdgeBackedAssessmentDueTaskRepository(url, key)
 }
 
 export const assessmentDueTaskRepository = createAssessmentDueTaskRepository()

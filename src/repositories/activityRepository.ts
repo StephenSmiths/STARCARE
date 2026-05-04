@@ -1,3 +1,4 @@
+import { isSupabaseBrowserConfigured } from '../services/supabaseBrowserEnv'
 import { buildEdgeInvokeHeaders } from './edgeFunctionHeaders'
 
 export type Activity = {
@@ -62,12 +63,14 @@ class EdgeActivityRepository implements ActivityRepository {
 }
 
 export const createActivityRepository = (): ActivityRepository => {
-  const env = (import.meta as ImportMeta & { env?: Record<string, string> }).env ?? {}
-  if (env.VITE_SUPABASE_URL && env.VITE_SUPABASE_ANON_KEY) {
-    return new EdgeActivityRepository({
-      supabaseUrl: env.VITE_SUPABASE_URL,
-      anonKey: env.VITE_SUPABASE_ANON_KEY,
-    })
+  if (!isSupabaseBrowserConfigured()) {
+    return new InMemoryActivityRepository()
   }
-  return new InMemoryActivityRepository()
+  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
+  const supabaseUrl = env.VITE_SUPABASE_URL
+  const anonKey = env.VITE_SUPABASE_ANON_KEY
+  if (!supabaseUrl || !anonKey) {
+    return new InMemoryActivityRepository()
+  }
+  return new EdgeActivityRepository({ supabaseUrl, anonKey })
 }

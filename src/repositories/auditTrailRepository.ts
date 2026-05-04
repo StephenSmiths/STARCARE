@@ -1,5 +1,6 @@
 import type { AuditTrailRecord } from '../services/auditTrailService'
 import { mapAuditTrailApiRow } from '../services/auditTrailRemoteMapper'
+import { isSupabaseBrowserConfigured } from '../services/supabaseBrowserEnv'
 import { buildEdgeInvokeHeaders } from './edgeFunctionHeaders'
 
 /** 01 §5：審計落庫／列表經 Edge（Seq 12）；失敗不拋錯以免阻斷主流程 */
@@ -60,12 +61,14 @@ class EdgeAuditTrailRepository implements AuditTrailRepository {
 }
 
 export const createAuditTrailRepository = (): AuditTrailRepository => {
-  const env = (import.meta as ImportMeta & { env?: Record<string, string> }).env ?? {}
-  if (env.VITE_SUPABASE_URL && env.VITE_SUPABASE_ANON_KEY) {
-    return new EdgeAuditTrailRepository({
-      supabaseUrl: env.VITE_SUPABASE_URL,
-      anonKey: env.VITE_SUPABASE_ANON_KEY,
-    })
+  if (!isSupabaseBrowserConfigured()) {
+    return new NullAuditTrailRepository()
   }
-  return new NullAuditTrailRepository()
+  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
+  const supabaseUrl = env.VITE_SUPABASE_URL
+  const anonKey = env.VITE_SUPABASE_ANON_KEY
+  if (!supabaseUrl || !anonKey) {
+    return new NullAuditTrailRepository()
+  }
+  return new EdgeAuditTrailRepository({ supabaseUrl, anonKey })
 }

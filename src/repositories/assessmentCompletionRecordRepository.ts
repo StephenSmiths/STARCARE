@@ -1,4 +1,5 @@
 import type { AssessmentCompletionRecord } from '../features/assessmentManagement/types/assessmentManagement'
+import { isSupabaseBrowserConfigured } from '../services/supabaseBrowserEnv'
 import { buildEdgeInvokeHeaders } from './edgeFunctionHeaders'
 import {
   mapAssessmentCompletionRecordRow,
@@ -60,20 +61,17 @@ class EdgeAssessmentCompletionRecordRepository implements AssessmentCompletionRe
   }
 }
 
-const readViteEnv = (): Record<string, string | undefined> => {
-  try {
-    return (import.meta as ImportMeta & { env?: Record<string, string> }).env ?? {}
-  } catch {
-    return {}
-  }
-}
-
 export const createAssessmentCompletionRecordRepository = (): AssessmentCompletionRecordRepository => {
-  const env = readViteEnv()
+  if (!isSupabaseBrowserConfigured()) {
+    return new EmptyAssessmentCompletionRecordRepository()
+  }
+  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
   const url = env.VITE_SUPABASE_URL
   const key = env.VITE_SUPABASE_ANON_KEY
-  if (url && key) return new EdgeAssessmentCompletionRecordRepository(url, key)
-  return new EmptyAssessmentCompletionRecordRepository()
+  if (!url || !key) {
+    return new EmptyAssessmentCompletionRecordRepository()
+  }
+  return new EdgeAssessmentCompletionRecordRepository(url, key)
 }
 
 export const assessmentCompletionRecordRepository = createAssessmentCompletionRecordRepository()
