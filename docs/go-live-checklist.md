@@ -78,7 +78,7 @@ limit 20;
 - [ ] 若儲存失敗，先看前端錯誤訊息，再查 function logs 與 SQL 寫入狀態。
 
 ## 6. 憑證與安全（必做）
-- [ ] 產生新 PAT 後，完成驗證部署（細節與部署後自檢見 **`docs/security-token-rotation-checklist.md`**）。
+- [ ] 產生新 PAT 後，完成驗證部署（細節與部署後自檢見 **`docs/security-token-rotation-checklist.md`**；**§D** 含可選 **`npm run ci`**（與 **`.github/workflows/ci.yml`** 同源）及 **`acceptance:*`**／全閘對照鏈結）。
 - [ ] 停用舊 PAT。
 - [ ] 確認 `.env` 未入版控（`.gitignore` 生效）。
 - [ ] 不在聊天與文件中貼出新 PAT/service role key。
