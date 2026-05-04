@@ -93,8 +93,8 @@
 
 | Function | 關聯功能編號（示例） |
 |-----------|----------------------|
-| `residents-list` / `residents-get`（Staff 可讀）／`residents-create`／`residents-update`／`residents-soft-delete`（寫入：**`guardTeamLeadOrAdmin`**） | RES-04～RES-05、RES-03 |
-| `residents-import-validate` / `residents-import-commit` | RES-02 |
+| `residents-list` / `residents-get`（Staff 可讀）／`residents-create`／`residents-update`／`residents-soft-delete`（寫入：**`guardTeamLeadOrAdmin`**；契約見 **`docs/residents-edge-function-contract.md`**） | RES-04～RES-05、RES-03 |
+| `residents-import-validate` / `residents-import-commit`（契約同上） | RES-02 |
 | `staff-import-validate` / `staff-import-commit` | STF-02 |
 | `staff-soft-delete` | STF-01、STF-02（連動 skills／sessions 等） |
 | `staff-skills-list` | STF-01 |
