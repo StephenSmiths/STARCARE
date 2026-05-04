@@ -45,6 +45,7 @@ npm run closeout:phase5:status
 2. 依序執行：
    - `npm run lint`
    - `npm run test`
+   - （本腳本**不含** **`npm run typecheck`**、**`npm run build`**／**`build:demo`**、Playwright；若需與 GitHub Actions 一致之全閘，另執行 **`npm run ci`**，見 **`docs/feature-list.md`** §8、**`docs/supabase-deploy-runbook.md`** §6。）
 3. 若有 `SUPABASE_ACCESS_TOKEN`，額外執行（與 **`docs/supabase-deploy-runbook.md`** §3 對照；亦可 **`npm run ops:verify`**）：
    - `npx supabase migration list`
    - `npx supabase functions list`

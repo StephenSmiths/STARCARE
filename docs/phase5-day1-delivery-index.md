@@ -35,6 +35,7 @@
 
 ## 四、關鍵 npm 指令
 - `npm run acceptance:phase5`
+- **`npm run ci`**（前端儲存庫全閘：`lint`→**`typecheck`**→**`vitest`**→**`build:demo`**→Playwright demo；與 **`.github/workflows/ci.yml`** 指令集合相同；見 **`docs/feature-list.md`** §8、**`docs/supabase-deploy-runbook.md`** §6）
 - **`npm run ops:deploy:all`**（已含 **`db push --yes`** 與全部 Edge；見 **`docs/supabase-deploy-runbook.md`** §2）；僅 schema、暫不重佈 Edge 時可單獨 **`npm run db:push`**
 - `npm run delivery:phase5`
 - `npm run delivery:phase5:zip`
