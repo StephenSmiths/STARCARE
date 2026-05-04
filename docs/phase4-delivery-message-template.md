@@ -22,6 +22,8 @@
 如需重跑自動驗收，請執行：
 `npm run acceptance:day4`
 
+若需與 GitHub Actions **全閘**一致（含 **`typecheck`**、**`build:demo`**、Playwright），請另執行 **`npm run ci`**（見 **`docs/feature-list.md`** §8、**`docs/phase4-day4-automation-runbook.md`** §三）。
+
 謝謝。
 
 ---

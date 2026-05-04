@@ -30,6 +30,8 @@
 - `npm run closeout:phase5:summary`
 - `npm run closeout:phase5:status`
 
+若需與 GitHub Actions **全閘**一致（含 **`typecheck`**、**`build:demo`**、Playwright），請另執行 **`npm run ci`**（見 **`docs/feature-list.md`** §8、**`docs/phase5-day1-automation-runbook.md`** §三）。
+
 謝謝。
 
 ---

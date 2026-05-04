@@ -2,6 +2,7 @@
 
 ## 一、用途
 - 配合 `npm run acceptance:day4` 的自動驗收，補上人工 UI Smoke Test（約 5-10 分鐘）。
+- （可選）與 **`.github/workflows/ci.yml`** 一致之程式閘門：**`npm run ci`**（**`acceptance:day4`** 不含 **`typecheck`**、**`build:demo`**、Playwright；見 **`docs/feature-list.md`** §8。）
 
 ## 二、檢核步驟（手動）
 
