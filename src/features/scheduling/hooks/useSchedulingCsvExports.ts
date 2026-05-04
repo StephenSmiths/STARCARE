@@ -3,6 +3,7 @@ import type { SchedulingResident } from '../../../services/schedulingService'
 import { getWeeklyTargetByFundingType } from '../../../services/schedulingTargets'
 import { downloadWeeklyComplianceCsv } from '../../../services/weeklyComplianceCsvService'
 import { downloadSchedulingComplianceAlertsCsv } from '../../../services/schedulingComplianceAlertCsvService'
+import { hydrateAuditTrailAfterLocalRecord } from '../../../services/auditTrailHydrationService'
 import { globalAuditTrailService } from '../../../services/auditTrailService'
 import type { SchedulingComplianceAlert } from '../../../services/schedulingComplianceAlertService'
 
@@ -35,6 +36,7 @@ export const useSchedulingCsvExports = (
       detail: '匯出週三 0 次高優先提醒清單（CSV）',
       occurredAt: new Date().toISOString(),
     })
+    hydrateAuditTrailAfterLocalRecord()
   }, [actorId, complianceAlerts])
 
   return { exportWeeklyComplianceCsv, exportComplianceAlertsCsv }

@@ -1,6 +1,7 @@
 import { useCallback, useRef, useState } from 'react'
 import { useAuthActorId } from '../../auth'
 import { listAiReports, persistAiReports } from '../../../repositories/aiReportCenterRepository'
+import { hydrateAuditTrailAfterLocalRecord } from '../../../services/auditTrailHydrationService'
 import { globalAuditTrailService } from '../../../services/auditTrailService'
 import type { AiReportRecord } from '../types/aiReportCenter'
 import {
@@ -45,6 +46,7 @@ export const useAiReportCenterWorkspace = () => {
         detail: `AI 報告草稿建立：${created.title}`,
         occurredAt: new Date().toISOString(),
       })
+      hydrateAuditTrailAfterLocalRecord()
     } catch (e) {
       setError(e instanceof Error ? e.message : '建立失敗')
     } finally {
@@ -70,6 +72,7 @@ export const useAiReportCenterWorkspace = () => {
         detail: 'AI 報告草稿內容更新',
         occurredAt: new Date().toISOString(),
       })
+      hydrateAuditTrailAfterLocalRecord()
     } catch (e) {
       setError(e instanceof Error ? e.message : '儲存失敗')
     } finally {
@@ -97,6 +100,7 @@ export const useAiReportCenterWorkspace = () => {
           detail: 'AI 報告採用為正式版本',
           occurredAt: new Date().toISOString(),
         })
+        hydrateAuditTrailAfterLocalRecord()
       } catch (e) {
         setError(e instanceof Error ? e.message : '採用失敗')
       } finally {
@@ -125,6 +129,7 @@ export const useAiReportCenterWorkspace = () => {
           detail: 'AI 報告發放（占位：待接通知／對象清單）',
           occurredAt: new Date().toISOString(),
         })
+        hydrateAuditTrailAfterLocalRecord()
       } catch (e) {
         setError(e instanceof Error ? e.message : '發放失敗')
       } finally {

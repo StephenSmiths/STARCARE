@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState, type FormEvent } from 'react'
 import { useAuth, useAuthActorId } from '../../auth'
+import { hydrateAuditTrailAfterLocalRecord } from '../../../services/auditTrailHydrationService'
 import { globalAuditTrailService } from '../../../services/auditTrailService'
 import { ResidentsAdminWriteSections } from './ResidentsAdminWriteSections'
 import { ResidentsListPanel } from './ResidentsListPanel'
@@ -130,6 +131,7 @@ export const ResidentsDashboard = () => {
       detail: '匯出院友名單（CSV／Excel 可開）',
       occurredAt: new Date().toISOString(),
     })
+    hydrateAuditTrailAfterLocalRecord()
   }
 
   return (

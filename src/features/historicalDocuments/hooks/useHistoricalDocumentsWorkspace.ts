@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useAuthActorId } from '../../auth'
 import { loadApprovedServiceFormsDbPrimary } from '../../../repositories/serviceFormSyncService'
 import { loadServiceForms } from '../../../services/serviceFormStorage'
+import { hydrateAuditTrailAfterLocalRecord } from '../../../services/auditTrailHydrationService'
 import { globalAuditTrailService } from '../../../services/auditTrailService'
 import type { ServiceFormRecord } from '../../serviceForms/types/serviceForm'
 import { downloadApprovedServiceFormsCsv } from '../services/approvedServiceFormsCsvService'
@@ -87,6 +88,7 @@ export const useHistoricalDocumentsWorkspace = (): HistoricalDocumentsWorkspace 
         detail: `匯出已核准服務紀錄（CSV／Excel 可開）：${rows.length} 筆`,
         occurredAt: new Date().toISOString(),
       })
+      hydrateAuditTrailAfterLocalRecord()
     } finally {
       exportLock.current = false
       setIsExporting(false)

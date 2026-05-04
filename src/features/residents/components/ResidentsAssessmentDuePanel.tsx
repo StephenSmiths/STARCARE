@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { uiTokens } from '../../shared/ui/uiTokens'
+import { hydrateAuditTrailAfterLocalRecord } from '../../../services/auditTrailHydrationService'
 import { globalAuditTrailService } from '../../../services/auditTrailService'
 import { assessmentDueTaskRepository } from '../../../repositories/assessmentDueTaskRepository'
 import { downloadAssessmentDueTasksCsv } from '../services/assessmentDueTaskCsvService'
@@ -37,6 +38,7 @@ export const ResidentsAssessmentDuePanel = ({ actorId, residents }: ResidentsAss
       detail: '匯出評估到期待辦清單（CSV）',
       occurredAt: new Date().toISOString(),
     })
+    hydrateAuditTrailAfterLocalRecord()
   }
 
   return (
