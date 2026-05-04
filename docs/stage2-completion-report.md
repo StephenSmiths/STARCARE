@@ -1,5 +1,7 @@
 # STARCARE Stage 2 完成報告
 
+> **對照**：歷史追溯用；後續分階與驗收見 **`docs/phase3-day5-acceptance.md`** 起；運維與文件總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）。
+
 ## 一、範圍與結論
 - Stage 2 目標：由 Stage 1 MVP 進一步補強「真實排班模型」與「批量匯入閉環」。
 - 結論：Stage 2 核心範圍已完成，並通過功能驗收與基本壓測（500 筆 CSV）。

@@ -1,5 +1,7 @@
 # STARCARE Stage 2 對外進度摘要（一頁版）
 
+> **對照**：內部完成報告 **`docs/stage2-completion-report.md`**；後續階段與閘門 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）、**`docs/phase3-day5-acceptance.md`**（及 Phase 4／5 交付索引）。
+
 ## 專案狀態
 - **階段**：Stage 2 已完成核心交付。
 - **整體結論**：系統已由 MVP 升級至「可配置排班 + 批量匯入」可用版本，具備實際院舍場景運行能力。

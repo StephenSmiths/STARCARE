@@ -1,5 +1,7 @@
 # STARCARE Phase 3 Day 5 對外摘要（一頁版）
 
+> **對照**：技術驗收 **`docs/phase3-day5-acceptance.md`**；運維總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；Phase 4 起 **`docs/phase4-day4-delivery-index.md`**。
+
 ## 專案狀態
 - **階段**：Phase 3 Day 5 已完成。
 - **整體結論**：匯入功能由「可用」提升至「可管理、可追蹤、可驗收」。

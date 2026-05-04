@@ -1,5 +1,7 @@
 # STARCARE Phase 3 Day 3 完成紀錄
 
+> **對照**：同 Phase 收口見 **`docs/phase3-day5-acceptance.md`**、**`docs/phase3-day5-acceptance-result-2026-04-30.md`**；運維總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）。
+
 ## 一、目標
 - 完成「活動時段批量匯入」閉環：CSV 上傳 → Dry-run 預檢 → Commit 寫入 → 結果驗證。
 
