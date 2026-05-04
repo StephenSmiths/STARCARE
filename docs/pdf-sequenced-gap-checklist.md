@@ -230,4 +230,4 @@
 | 2026-05-03 | 更新 CORE-05：**`schedulingSurfaces`** 增 **`schedulingStatCardTitleAmber900`**（**`SchedulingKpiCards`** 週三警示標題）；**`extended`** 以 **`layoutFlexWrapBetweenGap2Py2`** 取代 **`composerDraftRow`**（**`WorkPlanComposerPanel`** 草稿列）。 |
 | 2026-05-03 | 更新 **`docs/feature-list.md`**：**CORE-05**（**`uiTokens`**）狀態改為 **`已完成`**（現況：`src` 內 TSX 樣式收斂與裸字串／條件字面量清理達標；後續新畫面為維護性延續）。 |
 | 2026-05-03 | 更新 Seq 3／CI：**`npm run build:demo`**（建置時清空 **`VITE_SUPABASE_*`**）、**`npm run ci`**／**`test:e2e:smoke`** 與 **`.github/workflows/ci.yml`** 對齊；**`.env.example`**、**`go-live-checklist.md`** §1.1、**`feature-list.md`** §8 補本機與 demo bundle 一致之說明。 |
-| 2026-05-03 | 新增 **`docs/go-live-checklist.md`** §8：**RES-06** 審計正式庫抽測（儀表摘要、`AuditTrailPanel`、`audit_events` SQL、RLS）；**`feature-list.md`** RES-06 備註交叉引用 §8。 |
+| 2026-05-03 | 新增 **`docs/go-live-checklist.md`** §8：**RES-06** 審計正式庫抽測（儀表摘要、`AuditTrailPanel`、`audit_events` SQL、RLS）；**`feature-list.md`** RES-06 備註與 §8「建議後續補強」第 2 點交叉引用 go-live §8。 |

@@ -113,7 +113,7 @@
 ## 8. 建議後續補強（非功能清單本體）
 
 1. **SOP 欄**：與 PDF／`business-logic.md` 對照後，於各列補 **章節編號**。  
-2. **RES-06**：審計已落庫並於登入後經 `audit-trail-list` 合併；待實庫抽測後再改為 `已完成`。  
+2. **RES-06**：審計已落庫並於登入後經 `audit-trail-list` 合併；待實庫抽測後再改為 `已完成`（抽測勾選項見 **`docs/go-live-checklist.md`** §8）。  
 3. **README**：已改為 STARCARE 專案入口（文件表、`npm run ci`／E2E 說明、CI 連結）；範本長文已收斂為選讀連結。  
 4. **Release**：版本發佈時更新「狀態」與「未開始」列，避免與銷售／驗收口徑漂移。  
 5. **Playwright 煙霧**（與 `docs/pdf-sequenced-gap-checklist.md` Seq 3 對照）：`e2e/smoke.spec.ts` 於 demo（`webServer` 清空 `VITE_SUPABASE_*`）下覆蓋 `src/app/viewRouting.ts` 之 **全部** `ViewId`（`#dashboard` 首屏含 **全域審計摘要**；其餘路由以 `HASH_AUDIT_CASES` 資料表驅動：模組標題與審計區，或手冊「快速上手」）；**表單狀態**見 `e2e/service-forms-state.spec.ts`、`e2e/service-forms-readonly.spec.ts`＋`e2e/helpers/serviceFormsDemo.ts`（種子：`goto`→`evaluate`→`reload`；含草稿、**提交待審**、**不可自審**（核准與退回）、核准、退回 UI、退回後再儲、**SUBMITTED 軟刪除**、**已核准／已提交檢視鎖定**）；本機有 `.env` 之 Supabase 時須先 **`npm run build:demo`** 再 **`PW_PREVIEW_ONLY=1 npm run test:e2e`**，或使用 **`npm run test:e2e:smoke`**／**`npm run ci`** 一鍵。  
