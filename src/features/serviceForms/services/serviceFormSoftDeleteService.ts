@@ -23,20 +23,24 @@ export const softDeleteServiceForm = async (
   role: StarcareRole,
   actorId: string,
   form: ServiceFormRecord,
+  skipRemoteAuditPersist = false,
 ): Promise<void> => {
   assertServiceFormSoftDeletable(role, actorId, form)
   const repo = createServiceFormRepository()
   await repo.softDeleteForm(form.id)
   removeServiceFormById(form.id)
   const ts = new Date().toISOString()
-  globalAuditTrailService.record({
-    action: 'FORM_SOFT_DELETE',
-    entityType: 'Scheduling',
-    entityId: form.id,
-    actorId,
-    beforeState: JSON.stringify({ status: form.status, sessionId: form.sessionId }),
-    afterState: null,
-    detail: '軟刪除服務表單（本機＋DB is_deleted）',
-    occurredAt: ts,
-  })
+  globalAuditTrailService.record(
+    {
+      action: 'FORM_SOFT_DELETE',
+      entityType: 'Scheduling',
+      entityId: form.id,
+      actorId,
+      beforeState: JSON.stringify({ status: form.status, sessionId: form.sessionId }),
+      afterState: null,
+      detail: '軟刪除服務表單（本機＋DB is_deleted）',
+      occurredAt: ts,
+    },
+    skipRemoteAuditPersist,
+  )
 }

@@ -14,6 +14,10 @@ export interface AuditTrailRecord {
     | 'STAFF_EXPORT'
     /** PDF 02【12】院友名單匯出（CSV） */
     | 'RESIDENTS_EXPORT'
+    /** 院友 CSV 批量匯入 commit（Edge 落庫審計） */
+    | 'RESIDENTS_IMPORT_COMMIT'
+    /** 員工 CSV 批量匯入 commit（Edge 落庫審計） */
+    | 'STAFF_IMPORT_COMMIT'
     /** PDF 02【11】Team Lead AI 報告中心 */
     | 'AI_REPORT_CENTER_DRAFT_CREATE'
     | 'AI_REPORT_CENTER_BODY_SAVE'

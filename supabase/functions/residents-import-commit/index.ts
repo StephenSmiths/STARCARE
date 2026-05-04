@@ -1,4 +1,5 @@
-import { guardTeamLeadOrAdmin } from '../_shared/guardTeamLeadOrAdmin.ts'
+import { insertAuditEvent } from '../_shared/insertAuditEvent.ts'
+import { requireTeamLeadOrAdmin } from '../_shared/guardTeamLeadOrAdmin.ts'
 import { emptyOk, json } from '../_shared/http.ts'
 import { getServiceClient } from '../_shared/supabaseAdmin.ts'
 
@@ -33,13 +34,14 @@ const assertRows = (rows: PreviewRow[]): string | null => {
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return emptyOk()
   if (req.method !== 'POST') return json({ error: '僅支援 POST' }, 405)
-  const denied = await guardTeamLeadOrAdmin(req)
-  if (denied) return denied
+  const auth = await requireTeamLeadOrAdmin(req)
+  if (auth instanceof Response) return auth
   try {
     const body = (await req.json()) as { rows?: PreviewRow[]; actorId?: string }
     const rows = body.rows ?? []
     const actorId = String(body.actorId ?? '').trim()
     if (!actorId) return json({ error: '缺少 actorId' }, 400)
+    if (actorId !== auth.user.id) return json({ error: 'actorId 必須為目前登入者' }, 403)
     const invalidReason = assertRows(rows)
     if (invalidReason) return json({ error: invalidReason }, 400)
 
@@ -66,6 +68,7 @@ Deno.serve(async (req) => {
       return json({ error: `床號已存在：${occupied.join(', ')}` }, 409)
     }
 
+    const batchId = `residents-import-${crypto.randomUUID()}`
     const insertRows: InsertRow[] = rows.map((row) => ({
       id: `resident-${crypto.randomUUID()}`,
       ...row,
@@ -74,11 +77,26 @@ Deno.serve(async (req) => {
     const { error: insertErr } = await supabase.from('residents').insert(insertRows)
     if (insertErr) return json({ error: insertErr.message }, 400)
 
+    const residentIds = insertRows.map((r) => r.id)
+    const audit = await insertAuditEvent(supabase, {
+      action: 'RESIDENTS_IMPORT_COMMIT',
+      entity_type: 'Resident',
+      entity_id: batchId,
+      actor_id: actorId,
+      before_state: null,
+      after_state: JSON.stringify({ count: insertRows.length, batchId, residentIds }),
+      detail: `院友 CSV 批量匯入（batch=${batchId}）`,
+    })
+    if (!audit.ok) {
+      await supabase.from('residents').update({ is_deleted: true }).in('id', residentIds).eq('is_deleted', false)
+      return json({ error: `審計落庫失敗，已回溯本次匯入（軟刪）：${audit.message}` }, 500)
+    }
+
     return json({
       ok: true,
       inserted: insertRows.length,
       actorId,
-      residentIds: insertRows.map((r) => r.id),
+      residentIds,
     })
   } catch (error) {
     return json({ error: String(error) }, 500)

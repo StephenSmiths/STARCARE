@@ -43,6 +43,7 @@ export const upsertDraftServiceForm = (
   residentName: string,
   narrative: string,
   existingId: string | null,
+  skipRemoteAuditPersist = false,
 ): ServiceFormRecord => {
   assertStaffOwnsSession(session, staffProfileId)
   const ts = nowIso()
@@ -79,16 +80,19 @@ export const upsertDraftServiceForm = (
     updatedAt: ts,
   }
   upsertServiceForm(row)
-  globalAuditTrailService.record({
-    action: 'FORM_DRAFT_UPSERT',
-    entityType: 'Scheduling',
-    entityId: row.id,
-    actorId,
-    beforeState: existing ? JSON.stringify({ status: existing.status }) : null,
-    afterState: JSON.stringify({ status: row.status, sessionId: row.sessionId }),
-    detail: '儲存服務表單草稿',
-    occurredAt: ts,
-  })
+  globalAuditTrailService.record(
+    {
+      action: 'FORM_DRAFT_UPSERT',
+      entityType: 'Scheduling',
+      entityId: row.id,
+      actorId,
+      beforeState: existing ? JSON.stringify({ status: existing.status }) : null,
+      afterState: JSON.stringify({ status: row.status, sessionId: row.sessionId }),
+      detail: '儲存服務表單草稿',
+      occurredAt: ts,
+    },
+    skipRemoteAuditPersist,
+  )
   return row
 }
 
@@ -97,6 +101,7 @@ export const submitServiceForm = (
   staffProfileId: string | null,
   form: ServiceFormRecord,
   session: SchedulingSession,
+  skipRemoteAuditPersist = false,
 ): ServiceFormRecord => {
   assertStaffOwnsSession(session, staffProfileId)
   assertSessionAcceptedForSubmit(session.id)
@@ -112,16 +117,19 @@ export const submitServiceForm = (
     submittedAt: ts,
   }
   upsertServiceForm(next)
-  globalAuditTrailService.record({
-    action: 'FORM_SUBMIT',
-    entityType: 'Scheduling',
-    entityId: form.id,
-    actorId,
-    beforeState: JSON.stringify({ status: form.status }),
-    afterState: JSON.stringify({ status: 'SUBMITTED' }),
-    detail: '提交服務表單待審',
-    occurredAt: ts,
-  })
+  globalAuditTrailService.record(
+    {
+      action: 'FORM_SUBMIT',
+      entityType: 'Scheduling',
+      entityId: form.id,
+      actorId,
+      beforeState: JSON.stringify({ status: form.status }),
+      afterState: JSON.stringify({ status: 'SUBMITTED' }),
+      detail: '提交服務表單待審',
+      occurredAt: ts,
+    },
+    skipRemoteAuditPersist,
+  )
   return next
 }
 
@@ -129,6 +137,7 @@ export const approveServiceForm = (
   role: StarcareRole,
   reviewerActorId: string,
   form: ServiceFormRecord,
+  skipRemoteAuditPersist = false,
 ): ServiceFormRecord => {
   if (!hasPermission(role, 'action:approve-form')) throw new Error('無審批權限')
   if (!canApproveForm(role, reviewerActorId, form.ownerActorId)) throw new Error('不可審批本人表單')
@@ -143,16 +152,19 @@ export const approveServiceForm = (
     reviewNote: null,
   }
   upsertServiceForm(next)
-  globalAuditTrailService.record({
-    action: 'FORM_APPROVE',
-    entityType: 'Scheduling',
-    entityId: form.id,
-    actorId: reviewerActorId,
-    beforeState: JSON.stringify({ status: 'SUBMITTED' }),
-    afterState: JSON.stringify({ status: 'APPROVED' }),
-    detail: '核准服務表單（已鎖定）',
-    occurredAt: ts,
-  })
+  globalAuditTrailService.record(
+    {
+      action: 'FORM_APPROVE',
+      entityType: 'Scheduling',
+      entityId: form.id,
+      actorId: reviewerActorId,
+      beforeState: JSON.stringify({ status: 'SUBMITTED' }),
+      afterState: JSON.stringify({ status: 'APPROVED' }),
+      detail: '核准服務表單（已鎖定）',
+      occurredAt: ts,
+    },
+    skipRemoteAuditPersist,
+  )
   completeWorkSessionAfterFormApproved(form.sessionId, reviewerActorId)
   return next
 }
@@ -162,6 +174,7 @@ export const rejectServiceFormRevision = (
   reviewerActorId: string,
   form: ServiceFormRecord,
   reviewNote: string,
+  skipRemoteAuditPersist = false,
 ): ServiceFormRecord => {
   if (!hasPermission(role, 'action:approve-form')) throw new Error('無審批權限')
   if (!canApproveForm(role, reviewerActorId, form.ownerActorId)) throw new Error('不可審批本人表單')
@@ -178,15 +191,18 @@ export const rejectServiceFormRevision = (
     reviewNote: note,
   }
   upsertServiceForm(next)
-  globalAuditTrailService.record({
-    action: 'FORM_REJECT_REVISION',
-    entityType: 'Scheduling',
-    entityId: form.id,
-    actorId: reviewerActorId,
-    beforeState: JSON.stringify({ status: 'SUBMITTED' }),
-    afterState: JSON.stringify({ status: 'REJECTED_NEEDS_REVISION', reviewNote: note }),
-    detail: '退回服務表單待重改',
-    occurredAt: ts,
-  })
+  globalAuditTrailService.record(
+    {
+      action: 'FORM_REJECT_REVISION',
+      entityType: 'Scheduling',
+      entityId: form.id,
+      actorId: reviewerActorId,
+      beforeState: JSON.stringify({ status: 'SUBMITTED' }),
+      afterState: JSON.stringify({ status: 'REJECTED_NEEDS_REVISION', reviewNote: note }),
+      detail: '退回服務表單待重改',
+      occurredAt: ts,
+    },
+    skipRemoteAuditPersist,
+  )
   return next
 }

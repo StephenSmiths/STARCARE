@@ -11,6 +11,11 @@ import {
 import { createStaffSkillsRepository } from '../../../repositories/staffSkillsRepository'
 import { schedulingConfigService } from '../../../services/schedulingConfigService'
 
+const skipRemoteStaffAuditPersist = (): boolean => {
+  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
+  return !!(env.VITE_SUPABASE_URL && env.VITE_SUPABASE_ANON_KEY)
+}
+
 export type StaffServiceScope = 'Subsidized_Rehab' | 'Dementia_Care' | 'Both'
 
 export interface StaffOverviewRow {
@@ -72,34 +77,40 @@ export class StaffManagementService {
     auditBefore: Pick<StaffOverviewRow, 'staffName' | 'roleType' | 'serviceScope'>,
   ): Promise<void> {
     await staffProfileUpdateRepository.updateStaffProfile({ ...input, actorId })
-    globalAuditTrailService.record({
-      action: 'UPDATE',
-      entityType: 'Staff',
-      entityId: input.staffId,
-      actorId,
-      beforeState: JSON.stringify(auditBefore),
-      afterState: JSON.stringify({
-        staffName: input.displayName,
-        roleType: input.roleType,
-        serviceScope: input.serviceScope,
-      }),
-      detail: '更新員工主檔（display_name／role_type／service_scope）',
-      occurredAt: new Date().toISOString(),
-    })
+    globalAuditTrailService.record(
+      {
+        action: 'UPDATE',
+        entityType: 'Staff',
+        entityId: input.staffId,
+        actorId,
+        beforeState: JSON.stringify(auditBefore),
+        afterState: JSON.stringify({
+          staffName: input.displayName,
+          roleType: input.roleType,
+          serviceScope: input.serviceScope,
+        }),
+        detail: '更新員工主檔（display_name／role_type／service_scope）',
+        occurredAt: new Date().toISOString(),
+      },
+      skipRemoteStaffAuditPersist(),
+    )
   }
 
   async softDeleteStaff(actorId: string, staffId: string): Promise<void> {
     await staffProfileRepository.softDeleteStaffProfile(staffId)
-    globalAuditTrailService.record({
-      action: 'SOFT_DELETE',
-      entityType: 'Staff',
-      entityId: staffId,
-      actorId,
-      beforeState: JSON.stringify({ staffId, isDeleted: false }),
-      afterState: JSON.stringify({ staffId, isDeleted: true }),
-      detail: '軟刪除員工資料',
-      occurredAt: new Date().toISOString(),
-    })
+    globalAuditTrailService.record(
+      {
+        action: 'SOFT_DELETE',
+        entityType: 'Staff',
+        entityId: staffId,
+        actorId,
+        beforeState: JSON.stringify({ staffId, isDeleted: false }),
+        afterState: JSON.stringify({ staffId, isDeleted: true }),
+        detail: '軟刪除員工資料',
+        occurredAt: new Date().toISOString(),
+      },
+      skipRemoteStaffAuditPersist(),
+    )
   }
 }
 
