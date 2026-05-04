@@ -1,7 +1,8 @@
 # STARCARE 補強與交付計劃（客戶對齊版）
 
 > **文件用途**：說明我方如何依**客戶提供且已簽核之 PDF** 進行補強、驗收與交付，可作為與客戶會議／郵件附件之**單一說明文件**。  
-> **權威來源**：`docs/pdf/01-STARCare-核心業務邏輯與-SOP.pdf`、`docs/pdf/02-STARCARE-智能院舍照護管理系統.pdf`、`docs/pdf/03-STARCARE-工程規範-Closed-Loop.pdf`（以下合稱「**三份母本**」）。
+> **權威來源**：`docs/pdf/01-STARCare-核心業務邏輯與-SOP.pdf`、`docs/pdf/02-STARCARE-智能院舍照護管理系統.pdf`、`docs/pdf/03-STARCARE-工程規範-Closed-Loop.pdf`（以下合稱「**三份母本**」）。  
+> **內部工程入口（非對客戶正文）**：運維、CI、憑證總覽見 **`docs/business-logic.md`** §0（**`.cursorrules`** §3「部署與驗收閘門」）、**`README.md`**；與 **§2**「文件層補強」所列路徑一致。
 
 ---
 
@@ -143,6 +144,7 @@
 | 2026-05-03 | **`security-token-rotation-checklist.md`** 標題下增對照 **`business-logic.md`** §0、**`go-live-checklist.md`**、**`supabase-deploy-runbook.md`**（與上線／runbook／pdf03 一致）。 |
 | 2026-05-03 | **`feature-list.md`**、**`pdf-alignment-p0-backlog.md`**、**`adr-0001`**、**`rbac-seq1-verification-checklist.md`**：開首增 **對照** **`business-logic.md`** §0／**`.cursorrules`** §3。 |
 | 2026-05-03 | **`residents-edge-function-contract.md`**、**`assessment-completion-records-contract.md`**：開首增 **對照**（**`business-logic.md`** §0、**`go-live-checklist.md`**）。 |
+| 2026-05-03 | 開首增 **內部工程入口**（**`business-logic.md`** §0、**`.cursorrules`** §3、**`README.md`**）；**`phase3-day5-acceptance.md`** 增 Phase 4／5 與 **`business-logic.md`** §0 **對照**。 |
 
 ---
 
