@@ -1,6 +1,6 @@
 # STARCARE Supabase 部署與驗收 Runbook
 
-> **對照**：**`docs/business-logic.md`** §0（**`.cursorrules`** §3「部署與驗收閘門」）；PAT／部署後自檢（可選 **`npm run ci`**）見 **`docs/security-token-rotation-checklist.md`** **§D**。
+> **對照**：**`docs/business-logic.md`** §0（**`.cursorrules`** §3「部署與驗收閘門」）；PAT／部署後自檢（可選 **`npm run ci`**）見 **`docs/security-token-rotation-checklist.md`** **§D**；序號清單主檔「**運維與工程**」路徑彙列見 **`docs/pdf-sequenced-gap-checklist.md`**（與 **`go-live-checklist.md`**、本 runbook、憑證清單同列）。
 
 ## 1) 前置條件
 - 已安裝 Node.js 與 npm。

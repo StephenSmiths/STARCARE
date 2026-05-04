@@ -290,3 +290,4 @@
 | 2026-05-06 | **`.cursorrules`** §3、**`pdf-alignment-p0-backlog.md`** 工程附錄、**`feature-list.md`** §8／頁尾、**`pdf03-cursorrules-alignment.md`** §3：補 **`.cursorrules`** §3 與序號主檔「**運維與工程**」列之閉環同步說明。 |
 | 2026-05-07 | **`README.md`** 開頭與文件表 **`pdf-sequenced-gap-checklist.md`** 列：補「**運維與工程**」與 **§0**／**§3** 對齊；**`feature-list.md`** §8 README 項、**`pdf03`** §3「文件入口」同步。 |
 | 2026-05-08 | 標題下增 **對照**（**`business-logic.md`** §0、**`README`**、**`pdf-alignment-p0-backlog.md`**、主檔「**運維與工程**」）；**`go-live-checklist.md`** 開首 **對照** 補 **`pdf-sequenced`**；**`ci.yml`** 註解補文件入口；**`pdf03`** §3「文件入口」補 **`ci.yml`**、§4 維護補主檔 **對照**；**`feature-list.md`** §8 CI 項同步。 |
+| 2026-05-09 | **`supabase-deploy-runbook.md`**、**`security-token-rotation-checklist.md`**、**`rbac-seq1-verification-checklist.md`** 開首 **對照** 補 **`pdf-sequenced`**「**運維與工程**」列（與 **go-live**／runbook／憑證同列）。 |

@@ -1,6 +1,6 @@
 # STARCARE Token 輪替與憑證安全清單
 
-> **對照**：運維、部署與前端 **`npm run ci`** 等文件總覽見 **`docs/business-logic.md`** §0（**`.cursorrules`** §3「部署與驗收閘門」）；上線勾選項見 **`docs/go-live-checklist.md`**；Supabase 部署見 **`docs/supabase-deploy-runbook.md`**。
+> **對照**：運維、部署與前端 **`npm run ci`** 等文件總覽見 **`docs/business-logic.md`** §0（**`.cursorrules`** §3「部署與驗收閘門」）；上線勾選項見 **`docs/go-live-checklist.md`**；Supabase 部署見 **`docs/supabase-deploy-runbook.md`**；序號清單主檔「**運維與工程**」路徑彙列見 **`docs/pdf-sequenced-gap-checklist.md`**（與本檔、**`go-live`**、**`runbook`** 同列）。
 
 ## 目標
 降低憑證暴露風險，確保後續部署流程可持續。

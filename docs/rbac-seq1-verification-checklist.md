@@ -2,7 +2,7 @@
 
 > 對齊母本：`docs/pdf/01-STARCare-核心業務邏輯與-SOP.pdf` §1（RBAC）  
 > 用途：提供可重複執行的抽測步驟，驗證前端導覽／路由守門與後端授權一致。  
-> **對照**：運維與閘門總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；審計正式庫抽測 **`docs/go-live-checklist.md`** §8。
+> **對照**：運維與閘門總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；審計正式庫抽測 **`docs/go-live-checklist.md`** §8；序號主檔「**運維與工程**」列見 **`docs/pdf-sequenced-gap-checklist.md`**。
 
 ---
 
