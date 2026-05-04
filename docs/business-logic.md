@@ -20,7 +20,8 @@
 **評估完成紀錄 Edge 契約（Seq 22）**：見 **`docs/assessment-completion-records-contract.md`**。  
 **院友 Edge 契約**：見 **`docs/residents-edge-function-contract.md`**。  
 **運維與部署 Runbook**：見 **`docs/supabase-deploy-runbook.md`**（Supabase 部署、SQL 驗收；**§6** 可選前端 **`npm run ci`**，與 GitHub Actions 同源）。  
-**憑證與 PAT 輪替**：見 **`docs/security-token-rotation-checklist.md`**。
+**憑證與 PAT 輪替**：見 **`docs/security-token-rotation-checklist.md`**。  
+**分階交付與自動驗收索引**：**`docs/phase4-day4-delivery-index.md`**、**`docs/phase5-day1-delivery-index.md`**（窄版 **`acceptance:*`** 與 **`npm run ci`** 全閘對照見各索引及 **`docs/feature-list.md`** §8）。
 
 ### 0.1 三份母本版本追蹤（Seq 38）
 

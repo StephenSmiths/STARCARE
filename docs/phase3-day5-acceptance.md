@@ -80,3 +80,6 @@
 - 驗收人：
 - 結果：Go / No-Go
 - 備註：
+
+## 九、續維護（與 CI 全閘對齊）
+- 本清單 **§七** 之 **`lint`／`test`／`build`** 為當時最低閘門；與 **`.github/workflows/ci.yml`** **指令集合一致**之程式全閘請執行 **`npm run ci`**（含 **`typecheck`**、**`build:demo`**、Playwright）。見 **`docs/feature-list.md`** §8、**`docs/supabase-deploy-runbook.md`** §6。後續 Phase 之窄版自動驗收見 **`docs/phase4-day4-delivery-index.md`**、**`docs/phase5-day1-delivery-index.md`**（各附 **`acceptance:*`** 與 **`npm run ci`** 對照）。
