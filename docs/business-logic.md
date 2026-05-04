@@ -17,6 +17,7 @@
 **依序補回 Feature／缺漏**：見 **`docs/pdf-sequenced-gap-checklist.md`**（Seq **1～38**：01 鐵律→02【1】～【16】→03 工程對照；開首 **對照**；主檔「**運維與工程**」列與本節及 **`README.md`**、**`.cursorrules`** §3 對齊）。  
 **母本 P0 可勾選 backlog**：見 **`docs/pdf-alignment-p0-backlog.md`**（與上列序號檢核配套）。  
 **架構決策（排班演算放置，Seq 36）**：見 **`docs/adr-0001-scheduling-logic-placement.md`**。  
+**母本 03／工程治理對照骨架（Seq 35～38）**：**`docs/seq35-pdf03-cursorrules-alignment-traceability.md`**（起鏈）；矩陣與 PR 檢核 **`docs/pdf03-cursorrules-alignment.md`**；總表 **`docs/pdf-sequenced-gap-checklist.md`** **C**。  
 **評估完成紀錄 Edge 契約（Seq 22）**：見 **`docs/assessment-completion-records-contract.md`**。  
 **院友 Edge 契約**：見 **`docs/residents-edge-function-contract.md`**。  
 **運維與部署 Runbook**：見 **`docs/supabase-deploy-runbook.md`**（Supabase 部署、SQL 驗收；**§6** 可選前端 **`npm run ci`**，與 GitHub Actions 同源）。  
@@ -28,6 +29,8 @@
 ### 0.1 三份母本版本追蹤（Seq 38）
 
 > 用途：提供可稽核的母本版本指紋，避免「同名檔案已被替換但未通知」造成驗收落差。
+
+**對照骨架**：**`docs/seq38-pdf-versions-traceability.md`**（版次／日期與 **`business-logic-revision-log.md`** §8 連動）。
 
 | 檔案路徑 | 版次／日期（若 PDF 未標示則填 `待客戶補充`） | SHA-256 |
 |----------|-----------------------------------------------|---------|

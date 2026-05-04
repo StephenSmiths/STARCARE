@@ -1,6 +1,6 @@
 # ADR-0001：排班演算放置層級（前端 vs Edge／DB）
 
-> **對照**：運維與文件總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；PDF `03`／PR 檢核 **`docs/pdf03-cursorrules-alignment.md`**；序號 **`docs/pdf-sequenced-gap-checklist.md`**（Seq **36**；主檔「**運維與工程**」列與 **§0**／**`README`** 對齊）。
+> **對照**：運維與文件總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；PDF `03`／PR 檢核 **`docs/pdf03-cursorrules-alignment.md`**；序號 **`docs/pdf-sequenced-gap-checklist.md`**（Seq **36**；主檔「**運維與工程**」列與 **§0**／**`README`** 對齊）；對照骨架 **`docs/seq36-adr0001-scheduling-logic-placement-traceability.md`**。
 
 **狀態**：已採納（與客戶溝通前之工程預設）  
 **日期**：2026-05-01  

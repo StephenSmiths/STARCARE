@@ -1,0 +1,36 @@
+# Seq 35：母本 03 與工程規範對照（`.cursorrules`／`pdf03`）骨架
+
+> **對照**：客戶 PDF **`docs/pdf/03-STARCARE-工程規範-Closed-Loop.pdf`**（**03**）；條文整理與矩陣 **`docs/pdf03-cursorrules-alignment.md`**；序號總表 **`docs/pdf-sequenced-gap-checklist.md`** Seq **35**；P0 **`docs/pdf-alignment-p0-backlog.md`** C 區。  
+> **上一序號（02 鏈）**：**`docs/seq29-system-settings-pdf02-traceability.md`**（系統設定【16】）。  
+> **用途**：將 **「與 `.cursorrules` 並讀；衝突時簽核 PDF 優先」** 與 **換版差異重跑** 對表；供換版後填 **頁碼／差異表／簽核**。
+
+---
+
+## 1. 權威文件與閉環
+
+| 檔案 | 角色 |
+|------|------|
+| **`docs/pdf03-cursorrules-alignment.md`** | **03** 與 **`.cursorrules`** 對照矩陣＋**§4 維護閉環**（含修訂日誌寫入 **`pdf-sequenced-gap-checklist-revision-log.md`**） |
+| **`/.cursorrules`** | 專案工程鐵律（與 **03** 並讀；爭議以 **簽核 PDF** 為準） |
+
+---
+
+## 2. 驗收缺口（待簽核）
+
+| 項目 | 現況 | 關閉對表條件 |
+|------|------|--------------|
+| PDF 換版 | 矩陣已建 | 客戶換版後 **重跑差異**並 **簽核** |
+| 衝突裁定 | 敘述已定 | 若有 **03 vs 01** 未解議題，併入 **Seq 36** ADR 流程 |
+
+---
+
+## 3. 維護閉環
+
+- **03** 或 **`.cursorrules`** 改版：先更新 **`pdf03-cursorrules-alignment.md`**，再寫 **`pdf-sequenced-gap-checklist-revision-log.md`**；並核 **本檔**、**`pdf-sequenced-gap-checklist.md`** Seq **35**。
+- **下一序號**：排班邏輯權威 **Seq 36**（03＋01）— **`docs/seq36-adr0001-scheduling-logic-placement-traceability.md`**。
+
+---
+
+| 日期 | 說明 |
+|------|------|
+| 2026-05-04 | 初版：Seq 35 **對照骨架**；與 Seq 29（02 末序）互鏈。 |

@@ -1,6 +1,6 @@
 # PDF 母本全對齊：P0 Backlog（可勾選）
 
-> **對照**：**`docs/business-logic.md`** §0（**`.cursorrules`** §3「部署與驗收閘門」）、**`README.md`**；母本序號總表 **`docs/pdf-sequenced-gap-checklist.md`**（開首 **對照**；主檔「**運維與工程**」列與 **§0**／**`README`** 對齊）。
+> **對照**：**`docs/business-logic.md`** §0（**`.cursorrules`** §3「部署與驗收閘門」）、**`README.md`**；母本序號總表 **`docs/pdf-sequenced-gap-checklist.md`**（開首 **對照**；主檔「**運維與工程**」列與 **§0**／**`README`** 對齊）；**Seq 35～38**（03／**C**）對照骨架 **`docs/seq35-pdf03-cursorrules-alignment-traceability.md`**～**`docs/seq38-pdf-versions-traceability.md`**。
 
 > **完成定義**：選項 2 — 三份客戶 PDF 為準，`pdf-sequenced-gap-checklist.md` 各 Seq 可標「已驗證」（對照 PDF 有證據）。  
 > **用法**：每項 `- [ ]` 完成後改 `- [x]`，並在內部 issue 或 PR 附 **PDF 頁碼／【N】／SQL／E2E 連結**。  
@@ -31,34 +31,34 @@
 
 ## B 區：Seq 13～34（02【1】～【16】）
 
-- [ ] **Seq 13** — 儀表盤【1】：與 02 **逐欄對表**（院友／員工／工作節／合規／待辦／PT·OT）。
+- [ ] **Seq 13** — 儀表盤【1】：與 02 **逐欄對表**（院友／員工／工作節／合規／待辦／PT·OT）。對照骨架：**`docs/seq13-dashboard-pdf02-traceability.md`**（母本頁碼與簽核欄待填）。
 - [x] **Seq 13** — 今日團隊 PT/OT：改以母本定義之權威來源（例如 staff `role_type`），移除「顯示名推斷」。（程式：`rehabDisciplineFamilyFromStaff` 僅依 `staff_profiles.role_type`；**02 逐欄對表**仍待本檔第一項 Seq 13）
-- [ ] **Seq 14** — 創建工作計劃【2】：PDF SOP **五步** UI／狀態機 **逐屏對表**簽核。
-- [ ] **Seq 15** — 智能排班【3】：導入週更表→確認→排班→預覽→採用與 02 **逐步 UI 逐字對表**。
-- [ ] **Seq 15** — 週更表欄位與母本一致之 **客製**（若 PDF 要求與現行 CSV 不同）。
-- [ ] **Seq 16** — 我的工作計劃【4】：DB 正式 session 與活動時段／指派之 **寫回與讀取**（與 local-only 過渡對表）。
-- [ ] **Seq 17** — 填寫表單【5】：與 02【5】全文及 01 §2 **對表簽核**（與工作節 ACCEPTED 規則一致）。
-- [ ] **Seq 18** — 開工接更【5b】：**DB 持久化**、**電子簽**（或母本允許之等效）與 PDF **逐字對表**。
-- [ ] **Seq 19** — 收工交更【6】：同上（DB、簽名、逐字對表）。
-- [ ] **Seq 20** — 工作分析／表單審核【7】：**後端報表**（若母本要求）、**電郵／即時推送**與收件對象規則、PDF 逐字對表。
-- [ ] **Seq 21** — 復康活動追蹤【8】：與 02 看板 **逐欄對表**；認知引擎與 **正式 SOP** 完全對齊之驗收。
-- [ ] **Seq 22** — 評估管理【9】：**DB**、正式 **assessment API**、PT/OT 版本管理與 PDF **逐字對表**。
-- [ ] **Seq 23** — 歷史文件【10】：若母本要求 **Excel（xlsx）** — 實作或取得客戶書面同意 CSV 等效；其餘逐字對表。
-- [ ] **Seq 24** — AI 報告中心【11】：**真 AI 生成**（或母本定義之供應商／流程）、發放對象、與通知【14】及 PDF **逐字對表**。
-- [ ] **Seq 25** — 院友管理【12】：**xlsx**（若母本堅持 Excel 語意）與 02 用語 **逐字對照**簽核。
-- [ ] **Seq 26** — 員工管理【13】：**單筆維護**流程、部門／TeamLead／Member **完整架構**與 PDF 對表。
-- [ ] **Seq 27** — 通知中心【14】：**電郵／即時**通道與收件對象規則與 PDF 對表。
-- [ ] **Seq 28** — 用戶手冊【15】：**正式圖文版**（或客戶提供 PDF）與 **角色分章**。
-- [ ] **Seq 29** — 系統設定【16】：**院舍設定後端 API**、`specialCareTherapistOnly` 納入指派邏輯、與 PDF **逐欄對表**。
+- [ ] **Seq 14** — 創建工作計劃【2】：PDF SOP **五步** UI／狀態機 **逐屏對表**簽核。對照骨架：**`docs/seq14-work-plan-pdf02-traceability.md`**（母本逐屏／DB 狀態機待裁定）。
+- [ ] **Seq 15** — 智能排班【3】：導入週更表→確認→排班→預覽→採用與 02 **逐步 UI 逐字對表**。對照骨架：**`docs/seq15-scheduling-pdf02-traceability.md`**（§2～§5）。
+- [ ] **Seq 15** — 週更表欄位與母本一致之 **客製**（若 PDF 要求與現行 CSV 不同）。欄位對照：**`docs/seq15-scheduling-pdf02-traceability.md`** **§6**。
+- [ ] **Seq 16** — 我的工作計劃【4】：DB 正式 session 與活動時段／指派之 **寫回與讀取**（與 local-only 過渡對表）。對照骨架：**`docs/seq16-work-session-plans-pdf02-traceability.md`**（§2～§4 落差表）。
+- [ ] **Seq 17** — 填寫表單【5】：與 02【5】全文及 01 §2 **對表簽核**（與工作節 ACCEPTED 規則一致）。對照骨架：**`docs/seq17-service-forms-pdf02-traceability.md`**。
+- [ ] **Seq 18** — 開工接更【5b】：**DB 持久化**、**電子簽**（或母本允許之等效）與 PDF **逐字對表**。對照骨架：**`docs/seq18-shift-start-handover-pdf02-traceability.md`**。
+- [ ] **Seq 19** — 收工交更【6】：同上（DB、簽名、逐字對表）。對照骨架：**`docs/seq19-end-shift-handover-pdf02-traceability.md`**。
+- [ ] **Seq 20** — 工作分析／表單審核【7】：**後端報表**（若母本要求）、**電郵／即時推送**與收件對象規則、PDF 逐字對表。對照骨架：**`docs/seq20-work-analysis-review-pdf02-traceability.md`**。
+- [ ] **Seq 21** — 復康活動追蹤【8】：與 02 看板 **逐欄對表**；認知引擎與 **正式 SOP** 完全對齊之驗收。對照骨架：**`docs/seq21-rehab-activity-tracking-pdf02-traceability.md`**。
+- [ ] **Seq 22** — 評估管理【9】：**DB**、正式 **assessment API**、PT/OT 版本管理與 PDF **逐字對表**。對照骨架：**`docs/seq22-assessment-management-pdf02-traceability.md`**。
+- [ ] **Seq 23** — 歷史文件【10】：若母本要求 **Excel（xlsx）** — 實作或取得客戶書面同意 CSV 等效；其餘逐字對表。對照骨架：**`docs/seq23-historical-documents-pdf02-traceability.md`**。
+- [ ] **Seq 24** — AI 報告中心【11】：**真 AI 生成**（或母本定義之供應商／流程）、發放對象、與通知【14】及 PDF **逐字對表**。對照骨架：**`docs/seq24-ai-report-center-pdf02-traceability.md`**。
+- [ ] **Seq 25** — 院友管理【12】：**xlsx**（若母本堅持 Excel 語意）與 02 用語 **逐字對照**簽核。對照骨架：**`docs/seq25-residents-management-pdf02-traceability.md`**。
+- [ ] **Seq 26** — 員工管理【13】：**單筆維護**流程、部門／TeamLead／Member **完整架構**與 PDF 對表。對照骨架：**`docs/seq26-staff-management-pdf02-traceability.md`**。
+- [ ] **Seq 27** — 通知中心【14】：**電郵／即時**通道與收件對象規則與 PDF 對表。對照骨架：**`docs/seq27-notification-center-pdf02-traceability.md`**。
+- [ ] **Seq 28** — 用戶手冊【15】：**正式圖文版**（或客戶提供 PDF）與 **角色分章**。對照骨架：**`docs/seq28-user-manual-pdf02-traceability.md`**。
+- [ ] **Seq 29** — 系統設定【16】：**院舍設定後端 API**、`specialCareTherapistOnly` 納入指派邏輯、與 PDF **逐欄對表**。對照骨架：**`docs/seq29-system-settings-pdf02-traceability.md`**。
 
 ---
 
 ## C 區：Seq 35～38（03 工程與版本）
 
-- [ ] **Seq 35** — 客戶 PDF **換版**後，重跑 `docs/pdf03-cursorrules-alignment.md` 差異並簽核。
-- [ ] **Seq 36** — 客戶書面確認 `docs/adr-0001-scheduling-logic-placement.md` 與母本 **03／01** 無未解衝突（或備註豁免）。
-- [ ] **Seq 37** — 訂立「既有碼收斂至工程規（含 200 行）」之 **里程碑或豁免清單** 並經治理／客戶同意（若適用）。
-- [ ] **Seq 38** — 三份 PDF **版次／日期** 由客戶確認後，更新 `docs/business-logic.md` §0.1（或獨立 `VERSIONS`）與簽收紀錄；若本次變更亦屬 **`business-logic.md`** **§8** 範疇，同步 **`docs/business-logic-revision-log.md`**。
+- [ ] **Seq 35** — 客戶 PDF **換版**後，重跑 `docs/pdf03-cursorrules-alignment.md` 差異並簽核。對照骨架：**`docs/seq35-pdf03-cursorrules-alignment-traceability.md`**。
+- [ ] **Seq 36** — 客戶書面確認 `docs/adr-0001-scheduling-logic-placement.md` 與母本 **03／01** 無未解衝突（或備註豁免）。對照骨架：**`docs/seq36-adr0001-scheduling-logic-placement-traceability.md`**。
+- [ ] **Seq 37** — 訂立「既有碼收斂至工程規（含 200 行）」之 **里程碑或豁免清單** 並經治理／客戶同意（若適用）。對照骨架：**`docs/seq37-pdf03-engineering-constraints-traceability.md`**。
+- [ ] **Seq 38** — 三份 PDF **版次／日期** 由客戶確認後，更新 `docs/business-logic.md` §0.1（或獨立 `VERSIONS`）與簽收紀錄；若本次變更亦屬 **`business-logic.md`** **§8** 範疇，同步 **`docs/business-logic-revision-log.md`**。對照骨架：**`docs/seq38-pdf-versions-traceability.md`**。
 
 ---
 
@@ -80,6 +80,24 @@
 | 2026-05-03 | 首段增 **工程／驗收附錄**（**`npm run ci`**、**`ops:deploy:all`**、**go-live** §8、憑證清單）；與 **`pdf-sequenced-gap-checklist.md`** 主檔「運維與工程」對照；**`README.md`**／**`business-logic.md`** §0 增本檔入口。 |
 | 2026-05-03 | **工程／驗收附錄**補 **`residents-edge-function-contract`**、**`assessment-completion-records-contract`** 鏈結；補 **`phase4-day4-delivery-index`**／**`phase5-day1-delivery-index`** 與 **`acceptance:*`** 對照；**`pdf03-cursorrules-alignment.md`** §3 文件入口檢核補 **`README`** 交付索引列；補 **`.cursorrules`** §3／**`business-logic.md`** §0／**`pdf03`** §4 並讀一句。 |
 | 2026-05-04 | **`business-logic.md`** §0、**`README.md`**、**`feature-list.md`** §8：補 Stage 2／Phase 3 **歷史追溯**路徑（權威仍為 **§0** 與現行分階索引）。 |
+| 2026-05-04 | Seq 13：**`docs/seq13-dashboard-pdf02-traceability.md`**（02【1】逐欄對照骨架）；**`pdf-sequenced-gap-checklist.md`** Seq 13 摘要、**`pdf-sequenced-gap-checklist-revision-log.md`**。 |
+| 2026-05-04 | Seq 14：**`docs/seq14-work-plan-pdf02-traceability.md`**（02【2】逐屏對照骨架）；**`pdf-sequenced-gap-checklist.md`**、**`pdf-sequenced-gap-checklist-revision-log.md`**、**`seq13-dashboard-pdf02-traceability.md`** 鏈結。 |
+| 2026-05-04 | Seq 15：**`docs/seq15-scheduling-pdf02-traceability.md`**；**`pdf-sequenced-gap-checklist.md`**、**`pdf-sequenced-gap-checklist-revision-log.md`**、**`seq14-work-plan-pdf02-traceability.md`**。 |
+| 2026-05-04 | Seq 16：**`docs/seq16-work-session-plans-pdf02-traceability.md`**；**`pdf-sequenced-gap-checklist.md`**、**`pdf-sequenced-gap-checklist-revision-log.md`**、**`seq15-scheduling-pdf02-traceability.md`**。 |
+| 2026-05-04 | Seq 17：**`docs/seq17-service-forms-pdf02-traceability.md`**；**`pdf-sequenced-gap-checklist.md`**、**`pdf-alignment-p0-backlog.md`** Seq 17、**`pdf-sequenced-gap-checklist-revision-log.md`**；**`seq13`／`seq14`／`seq15`／`seq16`**「下一序號」鏈。 |
+| 2026-05-04 | Seq 18：**`docs/seq18-shift-start-handover-pdf02-traceability.md`**；**`pdf-sequenced-gap-checklist.md`**、**`pdf-alignment-p0-backlog.md`** Seq 18、**`pdf-sequenced-gap-checklist-revision-log.md`**；**`seq17`** §6 互鏈；**`seq13`／`seq14`／`seq15`**「下一序號」鏈延伸至 Seq 18。 |
+| 2026-05-04 | Seq 19：**`docs/seq19-end-shift-handover-pdf02-traceability.md`**；**`pdf-sequenced-gap-checklist.md`**、**`pdf-alignment-p0-backlog.md`** Seq 19、**`pdf-sequenced-gap-checklist-revision-log.md`**；**`seq18`** §6 互鏈；**`seq13`／`seq14`／`seq15`**「下一序號」鏈延伸至 Seq 19。 |
+| 2026-05-04 | Seq 20：**`docs/seq20-work-analysis-review-pdf02-traceability.md`**；**`pdf-sequenced-gap-checklist.md`**、**`pdf-alignment-p0-backlog.md`** Seq 20、**`pdf-sequenced-gap-checklist-revision-log.md`**；**`seq19`** §6 互鏈；**`seq13`／`seq14`／`seq15`**「下一序號」鏈延伸至 Seq 20。 |
+| 2026-05-04 | Seq 21：**`docs/seq21-rehab-activity-tracking-pdf02-traceability.md`**；**`pdf-sequenced-gap-checklist.md`**、**`pdf-alignment-p0-backlog.md`** Seq 21、**`pdf-sequenced-gap-checklist-revision-log.md`**；**`seq20`** §5 互鏈；**`seq13`／`seq14`／`seq15`**「下一序號」鏈延伸至 Seq 21。 |
+| 2026-05-04 | Seq 22：**`docs/seq22-assessment-management-pdf02-traceability.md`**；**`pdf-sequenced-gap-checklist.md`**、**`pdf-alignment-p0-backlog.md`** Seq 22、**`pdf-sequenced-gap-checklist-revision-log.md`**；**`seq21`** §5 互鏈；**`seq13`／`seq14`／`seq15`**「下一序號」鏈延伸至 Seq 22。 |
+| 2026-05-04 | Seq 23：**`docs/seq23-historical-documents-pdf02-traceability.md`**；**`pdf-sequenced-gap-checklist.md`**、**`pdf-alignment-p0-backlog.md`** Seq 23、**`pdf-sequenced-gap-checklist-revision-log.md`**；**`seq22`** §6 互鏈；**`seq13`／`seq14`／`seq15`**「下一序號」鏈延伸至 Seq 23。 |
+| 2026-05-04 | Seq 24：**`docs/seq24-ai-report-center-pdf02-traceability.md`**；**`pdf-sequenced-gap-checklist.md`**、**`pdf-alignment-p0-backlog.md`** Seq 24、**`pdf-sequenced-gap-checklist-revision-log.md`**；**`seq23`** §6 互鏈；**`seq13`／`seq14`／`seq15`**「下一序號」鏈延伸至 Seq 24。 |
+| 2026-05-04 | Seq 25：**`docs/seq25-residents-management-pdf02-traceability.md`**；**`pdf-sequenced-gap-checklist.md`**、**`pdf-alignment-p0-backlog.md`** Seq 25、**`pdf-sequenced-gap-checklist-revision-log.md`**；**`seq24`** §6 互鏈；**`seq13`／`seq14`／`seq15`**「下一序號」鏈延伸至 Seq 25。 |
+| 2026-05-04 | Seq 26：**`docs/seq26-staff-management-pdf02-traceability.md`**；**`pdf-sequenced-gap-checklist.md`**、**`pdf-alignment-p0-backlog.md`** Seq 26、**`pdf-sequenced-gap-checklist-revision-log.md`**；**`seq25`** §6 互鏈；**`seq13`／`seq14`／`seq15`**「下一序號」鏈延伸至 Seq 26。 |
+| 2026-05-04 | Seq 27：**`docs/seq27-notification-center-pdf02-traceability.md`**；**`pdf-sequenced-gap-checklist.md`**、**`pdf-alignment-p0-backlog.md`** Seq 27、**`pdf-sequenced-gap-checklist-revision-log.md`**；**`seq26`** §6 互鏈；**`seq13`／`seq14`／`seq15`**「下一序號」鏈延伸至 Seq 27；**`seq24-ai-report-center-pdf02-traceability.md`** §6 維護閉環補 **seq27** 固定互鏈。 |
+| 2026-05-04 | Seq 28：**`docs/seq28-user-manual-pdf02-traceability.md`**；**`pdf-sequenced-gap-checklist.md`**、**`pdf-alignment-p0-backlog.md`** Seq 28、**`pdf-sequenced-gap-checklist-revision-log.md`**；**`seq27`** §6 互鏈；**`seq13`／`seq14`／`seq15`**「下一序號」鏈延伸至 Seq 28。 |
+| 2026-05-04 | Seq 29：**`docs/seq29-system-settings-pdf02-traceability.md`**（02【16】；Seq **13～29** 鏈末序）；**`pdf-sequenced-gap-checklist.md`**、**`pdf-alignment-p0-backlog.md`** Seq 29、**`pdf-sequenced-gap-checklist-revision-log.md`**；**`seq28`** §6 互鏈；**`seq13`／`seq14`／`seq15`**「下一序號」鏈延伸至 Seq 29。 |
+| 2026-05-04 | Seq 35～38（03／C 區）：**`seq35-pdf03-cursorrules-alignment-traceability.md`**～**`seq38-pdf-versions-traceability.md`**；**`pdf-sequenced-gap-checklist.md`** C、本檔 C、**`seq29-system-settings-pdf02-traceability.md`** §5、**`seq13-dashboard-pdf02-traceability.md`**「下一序號」**03** 起鏈敘述。 |
 | 2026-05-06 | **工程／驗收附錄**：補 **`pdf-sequenced-gap-checklist.md`** 主檔「**運維與工程**」列與 §0／**Stage 2／Phase 3** 互鏈；**`.cursorrules`** §3、**`feature-list.md`** §8、**`pdf03`** §3 PR 檢核同步。 |
 | 2026-05-07 | **`README.md`** 開頭／文件表與 **`pdf03`** §3：補序號主檔「**運維與工程**」與 **§0**／**§3** 對齊敘述；**`feature-list.md`** §8 README 項同步。 |
 | 2026-05-08 | **`pdf-sequenced-gap-checklist.md`** 開首 **對照**；**`go-live-checklist.md`** 開首 **對照**；**`.github/workflows/ci.yml`** 註解補文件入口；**`pdf03`** §3／§4；**`feature-list.md`** §8 CI 項。 |
@@ -92,6 +110,7 @@
 | 2026-05-15 | **`business-logic-revision-log.md`**（**`business-logic.md`** §8 拆出）；**`README.md`**、**`pdf03`** §4、**`feature-list.md`** 頁尾、本檔 Seq 38 敘述。 |
 | 2026-05-16 | **`pdf-sequenced-gap-checklist-revision-log.md`**／**`pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**；**`pdf-sequenced-gap-checklist.md`** 主檔；**`pdf03`**、**`README.md`**、**`feature-list.md`**。 |
 | 2026-05-17 | **`pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**；主修訂日誌再瘦身；**`pdf03`**、**`README.md`**、**`.cursorrules`** §3。 |
+| 2026-05-22 | 開首 **對照**：補 **Seq 35～38**（03／**C**）對照骨架路徑（**`seq35`**～**`seq38`**）；與 **`business-logic.md`** §0、**`pdf-sequenced-gap-checklist.md`**「**運維與工程**」／**§C** 一致；**`pdf-sequenced-gap-checklist-revision-log.md`** 一筆。 |
 | 2026-05-02 | 初版：依 `docs/pdf-sequenced-gap-checklist.md` Seq 1～38 摘要「仍待／待／需」拆為可勾選 P0。 |
 | 2026-05-02 | 程式進度：`staff-profiles-list` Edge＋`StaffOverviewRow.roleType`；儀表盤 PT/OT 以 DB `role_type` 為優先（P0「Seq 13 PT/OT」之實作面；**逐欄對表簽核**仍待）。 |
 | 2026-05-02 | 程式進度：員工概覽 CSV 匯出增 **職類** 欄（Seq 26 匯出面向；**xlsx／母本逐字**仍待）。 |

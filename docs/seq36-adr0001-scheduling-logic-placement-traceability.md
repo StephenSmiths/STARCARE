@@ -1,0 +1,37 @@
+# Seq 36：排班邏輯權威 ADR（03＋01）對照骨架
+
+> **對照**：母本 **03**（複雜邏輯放置）與 **01**（領域鐵律）；ADR **`docs/adr-0001-scheduling-logic-placement.md`**；序號總表 **`docs/pdf-sequenced-gap-checklist.md`** Seq **36**；P0 **`docs/pdf-alignment-p0-backlog.md`** C 區。  
+> **上一序號**：**`docs/seq35-pdf03-cursorrules-alignment-traceability.md`**。  
+> **用途**：將 **「Edge／DB 優先 vs 現行前端排班 MVP」** 與客戶 **書面確認／豁免** 對表。
+
+---
+
+## 1. ADR 要點（摘要）
+
+| 主題 | 說明 |
+|------|------|
+| 現狀 | MVP 以前端排班為權威之過渡 |
+| 目標 | 上線後複雜邏輯以 **Edge／DB** 為權威之遷移原則 |
+| 與母本 | 需與 **03**、**01** 無 **未解衝突**（或 **書面豁免**） |
+
+---
+
+## 2. 與其他 Seq 關係
+
+| Seq | 關聯 |
+|-----|------|
+| **Seq 15** | 排班 UI／引擎實作路徑 |
+| **Seq 35** | **03** 矩陣與 **`.cursorrules`**；ADR 列於 **`pdf03`** 與 **`README`** 文件表 |
+
+---
+
+## 3. 維護閉環
+
+- 變更 **ADR 狀態**、**遷移里程碑**或 **與 01 條文對照**時：同步 **`pdf03-cursorrules-alignment.md`**（若有矩陣列）、**`pdf-sequenced-gap-checklist.md`** Seq **36**、**`pdf-sequenced-gap-checklist-revision-log.md`**。
+- **下一序號**：工程約束收斂 **Seq 37** — **`docs/seq37-pdf03-engineering-constraints-traceability.md`**。
+
+---
+
+| 日期 | 說明 |
+|------|------|
+| 2026-05-04 | 初版：Seq 36 **對照骨架**。 |
