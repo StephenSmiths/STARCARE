@@ -35,8 +35,7 @@
 
 ## 四、關鍵 npm 指令
 - `npm run acceptance:phase5`
-- `npm run db:push`
-- `npm run ops:deploy:all`
+- **`npm run ops:deploy:all`**（已含 **`db push --yes`** 與全部 Edge；見 **`docs/supabase-deploy-runbook.md`** §2）；僅 schema、暫不重佈 Edge 時可單獨 **`npm run db:push`**
 - `npm run delivery:phase5`
 - `npm run delivery:phase5:zip`
 - `npm run delivery:phase5:clean`
@@ -54,4 +53,4 @@
 ## 六、完成判定
 - [ ] `npm run acceptance:phase5` 結果為 PASS
 - [ ] UI 已驗證同步失敗提示與重試成功提示
-- [ ] Migration 與三個 KPI Edge Functions 已完成部署
+- [ ] Migration 與三個 KPI Edge Functions 已完成部署（建議 **`npm run ops:deploy:all`**；見 **`docs/supabase-deploy-runbook.md`** §2）
