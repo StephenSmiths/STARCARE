@@ -10,6 +10,7 @@
 | [docs/pdf-sequenced-gap-checklist.md](docs/pdf-sequenced-gap-checklist.md) | PDF 對齊序號檢核 |
 | [docs/business-logic.md](docs/business-logic.md) | 01 條文整理 |
 | [docs/go-live-checklist.md](docs/go-live-checklist.md) | 上線檢核 |
+| [docs/supabase-deploy-runbook.md](docs/supabase-deploy-runbook.md) | Supabase 部署、SQL 驗收；§6 可選前端 **`npm run ci`**（與 GitHub Actions 同源） |
 | [.env.example](.env.example) | 環境變數與可選 E2E 帳號 |
 
 ## 常用指令

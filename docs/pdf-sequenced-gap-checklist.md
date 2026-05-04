@@ -235,3 +235,4 @@
 | 2026-05-03 | 日誌 **`2026-05-01`** Seq 3 列：將「demo `build`」改為註明 **2026-05-03** 起 **`npm run build:demo`**；**`go-live-checklist.md`** §7 技術確認項鏈結審計 **§8**；Seq 1 驗收提示＋**`rbac-seq1-verification-checklist.md`** 前置條件鏈結 **go-live** §8（審計 RLS）。 |
 | 2026-05-03 | 更新 Seq 37：**`pdf03-cursorrules-alignment.md`** §3 PR 檢核表補 **`.env.example`**、**`build:demo`**／**`npm run ci`** 與 **`playwright.auth`** 例外；主表 Seq 37「與現況對照」同步。 |
 | 2026-05-03 | **`supabase-deploy-runbook.md`** 新增 §6（前端 **`npm run ci`**／**`build:demo`**、可選 **`test:e2e:auth`**、鏈結 **go-live** §8）；§7 為常見問題；**`feature-list.md`** §8 CI 項補 **pdf03** §3；**`go-live-checklist.md`** §5 回復路徑改 **`docs/`** 前綴。 |
+| 2026-05-03 | **`README.md`** 文件表增 **`docs/supabase-deploy-runbook.md`**；**`feature-list.md`** 頁尾產生說明納入 runbook §6。 |
