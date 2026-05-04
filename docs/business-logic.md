@@ -18,6 +18,7 @@
 **母本 P0 可勾選 backlog**：見 **`docs/pdf-alignment-p0-backlog.md`**（與上列序號檢核配套）。  
 **架構決策（排班演算放置，Seq 36）**：見 **`docs/adr-0001-scheduling-logic-placement.md`**。  
 **評估完成紀錄 Edge 契約（Seq 22）**：見 **`docs/assessment-completion-records-contract.md`**。  
+**院友 Edge 契約**：見 **`docs/residents-edge-function-contract.md`**。  
 **運維與部署 Runbook**：見 **`docs/supabase-deploy-runbook.md`**（Supabase 部署、SQL 驗收；**§6** 可選前端 **`npm run ci`**，與 GitHub Actions 同源）。  
 **憑證與 PAT 輪替**：見 **`docs/security-token-rotation-checklist.md`**。
 

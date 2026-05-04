@@ -51,4 +51,4 @@
 
 - 客戶更新 `03` PDF 後：修訂本表「對照矩陣」與 `docs/business-logic.md` §0.1 指紋。  
 - 若 `.cursorrules` 與本表衝突：以 **客戶簽核 PDF** 為準，並於本表註記日期與決策人。  
-- 變更 **Supabase 部署步驟**、**SQL 驗收**、**`ops:deploy:all` 列舉**、**PAT／憑證自檢**、**排班架構（`adr-0001`／Seq 36）**、**領域契約**（例：**`docs/assessment-completion-records-contract.md`**）或**前端 CI 煙霧（§6）**時，同步 **`docs/supabase-deploy-runbook.md`**、**`docs/security-token-rotation-checklist.md`**（若涉及 PAT／§D）、**`docs/adr-0001-scheduling-logic-placement.md`**（若涉及排班權威層級），並視需要更新 **`README.md`** 文件表、**`docs/feature-list.md` §7** 與 **`docs/pdf-sequenced-gap-checklist.md`** 日誌。
+- 變更 **Supabase 部署步驟**、**SQL 驗收**、**`ops:deploy:all` 列舉**、**PAT／憑證自檢**、**排班架構（`adr-0001`／Seq 36）**、**領域契約**（例：**`docs/residents-edge-function-contract.md`**、**`docs/assessment-completion-records-contract.md`**）或**前端 CI 煙霧（§6）**時，同步 **`docs/supabase-deploy-runbook.md`**、**`docs/security-token-rotation-checklist.md`**（若涉及 PAT／§D）、**`docs/adr-0001-scheduling-logic-placement.md`**（若涉及排班權威層級），並視需要更新 **`README.md`** 文件表、**`docs/feature-list.md` §7** 與 **`docs/pdf-sequenced-gap-checklist.md`** 日誌。
