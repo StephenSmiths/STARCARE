@@ -137,6 +137,7 @@
 | 2026-05-03 | 對照 **`README.md`** 文件表：增 **Phase 4／5 交付索引**（**`phase4-day4-delivery-index`**、**`phase5-day1-delivery-index`**）與 **`npm run ci`** 對照說明；**`pdf03-cursorrules-alignment.md`** §4 維護項同步。 |
 | 2026-05-03 | §2 第 4 點：**`security-token-rotation-checklist.md`** 補 **§D**／可選 **`npm run ci`** 用語（與 **`go-live-checklist.md`** §6、主檔「運維與工程」對齊）。 |
 | 2026-05-03 | 對照 **`README.md`** 憑證列、**`go-live-checklist.md`** §0、**`supabase-deploy-runbook.md`** §6：**§D**／可選 **`npm run ci`** 用語。 |
+| 2026-05-03 | **`.cursorrules`** §3 與 **`business-logic.md`** §0、**`feature-list.md`** §8：工程規範與運維入口連動說明對齊。 |
 
 ---
 

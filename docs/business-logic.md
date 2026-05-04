@@ -21,7 +21,8 @@
 **院友 Edge 契約**：見 **`docs/residents-edge-function-contract.md`**。  
 **運維與部署 Runbook**：見 **`docs/supabase-deploy-runbook.md`**（Supabase 部署、SQL 驗收；**§6** 可選前端 **`npm run ci`**，與 GitHub Actions 同源）。  
 **憑證與 PAT 輪替**：見 **`docs/security-token-rotation-checklist.md`**（**§D** 部署後自檢含可選 **`npm run ci`**）。  
-**分階交付與自動驗收索引**：**`docs/phase4-day4-delivery-index.md`**、**`docs/phase5-day1-delivery-index.md`**（窄版 **`acceptance:*`** 與 **`npm run ci`** 全閘對照見各索引及 **`docs/feature-list.md`** §8）。
+**分階交付與自動驗收索引**：**`docs/phase4-day4-delivery-index.md`**、**`docs/phase5-day1-delivery-index.md`**（窄版 **`acceptance:*`** 與 **`npm run ci`** 全閘對照見各索引及 **`docs/feature-list.md`** §8）。  
+**專案工程規範（`.cursorrules`）**：**§3**「部署與驗收閘門」與上列 **`runbook`**／憑證／**`README.md`**／**`go-live-checklist.md`** 連動並讀；修訂該段時見 **`docs/pdf03-cursorrules-alignment.md`** §4。
 
 ### 0.1 三份母本版本追蹤（Seq 38）
 
@@ -200,3 +201,4 @@
 | 2026-05-01 | §7：補 §4.2 儀表盤今日時段分軌計數。 |
 | 2026-05-01 | 客戶三份 PDF 改存 **`docs/pdf/01…` `02…` `03…`**；更新本節權威路徑；移除根目錄舊 PDF。 |
 | 2026-05-01 | 新增 §0.1「三份母本版本追蹤（Seq 38）」；登錄三份 PDF 的 SHA-256 指紋，供客戶版本確認與稽核。 |
+| 2026-05-03 | §0：補 **`.cursorrules`** §3「部署與驗收閘門」與本節運維／憑證／**`README`**／**`go-live`** 連動；維護責任見 **`docs/pdf03-cursorrules-alignment.md`** §4。 |
