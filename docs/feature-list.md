@@ -124,6 +124,7 @@
 8. **依賴治理**：`.github/dependabot.yml` 每週一掃描根目錄 **npm**（與 `docs/pdf-sequenced-gap-checklist.md` Seq 37 對照）。
 9. **效能防回退**：`npm run perf:bundle-report` 可輸出關鍵 chunk 與 `total-js`；`npm run perf:bundle-check:demo` 於本機一鍵執行 **build:demo + 門檻檢查**（現行 `index <= 45kB`、`total-js <= 620kB`）。CI 於 `build:demo` 後執行同門檻，超標即 fail。  
 10. **效能報告歸檔**：CI 會把 `dist/bundle-report.json` 以上傳 `bundle-report` artifact，供每次 run 後下載留存與比對。  
+11. **效能差異比對**：`npm run perf:bundle-diff -- <base.json> <current.json>` 可對比兩份 `bundle-report.json` 的關鍵 chunk 與 `total-js` 增減。  
 
 ---
 
