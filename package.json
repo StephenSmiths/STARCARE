@@ -12,6 +12,7 @@
     "perf:bundle-diff:md": "node scripts/perf-bundle-diff-markdown.mjs",
     "perf:bundle-diff:baseline": "npm run perf:bundle-diff -- docs/perf-baselines/bundle-report-latest.json dist/bundle-report.json",
     "perf:bundle-diff:baseline:md": "npm run perf:bundle-diff:md -- docs/perf-baselines/bundle-report-latest.json dist/bundle-report.json",
+    "perf:bundle-diff:baseline:md:file": "npm run perf:bundle-diff:baseline:md -- --out dist/bundle-diff.md",
     "perf:bundle-baseline:save": "node scripts/perf-bundle-save-baseline.mjs",
     "perf:bundle-report:demo": "npm run build:demo && npm run perf:bundle-report",
     "perf:bundle-check:demo": "npm run build:demo && npm run perf:bundle-report -- --max-index-kb 45 --max-total-kb 620",
