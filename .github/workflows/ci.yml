@@ -92,6 +92,9 @@ jobs:
       - name: Demo production build（與 E2E 同源：`npm run build:demo`）
         run: npm run build:demo
 
+      - name: Bundle budget check（index / total-js）
+        run: npm run perf:bundle-report -- --max-index-kb 45 --max-total-kb 620
+
       - name: Playwright smoke（PW_PREVIEW_ONLY，僅啟動 preview）
         run: npm run test:e2e
         env:
