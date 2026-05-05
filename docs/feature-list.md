@@ -125,6 +125,7 @@
 9. **效能防回退**：`npm run perf:bundle-report` 可輸出關鍵 chunk 與 `total-js`；`npm run perf:bundle-check:demo` 於本機一鍵執行 **build:demo + 門檻檢查**（現行 `index <= 45kB`、`total-js <= 620kB`）。CI 於 `build:demo` 後執行同門檻，超標即 fail。  
 10. **效能報告歸檔**：CI 會把 `dist/bundle-report.json` 以上傳 `bundle-report` artifact，供每次 run 後下載留存與比對。  
 11. **效能差異比對**：`npm run perf:bundle-diff -- <base.json> <current.json>` 可對比兩份 `bundle-report.json` 的關鍵 chunk 與 `total-js` 增減。  
+12. **效能基準保存**：`npm run perf:bundle-baseline:save` 可將最新報告寫入 `docs/perf-baselines/bundle-report-latest.json`，作為後續 diff 基準。  
 
 ---
 
