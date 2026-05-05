@@ -72,3 +72,16 @@
 - 針對 `scheduling` / `residents` 內部再做次級面板拆分（互動後才載入），降低切頁首幀負載。
 - 對高頻模組加入 `modulepreload` 策略，平衡首屏與切頁體感。
 - 以 Lighthouse 與 Web Vitals（FCP/LCP/TTI）建立固定基準，納入每次釋出驗收清單。
+
+## 操作範例（團隊可直接複用）
+
+```bash
+# 1) 產生最新 bundle JSON
+npm run perf:bundle-report:json
+
+# 2) 比對兩份 JSON 並輸出 markdown（可貼 PR）
+npm run perf:bundle-diff:md -- dist/bundle-report-base.json dist/bundle-report.json --out docs/perf-diff.md
+
+# 3) 本機預算檢查（與 CI 門檻一致）
+npm run perf:bundle-check:demo
+```
