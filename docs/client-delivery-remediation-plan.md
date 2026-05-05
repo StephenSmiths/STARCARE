@@ -2,7 +2,7 @@
 
 > **文件用途**：說明我方如何依**客戶提供且已簽核之 PDF** 進行補強、驗收與交付，可作為與客戶會議／郵件附件之**單一說明文件**。  
 > **權威來源**：`docs/pdf/01-STARCare-核心業務邏輯與-SOP.pdf`、`docs/pdf/02-STARCARE-智能院舍照護管理系統.pdf`、`docs/pdf/03-STARCARE-工程規範-Closed-Loop.pdf`（以下合稱「**三份母本**」）。  
-> **內部工程入口（非對客戶正文）**：運維、CI、憑證總覽見 **`docs/business-logic.md`** §0（**`.cursorrules`** §3「部署與驗收閘門」）、**`README.md`**；序號主檔「**運維與工程**」路徑彙列見 **`docs/pdf-sequenced-gap-checklist.md`**（與 **§2** 所列運維附件同列）。**全案收尾證據鏈**：**`README.md`**「專案收尾」、**`docs/project-completion-evidence-index-2026-05.md`**、**`docs/project-completion-kickoff-checklist-2026-05.md`**。
+> **內部工程入口（非對客戶正文）**：運維、CI、憑證總覽見 **`docs/business-logic.md`** §0（**`.cursorrules`** §3「部署與驗收閘門」）、**`README.md`**；序號主檔「**運維與工程**」路徑彙列見 **`docs/pdf-sequenced-gap-checklist.md`**（與 **§2** 所列運維附件同列）。**全案收尾證據鏈**：**`README.md`**「專案收尾」（**`docs/project-completion-*.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log.md`** 及歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**）；精簡入口 **證據索引**／**啟動清單**：**`docs/project-completion-evidence-index-2026-05.md`**、**`docs/project-completion-kickoff-checklist-2026-05.md`**。
 
 ---
 
