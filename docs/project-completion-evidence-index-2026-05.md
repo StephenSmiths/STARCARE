@@ -1,6 +1,6 @@
 # STARCARE 收尾驗收證據索引（2026-05）
 
-> 對照：`docs/project-completion-2week-tracker-2026-05-05.md`、`docs/project-completion-daily-log-2026-05.md`、`docs/go-live-checklist.md`
+> 對照：`docs/project-completion-audit-2026-05-05.md`、`docs/project-completion-2week-tracker-2026-05-05.md`、`docs/project-completion-daily-log-2026-05.md`、`docs/go-live-checklist.md`
 
 ## 使用方式
 
@@ -40,3 +40,10 @@
 - [ ] go-live checklist 完成簽核
 - [ ] 部署與回滾路徑確認
 - [ ] 憑證輪替與安全收尾完成
+
+## 相關文件
+
+- `docs/project-completion-audit-2026-05-05.md`
+- `docs/project-completion-2week-plan-2026-05-05.md`
+- `docs/project-completion-2week-tracker-2026-05-05.md`
+- `docs/project-completion-daily-log-2026-05.md`

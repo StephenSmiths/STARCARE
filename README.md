@@ -19,15 +19,22 @@
 | [docs/stage2-completion-report.md](docs/stage2-completion-report.md) 等（`stage2-*`、`stage3-*`） | Stage 2／Phase 3 歷史摘要與完成紀錄（追溯；開首 **對照** → [business-logic.md](docs/business-logic.md) §0） |
 | [docs/pdf03-cursorrules-alignment.md](docs/pdf03-cursorrules-alignment.md) | PDF 03 × 工程規範對齊、PR 檢核表（Seq 35／37）；**Seq 35～38**（母本 03／C 區）對照骨架見 `docs/seq35-pdf03-cursorrules-alignment-traceability.md`（鏈至 `docs/seq38-pdf-versions-traceability.md`，總表 [pdf-sequenced-gap-checklist.md](docs/pdf-sequenced-gap-checklist.md) **C**） |
 | [docs/perf-2026-05-05-bundle-splitting-summary.md](docs/perf-2026-05-05-bundle-splitting-summary.md) | 2026-05-05 拆包效能收斂摘要（入口體積對照、驗證結果、後續建議） |
-| [docs/project-completion-audit-2026-05-05.md](docs/project-completion-audit-2026-05-05.md) | 全專案完成度盤點（完成率、缺口與收尾工期估算） |
-| [docs/project-completion-2week-plan-2026-05-05.md](docs/project-completion-2week-plan-2026-05-05.md) | 全專案兩週收尾日程（每日任務、角色、驗收閘門） |
-| [docs/project-completion-2week-tracker-2026-05-05.md](docs/project-completion-2week-tracker-2026-05-05.md) | 兩週收尾進度板（每日勾選、阻塞、證據連結） |
-| [docs/project-completion-daily-log-2026-05.md](docs/project-completion-daily-log-2026-05.md) | 收尾每日進度日誌（EOD 記錄與 Gate 影響） |
-| [docs/project-completion-evidence-index-2026-05.md](docs/project-completion-evidence-index-2026-05.md) | 收尾驗收證據索引（PR/CI/SQL/截圖集中管理） |
 | [docs/go-live-checklist.md](docs/go-live-checklist.md) | 上線檢核 |
 | [docs/security-token-rotation-checklist.md](docs/security-token-rotation-checklist.md) | PAT／憑證輪替；**§D** 部署後自檢（可選 **`npm run ci`**） |
 | [docs/supabase-deploy-runbook.md](docs/supabase-deploy-runbook.md) | §2 **`npm run ops:deploy:all`**（清單見 **`package.json`**）；§5 SQL；§6 **`npm run ci`**（與 Actions 同源） |
 | [.env.example](.env.example) | 環境變數與可選 E2E 帳號 |
+
+### 專案收尾（全案完成度，2026-05）
+
+建議順序：盤點 → 兩週計畫 → 追蹤板 → 日誌 → 證據索引（執行時同步對照 [go-live-checklist.md](docs/go-live-checklist.md)）。
+
+| 文件 | 用途 |
+|------|------|
+| [project-completion-audit-2026-05-05.md](docs/project-completion-audit-2026-05-05.md) | 完成率估算、缺口、工期 |
+| [project-completion-2week-plan-2026-05-05.md](docs/project-completion-2week-plan-2026-05-05.md) | 兩週日程與 Gate |
+| [project-completion-2week-tracker-2026-05-05.md](docs/project-completion-2week-tracker-2026-05-05.md) | 進度板與開工指令 |
+| [project-completion-daily-log-2026-05.md](docs/project-completion-daily-log-2026-05.md) | EOD 與風險 |
+| [project-completion-evidence-index-2026-05.md](docs/project-completion-evidence-index-2026-05.md) | PR／CI／SQL／截圖證據 |
 
 ## 常用指令
 
