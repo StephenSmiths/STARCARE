@@ -1,6 +1,6 @@
 # STARCARE Phase 5 Day 1 交付包索引
 
-> **對照**：運維與文件總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；上一階 **`docs/phase4-day4-delivery-index.md`**；窄版 **`acceptance:phase5`** 與全閘 **`npm run ci`** 對照見 **§四**／**§六** 及 **`docs/feature-list.md`** §8；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**。
+> **對照**：運維與文件總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；上一階 **`docs/phase4-day4-delivery-index.md`**；窄版 **`acceptance:phase5`** 與全閘 **`npm run ci`** 對照見 **§四**／**§六** 及 **`docs/feature-list.md`** §8；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**；**全案收尾**：**`README.md`**「專案收尾」、**`docs/project-completion-evidence-index-2026-05.md`**、**`docs/project-completion-kickoff-checklist-2026-05.md`**。
 
 ## 一、目標
 - 提供 Phase 5 Day 1（KPI 趨勢伺服端持久化）的一頁式交付索引，便於驗收與交接。
