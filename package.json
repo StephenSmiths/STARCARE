@@ -10,6 +10,8 @@
     "perf:bundle-report": "node scripts/perf-bundle-report.mjs",
     "perf:bundle-diff": "node scripts/perf-bundle-diff.mjs",
     "perf:bundle-diff:md": "node scripts/perf-bundle-diff-markdown.mjs",
+    "perf:bundle-history:md": "node scripts/perf-bundle-history-markdown.mjs",
+    "perf:bundle-history:md:file": "npm run perf:bundle-history:md -- --out dist/bundle-history.md",
     "perf:bundle-diff:baseline": "npm run perf:bundle-diff -- docs/perf-baselines/bundle-report-latest.json dist/bundle-report.json",
     "perf:bundle-diff:baseline:md": "npm run perf:bundle-diff:md -- docs/perf-baselines/bundle-report-latest.json dist/bundle-report.json",
     "perf:bundle-diff:baseline:md:file": "npm run perf:bundle-diff:baseline:md -- --out dist/bundle-diff.md",

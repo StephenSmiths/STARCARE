@@ -50,6 +50,7 @@
 - `npm run perf:bundle:full`：一鍵執行 build + budget check + JSON + markdown diff
 - `npm run perf:bundle:pr`：一鍵產生 PR 可貼用的 baseline 差異 markdown（`dist/bundle-diff.md`）
 - `npm run perf:bundle-baseline:snapshot`：將 `dist/bundle-report.json` 以時間戳保存到 `docs/perf-baselines/history/`
+- `npm run perf:bundle-history:md`：讀取 `docs/perf-baselines/history` 並輸出趨勢 markdown（含 index / total-js 變化）
 - CI：`build:demo` 後自動執行 bundle budget check，避免體積回退進入主線
 - CI：會輸出並上傳 `dist/bundle-report.json` 為 `bundle-report` artifact，便於下載留存
 - CI：會額外產生並上傳 `dist/bundle-diff.md`（對照 `docs/perf-baselines/bundle-report-latest.json`）
@@ -75,6 +76,7 @@
 - `97234d9` chore(perf): 新增一鍵完整 bundle 驗證流程
 - `9b9a0f0` chore(perf): 新增 PR 差異一鍵產生指令
 - `a9157cb` chore(perf): 新增 baseline 歷史快照指令
+- `0868350` docs(perf): 同步歷史快照流程到效能文件
 
 ## 下一階段建議
 
@@ -93,6 +95,9 @@ npm run perf:bundle-diff:md -- dist/bundle-report-base.json dist/bundle-report.j
 
 # 2.5) 保存時間戳快照（長期趨勢追蹤）
 npm run perf:bundle-baseline:snapshot
+
+# 2.6) 產生歷史趨勢 markdown（可貼內部週報）
+npm run perf:bundle-history:md:file
 
 # 3) 本機預算檢查（與 CI 門檻一致）
 npm run perf:bundle-check:demo

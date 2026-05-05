@@ -129,6 +129,7 @@
 13. **一鍵完整檢查**：`npm run perf:bundle:full` 可一次完成 build、門檻檢查、JSON 輸出與 markdown diff 產生。  
 14. **PR 一鍵差異輸出**：`npm run perf:bundle:pr` 可直接產出 `dist/bundle-diff.md`，供 PR 描述貼用。  
 15. **效能歷史快照**：`npm run perf:bundle-baseline:snapshot` 可把當前 `dist/bundle-report.json` 以時間戳寫入 `docs/perf-baselines/history/`，供長期趨勢對照。  
+16. **效能趨勢報告**：`npm run perf:bundle-history:md`／`npm run perf:bundle-history:md:file` 可把 history 快照整理為 markdown 趨勢表，用於週報與回歸追蹤。  
 
 ---
 

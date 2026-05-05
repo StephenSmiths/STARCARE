@@ -44,6 +44,8 @@ npm run perf:bundle:pr # 一鍵產生 PR 可貼的 baseline markdown 差異（di
 npm run perf:bundle-baseline:save # 將 dist/bundle-report.json 存為 docs/perf-baselines 基準檔
 npm run perf:bundle-baseline:refresh # 一鍵重建報告並刷新 baseline
 npm run perf:bundle-baseline:snapshot # 產生時間戳快照到 docs/perf-baselines/history/
+npm run perf:bundle-history:md # 輸出 history 趨勢 markdown（stdout）
+npm run perf:bundle-history:md:file # 產生 dist/bundle-history.md
 npm run perf:bundle-diff -- <base.json> <current.json> # 比對兩份 bundle JSON 差異
 npm run perf:bundle-diff:md -- <base.json> <current.json> # 產生可貼 PR 的 Markdown 差異表
 npm run perf:bundle-diff:md -- <base.json> <current.json> --out docs/perf-diff.md # 輸出到檔案
