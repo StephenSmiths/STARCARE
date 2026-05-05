@@ -136,7 +136,7 @@
 20. **CI／本機流程對齊**：`npm run perf:bundle:ci` 將 budget、diff、delta、history 收斂為單指令，降低 workflow 與本機腳本漂移。  
 21. **Delta JSON 輸出**：`perf:bundle:ci` 會產生 `dist/bundle-delta.json`，CI 亦上傳 artifact，供自動化讀取與告警整合。  
 22. **失敗可觀測性**：`perf:bundle:ci` 先生成 `bundle-diff`／`bundle-history` 再執行 delta gate，確保失敗時仍有排查工件。  
-23. **CI 內建摘要**：`perf:bundle:ci:summary` 會產生 `bundle-ci-summary.md`，CI 直接顯示於 Step Summary 並上傳 artifact。  
+23. **CI 內建摘要**：`perf:bundle:ci:summary` 會產生 `bundle-ci-summary.md`，包含 Top chunk 變化；CI 直接顯示於 Step Summary 並上傳 artifact。  
 
 ---
 

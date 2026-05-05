@@ -15,7 +15,7 @@
     "perf:bundle-delta-check:baseline:json": "npm run perf:bundle-delta-check -- docs/perf-baselines/bundle-report-latest.json dist/bundle-report.json --max-index-delta-kb 8 --max-total-delta-kb 30 --json-out dist/bundle-delta.json",
     "perf:bundle-history:md": "node scripts/perf-bundle-history-markdown.mjs",
     "perf:bundle-history:md:file": "npm run perf:bundle-history:md -- --out dist/bundle-history.md",
-    "perf:bundle:ci:summary": "node scripts/perf-bundle-ci-summary.mjs dist/bundle-report.json dist/bundle-delta.json dist/bundle-ci-summary.md",
+    "perf:bundle:ci:summary": "node scripts/perf-bundle-ci-summary.mjs dist/bundle-report.json dist/bundle-delta.json dist/bundle-diff.md dist/bundle-ci-summary.md",
     "perf:bundle-diff:baseline": "npm run perf:bundle-diff -- docs/perf-baselines/bundle-report-latest.json dist/bundle-report.json",
     "perf:bundle-diff:baseline:md": "npm run perf:bundle-diff:md -- docs/perf-baselines/bundle-report-latest.json dist/bundle-report.json",
     "perf:bundle-diff:baseline:md:file": "npm run perf:bundle-diff:baseline:md -- --out dist/bundle-diff.md",
