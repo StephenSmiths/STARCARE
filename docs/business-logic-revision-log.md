@@ -54,3 +54,4 @@
 | 2026-05-19 | §0.1：補 **`docs/seq38-pdf-versions-traceability.md`** 對照骨架入口（Seq 38）；**`pdf-sequenced-gap-checklist-revision-log.md`** 一筆。 |
 | 2026-05-21 | §0：增 **母本 03／Seq 35～38** 對照骨架一行（**`seq35`**、`pdf03`、**`pdf-sequenced-gap-checklist.md`** C）；**`pdf-sequenced-gap-checklist.md`**「**運維與工程**」、`pdf-sequenced-gap-checklist-revision-log.md` 同步。 |
 | 2026-06-04 | §0：**全案收尾執行** 句補 **`README.md`**「專案收尾」表列 **`project-completion-*`** 全束與主／歸檔 **`pdf-sequenced-gap-checklist-revision-log*.md`** 互鏈說明（與 **`pdf-sequenced-gap-checklist.md`** 開首、**`client-delivery-remediation-plan.md`** 內部入口一致）。 |
+| 2026-06-07 | 本檔開首 **對照** blockquote 內 **全案收尾與證據留痕** 句：與 **`go-live-checklist.md`**／**`seq*.md`** 等 **runbook** 同級敘述對齊（**`project-completion-*`**、主／歸檔 **`pdf-sequenced-gap-checklist-revision-log*.md`**）。 |
