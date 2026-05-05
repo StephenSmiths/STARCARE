@@ -37,6 +37,7 @@ npm run build
 npm run build:demo       # 清空 VITE_SUPABASE_* 之 production bundle（與 CI demo E2E 同源）
 npm run perf:bundle-report # 讀取 dist/assets 並輸出入口與關鍵 chunk 體積
 npm run perf:bundle-report:demo # 一鍵 build:demo 後輸出 bundle 體積報告
+npm run perf:bundle-check:demo  # 一鍵 build:demo 並檢查 index/total-js 體積門檻
 ```
 
 - **Supabase**：複製 `.env.example` 為 `.env` 並填入 `VITE_SUPABASE_URL`、`VITE_SUPABASE_ANON_KEY` 後即可走真實登入與 Edge。

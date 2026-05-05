@@ -32,7 +32,24 @@ const selectKeyChunks = (rows) => {
   ].filter(Boolean)
 }
 
+const parseOptions = () => {
+  const args = process.argv.slice(2)
+  const getNumberArg = (name) => {
+    const index = args.indexOf(name)
+    if (index === -1) return undefined
+    const raw = args[index + 1]
+    const parsed = Number(raw)
+    return Number.isFinite(parsed) ? parsed : undefined
+  }
+
+  return {
+    maxIndexKB: getNumberArg('--max-index-kb'),
+    maxTotalKB: getNumberArg('--max-total-kb'),
+  }
+}
+
 const main = async () => {
+  const options = parseOptions()
   const rows = await readAssetSizes()
   if (rows.length === 0) {
     console.log('No JS assets found. Run `npm run build:demo` first.')
@@ -45,8 +62,34 @@ const main = async () => {
     console.log(`- ${row.fileName}: ${toKB(row.bytes)}`)
   }
 
+  const indexChunk = rows.find((row) => row.fileName.startsWith('index-'))
   const total = rows.reduce((sum, row) => sum + row.bytes, 0)
   console.log(`- total-js: ${toKB(total)}`)
+
+  const violations = []
+  if (typeof options.maxIndexKB === 'number' && indexChunk) {
+    if (indexChunk.bytes > options.maxIndexKB * 1024) {
+      violations.push(
+        `index chunk ${toKB(indexChunk.bytes)} > budget ${options.maxIndexKB.toFixed(2)} kB`,
+      )
+    }
+  }
+  if (typeof options.maxTotalKB === 'number' && total > options.maxTotalKB * 1024) {
+    violations.push(`total-js ${toKB(total)} > budget ${options.maxTotalKB.toFixed(2)} kB`)
+  }
+
+  if (violations.length > 0) {
+    console.log('Bundle budget check: FAILED')
+    for (const item of violations) {
+      console.log(`- ${item}`)
+    }
+    process.exitCode = 1
+    return
+  }
+
+  if (typeof options.maxIndexKB === 'number' || typeof options.maxTotalKB === 'number') {
+    console.log('Bundle budget check: PASSED')
+  }
 }
 
 await main()
