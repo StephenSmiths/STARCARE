@@ -42,6 +42,8 @@
 - `npm run test`：通過（63 files / 175 tests）
 - `npm run build:demo`：通過
 - `npm run perf:bundle-report`：可輸出 `index` / `vendor-react` / `vendor-supabase` / 核心模組 chunk 與總 JS 體積
+- `npm run perf:bundle-check:demo`：可執行門檻檢查（現行：`index <= 45kB`、`total-js <= 620kB`）
+- CI：`build:demo` 後自動執行 bundle budget check，避免體積回退進入主線
 - GitHub Actions：最新連續主線 run 綠燈（#116、#117、#118）
 
 ## 相關提交（依時間）
@@ -54,6 +56,9 @@
 - `ea275dd` perf(app): 預載 viewDescriptions 模組降低描述延遲
 - `a894e42` perf(app): 已登入後預載工作台核心模組
 - `ebea22b` perf(app): 延後建立預載 promise 避免提前抓包
+- `d62cce6` chore(perf): 新增 bundle 體積報告腳本
+- `7035132` chore(perf): 新增 bundle 體積門檻檢查模式
+- `f8acb99` chore(ci): 納入 bundle 體積門檻檢查
 
 ## 下一階段建議
 
