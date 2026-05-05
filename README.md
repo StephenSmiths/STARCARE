@@ -26,7 +26,9 @@
 
 ### 專案收尾（全案完成度，2026-05）
 
-建議順序：盤點 → 兩週計畫 → 追蹤板 → 日誌 → 證據索引（執行時同步對照 [go-live-checklist.md](docs/go-live-checklist.md)）。
+建議順序：可選先跑 [project-completion-kickoff-checklist-2026-05.md](docs/project-completion-kickoff-checklist-2026-05.md)（約 30 分鐘）→ 盤點 → 兩週計畫 → 追蹤板 → 日誌 → 證據索引。
+
+執行時同步對照 [go-live-checklist.md](docs/go-live-checklist.md)、[supabase-deploy-runbook.md](docs/supabase-deploy-runbook.md)、[security-token-rotation-checklist.md](docs/security-token-rotation-checklist.md)。運維總覽 [business-logic.md](docs/business-logic.md) §0；序號主檔「運維與工程」列見 [pdf-sequenced-gap-checklist.md](docs/pdf-sequenced-gap-checklist.md)。
 
 | 文件 | 用途 |
 |------|------|
@@ -36,6 +38,9 @@
 | [project-completion-daily-log-2026-05.md](docs/project-completion-daily-log-2026-05.md) | EOD 與風險 |
 | [project-completion-evidence-index-2026-05.md](docs/project-completion-evidence-index-2026-05.md) | PR／CI／SQL／截圖證據 |
 | [project-completion-kickoff-checklist-2026-05.md](docs/project-completion-kickoff-checklist-2026-05.md) | 新成員 30 分鐘收尾啟動清單 |
+| [pdf-sequenced-gap-checklist-revision-log.md](docs/pdf-sequenced-gap-checklist-revision-log.md) | 序號主檔修訂日誌（最新留痕） |
+| [pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md](docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md) | 修訂日誌歸檔（2026-05-01 前段；與主日誌並讀） |
+| [pdf-sequenced-gap-checklist-revision-log-archive-p2.md](docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md) | 修訂日誌歸檔（p2：2026-05-01～02 中段） |
 
 ## 常用指令
 
