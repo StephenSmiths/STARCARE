@@ -21,6 +21,7 @@
 | [docs/perf-2026-05-05-bundle-splitting-summary.md](docs/perf-2026-05-05-bundle-splitting-summary.md) | 2026-05-05 拆包效能收斂摘要（入口體積對照、驗證結果、後續建議） |
 | [docs/project-completion-audit-2026-05-05.md](docs/project-completion-audit-2026-05-05.md) | 全專案完成度盤點（完成率、缺口與收尾工期估算） |
 | [docs/project-completion-2week-plan-2026-05-05.md](docs/project-completion-2week-plan-2026-05-05.md) | 全專案兩週收尾日程（每日任務、角色、驗收閘門） |
+| [docs/project-completion-2week-tracker-2026-05-05.md](docs/project-completion-2week-tracker-2026-05-05.md) | 兩週收尾進度板（每日勾選、阻塞、證據連結） |
 | [docs/go-live-checklist.md](docs/go-live-checklist.md) | 上線檢核 |
 | [docs/security-token-rotation-checklist.md](docs/security-token-rotation-checklist.md) | PAT／憑證輪替；**§D** 部署後自檢（可選 **`npm run ci`**） |
 | [docs/supabase-deploy-runbook.md](docs/supabase-deploy-runbook.md) | §2 **`npm run ops:deploy:all`**（清單見 **`package.json`**）；§5 SQL；§6 **`npm run ci`**（與 Actions 同源） |
