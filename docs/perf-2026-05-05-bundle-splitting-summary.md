@@ -57,6 +57,7 @@
 - CI：在 diff markdown 後執行 baseline delta guard，若增幅超門檻則 fail
 - CI：會輸出並上傳 `dist/bundle-report.json` 為 `bundle-report` artifact，便於下載留存
 - CI：會額外產生並上傳 `dist/bundle-diff.md`（對照 `docs/perf-baselines/bundle-report-latest.json`）
+- CI：會額外產生並上傳 `dist/bundle-history.md`（由 `docs/perf-baselines/history` 匯總）
 - GitHub Actions：最新連續主線 run 綠燈（#116、#117、#118）
 
 ## 相關提交（依時間）

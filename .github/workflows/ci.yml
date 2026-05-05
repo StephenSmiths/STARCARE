@@ -101,6 +101,9 @@ jobs:
       - name: Bundle delta guard（vs tracked baseline）
         run: npm run perf:bundle-delta-check:baseline
 
+      - name: Bundle history markdown（from tracked snapshots）
+        run: npm run perf:bundle-history:md:file
+
       - name: Upload bundle report artifact
         if: always()
         uses: actions/upload-artifact@v4
@@ -109,6 +112,7 @@ jobs:
           path: |
             dist/bundle-report.json
             dist/bundle-diff.md
+            dist/bundle-history.md
 
       - name: Playwright smoke（PW_PREVIEW_ONLY，僅啟動 preview）
         run: npm run test:e2e
