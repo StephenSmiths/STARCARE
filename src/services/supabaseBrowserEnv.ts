@@ -14,12 +14,25 @@ const normalizeViteEnvString = (value: string | undefined): string => {
   return value.trim().replace(/^["']|["']$/g, '')
 }
 
+/**
+ * Vite 執行時以 `import.meta.env` 為準；Vitest 的 `vi.stubEnv` 主要落在 `process.env`。
+ * CI／worktree 無 `.env` 時若僅讀 meta，會與 stub 脫鉤而誤判未設定。
+ */
+const viteBrowserLookup = (key: 'VITE_SUPABASE_URL' | 'VITE_SUPABASE_ANON_KEY'): string => {
+  const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
+  const fromMeta = normalizeViteEnvString(env[key])
+  if (fromMeta) return fromMeta
+  if (import.meta.env.MODE === 'test' && typeof process !== 'undefined') {
+    return normalizeViteEnvString(process.env[key])
+  }
+  return ''
+}
+
 /** 未設定或正規化後為空時回傳 null（走記憶體／Null Repository） */
 export const getSupabaseBrowserCredentials = (): SupabaseBrowserCredentials | null => {
   try {
-    const env = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env ?? {}
-    const supabaseUrl = normalizeViteEnvString(env.VITE_SUPABASE_URL)
-    const anonKey = normalizeViteEnvString(env.VITE_SUPABASE_ANON_KEY)
+    const supabaseUrl = viteBrowserLookup('VITE_SUPABASE_URL')
+    const anonKey = viteBrowserLookup('VITE_SUPABASE_ANON_KEY')
     if (!supabaseUrl || !anonKey) return null
     return { supabaseUrl, anonKey }
   } catch {
