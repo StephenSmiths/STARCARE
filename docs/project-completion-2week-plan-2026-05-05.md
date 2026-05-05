@@ -1,5 +1,7 @@
 # STARCARE 兩週收尾計畫（2026-05-05）
 
+> **對照**：盤點 **`docs/project-completion-audit-2026-05-05.md`**；進度板 **`docs/project-completion-2week-tracker-2026-05-05.md`**；運維總覽 **`docs/business-logic.md`** §0；序號主檔 **`docs/pdf-sequenced-gap-checklist.md`**「**運維與工程**」列。  
+> **全案收尾母索引**：**`README.md`**「專案收尾」；啟動清單 **`docs/project-completion-kickoff-checklist-2026-05.md`**。  
 > 依據：`docs/project-completion-audit-2026-05-05.md`。  
 > 目標：在 10 個工作天內完成「可上線宣告」所需的閉環驗收、權限/RLS抽測、缺陷收斂與簽核。
 
