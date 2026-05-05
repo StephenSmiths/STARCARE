@@ -4,7 +4,7 @@
 > **上一序號（02 鏈）**：**`docs/seq29-system-settings-pdf02-traceability.md`**（系統設定【16】）。  
 > **用途**：將 **「與 `.cursorrules` 並讀；衝突時簽核 PDF 優先」** 與 **換版差異重跑** 對表；供換版後填 **頁碼／差異表／簽核**。
 
-> **全案收尾與證據留痕**：**`README.md`**「專案收尾」；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**。
+> **全案收尾與證據留痕**：**`README.md`**「專案收尾」（**`docs/project-completion-*.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log.md`** 及歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**）；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**。
 
 ---
 
