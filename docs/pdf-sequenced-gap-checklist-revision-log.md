@@ -189,3 +189,4 @@
 | 2026-05-26 | **`pdf03-cursorrules-alignment.md`** 開首、**`client-delivery-remediation-plan.md`** 內部入口、**`project-completion-kickoff-checklist-2026-05.md`** 文件清單：補 **全案收尾證據鏈**／**runbook**／**憑證清單** 連結。 |
 | 2026-05-27 | **`pdf-alignment-p0-backlog.md`**、**`adr-0001-scheduling-logic-placement.md`**、**`assessment-completion-records-contract.md`**、**`residents-edge-function-contract.md`** 開首：補 **全案收尾與證據留痕**（**`README.md`**「專案收尾」、**`project-completion-evidence-index`**、**`project-completion-kickoff`**）。 |
 | 2026-05-28 | **`rbac-seq1-verification-checklist.md`**、**`feature-list.md`** 開首、**`perf-2026-05-05-bundle-splitting-summary.md`** 對照：補 **全案收尾**／證據索引入口。 |
+| 2026-05-29 | **`pdf03-cursorrules-alignment.md`** §4 維護：增 **全案收尾文件鏈** 同步責任（**`README`**「專案收尾」、**`project-completion-*`**、**`go-live`**／**`business-logic`** §0、主檔「**運維與工程**」、**`pdf-sequenced-gap-checklist-revision-log.md`**、**`feature-list`** §8）。 |
