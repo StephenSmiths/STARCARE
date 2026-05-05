@@ -18,6 +18,7 @@
 | [docs/phase4-day4-delivery-index.md](docs/phase4-day4-delivery-index.md)、[docs/phase5-day1-delivery-index.md](docs/phase5-day1-delivery-index.md) | 分階交付索引；**`acceptance:*`** 與 **`npm run ci`** 對照（見 [docs/feature-list.md](docs/feature-list.md) §8）；同目錄 **`phase*`**／**`stage*`** 開首 **對照** 互鏈 [pdf-sequenced-gap-checklist.md](docs/pdf-sequenced-gap-checklist.md)「**運維與工程**」列 |
 | [docs/stage2-completion-report.md](docs/stage2-completion-report.md) 等（`stage2-*`、`stage3-*`） | Stage 2／Phase 3 歷史摘要與完成紀錄（追溯；開首 **對照** → [business-logic.md](docs/business-logic.md) §0） |
 | [docs/pdf03-cursorrules-alignment.md](docs/pdf03-cursorrules-alignment.md) | PDF 03 × 工程規範對齊、PR 檢核表（Seq 35／37）；**Seq 35～38**（母本 03／C 區）對照骨架見 `docs/seq35-pdf03-cursorrules-alignment-traceability.md`（鏈至 `docs/seq38-pdf-versions-traceability.md`，總表 [pdf-sequenced-gap-checklist.md](docs/pdf-sequenced-gap-checklist.md) **C**） |
+| [docs/perf-2026-05-05-bundle-splitting-summary.md](docs/perf-2026-05-05-bundle-splitting-summary.md) | 2026-05-05 拆包效能收斂摘要（入口體積對照、驗證結果、後續建議） |
 | [docs/go-live-checklist.md](docs/go-live-checklist.md) | 上線檢核 |
 | [docs/security-token-rotation-checklist.md](docs/security-token-rotation-checklist.md) | PAT／憑證輪替；**§D** 部署後自檢（可選 **`npm run ci`**） |
 | [docs/supabase-deploy-runbook.md](docs/supabase-deploy-runbook.md) | §2 **`npm run ops:deploy:all`**（清單見 **`package.json`**）；§5 SQL；§6 **`npm run ci`**（與 Actions 同源） |
