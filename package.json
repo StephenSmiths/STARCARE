@@ -14,6 +14,7 @@
     "perf:bundle-report:demo": "npm run build:demo && npm run perf:bundle-report",
     "perf:bundle-check:demo": "npm run build:demo && npm run perf:bundle-report -- --max-index-kb 45 --max-total-kb 620",
     "perf:bundle-report:json": "npm run build:demo && npm run perf:bundle-report -- --json-out dist/bundle-report.json",
+    "perf:bundle:full": "npm run build:demo && npm run perf:bundle-report -- --max-index-kb 45 --max-total-kb 620 --json-out dist/bundle-report.json && npm run perf:bundle-diff:md -- docs/perf-baselines/bundle-report-latest.json dist/bundle-report.json --out dist/bundle-diff.md",
     "typecheck": "tsc -b --noEmit",
     "lint": "eslint .",
     "preview": "vite preview",
