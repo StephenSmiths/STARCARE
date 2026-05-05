@@ -98,6 +98,9 @@ jobs:
       - name: Bundle diff markdown（vs tracked baseline）
         run: npm run perf:bundle-diff:md -- docs/perf-baselines/bundle-report-latest.json dist/bundle-report.json --out dist/bundle-diff.md
 
+      - name: Bundle delta guard（vs tracked baseline）
+        run: npm run perf:bundle-delta-check:baseline
+
       - name: Upload bundle report artifact
         if: always()
         uses: actions/upload-artifact@v4

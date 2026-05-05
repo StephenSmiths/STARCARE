@@ -52,7 +52,9 @@
 - `npm run perf:bundle:record`：一鍵完成 `report:json` + `baseline:snapshot` + `history:md:file`
 - `npm run perf:bundle-baseline:snapshot`：將 `dist/bundle-report.json` 以時間戳保存到 `docs/perf-baselines/history/`
 - `npm run perf:bundle-history:md`：讀取 `docs/perf-baselines/history` 並輸出趨勢 markdown（含 index / total-js 變化）
+- `npm run perf:bundle-delta-check:baseline`：檢查相對 tracked baseline 的增幅門檻（現行：`index +8kB`、`total-js +30kB`）
 - CI：`build:demo` 後自動執行 bundle budget check，避免體積回退進入主線
+- CI：在 diff markdown 後執行 baseline delta guard，若增幅超門檻則 fail
 - CI：會輸出並上傳 `dist/bundle-report.json` 為 `bundle-report` artifact，便於下載留存
 - CI：會額外產生並上傳 `dist/bundle-diff.md`（對照 `docs/perf-baselines/bundle-report-latest.json`）
 - GitHub Actions：最新連續主線 run 綠燈（#116、#117、#118）
@@ -105,4 +107,7 @@ npm run perf:bundle:record
 
 # 3) 本機預算檢查（與 CI 門檻一致）
 npm run perf:bundle-check:demo
+
+# 4) 相對 baseline 增幅檢查（與 CI delta guard 一致）
+npm run perf:bundle-delta-check:baseline
 ```

@@ -131,6 +131,7 @@
 15. **效能歷史快照**：`npm run perf:bundle-baseline:snapshot` 可把當前 `dist/bundle-report.json` 以時間戳寫入 `docs/perf-baselines/history/`，供長期趨勢對照。  
 16. **效能趨勢報告**：`npm run perf:bundle-history:md`／`npm run perf:bundle-history:md:file` 可把 history 快照整理為 markdown 趨勢表，用於週報與回歸追蹤。  
 17. **追蹤點一鍵記錄**：`npm run perf:bundle:record` 可一次完成 JSON 報告、歷史快照與趨勢 markdown 產物，降低人工漏步。  
+18. **Baseline 增幅守門**：`npm run perf:bundle-delta-check:baseline` 會檢查當前報告相對 baseline 的增幅；CI 同步執行，超門檻即 fail。  
 
 ---
 

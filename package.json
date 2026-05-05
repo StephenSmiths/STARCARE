@@ -10,6 +10,8 @@
     "perf:bundle-report": "node scripts/perf-bundle-report.mjs",
     "perf:bundle-diff": "node scripts/perf-bundle-diff.mjs",
     "perf:bundle-diff:md": "node scripts/perf-bundle-diff-markdown.mjs",
+    "perf:bundle-delta-check": "node scripts/perf-bundle-delta-check.mjs",
+    "perf:bundle-delta-check:baseline": "npm run perf:bundle-delta-check -- docs/perf-baselines/bundle-report-latest.json dist/bundle-report.json --max-index-delta-kb 8 --max-total-delta-kb 30",
     "perf:bundle-history:md": "node scripts/perf-bundle-history-markdown.mjs",
     "perf:bundle-history:md:file": "npm run perf:bundle-history:md -- --out dist/bundle-history.md",
     "perf:bundle-diff:baseline": "npm run perf:bundle-diff -- docs/perf-baselines/bundle-report-latest.json dist/bundle-report.json",
