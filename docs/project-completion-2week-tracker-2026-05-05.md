@@ -3,6 +3,7 @@
 > 對照：`docs/project-completion-2week-plan-2026-05-05.md`  
 > 用法：每日 standup 更新「狀態 / 阻塞 / 證據」，EOD 勾選完成項。
 > 每日記錄：`docs/project-completion-daily-log-2026-05.md`
+> 證據索引：`docs/project-completion-evidence-index-2026-05.md`
 
 ## 狀態圖例
 
