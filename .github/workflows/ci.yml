@@ -32,6 +32,7 @@ jobs:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
         run: |
           set -euo pipefail
+          mkdir -p .ci-logs
           node -v
           npm -v
           npm config set fetch-retries 5
@@ -39,16 +40,21 @@ jobs:
           npm config set fetch-retry-maxtimeout 120000
           ok=0
           for attempt in 1 2 3 4; do
-            if npm ci --no-audit --no-fund; then
+            if npm ci --no-audit --no-fund >".ci-logs/npm-ci-attempt-${attempt}.log" 2>&1; then
+              echo "npm ci success at attempt ${attempt}"
               ok=1
               break
             fi
             echo "::warning::npm ci 失敗（第 ${attempt}／4 次），20s 後重試"
+            echo "---- npm ci attempt ${attempt} tail ----"
+            tail -n 60 ".ci-logs/npm-ci-attempt-${attempt}.log" || true
             [ "$attempt" -lt 4 ] && sleep 20
           done
           if [ "$ok" -ne 1 ]; then
             echo "::warning::npm ci 連續失敗，暫時改用 npm install 以維持 CI 可用。"
-            npm install --no-audit --no-fund
+            npm install --no-audit --no-fund > .ci-logs/npm-install-fallback.log 2>&1
+            echo "---- npm install fallback tail ----"
+            tail -n 60 .ci-logs/npm-install-fallback.log || true
           fi
 
       - name: Cache Playwright browsers
