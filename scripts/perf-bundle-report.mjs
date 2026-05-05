@@ -1,4 +1,4 @@
-import { readdir, stat } from 'node:fs/promises'
+import { readdir, stat, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 
 const DIST_ASSETS_DIR = join(process.cwd(), 'dist', 'assets')
@@ -45,6 +45,10 @@ const parseOptions = () => {
   return {
     maxIndexKB: getNumberArg('--max-index-kb'),
     maxTotalKB: getNumberArg('--max-total-kb'),
+    jsonOut: (() => {
+      const index = args.indexOf('--json-out')
+      return index === -1 ? undefined : args[index + 1]
+    })(),
   }
 }
 
@@ -89,6 +93,20 @@ const main = async () => {
 
   if (typeof options.maxIndexKB === 'number' || typeof options.maxTotalKB === 'number') {
     console.log('Bundle budget check: PASSED')
+  }
+
+  if (options.jsonOut) {
+    const payload = {
+      generatedAt: new Date().toISOString(),
+      keyChunks: selectKeyChunks(rows),
+      totalBytes: total,
+      budgets: {
+        maxIndexKB: options.maxIndexKB ?? null,
+        maxTotalKB: options.maxTotalKB ?? null,
+      },
+    }
+    await writeFile(options.jsonOut, `${JSON.stringify(payload, null, 2)}\n`, 'utf8')
+    console.log(`- json-report: ${options.jsonOut}`)
   }
 }
 
