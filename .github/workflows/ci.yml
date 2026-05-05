@@ -95,12 +95,17 @@ jobs:
       - name: Bundle budget check（index / total-js）
         run: npm run perf:bundle-report -- --max-index-kb 45 --max-total-kb 620 --json-out dist/bundle-report.json
 
+      - name: Bundle diff markdown（vs tracked baseline）
+        run: npm run perf:bundle-diff:md -- docs/perf-baselines/bundle-report-latest.json dist/bundle-report.json --out dist/bundle-diff.md
+
       - name: Upload bundle report artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: bundle-report
-          path: dist/bundle-report.json
+          path: |
+            dist/bundle-report.json
+            dist/bundle-diff.md
 
       - name: Playwright smoke（PW_PREVIEW_ONLY，僅啟動 preview）
         run: npm run test:e2e

@@ -49,6 +49,7 @@
 - `npm run perf:bundle-check:demo`：可執行門檻檢查（現行：`index <= 45kB`、`total-js <= 620kB`）
 - CI：`build:demo` 後自動執行 bundle budget check，避免體積回退進入主線
 - CI：會輸出並上傳 `dist/bundle-report.json` 為 `bundle-report` artifact，便於下載留存
+- CI：會額外產生並上傳 `dist/bundle-diff.md`（對照 `docs/perf-baselines/bundle-report-latest.json`）
 - GitHub Actions：最新連續主線 run 綠燈（#116、#117、#118）
 
 ## 相關提交（依時間）
