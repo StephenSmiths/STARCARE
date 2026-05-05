@@ -184,3 +184,4 @@
 | 2026-05-22 | **`pdf-alignment-p0-backlog.md`** 開首 **對照**、修訂表：補 **Seq 35～38** **`seq35`**～**`seq38`** 路徑句（與 §0／主檔「**運維與工程**」／**§C** 一致）。 |
 | 2026-05-23 | Seq 22：**`assessment-completion-records-append`** 契約／**`seq22`**／**`pdf-alignment-p0-backlog`**／主檔 Seq 22：移除 **`audit_ok`**；審計失敗軟刪回溯／**`500`**（對齊現行程式）。 |
 | 2026-05-23 | Seq 22：**`useAssessmentManagementWorkspace`** 於遠端 **`append`** 成功時跳過 **`audit-trail-append`**（與 Edge 審計去重）；契約 §4 補一句。 |
+| 2026-05-24 | 主檔開首「**運維與工程**」段後增 **全案收尾執行與證據留痕**（**`README.md`**「專案收尾」、**`docs/project-completion-kickoff-checklist-2026-05.md`**、**`docs/project-completion-audit-2026-05-05.md`**、**`docs/project-completion-evidence-index-2026-05.md`**；對齊 **`docs/business-logic.md`** §0、**`docs/go-live-checklist.md`** 開首）。 |

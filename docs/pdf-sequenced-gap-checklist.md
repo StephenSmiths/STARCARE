@@ -7,7 +7,8 @@
 > **02 編號**：PDF 內 **【5】出現兩次**（填寫表單、開工接更），本清單拆成 **【5】** 與 **【5b】** 以利追蹤。
 
 **相關檔**：`docs/feature-list.md`（現況盤點）、`docs/business-logic.md`（01 條文整理；**§0** 並讀 **`.cursorrules`** §3「部署與驗收閘門」）、`docs/client-delivery-remediation-plan.md`（對客戶流程）、`docs/pdf-alignment-p0-backlog.md`（母本全對齊 P0 可勾選項）。  
-**運維與工程**：`docs/go-live-checklist.md`（上線）、`docs/supabase-deploy-runbook.md`（**`ops:deploy:all`**、**`npm run ci`**）、`docs/security-token-rotation-checklist.md`（PAT；**§D** 部署後自檢含可選 **`npm run ci`**）、`docs/adr-0001-scheduling-logic-placement.md`（Seq 36 排班放置）、`docs/pdf03-cursorrules-alignment.md`（Seq 35／37 PR 檢核；**Seq 35～38** 對照骨架路徑見下方 **§C**）。**Stage 2／Phase 3 歷史追溯**（非現行交付權威）：路徑彙列於 **`docs/business-logic.md`** §0；**`README.md`** 文件表有入口列。
+**運維與工程**：`docs/go-live-checklist.md`（上線）、`docs/supabase-deploy-runbook.md`（**`ops:deploy:all`**、**`npm run ci`**）、`docs/security-token-rotation-checklist.md`（PAT；**§D** 部署後自檢含可選 **`npm run ci`**）、`docs/adr-0001-scheduling-logic-placement.md`（Seq 36 排班放置）、`docs/pdf03-cursorrules-alignment.md`（Seq 35／37 PR 檢核；**Seq 35～38** 對照骨架路徑見下方 **§C**）。**Stage 2／Phase 3 歷史追溯**（非現行交付權威）：路徑彙列於 **`docs/business-logic.md`** §0；**`README.md`** 文件表有入口列。  
+**全案收尾執行與證據留痕（運維配套，非 Seq）**：**`README.md`**「專案收尾」；快速啟動 **`docs/project-completion-kickoff-checklist-2026-05.md`**；盤點 **`docs/project-completion-audit-2026-05-05.md`**；證據索引 **`docs/project-completion-evidence-index-2026-05.md`**（與上列 **go-live** 併用；亦已列入 **`docs/business-logic.md`** §0）。
 
 ---
 
