@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { SignInScreen, useAuth } from './features/auth'
 import { PageShell } from './features/shared/components/PageShell'
 import { uiTokens } from './features/shared/ui/uiTokens'
-import { SchedulingAppLayout } from './features/scheduling'
+import { SchedulingAppLayout } from './features/scheduling/components/SchedulingAppLayout'
 import { AppMainViews } from './app/AppMainViews'
 import {
   VIEW_IDS,
