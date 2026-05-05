@@ -9,6 +9,11 @@ on:
     branches: [main, master, develop]
   pull_request:
   workflow_dispatch:
+    inputs:
+      allow_npm_install_fallback:
+        description: '允許 npm ci 失敗後回退 npm install（僅手動止血）'
+        required: false
+        default: 'false'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -30,6 +35,7 @@ jobs:
       - name: Install dependencies
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+          ALLOW_NPM_INSTALL_FALLBACK: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.allow_npm_install_fallback == 'true' }}
         run: |
           set -euo pipefail
           mkdir -p .ci-logs
@@ -51,10 +57,15 @@ jobs:
             [ "$attempt" -lt 4 ] && sleep 20
           done
           if [ "$ok" -ne 1 ]; then
-            echo "::warning::npm ci 連續失敗，暫時改用 npm install 以維持 CI 可用。"
-            npm install --no-audit --no-fund > .ci-logs/npm-install-fallback.log 2>&1
-            echo "---- npm install fallback tail ----"
-            tail -n 60 .ci-logs/npm-install-fallback.log || true
+            if [ "${ALLOW_NPM_INSTALL_FALLBACK}" = "true" ]; then
+              echo "::warning::npm ci 連續失敗，依 workflow_dispatch 參數回退 npm install。"
+              npm install --no-audit --no-fund > .ci-logs/npm-install-fallback.log 2>&1
+              echo "---- npm install fallback tail ----"
+              tail -n 60 .ci-logs/npm-install-fallback.log || true
+            else
+              echo "::error::npm ci 連續失敗，且未允許 fallback；請檢查上方 npm ci tail log。"
+              exit 1
+            fi
           fi
 
       - name: Cache Playwright browsers
