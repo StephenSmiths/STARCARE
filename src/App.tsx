@@ -1,9 +1,7 @@
-import { useEffect, useMemo, useState } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { SignInScreen, useAuth } from './features/auth'
 import { PageShell } from './features/shared/components/PageShell'
 import { uiTokens } from './features/shared/ui/uiTokens'
-import { SchedulingAppLayout } from './features/scheduling/components/SchedulingAppLayout'
-import { AppMainViews } from './app/AppMainViews'
 import {
   VIEW_IDS,
   VIEW_PERMISSION_MAP,
@@ -12,6 +10,14 @@ import {
   getViewTitle,
   type ViewId,
 } from './app/viewRouting'
+
+const SchedulingAppLayout = lazy(async () => ({
+  default: (await import('./features/scheduling/components/SchedulingAppLayout')).SchedulingAppLayout,
+}))
+
+const AppMainViews = lazy(async () => ({
+  default: (await import('./app/AppMainViews')).AppMainViews,
+}))
 
 const App = () => {
   const { isConfigured, isLoading, session, hasPermission } = useAuth()
@@ -53,15 +59,17 @@ const App = () => {
   }
 
   return (
-    <SchedulingAppLayout>
-      <main
-        className={uiTokens.appMainContentArea}
-      >
-        <PageShell moduleTitle={viewTitle} moduleDescription={moduleDescription}>
-          <AppMainViews effectiveView={effectiveView} hasPermission={hasPermission} />
-        </PageShell>
-      </main>
-    </SchedulingAppLayout>
+    <Suspense fallback={<div className={uiTokens.appAuthSessionLoadingRoot}>載入工作台...</div>}>
+      <SchedulingAppLayout>
+        <main
+          className={uiTokens.appMainContentArea}
+        >
+          <PageShell moduleTitle={viewTitle} moduleDescription={moduleDescription}>
+            <AppMainViews effectiveView={effectiveView} hasPermission={hasPermission} />
+          </PageShell>
+        </main>
+      </SchedulingAppLayout>
+    </Suspense>
   )
 }
 
