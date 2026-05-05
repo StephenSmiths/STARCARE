@@ -135,6 +135,7 @@
 19. **CI 趨勢工件輸出**：CI 會生成並上傳 `dist/bundle-history.md`（與 `bundle-report`、`bundle-diff` 同 artifact），便於跨環境追蹤。  
 20. **CI／本機流程對齊**：`npm run perf:bundle:ci` 將 budget、diff、delta、history 收斂為單指令，降低 workflow 與本機腳本漂移。  
 21. **Delta JSON 輸出**：`perf:bundle:ci` 會產生 `dist/bundle-delta.json`，CI 亦上傳 artifact，供自動化讀取與告警整合。  
+22. **失敗可觀測性**：`perf:bundle:ci` 先生成 `bundle-diff`／`bundle-history` 再執行 delta gate，確保失敗時仍有排查工件。  
 
 ---
 
