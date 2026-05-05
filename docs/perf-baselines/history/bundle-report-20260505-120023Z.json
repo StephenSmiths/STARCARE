@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-05-05T12:00:23.670Z",
+  "keyChunks": [
+    {
+      "fileName": "index-D3I3tyrd.js",
+      "bytes": 38479
+    },
+    {
+      "fileName": "vendor-react-C3ejh6V7.js",
+      "bytes": 186142
+    },
+    {
+      "fileName": "vendor-supabase-DdJC7hoj.js",
+      "bytes": 100184
+    },
+    {
+      "fileName": "scheduling-BdU57bva.js",
+      "bytes": 41946
+    },
+    {
+      "fileName": "residents-CaXVUqSQ.js",
+      "bytes": 30641
+    },
+    {
+      "fileName": "AppMainViews-u5fM6yCo.js",
+      "bytes": 7635
+    }
+  ],
+  "totalBytes": 604253,
+  "budgets": {
+    "maxIndexKB": null,
+    "maxTotalKB": null
+  }
+}
