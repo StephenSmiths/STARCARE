@@ -1,6 +1,6 @@
 # STARCARE 功能清單（Feature List）
 
-> **維護方式**：本清單由 **程式路由、`src/features/`、Supabase Edge Functions** 反推而成；與《STARCARE 智能院舍照護管理系統》PDF／**`docs/business-logic.md`**（**§0** 為運維與 **`.cursorrules`** §3 入口）、**`docs/pdf-sequenced-gap-checklist.md`**（主檔「**運維與工程**」列與 **§0**／**`README`** 對齊）對照後，請補上 **SOP 章節** 欄並視需要調整 **狀態**。  
+> **維護方式**：本清單由 **程式路由、`src/features/`、Supabase Edge Functions** 反推而成；與《STARCARE 智能院舍照護管理系統》PDF／**`docs/business-logic.md`**（**§0** 為運維與 **`.cursorrules`** §3 入口）、**`docs/pdf-sequenced-gap-checklist.md`**（主檔「**運維與工程**」列與 **§0**／**`README`** 對齊）對照後，請補上 **SOP 章節** 欄並視需要調整 **狀態**。**全案收尾**：**`README.md`**「專案收尾」、**§8** 第 24 點。  
 > **狀態定義**：`已完成`＝可於 UI 完成閉環；`部分`＝有介面或 API 但缺驗收／缺文件對照；`未開始`＝未見於主程式流程。
 
 ---
