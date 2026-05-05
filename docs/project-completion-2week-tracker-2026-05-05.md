@@ -2,6 +2,7 @@
 
 > 對照：`docs/project-completion-2week-plan-2026-05-05.md`  
 > 用法：每日 standup 更新「狀態 / 阻塞 / 證據」，EOD 勾選完成項。
+> 每日記錄：`docs/project-completion-daily-log-2026-05.md`
 
 ## 狀態圖例
 
@@ -118,6 +119,12 @@ limit 20;
 - 明日目標：
 - 需要協助：
 ```
+
+## 每日收工流程（固定 3 步）
+
+1. 先更新本表「每日追蹤（D1～D10）」中的狀態、阻塞與證據連結。  
+2. 再更新 `docs/project-completion-daily-log-2026-05.md` 當日段落（完成/未完成/風險/Gate 影響）。  
+3. 最後在 standup 或群組貼出 EOD 摘要（完成項 + 阻塞 + 明日重點）。
 
 ## 快速連結
 
