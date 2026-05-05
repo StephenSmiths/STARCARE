@@ -20,11 +20,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # 不放 `cache: npm`：還原之 cache 曾與 `npm ci` 交互導致裝依賴步驟全滅（後續 step 全 skipped）；嚴格 ci 仍靠 lockfile。
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: npm
-          cache-dependency-path: package-lock.json
 
       # 嚴格 `npm ci`（與 lockfile 一致）；若 registry 瞬断可重試。勿改回 `npm install` 以免與 lock 漂移。
       - name: Install dependencies
