@@ -26,7 +26,10 @@ jobs:
           node-version: '22'
 
       # 嚴格 `npm ci`（與 lockfile 一致）；若 registry 瞬断可重試。勿改回 `npm install` 以免與 lock 漂移。
+      # `@playwright/test` 的 install hook 會下載瀏覽器：於此前先略過，改由下方「Install Playwright Chromium」統一下載，以免 `npm ci` 在 runner 逾時或失敗。
       - name: Install dependencies
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
         run: |
           set -euo pipefail
           node -v
