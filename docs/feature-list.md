@@ -137,6 +137,7 @@
 21. **Delta JSON 輸出**：`perf:bundle:ci` 會產生 `dist/bundle-delta.json`，CI 亦上傳 artifact，供自動化讀取與告警整合。  
 22. **失敗可觀測性**：`perf:bundle:ci` 先生成 `bundle-diff`／`bundle-history` 再執行 delta gate，確保失敗時仍有排查工件。  
 23. **CI 內建摘要**：`perf:bundle:ci:summary` 會產生 `bundle-ci-summary.md`，包含 Top chunk 變化；CI 直接顯示於 Step Summary 並上傳 artifact。  
+24. **全案收尾盤點與兩週執行**：入口見 **`README.md`**「專案收尾」小節；細部為 **`docs/project-completion-audit-2026-05-05.md`**（完成率）、**`docs/project-completion-2week-plan-2026-05-05.md`**（日程與 Gate）、**`docs/project-completion-2week-tracker-2026-05-05.md`**（追蹤與指令）、**`docs/project-completion-daily-log-2026-05.md`**（日誌）、**`docs/project-completion-evidence-index-2026-05.md`**（證據索引）；與 **`docs/go-live-checklist.md`** 併用。  
 
 ---
 
