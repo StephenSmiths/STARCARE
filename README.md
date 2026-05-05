@@ -45,6 +45,8 @@ npm run perf:bundle-baseline:refresh # 一鍵重建報告並刷新 baseline
 npm run perf:bundle-diff -- <base.json> <current.json> # 比對兩份 bundle JSON 差異
 npm run perf:bundle-diff:md -- <base.json> <current.json> # 產生可貼 PR 的 Markdown 差異表
 npm run perf:bundle-diff:md -- <base.json> <current.json> --out docs/perf-diff.md # 輸出到檔案
+npm run perf:bundle-diff:baseline # 直接比對 baseline vs dist/bundle-report.json
+npm run perf:bundle-diff:baseline:md # 直接產生 baseline vs current 的 Markdown 差異
 ```
 
 - **Supabase**：複製 `.env.example` 為 `.env` 並填入 `VITE_SUPABASE_URL`、`VITE_SUPABASE_ANON_KEY` 後即可走真實登入與 Edge。
