@@ -66,3 +66,7 @@
 - `feature-list` 狀態與正式驗收一致（尤其 RES-06）。
 - `CI + E2E + perf governance` 維持穩定綠燈，無新 P0/P1。
 - 有可追溯證據（SQL、截圖、artifact、簽核記錄）。
+
+## 執行追蹤入口
+
+- 每日進度板：`docs/project-completion-2week-tracker-2026-05-05.md`
