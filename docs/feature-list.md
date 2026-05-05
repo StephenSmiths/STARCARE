@@ -126,6 +126,7 @@
 10. **效能報告歸檔**：CI 會把 `dist/bundle-report.json` 以上傳 `bundle-report` artifact，供每次 run 後下載留存與比對。  
 11. **效能差異比對**：`npm run perf:bundle-diff -- <base.json> <current.json>` 可對比兩份 `bundle-report.json` 的關鍵 chunk 與 `total-js` 增減。  
 12. **效能基準保存**：`npm run perf:bundle-baseline:save` 可將最新報告寫入 `docs/perf-baselines/bundle-report-latest.json`，作為後續 diff 基準。  
+13. **一鍵完整檢查**：`npm run perf:bundle:full` 可一次完成 build、門檻檢查、JSON 輸出與 markdown diff 產生。  
 
 ---
 
