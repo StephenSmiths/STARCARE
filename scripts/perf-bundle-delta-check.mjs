@@ -1,4 +1,4 @@
-import { readFile } from 'node:fs/promises'
+import { readFile, writeFile } from 'node:fs/promises'
 
 const toKB = (bytes) => `${(bytes / 1024).toFixed(2)} kB`
 
@@ -6,6 +6,7 @@ const parseArgs = (args) => {
   const result = {
     maxIndexDeltaKB: undefined,
     maxTotalDeltaKB: undefined,
+    jsonOut: undefined,
   }
 
   const indexFlag = args.indexOf('--max-index-delta-kb')
@@ -18,6 +19,12 @@ const parseArgs = (args) => {
   if (totalFlag !== -1) {
     const value = Number(args[totalFlag + 1])
     if (Number.isFinite(value)) result.maxTotalDeltaKB = value
+  }
+
+  const jsonOutFlag = args.indexOf('--json-out')
+  if (jsonOutFlag !== -1) {
+    const value = args[jsonOutFlag + 1]
+    if (value) result.jsonOut = value
   }
 
   return result
@@ -71,11 +78,57 @@ const main = async () => {
     for (const item of violations) {
       console.log(`- ${item}`)
     }
+    if (options.jsonOut) {
+      const payload = {
+        generatedAt: new Date().toISOString(),
+        basePath,
+        currentPath,
+        status: 'failed',
+        metrics: {
+          baseIndexBytes: baseIndex,
+          currentIndexBytes: currentIndex,
+          indexDeltaBytes: indexDelta,
+          baseTotalBytes: baseTotal,
+          currentTotalBytes: currentTotal,
+          totalDeltaBytes: totalDelta,
+        },
+        thresholds: {
+          maxIndexDeltaKB: options.maxIndexDeltaKB ?? null,
+          maxTotalDeltaKB: options.maxTotalDeltaKB ?? null,
+        },
+        violations,
+      }
+      await writeFile(options.jsonOut, `${JSON.stringify(payload, null, 2)}\n`, 'utf8')
+      console.log(`- json-report: ${options.jsonOut}`)
+    }
     process.exitCode = 1
     return
   }
 
   console.log('Bundle delta check: PASSED')
+  if (options.jsonOut) {
+    const payload = {
+      generatedAt: new Date().toISOString(),
+      basePath,
+      currentPath,
+      status: 'passed',
+      metrics: {
+        baseIndexBytes: baseIndex,
+        currentIndexBytes: currentIndex,
+        indexDeltaBytes: indexDelta,
+        baseTotalBytes: baseTotal,
+        currentTotalBytes: currentTotal,
+        totalDeltaBytes: totalDelta,
+      },
+      thresholds: {
+        maxIndexDeltaKB: options.maxIndexDeltaKB ?? null,
+        maxTotalDeltaKB: options.maxTotalDeltaKB ?? null,
+      },
+      violations: [],
+    }
+    await writeFile(options.jsonOut, `${JSON.stringify(payload, null, 2)}\n`, 'utf8')
+    console.log(`- json-report: ${options.jsonOut}`)
+  }
 }
 
 await main()

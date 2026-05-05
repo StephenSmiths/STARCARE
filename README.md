@@ -50,6 +50,7 @@ npm run perf:bundle:record # 一鍵執行 report:json + snapshot + history markd
 npm run perf:bundle:ci # CI 同步流程：budget + json + baseline diff + delta guard + history markdown
 npm run perf:bundle-delta-check -- <base.json> <current.json> --max-index-delta-kb 8 --max-total-delta-kb 30 # 檢查相對 baseline 增幅
 npm run perf:bundle-delta-check:baseline # 以 tracked baseline 執行 delta guard（index +8kB、total +30kB）
+npm run perf:bundle-delta-check:baseline:json # 產生 dist/bundle-delta.json（機器可讀）
 npm run perf:bundle-diff -- <base.json> <current.json> # 比對兩份 bundle JSON 差異
 npm run perf:bundle-diff:md -- <base.json> <current.json> # 產生可貼 PR 的 Markdown 差異表
 npm run perf:bundle-diff:md -- <base.json> <current.json> --out docs/perf-diff.md # 輸出到檔案

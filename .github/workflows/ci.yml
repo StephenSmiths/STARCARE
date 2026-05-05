@@ -103,6 +103,7 @@ jobs:
           path: |
             dist/bundle-report.json
             dist/bundle-diff.md
+            dist/bundle-delta.json
             dist/bundle-history.md
 
       - name: Playwright smoke（PW_PREVIEW_ONLY，僅啟動 preview）
