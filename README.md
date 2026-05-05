@@ -41,6 +41,7 @@ npm run perf:bundle-check:demo  # 一鍵 build:demo 並檢查 index/total-js 體
 npm run perf:bundle-report:json # 一鍵 build:demo 並輸出 dist/bundle-report.json
 npm run perf:bundle-diff -- <base.json> <current.json> # 比對兩份 bundle JSON 差異
 npm run perf:bundle-diff:md -- <base.json> <current.json> # 產生可貼 PR 的 Markdown 差異表
+npm run perf:bundle-diff:md -- <base.json> <current.json> --out docs/perf-diff.md # 輸出到檔案
 ```
 
 - **Supabase**：複製 `.env.example` 為 `.env` 並填入 `VITE_SUPABASE_URL`、`VITE_SUPABASE_ANON_KEY` 後即可走真實登入與 Edge。
