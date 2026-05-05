@@ -37,6 +37,46 @@
 | 建立證據存放位置（SQL/截圖/artifact） | QA | 證據路徑可追溯 | [ ] |  |
 | 確認 PAT / 部署窗口 | OPS | D9 可執行條件清楚 | [ ] |  |
 
+## 今日開工指令（可直接複用）
+
+```bash
+# 1) 本機全閘門（lint/typecheck/test/build:demo/e2e）
+npm run ci
+
+# 2) 可選：登入態 E2E（需 E2E_AUTH_*）
+npm run test:e2e:auth
+
+# 3) Bundle 治理（與 CI 同源）
+npm run perf:bundle:ci
+npm run perf:bundle:ci:summary
+```
+
+```sql
+-- 4) 排班寫入驗證（go-live §3）
+select
+  id,
+  resident_id,
+  session_id,
+  staff_id,
+  pass,
+  actor_id,
+  batch_id,
+  created_at
+from public.scheduling_history
+where is_deleted = false
+order by created_at desc
+limit 10;
+```
+
+```sql
+-- 5) 審計驗證（go-live §8）
+select id, action, entity_type, entity_id, actor_id, occurred_at
+from public.audit_events
+where is_deleted = false
+order by occurred_at desc
+limit 20;
+```
+
 ## 每日追蹤（D1～D10）
 
 | Day | 任務 | Owner | 狀態 | 阻塞 | 證據連結（PR/SQL/截圖/Artifact） | 完成勾選 |
