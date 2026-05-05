@@ -30,15 +30,24 @@ class EdgeAdminUserRoleRepository implements AdminUserRoleRepository {
   async setUserRole(payload: AdminSetUserRolePayload): Promise<{ targetUserId: string; role: string }> {
     const key = `admin-user-role-set:${payload.targetUserId ?? payload.targetEmail ?? ''}:${crypto.randomUUID()}`
     const headers = await buildEdgeInvokeHeaders(this.anonKey, key)
-    const response = await fetch(`${this.supabaseUrl}/functions/v1/admin-user-role-set`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        targetUserId: payload.targetUserId,
-        targetEmail: payload.targetEmail,
-        role: payload.role,
-      }),
-    })
+    let response: Response
+    try {
+      response = await fetch(`${this.supabaseUrl}/functions/v1/admin-user-role-set`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          targetUserId: payload.targetUserId,
+          targetEmail: payload.targetEmail,
+          role: payload.role,
+        }),
+      })
+    } catch (cause) {
+      const hint =
+        cause instanceof Error && cause.message === 'Failed to fetch'
+          ? '（常見原因：Edge CORS、瀏覽器擋跨網域、或 VITE_SUPABASE_URL 與專案不一致；請確認已重新部署 admin-user-role-set 與前端。）'
+          : ''
+      throw new Error(`無法連線至 admin-user-role-set${hint}`, { cause })
+    }
     const text = await response.text()
     if (!response.ok) {
       let msg = `變更角色失敗（HTTP ${response.status}）`

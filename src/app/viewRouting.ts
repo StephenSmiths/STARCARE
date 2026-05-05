@@ -89,7 +89,12 @@ const HASH_TO_VIEW: Record<string, ViewId> = {
   '#activity-sessions-import': 'activity-sessions-import',
 }
 
-export const getViewFromHash = (hash: string): ViewId => HASH_TO_VIEW[hash] ?? 'dashboard'
+/** 支援 `#user-manual` 與誤寫之 `#/user-manual`（部分主機／書籤會多斜線） */
+export const getViewFromHash = (hash: string): ViewId => {
+  const trimmed = hash.trim()
+  const key = trimmed.startsWith('#/') ? `#${trimmed.slice(2)}` : trimmed
+  return HASH_TO_VIEW[key] ?? 'dashboard'
+}
 
 const VIEW_TITLES: Record<ViewId, string> = {
   dashboard: '儀表盤',

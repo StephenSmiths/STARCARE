@@ -54,7 +54,9 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    if (window.location.hash === `#${effectiveView}`) return
+    const raw = window.location.hash.trim()
+    const canonical = raw.startsWith('#/') ? `#${raw.slice(2)}` : raw
+    if (canonical === `#${effectiveView}`) return
     window.location.hash = `#${effectiveView}`
   }, [effectiveView])
 
