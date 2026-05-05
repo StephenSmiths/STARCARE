@@ -44,6 +44,7 @@
 - `npm run perf:bundle-report`：可輸出 `index` / `vendor-react` / `vendor-supabase` / 核心模組 chunk 與總 JS 體積
 - `npm run perf:bundle-check:demo`：可執行門檻檢查（現行：`index <= 45kB`、`total-js <= 620kB`）
 - CI：`build:demo` 後自動執行 bundle budget check，避免體積回退進入主線
+- CI：會輸出並上傳 `dist/bundle-report.json` 為 `bundle-report` artifact，便於下載留存
 - GitHub Actions：最新連續主線 run 綠燈（#116、#117、#118）
 
 ## 相關提交（依時間）
