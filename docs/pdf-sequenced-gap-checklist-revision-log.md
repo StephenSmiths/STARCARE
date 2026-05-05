@@ -185,3 +185,4 @@
 | 2026-05-23 | Seq 22：**`assessment-completion-records-append`** 契約／**`seq22`**／**`pdf-alignment-p0-backlog`**／主檔 Seq 22：移除 **`audit_ok`**；審計失敗軟刪回溯／**`500`**（對齊現行程式）。 |
 | 2026-05-23 | Seq 22：**`useAssessmentManagementWorkspace`** 於遠端 **`append`** 成功時跳過 **`audit-trail-append`**（與 Edge 審計去重）；契約 §4 補一句。 |
 | 2026-05-24 | 主檔開首「**運維與工程**」段後增 **全案收尾執行與證據留痕**（**`README.md`**「專案收尾」、**`docs/project-completion-kickoff-checklist-2026-05.md`**、**`docs/project-completion-audit-2026-05-05.md`**、**`docs/project-completion-evidence-index-2026-05.md`**；對齊 **`docs/business-logic.md`** §0、**`docs/go-live-checklist.md`** 開首）。 |
+| 2026-05-25 | **`supabase-deploy-runbook.md`**、**`security-token-rotation-checklist.md`** 開首：補 **全案收尾與證據留痕**（**`README.md`**「專案收尾」、**`docs/project-completion-evidence-index-2026-05.md`**、**`docs/project-completion-kickoff-checklist-2026-05.md`**）。 |
