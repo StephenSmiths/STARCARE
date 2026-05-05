@@ -2,7 +2,8 @@
 
 > **對照**：**`docs/business-logic.md`** §0（**`.cursorrules`** §3「部署與驗收閘門」）；PAT／部署後自檢（可選 **`npm run ci`**）見 **`docs/security-token-rotation-checklist.md`** **§D**；序號清單主檔「**運維與工程**」路徑彙列見 **`docs/pdf-sequenced-gap-checklist.md`**（與 **`go-live-checklist.md`**、本 runbook、憑證清單同列）。
 
-**全案收尾與證據留痕**：見 **`README.md`**「專案收尾」；證據索引 **`docs/project-completion-evidence-index-2026-05.md`**；快速啟動 **`docs/project-completion-kickoff-checklist-2026-05.md`**。
+**全案收尾與證據留痕**：見 **`README.md`**「專案收尾」（**`docs/project-completion-*.md`**、主修訂日誌 **`docs/pdf-sequenced-gap-checklist-revision-log.md`** 及歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**）；證據索引 **`docs/project-completion-evidence-index-2026-05.md`**；快速啟動 **`docs/project-completion-kickoff-checklist-2026-05.md`**。  
+**兩週執行與日誌**：**`docs/project-completion-2week-plan-2026-05-05.md`**、**`docs/project-completion-2week-tracker-2026-05-05.md`**、**`docs/project-completion-daily-log-2026-05.md`**。
 
 ## 1) 前置條件
 - 已安裝 Node.js 與 npm。

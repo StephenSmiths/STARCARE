@@ -1,6 +1,6 @@
 # STARCARE 前端效能收斂摘要（2026-05-05）
 
-> 對照：`docs/business-logic.md` §0、專案根 `.cursorrules` §3、`README.md`、`docs/pdf-sequenced-gap-checklist.md`（運維與工程）。**全案收尾證據鏈**：`README.md`「專案收尾」、`docs/project-completion-evidence-index-2026-05.md`。
+> **對照**：**`docs/business-logic.md`** §0、專案根 **`.cursorrules`** §3、**`README.md`**、**`docs/pdf-sequenced-gap-checklist.md`**（運維與工程）。**全案收尾與證據留痕**：**`README.md`**「專案收尾」（**`docs/project-completion-*.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log.md`** 及歸檔副檔）；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**。
 
 ## 本次目標
 
