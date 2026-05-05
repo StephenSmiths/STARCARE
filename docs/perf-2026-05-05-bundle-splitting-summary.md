@@ -49,6 +49,7 @@
 - `npm run perf:bundle-check:demo`：可執行門檻檢查（現行：`index <= 45kB`、`total-js <= 620kB`）
 - `npm run perf:bundle:full`：一鍵執行 build + budget check + JSON + markdown diff
 - `npm run perf:bundle:pr`：一鍵產生 PR 可貼用的 baseline 差異 markdown（`dist/bundle-diff.md`）
+- `npm run perf:bundle-baseline:snapshot`：將 `dist/bundle-report.json` 以時間戳保存到 `docs/perf-baselines/history/`
 - CI：`build:demo` 後自動執行 bundle budget check，避免體積回退進入主線
 - CI：會輸出並上傳 `dist/bundle-report.json` 為 `bundle-report` artifact，便於下載留存
 - CI：會額外產生並上傳 `dist/bundle-diff.md`（對照 `docs/perf-baselines/bundle-report-latest.json`）
@@ -73,6 +74,7 @@
 - `b4329cf` chore(perf): 新增 baseline 保存指令與基準檔
 - `97234d9` chore(perf): 新增一鍵完整 bundle 驗證流程
 - `9b9a0f0` chore(perf): 新增 PR 差異一鍵產生指令
+- `a9157cb` chore(perf): 新增 baseline 歷史快照指令
 
 ## 下一階段建議
 
@@ -88,6 +90,9 @@ npm run perf:bundle-report:json
 
 # 2) 比對兩份 JSON 並輸出 markdown（可貼 PR）
 npm run perf:bundle-diff:md -- dist/bundle-report-base.json dist/bundle-report.json --out docs/perf-diff.md
+
+# 2.5) 保存時間戳快照（長期趨勢追蹤）
+npm run perf:bundle-baseline:snapshot
 
 # 3) 本機預算檢查（與 CI 門檻一致）
 npm run perf:bundle-check:demo
