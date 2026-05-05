@@ -93,12 +93,12 @@ jobs:
         run: npm run build:demo
 
       - name: Bundle governance checks（budget + diff + delta + history）
-        run: npm run perf:bundle:ci
+        run: env -u npm_config_devdir npm run perf:bundle:ci
 
       - name: Bundle CI summary markdown
         if: always()
         run: |
-          npm run perf:bundle:ci:summary
+          env -u npm_config_devdir npm run perf:bundle:ci:summary
           cat dist/bundle-ci-summary.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload bundle report artifact
