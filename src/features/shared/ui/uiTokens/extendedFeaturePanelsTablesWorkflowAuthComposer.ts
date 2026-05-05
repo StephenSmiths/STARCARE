@@ -8,6 +8,8 @@ export const uiTokensExtendedFeaturePanelsTablesWorkflowAuthComposer = {
   authSignInCard: 'w-full max-w-md rounded-2xl border border-slate-200 bg-white p-8 shadow-sm',
   /** 登入表單欄位區塊間距 */
   authSignInFormStack: 'mt-6 space-y-4',
+  /** 登入頁底部建置版本（與側欄同源，可觀測性） */
+  authBuildMeta: 'mt-6 text-center text-[10px] leading-snug text-slate-500',
   /** 無垂直外距：分牆列表外殼（工作計劃列表等；外層自加 mt-*／text-sm） */
   listDivideShell: 'divide-y divide-slate-100 rounded-lg border border-slate-200',
   workPlanTeamListRow: 'flex flex-wrap items-center gap-3 px-3 py-2 text-sm',

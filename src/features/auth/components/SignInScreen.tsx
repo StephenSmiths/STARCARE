@@ -1,4 +1,5 @@
 import { useRef, useState, type FormEvent } from 'react'
+import { buildReleaseLabel } from '../../../app/buildReleaseLabel'
 import { uiTokens } from '../../shared/ui/uiTokens'
 import { useAuth } from '../hooks/useAuth'
 
@@ -72,6 +73,9 @@ export const SignInScreen = () => {
             {pending ? '登入中…' : '登入'}
           </button>
         </form>
+        <p className={uiTokens.authBuildMeta} title="前端建置版本與日期（與部署驗收對照用）">
+          {buildReleaseLabel()}
+        </p>
       </div>
     </div>
   )
