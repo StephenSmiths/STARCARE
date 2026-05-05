@@ -3,6 +3,7 @@
 > 對照文件：  
 > `docs/project-completion-2week-tracker-2026-05-05.md`  
 > `docs/project-completion-2week-plan-2026-05-05.md`  
+> `docs/project-completion-evidence-index-2026-05.md`  
 > `docs/go-live-checklist.md`
 
 ## 使用規則
@@ -10,7 +11,7 @@
 - 每日收工前更新 1 次（建議 18:00 前）。
 - 每篇日誌需包含：完成事項、未完成原因、阻塞、明日計畫、證據連結。
 - 若涉及 Gate A/B/C，需明確標記是否達標。
-- 每篇日誌更新後，回填追蹤板對應 Day 的「證據連結」欄位，保持雙向可追溯。
+- 每篇日誌更新後，回填追蹤板對應 Day 的「證據連結」欄位，並於證據索引表新增或更新對應列，保持雙向可追溯。
 
 ---
 

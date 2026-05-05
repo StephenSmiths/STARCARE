@@ -3,6 +3,15 @@
 > 對照來源：`docs/feature-list.md`、`docs/go-live-checklist.md`、`docs/perf-2026-05-05-bundle-splitting-summary.md`、`.github/workflows/ci.yml`。  
 > 目的：用同一把尺評估「整個專案距離可宣告完成」的剩餘距離，而非單一技術線（例如 CI 或 perf）。
 
+## 收尾執行文件導覽（同一條線）
+
+| 文件 | 用途 |
+|------|------|
+| `docs/project-completion-2week-plan-2026-05-05.md` | 兩週日程、Gate 定義 |
+| `docs/project-completion-2week-tracker-2026-05-05.md` | 每日追蹤板、開工指令 |
+| `docs/project-completion-daily-log-2026-05.md` | EOD 日誌與風險紀錄 |
+| `docs/project-completion-evidence-index-2026-05.md` | PR/CI/SQL/截圖證據索引 |
+
 ## 一句話結論
 
 - 目前整體完成度估算：**約 62%（區間 55%～70%）**。
@@ -59,4 +68,4 @@
 
 - 先完成 `WP1 + WP2`（這兩包完成後，整體完成度通常可由 ~62% 拉升到 **75%+**）。
 - 完成後即更新 `docs/feature-list.md` 中 `RES-06` 狀態與 `docs/go-live-checklist.md` 勾選。
-- 若需要，我可以下一步直接產出「**兩週收尾甘特版任務清單**」（按人員角色與每日可交付項）。
+- 兩週日程、追蹤板、日誌與證據索引已備齊（見上表）；團隊依 `tracker` 開工，以 `evidence-index` 留存簽核材料。
