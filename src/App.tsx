@@ -20,9 +20,18 @@ const AppMainViews = lazy(async () => ({
 const SignInScreen = lazy(async () => ({
   default: (await import('./features/auth/components/SignInScreen')).SignInScreen,
 }))
-const appMainViewsModulePromise = import('./app/AppMainViews')
-const schedulingLayoutModulePromise = import('./features/scheduling/components/SchedulingAppLayout')
-const viewDescriptionsModulePromise = import('./app/viewDescriptions')
+
+let appMainViewsModulePromise: Promise<typeof import('./app/AppMainViews')> | undefined
+let schedulingLayoutModulePromise:
+  | Promise<typeof import('./features/scheduling/components/SchedulingAppLayout')>
+  | undefined
+let viewDescriptionsModulePromise: Promise<typeof import('./app/viewDescriptions')> | undefined
+
+const preloadAppMainViews = () => (appMainViewsModulePromise ??= import('./app/AppMainViews'))
+const preloadSchedulingLayout = () =>
+  (schedulingLayoutModulePromise ??= import('./features/scheduling/components/SchedulingAppLayout'))
+const preloadViewDescriptions = () =>
+  (viewDescriptionsModulePromise ??= import('./app/viewDescriptions'))
 
 const App = () => {
   const { isConfigured, isLoading, session, hasPermission } = useAuth()
@@ -52,19 +61,19 @@ const App = () => {
   const viewTitle = useMemo(() => getViewTitle(effectiveView), [effectiveView])
   useEffect(() => {
     // 背景預載描述模組，降低首次切頁描述更新延遲。
-    void viewDescriptionsModulePromise
+    void preloadViewDescriptions()
   }, [])
 
   useEffect(() => {
     if (!session) return
     // 已登入後預載工作台核心模組，降低首次進入頁面時的 lazy 載入等待。
-    void appMainViewsModulePromise
-    void schedulingLayoutModulePromise
+    void preloadAppMainViews()
+    void preloadSchedulingLayout()
   }, [session])
 
   useEffect(() => {
     let alive = true
-    viewDescriptionsModulePromise.then(({ getModuleDescription }) => {
+    preloadViewDescriptions().then(({ getModuleDescription }) => {
       if (!alive) return
       setModuleDescription(getModuleDescription(effectiveView))
     })
