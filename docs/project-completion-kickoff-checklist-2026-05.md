@@ -11,6 +11,8 @@
 - `docs/project-completion-daily-log-2026-05.md`
 - `docs/project-completion-evidence-index-2026-05.md`
 - `docs/go-live-checklist.md`
+- `docs/supabase-deploy-runbook.md`（OPS：遠端部署與驗證）
+- `docs/security-token-rotation-checklist.md`（OPS：PAT 與 §D 自檢）
 
 ## 1) 先對齊角色（5 分鐘）
 
