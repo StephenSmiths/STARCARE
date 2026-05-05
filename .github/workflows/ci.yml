@@ -35,7 +35,7 @@ jobs:
       - name: Install dependencies
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
-          ALLOW_NPM_INSTALL_FALLBACK: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.allow_npm_install_fallback == 'true' }}
+          ALLOW_NPM_INSTALL_FALLBACK: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.allow_npm_install_fallback == 'true') || (github.event_name == 'push' && github.ref == 'refs/heads/main') }}
         run: |
           set -euo pipefail
           mkdir -p .ci-logs
@@ -58,7 +58,7 @@ jobs:
           done
           if [ "$ok" -ne 1 ]; then
             if [ "${ALLOW_NPM_INSTALL_FALLBACK}" = "true" ]; then
-              echo "::warning::npm ci 連續失敗，依 workflow_dispatch 參數回退 npm install。"
+              echo "::warning::npm ci 連續失敗，依事件策略回退 npm install（workflow_dispatch 或 main push）。"
               npm install --no-audit --no-fund > .ci-logs/npm-install-fallback.log 2>&1
               echo "---- npm install fallback tail ----"
               tail -n 60 .ci-logs/npm-install-fallback.log || true
