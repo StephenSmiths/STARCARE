@@ -31,6 +31,7 @@
 - 第三輪 vendor 拆分後：`index` 約 **41.21 kB**
 - SignInScreen 拆包後：`index` 約 **40.12 kB**
 - 模組描述按需載入後：`index` 約 **38.27 kB**
+- 預載策略優化後：`index` 約 **38.47 kB**（體積近似持平，改善首次切頁體感）
 
 > 註：第三方依賴已分攤至 `vendor-react`（約 186.14 kB）與 `vendor-supabase`（約 100.18 kB），可由瀏覽器快取重用。
 
@@ -49,6 +50,9 @@
 - `3b6a51d` perf(build): 拆分 vendor chunk 降低入口載入負擔
 - `018cf55` perf(app): 拆出 SignInScreen chunk 並縮小入口檔
 - `53a0559` perf(app): 模組描述字串改為按需載入
+- `ea275dd` perf(app): 預載 viewDescriptions 模組降低描述延遲
+- `a894e42` perf(app): 已登入後預載工作台核心模組
+- `ebea22b` perf(app): 延後建立預載 promise 避免提前抓包
 
 ## 下一階段建議
 
