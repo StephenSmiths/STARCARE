@@ -24,18 +24,20 @@ jobs:
         with:
           node-version: '22'
 
-      # 不依賴 Actions npm cache：避免 lockfile／runner 更新後快取與 `npm ci` 不一致而 exit 1（查明後可再加回 cache）。
+      # 不依賴 Actions npm cache（見 Run #101／102：`npm ci` 於 ubuntu-latest 連續失敗；Vitest 未執行）。
+      # 若 `npm ci` 仍失敗，暫以 `npm install` 繼續並發 Warning，請對照該 step 完整 log（403 時需於瀏覽器開 Actions）。
       - name: Install dependencies
         run: |
-          set -e
           node -v
           npm -v
-          for attempt in 1 2 3; do
-            npm ci --no-audit --no-fund && exit 0
-            echo "npm ci attempt ${attempt} failed, retrying in 10s..."
-            sleep 10
-          done
-          exit 1
+          npm config set fetch-retries 5
+          npm config set fetch-retry-mintimeout 20000
+          npm config set fetch-retry-maxtimeout 120000
+          if npm ci --no-audit --no-fund; then
+            exit 0
+          fi
+          echo "::warning::npm ci 於 runner 失敗，改用 npm install 繼續；請複查 log 根本原因並恢復 npm ci。"
+          npm install --no-audit --no-fund
 
       - name: Cache Playwright browsers
         uses: actions/cache@v4
