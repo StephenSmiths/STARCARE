@@ -41,6 +41,7 @@ npm run perf:bundle-check:demo  # 一鍵 build:demo 並檢查 index/total-js 體
 npm run perf:bundle-report:json # 一鍵 build:demo 並輸出 dist/bundle-report.json
 npm run perf:bundle:full # 一鍵 build + budget check + JSON + markdown diff
 npm run perf:bundle-baseline:save # 將 dist/bundle-report.json 存為 docs/perf-baselines 基準檔
+npm run perf:bundle-baseline:refresh # 一鍵重建報告並刷新 baseline
 npm run perf:bundle-diff -- <base.json> <current.json> # 比對兩份 bundle JSON 差異
 npm run perf:bundle-diff:md -- <base.json> <current.json> # 產生可貼 PR 的 Markdown 差異表
 npm run perf:bundle-diff:md -- <base.json> <current.json> --out docs/perf-diff.md # 輸出到檔案
