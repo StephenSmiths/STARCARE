@@ -1,11 +1,14 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { activitySessionImportService } from '../../../services/activitySessionImportService'
-import type {
-  ActivitySessionImportPreviewRow,
-  ActivitySessionImportValidationResult,
-} from '../../../repositories/activitySessionImportRepository'
-import type { ImportRunSummary } from '../../shared/importRunSummary'
-import { parseActivitySessionCsv } from '../utils/activitySessionCsvParser'
+import { useCallback, useEffect, useMemo, useRef } from 'react'
+import type { ActivitySessionImportPreviewRow } from '../../../repositories/activitySessionImportRepository'
+import {
+  applyActivitySessionCsvCommitOutcome,
+  applyActivitySessionCsvDryRunOutcome,
+} from '../utils/activitySessionImportDryRunOutcomeApply'
+import {
+  commitActivitySessionCsvPreview,
+  runActivitySessionCsvDryRun,
+} from '../utils/activitySessionImportDryRunFlow'
+import { useActivitySessionImportDryRunState } from './useActivitySessionImportDryRunState'
 
 export type ActivitySessionImportDryRunOptions = {
   /** 匯入成功後回呼（例如排班頁重新載入時段） */
@@ -19,58 +22,44 @@ export const useActivitySessionImportDryRun = (options?: ActivitySessionImportDr
   useEffect(() => {
     onCommitSuccessRef.current = options?.onCommitSuccess
   }, [options?.onCommitSuccess])
-  const [isBusy, setIsBusy] = useState(false)
-  const [errorMessage, setErrorMessage] = useState('')
-  const [parseErrors, setParseErrors] = useState<Array<{ rowIndex: number; message: string }>>([])
-  const [result, setResult] = useState<ActivitySessionImportValidationResult | null>(null)
-  const [commitMessage, setCommitMessage] = useState('')
-  const [lastRunSummary, setLastRunSummary] = useState<ImportRunSummary | null>(null)
-  const [runHistory, setRunHistory] = useState<ImportRunSummary[]>([])
 
-  const pushHistory = useCallback((summary: ImportRunSummary) => {
-    setRunHistory((prev) => [summary, ...prev].slice(0, 10))
-  }, [])
+  const {
+    isBusy,
+    setIsBusy,
+    errorMessage,
+    setErrorMessage,
+    parseErrors,
+    setParseErrors,
+    result,
+    setResult,
+    commitMessage,
+    setCommitMessage,
+    lastRunSummary,
+    setLastRunSummary,
+    runHistory,
+    pushHistory,
+    reset,
+  } = useActivitySessionImportDryRunState()
 
-  const reset = useCallback(() => {
-    setErrorMessage('')
-    setParseErrors([])
-    setResult(null)
-    setCommitMessage('')
-  }, [])
-
-  const validateCsvText = useCallback(async (csvText: string) => {
-    setIsBusy(true)
-    reset()
-    const startedAt = Date.now()
-    try {
-      const parsed = parseActivitySessionCsv(csvText)
-      setParseErrors(parsed.errors)
-      if (parsed.errors.length > 0) {
-        setErrorMessage('CSV 內容有格式錯誤，請先修正後再進行預檢')
-        return
+  const validateCsvText = useCallback(
+    async (csvText: string) => {
+      setIsBusy(true)
+      reset()
+      try {
+        const outcome = await runActivitySessionCsvDryRun(csvText)
+        applyActivitySessionCsvDryRunOutcome(outcome, {
+          setParseErrors,
+          setErrorMessage,
+          setResult,
+          setLastRunSummary,
+          pushHistory,
+        })
+      } finally {
+        setIsBusy(false)
       }
-      if (parsed.rows.length === 0) {
-        setErrorMessage('CSV 沒有可用資料列')
-        return
-      }
-      const response = await activitySessionImportService.validateRows(parsed.rows)
-      setResult(response)
-      const summary: ImportRunSummary = {
-        stage: 'dry-run',
-        total: response.summary.total,
-        success: response.summary.valid,
-        failed: response.summary.invalid,
-        durationMs: Date.now() - startedAt,
-        ranAt: new Date().toISOString(),
-      }
-      setLastRunSummary(summary)
-      pushHistory(summary)
-    } catch (error) {
-      setErrorMessage(error instanceof Error ? error.message : '預檢失敗')
-    } finally {
-      setIsBusy(false)
-    }
-  }, [reset, pushHistory])
+    },
+    [pushHistory, reset, setErrorMessage, setIsBusy, setLastRunSummary, setParseErrors, setResult],
+  )
 
   const commitValidatedRows = useCallback(
     async (actorId: string) => {
@@ -80,44 +69,33 @@ export const useActivitySessionImportDryRun = (options?: ActivitySessionImportDr
       setIsBusy(true)
       setErrorMessage('')
       setCommitMessage('')
-      const startedAt = Date.now()
-      const total = result.preview.length
       try {
-        const committed = await activitySessionImportService.commitRows(
+        const outcome = await commitActivitySessionCsvPreview(
           actorId,
           result.preview as ActivitySessionImportPreviewRow[],
         )
-        setCommitMessage(`已成功匯入 ${committed.inserted} 筆活動時段資料`)
-        setResult(null)
-        const summary: ImportRunSummary = {
-          stage: 'commit',
-          total,
-          success: committed.inserted,
-          failed: Math.max(0, total - committed.inserted),
-          durationMs: Date.now() - startedAt,
-          ranAt: new Date().toISOString(),
-        }
-        setLastRunSummary(summary)
-        pushHistory(summary)
-        onCommitSuccessRef.current?.()
-      } catch (error) {
-        setErrorMessage(error instanceof Error ? error.message : '匯入失敗')
-        const summary: ImportRunSummary = {
-          stage: 'commit',
-          total,
-          success: 0,
-          failed: total,
-          durationMs: Date.now() - startedAt,
-          ranAt: new Date().toISOString(),
-        }
-        setLastRunSummary(summary)
-        pushHistory(summary)
+        applyActivitySessionCsvCommitOutcome(outcome, {
+          setCommitMessage,
+          setErrorMessage,
+          setResult,
+          setLastRunSummary,
+          pushHistory,
+          onCommitSuccess: () => onCommitSuccessRef.current?.(),
+        })
       } finally {
         commitLockRef.current = false
         setIsBusy(false)
       }
     },
-    [result, pushHistory],
+    [
+      pushHistory,
+      result,
+      setCommitMessage,
+      setErrorMessage,
+      setIsBusy,
+      setLastRunSummary,
+      setResult,
+    ],
   )
 
   return useMemo(

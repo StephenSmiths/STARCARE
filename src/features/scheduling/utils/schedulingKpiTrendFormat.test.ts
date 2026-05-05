@@ -1,7 +1,15 @@
 import { describe, expect, it } from 'vitest'
-import { formatDeltaDecimal, formatDeltaPercentPoints } from './schedulingKpiTrendFormat'
+import {
+  formatDeltaDecimal,
+  formatDeltaPercentPoints,
+  formatKpiTrendRanAtLocal,
+} from './schedulingKpiTrendFormat'
 
 describe('schedulingKpiTrendFormat', () => {
+  it('formatKpiTrendRanAtLocal：無效 ISO 回傳一字線', () => {
+    expect(formatKpiTrendRanAtLocal('not-a-date')).toBe('-')
+  })
+
   it('formatDeltaPercentPoints returns em dash when no previous', () => {
     expect(formatDeltaPercentPoints(10, undefined)).toBe('—')
   })

@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { STARCARE_DEFAULT_FACILITY_ID } from '../constants/starcareDefaultFacilityId'
 import type { SchedulingKpiRunRecord } from './schedulingKpiService'
 import { SchedulingKpiHistorySyncService } from './schedulingKpiHistorySyncService'
 import type { SchedulingKpiHistoryRepository } from '../repositories/schedulingKpiHistoryRepository'
@@ -40,10 +41,10 @@ describe('SchedulingKpiHistorySyncService', () => {
       clearHistory: vi.fn(async () => {}),
     }
     const service = new SchedulingKpiHistorySyncService(repository)
-    const rows = await service.hydrateFromServer('facility-main')
+    const rows = await service.hydrateFromServer(STARCARE_DEFAULT_FACILITY_ID)
     expect(rows).toEqual([record])
-    expect(repository.listHistory).toHaveBeenCalledWith('facility-main', { limit: 10 })
-    expect(saveKpiRunHistoryMock).toHaveBeenCalledWith('facility-main', [record])
+    expect(repository.listHistory).toHaveBeenCalledWith(STARCARE_DEFAULT_FACILITY_ID, { limit: 10 })
+    expect(saveKpiRunHistoryMock).toHaveBeenCalledWith(STARCARE_DEFAULT_FACILITY_ID, [record])
   })
 
   it('clearHistory clears server then local cache', async () => {
@@ -53,8 +54,8 @@ describe('SchedulingKpiHistorySyncService', () => {
       clearHistory: vi.fn(async () => {}),
     }
     const service = new SchedulingKpiHistorySyncService(repository)
-    await service.clearHistory('facility-main')
-    expect(repository.clearHistory).toHaveBeenCalledWith('facility-main')
-    expect(clearKpiRunHistoryMock).toHaveBeenCalledWith('facility-main')
+    await service.clearHistory(STARCARE_DEFAULT_FACILITY_ID)
+    expect(repository.clearHistory).toHaveBeenCalledWith(STARCARE_DEFAULT_FACILITY_ID)
+    expect(clearKpiRunHistoryMock).toHaveBeenCalledWith(STARCARE_DEFAULT_FACILITY_ID)
   })
 })

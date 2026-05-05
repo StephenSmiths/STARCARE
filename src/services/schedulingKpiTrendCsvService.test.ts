@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { STARCARE_DEFAULT_FACILITY_ID } from '../constants/starcareDefaultFacilityId'
 import { buildSchedulingKpiTrendCsv } from './schedulingKpiTrendCsvService'
 import type { SchedulingKpiRunRecord } from './schedulingKpiService'
 
@@ -18,10 +19,10 @@ describe('schedulingKpiTrendCsvService', () => {
         conflictCount: 10,
       },
     ]
-    const csv = buildSchedulingKpiTrendCsv('facility-main', rows)
+    const csv = buildSchedulingKpiTrendCsv(STARCARE_DEFAULT_FACILITY_ID, rows)
     expect(csv.startsWith('\uFEFF')).toBe(true)
     expect(csv).toContain('facilityId')
-    expect(csv).toContain('facility-main')
+    expect(csv).toContain(STARCARE_DEFAULT_FACILITY_ID)
     expect(csv).toContain('2026-04-30T12:00:00.000Z')
     expect(csv).toContain('50')
   })

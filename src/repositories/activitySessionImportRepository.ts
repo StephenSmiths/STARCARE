@@ -1,3 +1,4 @@
+import { STARCARE_DEFAULT_FACILITY_ID } from '../constants/starcareDefaultFacilityId'
 import { getSupabaseBrowserCredentials } from '../services/supabaseBrowserEnv'
 import { buildEdgeInvokeHeaders } from './edgeFunctionHeaders'
 
@@ -53,7 +54,7 @@ class InMemoryActivitySessionImportRepository implements ActivitySessionImportRe
   async validateRows(rows: ActivitySessionImportRow[]): Promise<ActivitySessionImportValidationResult> {
     const preview = rows.map((row) => ({
       id: row.id,
-      facility_id: row.facilityId ?? 'facility-main',
+      facility_id: row.facilityId ?? STARCARE_DEFAULT_FACILITY_ID,
       activity_id: row.activityId,
       staff_profile_id: row.staffProfileId,
       session_date: row.sessionDate,

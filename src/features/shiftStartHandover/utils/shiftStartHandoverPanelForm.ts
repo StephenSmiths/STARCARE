@@ -1,9 +1,6 @@
 import type { ShiftStartHandoverFields } from '../types/shiftStartHandover'
 
-export const todayYmd = (): string => {
-  const d = new Date()
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
-}
+export { localCalendarYmd as todayYmd } from '../../shared/date/localCalendarYmd'
 
 export const emptyShiftFields = (): ShiftStartHandoverFields => ({
   representativeNote: '',

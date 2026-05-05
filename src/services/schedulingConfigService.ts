@@ -7,6 +7,7 @@ import {
   createStaffProfilesListRepository,
   type StaffProfileListRow,
 } from '../repositories/staffProfilesListRepository'
+import { STARCARE_DEFAULT_FACILITY_ID } from '../constants/starcareDefaultFacilityId'
 import type { SchedulingSession } from './schedulingService'
 
 const activityRepository = createActivityRepository()
@@ -25,7 +26,7 @@ let staffProfilesUnavailableLastList = false
 export const getStaffProfilesUnavailableLastList = (): boolean => staffProfilesUnavailableLastList
 
 export class SchedulingConfigService {
-  async listSchedulingSessions(facilityId = 'facility-main'): Promise<SchedulingSession[]> {
+  async listSchedulingSessions(facilityId: string = STARCARE_DEFAULT_FACILITY_ID): Promise<SchedulingSession[]> {
     staffProfilesUnavailableLastList = false
     /** `staff-profiles-list` 失敗時仍回傳時段（無 `staffRoleType`；SC 僅治療師規則略過職類檢查） */
     const staffProfilesSafe = (): Promise<StaffProfileListRow[]> =>
@@ -59,7 +60,7 @@ export class SchedulingConfigService {
     }))
   }
 
-  async getRules(facilityId = 'facility-main'): Promise<SchedulingRules | null> {
+  async getRules(facilityId: string = STARCARE_DEFAULT_FACILITY_ID): Promise<SchedulingRules | null> {
     return schedulingRulesRepository.getRules(facilityId)
   }
 }

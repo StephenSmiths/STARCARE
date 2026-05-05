@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { STARCARE_DEFAULT_FACILITY_ID } from '../constants/starcareDefaultFacilityId'
 import type { SchedulingKpiRunRecord } from '../services/schedulingKpiService'
 import { InMemorySchedulingKpiHistoryRepository } from './schedulingKpiHistoryRepository'
 
@@ -19,9 +20,9 @@ describe('InMemorySchedulingKpiHistoryRepository', () => {
   it('append keeps latest 10 records in descending order', async () => {
     const repo = new InMemorySchedulingKpiHistoryRepository()
     for (let i = 0; i < 12; i += 1) {
-      await repo.appendRecord('facility-main', makeRecord(i))
+      await repo.appendRecord(STARCARE_DEFAULT_FACILITY_ID, makeRecord(i))
     }
-    const rows = await repo.listHistory('facility-main')
+    const rows = await repo.listHistory(STARCARE_DEFAULT_FACILITY_ID)
     expect(rows).toHaveLength(10)
     expect(rows[0].ranAt).toBe(makeRecord(11).ranAt)
     expect(rows[9].ranAt).toBe(makeRecord(2).ranAt)
@@ -29,17 +30,17 @@ describe('InMemorySchedulingKpiHistoryRepository', () => {
 
   it('clear removes all records', async () => {
     const repo = new InMemorySchedulingKpiHistoryRepository()
-    await repo.appendRecord('facility-main', makeRecord(0))
-    await repo.clearHistory('facility-main')
-    expect(await repo.listHistory('facility-main')).toEqual([])
+    await repo.appendRecord(STARCARE_DEFAULT_FACILITY_ID, makeRecord(0))
+    await repo.clearHistory(STARCARE_DEFAULT_FACILITY_ID)
+    expect(await repo.listHistory(STARCARE_DEFAULT_FACILITY_ID)).toEqual([])
   })
 
   it('supports from/to query filter', async () => {
     const repo = new InMemorySchedulingKpiHistoryRepository()
     for (let i = 0; i < 5; i += 1) {
-      await repo.appendRecord('facility-main', makeRecord(i))
+      await repo.appendRecord(STARCARE_DEFAULT_FACILITY_ID, makeRecord(i))
     }
-    const rows = await repo.listHistory('facility-main', {
+    const rows = await repo.listHistory(STARCARE_DEFAULT_FACILITY_ID, {
       from: '2026-05-03T00:00:00.000Z',
       to: '2026-05-04T23:59:59.999Z',
       limit: 10,

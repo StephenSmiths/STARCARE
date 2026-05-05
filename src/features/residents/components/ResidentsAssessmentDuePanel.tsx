@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
 import { uiTokens } from '../../shared/ui/uiTokens'
-import { hydrateAuditTrailAfterLocalRecord } from '../../../services/auditTrailHydrationService'
-import { globalAuditTrailService } from '../../../services/auditTrailService'
 import { assessmentDueTaskRepository } from '../../../repositories/assessmentDueTaskRepository'
 import { downloadAssessmentDueTasksCsv } from '../services/assessmentDueTaskCsvService'
+import { recordAssessmentDueTasksExportAudit } from '../services/residentsReportingAuditService'
 import type { Resident } from '../types/resident'
 import type { AssessmentDueTask } from '../services/assessmentDueTaskService'
 
@@ -28,17 +27,7 @@ export const ResidentsAssessmentDuePanel = ({ actorId, residents }: ResidentsAss
   const exportDueTasksCsv = () => {
     if (assessmentDueTasks.length === 0) return
     downloadAssessmentDueTasksCsv(assessmentDueTasks)
-    globalAuditTrailService.record({
-      action: 'ASSESSMENT_DUE_EXPORT',
-      entityType: 'Reporting',
-      entityId: `assessment-due-${Date.now()}`,
-      actorId,
-      beforeState: null,
-      afterState: JSON.stringify({ taskCount: assessmentDueTasks.length }),
-      detail: '匯出評估到期待辦清單（CSV）',
-      occurredAt: new Date().toISOString(),
-    })
-    hydrateAuditTrailAfterLocalRecord()
+    recordAssessmentDueTasksExportAudit(actorId, assessmentDueTasks.length)
   }
 
   return (

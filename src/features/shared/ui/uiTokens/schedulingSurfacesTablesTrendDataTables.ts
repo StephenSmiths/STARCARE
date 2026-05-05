@@ -1,0 +1,32 @@
+/**
+ * 排班／復康資料表殼層：院友指派表、復康軌跡表、達標 pill、儀表統計格（段一）。
+ */
+export const uiTokensSchedulingSurfacesTablesTrendDataTables = {
+  residentTableHeaderBar: 'border-b border-slate-200 bg-slate-50 px-4 py-3',
+  residentTableToolbarBar: 'border-b border-slate-200 bg-white px-4 py-3',
+  residentTableToolbarInner: 'flex flex-wrap items-center gap-2 text-xs',
+  residentTableBodyScroll: 'max-h-[60vh] overflow-auto',
+  residentTableData: 'min-w-full text-left text-sm',
+  residentTableHeadStickyZ: 'sticky top-0 z-10 bg-slate-50 text-xs font-semibold uppercase text-slate-500',
+  residentTableCellLg: 'px-4 py-3',
+  residentTableCellLgStrong: 'px-4 py-3 font-medium text-slate-900',
+  residentTableCellLgMuted: 'px-4 py-3 text-slate-600',
+  residentTableFooterBar: 'flex items-center justify-end gap-2 border-t border-slate-200 px-4 py-3 text-xs',
+  residentTableEmptyCell: 'px-4 py-6 text-center text-slate-500',
+  residentTableRowUnderTarget: 'bg-red-50/80',
+  residentTableRowDefault: 'bg-white',
+  rosterStatusUnderTarget: 'text-amber-700',
+  rosterStatusMet: 'text-emerald-700',
+  rehabTrackTableWrap: 'mt-4 overflow-x-auto',
+  rehabTrackTable: 'min-w-full border-collapse text-left text-sm',
+  rehabTrackTheadRow: 'border-b border-slate-200 bg-slate-50',
+  rehabTrackTh: 'px-3 py-2 font-medium',
+  rehabTrackTd: 'px-3 py-2',
+  rehabTrackTdName: 'px-3 py-2 font-medium text-slate-900',
+  rehabTrackTdMuted: 'px-3 py-2 text-slate-600',
+  rehabTrackTdEmpty: 'px-3 py-4 text-slate-500',
+  rehabTrackRowDivider: 'border-b border-slate-100',
+  rehabCompliantPillYes: 'rounded bg-emerald-100 px-2 py-0.5 text-emerald-900',
+  rehabCompliantPillNo: 'rounded bg-amber-100 px-2 py-0.5 text-amber-900',
+  dashboardStatGrid: 'grid gap-3 sm:grid-cols-2 lg:grid-cols-3',
+} as const

@@ -5,6 +5,7 @@ import {
   type StaffImportRow,
   type StaffImportValidationResult,
 } from '../repositories/staffImportRepository'
+import { hydrateAuditTrailAfterLocalRecord } from './auditTrailHydrationService'
 
 const repository = createStaffImportRepository()
 
@@ -14,7 +15,9 @@ export class StaffImportService {
   }
 
   async commitRows(actorId: string, rows: StaffImportPreviewRow[]): Promise<StaffImportCommitResult> {
-    return repository.commitRows(actorId, rows)
+    const result = await repository.commitRows(actorId, rows)
+    hydrateAuditTrailAfterLocalRecord()
+    return result
   }
 }
 

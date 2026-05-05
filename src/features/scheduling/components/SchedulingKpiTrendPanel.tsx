@@ -1,8 +1,8 @@
 import type { SchedulingKpiRunRecord } from '../../../services/schedulingKpiService'
 import type { SchedulingKpiHistoryFilter } from '../hooks/useSchedulingKpiHistory'
 import { uiTokens } from '../../shared/ui/uiTokens'
-import { formatDeltaDecimal, formatDeltaPercentPoints } from '../utils/schedulingKpiTrendFormat'
 import { SchedulingKpiTrendFilterBar } from './SchedulingKpiTrendFilterBar'
+import { SchedulingKpiTrendHistoryTable } from './SchedulingKpiTrendHistoryTable'
 
 interface SchedulingKpiTrendPanelProps {
   history: SchedulingKpiRunRecord[]
@@ -17,11 +17,6 @@ interface SchedulingKpiTrendPanelProps {
   onApplyFilter?: (filter: SchedulingKpiHistoryFilter) => void
   onResetFilter?: () => void
   isApplyingFilter?: boolean
-}
-
-const formatTime = (iso: string): string => {
-  const d = new Date(iso)
-  return Number.isNaN(d.getTime()) ? '-' : d.toLocaleString()
 }
 
 /** Phase 4 Day 2/3：最近排班 KPI 趨勢（最多顯示 10 次；Day 3 支援本機持久化與 CSV 匯出） */
@@ -101,51 +96,7 @@ export const SchedulingKpiTrendPanel = ({
       {history.length === 0 ? (
         <p className={uiTokens.schedulingKpiTrendEmptyHint}>目前沒有符合條件的趨勢資料。</p>
       ) : (
-        <div className={uiTokens.schedulingKpiTrendTableArea}>
-          <table className={uiTokens.tableCompact}>
-            <thead className={uiTokens.tableHeadSticky}>
-              <tr>
-                <th className={uiTokens.tableCell}>時間</th>
-                <th className={uiTokens.tableCell}>覆蓋率</th>
-                <th className={uiTokens.tableCell}>Δ</th>
-                <th className={uiTokens.tableCell}>衝突率/百</th>
-                <th className={uiTokens.tableCell}>Δ</th>
-                <th className={uiTokens.tableCell}>均值指派</th>
-                <th className={uiTokens.tableCell}>Δ</th>
-                <th className={uiTokens.tableCell}>待補齊%</th>
-                <th className={uiTokens.tableCell}>Δ</th>
-              </tr>
-            </thead>
-            <tbody className={uiTokens.tableBodyDivided}>
-              {history.map((row, index) => {
-                const prev = history[index + 1]
-                const k = row.kpis
-                const p = prev?.kpis
-                return (
-                  <tr key={`${row.ranAt}-${index}`}>
-                    <td className={uiTokens.tableCellNowrap}>{formatTime(row.ranAt)}</td>
-                    <td className={uiTokens.tableCell}>{k.coverageRate.toFixed(1)}%</td>
-                    <td className={uiTokens.tableCellNowrapMuted}>
-                      {formatDeltaPercentPoints(k.coverageRate, p?.coverageRate)}
-                    </td>
-                    <td className={uiTokens.tableCell}>{k.conflictRatePer100.toFixed(1)}%</td>
-                    <td className={uiTokens.tableCellNowrapMuted}>
-                      {formatDeltaPercentPoints(k.conflictRatePer100, p?.conflictRatePer100)}
-                    </td>
-                    <td className={uiTokens.tableCell}>{k.averageAssignmentsPerResident.toFixed(2)}</td>
-                    <td className={uiTokens.tableCellNowrapMuted}>
-                      {formatDeltaDecimal(k.averageAssignmentsPerResident, p?.averageAssignmentsPerResident)}
-                    </td>
-                    <td className={uiTokens.tableCell}>{k.underTargetRate.toFixed(1)}%</td>
-                    <td className={uiTokens.tableCellNowrapMuted}>
-                      {formatDeltaPercentPoints(k.underTargetRate, p?.underTargetRate)}
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        </div>
+        <SchedulingKpiTrendHistoryTable history={history} />
       )}
     </div>
   )

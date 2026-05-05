@@ -2,8 +2,11 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import type { ActivitySession } from '../../../repositories/activitySessionRepository'
 import { activitySessionManagementService } from '../../../services/activitySessionManagementService'
 import { useInvalidateOnSystemSettingsExternalChange } from '../../systemSettings'
+import { ACTIVITY_SESSIONS_WORKSPACE_FACILITY_ID } from '../constants/activitySessionsWorkspaceDefaults'
 
-export const useActivitySessionList = (facilityId = 'facility-main') => {
+export const useActivitySessionList = (
+  facilityId: string = ACTIVITY_SESSIONS_WORKSPACE_FACILITY_ID,
+) => {
   const softDeleteLockRef = useRef(false)
   const loadSeqRef = useRef(0)
   const [rows, setRows] = useState<ActivitySession[]>([])

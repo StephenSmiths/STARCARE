@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { STARCARE_DEFAULT_FACILITY_ID } from '../../../constants/starcareDefaultFacilityId'
 import type { Activity } from '../../../repositories/activityRepository'
 import {
   buildActivitySessionImportRows,
@@ -10,7 +11,7 @@ import {
 const sampleActivities: Activity[] = [
   {
     id: 'act-r',
-    facilityId: 'facility-main',
+    facilityId: STARCARE_DEFAULT_FACILITY_ID,
     name: '復康課',
     serviceType: 'Subsidized_Rehab',
     activityKind: 'Training',
@@ -19,7 +20,7 @@ const sampleActivities: Activity[] = [
   },
   {
     id: 'act-d',
-    facilityId: 'facility-main',
+    facilityId: STARCARE_DEFAULT_FACILITY_ID,
     name: '認知小組',
     serviceType: 'Dementia_Care',
     activityKind: 'Training',
@@ -57,11 +58,11 @@ describe('workPlanDraftService (Seq 14)', () => {
         serviceType: 'Subsidized_Rehab',
       },
     ]
-    const out = buildActivitySessionImportRows(lines, sampleActivities, 'facility-main')
+    const out = buildActivitySessionImportRows(lines, sampleActivities, STARCARE_DEFAULT_FACILITY_ID)
     expect(out.ok).toBe(true)
     if (!out.ok) return
     expect(out.rows[0]).toMatchObject({
-      facilityId: 'facility-main',
+      facilityId: STARCARE_DEFAULT_FACILITY_ID,
       activityId: 'act-r',
       staffProfileId: 'st-1',
       sessionDate: '2026-05-10',

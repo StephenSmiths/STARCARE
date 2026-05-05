@@ -1,3 +1,4 @@
+import { recordAuditTrailThenHydrateWithService } from './auditTrailHydrationService'
 import { AuditTrailService, globalAuditTrailService } from './auditTrailService'
 import { getWeeklyTargetByFundingType, hasUnmetTarget } from './schedulingTargets'
 import { executePass, fillWeeklyTargets, sortBySC } from './schedulingCore'
@@ -112,7 +113,7 @@ export class SchedulingService {
       }))
 
     if (options?.recordAudit !== false) {
-      this.auditTrailService.record({
+      recordAuditTrailThenHydrateWithService(this.auditTrailService, {
         action: 'SCHEDULING_RUN',
         entityType: 'Scheduling',
         entityId: `run-${Date.now()}`,

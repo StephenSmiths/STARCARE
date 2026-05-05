@@ -1,22 +1,13 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useAuthActorId } from '../../auth'
-import type { SchedulingRules } from '../../../repositories/schedulingRulesRepository'
-import { schedulingConfigService } from '../../../services/schedulingConfigService'
-import { residentService } from '../../residents/services/residentService'
-import type { Resident } from '../../residents/types/resident'
-import type { SchedulingSession } from '../../../services/schedulingService'
 import { buildEngineConstraintsFromRulesAndUi } from '../../scheduling/hooks/schedulingHookHelpers'
-import {
-  useInvalidateOnSystemSettingsExternalChange,
-  useSystemSettingsExternalVersion,
-} from '../../systemSettings'
+import { useSystemSettingsExternalVersion } from '../../systemSettings'
 import {
   buildDementiaServiceTrackSnapshot,
   buildSubsidizedRehabTrackSnapshot,
   type RehabActivityTrackSnapshot,
 } from '../services/rehabActivityTrackingSnapshotService'
-
-const FACILITY_ID = 'facility-main'
+import { useRehabActivityTrackingLoad } from './useRehabActivityTrackingLoad'
 
 export type RehabActivityTrackingState = {
   loadError: string
@@ -29,39 +20,7 @@ export type RehabActivityTrackingState = {
 /** PDF 02【8】兩軌快照（乾跑；不觸發正式排班審計） */
 export const useRehabActivityTracking = (): RehabActivityTrackingState => {
   const actorId = useAuthActorId()
-  const [residents, setResidents] = useState<Resident[]>([])
-  const [sessions, setSessions] = useState<SchedulingSession[]>([])
-  const [rules, setRules] = useState<SchedulingRules | null>(null)
-  const [loadError, setLoadError] = useState('')
-  const [isLoading, setIsLoading] = useState(true)
-
-  const reload = useCallback(async () => {
-    setLoadError('')
-    setIsLoading(true)
-    try {
-      const [resRows, sessRows, rulesRow] = await Promise.all([
-        residentService.listActiveResidents(),
-        schedulingConfigService.listSchedulingSessions(FACILITY_ID),
-        schedulingConfigService.getRules(FACILITY_ID),
-      ])
-      setResidents(resRows)
-      setSessions(sessRows)
-      setRules(rulesRow)
-    } catch {
-      setLoadError('無法載入院友或活動時段')
-      setResidents([])
-      setSessions([])
-      setRules(null)
-    } finally {
-      setIsLoading(false)
-    }
-  }, [])
-
-  useEffect(() => {
-    queueMicrotask(() => void reload())
-  }, [reload])
-
-  useInvalidateOnSystemSettingsExternalChange(reload)
+  const { residents, sessions, rules, loadError, isLoading, reload } = useRehabActivityTrackingLoad()
 
   const systemSettingsVersion = useSystemSettingsExternalVersion()
   const constraints = useMemo(() => {

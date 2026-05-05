@@ -1,5 +1,4 @@
-import { hydrateAuditTrailAfterLocalRecord } from '../../../services/auditTrailHydrationService'
-import { globalAuditTrailService } from '../../../services/auditTrailService'
+import { recordAuditTrailThenHydrate } from '../../../services/auditTrailHydrationService'
 import { createActivityRepository, type ActivityRepository } from '../../../repositories/activityRepository'
 import {
   createActivitySessionImportRepository,
@@ -44,7 +43,7 @@ export class WorkPlanCommitService {
     })
     if (!committed.ok) throw new Error('儲存失敗')
 
-    globalAuditTrailService.record(
+    recordAuditTrailThenHydrate(
       {
         action: 'WORK_PLAN_SESSION_COMMIT',
         entityType: 'Scheduling',
@@ -57,7 +56,6 @@ export class WorkPlanCommitService {
       },
       isSupabaseBrowserConfigured(),
     )
-    hydrateAuditTrailAfterLocalRecord()
 
     return { inserted: committed.inserted, sessionIds: committed.sessionIds }
   }

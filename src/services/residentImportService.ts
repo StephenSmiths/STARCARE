@@ -5,6 +5,7 @@ import {
   type ResidentImportRow,
   type ResidentImportValidationResult,
 } from '../repositories/residentImportRepository'
+import { hydrateAuditTrailAfterLocalRecord } from './auditTrailHydrationService'
 
 const repository = createResidentImportRepository()
 
@@ -17,7 +18,9 @@ export class ResidentImportService {
     actorId: string,
     rows: ResidentImportPreviewRow[],
   ): Promise<ResidentImportCommitResult> {
-    return repository.commitRows(actorId, rows)
+    const result = await repository.commitRows(actorId, rows)
+    hydrateAuditTrailAfterLocalRecord()
+    return result
   }
 }
 

@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { STARCARE_DEFAULT_FACILITY_ID } from '../../../constants/starcareDefaultFacilityId'
 import { SCHEDULING_DATA_LOAD_ERROR_MESSAGE } from './schedulingDataLoadMessage'
 import { runSchedulingReloadPageData } from './schedulingReloadPageData'
 import type { Resident } from '../../residents/types/resident'
@@ -33,7 +34,7 @@ const session: SchedulingSession = {
 
 describe('runSchedulingReloadPageData', () => {
   it('成功時回傳映射後院友與時段筆數', async () => {
-    const out = await runSchedulingReloadPageData('facility-main', {
+    const out = await runSchedulingReloadPageData(STARCARE_DEFAULT_FACILITY_ID, {
       listActiveResidents: async () => [resident],
       listSchedulingSessions: async () => [session],
       prefetchRules: () => {},
@@ -61,7 +62,7 @@ describe('runSchedulingReloadPageData', () => {
       serviceType: 'Dementia_Service',
       dementiaLevel: 'Mild',
     }
-    const out = await runSchedulingReloadPageData('facility-main', {
+    const out = await runSchedulingReloadPageData(STARCARE_DEFAULT_FACILITY_ID, {
       listActiveResidents: async () => [resident, dementiaOnly],
       listSchedulingSessions: async () => [session],
       prefetchRules: () => {},
@@ -74,7 +75,7 @@ describe('runSchedulingReloadPageData', () => {
   })
 
   it('依賴拋錯時回傳固定 loadError', async () => {
-    const out = await runSchedulingReloadPageData('facility-main', {
+    const out = await runSchedulingReloadPageData(STARCARE_DEFAULT_FACILITY_ID, {
       listActiveResidents: async () => {
         throw new Error('x')
       },

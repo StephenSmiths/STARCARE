@@ -3,8 +3,10 @@ import type { SchedulingResident } from '../../../services/schedulingService'
 import { getWeeklyTargetByFundingType } from '../../../services/schedulingTargets'
 import { downloadWeeklyComplianceCsv } from '../../../services/weeklyComplianceCsvService'
 import { downloadSchedulingComplianceAlertsCsv } from '../../../services/schedulingComplianceAlertCsvService'
-import { hydrateAuditTrailAfterLocalRecord } from '../../../services/auditTrailHydrationService'
-import { globalAuditTrailService } from '../../../services/auditTrailService'
+import {
+  recordComplianceAlertsExportAudit,
+  recordWeeklyComplianceExportAudit,
+} from '../services/schedulingCsvExportAuditService'
 import type { SchedulingComplianceAlert } from '../../../services/schedulingComplianceAlertService'
 
 /** 排班頁：週合規／週三提醒 CSV 匯出（抽離以控 useScheduling 行數） */
@@ -21,33 +23,13 @@ export const useSchedulingCsvExports = (
         isCompliant: r.weeklyCompletedCount >= getWeeklyTargetByFundingType(r.fundingType),
       })),
     )
-    globalAuditTrailService.record({
-      action: 'WEEKLY_COMPLIANCE_EXPORT',
-      entityType: 'Reporting',
-      entityId: `weekly-compliance-${Date.now()}`,
-      actorId,
-      beforeState: null,
-      afterState: JSON.stringify({ residentCount: residents.length }),
-      detail: '匯出本週服務達成／合規清單（CSV）',
-      occurredAt: new Date().toISOString(),
-    })
-    hydrateAuditTrailAfterLocalRecord()
+    recordWeeklyComplianceExportAudit(actorId, residents.length)
   }, [actorId, residents])
 
   const exportComplianceAlertsCsv = useCallback(() => {
     if (complianceAlerts.length === 0) return
     downloadSchedulingComplianceAlertsCsv(complianceAlerts)
-    globalAuditTrailService.record({
-      action: 'COMPLIANCE_ALERT_EXPORT',
-      entityType: 'Reporting',
-      entityId: `midweek-alerts-${Date.now()}`,
-      actorId,
-      beforeState: null,
-      afterState: JSON.stringify({ alertCount: complianceAlerts.length }),
-      detail: '匯出週三 0 次高優先提醒清單（CSV）',
-      occurredAt: new Date().toISOString(),
-    })
-    hydrateAuditTrailAfterLocalRecord()
+    recordComplianceAlertsExportAudit(actorId, complianceAlerts.length)
   }, [actorId, complianceAlerts])
 
   return { exportWeeklyComplianceCsv, exportComplianceAlertsCsv }

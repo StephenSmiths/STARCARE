@@ -8,7 +8,7 @@ interface ActivitySessionListPanelProps {
 }
 
 export const ActivitySessionListPanel = ({ actorId, canMaintainSessions }: ActivitySessionListPanelProps) => {
-  const { rows, isLoading, error, busySessionId, softDeleteSession } = useActivitySessionList('facility-main')
+  const { rows, isLoading, error, busySessionId, softDeleteSession } = useActivitySessionList()
   const softDeleteLocked = busySessionId !== null
 
   return (

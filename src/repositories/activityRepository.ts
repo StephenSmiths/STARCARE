@@ -1,3 +1,4 @@
+import { STARCARE_DEFAULT_FACILITY_ID } from '../constants/starcareDefaultFacilityId'
 import { getSupabaseBrowserCredentials } from '../services/supabaseBrowserEnv'
 import { buildEdgeInvokeHeaders } from './edgeFunctionHeaders'
 
@@ -19,7 +20,7 @@ export interface ActivityRepository {
 const DEMO_ACTIVITIES: Activity[] = [
   {
     id: 'activity-rehab-01',
-    facilityId: 'facility-main',
+    facilityId: STARCARE_DEFAULT_FACILITY_ID,
     name: '下肢肌力訓練',
     serviceType: 'Subsidized_Rehab',
     activityKind: 'Training',
@@ -28,7 +29,7 @@ const DEMO_ACTIVITIES: Activity[] = [
   },
   {
     id: 'activity-dementia-01',
-    facilityId: 'facility-main',
+    facilityId: STARCARE_DEFAULT_FACILITY_ID,
     name: '認知刺激小組',
     serviceType: 'Dementia_Care',
     activityKind: 'Training',

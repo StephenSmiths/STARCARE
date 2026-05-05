@@ -3,7 +3,7 @@
  * Seq 17：`FORM_APPROVE` 經 **`service-forms-upsert`** 時 Edge 同步落庫 **`WORK_SESSION_COMPLETED`**；
  * `skipRemotePersist=true` 時僅更新本機 store，不重複 `audit-trail-append`／避免與遠端 fingerprint 分叉。
  */
-import { globalAuditTrailService } from '../../../services/auditTrailService'
+import { recordAuditTrailThenHydrate } from '../../../services/auditTrailHydrationService'
 import { workSessionResponseStore } from '../../../services/workSessionResponseStore'
 import { resolveLifecycleStatus } from '../../workSessionPlans/services/workSessionPlanService'
 
@@ -26,7 +26,7 @@ export const completeWorkSessionAfterFormApproved = (
     occurredAt: now,
   })
   if (skipRemotePersist) return
-  globalAuditTrailService.record({
+  recordAuditTrailThenHydrate({
     action: 'WORK_SESSION_COMPLETED',
     entityType: 'Scheduling',
     entityId: sessionId,

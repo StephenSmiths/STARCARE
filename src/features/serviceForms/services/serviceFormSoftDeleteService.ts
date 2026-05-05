@@ -2,7 +2,7 @@
  * 01 §5：服務表單軟刪除（非 APPROVED）；Staff 僅能刪本人，TeamLead／Admin 可刪非核准列。
  * 先呼叫 Edge，再自本機移除並寫審計（PDF 02【5】／Seq 10）。
  */
-import { globalAuditTrailService } from '../../../services/auditTrailService'
+import { recordAuditTrailThenHydrate } from '../../../services/auditTrailHydrationService'
 import { removeServiceFormById } from '../../../services/serviceFormStorage'
 import { createServiceFormRepository } from '../../../repositories/serviceFormRepository'
 import type { ServiceFormRecord } from '../types/serviceForm'
@@ -30,7 +30,7 @@ export const softDeleteServiceForm = async (
   await repo.softDeleteForm(form.id)
   removeServiceFormById(form.id)
   const ts = new Date().toISOString()
-  globalAuditTrailService.record(
+  recordAuditTrailThenHydrate(
     {
       action: 'FORM_SOFT_DELETE',
       entityType: 'Scheduling',

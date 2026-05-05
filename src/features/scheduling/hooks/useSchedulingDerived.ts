@@ -3,7 +3,7 @@ import { getWeeklyTargetByFundingType } from '../../../services/schedulingTarget
 import { buildMidweekSubsidizedZeroAlerts } from '../../../services/schedulingComplianceAlertService'
 import type { SchedulingResident } from '../../../services/schedulingService'
 import { calculateSchedulingKpis } from '../../../services/schedulingKpiService'
-import type { ResidentTableRow } from '../components/SchedulingResidentTable'
+import type { ResidentTableRow } from '../types/residentTableRow'
 import type { SchedulingViewModel } from '../types/schedule'
 
 /** 院友統計、表格列、即時 KPI（由 residents + 排班結果衍生） */

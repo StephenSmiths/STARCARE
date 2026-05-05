@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useInvalidateOnSystemSettingsExternalChange } from '../../systemSettings'
+import { STAFF_WORKSPACE_FACILITY_ID } from '../constants/staffWorkspaceDefaults'
 import { staffManagementService, type StaffOverviewRow } from '../services/staffManagementService'
 
-export const useStaffManagementOverview = (facilityId = 'facility-main') => {
+export const useStaffManagementOverview = (facilityId: string = STAFF_WORKSPACE_FACILITY_ID) => {
   const softDeleteLockRef = useRef(false)
   const loadSeqRef = useRef(0)
   const [rows, setRows] = useState<StaffOverviewRow[]>([])

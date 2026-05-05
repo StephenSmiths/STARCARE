@@ -1,10 +1,9 @@
 import { useState } from 'react'
 import { useAuth } from '../../auth'
 import { uiTokens } from '../../shared/ui/uiTokens'
-import { hydrateAuditTrailAfterLocalRecord } from '../../../services/auditTrailHydrationService'
-import { globalAuditTrailService } from '../../../services/auditTrailService'
 import { useStaffManagementOverview } from '../hooks/useStaffManagementOverview'
 import { downloadStaffOverviewExportCsv } from '../services/staffOverviewExportCsvService'
+import { recordStaffOverviewExportAudit } from '../services/staffOverviewExportAuditService'
 import type { StaffOverviewRow } from '../services/staffManagementService'
 import { StaffProfileEditSheet } from './StaffProfileEditSheet'
 
@@ -16,23 +15,13 @@ export const StaffOverviewPanel = ({ actorId }: StaffOverviewPanelProps) => {
   const { hasPermission } = useAuth()
   const canMaintainProfiles = hasPermission('view:staff-import')
   const { rows, isLoading, error, softDeleteBusyStaffId, softDeleteStaff, reload } =
-    useStaffManagementOverview('facility-main')
+    useStaffManagementOverview()
   const [editRow, setEditRow] = useState<StaffOverviewRow | null>(null)
   const softDeleteLocked = softDeleteBusyStaffId !== null
   const exportCsv = () => {
     if (rows.length === 0) return
     downloadStaffOverviewExportCsv(rows)
-    globalAuditTrailService.record({
-      action: 'STAFF_EXPORT',
-      entityType: 'Staff',
-      entityId: `staff-export-${Date.now()}`,
-      actorId,
-      beforeState: null,
-      afterState: JSON.stringify({ count: rows.length }),
-      detail: '匯出員工概覽（CSV／Excel 可開）',
-      occurredAt: new Date().toISOString(),
-    })
-    hydrateAuditTrailAfterLocalRecord()
+    recordStaffOverviewExportAudit(actorId, rows.length)
   }
 
   return (

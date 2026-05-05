@@ -1,18 +1,18 @@
-import { hydrateAuditTrailAfterLocalRecord } from './auditTrailHydrationService'
-import { globalAuditTrailService } from './auditTrailService'
+import { STARCARE_DEFAULT_FACILITY_ID } from '../constants/starcareDefaultFacilityId'
 import { createActivitySessionRepository, type ActivitySession } from '../repositories/activitySessionRepository'
+import { recordAuditTrailThenHydrate } from './auditTrailHydrationService'
 import { isSupabaseBrowserConfigured } from './supabaseBrowserEnv'
 
 const repository = createActivitySessionRepository()
 
 export class ActivitySessionManagementService {
-  async listActivitySessions(facilityId = 'facility-main'): Promise<ActivitySession[]> {
+  async listActivitySessions(facilityId: string = STARCARE_DEFAULT_FACILITY_ID): Promise<ActivitySession[]> {
     return repository.listActivitySessions({ facilityId })
   }
 
   async softDeleteActivitySession(actorId: string, session: ActivitySession): Promise<void> {
     await repository.softDeleteActivitySession(session.id)
-    globalAuditTrailService.record(
+    recordAuditTrailThenHydrate(
       {
         action: 'SOFT_DELETE',
         entityType: 'Scheduling',
@@ -25,7 +25,6 @@ export class ActivitySessionManagementService {
       },
       isSupabaseBrowserConfigured(),
     )
-    hydrateAuditTrailAfterLocalRecord()
   }
 }
 

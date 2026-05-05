@@ -1,10 +1,6 @@
 import type { ServiceFormRecord } from '../types/serviceForm'
 
-/** 本地日期 YYYY-MM-DD（瀏覽器時區） */
-export const todayYmd = (): string => {
-  const d = new Date()
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
-}
+export { todayYmd } from '../utils/serviceFormLocalDate'
 
 /** 01 §2：表單狀態簡短標籤（UI） */
 export const statusZh = (s: ServiceFormRecord['status']): string => {

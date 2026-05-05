@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
+import { STARCARE_DEFAULT_FACILITY_ID } from '../constants/starcareDefaultFacilityId'
 import type { ServiceFormRecord } from '../features/serviceForms/types/serviceForm'
 import { createServiceFormRepository } from './serviceFormRepository'
 import { loadServiceForms, saveServiceForms } from '../services/serviceFormStorage'
@@ -45,7 +46,7 @@ describe('loadApprovedServiceFormsDbPrimary', () => {
       upsertForm: vi.fn(),
       softDeleteForm: vi.fn(),
     } as ReturnType<typeof createServiceFormRepository>)
-    const out = await loadApprovedServiceFormsDbPrimary('facility-main')
+    const out = await loadApprovedServiceFormsDbPrimary(STARCARE_DEFAULT_FACILITY_ID)
     expect(out).toEqual([approved])
     expect(saveServiceForms).toHaveBeenCalled()
   })
@@ -56,7 +57,7 @@ describe('loadApprovedServiceFormsDbPrimary', () => {
       upsertForm: vi.fn(),
       softDeleteForm: vi.fn(),
     } as ReturnType<typeof createServiceFormRepository>)
-    const out = await loadApprovedServiceFormsDbPrimary('facility-main')
+    const out = await loadApprovedServiceFormsDbPrimary(STARCARE_DEFAULT_FACILITY_ID)
     expect(out).toBeNull()
     expect(saveServiceForms).not.toHaveBeenCalled()
   })

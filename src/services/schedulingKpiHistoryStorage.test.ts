@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { STARCARE_DEFAULT_FACILITY_ID } from '../constants/starcareDefaultFacilityId'
 import type { SchedulingKpiRunRecord } from './schedulingKpiService'
 import {
   clearKpiRunHistory,
@@ -49,7 +50,7 @@ describe('schedulingKpiHistoryStorage', () => {
   })
 
   it('save then load round-trip', () => {
-    const fid = 'facility-main'
+    const fid = STARCARE_DEFAULT_FACILITY_ID
     saveKpiRunHistory(fid, [mockRecord()])
     const loaded = loadKpiRunHistory(fid)
     expect(loaded).toHaveLength(1)
@@ -63,7 +64,7 @@ describe('schedulingKpiHistoryStorage', () => {
   })
 
   it('clear removes saved history', () => {
-    const fid = 'facility-main'
+    const fid = STARCARE_DEFAULT_FACILITY_ID
     saveKpiRunHistory(fid, [mockRecord()])
     expect(loadKpiRunHistory(fid)).toHaveLength(1)
     clearKpiRunHistory(fid)

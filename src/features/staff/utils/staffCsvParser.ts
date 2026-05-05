@@ -1,4 +1,5 @@
 import type { StaffImportRow } from '../../../repositories/staffImportRepository'
+import { STAFF_WORKSPACE_FACILITY_ID } from '../constants/staffWorkspaceDefaults'
 
 type ParseError = { rowIndex: number; message: string }
 
@@ -46,7 +47,7 @@ export const parseStaffCsv = (text: string): { rows: StaffImportRow[]; errors: P
     const map = Object.fromEntries(headers.map((h, i) => [h, cols[i] ?? '']))
     rows.push({
       id: map.id?.trim() || undefined,
-      facilityId: map.facilityId?.trim() || 'facility-main',
+      facilityId: map.facilityId?.trim() || STAFF_WORKSPACE_FACILITY_ID,
       displayName: map.displayName?.trim() ?? '',
       roleType: (map.roleType as StaffImportRow['roleType']) ?? 'PT',
       serviceScope: (map.serviceScope as StaffImportRow['serviceScope']) ?? 'Subsidized_Rehab',

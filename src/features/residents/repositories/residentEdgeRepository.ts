@@ -1,15 +1,12 @@
 import { buildEdgeInvokeHeaders } from '../../../repositories/edgeFunctionHeaders'
 import type { Resident, ResidentRecord } from '../types/resident'
+import { fetchResidentEdgeWithRetry } from './residentEdgeFetchRetry'
 import { toResident, toResidentRecord } from './residentMapper'
 import type { ResidentRepository } from './residentRepository'
 
 interface SupabaseConfig {
   supabaseUrl: string
   anonKey: string
-}
-
-const wait = async (ms: number): Promise<void> => {
-  await new Promise((resolve) => setTimeout(resolve, ms))
 }
 
 export class ResidentEdgeRepository implements ResidentRepository {
@@ -26,30 +23,7 @@ export class ResidentEdgeRepository implements ResidentRepository {
   }
 
   private async requestWithRetry(path: string, options?: RequestInit): Promise<Response> {
-    const retryDelays = [0, 300, 900]
-    let lastError: unknown
-    for (const delay of retryDelays) {
-      if (delay > 0) {
-        await wait(delay)
-      }
-      try {
-        const base = await this.edgeHeaders()
-        const response = await fetch(`${this.supabaseUrl}${path}`, {
-          ...options,
-          headers: {
-            ...base,
-            ...options?.headers,
-          },
-        })
-        if (response.ok || ![408, 425, 429, 500, 502, 503, 504].includes(response.status)) {
-          return response
-        }
-        lastError = new Error(`暫時性錯誤：${response.status}`)
-      } catch (error) {
-        lastError = error
-      }
-    }
-    throw new Error(`Edge Function 請求失敗：${String(lastError)}`)
+    return fetchResidentEdgeWithRetry(this.supabaseUrl, () => this.edgeHeaders(), path, options)
   }
 
   async listResidents(): Promise<Resident[]> {

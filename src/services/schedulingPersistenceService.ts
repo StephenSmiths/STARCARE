@@ -1,5 +1,4 @@
-import { hydrateAuditTrailFromRemote } from './auditTrailHydrationService'
-import { globalAuditTrailService } from './auditTrailService'
+import { hydrateAuditTrailFromRemote, recordAuditTrailThenHydrate } from './auditTrailHydrationService'
 import { writeLastSchedulingBatchId } from './schedulingLastBatchStorage'
 import type { SchedulingAssignment, SchedulingConflict } from './schedulingService'
 import {
@@ -49,7 +48,7 @@ export class SchedulingPersistenceService {
       if (isSupabaseBrowserConfigured()) {
         await hydrateAuditTrailFromRemote()
       } else {
-        globalAuditTrailService.record({
+        recordAuditTrailThenHydrate({
           action: 'SCHEDULE_BATCH_SAVE',
           entityType: 'Scheduling',
           entityId: batchId,

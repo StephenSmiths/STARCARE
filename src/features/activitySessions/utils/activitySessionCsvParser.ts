@@ -1,4 +1,5 @@
 import type { ActivitySessionImportRow } from '../../../repositories/activitySessionImportRepository'
+import { ACTIVITY_SESSIONS_WORKSPACE_FACILITY_ID } from '../constants/activitySessionsWorkspaceDefaults'
 
 type ParseError = { rowIndex: number; message: string }
 
@@ -53,7 +54,7 @@ export const parseActivitySessionCsv = (
     }
     rows.push({
       id: map.id?.trim() || undefined,
-      facilityId: map.facilityId?.trim() || 'facility-main',
+      facilityId: map.facilityId?.trim() || ACTIVITY_SESSIONS_WORKSPACE_FACILITY_ID,
       activityId: map.activityId?.trim() ?? '',
       staffProfileId: map.staffProfileId?.trim() ?? '',
       sessionDate: map.sessionDate?.trim() ?? '',

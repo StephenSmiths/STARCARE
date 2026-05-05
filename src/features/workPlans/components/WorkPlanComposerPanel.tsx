@@ -1,5 +1,7 @@
 import { uiTokens } from '../../shared/ui/uiTokens'
 import { useWorkPlanComposer } from '../hooks/useWorkPlanComposer'
+import { WorkPlanComposerDraftPreview } from './WorkPlanComposerDraftPreview'
+import { WorkPlanComposerFieldGrid } from './WorkPlanComposerFieldGrid'
 import { WorkPlanSopStepper } from './WorkPlanSopStepper'
 
 /** PDF 02【2】日期／員工／工作節欄位、預覽、儲存即發布時段（Seq 14） */
@@ -58,64 +60,19 @@ export const WorkPlanComposerPanel = () => {
         已載入活動主檔：資助復康 {rehabCount} 筆、認知 {dementiaCount} 筆
       </p>
 
-      <div className={uiTokens.composerFieldGrid}>
-        <label className={uiTokens.formFieldStack}>
-          <span className={uiTokens.formLabel}>日期</span>
-          <input
-            type="date"
-            className={uiTokens.formInput}
-            value={sessionDate}
-            onChange={(event) => setSessionDate(event.target.value)}
-          />
-        </label>
-        <label className={uiTokens.formFieldStack}>
-          <span className={uiTokens.formLabel}>員工</span>
-          <select
-            className={uiTokens.formSelect}
-            value={staffProfileId}
-            onChange={(event) => setStaffProfileId(event.target.value)}
-          >
-            <option value="">請選擇</option>
-            {staffRows.map((row) => (
-              <option key={row.staffId} value={row.staffId}>
-                {row.roleType ? `${row.staffName}（${row.roleType}）` : row.staffName} · {row.staffId}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label className={uiTokens.formFieldStack}>
-          <span className={uiTokens.formLabel}>時段</span>
-          <input
-            className={uiTokens.formInput}
-            value={timeSlot}
-            onChange={(event) => setTimeSlot(event.target.value)}
-            placeholder="09:00"
-          />
-        </label>
-        <label className={uiTokens.formFieldStack}>
-          <span className={uiTokens.formLabel}>名額</span>
-          <input
-            type="number"
-            min={1}
-            className={uiTokens.formInput}
-            value={capacity}
-            onChange={(event) => setCapacity(Number(event.target.value))}
-          />
-        </label>
-        <label className={uiTokens.formFieldStackSmColSpan2Lg1}>
-          <span className={uiTokens.formLabel}>服務類型（01 §3 軌道）</span>
-          <select
-            className={uiTokens.formSelect}
-            value={serviceType}
-            onChange={(event) =>
-              setServiceType(event.target.value as 'Subsidized_Rehab' | 'Dementia_Care')
-            }
-          >
-            <option value="Subsidized_Rehab">資助復康服務</option>
-            <option value="Dementia_Care">認知障礙症服務</option>
-          </select>
-        </label>
-      </div>
+      <WorkPlanComposerFieldGrid
+        sessionDate={sessionDate}
+        onSessionDateChange={setSessionDate}
+        staffRows={staffRows}
+        staffProfileId={staffProfileId}
+        onStaffProfileIdChange={setStaffProfileId}
+        timeSlot={timeSlot}
+        onTimeSlotChange={setTimeSlot}
+        capacity={capacity}
+        onCapacityChange={setCapacity}
+        serviceType={serviceType}
+        onServiceTypeChange={setServiceType}
+      />
 
       {formError ? <p className={uiTokens.formInlineError}>{formError}</p> : null}
 
@@ -136,27 +93,7 @@ export const WorkPlanComposerPanel = () => {
       {commitError ? <p className={uiTokens.formInlineError}>{commitError}</p> : null}
       {commitSuccess ? <p className={uiTokens.inlineSuccessText}>{commitSuccess}</p> : null}
 
-      <div className={uiTokens.composerPreviewShell}>
-        <h3 className={uiTokens.blockHeading}>預覽列表</h3>
-        {drafts.length === 0 ? (
-          <p className={uiTokens.blockHelpMt2}>尚無列；請填妥上方欄位後按「加入預覽」。</p>
-        ) : (
-          <ul className={uiTokens.composerDraftList}>
-            {drafts.map((row, index) => (
-              <li key={`${row.sessionDate}-${row.staffProfileId}-${row.timeSlot}-${index}`} className={uiTokens.layoutFlexWrapBetweenGap2Py2}>
-                <span>
-                  {row.sessionDate} · {row.staffDisplayName || row.staffProfileId} · {row.timeSlot} · 名額{' '}
-                  {row.capacity} ·{' '}
-                  {row.serviceType === 'Subsidized_Rehab' ? '資助復康' : '認知'}
-                </span>
-                <button type="button" className={uiTokens.btnDangerOutline} onClick={() => removeDraft(index)}>
-                  移除
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      <WorkPlanComposerDraftPreview drafts={drafts} onRemoveDraft={removeDraft} />
     </div>
   )
 }

@@ -1,16 +1,11 @@
 import type { StarcareRole } from '../../auth/permissions'
 import { uiTokens } from '../../shared/ui/uiTokens'
 import type { WorkSessionLifecycleStatus, WorkSessionPlanRow } from '../services/workSessionPlanService'
-
-const statusLabel = (s: WorkSessionLifecycleStatus): string => {
-  if (s === 'PENDING') return '待接收'
-  if (s === 'ACCEPTED') return '已接收'
-  if (s === 'REJECTED') return '已拒絕'
-  return '已完成'
-}
-
-const serviceLabel = (row: WorkSessionPlanRow): string =>
-  row.serviceType === 'Dementia_Service' ? '認知軌' : '資助復康'
+import {
+  workSessionLifecycleStatusLabel,
+  workSessionPlanRowServiceLabel,
+} from '../utils/workSessionPlanLifecyclePresentation'
+import { WorkSessionPlanDateStatusFilters } from './WorkSessionPlanDateStatusFilters'
 
 export interface MyWorkPlanPanelProps {
   role: StarcareRole
@@ -64,36 +59,14 @@ export const MyWorkPlanPanel = ({
         </p>
       )}
       <div className={uiTokens.layoutFlexWrapItemsEndGap3Mt4}>
-        <label className={uiTokens.formFieldStack}>
-          <span className={uiTokens.formLabel}>日期</span>
-          <input
-            type="date"
-            className={uiTokens.formInput}
-            disabled={showAllDates}
-            value={selectedDate}
-            onChange={(event) => onSelectedDateChange(event.target.value)}
-          />
-        </label>
-        <label className={uiTokens.formCheckboxRow}>
-          <input type="checkbox" checked={showAllDates} onChange={(e) => onShowAllDatesChange(e.target.checked)} />
-          全部日期
-        </label>
-        <label className={uiTokens.formFieldStack}>
-          <span className={uiTokens.formLabel}>狀態</span>
-          <select
-            className={uiTokens.formSelect}
-            value={statusFilter}
-            onChange={(event) =>
-              onStatusFilterChange(event.target.value as 'all' | WorkSessionLifecycleStatus)
-            }
-          >
-            <option value="all">全部</option>
-            <option value="PENDING">待接收</option>
-            <option value="ACCEPTED">已接收</option>
-            <option value="REJECTED">已拒絕</option>
-            <option value="COMPLETED">已完成</option>
-          </select>
-        </label>
+        <WorkSessionPlanDateStatusFilters
+          selectedDate={selectedDate}
+          showAllDates={showAllDates}
+          onShowAllDatesChange={onShowAllDatesChange}
+          onSelectedDateChange={onSelectedDateChange}
+          statusFilter={statusFilter}
+          onStatusFilterChange={onStatusFilterChange}
+        />
       </div>
       {error ? <p className={uiTokens.formInlineErrorMt3}>{error}</p> : null}
       {isLoading ? <p className={uiTokens.moduleDescription}>載入中…</p> : null}
@@ -108,11 +81,11 @@ export const MyWorkPlanPanel = ({
                   {row.date} {row.timeSlot} · {row.staffName}
                 </p>
                 <p className={uiTokens.textMutedBodyXs}>
-                  {serviceLabel(row)} · 名額 {row.capacity}
+                  {workSessionPlanRowServiceLabel(row)} · 名額 {row.capacity}
                   {row.skillMatched === false ? ' · 技能未匹配' : ''}
                 </p>
                 <p className={uiTokens.textXsMt1}>
-                  <span className={uiTokens.metaChip}>{statusLabel(row.responseStatus)}</span>
+                  <span className={uiTokens.metaChip}>{workSessionLifecycleStatusLabel(row.responseStatus)}</span>
                   {row.response ? (
                     <span className={uiTokens.textSubtleXsMl2}>更新於 {row.response.occurredAt}</span>
                   ) : null}

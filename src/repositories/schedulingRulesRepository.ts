@@ -1,3 +1,4 @@
+import { STARCARE_DEFAULT_FACILITY_ID } from '../constants/starcareDefaultFacilityId'
 import { getSupabaseBrowserCredentials } from '../services/supabaseBrowserEnv'
 import { buildEdgeInvokeHeaders } from './edgeFunctionHeaders'
 
@@ -17,7 +18,7 @@ export interface SchedulingRulesRepository {
 }
 
 class InMemorySchedulingRulesRepository implements SchedulingRulesRepository {
-  async getRules(facilityId = 'facility-main'): Promise<SchedulingRules> {
+  async getRules(facilityId: string = STARCARE_DEFAULT_FACILITY_ID): Promise<SchedulingRules> {
     return {
       facilityId,
       enableSubsidizedRehab: true,
@@ -40,7 +41,7 @@ class EdgeSchedulingRulesRepository implements SchedulingRulesRepository {
     this.anonKey = config.anonKey
   }
 
-  async getRules(facilityId = 'facility-main'): Promise<SchedulingRules | null> {
+  async getRules(facilityId: string = STARCARE_DEFAULT_FACILITY_ID): Promise<SchedulingRules | null> {
     const headers = await buildEdgeInvokeHeaders(this.anonKey)
     const response = await fetch(
       `${this.supabaseUrl}/functions/v1/scheduling-rules-get?facilityId=${encodeURIComponent(facilityId)}`,

@@ -6,6 +6,7 @@ import {
   type ActivitySessionImportRow,
   type ActivitySessionImportValidationResult,
 } from '../repositories/activitySessionImportRepository'
+import { hydrateAuditTrailAfterLocalRecord } from './auditTrailHydrationService'
 
 const repository = createActivitySessionImportRepository()
 
@@ -19,7 +20,9 @@ export class ActivitySessionImportService {
     rows: ActivitySessionImportPreviewRow[],
     options?: ActivitySessionImportCommitOptions,
   ): Promise<ActivitySessionImportCommitResult> {
-    return repository.commitRows(actorId, rows, options)
+    const result = await repository.commitRows(actorId, rows, options)
+    hydrateAuditTrailAfterLocalRecord()
+    return result
   }
 }
 

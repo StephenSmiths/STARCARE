@@ -1,0 +1,43 @@
+/**
+ * 基礎 UI：版型、標題階層、資訊面／提示／表格殼（不含表單控制項與側欄）。
+ */
+export const uiTokensBaseTypographyLayout = {
+  stackVertical: 'flex flex-col gap-6',
+  masthead: 'rounded-xl border border-slate-200 bg-white p-6 shadow-sm',
+  productTitle: 'text-2xl font-bold tracking-tight text-slate-900',
+  moduleKicker: 'mt-2 text-xs font-medium uppercase tracking-wide text-slate-500',
+  moduleTitle: 'mt-1 text-xl font-semibold text-slate-900',
+  moduleDescription: 'mt-2 text-sm text-slate-600',
+  surfaceCard: 'rounded-xl border border-slate-200 bg-white p-6 shadow-sm',
+  surfaceCardCompact: 'rounded-xl border border-slate-200 bg-white p-5 shadow-sm',
+  pageSectionHeading: 'text-xl font-semibold text-slate-900',
+  blockHeading: 'text-base font-semibold text-slate-900',
+  blockHelp: 'mt-1 text-xs text-slate-600',
+  sectionHelp: 'mt-2 text-sm text-slate-600',
+  mobileTopBar:
+    'fixed top-0 left-0 right-0 z-40 flex h-14 items-center gap-3 border-b border-slate-200 bg-white/95 px-3 backdrop-blur md:hidden',
+  mainWithMobileNavPad: 'pt-14 md:pt-0',
+  bannerInfo: 'rounded-lg border border-sky-200 bg-sky-50 px-4 py-3 text-sm text-sky-900',
+  bannerWarn: 'rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900',
+  bannerDanger: 'rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800',
+  bannerSuccess: 'rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-800',
+  badgeUrgent: 'mr-2 rounded bg-amber-200 px-2 py-0.5 text-xs font-semibold text-amber-900',
+  calloutOk: 'rounded-xl border border-slate-200 bg-emerald-50/50 px-4 py-3 text-sm text-emerald-800',
+  calloutWarn: 'rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900',
+  panelMutedInset: 'rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs',
+  surfaceCardCompactWarn: 'rounded-xl border border-amber-200 bg-amber-50 p-5 shadow-sm',
+  surfaceTableShell: 'overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm',
+  inlineNoticeWarn: 'mt-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-800',
+  inlineNoticeSuccess: 'mt-2 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-xs text-emerald-800',
+  rosterConfirmChoiceCard:
+    'flex cursor-pointer items-start gap-3 rounded-lg border border-slate-200 bg-white p-4 text-sm text-slate-700',
+  textUrgentHint: 'text-xs text-amber-800',
+  auditTrailPanel: 'rounded-md bg-slate-50 p-3 text-xs text-slate-600',
+  metaChip: 'rounded bg-slate-200 px-2 py-0.5 text-[11px] text-slate-700',
+  emptyStatePill: 'rounded border border-slate-200 bg-white px-2 py-1 text-slate-500',
+  panelTitleSm: 'text-sm font-semibold text-slate-800',
+  helpFinePrint: 'mt-1 text-[11px] text-slate-500',
+  importRunSummaryShell: 'mt-2 rounded-md border border-slate-200 bg-slate-50 p-2 text-xs text-slate-700',
+  importRunHistoryShell: 'mt-2 rounded-md border border-slate-200 bg-white p-2 text-xs text-slate-700',
+  importRunHistoryRow: 'rounded bg-slate-50 px-2 py-1',
+} as const

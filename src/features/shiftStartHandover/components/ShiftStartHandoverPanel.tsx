@@ -1,71 +1,12 @@
-import { useMemo, useState } from 'react'
 import { uiTokens } from '../../shared/ui/uiTokens'
 import type { ShiftStartHandoverWorkspace } from '../hooks/useShiftStartHandoverWorkspace'
-import type { ShiftStartHandoverFields, ShiftStartHandoverRecord } from '../types/shiftStartHandover'
+import { useShiftStartHandoverPanel } from '../hooks/useShiftStartHandoverPanel'
 import { ShiftStartHandoverHistoryAside } from './ShiftStartHandoverHistoryAside'
-import { emptyShiftFields, todayYmd } from './shiftStartHandoverPanelUtils'
+import { ShiftStartHandoverMyRecordsList } from './ShiftStartHandoverMyRecordsList'
 
 /** PDF 02【5b】六步：①～④表單、⑤歷史側欄、⑥簽名 */
 export const ShiftStartHandoverPanel = ({ workspace }: { workspace: ShiftStartHandoverWorkspace }) => {
-  const [shiftDate, setShiftDate] = useState(todayYmd())
-  const [fields, setFields] = useState<ShiftStartHandoverFields>(() => emptyShiftFields())
-  const [editingId, setEditingId] = useState<string | null>(null)
-
-  const myRecords = useMemo(
-    () => workspace.records.filter((row) => row.actorId === workspace.actorId),
-    [workspace.records, workspace.actorId],
-  )
-
-  const loaded = editingId ? myRecords.find((row) => row.id === editingId) ?? null : null
-  const readOnly = loaded?.status === 'SUBMITTED'
-
-  const patchField = (key: keyof ShiftStartHandoverFields, value: string) =>
-    setFields((prev) => ({ ...prev, [key]: value }))
-
-  const loadRow = (row: ShiftStartHandoverRecord) => {
-    setEditingId(row.id)
-    setShiftDate(row.shiftDate)
-    setFields({
-      representativeNote: row.representativeNote,
-      departmentOverview: row.departmentOverview,
-      facilityInfoAcknowledgement: row.facilityInfoAcknowledgement,
-      precautionsAcknowledgement: row.precautionsAcknowledgement,
-      signatureName: row.signatureName,
-    })
-  }
-
-  const resetEmpty = () => {
-    setEditingId(null)
-    setShiftDate(todayYmd())
-    setFields(emptyShiftFields())
-  }
-
-  const runSaveDraft = () => {
-    try {
-      const saved = workspace.saveDraft(shiftDate, fields, editingId)
-      setEditingId(saved.id)
-      window.alert('草稿已儲存')
-    } catch (error) {
-      window.alert(error instanceof Error ? error.message : '儲存失敗')
-    }
-  }
-
-  const runSubmit = () => {
-    const record = loaded ?? myRecords.find((row) => row.id === editingId)
-    if (!record || record.status !== 'DRAFT') {
-      window.alert('請先儲存草稿')
-      return
-    }
-    try {
-      workspace.submitRecord({ ...record, ...fields, shiftDate })
-      window.alert('接更紀錄已提交')
-      resetEmpty()
-    } catch (error) {
-      window.alert(error instanceof Error ? error.message : '提交失敗')
-    }
-  }
-
-  const canSubmit = loaded?.status === 'DRAFT'
+  const vm = useShiftStartHandoverPanel(workspace)
 
   return (
     <section className={uiTokens.surfaceCardCompact}>
@@ -81,18 +22,18 @@ export const ShiftStartHandoverPanel = ({ workspace }: { workspace: ShiftStartHa
             <input
               type="date"
               className={uiTokens.formInput}
-              disabled={readOnly}
-              value={shiftDate}
-              onChange={(event) => setShiftDate(event.target.value)}
+              disabled={vm.readOnly}
+              value={vm.shiftDate}
+              onChange={(event) => vm.setShiftDate(event.target.value)}
             />
           </label>
           <label className={uiTokens.formFieldStack}>
             <span className={uiTokens.formLabel}>① 代表／承諾</span>
             <textarea
               className={uiTokens.formTextarea}
-              readOnly={readOnly}
-              value={fields.representativeNote}
-              onChange={(event) => patchField('representativeNote', event.target.value)}
+              readOnly={vm.readOnly}
+              value={vm.fields.representativeNote}
+              onChange={(event) => vm.patchField('representativeNote', event.target.value)}
               placeholder="值班代表身分與承諾事項…"
             />
           </label>
@@ -100,9 +41,9 @@ export const ShiftStartHandoverPanel = ({ workspace }: { workspace: ShiftStartHa
             <span className={uiTokens.formLabel}>② 部門概覽</span>
             <textarea
               className={uiTokens.formTextarea}
-              readOnly={readOnly}
-              value={fields.departmentOverview}
-              onChange={(event) => patchField('departmentOverview', event.target.value)}
+              readOnly={vm.readOnly}
+              value={vm.fields.departmentOverview}
+              onChange={(event) => vm.patchField('departmentOverview', event.target.value)}
               placeholder="人力／設備／交班摘要…"
             />
           </label>
@@ -110,9 +51,9 @@ export const ShiftStartHandoverPanel = ({ workspace }: { workspace: ShiftStartHa
             <span className={uiTokens.formLabel}>③ 院舍資訊</span>
             <textarea
               className={uiTokens.formTextarea}
-              readOnly={readOnly}
-              value={fields.facilityInfoAcknowledgement}
-              onChange={(event) => patchField('facilityInfoAcknowledgement', event.target.value)}
+              readOnly={vm.readOnly}
+              value={vm.fields.facilityInfoAcknowledgement}
+              onChange={(event) => vm.patchField('facilityInfoAcknowledgement', event.target.value)}
               placeholder="已閱讀並確認院舍動態／床位／設施…"
             />
           </label>
@@ -120,9 +61,9 @@ export const ShiftStartHandoverPanel = ({ workspace }: { workspace: ShiftStartHa
             <span className={uiTokens.formLabel}>④ 注意事項</span>
             <textarea
               className={uiTokens.formTextarea}
-              readOnly={readOnly}
-              value={fields.precautionsAcknowledgement}
-              onChange={(event) => patchField('precautionsAcknowledgement', event.target.value)}
+              readOnly={vm.readOnly}
+              value={vm.fields.precautionsAcknowledgement}
+              onChange={(event) => vm.patchField('precautionsAcknowledgement', event.target.value)}
               placeholder="感染控制／高風險院友／環境安全…"
             />
           </label>
@@ -131,50 +72,34 @@ export const ShiftStartHandoverPanel = ({ workspace }: { workspace: ShiftStartHa
             <input
               type="text"
               className={uiTokens.formInput}
-              readOnly={readOnly}
-              value={fields.signatureName}
-              onChange={(event) => patchField('signatureName', event.target.value)}
+              readOnly={vm.readOnly}
+              value={vm.fields.signatureName}
+              onChange={(event) => vm.patchField('signatureName', event.target.value)}
               placeholder="請輸入全名"
             />
           </label>
           <div className={uiTokens.layoutFlexWrapGap2}>
-            <button type="button" className={uiTokens.btnSecondary} disabled={readOnly} onClick={runSaveDraft}>
+            <button type="button" className={uiTokens.btnSecondary} disabled={vm.readOnly} onClick={vm.runSaveDraft}>
               儲存草稿
             </button>
-            <button type="button" className={uiTokens.btnPrimary} disabled={!canSubmit || readOnly} onClick={runSubmit}>
+            <button
+              type="button"
+              className={uiTokens.btnPrimary}
+              disabled={!vm.canSubmit || vm.readOnly}
+              onClick={vm.runSubmit}
+            >
               提交接更紀錄
             </button>
-            <button type="button" className={uiTokens.btnCompact} onClick={resetEmpty}>
+            <button type="button" className={uiTokens.btnCompact} onClick={vm.resetEmpty}>
               新增一筆
             </button>
           </div>
         </div>
 
-        <ShiftStartHandoverHistoryAside submittedHistory={workspace.submittedHistory} onSelect={loadRow} />
+        <ShiftStartHandoverHistoryAside submittedHistory={workspace.submittedHistory} onSelect={vm.loadRow} />
       </div>
 
-      <div className={uiTokens.layoutSpacerMt8}>
-        <h3 className={uiTokens.blockHeading}>我的草稿與紀錄</h3>
-        {myRecords.length === 0 ? (
-          <p className={uiTokens.recordsEmptyHint}>尚無紀錄。</p>
-        ) : (
-          <ul className={uiTokens.myFormsList}>
-            {myRecords.map((row) => (
-              <li key={row.id} className={uiTokens.myFormsListRow}>
-                <div>
-                  <span className={uiTokens.textWeightMedium}>{row.shiftDate}</span>
-                  <span className={uiTokens.metaChipMl2}>
-                    {row.status === 'DRAFT' ? '草稿' : '已提交'}
-                  </span>
-                </div>
-                <button type="button" className={uiTokens.linkDownload} onClick={() => loadRow(row)}>
-                  {row.status === 'SUBMITTED' ? '檢視' : '載入'}
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+      <ShiftStartHandoverMyRecordsList records={vm.myRecords} onLoadRow={vm.loadRow} />
     </section>
   )
 }
