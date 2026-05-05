@@ -48,6 +48,7 @@
 - `npm run perf:bundle-diff:md -- <base.json> <current.json>`：可輸出可貼 PR 的 Markdown 差異表
 - `npm run perf:bundle-check:demo`：可執行門檻檢查（現行：`index <= 45kB`、`total-js <= 620kB`）
 - `npm run perf:bundle:full`：一鍵執行 build + budget check + JSON + markdown diff
+- `npm run perf:bundle:pr`：一鍵產生 PR 可貼用的 baseline 差異 markdown（`dist/bundle-diff.md`）
 - CI：`build:demo` 後自動執行 bundle budget check，避免體積回退進入主線
 - CI：會輸出並上傳 `dist/bundle-report.json` 為 `bundle-report` artifact，便於下載留存
 - CI：會額外產生並上傳 `dist/bundle-diff.md`（對照 `docs/perf-baselines/bundle-report-latest.json`）
@@ -71,6 +72,7 @@
 - `5924329` chore(perf): 新增 Markdown bundle 差異報告
 - `b4329cf` chore(perf): 新增 baseline 保存指令與基準檔
 - `97234d9` chore(perf): 新增一鍵完整 bundle 驗證流程
+- `9b9a0f0` chore(perf): 新增 PR 差異一鍵產生指令
 
 ## 下一階段建議
 
