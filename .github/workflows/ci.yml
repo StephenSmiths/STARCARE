@@ -92,17 +92,8 @@ jobs:
       - name: Demo production build（與 E2E 同源：`npm run build:demo`）
         run: npm run build:demo
 
-      - name: Bundle budget check（index / total-js）
-        run: npm run perf:bundle-report -- --max-index-kb 45 --max-total-kb 620 --json-out dist/bundle-report.json
-
-      - name: Bundle diff markdown（vs tracked baseline）
-        run: npm run perf:bundle-diff:md -- docs/perf-baselines/bundle-report-latest.json dist/bundle-report.json --out dist/bundle-diff.md
-
-      - name: Bundle delta guard（vs tracked baseline）
-        run: npm run perf:bundle-delta-check:baseline
-
-      - name: Bundle history markdown（from tracked snapshots）
-        run: npm run perf:bundle-history:md:file
+      - name: Bundle governance checks（budget + diff + delta + history）
+        run: npm run perf:bundle:ci
 
       - name: Upload bundle report artifact
         if: always()

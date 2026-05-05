@@ -25,6 +25,7 @@
     "perf:bundle:full": "npm run build:demo && npm run perf:bundle-report -- --max-index-kb 45 --max-total-kb 620 --json-out dist/bundle-report.json && npm run perf:bundle-diff:md -- docs/perf-baselines/bundle-report-latest.json dist/bundle-report.json --out dist/bundle-diff.md",
     "perf:bundle:pr": "npm run perf:bundle-report:json && npm run perf:bundle-diff:baseline:md:file",
     "perf:bundle:record": "npm run perf:bundle-report:json && npm run perf:bundle-baseline:snapshot && npm run perf:bundle-history:md:file",
+    "perf:bundle:ci": "npm run perf:bundle-report -- --max-index-kb 45 --max-total-kb 620 --json-out dist/bundle-report.json && npm run perf:bundle-diff:baseline:md:file && npm run perf:bundle-delta-check:baseline && npm run perf:bundle-history:md:file",
     "perf:bundle-baseline:refresh": "npm run perf:bundle-report:json && npm run perf:bundle-baseline:save",
     "typecheck": "tsc -b --noEmit",
     "lint": "eslint .",

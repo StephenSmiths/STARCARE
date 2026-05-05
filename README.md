@@ -47,6 +47,7 @@ npm run perf:bundle-baseline:snapshot # 產生時間戳快照到 docs/perf-basel
 npm run perf:bundle-history:md # 輸出 history 趨勢 markdown（stdout）
 npm run perf:bundle-history:md:file # 產生 dist/bundle-history.md
 npm run perf:bundle:record # 一鍵執行 report:json + snapshot + history markdown
+npm run perf:bundle:ci # CI 同步流程：budget + json + baseline diff + delta guard + history markdown
 npm run perf:bundle-delta-check -- <base.json> <current.json> --max-index-delta-kb 8 --max-total-delta-kb 30 # 檢查相對 baseline 增幅
 npm run perf:bundle-delta-check:baseline # 以 tracked baseline 執行 delta guard（index +8kB、total +30kB）
 npm run perf:bundle-diff -- <base.json> <current.json> # 比對兩份 bundle JSON 差異

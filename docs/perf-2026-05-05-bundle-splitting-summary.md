@@ -50,6 +50,7 @@
 - `npm run perf:bundle:full`：一鍵執行 build + budget check + JSON + markdown diff
 - `npm run perf:bundle:pr`：一鍵產生 PR 可貼用的 baseline 差異 markdown（`dist/bundle-diff.md`）
 - `npm run perf:bundle:record`：一鍵完成 `report:json` + `baseline:snapshot` + `history:md:file`
+- `npm run perf:bundle:ci`：與 CI 同步的一鍵治理檢查（budget + diff + delta guard + history）
 - `npm run perf:bundle-baseline:snapshot`：將 `dist/bundle-report.json` 以時間戳保存到 `docs/perf-baselines/history/`
 - `npm run perf:bundle-history:md`：讀取 `docs/perf-baselines/history` 並輸出趨勢 markdown（含 index / total-js 變化）
 - `npm run perf:bundle-delta-check:baseline`：檢查相對 tracked baseline 的增幅門檻（現行：`index +8kB`、`total-js +30kB`）
@@ -111,4 +112,7 @@ npm run perf:bundle-check:demo
 
 # 4) 相對 baseline 增幅檢查（與 CI delta guard 一致）
 npm run perf:bundle-delta-check:baseline
+
+# 5) 直接模擬 CI bundle 治理流程
+npm run perf:bundle:ci
 ```
