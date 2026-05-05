@@ -69,6 +69,7 @@
 
 ## 執行追蹤入口
 
+- 首次啟動（30 分鐘）：`docs/project-completion-kickoff-checklist-2026-05.md`
 - 每日進度板：`docs/project-completion-2week-tracker-2026-05-05.md`
 - 每日日誌：`docs/project-completion-daily-log-2026-05.md`
 - 證據索引：`docs/project-completion-evidence-index-2026-05.md`

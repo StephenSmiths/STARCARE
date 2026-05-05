@@ -4,6 +4,7 @@
 > `docs/project-completion-2week-tracker-2026-05-05.md`  
 > `docs/project-completion-2week-plan-2026-05-05.md`  
 > `docs/project-completion-evidence-index-2026-05.md`  
+> `docs/project-completion-kickoff-checklist-2026-05.md`  
 > `docs/go-live-checklist.md`
 
 ## 使用規則

@@ -1,10 +1,12 @@
 # STARCARE 收尾啟動 30 分鐘清單（2026-05）
 
-> 目的：讓任何成員在 30 分鐘內完成收尾任務啟動，避免只看懂文件但無法開工。
+> 目的：讓任何成員在 30 分鐘內完成收尾任務啟動，避免只看懂文件但無法開工。  
+> 背景與完成率估算：`docs/project-completion-audit-2026-05-05.md`。
 
 ## 0) 先開哪些文件（5 分鐘）
 
 - `README.md`（看「專案收尾」小節）
+- `docs/project-completion-audit-2026-05-05.md`（可選：先看完成度與缺口）
 - `docs/project-completion-2week-tracker-2026-05-05.md`
 - `docs/project-completion-daily-log-2026-05.md`
 - `docs/project-completion-evidence-index-2026-05.md`
