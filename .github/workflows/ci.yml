@@ -23,21 +23,28 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache: npm
+          cache-dependency-path: package-lock.json
 
-      # 不依賴 Actions npm cache（見 Run #101／102：`npm ci` 於 ubuntu-latest 連續失敗；Vitest 未執行）。
-      # 若 `npm ci` 仍失敗，暫以 `npm install` 繼續並發 Warning，請對照該 step 完整 log（403 時需於瀏覽器開 Actions）。
+      # 嚴格 `npm ci`（與 lockfile 一致）；若 registry 瞬断可重試。勿改回 `npm install` 以免與 lock 漂移。
       - name: Install dependencies
         run: |
+          set -euo pipefail
           node -v
           npm -v
           npm config set fetch-retries 5
           npm config set fetch-retry-mintimeout 20000
           npm config set fetch-retry-maxtimeout 120000
-          if npm ci --no-audit --no-fund; then
-            exit 0
-          fi
-          echo "::warning::npm ci 於 runner 失敗，改用 npm install 繼續；請複查 log 根本原因並恢復 npm ci。"
-          npm install --no-audit --no-fund
+          ok=0
+          for attempt in 1 2 3 4; do
+            if npm ci --no-audit --no-fund; then
+              ok=1
+              break
+            fi
+            echo "::warning::npm ci 失敗（第 ${attempt}／4 次），20s 後重試"
+            [ "$attempt" -lt 4 ] && sleep 20
+          done
+          [ "$ok" -eq 1 ]
 
       - name: Cache Playwright browsers
         uses: actions/cache@v4
