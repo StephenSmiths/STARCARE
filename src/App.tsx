@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
-import { SignInScreen, useAuth } from './features/auth'
+import { useAuth } from './features/auth/hooks/useAuth'
+import { SignInScreen } from './features/auth/components/SignInScreen'
 import { PageShell } from './features/shared/components/PageShell'
 import { uiTokens } from './features/shared/ui/uiTokens'
 import {
