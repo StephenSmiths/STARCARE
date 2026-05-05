@@ -20,6 +20,8 @@ const AppMainViews = lazy(async () => ({
 const SignInScreen = lazy(async () => ({
   default: (await import('./features/auth/components/SignInScreen')).SignInScreen,
 }))
+const appMainViewsModulePromise = import('./app/AppMainViews')
+const schedulingLayoutModulePromise = import('./features/scheduling/components/SchedulingAppLayout')
 const viewDescriptionsModulePromise = import('./app/viewDescriptions')
 
 const App = () => {
@@ -52,6 +54,13 @@ const App = () => {
     // 背景預載描述模組，降低首次切頁描述更新延遲。
     void viewDescriptionsModulePromise
   }, [])
+
+  useEffect(() => {
+    if (!session) return
+    // 已登入後預載工作台核心模組，降低首次進入頁面時的 lazy 載入等待。
+    void appMainViewsModulePromise
+    void schedulingLayoutModulePromise
+  }, [session])
 
   useEffect(() => {
     let alive = true
