@@ -25,13 +25,6 @@ jobs:
         with:
           node-version: '22'
 
-      # npm 11 與目前 lockfile 的行為一致（本地可過）；runner 先升級 npm 後再執行嚴格 `npm ci`。
-      - name: Align npm version
-        run: |
-          npm -v
-          npm i -g npm@11
-          npm -v
-
       # 止血策略：優先嚴格 `npm ci`（與 lockfile 一致），若 runner 上連續失敗再暫時回退 `npm install`，先避免全流程被卡住。
       # `@playwright/test` 的 install hook 會下載瀏覽器：於此前先略過，改由下方「Install Playwright Chromium」統一下載。
       - name: Install dependencies
