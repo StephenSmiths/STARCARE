@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { buildReleaseLabel } from '../../../app/buildReleaseLabel'
 import { useAuth } from '../../auth'
 import { uiTokens } from '../../shared/ui/uiTokens'
 import { SCHEDULING_NAV_GROUPS } from '../config/schedulingNavConfig'
@@ -71,6 +72,9 @@ export const SchedulingSidebar = ({ isMobileOpen, onRequestClose }: SchedulingSi
             </button>
           </div>
         ) : null}
+        <p className={uiTokens.sidebarBuildMeta} title="前端建置版本與日期（與部署驗收對照用）">
+          {buildReleaseLabel()}
+        </p>
         <p>© 2026 STARCARE</p>
       </div>
     </aside>

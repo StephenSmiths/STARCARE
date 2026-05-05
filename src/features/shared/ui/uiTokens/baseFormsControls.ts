@@ -34,6 +34,8 @@ export const uiTokensBaseFormsControls = {
   sidebarNavLinkActive: 'bg-violet-600/20 text-violet-200 ring-1 ring-violet-500/40',
   sidebarNavLinkInactive: 'text-slate-300 hover:bg-slate-800 hover:text-white',
   sidebarFooter: 'border-t border-slate-800 p-4 text-xs text-slate-500',
+  /** 側欄底部建置版本／日期（可觀測性） */
+  sidebarBuildMeta: 'mt-2 text-[10px] leading-snug text-slate-500',
   sidebarUserEmail: 'truncate text-slate-400',
   sidebarRoleLine: 'text-[11px] uppercase tracking-wide text-violet-300',
   mobileNavBackdrop: 'fixed inset-x-0 bottom-0 top-14 z-40 bg-slate-900/50 md:hidden',
