@@ -123,6 +123,7 @@
 7. **CI**：`.github/workflows/ci.yml` 於 push（`main`／`master`／`develop`）／PR 跑 `lint`、**`npm run typecheck`**（`tsc -b --noEmit`）、`vitest`、**`npm run build:demo`**（清空 `VITE_SUPABASE_*` 之 demo bundle）、`test:e2e`（`PW_PREVIEW_ONLY=1` 時 webServer 僅 `preview`；含 **`actions/cache`** 快取 `~/.cache/ms-playwright`、`npx playwright install --with-deps chromium`、`concurrency`）；檔首註解標明與 **`npm run ci`** 分步等同並含 **`business-logic.md`** §0／**`README`**／**`pdf-sequenced-gap-checklist.md`**「**運維與工程**」等文件入口。本機一鍵 **`npm run ci`**（`lint`→`typecheck`→`test`→**`build:demo`**→`test:e2e`）；或 **`npm run test:e2e:all`** 連跑可選登入（無密鑰時 skip）。變更 CI／E2E 腳本時 PR 檢核見 **`docs/pdf03-cursorrules-alignment.md`** §3。  
 8. **依賴治理**：`.github/dependabot.yml` 每週一掃描根目錄 **npm**（與 `docs/pdf-sequenced-gap-checklist.md` Seq 37 對照）。
 9. **效能防回退**：`npm run perf:bundle-report` 可輸出關鍵 chunk 與 `total-js`；`npm run perf:bundle-check:demo` 於本機一鍵執行 **build:demo + 門檻檢查**（現行 `index <= 45kB`、`total-js <= 620kB`）。CI 於 `build:demo` 後執行同門檻，超標即 fail。  
+10. **效能報告歸檔**：CI 會把 `dist/bundle-report.json` 以上傳 `bundle-report` artifact，供每次 run 後下載留存與比對。  
 
 ---
 
