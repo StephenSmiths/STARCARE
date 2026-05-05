@@ -5,7 +5,6 @@ import { uiTokens } from './features/shared/ui/uiTokens'
 import {
   VIEW_IDS,
   VIEW_PERMISSION_MAP,
-  getModuleDescription,
   getViewFromHash,
   getViewTitle,
   type ViewId,
@@ -25,6 +24,7 @@ const SignInScreen = lazy(async () => ({
 const App = () => {
   const { isConfigured, isLoading, session, hasPermission } = useAuth()
   const [view, setView] = useState<ViewId>(() => getViewFromHash(window.location.hash))
+  const [moduleDescription, setModuleDescription] = useState('')
   const accessibleViews = useMemo(
     () => VIEW_IDS.filter((item) => hasPermission(VIEW_PERMISSION_MAP[item])),
     [hasPermission],
@@ -47,7 +47,16 @@ const App = () => {
   }, [effectiveView])
 
   const viewTitle = useMemo(() => getViewTitle(effectiveView), [effectiveView])
-  const moduleDescription = useMemo(() => getModuleDescription(effectiveView), [effectiveView])
+  useEffect(() => {
+    let alive = true
+    import('./app/viewDescriptions').then(({ getModuleDescription }) => {
+      if (!alive) return
+      setModuleDescription(getModuleDescription(effectiveView))
+    })
+    return () => {
+      alive = false
+    }
+  }, [effectiveView])
 
   if (isConfigured && isLoading) {
     return (
