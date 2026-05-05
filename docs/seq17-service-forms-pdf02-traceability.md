@@ -4,6 +4,8 @@
 > **上一序號**：**`docs/seq16-work-session-plans-pdf02-traceability.md`**（工作節 **COMPLETED** 與本模組閉環）。  
 > **用途**：將 **選日→選節→填寫→提交→審核** 與 **01 §2** 狀態機對表；標示 **localStorage／Edge `service_forms`** 雙寫與 **RLS** 驗收缺口。
 
+> **全案收尾與證據留痕**：**`README.md`**「專案收尾」；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**。
+
 ---
 
 ## 1. 畫面與模組

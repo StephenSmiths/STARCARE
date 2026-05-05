@@ -4,6 +4,8 @@
 > **上一序號**：**`docs/seq23-historical-documents-pdf02-traceability.md`**（歷史文件【10】）。  
 > **用途**：將 **生成（占位）→編輯→採用→發放**、**審計**、**本機 Repository** 與母本對表；標示 **真實 AI**、**發放對象**、**電郵／即時** 與 **PDF 逐字簽核** 缺口。
 
+> **全案收尾與證據留痕**：**`README.md`**「專案收尾」；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**。
+
 ---
 
 ## 1. 畫面與模組

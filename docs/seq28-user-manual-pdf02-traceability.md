@@ -4,6 +4,8 @@
 > **上一序號**：**`docs/seq27-notification-center-pdf02-traceability.md`**（通知中心【14】）。  
 > **用途**：將 **站內骨架頁、章節結構、E2E 錨點** 與母本「用戶手冊」對表；標示 **正式圖文版、角色分章** 交付缺口。
 
+> **全案收尾與證據留痕**：**`README.md`**「專案收尾」；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**。
+
 ---
 
 ## 1. 畫面與內容來源

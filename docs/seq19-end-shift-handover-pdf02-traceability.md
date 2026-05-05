@@ -4,6 +4,8 @@
 > **上一序號**：**`docs/seq18-shift-start-handover-pdf02-traceability.md`**（開工接更【5b】）。  
 > **用途**：將 **五欄摘要＋簽名、草稿／提交、審計、本機儲存** 與母本 **數據概覽／跟進／新增／提醒／報告／簽名** 對表；標示 **DB／電子簽** 驗收缺口。
 
+> **全案收尾與證據留痕**：**`README.md`**「專案收尾」；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**。
+
 ---
 
 ## 1. 畫面與模組

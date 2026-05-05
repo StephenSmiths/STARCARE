@@ -4,6 +4,8 @@
 > **上一序號**：**`docs/seq15-scheduling-pdf02-traceability.md`**。  
 > **用途**：標示 **現況（活動時段由後端載入＋接收／拒絕狀態本機持久化）** 與 **母本要求之 DB 權威狀態機** 落差，供對表簽核與後續改程式／Edge 時引用。
 
+> **全案收尾與證據留痕**：**`README.md`**「專案收尾」；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**。
+
 ---
 
 ## 1. 畫面與模組

@@ -4,6 +4,8 @@
 > **上一序號**：**`docs/seq36-adr0001-scheduling-logic-placement-traceability.md`**。  
 > **用途**：將 **新模組閉環、SRP、單檔行數、CI／E2E／Edge 部署連動** 與 **既有碼漸進收斂** 對表；標示 **里程碑或豁免清單** 待治理／客戶簽核。
 
+> **全案收尾與證據留痕**：**`README.md`**「專案收尾」；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**。
+
 ---
 
 ## 1. 檢核入口（§3 摘要）

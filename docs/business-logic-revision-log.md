@@ -1,6 +1,7 @@
 # `business-logic.md` 修訂紀錄（§8 重出）
 
-> **對照**：**`docs/business-logic.md`** §0～§7 為母本與程式對照之權威正文；為遵守專案單檔 **≤200** 行，原 **§8** 修訂表全文移出至本檔。新增修訂列請寫入下表；維護閉環見 **`docs/pdf03-cursorrules-alignment.md`** §4。
+> **對照**：**`docs/business-logic.md`** §0～§7 為母本與程式對照之權威正文；為遵守專案單檔 **≤200** 行，原 **§8** 修訂表全文移出至本檔。新增修訂列請寫入下表；維護閉環見 **`docs/pdf03-cursorrules-alignment.md`** §4。  
+> **全案收尾與證據留痕**：**`README.md`**「專案收尾」；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**。
 
 ---
 

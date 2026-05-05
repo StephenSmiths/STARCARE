@@ -4,6 +4,8 @@
 > **上一序號**：**`docs/seq14-work-plan-pdf02-traceability.md`**。  
 > **用途**：將 **02【3】** 每一步與畫面／引擎／儲存鏈結；**§6** 專列週更表 CSV 與母本欄位是否一致（客製需求入口）。
 
+> **全案收尾與證據留痕**：**`README.md`**「專案收尾」；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**。
+
 ---
 
 ## 1. 畫面與模組總覽

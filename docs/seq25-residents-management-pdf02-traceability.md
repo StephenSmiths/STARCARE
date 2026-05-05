@@ -5,6 +5,8 @@
 > **Edge 契約**：**`docs/residents-edge-function-contract.md`**（與 **go-live** 抽測並讀）。  
 > **用途**：將 **單筆 CRUD、批量匯入預檢、匯出名單、載入錯誤句、審計** 與母本對表；標示 **xlsx** 與 **02 用語逐字** 簽核缺口。
 
+> **全案收尾與證據留痕**：**`README.md`**「專案收尾」；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**。
+
 ---
 
 ## 1. 畫面與模組

@@ -4,6 +4,8 @@
 > **上一序號**：**`docs/seq26-staff-management-pdf02-traceability.md`**（員工管理【13】）。  
 > **用途**：將 **審計衍生通知、已讀狀態、與全域審計面板同源** 與母本對表；標示 **電郵／即時推送、收件規則** 驗收缺口。
 
+> **全案收尾與證據留痕**：**`README.md`**「專案收尾」；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**。
+
 ---
 
 ## 1. 畫面與模組

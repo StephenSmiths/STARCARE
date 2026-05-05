@@ -4,6 +4,8 @@
 > **上一序號**：**`docs/seq35-pdf03-cursorrules-alignment-traceability.md`**。  
 > **用途**：將 **「Edge／DB 優先 vs 現行前端排班 MVP」** 與客戶 **書面確認／豁免** 對表。
 
+> **全案收尾與證據留痕**：**`README.md`**「專案收尾」；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**。
+
 ---
 
 ## 1. ADR 要點（摘要）

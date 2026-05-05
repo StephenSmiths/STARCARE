@@ -4,6 +4,8 @@
 > **上一序號**：儀表盤對照見 **`docs/seq13-dashboard-pdf02-traceability.md`**。  
 > **用途**：產品將 **PDF 頁碼／【N】／截圖編號** 填入「母本定位」；逐屏若與現行「預檢→`activity-sessions-import-commit`」流程不一致，須**客戶書面裁定**後再改程式或勾選 P0。
 
+> **全案收尾與證據留痕**：**`README.md`**「專案收尾」；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**。
+
 ---
 
 ## 1. 畫面與流程區塊

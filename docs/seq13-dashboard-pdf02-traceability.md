@@ -3,6 +3,8 @@
 > **對照**：母本 **`docs/pdf/02-STARCARE-智能院舍照護管理系統.pdf`** **【1】儀表盤**；條文整理 **`docs/business-logic.md`**（§4.1～§4.3、§5 審計）；序號總表 **`docs/pdf-sequenced-gap-checklist.md`** Seq **13**；P0 可勾項 **`docs/pdf-alignment-p0-backlog.md`** B 區第一列。  
 > **用途**：供產品／客戶將 **PDF 頁碼／【N】** 填入「母本定位」欄，並於「驗收證據」勾選或附 PR／截圖／E2E 連結後，方可視為 **Seq 13 逐欄對表** 完成。爭議時以 **簽核 PDF** 為準。
 
+> **全案收尾與證據留痕**：**`README.md`**「專案收尾」；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**。
+
 ---
 
 ## 1. 畫面區塊總覽

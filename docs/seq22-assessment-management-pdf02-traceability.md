@@ -4,6 +4,8 @@
 > **上一序號**：**`docs/seq21-rehab-activity-tracking-pdf02-traceability.md`**（復康追蹤【8】）。  
 > **用途**：將 **到期／逾期／完成率、PT·OT 版本補登、本機＋DB 合併、審計** 與母本對表；標示 **PDF 逐字對表** 與 **版本管理** 深度驗收缺口。
 
+> **全案收尾與證據留痕**：**`README.md`**「專案收尾」；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**。
+
 ---
 
 ## 1. 畫面與模組
