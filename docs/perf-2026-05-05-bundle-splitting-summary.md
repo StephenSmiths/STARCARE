@@ -41,6 +41,7 @@
 - `npm run typecheck`：通過
 - `npm run test`：通過（63 files / 175 tests）
 - `npm run build:demo`：通過
+- `npm run perf:bundle-report`：可輸出 `index` / `vendor-react` / `vendor-supabase` / 核心模組 chunk 與總 JS 體積
 - GitHub Actions：最新連續主線 run 綠燈（#116、#117、#118）
 
 ## 相關提交（依時間）
