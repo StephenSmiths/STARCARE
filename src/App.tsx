@@ -20,6 +20,7 @@ const AppMainViews = lazy(async () => ({
 const SignInScreen = lazy(async () => ({
   default: (await import('./features/auth/components/SignInScreen')).SignInScreen,
 }))
+const viewDescriptionsModulePromise = import('./app/viewDescriptions')
 
 const App = () => {
   const { isConfigured, isLoading, session, hasPermission } = useAuth()
@@ -48,8 +49,13 @@ const App = () => {
 
   const viewTitle = useMemo(() => getViewTitle(effectiveView), [effectiveView])
   useEffect(() => {
+    // 背景預載描述模組，降低首次切頁描述更新延遲。
+    void viewDescriptionsModulePromise
+  }, [])
+
+  useEffect(() => {
     let alive = true
-    import('./app/viewDescriptions').then(({ getModuleDescription }) => {
+    viewDescriptionsModulePromise.then(({ getModuleDescription }) => {
       if (!alive) return
       setModuleDescription(getModuleDescription(effectiveView))
     })
