@@ -9,6 +9,7 @@
     "build:demo": "VITE_SUPABASE_URL= VITE_SUPABASE_ANON_KEY= npm run build",
     "perf:bundle-report": "node scripts/perf-bundle-report.mjs",
     "perf:bundle-diff": "node scripts/perf-bundle-diff.mjs",
+    "perf:bundle-diff:md": "node scripts/perf-bundle-diff-markdown.mjs",
     "perf:bundle-report:demo": "npm run build:demo && npm run perf:bundle-report",
     "perf:bundle-check:demo": "npm run build:demo && npm run perf:bundle-report -- --max-index-kb 45 --max-total-kb 620",
     "perf:bundle-report:json": "npm run build:demo && npm run perf:bundle-report -- --json-out dist/bundle-report.json",
