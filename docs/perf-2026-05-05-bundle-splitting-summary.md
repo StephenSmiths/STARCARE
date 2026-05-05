@@ -49,6 +49,7 @@
 - `npm run perf:bundle-check:demo`：可執行門檻檢查（現行：`index <= 45kB`、`total-js <= 620kB`）
 - `npm run perf:bundle:full`：一鍵執行 build + budget check + JSON + markdown diff
 - `npm run perf:bundle:pr`：一鍵產生 PR 可貼用的 baseline 差異 markdown（`dist/bundle-diff.md`）
+- `npm run perf:bundle:record`：一鍵完成 `report:json` + `baseline:snapshot` + `history:md:file`
 - `npm run perf:bundle-baseline:snapshot`：將 `dist/bundle-report.json` 以時間戳保存到 `docs/perf-baselines/history/`
 - `npm run perf:bundle-history:md`：讀取 `docs/perf-baselines/history` 並輸出趨勢 markdown（含 index / total-js 變化）
 - CI：`build:demo` 後自動執行 bundle budget check，避免體積回退進入主線
@@ -98,6 +99,9 @@ npm run perf:bundle-baseline:snapshot
 
 # 2.6) 產生歷史趨勢 markdown（可貼內部週報）
 npm run perf:bundle-history:md:file
+
+# 2.7) 一鍵記錄單次追蹤點（JSON + 快照 + 趨勢）
+npm run perf:bundle:record
 
 # 3) 本機預算檢查（與 CI 門檻一致）
 npm run perf:bundle-check:demo
