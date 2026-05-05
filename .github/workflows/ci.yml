@@ -98,7 +98,7 @@ jobs:
       - name: Bundle CI summary markdown
         if: always()
         run: |
-          env -u npm_config_devdir npm run perf:bundle:ci:summary
+          env -u npm_config_devdir npm run perf:bundle:ci:summary || true
           cat dist/bundle-ci-summary.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload bundle report artifact

@@ -2,8 +2,20 @@ import { readFile, writeFile } from 'node:fs/promises'
 
 const toKB = (bytes) => `${(Number(bytes) / 1024).toFixed(2)} kB`
 
-const readJson = async (path) => JSON.parse(await readFile(path, 'utf8'))
-const readText = async (path) => readFile(path, 'utf8')
+const readJsonSafe = async (path) => {
+  try {
+    return JSON.parse(await readFile(path, 'utf8'))
+  } catch {
+    return undefined
+  }
+}
+const readTextSafe = async (path) => {
+  try {
+    return await readFile(path, 'utf8')
+  } catch {
+    return ''
+  }
+}
 
 const pickChunk = (rows, prefix) => rows.find((row) => row.fileName?.startsWith(prefix))
 const parseDiffRows = (markdown) => {
@@ -33,11 +45,11 @@ const main = async () => {
     return
   }
 
-  const report = await readJson(reportPath)
-  const delta = await readJson(deltaPath)
-  const diffMarkdown = await readText(diffPath)
+  const report = await readJsonSafe(reportPath)
+  const delta = await readJsonSafe(deltaPath)
+  const diffMarkdown = await readTextSafe(diffPath)
 
-  const keyChunks = report.keyChunks ?? []
+  const keyChunks = report?.keyChunks ?? []
   const indexChunk = pickChunk(keyChunks, 'index-')
   const reactChunk = pickChunk(keyChunks, 'vendor-react-')
   const supabaseChunk = pickChunk(keyChunks, 'vendor-supabase-')
@@ -54,18 +66,24 @@ const main = async () => {
   const summary = [
     '## Bundle Governance Summary',
     '',
-    `- Status: **${String(delta.status ?? 'unknown').toUpperCase()}**`,
+    `- Status: **${String(delta?.status ?? 'unknown').toUpperCase()}**`,
     `- index: ${toKB(indexChunk?.bytes ?? 0)}`,
-    `- total-js: ${toKB(report.totalBytes ?? 0)}`,
+    `- total-js: ${toKB(report?.totalBytes ?? 0)}`,
     `- vendor-react: ${toKB(reactChunk?.bytes ?? 0)}`,
     `- vendor-supabase: ${toKB(supabaseChunk?.bytes ?? 0)}`,
-    `- index delta: ${toKB(delta.metrics?.indexDeltaBytes ?? 0)}`,
-    `- total-js delta: ${toKB(delta.metrics?.totalDeltaBytes ?? 0)}`,
+    `- index delta: ${toKB(delta?.metrics?.indexDeltaBytes ?? 0)}`,
+    `- total-js delta: ${toKB(delta?.metrics?.totalDeltaBytes ?? 0)}`,
     '',
     '### Delta Thresholds',
     '',
-    `- max index delta: ${delta.thresholds?.maxIndexDeltaKB ?? 'n/a'} kB`,
-    `- max total-js delta: ${delta.thresholds?.maxTotalDeltaKB ?? 'n/a'} kB`,
+    `- max index delta: ${delta?.thresholds?.maxIndexDeltaKB ?? 'n/a'} kB`,
+    `- max total-js delta: ${delta?.thresholds?.maxTotalDeltaKB ?? 'n/a'} kB`,
+    '',
+    '### Artifact Availability',
+    '',
+    `- bundle-report.json: ${report ? 'ready' : 'missing'}`,
+    `- bundle-delta.json: ${delta ? 'ready' : 'missing'}`,
+    `- bundle-diff.md: ${diffMarkdown ? 'ready' : 'missing'}`,
     '',
     '### Top Chunk Changes',
     '',

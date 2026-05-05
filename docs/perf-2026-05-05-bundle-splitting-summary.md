@@ -63,6 +63,7 @@
 - CI：會額外產生並上傳 `dist/bundle-delta.json`（delta guard 結果 JSON）
 - CI：會額外產生並上傳 `dist/bundle-history.md`（由 `docs/perf-baselines/history` 匯總）
 - CI：會把 `dist/bundle-ci-summary.md` 附加到 Actions Step Summary，並上傳 artifact 供留存
+- CI：summary 腳本具容錯；即使前序 step 失敗，也會輸出可用工件狀態（missing/ready）供排查
 - CI：`perf:bundle:ci` 先產生 history/diff 再執行 delta fail gate，失敗時仍可保留排查工件
 - GitHub Actions：最新連續主線 run 綠燈（#116、#117、#118）
 
