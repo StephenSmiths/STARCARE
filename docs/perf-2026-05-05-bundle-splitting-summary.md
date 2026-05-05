@@ -44,6 +44,7 @@
 - `npm run perf:bundle-report`：可輸出 `index` / `vendor-react` / `vendor-supabase` / 核心模組 chunk 與總 JS 體積
 - `npm run perf:bundle-report:json`：可輸出 `dist/bundle-report.json`（供機器比對）
 - `npm run perf:bundle-diff -- <base.json> <current.json>`：可比較兩份報告的 chunk 與 total-js 增減
+- `npm run perf:bundle-diff:md -- <base.json> <current.json>`：可輸出可貼 PR 的 Markdown 差異表
 - `npm run perf:bundle-check:demo`：可執行門檻檢查（現行：`index <= 45kB`、`total-js <= 620kB`）
 - CI：`build:demo` 後自動執行 bundle budget check，避免體積回退進入主線
 - CI：會輸出並上傳 `dist/bundle-report.json` 為 `bundle-report` artifact，便於下載留存
@@ -64,6 +65,7 @@
 - `f8acb99` chore(ci): 納入 bundle 體積門檻檢查
 - `0c9f9b2` chore(perf): 支援輸出 JSON bundle 報告
 - `4d714c9` chore(perf): 新增 bundle JSON 差異比對腳本
+- `5924329` chore(perf): 新增 Markdown bundle 差異報告
 
 ## 下一階段建議
 
