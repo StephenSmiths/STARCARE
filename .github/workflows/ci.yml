@@ -95,6 +95,12 @@ jobs:
       - name: Bundle governance checks（budget + diff + delta + history）
         run: npm run perf:bundle:ci
 
+      - name: Bundle CI summary markdown
+        if: always()
+        run: |
+          npm run perf:bundle:ci:summary
+          cat dist/bundle-ci-summary.md >> "$GITHUB_STEP_SUMMARY"
+
       - name: Upload bundle report artifact
         if: always()
         uses: actions/upload-artifact@v4
@@ -105,6 +111,7 @@ jobs:
             dist/bundle-diff.md
             dist/bundle-delta.json
             dist/bundle-history.md
+            dist/bundle-ci-summary.md
 
       - name: Playwright smoke（PW_PREVIEW_ONLY，僅啟動 preview）
         run: npm run test:e2e
