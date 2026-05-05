@@ -1,6 +1,5 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
 import { useAuth } from './features/auth/hooks/useAuth'
-import { SignInScreen } from './features/auth/components/SignInScreen'
 import { PageShell } from './features/shared/components/PageShell'
 import { uiTokens } from './features/shared/ui/uiTokens'
 import {
@@ -18,6 +17,9 @@ const SchedulingAppLayout = lazy(async () => ({
 
 const AppMainViews = lazy(async () => ({
   default: (await import('./app/AppMainViews')).AppMainViews,
+}))
+const SignInScreen = lazy(async () => ({
+  default: (await import('./features/auth/components/SignInScreen')).SignInScreen,
 }))
 
 const App = () => {
@@ -56,7 +58,11 @@ const App = () => {
   }
 
   if (isConfigured && !session) {
-    return <SignInScreen />
+    return (
+      <Suspense fallback={<div className={uiTokens.appAuthSessionLoadingRoot}>載入登入頁...</div>}>
+        <SignInScreen />
+      </Suspense>
+    )
   }
 
   return (
