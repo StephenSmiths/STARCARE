@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "build:demo": "VITE_SUPABASE_URL= VITE_SUPABASE_ANON_KEY= npm run build",
     "perf:bundle-report": "node scripts/perf-bundle-report.mjs",
+    "perf:bundle-report:demo": "npm run build:demo && npm run perf:bundle-report",
     "typecheck": "tsc -b --noEmit",
     "lint": "eslint .",
     "preview": "vite preview",
