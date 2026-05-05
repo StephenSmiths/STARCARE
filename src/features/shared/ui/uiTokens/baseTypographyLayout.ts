@@ -8,6 +8,8 @@ export const uiTokensBaseTypographyLayout = {
   moduleKicker: 'mt-2 text-xs font-medium uppercase tracking-wide text-slate-500',
   moduleTitle: 'mt-1 text-xl font-semibold text-slate-900',
   moduleDescription: 'mt-2 text-sm text-slate-600',
+  /** 頂欄建置版本（全模組共用 PageShell；可觀測性） */
+  mastheadBuildMeta: 'mt-3 text-[10px] text-slate-500',
   surfaceCard: 'rounded-xl border border-slate-200 bg-white p-6 shadow-sm',
   surfaceCardCompact: 'rounded-xl border border-slate-200 bg-white p-5 shadow-sm',
   pageSectionHeading: 'text-xl font-semibold text-slate-900',

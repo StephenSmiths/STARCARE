@@ -42,6 +42,7 @@ export const AUDIT_TRAIL_PANEL_ACTION_OPTIONS = [
   'SHIFT_END_HANDOVER_DRAFT_UPSERT',
   'SHIFT_END_HANDOVER_SUBMIT',
   'SYSTEM_SETTINGS_SAVE',
+  'USER_RBAC_ROLE_SET',
 ] as const satisfies readonly AuditTrailRecord['action'][]
 
 type MissingAuditActionsForPanel = Exclude<
@@ -49,7 +50,13 @@ type MissingAuditActionsForPanel = Exclude<
   (typeof AUDIT_TRAIL_PANEL_ACTION_OPTIONS)[number]
 >
 
-export const AUDIT_TRAIL_PANEL_ENTITY_OPTIONS = ['Resident', 'Staff', 'Scheduling', 'Reporting'] as const satisfies readonly AuditTrailRecord['entityType'][]
+export const AUDIT_TRAIL_PANEL_ENTITY_OPTIONS = [
+  'Resident',
+  'Staff',
+  'Scheduling',
+  'Reporting',
+  'Auth',
+] as const satisfies readonly AuditTrailRecord['entityType'][]
 
 type MissingEntityTypesForPanel = Exclude<
   AuditTrailRecord['entityType'],

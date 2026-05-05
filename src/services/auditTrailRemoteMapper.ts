@@ -1,6 +1,6 @@
 import type { AuditTrailRecord } from './auditTrailService'
 
-const ENTITY = new Set<AuditTrailRecord['entityType']>(['Resident', 'Staff', 'Scheduling', 'Reporting'])
+const ENTITY = new Set<AuditTrailRecord['entityType']>(['Resident', 'Staff', 'Scheduling', 'Reporting', 'Auth'])
 
 const isAction = (s: string): s is AuditTrailRecord['action'] =>
   /^[A-Z][A-Z0-9_]{1,79}$/.test(s)

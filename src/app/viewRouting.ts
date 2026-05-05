@@ -16,6 +16,7 @@ export type ViewId =
   | 'rehab-activity-tracking'
   | 'assessment-management'
   | 'system-settings'
+  | 'user-role-admin'
   | 'residents'
   | 'staff-import'
   | 'activity-sessions-import'
@@ -38,6 +39,7 @@ export const VIEW_IDS: ViewId[] = [
   'rehab-activity-tracking',
   'assessment-management',
   'system-settings',
+  'user-role-admin',
   'residents',
   'staff-import',
   'activity-sessions-import',
@@ -59,6 +61,7 @@ export const VIEW_PERMISSION_MAP: Record<ViewId, ViewPermission> = {
   'rehab-activity-tracking': 'view:rehab-activity-tracking',
   'assessment-management': 'view:assessment-management',
   'system-settings': 'view:system-settings',
+  'user-role-admin': 'view:user-role-admin',
   residents: 'view:residents',
   'staff-import': 'view:staff-import',
   'activity-sessions-import': 'view:activity-sessions-import',
@@ -80,6 +83,7 @@ const HASH_TO_VIEW: Record<string, ViewId> = {
   '#rehab-activity-tracking': 'rehab-activity-tracking',
   '#assessment-management': 'assessment-management',
   '#system-settings': 'system-settings',
+  '#user-role-admin': 'user-role-admin',
   '#residents': 'residents',
   '#staff-import': 'staff-import',
   '#activity-sessions-import': 'activity-sessions-import',
@@ -103,6 +107,7 @@ const VIEW_TITLES: Record<ViewId, string> = {
   'rehab-activity-tracking': '復康活動追蹤',
   'assessment-management': '評估管理',
   'system-settings': '系統設定',
+  'user-role-admin': '使用者角色（Admin）',
   residents: '院友管理',
   'staff-import': '員工管理',
   'activity-sessions-import': '活動時段匯入',

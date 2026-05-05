@@ -58,6 +58,9 @@ export const SCHEDULING_NAV_GROUPS: SchedulingNavGroup[] = [
   },
   {
     heading: '設定',
-    items: [{ label: '系統設定', href: '#system-settings', permission: 'view:system-settings' }],
+    items: [
+      { label: '系統設定', href: '#system-settings', permission: 'view:system-settings' },
+      { label: '使用者角色', href: '#user-role-admin', permission: 'view:user-role-admin' },
+    ],
   },
 ]

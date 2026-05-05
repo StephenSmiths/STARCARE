@@ -24,7 +24,7 @@ type Body = {
   }
 }
 
-const ENTITY_TYPES = new Set(['Resident', 'Staff', 'Scheduling', 'Reporting'])
+const ENTITY_TYPES = new Set(['Resident', 'Staff', 'Scheduling', 'Reporting', 'Auth'])
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return emptyOk()

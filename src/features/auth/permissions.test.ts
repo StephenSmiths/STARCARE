@@ -62,6 +62,9 @@ describe('auth permissions (RBAC)', () => {
     expect(hasPermission('Admin', 'view:residents')).toBe(true)
     expect(hasPermission('Admin', 'view:staff-import')).toBe(true)
     expect(hasPermission('Admin', 'view:activity-sessions-import')).toBe(true)
+    expect(hasPermission('Admin', 'view:user-role-admin')).toBe(true)
+    expect(hasPermission('TeamLead', 'view:user-role-admin')).toBe(false)
+    expect(hasPermission('Staff', 'view:user-role-admin')).toBe(false)
   })
 
   it('審批規則：需有審批權限且不可審批自己', () => {

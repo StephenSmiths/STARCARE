@@ -17,6 +17,7 @@ const PERMISSIONS_BY_ROLE: Record<StarcareRole, AuthPermission[]> = {
     'view:rehab-activity-tracking',
     'view:assessment-management',
     'view:system-settings',
+    'view:user-role-admin',
     'view:residents',
     'view:staff-import',
     'view:activity-sessions-import',

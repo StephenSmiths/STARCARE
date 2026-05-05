@@ -59,7 +59,9 @@ export interface AuditTrailRecord {
     | 'SHIFT_END_HANDOVER_SUBMIT'
     /** PDF 02【16】Seq 29：系統設定儲存（本地暫存／後端待接） */
     | 'SYSTEM_SETTINGS_SAVE'
-  entityType: 'Resident' | 'Staff' | 'Scheduling' | 'Reporting'
+    /** Admin 變更 Auth 使用者 STARCARE 角色（user_roles／app_metadata；Edge admin-user-role-set） */
+    | 'USER_RBAC_ROLE_SET'
+  entityType: 'Resident' | 'Staff' | 'Scheduling' | 'Reporting' | 'Auth'
   entityId: string
   actorId: string
   beforeState: string | null

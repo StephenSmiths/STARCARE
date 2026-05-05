@@ -52,6 +52,9 @@ const AssessmentManagementHome = lazy(async () => ({
 const SystemSettingsHome = lazy(async () => ({
   default: (await import('../features/systemSettings')).SystemSettingsHome,
 }))
+const UserRoleAdminHome = lazy(async () => ({
+  default: (await import('../features/userRoleAdmin')).UserRoleAdminHome,
+}))
 const ResidentsDashboard = lazy(async () => ({
   default: (await import('../features/residents')).ResidentsDashboard,
 }))
@@ -100,6 +103,9 @@ export const AppMainViews = ({ effectiveView, hasPermission }: Props) => (
       ) : null}
       {effectiveView === 'system-settings' && hasPermission('view:system-settings') ? (
         <SystemSettingsHome />
+      ) : null}
+      {effectiveView === 'user-role-admin' && hasPermission('view:user-role-admin') ? (
+        <UserRoleAdminHome />
       ) : null}
       {effectiveView === 'residents' && hasPermission('view:residents') ? <ResidentsDashboard /> : null}
       {effectiveView === 'staff-import' && hasPermission('view:staff-import') ? <StaffImportPanel /> : null}

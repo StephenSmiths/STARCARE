@@ -28,6 +28,8 @@ export type AuthPermission =
   | 'view:assessment-management'
   /** PDF 02【16】Seq 29：院舍系統設定（Admin／TeamLead） */
   | 'view:system-settings'
+  /** PDF 01 §1：僅 Admin；變更他人 STARCARE 角色（Edge admin-user-role-set） */
+  | 'view:user-role-admin'
   | 'view:residents'
   | 'view:staff-import'
   | 'view:activity-sessions-import'

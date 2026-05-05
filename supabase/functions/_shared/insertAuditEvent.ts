@@ -5,7 +5,7 @@ const MAX_TEXT = 32000
 
 const clamp = (s: string): string => (s.length <= MAX_TEXT ? s : s.slice(0, MAX_TEXT))
 
-export type AuditEntityType = 'Resident' | 'Staff' | 'Scheduling' | 'Reporting'
+export type AuditEntityType = 'Resident' | 'Staff' | 'Scheduling' | 'Reporting' | 'Auth'
 
 /** Edge service_role 直接寫入 `audit_events`（閉環：避免僅前端 append 失敗即無審計） */
 export const insertAuditEvent = async (
