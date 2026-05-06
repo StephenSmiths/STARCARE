@@ -60,7 +60,7 @@
 
 ### 4.1 每次收證後快速檢查
 
-`gatea:evidence:http`／`gatea:evidence:http:auth` 內含的 HTTP 請求會把實際狀態寫入 `.txt`；若與預期（無 JWT → 401、staff JWT → 403）不符，會在 **stderr** 印出警告並**仍會落檔**，方便人工複核／附在簽核討論。
+`gatea:evidence:http`／`gatea:evidence:http:auth` 內含的 HTTP 請求會把實際狀態寫入 `.txt`；若與預期（無 JWT → 401、staff JWT → 403）不符，會在 **stderr** 印出警告並**仍會落檔**，方便人工複核／附在簽核討論。加上 `--strict-http`（例如 `npm run gatea:evidence:http -- --strict-http`，或 `gatea:evidence:all -- --strict-http`）則上述不符時 **exit 非 0**。
 
 ```bash
 npm run gatea:evidence:summary
@@ -85,9 +85,11 @@ npm run gatea:evidence:http:auth
 ```bash
 npm run gatea:evidence:all
 npm run gatea:evidence:all -- --no-preflight
+npm run gatea:evidence:all -- --strict-http
 ```
 
-> `gatea:evidence:all` 預設先執行 `gatea:evidence:preflight --strict`（無 `docs/evidence` 或缺 VITE_* 即中止）；需略過加 `--no-preflight`。  
+> `gatea:evidence:all` 預設先執行 `gatea:evidence:preflight --strict`（無 `docs/evidence` 或缺 VITE_* 即中止）；需略過加 `--no-preflight`。
+> 加 `--strict-http` 時會轉給 HTTP 取證：401／403 狀態不符預期則該步 exit 非 0（證據檔仍會寫入）。  
 > `gatea:evidence:all` 現在也會自動執行判定稿兩行引用同步（等同含 `gatea:evidence:decision-sync`）。
 > `gatea:evidence:all` 會先執行 `gatea:evidence:doctor --write`，再以單一批次指令更新證據索引、Daily Log、2week tracker、kickoff checklist 的 Gate A 自動引用區（等同 `npm run gatea:evidence:docs-sync`；亦即個別之 `gatea:evidence:index-sync`／`daily-sync`／`tracker-sync`／`kickoff-sync`）。如此 tracker／kickoff 內的 **doctor report** 會對應本次剛落檔的報告。
 > `gatea:evidence:all` 會先產生單檔收斂快照：`docs/evidence/gate-a-report-*.md`（等同 `npm run gatea:evidence:report`），再同步四份文件，確保引用到當次最新 report。

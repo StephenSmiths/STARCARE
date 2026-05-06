@@ -38,10 +38,15 @@ process.stdout.write(`已取得 staff token（${staffEmail}）\n`)
 process.env.GATEA_STAFF_ACCESS_TOKEN = token
 
 const { spawnSync } = await import('node:child_process')
-const out = spawnSync('node', ['scripts/gate-a-http-evidence.mjs'], {
-  stdio: 'inherit',
-  env: { ...process.env, GATEA_STAFF_ACCESS_TOKEN: token },
-})
+const strictForward = process.argv.includes('--strict-http') ? ['--strict-http'] : []
+const out = spawnSync(
+  'node',
+  ['scripts/gate-a-http-evidence.mjs', ...strictForward],
+  {
+    stdio: 'inherit',
+    env: { ...process.env, GATEA_STAFF_ACCESS_TOKEN: token },
+  },
+)
 if (out.status !== 0) {
   throw new Error(`執行 gate-a-http-evidence 失敗，exit=${out.status}`)
 }

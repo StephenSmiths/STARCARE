@@ -5,6 +5,8 @@ import { hydrateProcessEnvMissingFromDotenv } from './gate-a-env-lib.mjs'
 
 hydrateProcessEnvMissingFromDotenv()
 
+const strictHttp = process.argv.includes('--strict-http')
+
 const url = process.env.VITE_SUPABASE_URL
 const anon = process.env.VITE_SUPABASE_ANON_KEY
 const staffToken = process.env.GATEA_STAFF_ACCESS_TOKEN
@@ -53,10 +55,12 @@ if (staffToken) {
   writeFileSync(p403, await toText(r403), 'utf8')
 }
 
+let strictHttpViolation = false
 if (r401.status !== 401) {
   process.stderr.write(
     `[gatea http] 警告：未附 Authorization 的請求預期 HTTP 401，實際為 ${r401.status}。已仍寫入證據檔，請核對 Edge \`verify_jwt\` 與部署版本。\n`,
   )
+  if (strictHttp) strictHttpViolation = true
 }
 
 process.stdout.write(`401 evidence: ${p401}\n`)
@@ -65,8 +69,14 @@ if (p403) {
     process.stderr.write(
       `[gatea http] 警告：staff JWT 呼叫管理專用函式預期 HTTP 403，實際為 ${r403.status}。已仍寫入證據檔；若為 200 請檢查 staff 角色與函式授權邏輯。\n`,
     )
+    if (strictHttp) strictHttpViolation = true
   }
   process.stdout.write(`403 evidence: ${p403}\n`)
 } else {
   process.stdout.write('403 evidence: skipped (set GATEA_STAFF_ACCESS_TOKEN to enable)\n')
+}
+
+if (strictHttpViolation) {
+  process.stderr.write('[gatea http] `--strict-http`：HTTP 狀態與預期不符，exit 1。\n')
+  process.exitCode = 1
 }

@@ -29,6 +29,9 @@ const run = (label, cmd, args, extraEnv = {}) => {
 }
 
 let failed = false
+const strictHttp = process.argv.includes('--strict-http')
+const httpEvidenceArgs = strictHttp ? ['--strict-http'] : []
+
 const mergedEnv = {
   GATEA_STAFF_EMAIL: baseEnv.GATEA_STAFF_EMAIL || '',
   GATEA_STAFF_PASSWORD: baseEnv.GATEA_STAFF_PASSWORD || '',
@@ -41,11 +44,15 @@ if (run('auto evidence', 'node', ['scripts/gate-a-auto-evidence.mjs']) !== 0) {
 
 const hasStaffCreds = Boolean(mergedEnv.GATEA_STAFF_EMAIL && mergedEnv.GATEA_STAFF_PASSWORD)
 if (hasStaffCreds) {
-  if (run('http evidence (auth)', 'node', ['scripts/gate-a-http-evidence-auth.mjs'], mergedEnv) !== 0) {
+  if (
+    run('http evidence (auth)', 'node', ['scripts/gate-a-http-evidence-auth.mjs', ...httpEvidenceArgs], mergedEnv) !== 0
+  ) {
     failed = true
   }
 } else {
-  if (run('http evidence（401／有 token 則另有 403）', 'node', ['scripts/gate-a-http-evidence.mjs'], mergedEnv) !== 0) {
+  if (
+    run('http evidence（401／有 token 則另有 403）', 'node', ['scripts/gate-a-http-evidence.mjs', ...httpEvidenceArgs], mergedEnv) !== 0
+  ) {
     failed = true
   }
   if (!mergedEnv.GATEA_STAFF_ACCESS_TOKEN) {
