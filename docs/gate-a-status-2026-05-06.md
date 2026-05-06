@@ -96,7 +96,7 @@ npm run gatea:evidence:refresh -- --keep=3 --strict-http
 npm run gatea:evidence:refresh:strict-http
 ```
 
-> `gatea:evidence:all` 預設先執行 `gatea:evidence:preflight --strict`（無 `docs/evidence` 或缺 VITE_* 即中止）；需略過加 `--no-preflight`。
+> `gatea:evidence:all` 預設先執行 `gatea:evidence:preflight:strict`（等同 `preflight -- --strict`；無 `docs/evidence` 或缺 VITE_* 即中止）；需略過加 `--no-preflight`。
 > 加 `--strict-http` 時會轉給 HTTP 取證：401／403 狀態不符預期則該步 exit 非 0（證據檔仍會寫入）。  
 > `gatea:evidence:all` 現在也會自動執行判定稿引用同步（decision ref／fill snippet／HTTP 嚴格；等同含 `gatea:evidence:decision-sync`）。
 > `gatea:evidence:all` 會先執行 `gatea:evidence:doctor --write`，再以單一批次指令更新證據索引、Daily Log、2week tracker、kickoff checklist 的 Gate A 自動引用區（等同 `npm run gatea:evidence:docs-sync`；亦即個別之 `gatea:evidence:index-sync`／`daily-sync`／`tracker-sync`／`kickoff-sync`）；區塊內含 **HTTP 嚴格取證** ON／OFF（與 `preflight`／`summary` 同源）。如此 tracker／kickoff 內的 **doctor report** 會對應本次剛落檔的報告。
@@ -170,7 +170,7 @@ npm run gatea:evidence:next
 
 ```bash
 npm run gatea:evidence:preflight
-npm run gatea:evidence:preflight -- --strict
+npm run gatea:evidence:preflight:strict
 ```
 
 列出目前倉庫內所有 **`gatea:evidence:*`** npm 指令（自 `package.json` 讀取，免文件漏列）：

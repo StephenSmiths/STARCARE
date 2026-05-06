@@ -91,7 +91,7 @@ npm run gatea:evidence:summary # 自動證據彙總（含 READY 一行）
 npm run gatea:evidence:ready # READY/NOT_READY；加 --strict 缺項時非 0
 npm run gatea:evidence:next # 依目前缺口直接給下一步命令
 npm run gatea:evidence:preflight # 取證前環境／證據目錄快速診斷（不列印密值）
-npm run gatea:evidence:preflight -- --strict # 缺 docs/evidence 或 VITE_* 未設 → exit 非 0
+npm run gatea:evidence:preflight:strict # 缺 docs/evidence 或 VITE_* 未設 → exit 非 0（等同加 `-- --strict`）
 npm run gatea:evidence:list # 由 package.json 列出所有 gatea:evidence:* 指令
 npm run gatea:evidence:gate # Gate A 關卡（NOT_READY 即非 0）
 npm run gatea:evidence:prune # 清理舊 Gate A 自動快照（預設 dry-run；加 -- --apply 才刪檔）
@@ -102,7 +102,7 @@ npm run gatea:evidence:prune # 清理舊 Gate A 自動快照（預設 dry-run；
 - **CI**：推上 GitHub 後由 [`.github/workflows/ci.yml`](.github/workflows/ci.yml) 執行（含 Playwright 快取；demo 建置為 **`npm run build:demo`**，避免與本機 `.env` 內嵌 Supabase 混用）。
 - **效能報告**：CI 會在 bundle budget check 後上傳 `bundle-report` artifact（`dist/bundle-report.json`）。
 - **憑證與部署後自檢**：[docs/security-token-rotation-checklist.md](docs/security-token-rotation-checklist.md) **§D**（可選 **`npm run ci`**；與 [docs/go-live-checklist.md](docs/go-live-checklist.md) §6 對齊）。
-- **Gate A 取證助手**：可用 **`npm run gatea:evidence:list`** 列出所有 `gatea:evidence:*`（與 `package.json` 同步）；步驟見 `docs/gate-a-evidence-capture-2026-05-06.md`，一鍵腳本 `npm run gatea:evidence:all`（預設先 `preflight --strict`，含 `doctor`/`report` 落檔等；`--no-preflight` 略過前置檢查；HTTP 嚴格狀態可用 `gatea:evidence:all:strict-http` 或 `--strict-http`）；收證後順便修剪舊快照、刷新 `gate-a-latest.md`、再 **`docs-sync`** 與 **`decision-sync`** 可用 **`npm run gatea:evidence:refresh`**（`--keep=N` 僅作用於 prune；另有 **`gatea:evidence:refresh:strict-http`**）；僅同步四份收尾 markdown 可用 `npm run gatea:evidence:docs-sync`；彙總 `npm run gatea:evidence:summary`，可否判定 `npm run gatea:evidence:ready`，下一步導引 `npm run gatea:evidence:next`；取證前診斷 `npm run gatea:evidence:preflight`；需直接當關卡可用 `npm run gatea:evidence:gate`（NOT_READY 即非 0）；缺口細項 `npm run gatea:evidence:doctor`；清理舊自動快照可用 `npm run gatea:evidence:prune`（預設 dry-run，`-- --apply` 才刪檔）。即時狀態：`docs/gate-a-status-2026-05-06.md`。
+- **Gate A 取證助手**：可用 **`npm run gatea:evidence:list`** 列出所有 `gatea:evidence:*`（與 `package.json` 同步）；步驟見 `docs/gate-a-evidence-capture-2026-05-06.md`，一鍵腳本 `npm run gatea:evidence:all`（預設先 `gatea:evidence:preflight:strict`，含 `doctor`/`report` 落檔等；`--no-preflight` 略過前置檢查；HTTP 嚴格狀態可用 `gatea:evidence:all:strict-http` 或 `--strict-http`）；收證後順便修剪舊快照、刷新 `gate-a-latest.md`、再 **`docs-sync`** 與 **`decision-sync`** 可用 **`npm run gatea:evidence:refresh`**（`--keep=N` 僅作用於 prune；另有 **`gatea:evidence:refresh:strict-http`**）；僅同步四份收尾 markdown 可用 `npm run gatea:evidence:docs-sync`；彙總 `npm run gatea:evidence:summary`，可否判定 `npm run gatea:evidence:ready`，下一步導引 `npm run gatea:evidence:next`；取證前診斷 `npm run gatea:evidence:preflight`；需直接當關卡可用 `npm run gatea:evidence:gate`（NOT_READY 即非 0）；缺口細項 `npm run gatea:evidence:doctor`；清理舊自動快照可用 `npm run gatea:evidence:prune`（預設 dry-run，`-- --apply` 才刪檔）。即時狀態：`docs/gate-a-status-2026-05-06.md`。
 
 ## 技術棧
 

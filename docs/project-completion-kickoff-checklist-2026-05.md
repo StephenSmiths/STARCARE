@@ -43,7 +43,7 @@ npm run gatea:evidence:all
 
 # 可選：取證前環境診斷（不列印密值）
 # npm run gatea:evidence:preflight
-# npm run gatea:evidence:preflight -- --strict
+# npm run gatea:evidence:preflight:strict
 
 # 可選：全流程後修剪舊快照、再刷新 latest 與收尾 markdown／判定稿（見 gate-a-status）
 # npm run gatea:evidence:refresh
