@@ -61,3 +61,4 @@
 | 2026-06-15 | **`go-live-checklist.md`** 開首「**全案收尾與證據留痕**」段補 Gate A 入口／**`gatea:evidence:list`**／**`refresh`** 並指 **§0.1**（與 §0「併用」敘述一致）。 |
 | 2026-06-16 | **`README.md`**「專案收尾」建議順序鏈結 **`gate-a-latest.md`**／**`go-live-checklist.md`** Gate A；**`go-live-checklist.md`** 開首 **對照** blockquote 補 Gate A；**`feature-list.md`** §8 第 24 點括註 Gate A 第 25 點。 |
 | 2026-06-23 | §0：Gate A 括註補 **`npm run gatea:evidence:preflight:strict`**（與 **`go-live-checklist.md`** §0.1、**`feature-list.md`**、**`pdf03`**、**`gate-a-evidence-fill-template`** 互鏈）；本檔開首對照句同步。 |
+| 2026-06-24 | 凡開首 **全案收尾**／**對照** 之 **`docs/seq*-*.md`**、**`phase*.md`**、**`stage*.md`**、**`project-completion-*`**、合約／runbook／checklist 等與 **`.cursorrules`** §3：Gate A 括註統一為 **`list`**／**`refresh`**／**`preflight:strict`**；**`pdf-sequenced-gap-checklist.md`** 全案收尾段補齊三指令；**`feature-list.md`** 頁尾補 **`preflight:strict`**；本檔開首對照句已於同批一致。 |

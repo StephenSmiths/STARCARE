@@ -2,7 +2,7 @@
 
 > **對照**：運維與文件總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；PDF `03`／PR 檢核 **`docs/pdf03-cursorrules-alignment.md`**；序號 **`docs/pdf-sequenced-gap-checklist.md`**（Seq **36**；主檔「**運維與工程**」列與 **§0**／**`README`** 對齊）；對照骨架 **`docs/seq36-adr0001-scheduling-logic-placement-traceability.md`**。
 
-**全案收尾與證據留痕**：**`README.md`**「專案收尾」（**`docs/project-completion-*.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log.md`** 及歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**）；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**；Gate A 自動證據固定入口 **`docs/evidence/gate-a-latest.md`**（**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**）。
+**全案收尾與證據留痕**：**`README.md`**「專案收尾」（**`docs/project-completion-*.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log.md`** 及歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**）；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**；Gate A 自動證據固定入口 **`docs/evidence/gate-a-latest.md`**（**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／**`npm run gatea:evidence:preflight:strict`**）。
 
 **狀態**：已採納（與客戶溝通前之工程預設）  
 **日期**：2026-05-01  

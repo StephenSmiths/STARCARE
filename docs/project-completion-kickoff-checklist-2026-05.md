@@ -1,7 +1,7 @@
 # STARCARE 收尾啟動 30 分鐘清單（2026-05）
 
 > **對照**：運維總覽 **`docs/business-logic.md`** §0；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**；上線勾選 **`docs/go-live-checklist.md`**。  
-> **全案收尾母索引**：**`README.md`**「專案收尾」；Gate A **`docs/evidence/gate-a-latest.md`**（**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**）。  
+> **全案收尾母索引**：**`README.md`**「專案收尾」；Gate A **`docs/evidence/gate-a-latest.md`**（**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／**`npm run gatea:evidence:preflight:strict`**）。  
 > 目的：讓任何成員在 30 分鐘內完成收尾任務啟動，避免只看懂文件但無法開工。  
 > 背景與完成率估算：`docs/project-completion-audit-2026-05-05.md`。
 
