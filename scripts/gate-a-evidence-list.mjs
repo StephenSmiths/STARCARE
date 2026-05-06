@@ -1,8 +1,11 @@
 /**
  * 由 package.json 列出所有 `gatea:evidence:*` 指令（與倉庫實際腳本同源，免文件漂移）。
+ * stdout 末段與 summary／doctor／report 同附全案收尾互鏈（`gate-a-markdown-footer`）。
  */
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
+
+import { gateAStandardCloseoutBlockquotes } from './gate-a-markdown-footer.mjs'
 
 const pkgPath = resolve(process.cwd(), 'package.json')
 const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'))
@@ -23,5 +26,8 @@ for (const k of keys) {
   lines.push(`- \`${k}\``)
   lines.push(`  - ${scripts[k]}`)
 }
+
+lines.push(``)
+lines.push(...gateAStandardCloseoutBlockquotes())
 
 process.stdout.write(`${lines.join('\n')}\n`)

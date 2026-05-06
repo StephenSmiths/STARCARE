@@ -149,3 +149,4 @@
 | 2026-07-27 | **`gate-a-evidence-summary.mjs`** stdout 末段同附 **`gateAStandardCloseoutBlockquotes`**（與 **doctor**／**report**、**2026-07-25** 列一致）；**`pdf03-cursorrules-alignment.md`** §4 增腳本／marker 產出維護項（與 **2026-07-26** 列並讀）。 |
 | 2026-07-28 | **`gate-a-generate-decision-mini.mjs`** stdout 增第四行 **`gateAAutoRefClosingHintLine()`**（**go-live**／**status** **§5**／**commands-appendix**）；**`gate-a-sync-decision-draft.mjs`** 改以單一 regex 覆寫 mini 區塊（含可選舊第四行）；**`gate-a-decision-draft`**／**`commands-appendix`** 敘述同步（與 **2026-07-25**～**2026-07-27** 列一致）。 |
 | 2026-07-29 | **`commands-appendix`**：`gatea:evidence:all` 內 **`decision-sync`** 說明補 **全案收尾速查** 末行並註與 **`decision-mini`** 四行 stdout 一致（與 **2026-07-28** 列並讀）。 |
+| 2026-07-30 | **`gate-a-evidence-list.mjs`** stdout 末段同附 **`gateAStandardCloseoutBlockquotes`**（與 **summary**／**doctor**／**report**、**2026-07-25**／**2026-07-27** 列一致）；**`pdf03-cursorrules-alignment.md`** §4 維護項補 **`gate-a-evidence-list`**（與 **2026-07-29** 列並讀）。 |
