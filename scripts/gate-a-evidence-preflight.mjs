@@ -4,7 +4,7 @@
 import { existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 
-import { buildSpawnBaseEnv } from './gate-a-env-lib.mjs'
+import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
 import { computeGateAReadyState, recommendNextCommand } from './gate-a-ready-core.mjs'
 
 const strict = process.argv.includes('--strict')
@@ -24,6 +24,9 @@ lines.push(`- VITE_SUPABASE_ANON_KEY：${pick('VITE_SUPABASE_ANON_KEY')}`)
 lines.push(`- GATEA_STAFF_EMAIL：${pick('GATEA_STAFF_EMAIL')}`)
 lines.push(`- GATEA_STAFF_PASSWORD：${pick('GATEA_STAFF_PASSWORD')}`)
 lines.push(`- GATEA_STAFF_ACCESS_TOKEN：${pick('GATEA_STAFF_ACCESS_TOKEN')}`)
+lines.push(
+  `- HTTP 嚴格取證（401／403 不符即 exit 非 0）：${gateAStrictHttpEnabled(process.argv, e) ? '**ON**' : 'OFF'}（\`--strict-http\` 或 \`GATEA_STRICT_HTTP\`=1／true／yes）`,
+)
 lines.push('')
 lines.push('> 合併規則與取證腳本相同：`{ ...repo .env, ...process.env }`（shell／CI 覆寫檔案）。')
 lines.push('')
