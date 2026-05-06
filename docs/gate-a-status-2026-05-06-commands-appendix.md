@@ -66,13 +66,13 @@ npm run gatea:evidence:decision-ref
 npm run gatea:evidence:decision-ref -- --write
 ```
 
-判定稿快速指令（decision-mini 三行：ref／snippet／HTTP 嚴格）：
+判定稿快速指令（decision-mini：ref／snippet／HTTP 嚴格；末行全案收尾／§5 速查）：
 
 ```bash
 npm run gatea:evidence:decision-mini
 ```
 
-直接自動回填判定稿三行引用：
+直接自動回填判定稿 mini 區塊（ref／snippet／HTTP 嚴格／全案收尾速查）：
 
 ```bash
 npm run gatea:evidence:decision-sync
