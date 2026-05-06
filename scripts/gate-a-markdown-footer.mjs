@@ -4,7 +4,7 @@
  *
  * **Export 契約**
  * - **`gateAStandardCloseoutBlockquotes`**：多數取證／同步腳本之 **stdout** 或落檔 Markdown 末段共用兩行 blockquote。
- * - **`gateALatestMarkdownFooterLines`**：寫入 **`docs/evidence/gate-a-latest.md`** 檔尾（「固定入口」一行＋上列兩行）；**`gate-a-update-latest-pointer`** 之終端 stdout 另單附兩行 blockquote（不含「固定入口」）。
+ * - **`gateALatestMarkdownFooterLines`**：寫入 **`docs/evidence/gate-a-latest.md`** 檔尾（「固定入口」一行＋**`gateAStandardCloseoutBlockquotes`** 兩行＋stdout 頁尾一行）；**`gate-a-update-latest-pointer`** 之終端 stdout 另單附兩行 blockquote（不含「固定入口」）。
  * - **`gateAAutoRefClosingHintLine`**：自動引用 marker 末行、**`decision-mini`** 第四行、**`sync-decision-draft`** mini 區塊末行；**`gate-a-ref-sync-lib`** 僅替換 marker 內文。
  *
  * **未匯入本檔之腳本**：**`gate-a-http-evidence-auth`** 以 **`stdio: inherit`** 委派 **`gate-a-http-evidence`**（子程序已印頁尾）；**`gate-a-evidence-all`** 為 orchestrator；**`gate-a-generate-decision-mini`** 刻意僅四行＋速查列，不附兩行 blockquote（見各檔首註解）。
@@ -18,9 +18,13 @@ export function gateAStandardCloseoutBlockquotes() {
   ]
 }
 
-/** `docs/evidence/gate-a-latest.md` 專用之頁尾三行。 */
+/** `docs/evidence/gate-a-latest.md` 專用之頁尾：固定入口＋標準雙行＋ stdout 維護一行。 */
 export function gateALatestMarkdownFooterLines() {
-  return ['> 此檔為固定入口，便於在文件／群組貼單一連結。', ...gateAStandardCloseoutBlockquotes()]
+  return [
+    '> 此檔為固定入口，便於在文件／群組貼單一連結。',
+    ...gateAStandardCloseoutBlockquotes(),
+    '> **終端 stdout 頁尾（維護）**：多數 **`gatea:evidence:*`** **`scripts/gate-a-markdown-footer.mjs`**（檔首 **Export 契約**）；**`README.md`**「Gate A 終端頁尾（維護）」列並讀。',
+  ]
 }
 
 /** 自動引用區塊末行（compact；與上列 blockquotes 同鏈，供 `gate-a-ref-sync-lib`）。 */
