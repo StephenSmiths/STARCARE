@@ -1,7 +1,7 @@
 # STARCARE 全專案完成度盤點（2026-05-05）
 
 > **對照（運維鏈）**：**`docs/business-logic.md`** §0；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**；上線 **`docs/go-live-checklist.md`**。  
-> **全案收尾母索引**：**`README.md`**「專案收尾」。  
+> **全案收尾母索引**：**`README.md`**「專案收尾」；Gate A **`docs/evidence/gate-a-latest.md`**（**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**）。  
 > 對照來源：`docs/feature-list.md`、`docs/go-live-checklist.md`、`docs/perf-2026-05-05-bundle-splitting-summary.md`、`.github/workflows/ci.yml`。  
 > 目的：用同一把尺評估「整個專案距離可宣告完成」的剩餘距離，而非單一技術線（例如 CI 或 perf）。
 
