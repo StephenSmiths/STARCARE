@@ -13,8 +13,8 @@ npm run gatea:evidence:decision-mini
 ```
 
 > 將輸出直接貼到本段下方，作為最新留痕引用（含 HTTP 嚴格 ON／OFF）；或使用 `npm run gatea:evidence:decision-sync` 自動回填。
-- decision ref：`docs/evidence/gate-a-decision-ref-20260506-145320.md`
-- fill snippet：`docs/evidence/gate-a-fill-snippet-20260506-145320.md`
+- decision ref：`docs/evidence/gate-a-decision-ref-20260506-155439.md`
+- fill snippet：`docs/evidence/gate-a-fill-snippet-20260506-155439.md`
 - HTTP 嚴格取證：OFF
 
 ## 依據（已完成）
@@ -23,13 +23,13 @@ npm run gatea:evidence:decision-mini
 - [x] CORS + `x-idempotency-key` 已修正並重佈
 - [x] migration `20260505160000` 已補齊至遠端（Local/Remote 一致）
 - [x] `USER_RBAC_ROLE_SET` 流程可成功執行
-- [x] `db:push` / `ops:verify` 已留存自動證據：`docs/evidence/gate-a-auto-evidence-2026-05-06-135940.md`
+- [x] `db:push` / `ops:verify` 已留存自動證據：`docs/evidence/gate-a-auto-evidence-2026-05-06-165413.md`
 
 ## 依據（待補人工證據）
 
 ### go-live §1（Auth/RLS）
 - [ ] admin/staff 登入截圖
-- [x] 401 證據（文字）`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-06-140903.txt`
+- [x] 401 證據（文字）`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-06-155438.8.txt`
 - [ ] 403 截圖（staff 呼叫 admin-only API）
 - [ ] `user_roles` SQL 截圖
 

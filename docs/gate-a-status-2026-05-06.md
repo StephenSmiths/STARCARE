@@ -22,7 +22,7 @@
 
 ### go-live §1 Auth / RLS
 - [ ] admin/staff 登入截圖
-- [x] 401 證據（文字檔）已取得：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-06-143013.7.txt`
+- [x] 401 證據（文字檔）已取得：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-06-155438.8.txt`
 - [ ] 403 截圖（staff 呼叫 admin-only API）
 - [ ] `user_roles` SQL 截圖
 

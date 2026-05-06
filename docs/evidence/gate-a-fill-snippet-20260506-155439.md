@@ -1,8 +1,9 @@
 ## Gate A 回填片段（自動產生）
 
+- HTTP 嚴格取證（產生當下合併環境）：OFF
 - D2（§1）：
-  - auto 證據：`docs/evidence/gate-a-auto-evidence-2026-05-06-152954.md`
-  - 401 證據：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-06-143013.7.txt`
+  - auto 證據：`docs/evidence/gate-a-auto-evidence-2026-05-06-165413.md`
+  - 401 證據：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-06-155438.8.txt`
   - 403 證據：`<待補 403 證據>`
 - D3（§3）：
   - `<gateA-d3-scheduling-save-success-2026-05-06.png>`

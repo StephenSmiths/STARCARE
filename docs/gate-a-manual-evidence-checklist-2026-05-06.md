@@ -9,7 +9,7 @@
 - [ ] `staff` 登入成功截圖（左下角色）
   - 證據檔：`gateA-d2-staff-login-2026-05-06.png`
 - [ ] 401 截圖（未授權）
-  - 證據檔：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-06-140903.txt`（文字證據）或 `gateA-d2-401-2026-05-06.png`（截圖）
+  - 證據檔：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-06-155438.8.txt`（文字證據）或 `gateA-d2-401-2026-05-06.png`（截圖）
 - [ ] 403 截圖（staff 呼叫 `admin-user-role-set`）
   - 證據檔：`gateA-d2-403-admin-user-role-set-2026-05-06.png`
 - [ ] `user_roles` SQL 截圖
