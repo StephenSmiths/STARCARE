@@ -1,6 +1,6 @@
 # STARCARE Phase 4 最終打包寄送清單
 
-> **對照**：交付索引 **`docs/phase4-day4-delivery-index.md`**；運維與 CI 總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）、**`docs/feature-list.md`** §8（**`npm run ci`**／**`acceptance:day4`**）；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**；**全案收尾**：**`README.md`**「專案收尾」、**`docs/project-completion-evidence-index-2026-05.md`**、**`docs/project-completion-kickoff-checklist-2026-05.md`**；Gate A 自動證據固定入口 **`docs/evidence/gate-a-latest.md`**（檔內 **Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／**`npm run gatea:evidence:preflight:strict`**）。
+> **對照**：交付索引 **`docs/phase4-day4-delivery-index.md`**；運維與 CI 總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）、**`docs/feature-list.md`** §8（**`npm run ci`**／**`acceptance:day4`**）；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**；**全案收尾**：**`README.md`**「專案收尾」（**`docs/business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引）、**`docs/project-completion-evidence-index-2026-05.md`**、**`docs/project-completion-kickoff-checklist-2026-05.md`**；Gate A 自動證據固定入口 **`docs/evidence/gate-a-latest.md`**（檔內 **Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／**`npm run gatea:evidence:preflight:strict`**）。
 
 ## 一、用途
 - 提供 Phase 4 完成後的一次性寄送清單，分為「內部技術包」與「對外摘要包」。

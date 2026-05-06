@@ -1,6 +1,6 @@
 # STARCARE System
 
-智能院舍照護管理前端（React + TypeScript + Vite）。業務母本與缺口追蹤見 `docs/pdf/` 與下列文件。工程規範與部署／驗收閘門見專案根目錄 **`.cursorrules`**（**§3**）及 **`docs/business-logic.md`** §0；序號清單主檔「**運維與工程**」路徑彙列見 **`docs/pdf-sequenced-gap-checklist.md`**（與 **§0**／**§3** 對齊）。**全案收尾**見下方「專案收尾」小節（表內含 Gate A **`docs/evidence/gate-a-latest.md`**；檔內 **Next Command** 與 **`preflight:strict`** 並列），並與 **`docs/business-logic.md`** §0、**`docs/pdf-sequenced-gap-checklist.md`** 開首「全案收尾執行與證據留痕」並讀。**`docs/phase*.md`**／**`stage*.md`** 分階與歷史交付文件開首 **對照** 均互鏈該主檔「**運維與工程**」列。
+智能院舍照護管理前端（React + TypeScript + Vite）。業務母本與缺口追蹤見 `docs/pdf/` 與下列文件。工程規範與部署／驗收閘門見專案根目錄 **`.cursorrules`**（**§3**）及 **`docs/business-logic.md`** §0；序號清單主檔「**運維與工程**」路徑彙列見 **`docs/pdf-sequenced-gap-checklist.md`**（與 **§0**／**§3** 對齊）。**全案收尾**見下方「專案收尾」小節（表內含 Gate A **`docs/evidence/gate-a-latest.md`**；檔內 **Next Command** 與 **`preflight:strict`** 並列），並與 **`docs/business-logic.md`** §0 **全案收尾執行**（含表前互鏈指引）、**`docs/pdf-sequenced-gap-checklist.md`** 開首「全案收尾執行與證據留痕」並讀。**`docs/phase*.md`**／**`stage*.md`** 分階與歷史交付文件開首 **對照** 均互鏈該主檔「**運維與工程**」列。
 
 ## 文件入口
 
