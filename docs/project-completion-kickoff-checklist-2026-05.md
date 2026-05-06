@@ -14,7 +14,7 @@
 - `docs/project-completion-daily-log-2026-05.md`
 - `docs/project-completion-evidence-index-2026-05.md`
 - `docs/go-live-checklist.md`
-- `docs/gate-a-status-2026-05-06.md`（D2～D5：Gate A 即時狀態）
+- `docs/gate-a-status-2026-05-06.md`（D2～D5：Gate A 即時狀態；**§5** 指令速查 `docs/gate-a-status-2026-05-06-commands-appendix.md`）
 - `docs/gate-a-evidence-capture-2026-05-06.md`（Gate A 取證步驟）
 - `docs/evidence/gate-a-latest.md`（Gate A 證據固定入口；**Next Command** 與 **`preflight:strict`** 並列；檔名隨取證更新）
 - `docs/supabase-deploy-runbook.md`（OPS：遠端部署與驗證）

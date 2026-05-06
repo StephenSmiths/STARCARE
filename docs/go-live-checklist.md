@@ -14,7 +14,7 @@
 - 取證步驟：**`docs/gate-a-evidence-capture-2026-05-06.md`**
 - 回填模板：**`docs/gate-a-evidence-fill-template-2026-05-06.md`**
 - 即時證據固定入口（檔名會隨每次取證變更；檔內 **Next Command** 與 **`preflight:strict`** 並列）：**`docs/evidence/gate-a-latest.md`**
-- 一鍵：全流程 → 修剪舊快照 → 刷新上列入口 → 同步收尾 markdown／判定稿：**`npm run gatea:evidence:refresh`**（見 **`docs/gate-a-status-2026-05-06.md`**）
+- 一鍵：全流程 → 修剪舊快照 → 刷新上列入口 → 同步收尾 markdown／判定稿：**`npm run gatea:evidence:refresh`**（見 **`docs/gate-a-status-2026-05-06.md`** **§5**、**`docs/gate-a-status-2026-05-06-commands-appendix.md`**）
 - 由 `package.json` 列出所有 **`gatea:evidence:*`**：**`npm run gatea:evidence:list`**
 - 取證前環境／目錄：`npm run gatea:evidence:preflight`；嚴格（缺 VITE_* 或無 `docs/evidence` 即非 0）：**`npm run gatea:evidence:preflight:strict`**
 
