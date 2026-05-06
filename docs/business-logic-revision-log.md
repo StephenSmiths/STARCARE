@@ -72,3 +72,4 @@
 | 2026-07-02 | §0：「專案工程規範」句補 **`go-live-checklist.md`** 開首 **對照** 與 **`README.md`**「專案收尾」修訂日誌主／歸檔路徑互鏈；**`pdf-sequenced-gap-checklist-revision-log.md`** **2026-07-02** 列一致。 |
 | 2026-07-06 | §0「全案收尾執行」句：補 **`README.md`**「專案收尾」表前讀者指引（六份 **`project-completion-*`** 開首 **對照** 與修訂日誌主／歸檔路徑互鏈）；**`pdf-sequenced-gap-checklist-revision-log.md`** **2026-07-06** 列一致。 |
 | 2026-07-12 | §0「全案收尾執行」句：表前讀者指引補列各檔開首 **全案收尾母索引** 與 **對照** 同鏈 **README** 表前互鏈與修訂日誌主／歸檔路徑（與 **`project-completion-*`** **2026-07-11** 列、**`pdf-sequenced-gap-checklist-revision-log.md`** **2026-07-12** 列一致）。 |
+| 2026-08-06 | §0「全案收尾執行」句 Gate A 段：補 **`gatea:evidence:*`** 終端 stdout 頁尾維護鏈（**`scripts/gate-a-markdown-footer.mjs`** **Export 契約**、**`README.md`**「Gate A 終端頁尾（維護）」、**`go-live-checklist.md`** §0.1）；**`pdf-sequenced-gap-checklist-revision-log.md`** **2026-08-06** 列一致。 |
