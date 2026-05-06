@@ -3,7 +3,7 @@
 > 對照：`docs/go-live-checklist.md`、`docs/project-completion-2week-tracker-2026-05-05.md`  
 > 取證入口：`docs/gate-a-evidence-capture-2026-05-06.md`  
 > 勾選表：`docs/gate-a-manual-evidence-checklist-2026-05-06.md`  
-> 自動證據：`docs/evidence/gate-a-auto-evidence-2026-05-06-152954.md`
+> 自動證據檔名會隨每次取證變更；**固定入口**：`docs/evidence/gate-a-latest.md`（或跑 `npm run gatea:evidence:summary`）
 > 判定草案：`docs/gate-a-decision-draft-2026-05-06.md`
 
 ## 1) 已完成（系統可驗證）
