@@ -133,3 +133,4 @@
 | 2026-07-11 | **`project-completion-*`** 六檔開首 **全案收尾母索引**：補併讀 **`business-logic.md`** §0 **全案收尾執行** 所載 **README** 表前互鏈指引（與 **對照（運維鏈）**、**`pdf03`** §4 **2026-07-10** 列一致）。 |
 | 2026-07-12 | **`business-logic.md`** §0「全案收尾執行」表前讀者指引：補 **全案收尾母索引** 與 **對照** 同鏈（與 **2026-07-11** 列一致）；**`business-logic-revision-log.md`** 一筆。 |
 | 2026-07-13 | **`README.md`**「專案收尾」讀者指引：六檔補 **全案收尾母索引** 並鏈 **`business-logic.md`** §0；**`.cursorrules`** §3 **全案收尾** 括註補 **對照**／**全案收尾母索引**；**`.github/workflows/ci.yml`** 文件入口註解同補（與 **2026-07-12** 列一致）。 |
+| 2026-07-14 | **`go-live-checklist.md`**（開首 **對照** 與 **全案收尾與證據留痕**）、**`feature-list.md`**（開首）、**`pdf-sequenced-gap-checklist.md`** 開首 **全案收尾執行與證據留痕**、**`pdf03-cursorrules-alignment.md`**（開首 **全案收尾與證據留痕** 與 §4）：補 **README** 表前互鏈指引含各檔 **對照**／**全案收尾母索引**（與 **`README`**／**`.cursorrules`**／**`ci.yml`** **2026-07-13** 列、**`business-logic.md`** §0 一致）。 |
