@@ -2,6 +2,7 @@
 
 > 對照：`docs/gate-a-evidence-capture-2026-05-06.md`、`docs/gate-a-evidence-fill-template-2026-05-06.md`  
 > 由腳本自動產生之 `.txt`／`gate-a-*.md` 檔名含時間戳會變動；**現況路徑**以 `docs/evidence/gate-a-latest.md` 與 `npm run gatea:evidence:summary` 為準。下表以**建議截圖檔名**為主。
+> 取證前可先 `npm run gatea:evidence:preflight`（嚴格：`npm run gatea:evidence:preflight:strict`）確認合併環境之 VITE_* 與 `docs/evidence` 目錄。
 
 ## A. go-live §1（Auth/RLS）
 
