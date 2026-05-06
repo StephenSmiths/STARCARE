@@ -16,6 +16,7 @@
 - `docs/go-live-checklist.md`
 - `docs/gate-a-status-2026-05-06.md`（D2～D5：Gate A 即時狀態）
 - `docs/gate-a-evidence-capture-2026-05-06.md`（Gate A 取證步驟）
+- `docs/evidence/gate-a-latest.md`（Gate A 證據固定入口；檔名隨取證更新）
 - `docs/supabase-deploy-runbook.md`（OPS：遠端部署與驗證）
 - `docs/security-token-rotation-checklist.md`（OPS：PAT 與 §D 自檢）
 
@@ -39,6 +40,16 @@ npm run test:e2e:auth:user-role-admin
 
 # Gate A 自動流程（含 doctor 落檔與四份收尾 markdown 同步；見 README Gate A 條目）
 npm run gatea:evidence:all
+
+# 可選：取證前環境診斷（不列印密值）
+# npm run gatea:evidence:preflight
+# npm run gatea:evidence:preflight -- --strict
+
+# 可選：全流程後修剪舊快照、再刷新 latest 與收尾 markdown／判定稿（見 gate-a-status）
+# npm run gatea:evidence:refresh
+
+# 可選：列出所有 gatea:evidence:* npm 指令
+# npm run gatea:evidence:list
 
 # 僅同步證據索引／日誌／追蹤板／啟動清單之自動引用區（建議先手動 doctor --write）
 # npm run gatea:evidence:docs-sync
