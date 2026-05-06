@@ -88,6 +88,13 @@ npm run gatea:evidence:all -- --no-preflight
 npm run gatea:evidence:all -- --strict-http
 ```
 
+收證後一鍵：**全流程 → `prune --apply` → 再刷新 `gate-a-latest.md`**（其餘旗標如 `--strict-http`、`--no-preflight` 會轉給 `all`；`--keep=N` 僅給 prune，預設 2）：
+
+```bash
+npm run gatea:evidence:refresh
+npm run gatea:evidence:refresh -- --keep=3 --strict-http
+```
+
 > `gatea:evidence:all` 預設先執行 `gatea:evidence:preflight --strict`（無 `docs/evidence` 或缺 VITE_* 即中止）；需略過加 `--no-preflight`。
 > 加 `--strict-http` 時會轉給 HTTP 取證：401／403 狀態不符預期則該步 exit 非 0（證據檔仍會寫入）。  
 > `gatea:evidence:all` 現在也會自動執行判定稿引用同步（decision ref／fill snippet／HTTP 嚴格；等同含 `gatea:evidence:decision-sync`）。
