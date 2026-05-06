@@ -7,7 +7,7 @@
 **內部規範**：專案根目錄 `.cursorrules`  
 **與 `business-logic.md` §0**：**`.cursorrules`** §3「部署與驗收閘門」入口見 **`docs/business-logic.md`** §0；序號主檔「**運維與工程**」路徑彙列見 **`docs/pdf-sequenced-gap-checklist.md`**（開首 **對照**）；變更 **`.cursorrules`** 之同步責任見本文 **§4**。  
 **對照骨架（03／C 區）**：**`docs/seq35-pdf03-cursorrules-alignment-traceability.md`**（Seq 35）、**`docs/seq37-pdf03-engineering-constraints-traceability.md`**（Seq 37／§3）；**Seq 36／38** 見 **`docs/seq36-adr0001-scheduling-logic-placement-traceability.md`**、**`docs/seq38-pdf-versions-traceability.md`**。  
-**全案收尾與證據留痕**：**`README.md`**「專案收尾」（**`docs/project-completion-*.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log.md`** 及歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**）；**`docs/project-completion-evidence-index-2026-05.md`**；快速啟動 **`docs/project-completion-kickoff-checklist-2026-05.md`**；Gate A 自動證據固定入口 **`docs/evidence/gate-a-latest.md`**（**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**）。
+**全案收尾與證據留痕**：**`README.md`**「專案收尾」（**`docs/project-completion-*.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log.md`** 及歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**）；**`docs/project-completion-evidence-index-2026-05.md`**；快速啟動 **`docs/project-completion-kickoff-checklist-2026-05.md`**；Gate A 自動證據固定入口 **`docs/evidence/gate-a-latest.md`**（**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／**`npm run gatea:evidence:preflight:strict`**）。
 
 ---
 

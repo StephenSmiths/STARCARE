@@ -2,7 +2,7 @@
 
 > 使用方式：完成 `docs/gate-a-evidence-capture-2026-05-06.md` 後，將本檔內容中的 `<...>` 取代並貼回  
 > `docs/go-live-checklist.md`、`docs/project-completion-evidence-index-2026-05.md`、`docs/project-completion-daily-log-2026-05.md`。  
-> 腳本產生之 401/403 文字檔與 `gate-a-*.md` 實際路徑以 **`docs/evidence/gate-a-latest.md`**（**`npm run gatea:evidence:summary`**）為準；本檔 **A)** 僅列建議截圖檔名。
+> 腳本產生之 401/403 文字檔與 `gate-a-*.md` 實際路徑以 **`docs/evidence/gate-a-latest.md`**（**`npm run gatea:evidence:summary`**）為準；取證前可先 **`npm run gatea:evidence:preflight`**（嚴格：**`npm run gatea:evidence:preflight:strict`**）。本檔 **A)** 僅列建議截圖檔名。
 
 ## A) 截圖檔名建議（統一命名）
 

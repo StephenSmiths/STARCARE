@@ -1,8 +1,8 @@
 # STARCARE 正式上線檢查清單（Go-Live）
 
-> **對照**：運維、憑證與前端 **`npm run ci`** 等文件總覽見 **`docs/business-logic.md`** §0（**`.cursorrules`** §3「部署與驗收閘門」、**`README.md`** 文件表）；序號清單主檔「**運維與工程**」路徑彙列見 **`docs/pdf-sequenced-gap-checklist.md`**；Gate A 自動證據固定入口 **`docs/evidence/gate-a-latest.md`**（細目 **§0.1**）。
+> **對照**：運維、憑證與前端 **`npm run ci`** 等文件總覽見 **`docs/business-logic.md`** §0（**`.cursorrules`** §3「部署與驗收閘門」、**`README.md`** 文件表）；序號清單主檔「**運維與工程**」路徑彙列見 **`docs/pdf-sequenced-gap-checklist.md`**；Gate A 自動證據固定入口 **`docs/evidence/gate-a-latest.md`**（**`npm run gatea:evidence:preflight:strict`** 等；細目 **§0.1**）。
 
-**全案收尾與證據留痕**：見 **`README.md`**「專案收尾」小節（**`docs/project-completion-*.md`**、主修訂日誌 **`docs/pdf-sequenced-gap-checklist-revision-log.md`** 及歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**）；快速啟動 **`docs/project-completion-kickoff-checklist-2026-05.md`**；完成度盤點 **`docs/project-completion-audit-2026-05-05.md`**；證據索引 **`docs/project-completion-evidence-index-2026-05.md`**；Gate A 固定入口 **`docs/evidence/gate-a-latest.md`**（**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**；細部 **§0.1**）。  
+**全案收尾與證據留痕**：見 **`README.md`**「專案收尾」小節（**`docs/project-completion-*.md`**、主修訂日誌 **`docs/pdf-sequenced-gap-checklist-revision-log.md`** 及歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**）；快速啟動 **`docs/project-completion-kickoff-checklist-2026-05.md`**；完成度盤點 **`docs/project-completion-audit-2026-05-05.md`**；證據索引 **`docs/project-completion-evidence-index-2026-05.md`**；Gate A 固定入口 **`docs/evidence/gate-a-latest.md`**（**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／取證前嚴格檢查 **`npm run gatea:evidence:preflight:strict`**；細部 **§0.1**）。  
 **兩週執行與日誌**：**`docs/project-completion-2week-plan-2026-05-05.md`**、**`docs/project-completion-2week-tracker-2026-05-05.md`**、**`docs/project-completion-daily-log-2026-05.md`**。
 
 ## 0. 今日上線目標
@@ -16,6 +16,7 @@
 - 即時證據固定入口（檔名會隨每次取證變更）：**`docs/evidence/gate-a-latest.md`**
 - 一鍵：全流程 → 修剪舊快照 → 刷新上列入口 → 同步收尾 markdown／判定稿：**`npm run gatea:evidence:refresh`**（見 **`docs/gate-a-status-2026-05-06.md`**）
 - 由 `package.json` 列出所有 **`gatea:evidence:*`**：**`npm run gatea:evidence:list`**
+- 取證前環境／目錄：`npm run gatea:evidence:preflight`；嚴格（缺 VITE_* 或無 `docs/evidence` 即非 0）：**`npm run gatea:evidence:preflight:strict`**
 
 ## 1. 身分與授權（Auth / RLS）
 - [ ] 至少有 1 位 `admin` 與 1 位 `staff` 可成功登入。

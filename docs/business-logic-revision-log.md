@@ -1,7 +1,7 @@
 # `business-logic.md` 修訂紀錄（§8 重出）
 
 > **對照**：**`docs/business-logic.md`** §0～§7 為母本與程式對照之權威正文；為遵守專案單檔 **≤200** 行，原 **§8** 修訂表全文移出至本檔。新增修訂列請寫入下表；維護閉環見 **`docs/pdf03-cursorrules-alignment.md`** §4。  
-> **全案收尾與證據留痕**：**`README.md`**「專案收尾」（**`docs/project-completion-*.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log.md`** 及歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**）；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**；Gate A 自動證據固定入口 **`docs/evidence/gate-a-latest.md`**（**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**）。
+> **全案收尾與證據留痕**：**`README.md`**「專案收尾」（**`docs/project-completion-*.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log.md`** 及歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**）；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**；Gate A 自動證據固定入口 **`docs/evidence/gate-a-latest.md`**（**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／**`npm run gatea:evidence:preflight:strict`**）。
 
 ---
 
@@ -60,3 +60,4 @@
 | 2026-06-14 | **`project-completion-*`** 五份開首「**全案收尾母索引**」句：補 Gate A **`docs/evidence/gate-a-latest.md`** 與 **`gatea:evidence:list`**／**`refresh`**（與 **`README`**「專案收尾」表、**`business-logic.md`** §0 運維鏈一致）。 |
 | 2026-06-15 | **`go-live-checklist.md`** 開首「**全案收尾與證據留痕**」段補 Gate A 入口／**`gatea:evidence:list`**／**`refresh`** 並指 **§0.1**（與 §0「併用」敘述一致）。 |
 | 2026-06-16 | **`README.md`**「專案收尾」建議順序鏈結 **`gate-a-latest.md`**／**`go-live-checklist.md`** Gate A；**`go-live-checklist.md`** 開首 **對照** blockquote 補 Gate A；**`feature-list.md`** §8 第 24 點括註 Gate A 第 25 點。 |
+| 2026-06-23 | §0：Gate A 括註補 **`npm run gatea:evidence:preflight:strict`**（與 **`go-live-checklist.md`** §0.1、**`feature-list.md`**、**`pdf03`**、**`gate-a-evidence-fill-template`** 互鏈）；本檔開首對照句同步。 |
