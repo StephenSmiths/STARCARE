@@ -85,6 +85,7 @@ npm run gatea:evidence:summary # 自動證據彙總（含 READY 一行）
 npm run gatea:evidence:ready # READY/NOT_READY；加 --strict 缺項時非 0
 npm run gatea:evidence:next # 依目前缺口直接給下一步命令
 npm run gatea:evidence:preflight # 取證前環境／證據目錄快速診斷（不列印密值）
+npm run gatea:evidence:preflight -- --strict # 缺 docs/evidence 或 VITE_* 未設 → exit 非 0
 npm run gatea:evidence:gate # Gate A 關卡（NOT_READY 即非 0）
 npm run gatea:evidence:prune # 清理舊 Gate A 自動快照（預設 dry-run；加 -- --apply 才刪檔）
 ```

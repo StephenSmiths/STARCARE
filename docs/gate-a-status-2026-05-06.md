@@ -154,7 +154,10 @@ npm run gatea:evidence:next
 
 ```bash
 npm run gatea:evidence:preflight
+npm run gatea:evidence:preflight -- --strict
 ```
+
+> `--strict`：若不存在 `docs/evidence`、或 `VITE_SUPABASE_URL`／`VITE_SUPABASE_ANON_KEY` 合併後仍缺，則以非 0 exit（不等同 Gate A READY；全流程關卡仍用 `gatea:evidence:gate`）。
 
 > `gatea:evidence:next` 與 `gatea:evidence:summary` 內之「next」行，會依 `{ .env ∪ process.env }` 判斷：有 staff 帳密則建議 `gatea:evidence:http:auth`；僅有 `GATEA_STAFF_ACCESS_TOKEN` 則建議 `gatea:evidence:http`。
 
