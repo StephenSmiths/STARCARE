@@ -122,3 +122,4 @@
 | 2026-06-30 | **`feature-list.md`** 頁尾「**文件產生**」：序號主檔括註補修訂日誌歸檔 **`2026-05-01a`**／**`archive-p2`**／**`archive-p3`**／**`archive-p4`** 全鏈（與開首維護段、**§8** 第 24 點、**`README`**「專案收尾」表一致）；**`business-logic-revision-log.md`** 一筆。 |
 | 2026-07-01 | **`go-live-checklist.md`** 開首 **對照** blockquote：補序號主檔修訂日誌（主檔與 **`2026-05-01a`**／**`archive-p2`**／**`archive-p3`**／**`archive-p4`**）路徑指 **`README.md`**「專案收尾」表（與下方全案收尾句、**`feature-list`** 頁尾互鏈）；**`business-logic-revision-log.md`** 一筆。 |
 | 2026-07-02 | **`business-logic.md`** §0「專案工程規範」句：補 **`go-live-checklist.md`** 開首 **對照** 與 **`README.md`**「專案收尾」修訂日誌主／歸檔路徑互鏈（與 **2026-07-01** **`go-live`** 列一致）；**`business-logic-revision-log.md`** 一筆。 |
+| 2026-07-03 | **`project-completion-kickoff-checklist-2026-05.md`** 開首 **對照**：補序號主檔修訂日誌主檔與 **`2026-05-01a`**／**`archive-p2`**／**`archive-p3`**／**`archive-p4`** 歸檔路徑指 **`README.md`**「專案收尾」文件表（與 **`go-live-checklist.md`**、**`business-logic.md`** §0 互鏈）。 |
