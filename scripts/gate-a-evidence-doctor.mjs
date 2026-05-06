@@ -1,7 +1,10 @@
 import { readdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
+import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
+
 const evidenceDir = resolve(process.cwd(), 'docs/evidence')
+const strictLbl = gateAStrictHttpEnabled(process.argv, buildSpawnBaseEnv()) ? 'ON' : 'OFF'
 const files = readdirSync(evidenceDir, { withFileTypes: true })
   .filter((d) => d.isFile())
   .map((d) => d.name)
@@ -39,6 +42,7 @@ const missing = checks.filter((c) => !c.ok)
 const lines = []
 lines.push('# Gate A Evidence Doctor')
 lines.push('')
+lines.push(`- HTTP 嚴格取證（執行當下合併環境）：${strictLbl}`)
 lines.push(`- 完成度：${done} / ${total}`)
 lines.push(`- 缺口數：${missing.length}`)
 lines.push('')

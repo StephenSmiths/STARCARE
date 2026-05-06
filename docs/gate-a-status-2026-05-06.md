@@ -144,6 +144,8 @@ npm run test:e2e:auth:user-role-admin
 npm run gatea:evidence:doctor
 ```
 
+> doctor 報告（含 `--write` 落檔）開頭會列出 **HTTP 嚴格取證** ON／OFF；`gatea:evidence:fill-snippet`／`gatea:evidence:decision-ref` 產物亦含同一快照列。
+
 快速判斷是否可進入 Gate A 判定（READY/NOT_READY）：
 
 ```bash

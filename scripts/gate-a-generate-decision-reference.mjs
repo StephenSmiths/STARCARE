@@ -1,7 +1,10 @@
 import { readdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
+import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
+
 const dir = resolve(process.cwd(), 'docs/evidence')
+const strictLbl = gateAStrictHttpEnabled(process.argv, buildSpawnBaseEnv()) ? 'ON' : 'OFF'
 const files = readdirSync(dir, { withFileTypes: true })
   .filter((d) => d.isFile())
   .map((d) => d.name)
@@ -20,6 +23,7 @@ const e403 = latest('d2-403-admin-user-role-set')
 const lines = []
 lines.push('## Gate A 判定稿引用片段（自動產生）')
 lines.push('')
+lines.push(`- HTTP 嚴格取證（產生當下合併環境）：${strictLbl}`)
 lines.push('- 建議貼到：`docs/gate-a-decision-draft-2026-05-06.md` 的「依據（已完成）」之後')
 lines.push(`- fill snippet：${fill ? `\`docs/evidence/${fill}\`` : '`<待先執行 gatea:evidence:all 產生 fill snippet>`'}`)
 lines.push(`- auto 證據：${auto ? `\`docs/evidence/${auto}\`` : '`<待補 auto 證據>`'}`)
