@@ -1,3 +1,6 @@
+/**
+ * Gate A HTTP 取證（帳密換 token）：成功路徑以 **`stdio: inherit`** 委派 **`gate-a-http-evidence.mjs`**，終端頁尾由子程序輸出（已附 **`gateAStandardCloseoutBlockquotes`**）；本檔不重複列印。
+ */
 import { gateAStrictHttpEnabled, hydrateProcessEnvMissingFromDotenv } from './gate-a-env-lib.mjs'
 
 hydrateProcessEnvMissingFromDotenv()

@@ -1,3 +1,6 @@
+/**
+ * 判定稿快速 stdout 四行：ref／snippet／HTTP 嚴格／**`gateAAutoRefClosingHintLine()`**；刻意不附 **`gateAStandardCloseoutBlockquotes`**，避免與第四行速查重複。
+ */
 import { readdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 

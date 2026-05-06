@@ -1,6 +1,13 @@
 /**
- * Gate A 自動產物 Markdown 頁尾：與 go-live、README、status §5 互鏈（繁中）。
- * 供 `gate-a-update-latest-pointer`、doctor／report 等共用，避免字串發散與 refresh 後不一致。
+ * Gate A 自動產物 Markdown 頁尾：與 go-live、README、status、附錄互鏈（繁中）。
+ * 變更字串時須同步 **`docs/pdf03-cursorrules-alignment.md`** §4 與 **`docs/pdf-sequenced-gap-checklist-revision-log.md`**（見專案 `.cursorrules`）。
+ *
+ * **Export 契約**
+ * - **`gateAStandardCloseoutBlockquotes`**：多數取證／同步腳本之 **stdout** 或落檔 Markdown 末段共用兩行 blockquote。
+ * - **`gateALatestMarkdownFooterLines`**：寫入 **`docs/evidence/gate-a-latest.md`** 檔尾（「固定入口」一行＋上列兩行）；**`gate-a-update-latest-pointer`** 之終端 stdout 另單附兩行 blockquote（不含「固定入口」）。
+ * - **`gateAAutoRefClosingHintLine`**：自動引用 marker 末行、**`decision-mini`** 第四行、**`sync-decision-draft`** mini 區塊末行；**`gate-a-ref-sync-lib`** 僅替換 marker 內文。
+ *
+ * **未匯入本檔之腳本**：**`gate-a-http-evidence-auth`** 以 **`stdio: inherit`** 委派 **`gate-a-http-evidence`**（子程序已印頁尾）；**`gate-a-evidence-all`** 為 orchestrator；**`gate-a-generate-decision-mini`** 刻意僅四行＋速查列，不附兩行 blockquote（見各檔首註解）。
  */
 
 /** 全案收尾長鏈＋ status §5／commands-appendix（不含「此檔為固定入口」）。 */

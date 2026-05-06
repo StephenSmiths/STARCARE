@@ -1,6 +1,6 @@
 /**
  * 由 package.json 列出所有 `gatea:evidence:*` 指令（與倉庫實際腳本同源，免文件漂移）。
- * stdout 末段與 summary／doctor／report 同附全案收尾互鏈（`gate-a-markdown-footer`）。
+ * stdout 末段與多數取證／同步腳本同附 **`gateAStandardCloseoutBlockquotes`**（例外見 **`gate-a-markdown-footer.mjs`** 檔首「未匯入本檔之腳本」）。
  */
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'

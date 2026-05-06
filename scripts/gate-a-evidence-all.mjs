@@ -1,3 +1,6 @@
+/**
+ * Gate A 全流程 orchestrator。內嵌 **`gate-a-sync-all-markdown.mjs`** 時傳 **`--suppress-closeout-footer`**，避免緊接 **`gate-a-evidence-summary`** 之兩行 blockquote 重複；其餘子程序 stdout 頁尾見各腳本／**`gate-a-markdown-footer.mjs`** 註解。
+ */
 import { spawnSync } from 'node:child_process'
 
 import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
