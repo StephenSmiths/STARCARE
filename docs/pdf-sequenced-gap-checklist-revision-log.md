@@ -126,3 +126,4 @@
 | 2026-07-04 | **`project-completion-audit`**、**`2week-plan`**、**`2week-tracker`**、**`daily-log`**、**`evidence-index`** 開首 **對照**：補 **`pdf-sequenced-gap-checklist-revision-log`** 主／歸檔（**`2026-05-01a`**／**`archive-p2`**／**`archive-p3`**／**`archive-p4`**）指 **`README.md`**「專案收尾」文件表（與 **`kickoff`** **2026-07-03** 列一致）。 |
 | 2026-07-05 | **`README.md`**「專案收尾」：補六份 **`project-completion-*`** 開首 **對照** 與下表修訂日誌主／歸檔路徑互鏈之讀者指引（與 **2026-07-03**／**2026-07-04** 列一致）。 |
 | 2026-07-06 | **`business-logic.md`** §0「全案收尾執行」句：補 **`README.md`**「專案收尾」表前讀者指引與修訂日誌主／歸檔路徑互鏈（與 **2026-07-05** **`README`** 列一致）；**`business-logic-revision-log.md`** 一筆。 |
+| 2026-07-07 | **`go-live-checklist.md`**、**`feature-list.md`**（開首）、**`pdf03-cursorrules-alignment.md`**、**`pdf-sequenced-gap-checklist.md`** 之 **全案收尾** 句：補 **`business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引（與 **2026-07-06** 列一致）。 |
