@@ -1,6 +1,8 @@
 import { readdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 
+import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
+
 const dir = resolve(process.cwd(), 'docs/evidence')
 const files = readdirSync(dir, { withFileTypes: true })
   .filter((d) => d.isFile())
@@ -17,5 +19,7 @@ const fill = latest('gate-a-fill-snippet-')
 
 const line1 = `- decision ref：${ref ? `\`docs/evidence/${ref}\`` : '`<待補 decision ref>`'}`
 const line2 = `- fill snippet：${fill ? `\`docs/evidence/${fill}\`` : '`<待補 fill snippet>`'}`
+const strictLbl = gateAStrictHttpEnabled(process.argv, buildSpawnBaseEnv()) ? 'ON' : 'OFF'
+const line3 = `- HTTP 嚴格取證：${strictLbl}`
 
-process.stdout.write(`${line1}\n${line2}\n`)
+process.stdout.write(`${line1}\n${line2}\n${line3}\n`)

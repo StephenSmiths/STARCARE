@@ -6,15 +6,16 @@
 
 - 目前建議：`有條件通過`（待補人工截圖證據後轉 `可通過`）
 
-## 最新自動證據引用（每次貼兩行）
+## 最新自動證據引用（decision-mini 三行）
 
 ```bash
 npm run gatea:evidence:decision-mini
 ```
 
-> 將輸出的兩行直接貼到本段下方，作為最新留痕引用。
+> 將輸出直接貼到本段下方，作為最新留痕引用（含 HTTP 嚴格 ON／OFF）；或使用 `npm run gatea:evidence:decision-sync` 自動回填。
 - decision ref：`docs/evidence/gate-a-decision-ref-20260506-145320.md`
 - fill snippet：`docs/evidence/gate-a-fill-snippet-20260506-145320.md`
+- HTTP 嚴格取證：OFF
 
 ## 依據（已完成）
 
