@@ -17,7 +17,9 @@ if (s.ready) {
 } else {
   lines.push('## 缺口導向')
   lines.push(`- 建議先跑：\`${rec.command}\`（${rec.reason}）`)
-  if (!s.ok403) lines.push('- 備註：或手動帶 token 跑 `npm run gatea:evidence:http`')
+  if (!s.ok403 && rec.command !== 'npm run gatea:evidence:http') {
+    lines.push('- 備註：或手動帶 token 跑 `npm run gatea:evidence:http`')
+  }
   lines.push('- 跑總流程：`npm run gatea:evidence:all`')
   lines.push(`- doctor 完成度：${s.doctorTotal > 0 ? `${s.doctorDone}/${s.doctorTotal}` : '未找到 doctor'}`)
   lines.push('- 補人工截圖後再檢查：`npm run gatea:evidence:ready -- --strict`')

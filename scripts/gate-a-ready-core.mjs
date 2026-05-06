@@ -5,6 +5,8 @@
 import { readFileSync, readdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 
+import { buildSpawnBaseEnv } from './gate-a-env-lib.mjs'
+
 /** @returns {string[]} docs/evidence 內檔名 */
 export function listEvidenceFilenames(evidenceDir = resolve(process.cwd(), 'docs/evidence')) {
   return readdirSync(evidenceDir, { withFileTypes: true })
@@ -104,9 +106,26 @@ export function recommendNextCommand(state) {
     }
   }
   if (!state.ok403) {
+    const e = buildSpawnBaseEnv()
+    const staffEmail = (e.GATEA_STAFF_EMAIL || '').trim()
+    const staffPwd = (e.GATEA_STAFF_PASSWORD || '').trim()
+    const staffTok = (e.GATEA_STAFF_ACCESS_TOKEN || '').trim()
+    if (staffEmail && staffPwd) {
+      return {
+        command: 'npm run gatea:evidence:http:auth',
+        reason: '缺 403，以 staff 帳密自動換 JWT 並呼叫 Edge',
+      }
+    }
+    if (staffTok) {
+      return {
+        command: 'npm run gatea:evidence:http',
+        reason: '缺 403，已具 staff JWT（環境或 `.env`），直接 POST 產生文字證據',
+      }
+    }
     return {
       command: 'npm run gatea:evidence:http:auth',
-      reason: '缺 403，自動以 staff 帳密換 token 取證',
+      reason:
+        '缺 403；請先在 `.env` 設定 GATEA_STAFF_EMAIL／GATEA_STAFF_PASSWORD；或設定 GATEA_STAFF_ACCESS_TOKEN 後改跑 `npm run gatea:evidence:http`',
     }
   }
   if (!state.autoOk) {

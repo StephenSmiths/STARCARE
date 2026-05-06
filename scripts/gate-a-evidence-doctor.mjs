@@ -51,7 +51,9 @@ if (missing.length > 0) {
   lines.push('')
   lines.push('## 建議下一步')
   if (missing.some((m) => m.key === 'd2_403')) {
-    lines.push('- 先補 403：`npm run gatea:evidence:http:auth`（或帶 token 跑 `gatea:evidence:http`）')
+    lines.push(
+      '- 先補 403：`npm run gatea:evidence:http:auth`（需 `.env` 之 GATEA_STAFF_EMAIL／PASSWORD）；或於 `.env` 設 GATEA_STAFF_ACCESS_TOKEN 後跑 `gatea:evidence:http`',
+    )
   }
   lines.push('- 跑一次總同步：`npm run gatea:evidence:all`')
   lines.push('- 補人工截圖後再跑：`npm run gatea:evidence:doctor`')
