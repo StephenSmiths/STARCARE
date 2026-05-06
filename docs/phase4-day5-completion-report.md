@@ -1,6 +1,6 @@
 # STARCARE Phase 4 Day 5 完成報告
 
-> **對照**：交付索引 **`docs/phase4-day4-delivery-index.md`**、打包清單 **`docs/phase4-final-delivery-package.md`**；運維總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**；**全案收尾**：**`README.md`**「專案收尾」、**`docs/project-completion-evidence-index-2026-05.md`**、**`docs/project-completion-kickoff-checklist-2026-05.md`**；Gate A 自動證據固定入口 **`docs/evidence/gate-a-latest.md`**（**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／**`npm run gatea:evidence:preflight:strict`**）。
+> **對照**：交付索引 **`docs/phase4-day4-delivery-index.md`**、打包清單 **`docs/phase4-final-delivery-package.md`**；運維總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**；**全案收尾**：**`README.md`**「專案收尾」、**`docs/project-completion-evidence-index-2026-05.md`**、**`docs/project-completion-kickoff-checklist-2026-05.md`**；Gate A 自動證據固定入口 **`docs/evidence/gate-a-latest.md`**（檔內 **Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／**`npm run gatea:evidence:preflight:strict`**）。
 
 ## 一、範圍與結論
 - Phase 4 目標：將系統由「功能可用」提升為「品質可視化、驗收可自動化、運營可持續」。

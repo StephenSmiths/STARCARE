@@ -13,7 +13,7 @@ npm run gatea:evidence:decision-mini
 ```
 
 > 將輸出直接貼到本段下方，作為最新留痕引用（含 HTTP 嚴格 ON／OFF）；或使用 `npm run gatea:evidence:decision-sync` 自動回填。  
-> 自動證據主檔彙總入口：`docs/evidence/gate-a-latest.md`。下列 `decision ref`／`fill snippet`／`HTTP 嚴格取證` 三行由 `gate-a-sync-decision-draft.mjs` 於 `refresh`／`all` 時覆寫。
+> 自動證據主檔彙總入口：`docs/evidence/gate-a-latest.md`（檔內 **Next Command** 與 **`preflight:strict`** 並列）。下列 `decision ref`／`fill snippet`／`HTTP 嚴格取證` 三行由 `gate-a-sync-decision-draft.mjs` 於 `refresh`／`all` 時覆寫。
 - decision ref：`docs/evidence/gate-a-decision-ref-20260506-201757.md`
 - fill snippet：`docs/evidence/gate-a-fill-snippet-20260506-201757.md`
 - HTTP 嚴格取證：OFF
