@@ -2,6 +2,7 @@
 
 > 目標：一次補齊 `go-live` 的 §1（Auth/RLS）、§3（排班閉環）、§8（審計/RLS 可見性）證據。  
 > 對照：`docs/go-live-checklist.md`、`docs/project-completion-2week-tracker-2026-05-05.md`、`docs/project-completion-evidence-index-2026-05.md`。
+> 證據固定入口（檔名隨取證變更）：`docs/evidence/gate-a-latest.md`；一鍵收證＋修剪＋同步：`npm run gatea:evidence:refresh`；指令總表：`npm run gatea:evidence:list`。
 > SQL 一鍵查詢：`docs/sql/gate-a-evidence-queries-2026-05-06.sql`
 > 人工勾選表：`docs/gate-a-manual-evidence-checklist-2026-05-06.md`
 

@@ -39,6 +39,7 @@
 | [project-completion-2week-tracker-2026-05-05.md](docs/project-completion-2week-tracker-2026-05-05.md) | 進度板與開工指令 |
 | [project-completion-daily-log-2026-05.md](docs/project-completion-daily-log-2026-05.md) | EOD 與風險 |
 | [project-completion-evidence-index-2026-05.md](docs/project-completion-evidence-index-2026-05.md) | PR／CI／SQL／截圖證據 |
+| [docs/evidence/gate-a-latest.md](docs/evidence/gate-a-latest.md) | Gate A 證據固定入口（`npm run gatea:evidence:latest`／`refresh` 更新） |
 | [project-completion-kickoff-checklist-2026-05.md](docs/project-completion-kickoff-checklist-2026-05.md) | 新成員 30 分鐘收尾啟動清單 |
 | [pdf-sequenced-gap-checklist-revision-log.md](docs/pdf-sequenced-gap-checklist-revision-log.md) | 序號主檔修訂日誌（最新留痕） |
 | [pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md](docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md) | 修訂日誌歸檔（2026-05-01 前段；與主日誌並讀） |
