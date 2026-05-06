@@ -3,7 +3,7 @@
 > **對照**：計畫 **`docs/project-completion-2week-plan-2026-05-05.md`**；運維總覽 **`docs/business-logic.md`** §0；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**；**`pdf-sequenced-gap-checklist-revision-log`** 主檔與歸檔（**`2026-05-01a`**／**`archive-p2`**／**`archive-p3`**／**`archive-p4`**）路徑見 **`README.md`**「專案收尾」文件表；上線 **`docs/go-live-checklist.md`**。  
 > **用法**：每日 standup 更新「狀態／阻塞／證據」，EOD 勾選完成項。  
 > **同日文件**：**`docs/project-completion-daily-log-2026-05.md`**（日誌）、**`docs/project-completion-evidence-index-2026-05.md`**（證據）、**`docs/project-completion-kickoff-checklist-2026-05.md`**（啟動）。  
-> **全案收尾母索引**：**`README.md`**「專案收尾」（併讀 **`docs/business-logic.md`** §0 **全案收尾執行** 所載 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**））；Gate A **`docs/evidence/gate-a-latest.md`**（檔內 **Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／**`npm run gatea:evidence:preflight:strict`**）；多數 **`gatea:evidence:*`** 終端 stdout 頁尾 **`scripts/gate-a-markdown-footer.mjs`**（**Export 契約**）。
+> **全案收尾母索引**：**`README.md`**「專案收尾」（併讀 **`docs/business-logic.md`** §0 **全案收尾執行** 所載 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**））；Gate A **`docs/evidence/gate-a-latest.md`**（檔內 **Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／**`npm run gatea:evidence:preflight:strict`**；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**（**`docs/gate-a-status-2026-05-06-commands-appendix.md`** **`latest`** 段））；多數 **`gatea:evidence:*`** 終端 stdout 頁尾 **`scripts/gate-a-markdown-footer.mjs`**（**Export 契約**）。
 
 ## 狀態圖例
 
