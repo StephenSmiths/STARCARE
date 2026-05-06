@@ -58,6 +58,9 @@ lines.push(
     ? '- strict：**已啟用**（缺證據目錄或 VITE_* 任一未設 → exit 非 0）'
     : '- strict：未啟用；`npm run gatea:evidence:preflight -- --strict` 可強制檢查目錄存在與 VITE_* 齊備',
 )
+lines.push(
+  '- HTTP 取證若要「401／403 狀態不符即失敗」：`npm run gatea:evidence:http:strict`、`npm run gatea:evidence:http:auth:strict`、全流程 `npm run gatea:evidence:all:strict-http`（等同 `--strict-http`）',
+)
 
 process.stdout.write(`${lines.join('\n')}\n`)
 
