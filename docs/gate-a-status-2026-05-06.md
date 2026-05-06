@@ -88,7 +88,7 @@ npm run gatea:evidence:all -- --no-preflight
 npm run gatea:evidence:all -- --strict-http
 ```
 
-收證後一鍵：**全流程 → `prune --apply` → 刷新 `gate-a-latest.md` → 再跑四份 markdown `docs-sync`**（其餘旗標如 `--strict-http`、`--no-preflight` 會轉給 `all`；`--keep=N` 僅給 prune，預設 2）：
+收證後一鍵：**全流程 → `prune --apply` → 刷新 `gate-a-latest.md` → 四份 markdown `docs-sync` → 判定稿 `decision-sync`**（其餘旗標如 `--strict-http`、`--no-preflight` 會轉給 `all`；`--keep=N` 僅給 prune，預設 2）：
 
 ```bash
 npm run gatea:evidence:refresh

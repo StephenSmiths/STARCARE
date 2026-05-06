@@ -65,7 +65,7 @@ lines.push(
   '- HTTP 取證若要「401／403 狀態不符即失敗」：`npm run gatea:evidence:http:strict`、`npm run gatea:evidence:http:auth:strict`、全流程 `npm run gatea:evidence:all:strict-http`；或於環境／`.env` 設 `GATEA_STRICT_HTTP=1`（等同 `--strict-http`）',
 )
 lines.push(
-  '- 全流程後順便 prune 並再同步引用區：`npm run gatea:evidence:refresh`（末尾會再跑 `docs-sync`；嚴格 HTTP 可用 `npm run gatea:evidence:refresh:strict-http`）',
+  '- 全流程後順便 prune 並再同步引用區：`npm run gatea:evidence:refresh`（末尾會再跑 `docs-sync` 與判定稿 `decision-sync`；嚴格 HTTP 可用 `npm run gatea:evidence:refresh:strict-http`）',
 )
 
 process.stdout.write(`${lines.join('\n')}\n`)

@@ -13,7 +13,7 @@
 - [x] 可選：`npm run gatea:evidence:http` 產生 401 證據；若設定 `GATEA_STAFF_ACCESS_TOKEN` 會一併產生 403 證據。加 `--strict-http` 或環境變數 **`GATEA_STRICT_HTTP=1`**（可於 `.env`）時，若 HTTP 狀態非預期（非 401／非 403）則 **exit 非 0**（仍落檔）。
 - [x] 可選：`npm run gatea:evidence:http:auth` 以 `GATEA_STAFF_EMAIL/PASSWORD` 先換 token，再自動產生 401/403 證據。
 - [x] 可選：一鍵 `npm run gatea:evidence:all`（預設先跑 `preflight --strict`，缺 `docs/evidence` 或 VITE_* 會立即中止；`--no-preflight` 略過檢查；`--strict-http` 轉給 HTTP 取證）。
-- [x] 可選：`npm run gatea:evidence:refresh`（`all` → `prune --apply` → `latest` → 再 `docs-sync`；`--keep=N` 控制每桶保留份數；另有 `gatea:evidence:refresh:strict-http`）。
+- [x] 可選：`npm run gatea:evidence:refresh`（`all` → `prune --apply` → `latest` → `docs-sync` → `decision-sync`；`--keep=N` 控制每桶保留份數；另有 `gatea:evidence:refresh:strict-http`）。
 - [x] 可選：`npm run gatea:evidence:doctor` 檢查 `docs/evidence` 內人工截圖／401/403 是否齊備；加 `--write` 可另存報告檔（`npm run gatea:evidence:all` 會於同步 markdown 前先 `--write`）。
 - [x] 可選：`npm run gatea:evidence:docs-sync` 只更新四份收尾 markdown 的 Gate A 自動引用區（與 `gatea:evidence:all` 內同一批次邏輯；需已存在最新 doctor 檔時再跑，或先跑 `doctor --write`）。
 - [x] 可選：`npm run gatea:evidence:summary`（401/403/auto 進度與可否判定 `READY`／`NOT_READY` 一行）。
