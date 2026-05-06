@@ -59,3 +59,4 @@
 | 2026-06-13 | 本檔開首 **全案收尾與證據留痕** 對照句：Gate A 補 **`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**（與 **`feature-list.md`** 開首、**`README.md`** 開頭、`ci.yml` 註解、**`pdf03`** §3 文件入口項一致）。 |
 | 2026-06-14 | **`project-completion-*`** 五份開首「**全案收尾母索引**」句：補 Gate A **`docs/evidence/gate-a-latest.md`** 與 **`gatea:evidence:list`**／**`refresh`**（與 **`README`**「專案收尾」表、**`business-logic.md`** §0 運維鏈一致）。 |
 | 2026-06-15 | **`go-live-checklist.md`** 開首「**全案收尾與證據留痕**」段補 Gate A 入口／**`gatea:evidence:list`**／**`refresh`** 並指 **§0.1**（與 §0「併用」敘述一致）。 |
+| 2026-06-16 | **`README.md`**「專案收尾」建議順序鏈結 **`gate-a-latest.md`**／**`go-live-checklist.md`** Gate A；**`go-live-checklist.md`** 開首 **對照** blockquote 補 Gate A；**`feature-list.md`** §8 第 24 點括註 Gate A 第 25 點。 |

@@ -28,7 +28,7 @@
 
 ### 專案收尾（全案完成度，2026-05）
 
-建議順序：可選先跑 [project-completion-kickoff-checklist-2026-05.md](docs/project-completion-kickoff-checklist-2026-05.md)（約 30 分鐘）→ 盤點 → 兩週計畫 → 追蹤板 → 日誌 → 證據索引。
+建議順序：可選先跑 [project-completion-kickoff-checklist-2026-05.md](docs/project-completion-kickoff-checklist-2026-05.md)（約 30 分鐘）→ [docs/evidence/gate-a-latest.md](docs/evidence/gate-a-latest.md)（Gate A 自動證據；細部見 [go-live-checklist.md](docs/go-live-checklist.md) 開首 Gate A 取證）→ 盤點 → 兩週計畫 → 追蹤板 → 日誌 → 證據索引。
 
 執行時同步對照 [go-live-checklist.md](docs/go-live-checklist.md)、[supabase-deploy-runbook.md](docs/supabase-deploy-runbook.md)、[security-token-rotation-checklist.md](docs/security-token-rotation-checklist.md)。運維總覽 [business-logic.md](docs/business-logic.md) §0；序號主檔「運維與工程」列見 [pdf-sequenced-gap-checklist.md](docs/pdf-sequenced-gap-checklist.md)。
 
