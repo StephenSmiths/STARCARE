@@ -70,3 +70,4 @@
 | 2026-06-30 | §0 對照：**`feature-list.md`** 頁尾「**文件產生**」序號主檔括註補 **`pdf-sequenced-gap-checklist-revision-log`** 歸檔全鏈（**`2026-05-01a`**／**`archive-p2`**／**`archive-p3`**／**`archive-p4`**）；**`pdf-sequenced-gap-checklist-revision-log.md`** **2026-06-30** 列一致。 |
 | 2026-07-01 | §0 對照：**`go-live-checklist.md`** 開首 **對照** 句補修訂日誌主／歸檔鏈指 **`README.md`**「專案收尾」表；**`pdf-sequenced-gap-checklist-revision-log.md`** **2026-07-01** 列一致。 |
 | 2026-07-02 | §0：「專案工程規範」句補 **`go-live-checklist.md`** 開首 **對照** 與 **`README.md`**「專案收尾」修訂日誌主／歸檔路徑互鏈；**`pdf-sequenced-gap-checklist-revision-log.md`** **2026-07-02** 列一致。 |
+| 2026-07-06 | §0「全案收尾執行」句：補 **`README.md`**「專案收尾」表前讀者指引（六份 **`project-completion-*`** 開首 **對照** 與修訂日誌主／歸檔路徑互鏈）；**`pdf-sequenced-gap-checklist-revision-log.md`** **2026-07-06** 列一致。 |
