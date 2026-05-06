@@ -2,6 +2,7 @@ import { mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
 import { gateAStrictHttpEnabled, hydrateProcessEnvMissingFromDotenv } from './gate-a-env-lib.mjs'
+import { gateAStandardCloseoutBlockquotes } from './gate-a-markdown-footer.mjs'
 
 hydrateProcessEnvMissingFromDotenv()
 
@@ -75,6 +76,8 @@ if (p403) {
 } else {
   process.stdout.write('403 evidence: skipped (set GATEA_STAFF_ACCESS_TOKEN to enable)\n')
 }
+
+process.stdout.write(['', ...gateAStandardCloseoutBlockquotes()].join('\n') + '\n')
 
 if (strictHttpViolation) {
   process.stderr.write('[gatea http] 嚴格模式（`--strict-http` 或 `GATEA_STRICT_HTTP`）：HTTP 狀態與預期不符，exit 1。\n')

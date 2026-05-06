@@ -5,6 +5,7 @@
 import { spawnSync } from 'node:child_process'
 
 import { buildSpawnBaseEnv } from './gate-a-env-lib.mjs'
+import { gateAStandardCloseoutBlockquotes } from './gate-a-markdown-footer.mjs'
 
 const baseEnv = buildSpawnBaseEnv()
 const raw = process.argv.slice(2)
@@ -31,3 +32,5 @@ run('gatea evidence prune', 'node', [
 run('gatea evidence latest', 'node', ['scripts/gate-a-update-latest-pointer.mjs'])
 run('markdown docs sync bundle', 'node', ['scripts/gate-a-sync-all-markdown.mjs'])
 run('decision draft sync', 'node', ['scripts/gate-a-sync-decision-draft.mjs'])
+
+process.stdout.write(['\n', ...gateAStandardCloseoutBlockquotes()].join('\n') + '\n')

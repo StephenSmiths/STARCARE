@@ -91,7 +91,12 @@ if (run('latest pointer refresh', 'node', ['scripts/gate-a-update-latest-pointer
 }
 
 // report 落檔後再同步四份文件，確保自動引用區指向「當次最新 report」
-if (run('markdown docs sync bundle', 'node', ['scripts/gate-a-sync-all-markdown.mjs']) !== 0) {
+if (
+  run('markdown docs sync bundle', 'node', [
+    'scripts/gate-a-sync-all-markdown.mjs',
+    '--suppress-closeout-footer',
+  ]) !== 0
+) {
   failed = true
 }
 

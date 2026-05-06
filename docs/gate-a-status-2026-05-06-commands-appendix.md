@@ -161,6 +161,8 @@ npm run gatea:evidence:latest
 npm run gatea:evidence:docs-sync
 ```
 
+> `docs-sync`（`gate-a-sync-all-markdown.mjs`）stdout 末段會附 **全案收尾**／**§5** 兩行 blockquote（與 **`gatea:evidence:summary`** 同源）；**`gatea:evidence:all`** 內嵌呼叫時傳 **`--suppress-closeout-footer`**，避免緊接在 **`summary`** 之後重複同一頁尾。
+
 清理 `docs/evidence` 內舊的自動快照（預設 dry-run，實際刪除需 `--apply`）：
 
 ```bash

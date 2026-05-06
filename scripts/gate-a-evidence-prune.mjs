@@ -1,6 +1,8 @@
 import { readdirSync, rmSync } from 'node:fs'
 import { resolve } from 'node:path'
 
+import { gateAStandardCloseoutBlockquotes } from './gate-a-markdown-footer.mjs'
+
 const evidenceDir = resolve(process.cwd(), 'docs/evidence')
 const args = process.argv.slice(2)
 const apply = args.includes('--apply')
@@ -69,5 +71,8 @@ if (apply && deleteList.length > 0) {
   lines.push('')
   lines.push('> 這是 dry-run；加 `--apply` 才會實際刪除。')
 }
+
+lines.push(``)
+lines.push(...gateAStandardCloseoutBlockquotes())
 
 process.stdout.write(`${lines.join('\n')}\n`)

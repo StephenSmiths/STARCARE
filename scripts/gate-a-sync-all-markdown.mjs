@@ -6,6 +6,9 @@ import {
   blockKickoff,
   syncMarkdownRegion,
 } from './gate-a-ref-sync-lib.mjs'
+import { gateAStandardCloseoutBlockquotes } from './gate-a-markdown-footer.mjs'
+
+const suppressCloseoutFooter = process.argv.includes('--suppress-closeout-footer')
 
 const a = artifacts()
 
@@ -32,3 +35,7 @@ syncMarkdownRegion(
   /<!-- gatea-kickoff-auto-ref:start -->[\s\S]*?<!-- gatea-kickoff-auto-ref:end -->/m,
   blockKickoff(a),
 )
+
+if (!suppressCloseoutFooter) {
+  process.stdout.write(['', ...gateAStandardCloseoutBlockquotes()].join('\n') + '\n')
+}
