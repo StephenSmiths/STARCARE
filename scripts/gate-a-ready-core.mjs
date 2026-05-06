@@ -146,7 +146,7 @@ export function recommendNextCommand(state) {
   }
 }
 
-/** 供 `gate-a-latest`／證據彙總與主命令並列（與 README／go-live 敘述一致；stdout 頁尾見 `scripts/gate-a-markdown-footer.mjs` 檔首 Export 契約）。 */
+/** 供 `gate-a-latest`／證據彙總與主命令並列（與 README／go-live 敘述一致；`gate-a-latest.md` 檔尾四行見 `gateALatestMarkdownFooterLines`；stdout 頁尾見 `scripts/gate-a-markdown-footer.mjs` 檔首 Export 契約）。 */
 export function gateAPreflightStrictNextMarkdownLine() {
   return '- `npm run gatea:evidence:preflight:strict`（取證前嚴格環境檢查；與 README／go-live 並讀）'
 }

@@ -52,7 +52,9 @@ for (const c of checks) {
 }
 lines.push(``)
 lines.push(`## 其他自動落檔（不計入上分母）`)
-lines.push(`- latest pointer：docs/evidence/gate-a-latest.md`)
+lines.push(
+  `- latest pointer：docs/evidence/gate-a-latest.md（檔尾 blockquote 四行：gateALatestMarkdownFooterLines；latest 段見 docs/gate-a-status-2026-05-06-commands-appendix.md）`,
+)
 lines.push(`- doctor 快照：${rel(latestName('gate-a-evidence-doctor-'))}`)
 lines.push(`- report：${rel(latestName('gate-a-report-'))}`)
 lines.push(`- fill snippet：${rel(latestName('gate-a-fill-snippet-'))}`)
