@@ -22,7 +22,7 @@
 
 ### go-live §1 Auth / RLS
 - [ ] admin/staff 登入截圖
-- [x] 401 證據（文字檔）已取得：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-06-155438.8.txt`
+- [x] 401 證據（文字檔）已取得（實際路徑見 `docs/evidence/gate-a-latest.md` 之 `401 text` 列，或 `npm run gatea:evidence:summary`）
 - [ ] 403 截圖（staff 呼叫 admin-only API）
 - [ ] `user_roles` SQL 截圖
 
@@ -54,7 +54,7 @@
 2. 執行 `npm run gatea:evidence:http`（若有 `GATEA_STAFF_ACCESS_TOKEN` 可自動產生 403 文字證據）。  
    - 取 token 方式見：`docs/gate-a-evidence-capture-2026-05-06.md` §0.1  
 3. 在排班頁做一次「一鍵儲存排班結果」，截圖成功提示。  
-4. 將截圖依 `docs/gate-a-manual-evidence-checklist-2026-05-06.md` 檔名存到 `docs/evidence/`；自動引用區會由 `gatea:evidence:all` 更新。另跑 `npm run gatea:evidence:doctor` 確認是否齊備。
+4. 將截圖依 `docs/gate-a-manual-evidence-checklist-2026-05-06.md` 檔名存到 `docs/evidence/`；自動引用區會由 `gatea:evidence:all` 或 `gatea:evidence:refresh` 更新。另跑 `npm run gatea:evidence:doctor` 確認是否齊備。
 
 > 完成以上 4 件後，即可由文件面進行 Gate A 判定收斂。
 

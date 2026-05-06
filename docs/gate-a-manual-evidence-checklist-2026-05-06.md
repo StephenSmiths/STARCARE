@@ -1,6 +1,7 @@
 # Gate A 人工證據勾選表（2026-05-06）
 
-> 對照：`docs/gate-a-evidence-capture-2026-05-06.md`、`docs/gate-a-evidence-fill-template-2026-05-06.md`
+> 對照：`docs/gate-a-evidence-capture-2026-05-06.md`、`docs/gate-a-evidence-fill-template-2026-05-06.md`  
+> 由腳本自動產生之 `.txt`／`gate-a-*.md` 檔名含時間戳會變動；**現況路徑**以 `docs/evidence/gate-a-latest.md` 與 `npm run gatea:evidence:summary` 為準。下表以**建議截圖檔名**為主。
 
 ## A. go-live §1（Auth/RLS）
 
@@ -9,7 +10,7 @@
 - [ ] `staff` 登入成功截圖（左下角色）
   - 證據檔：`gateA-d2-staff-login-2026-05-06.png`
 - [ ] 401 截圖（未授權）
-  - 證據檔：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-06-155438.8.txt`（文字證據）或 `gateA-d2-401-2026-05-06.png`（截圖）
+  - 證據檔：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-06-*.txt`（文字證據；實際檔名見 `docs/evidence/gate-a-latest.md` 之 `401 text`）或 `gateA-d2-401-2026-05-06.png`（截圖）
 - [ ] 403 截圖（staff 呼叫 `admin-user-role-set`）
   - 證據檔：`gateA-d2-403-admin-user-role-set-2026-05-06.png`
 - [ ] `user_roles` SQL 截圖
