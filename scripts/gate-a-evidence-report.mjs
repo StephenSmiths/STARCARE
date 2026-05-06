@@ -1,6 +1,9 @@
 import { writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
+import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
 import { computeGateAReadyState } from './gate-a-ready-core.mjs'
+
+const strictHttpLbl = gateAStrictHttpEnabled(process.argv, buildSpawnBaseEnv()) ? 'ON' : 'OFF'
 
 const evidenceDir = resolve(process.cwd(), 'docs/evidence')
 const s = computeGateAReadyState(evidenceDir)
@@ -13,6 +16,7 @@ lines.push('')
 lines.push(`- 產生時間：${new Date().toISOString()}`)
 lines.push('- 流程來源：`npm run gatea:evidence:all`')
 lines.push(`- 判定狀態：\`${s.ready ? 'READY' : 'NOT_READY'}\``)
+lines.push(`- HTTP 嚴格取證：${strictHttpLbl}（合併環境；\`--strict-http\`／\`GATEA_STRICT_HTTP\`）`)
 lines.push('')
 lines.push('## 核心證據')
 lines.push(`- auto evidence：${fmt(s.auto)}`)

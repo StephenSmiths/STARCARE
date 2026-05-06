@@ -1,7 +1,10 @@
 import { readdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 
+import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
 import { computeGateAReadyState, recommendNextCommand } from './gate-a-ready-core.mjs'
+
+const strictHttpLbl = gateAStrictHttpEnabled(process.argv, buildSpawnBaseEnv()) ? 'ON' : 'OFF'
 
 const evidenceDir = resolve(process.cwd(), 'docs/evidence')
 const files = readdirSync(evidenceDir, { withFileTypes: true })
@@ -37,6 +40,7 @@ lines.push(`# Gate A 證據彙總`)
 lines.push(``)
 lines.push(`- 完成度（自動證據面）：${done} / ${total}`)
 lines.push(`- 可否進入 Gate A 判定（含 doctor）：\`${gate.ready ? 'READY' : 'NOT_READY'}\`（doctor：${doctorLine}）`)
+lines.push(`- HTTP 嚴格取證：${strictHttpLbl}（\`--strict-http\` 或 \`GATEA_STRICT_HTTP\`）`)
 lines.push(``)
 for (const c of checks) {
   lines.push(`- [${c.ok ? 'x' : ' '}] ${c.id}：${c.file}`)

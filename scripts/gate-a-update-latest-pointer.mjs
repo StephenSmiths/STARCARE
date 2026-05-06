@@ -1,6 +1,9 @@
 import { writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
+import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
 import { computeGateAReadyState, recommendNextCommand } from './gate-a-ready-core.mjs'
+
+const strictHttpLbl = gateAStrictHttpEnabled(process.argv, buildSpawnBaseEnv()) ? 'ON' : 'OFF'
 
 const evidenceDir = resolve(process.cwd(), 'docs/evidence')
 const s = computeGateAReadyState(evidenceDir)
@@ -13,6 +16,7 @@ lines.push('# Gate A Latest Pointers')
 lines.push('')
 lines.push(`- 更新時間：${new Date().toISOString()}`)
 lines.push(`- 判定狀態：\`${s.ready ? 'READY' : 'NOT_READY'}\``)
+lines.push(`- HTTP 嚴格取證：${strictHttpLbl}`)
 lines.push(`- auto evidence：${fmt(s.auto)}`)
 lines.push(`- 401：${fmt(s.e401)}`)
 lines.push(`- 403：${fmt(s.e403)}`)
