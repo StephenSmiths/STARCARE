@@ -14,6 +14,8 @@
 - `docs/project-completion-daily-log-2026-05.md`
 - `docs/project-completion-evidence-index-2026-05.md`
 - `docs/go-live-checklist.md`
+- `docs/gate-a-status-2026-05-06.md`（D2～D5：Gate A 即時狀態）
+- `docs/gate-a-evidence-capture-2026-05-06.md`（Gate A 取證步驟）
 - `docs/supabase-deploy-runbook.md`（OPS：遠端部署與驗證）
 - `docs/security-token-rotation-checklist.md`（OPS：PAT 與 §D 自檢）
 
@@ -31,6 +33,15 @@ npm run ci
 
 # 可選：登入態 E2E（需 E2E_AUTH_*）
 npm run test:e2e:auth
+
+# 可選：僅 user-role-admin 可選登入 E2E（admin 成功 + staff 403）
+npm run test:e2e:auth:user-role-admin
+
+# Gate A 自動流程（含 doctor 落檔與四份收尾 markdown 同步；見 README Gate A 條目）
+npm run gatea:evidence:all
+
+# 僅同步證據索引／日誌／追蹤板／啟動清單之自動引用區（建議先手動 doctor --write）
+# npm run gatea:evidence:docs-sync
 
 # 與 CI 同源的效能治理
 npm run perf:bundle:ci
@@ -52,3 +63,16 @@ npm run perf:bundle:ci:summary
 - [ ] 今日追蹤列與日誌段落已建立
 - [ ] 至少一條可驗證證據已入索引
 - [ ] 明日目標已寫入日誌
+
+### Gate A 自動引用（由腳本同步）
+
+<!-- gatea-kickoff-auto-ref:start -->
+- 可否判定：`NOT_READY`
+- auto evidence：`docs/evidence/gate-a-auto-evidence-2026-05-06-152954.md`
+- 401 text：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-06-143013.7.txt`
+- 403 text：`<待補 403 text>`
+- decision ref：`docs/evidence/gate-a-decision-ref-20260506-145320.md`
+- fill snippet：`docs/evidence/gate-a-fill-snippet-20260506-145320.md`
+- doctor report：`docs/evidence/gate-a-evidence-doctor-20260506-145320.md`
+- report：`docs/evidence/gate-a-report-20260506-145708.md`
+<!-- gatea-kickoff-auto-ref:end -->

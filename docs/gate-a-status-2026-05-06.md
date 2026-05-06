@@ -1,0 +1,183 @@
+# Gate A 即時狀態板（2026-05-06）
+
+> 對照：`docs/go-live-checklist.md`、`docs/project-completion-2week-tracker-2026-05-05.md`  
+> 取證入口：`docs/gate-a-evidence-capture-2026-05-06.md`  
+> 勾選表：`docs/gate-a-manual-evidence-checklist-2026-05-06.md`  
+> 自動證據：`docs/evidence/gate-a-auto-evidence-2026-05-06-152954.md`
+> 判定草案：`docs/gate-a-decision-draft-2026-05-06.md`
+
+## 1) 已完成（系統可驗證）
+
+- [x] `admin-user-role-set` 已部署且 ACTIVE（functions list）。
+- [x] CORS 與 `x-idempotency-key` 相容修正已部署。
+- [x] migration `20260505160000` 已寫入遠端（Local/Remote 一致）。
+- [x] `USER_RBAC_ROLE_SET` 審計可成功落庫（前端畫面與 SQL 已驗）。
+- [x] `db:push` 與 `ops:verify` 已執行並留存自動證據檔。
+- [x] 證據彙總指令可用：`npm run gatea:evidence:summary`
+
+## 2) 待補（人工取證）
+
+目前完成度（人工證據）：請以 `npm run gatea:evidence:doctor` 為準（預設 12 項；401 已有則至少 1/12）
+目前完成度（自動證據面）：請以 `npm run gatea:evidence:summary` 為準（含 `READY`／`NOT_READY` 一行，以及 doctor／report／snippet／decision ref 指向）
+
+### go-live §1 Auth / RLS
+- [ ] admin/staff 登入截圖
+- [x] 401 證據（文字檔）已取得：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-06-143013.7.txt`
+- [ ] 403 截圖（staff 呼叫 admin-only API）
+- [ ] `user_roles` SQL 截圖
+
+### go-live §3 排班閉環
+- [ ] 排班儲存成功提示截圖
+- [ ] `scheduling_history` SQL 截圖
+- [ ] `actor_id` 與登入者一致核對
+
+### go-live §8 審計 / 可見性
+- [ ] `USER_RBAC_ROLE_SET` 操作與成功提示截圖
+- [ ] `audit_events` SQL 截圖
+- [ ] staff/teamlead/admin 可見性差異截圖（3 張）
+
+## 3) Gate A 判定門檻
+
+- [ ] §1 證據齊全
+- [ ] §3 證據齊全
+- [ ] §8 證據齊全
+- [ ] `RES-06` 明確結論（完成或阻塞）
+
+### 判定結論（待填）
+- 結論：`待判定`
+- 缺口 owner：`FE/BE/QA`
+- 預計完成：`2026-05-06 <待填時間> BST`
+
+## 4) 立即下一步（只做這 4 件）
+
+1. 依 `docs/sql/gate-a-evidence-queries-2026-05-06.sql` 跑三段 SQL，截圖存檔。  
+2. 執行 `npm run gatea:evidence:http`（若有 `GATEA_STAFF_ACCESS_TOKEN` 可自動產生 403 文字證據）。  
+   - 取 token 方式見：`docs/gate-a-evidence-capture-2026-05-06.md` §0.1  
+3. 在排班頁做一次「一鍵儲存排班結果」，截圖成功提示。  
+4. 將截圖依 `docs/gate-a-manual-evidence-checklist-2026-05-06.md` 檔名存到 `docs/evidence/`；自動引用區會由 `gatea:evidence:all` 更新。另跑 `npm run gatea:evidence:doctor` 確認是否齊備。
+
+> 完成以上 4 件後，即可由文件面進行 Gate A 判定收斂。
+
+### 4.1 每次收證後快速檢查
+
+```bash
+npm run gatea:evidence:summary
+```
+
+若輸出仍顯示 `403：（未找到）`，請先執行：
+
+```bash
+GATEA_STAFF_ACCESS_TOKEN="<staff token>" npm run gatea:evidence:http
+```
+
+或用帳密自動取 token（較省步驟）：
+
+```bash
+GATEA_STAFF_EMAIL="<staff email>" \
+GATEA_STAFF_PASSWORD="<staff password>" \
+npm run gatea:evidence:http:auth
+```
+
+一鍵跑 Gate A 自動流程（auto／http／summary／snippet／判定稿／doctor 落檔／四份 markdown 同步）：
+
+```bash
+npm run gatea:evidence:all
+```
+
+> `gatea:evidence:all` 現在也會自動執行判定稿兩行引用同步（等同含 `gatea:evidence:decision-sync`）。
+> `gatea:evidence:all` 會先執行 `gatea:evidence:doctor --write`，再以單一批次指令更新證據索引、Daily Log、2week tracker、kickoff checklist 的 Gate A 自動引用區（等同 `npm run gatea:evidence:docs-sync`；亦即個別之 `gatea:evidence:index-sync`／`daily-sync`／`tracker-sync`／`kickoff-sync`）。如此 tracker／kickoff 內的 **doctor report** 會對應本次剛落檔的報告。
+> `gatea:evidence:all` 會先產生單檔收斂快照：`docs/evidence/gate-a-report-*.md`（等同 `npm run gatea:evidence:report`），再同步四份文件，確保引用到當次最新 report。
+> `gatea:evidence:all` 亦會更新固定入口：`docs/evidence/gate-a-latest.md`（等同 `npm run gatea:evidence:latest`）。
+> `gatea:evidence:doctor --write` 本身不計入 exit code（整體成敗仍以上方 auto/http 等步驟為準）；終端仍會列出缺口清單與 `[saved]` 路徑。
+
+產生 Evidence Index 可貼片段：
+
+```bash
+npm run gatea:evidence:fill-snippet
+```
+
+產生 Gate A 判定稿引用片段：
+
+```bash
+npm run gatea:evidence:decision-ref
+```
+
+若要把判定稿引用片段也存成證據檔：
+
+```bash
+npm run gatea:evidence:decision-ref -- --write
+```
+
+判定稿「每次貼兩行」快速指令：
+
+```bash
+npm run gatea:evidence:decision-mini
+```
+
+直接自動回填判定稿兩行引用：
+
+```bash
+npm run gatea:evidence:decision-sync
+```
+
+若已在 `.env` 設好 `GATEA_STAFF_EMAIL` / `GATEA_STAFF_PASSWORD`，可直接一鍵：
+
+```bash
+set -a && source .env && set +a && npm run gatea:evidence:http:auth && npm run gatea:evidence:summary
+```
+
+僅補 `user-role-admin` 可選登入 E2E（本機實機建議）：
+
+```bash
+npm run test:e2e:auth:user-role-admin
+```
+
+快速檢查目前還缺哪些 Gate A 證據：
+
+```bash
+npm run gatea:evidence:doctor
+```
+
+快速判斷是否可進入 Gate A 判定（READY/NOT_READY）：
+
+```bash
+npm run gatea:evidence:ready
+```
+
+下一步建議（依目前缺口自動給命令）：
+
+```bash
+npm run gatea:evidence:next
+```
+
+規則實作單點：`scripts/gate-a-ready-core.mjs`（`gatea:evidence:latest`、`gatea:evidence:report`、終端 READY 輸出共用）。
+
+嚴格模式（缺項時回傳非 0）：
+
+```bash
+npm run gatea:evidence:ready -- --strict
+```
+
+關卡模式（簡短輸出，NOT_READY 即非 0）：
+
+```bash
+npm run gatea:evidence:gate
+```
+
+另存報告到 `docs/evidence/`：
+
+```bash
+npm run gatea:evidence:doctor -- --write
+```
+
+更新固定入口（便於貼單一連結）：
+
+```bash
+npm run gatea:evidence:latest
+```
+
+僅同步證據索引／日誌／追蹤板／啟動清單（與 `gatea:evidence:all` 內同一批次；建議先跑一次 `doctor --write` 再執行）：
+
+```bash
+npm run gatea:evidence:docs-sync
+```

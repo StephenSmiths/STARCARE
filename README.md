@@ -20,6 +20,8 @@
 | [docs/pdf03-cursorrules-alignment.md](docs/pdf03-cursorrules-alignment.md) | PDF 03 × 工程規範對齊、PR 檢核表（Seq 35／37）；**Seq 35～38**（母本 03／C 區）對照骨架見 `docs/seq35-pdf03-cursorrules-alignment-traceability.md`（鏈至 `docs/seq38-pdf-versions-traceability.md`，總表 [pdf-sequenced-gap-checklist.md](docs/pdf-sequenced-gap-checklist.md) **C**） |
 | [docs/perf-2026-05-05-bundle-splitting-summary.md](docs/perf-2026-05-05-bundle-splitting-summary.md) | 2026-05-05 拆包效能收斂摘要（入口體積對照、驗證結果、後續建議） |
 | [docs/go-live-checklist.md](docs/go-live-checklist.md) | 上線檢核 |
+| [docs/gate-a-status-2026-05-06.md](docs/gate-a-status-2026-05-06.md) | Gate A（D2～D5）即時狀態板與待補清單 |
+| [docs/gate-a-evidence-capture-2026-05-06.md](docs/gate-a-evidence-capture-2026-05-06.md) | Gate A 取證速跑步驟（含 SQL 與回填） |
 | [docs/security-token-rotation-checklist.md](docs/security-token-rotation-checklist.md) | PAT／憑證輪替；**§D** 部署後自檢（可選 **`npm run ci`**） |
 | [docs/supabase-deploy-runbook.md](docs/supabase-deploy-runbook.md) | §2 **`npm run ops:deploy:all`**（清單見 **`package.json`**）；§5 SQL；§6 **`npm run ci`**（與 Actions 同源） |
 | [.env.example](.env.example) | 環境變數與可選 E2E 帳號 |
@@ -51,6 +53,7 @@ npm run typecheck        # tsc -b --noEmit（不含 vite bundle）
 npm run ci               # lint → typecheck → 單元測試 → build:demo → Playwright（全套 demo）
 npm run test:e2e:smoke   # build:demo 後僅跑 e2e/smoke.spec.ts（較快）
 npm run test:e2e:all     # demo 煙霧 + 可選登入 E2E（無 E2E_AUTH_* 時登入段 skip）
+npm run test:e2e:auth:user-role-admin # 僅跑 user-role-admin 可選登入 E2E（admin 成功 + staff 403）
 npm run build
 npm run build:demo       # 清空 VITE_SUPABASE_* 之 production bundle（與 CI demo E2E 同源）
 npm run perf:bundle-report # 讀取 dist/assets 並輸出入口與關鍵 chunk 體積
@@ -76,6 +79,12 @@ npm run perf:bundle-diff:md -- <base.json> <current.json> --out docs/perf-diff.m
 npm run perf:bundle-diff:baseline # 直接比對 baseline vs dist/bundle-report.json
 npm run perf:bundle-diff:baseline:md # 直接產生 baseline vs current 的 Markdown 差異
 npm run perf:bundle-diff:baseline:md:file # baseline Markdown 差異輸出到 dist/bundle-diff.md
+npm run gatea:evidence:all # Gate A：auto/http、summary、snippet、判定稿、doctor、report，並同步五份 markdown（證據索引／日誌／追蹤板／啟動清單等）
+npm run gatea:evidence:latest # 更新固定入口 docs/evidence/gate-a-latest.md
+npm run gatea:evidence:summary # 自動證據彙總（含 READY 一行）
+npm run gatea:evidence:ready # READY/NOT_READY；加 --strict 缺項時非 0
+npm run gatea:evidence:next # 依目前缺口直接給下一步命令
+npm run gatea:evidence:gate # Gate A 關卡（NOT_READY 即非 0）
 ```
 
 - **Supabase**：複製 `.env.example` 為 `.env` 並填入 `VITE_SUPABASE_URL`、`VITE_SUPABASE_ANON_KEY` 後即可走真實登入與 Edge。
@@ -83,6 +92,7 @@ npm run perf:bundle-diff:baseline:md:file # baseline Markdown 差異輸出到 di
 - **CI**：推上 GitHub 後由 [`.github/workflows/ci.yml`](.github/workflows/ci.yml) 執行（含 Playwright 快取；demo 建置為 **`npm run build:demo`**，避免與本機 `.env` 內嵌 Supabase 混用）。
 - **效能報告**：CI 會在 bundle budget check 後上傳 `bundle-report` artifact（`dist/bundle-report.json`）。
 - **憑證與部署後自檢**：[docs/security-token-rotation-checklist.md](docs/security-token-rotation-checklist.md) **§D**（可選 **`npm run ci`**；與 [docs/go-live-checklist.md](docs/go-live-checklist.md) §6 對齊）。
+- **Gate A 取證助手**：步驟見 `docs/gate-a-evidence-capture-2026-05-06.md`，一鍵腳本 `npm run gatea:evidence:all`（含 `doctor`/`report` 落檔、自動引用同步、`gate-a-latest.md` 固定入口更新）；僅同步四份收尾 markdown 可用 `npm run gatea:evidence:docs-sync`；彙總 `npm run gatea:evidence:summary`，可否判定 `npm run gatea:evidence:ready`，下一步導引 `npm run gatea:evidence:next`；需直接當關卡可用 `npm run gatea:evidence:gate`（NOT_READY 即非 0）；缺口細項 `npm run gatea:evidence:doctor`。即時狀態：`docs/gate-a-status-2026-05-06.md`。
 
 ## 技術棧
 

@@ -1,0 +1,23 @@
+HTTP 401
+access-control-allow-headers: authorization, x-client-info, apikey
+access-control-allow-origin: *
+alt-svc: h3=":443"; ma=86400
+cf-cache-status: DYNAMIC
+cf-ray: 9f7839f95b1a491c-LHR
+connection: keep-alive
+content-encoding: gzip
+content-length: 94
+content-type: application/json
+date: Wed, 06 May 2026 13:10:40 GMT
+sb-error-code: UNAUTHORIZED_NO_AUTH_HEADER
+sb-gateway-version: 1
+sb-project-ref: qrrreijvihiypgpagnln
+sb-request-id: 019dfd69-77e3-7402-a3a1-9a75a979039e
+server: cloudflare
+set-cookie: __cf_bm=N1ua1QrvP9CMS6LgeECkp1aVRewETc0o8URjBd0DgJE-1778073040.8560898-1.0.1.1-KjtUsTYuEow2K7vAOGt.cREAooutnKdCHFoXYwReFXP9BReeIgyF02X2Omjo7swOvrAQKtkSfQXL4ZrTH_UWkdaFABkCwuLbfD9uk0o_j9X819xqimpJnPJx51BEBouB; HttpOnly; Secure; Path=/; Domain=supabase.co; Expires=Wed, 06 May 2026 13:40:40 GMT
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+vary: Accept-Encoding
+x-sb-edge-region: eu-west-2
+x-served-by: supabase-edge-runtime
+
+{"code":"UNAUTHORIZED_NO_AUTH_HEADER","message":"Missing authorization header"}

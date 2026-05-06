@@ -26,7 +26,7 @@
 
 | 週次 | 目標 | 目前狀態 | 備註 |
 |---|---|---|---|
-| Week 1 | 正式庫閉環 + 權限/RLS/審計抽測（WP1+WP2） | todo |  |
+| Week 1 | 正式庫閉環 + 權限/RLS/審計抽測（WP1+WP2） | doing | 2026-05-06 已完成 admin 角色治理鏈路（Edge + UI + 審計 + DB 約束修正） |
 | Week 2 | 回歸收斂 + RC + 簽核上線（WP3+WP4+WP5） | todo |  |
 
 ## Day 1 啟動清單（開工即填）
@@ -39,6 +39,8 @@
 | 建立證據存放位置（SQL/截圖/artifact） | QA | 證據路徑可追溯 | [ ] |  |
 | 確認 PAT / 部署窗口 | OPS | D9 可執行條件清楚 | [ ] |  |
 
+> Gate A 即時狀態板：`docs/gate-a-status-2026-05-06.md`
+
 ## 今日開工指令（可直接複用）
 
 ```bash
@@ -47,6 +49,13 @@ npm run ci
 
 # 2) 可選：登入態 E2E（需 E2E_AUTH_*）
 npm run test:e2e:auth
+
+# 2a) 可選：僅 user-role-admin 權限補測（較快）
+npm run test:e2e:auth:user-role-admin
+
+# 2b) Gate A 自動流程（含 doctor 與收尾 markdown 同步；細節見 docs/gate-a-status-2026-05-06.md）
+npm run gatea:evidence:all
+# 2c) 僅四份收尾 markdown 自動引用（可選）：npm run gatea:evidence:docs-sync
 
 # 3) Bundle 治理（與 CI 同源）
 npm run perf:bundle:ci
@@ -83,10 +92,10 @@ limit 20;
 
 | Day | 任務 | Owner | 狀態 | 阻塞 | 證據連結（PR/SQL/截圖/Artifact） | 完成勾選 |
 |---|---|---|---|---|---|---|
-| D1 | 凍結驗收範圍、版本鎖定、風險清單 v1 | TL + QA | todo |  |  | [ ] |
-| D2 | go-live §1：Auth/RLS 初檢（admin/staff/401/403） | FE + BE | todo |  |  | [ ] |
-| D3 | go-live §3：排班閉環（排班→儲存→DB） | FE + BE + QA | todo |  |  | [ ] |
-| D4 | go-live §8：審計抽測（含 RLS 可見性） | FE + BE | todo |  |  | [ ] |
+| D1 | 凍結驗收範圍、版本鎖定、風險清單 v1 | TL + QA | doing | 風險清單 v1 尚待 TL/QA 確認 | 基線提交：`d970f84`（含角色治理修正） | [ ] |
+| D2 | go-live §1：Auth/RLS 初檢（admin/staff/401/403） | FE + BE | doing | 仍待補 401/403 截圖證據；`test:e2e:auth` 於 sandbox Chromium 啟動 SIGSEGV，需本機終端補測 | 管理員登入與角色頁驗證、`admin-user-role-set` 已部署（Supabase Functions）；`ops:verify` 已確認 functions ACTIVE；執行手順：`docs/gate-a-evidence-capture-2026-05-06.md`；勾選表：`docs/gate-a-manual-evidence-checklist-2026-05-06.md` | [ ] |
+| D3 | go-live §3：排班閉環（排班→儲存→DB） | FE + BE + QA | doing | 待補 `scheduling_history` SQL 查詢結果截圖 | 系統設定頁審計顯示 `SCHEDULE_BATCH_SAVE`（2026-05-06）；執行手順：`docs/gate-a-evidence-capture-2026-05-06.md`；勾選表：`docs/gate-a-manual-evidence-checklist-2026-05-06.md` | [ ] |
+| D4 | go-live §8：審計抽測（含 RLS 可見性） | FE + BE | doing | staff/teamlead/admin 可見性差異仍待完整抽測 | 已修復 `audit_events_entity_type_check`（含 `Auth`）並成功寫入 `USER_RBAC_ROLE_SET`；`db:push` + `ops:verify` 已完成一致性確認（含 migration `20260505160000`）；執行手順：`docs/gate-a-evidence-capture-2026-05-06.md`；勾選表：`docs/gate-a-manual-evidence-checklist-2026-05-06.md` | [ ] |
 | D5 | Week1 Gate：判定 RES-06、整理 P0/P1/P2 | TL + QA | todo |  |  | [ ] |
 | D6 | 回歸 A：residents/staff/import | FE + QA | todo |  |  | [ ] |
 | D7 | 回歸 B：scheduling/forms/handover | FE + QA | todo |  |  | [ ] |
@@ -101,6 +110,19 @@ limit 20;
 | Gate A | D5 | go-live §1/§3/§8 證據齊全、RES-06 有結論 | [ ] |  |
 | Gate B | D8 | P0/P1=0、RC 可重複部署、CI 綠燈 | [ ] |  |
 | Gate C | D10 | go-live checklist 可簽核、回滾路徑可用 | [ ] |  |
+
+### Gate A 自動引用（由腳本同步）
+
+<!-- gatea-tracker-auto-ref:start -->
+- 可否判定：`NOT_READY`
+- auto evidence：`docs/evidence/gate-a-auto-evidence-2026-05-06-152954.md`
+- 401 text：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-06-143013.7.txt`
+- 403 text：`<待補 403 text>`
+- decision ref：`docs/evidence/gate-a-decision-ref-20260506-145320.md`
+- fill snippet：`docs/evidence/gate-a-fill-snippet-20260506-145320.md`
+- doctor report：`docs/evidence/gate-a-evidence-doctor-20260506-145320.md`
+- report：`docs/evidence/gate-a-report-20260506-145708.md`
+<!-- gatea-tracker-auto-ref:end -->
 
 ## 缺陷收斂板（上線範圍）
 

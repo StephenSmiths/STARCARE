@@ -10,6 +10,10 @@
 - [ ] 完成安全收尾（PAT 輪替、舊 PAT 停用；見 **`docs/security-token-rotation-checklist.md`**；**§D** 可選 **`npm run ci`**）
 - [ ] 完成部署狀態確認（migration/functions；見 **`docs/supabase-deploy-runbook.md`** §2／§3）
 
+### 0.1 Gate A 取證入口（2026-05-06）
+- 取證步驟：**`docs/gate-a-evidence-capture-2026-05-06.md`**
+- 回填模板：**`docs/gate-a-evidence-fill-template-2026-05-06.md`**
+
 ## 1. 身分與授權（Auth / RLS）
 - [ ] 至少有 1 位 `admin` 與 1 位 `staff` 可成功登入。
 - [ ] `public.user_roles` 可查到對應 `user_id` 與 `role`。
@@ -18,12 +22,15 @@
 
 ### 1.1 可選：Playwright（demo 煙霧／登入，本機或 CI）
 - [ ] 本機 **`npm run ci`**（`lint`→`typecheck`→`vitest`→**`build:demo`**（清空 `VITE_SUPABASE_*` 建置）→`PW_PREVIEW_ONLY=1` 之 Playwright demo 全套）已通過；與 GitHub Actions 對照見 `docs/feature-list.md` §8。
-- [ ] `.env` 已設 `VITE_SUPABASE_URL`、`VITE_SUPABASE_ANON_KEY`，並設測試帳號之 `E2E_AUTH_EMAIL`、`E2E_AUTH_PASSWORD`（見 `.env.example`）。
-- [ ] `npm run test:e2e:auth` 通過（`playwright.auth.config.ts`：登入後見儀表盤審計區、側欄「登出」；`/#service-forms` 見 **Staff／待審** 與審計標題且無「無法載入時段或院友資料」；`/#work-session-plans` 見 **我的工作計劃** 與審計標題且無「無法載入工作計劃時段，請稍後重試。」；`/#residents` 見 **院友資料概覽** 與 **最近審計紀錄** 且無「無法載入院友名單，請稍後重試。」；`/#scheduling` 見 **本次排班指派** 與 **排班與相關操作審計** 且無「無法連線載入院友或時段資料，請檢查網路與 API 設定。」；`/#notification-center` 見 **未讀通知** 與 **審計紀錄節錄**；`/#historical-documents` 見 **母本要求僅展示** 與 **匯出審計**；並涵蓋 **開工／收工交更**、**復康追蹤**、**評估管理**、**用戶手冊** 等 Staff 可進 hash，詳見 `e2e/auth-login.spec.ts`、`e2e/auth-login.staff-modules.spec.ts`）；或本機一鍵 **`npm run test:e2e:all`**（先 demo 煙霧再可選登入）。
+- [ ] `.env` 已設 `VITE_SUPABASE_URL`、`VITE_SUPABASE_ANON_KEY`，並設測試帳號之 `E2E_AUTH_EMAIL`、`E2E_AUTH_PASSWORD`（見 `.env.example`）；若執行 `user-role-admin` 權限抽測，另設 `E2E_AUTH_ADMIN_*`、`E2E_AUTH_STAFF_*`。
+- [ ] `npm run test:e2e:auth` 通過（`playwright.auth.config.ts`：登入後見儀表盤審計區、側欄「登出」；`/#service-forms` 見 **Staff／待審** 與審計標題且無「無法載入時段或院友資料」；`/#work-session-plans` 見 **我的工作計劃** 與審計標題且無「無法載入工作計劃時段，請稍後重試。」；`/#residents` 見 **院友資料概覽** 與 **最近審計紀錄** 且無「無法載入院友名單，請稍後重試。」；`/#scheduling` 見 **本次排班指派** 與 **排班與相關操作審計** 且無「無法連線載入院友或時段資料，請檢查網路與 API 設定。」；`/#notification-center` 見 **未讀通知** 與 **審計紀錄節錄**；`/#historical-documents` 見 **母本要求僅展示** 與 **匯出審計**；並涵蓋 **開工／收工交更**、**復康追蹤**、**評估管理**、**用戶手冊**、**使用者角色（Admin）** 之 `#user-role-admin`（admin 成功提交 + staff API 403，見 `e2e/auth-login.user-role-admin.spec.ts`）；或本機一鍵 **`npm run test:e2e:all`**（先 demo 煙霧再可選登入）。
+- [ ] 若僅需補 `user-role-admin` 權限證據，可先跑 **`npm run test:e2e:auth:user-role-admin`**（較快，適合 Gate A 補測）；完整路徑再跑 `npm run test:e2e:auth`。
 
 ## 2. 部署與版本一致性（DB / Functions）
-- [ ] `npx supabase migration list`：`Local` 與 `Remote` 完全一致（亦可 **`npm run ops:verify`** 併查，見 **`docs/supabase-deploy-runbook.md`** §3）。
-- [ ] `npx supabase functions list`：所有已部署 functions 皆為 **`ACTIVE`**，且覆蓋 **`package.json`** 之 **`ops:deploy:all`** 所列範圍（含 import validate+commit、審計、**service-forms-*** 等；**§2** 為建議部署指令；舊版腳本遺漏之補佈見 **`docs/supabase-deploy-runbook.md`** §2）。新增 Edge 之 PR 檢核見 **`docs/pdf03-cursorrules-alignment.md`** §3。
+- [x] `npx supabase migration list`：`Local` 與 `Remote` 完全一致（亦可 **`npm run ops:verify`** 併查，見 **`docs/supabase-deploy-runbook.md`** §3）。  
+  - 2026-05-06：先前遠端缺 `20260505160000`，已執行 `npm run db:push` 補齊，`ops:verify` 再檢為一致。
+- [x] `npx supabase functions list`：所有已部署 functions 皆為 **`ACTIVE`**，且覆蓋 **`package.json`** 之 **`ops:deploy:all`** 所列範圍（含 import validate+commit、審計、**service-forms-*** 等；**§2** 為建議部署指令；舊版腳本遺漏之補佈見 **`docs/supabase-deploy-runbook.md`** §2）。新增 Edge 之 PR 檢核見 **`docs/pdf03-cursorrules-alignment.md`** §3。  
+  - 2026-05-06：`admin-user-role-set` 為 `ACTIVE`、版本 2。
 - [ ] 本次上線時間與操作者已記錄（留存於內部紀錄）。
 
 ## 3. 智能排班閉環驗收（業務）

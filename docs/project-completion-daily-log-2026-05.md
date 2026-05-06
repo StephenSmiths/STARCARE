@@ -47,6 +47,55 @@
 
 ---
 
+## 2026-05-06（Day 2～Day 4 併行）
+
+### 今日完成
+- [x] 角色治理鏈路打通：`admin-user-role-set` Edge（僅 admin）＋前端 `#user-role-admin` 管理頁。
+- [x] Supabase 已部署 `admin-user-role-set`（專案：`qrrreijvihiypgpagnln`）。
+- [x] 修復跨網域 `Failed to fetch`：CORS 放行 `x-idempotency-key`，並重佈 Edge。
+- [x] 修復 `audit_events_entity_type_check`（新增 `Auth`），`USER_RBAC_ROLE_SET` 審計可成功落庫。
+- [x] 前端與 Edge 修正已推送 `main`：`3f1652d`、`d970f84`（Vercel 需使用最新部署）。
+- [x] 執行 `npm run db:push` 補齊 migration `20260505160000`，並以 `npm run ops:verify` 確認 Local/Remote 一致、Functions 皆 ACTIVE。
+
+### 未完成（原因）
+- [ ] go-live §1 的 401/403 抽測截圖尚未整理進證據索引。
+- [ ] go-live §3 的 `scheduling_history` SQL 查詢證據尚未附檔。
+- [ ] go-live §8 的 staff/teamlead/admin 可見性差異完整對照尚待補齊。
+- [ ] `npm run test:e2e:auth` 在本對話 sandbox 環境 Chromium 啟動即 SIGSEGV，需改於本機終端補測（非測試邏輯失敗）。
+
+### 阻塞與風險
+- Vercel 若未部署到 `d970f84`（或更新）可能出現舊前端行為，造成誤判。
+- 若僅修 SQL 而未同步 migration 紀錄，後續環境一致性稽核需額外比對。
+- 本對話執行環境之 Playwright Chromium（headless shell）在 sandbox 下 SIGSEGV，影響可選登入 E2E 直接出證。
+
+### Gate 影響
+- Gate A（D5）影響：中（核心鏈路已通，剩證據補齊與可見性抽測）。
+
+### 證據連結
+- PR/Commit：`3f1652d`、`d970f84`
+- CI：本機 `typecheck`／`lint`／`vitest` 通過（對話執行紀錄）
+- SQL：`audit_events_entity_type_check` 已更新含 `Auth`（Supabase SQL Editor）；`npm run db:push` 已將 `20260505160000` 正式寫入遠端 migration 歷史
+- 截圖/文件：Supabase Functions 清單含 `admin-user-role-set`、`#user-role-admin` 成功操作與審計列；自動證據檔 `docs/evidence/gate-a-auto-evidence-2026-05-06-152954.md`
+
+<!-- gatea-daily-auto-ref:start -->
+- Gate A 可否判定：`NOT_READY`
+- Gate A 自動證據：`docs/evidence/gate-a-auto-evidence-2026-05-06-152954.md`
+- Gate A 401：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-06-143013.7.txt`
+- Gate A 403：`<待補 403 text>`
+- Gate A decision ref：`docs/evidence/gate-a-decision-ref-20260506-145320.md`
+- Gate A fill snippet：`docs/evidence/gate-a-fill-snippet-20260506-145320.md`
+- Gate A report：`docs/evidence/gate-a-report-20260506-145708.md`
+<!-- gatea-daily-auto-ref:end -->
+
+### 明日計畫（Day 3～Day 5）
+- 補 go-live §1：401/403 抽測與 `user_roles` SQL 截圖證據。
+- 補 go-live §3：排班閉環 SQL 證據（`scheduling_history`）。
+- 補 go-live §8：RLS 可見性差異（staff/teamlead/admin）並形成 Gate A 判定草稿。
+- 依 `docs/gate-a-evidence-capture-2026-05-06.md` 執行；完成後用 `docs/gate-a-evidence-fill-template-2026-05-06.md` 回填。
+- 本機補測優先使用 `npm run test:e2e:auth:user-role-admin`（sandbox Chromium SIGSEGV 時以本機結果為準）。
+
+---
+
 ## 日誌模板（複製此段新增日期）
 
 ```md
