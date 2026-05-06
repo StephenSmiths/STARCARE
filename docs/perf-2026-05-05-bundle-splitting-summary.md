@@ -1,6 +1,6 @@
 # STARCARE 前端效能收斂摘要（2026-05-05）
 
-> **對照**：**`docs/business-logic.md`** §0、專案根 **`.cursorrules`** §3、**`README.md`**、**`docs/pdf-sequenced-gap-checklist.md`**（運維與工程）。**全案收尾與證據留痕**：**`README.md`**「專案收尾」（**`docs/project-completion-*.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log.md`** 及歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**）；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**。  
+> **對照**：**`docs/business-logic.md`** §0、專案根 **`.cursorrules`** §3、**`README.md`**、**`docs/pdf-sequenced-gap-checklist.md`**（運維與工程）。**全案收尾與證據留痕**：**`README.md`**「專案收尾」（**`docs/project-completion-*.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log.md`** 及歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**）；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**；Gate A 自動證據固定入口 **`docs/evidence/gate-a-latest.md`**（**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**）。  
 > **兩週執行與日誌**：**`docs/project-completion-2week-plan-2026-05-05.md`**、**`docs/project-completion-2week-tracker-2026-05-05.md`**、**`docs/project-completion-daily-log-2026-05.md`**。
 
 ## 本次目標

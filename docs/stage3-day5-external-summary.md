@@ -1,6 +1,6 @@
 # STARCARE Phase 3 Day 5 對外摘要（一頁版）
 
-> **對照**：技術驗收 **`docs/phase3-day5-acceptance.md`**；運維總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；Phase 4 起 **`docs/phase4-day4-delivery-index.md`**；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**；**全案收尾**：**`README.md`**「專案收尾」、**`docs/project-completion-evidence-index-2026-05.md`**、**`docs/project-completion-kickoff-checklist-2026-05.md`**。
+> **對照**：技術驗收 **`docs/phase3-day5-acceptance.md`**；運維總覽 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）；Phase 4 起 **`docs/phase4-day4-delivery-index.md`**；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**；**全案收尾**：**`README.md`**「專案收尾」、**`docs/project-completion-evidence-index-2026-05.md`**、**`docs/project-completion-kickoff-checklist-2026-05.md`**；Gate A 自動證據固定入口 **`docs/evidence/gate-a-latest.md`**（**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**）。
 
 ## 專案狀態
 - **階段**：Phase 3 Day 5 已完成。

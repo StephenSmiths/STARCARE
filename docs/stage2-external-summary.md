@@ -1,6 +1,6 @@
 # STARCARE Stage 2 對外進度摘要（一頁版）
 
-> **對照**：內部完成報告 **`docs/stage2-completion-report.md`**；後續階段與閘門 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）、**`docs/phase3-day5-acceptance.md`**（及 Phase 4／5 交付索引）；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**；**全案收尾**：**`README.md`**「專案收尾」、**`docs/project-completion-evidence-index-2026-05.md`**、**`docs/project-completion-kickoff-checklist-2026-05.md`**。
+> **對照**：內部完成報告 **`docs/stage2-completion-report.md`**；後續階段與閘門 **`docs/business-logic.md`** §0（**`.cursorrules`** §3）、**`docs/phase3-day5-acceptance.md`**（及 Phase 4／5 交付索引）；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**；**全案收尾**：**`README.md`**「專案收尾」、**`docs/project-completion-evidence-index-2026-05.md`**、**`docs/project-completion-kickoff-checklist-2026-05.md`**；Gate A 自動證據固定入口 **`docs/evidence/gate-a-latest.md`**（**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**）。
 
 ## 專案狀態
 - **階段**：Stage 2 已完成核心交付。
