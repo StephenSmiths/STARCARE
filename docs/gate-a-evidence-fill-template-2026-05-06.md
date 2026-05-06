@@ -2,7 +2,7 @@
 
 > 使用方式：完成 `docs/gate-a-evidence-capture-2026-05-06.md` 後，將本檔內容中的 `<...>` 取代並貼回  
 > `docs/go-live-checklist.md`、`docs/project-completion-evidence-index-2026-05.md`、`docs/project-completion-daily-log-2026-05.md`。  
-> 腳本產生之 401/403 文字檔與 `gate-a-*.md` 實際路徑以 **`docs/evidence/gate-a-latest.md`**（檔內 **Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:summary`** 彙總）為準；取證前可先 **`npm run gatea:evidence:preflight`**（嚴格：**`npm run gatea:evidence:preflight:strict`**）。本檔 **A)** 僅列建議截圖檔名。  
+> 腳本產生之 401/403 文字檔與 `gate-a-*.md` 實際路徑以 **`docs/evidence/gate-a-latest.md`**（檔內 **Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:summary`** 彙總；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** **`latest`** 段）為準；取證前可先 **`npm run gatea:evidence:preflight`**（嚴格：**`npm run gatea:evidence:preflight:strict`**）。本檔 **A)** 僅列建議截圖檔名。  
 > **全案收尾與證據留痕**：見 **`docs/go-live-checklist.md`** 開首 **全案收尾與證據留痕**（**`README.md`**「專案收尾」、**`docs/business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**））。  
 > **收證指令／旗標細部**：**`docs/gate-a-status-2026-05-06.md`** **§5**、**`docs/gate-a-status-2026-05-06-commands-appendix.md`**。
 > 多數 **`gatea:evidence:*`** 終端 stdout 末兩行 blockquote 維護：**`scripts/gate-a-markdown-footer.mjs`**（**Export 契約**；**`README.md`**「Gate A 終端頁尾（維護）」）。

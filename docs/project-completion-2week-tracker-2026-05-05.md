@@ -39,7 +39,7 @@
 | 建立證據存放位置（SQL/截圖/artifact） | QA | 證據路徑可追溯 | [ ] |  |
 | 確認 PAT / 部署窗口 | OPS | D9 可執行條件清楚 | [ ] |  |
 
-> Gate A 即時狀態板：`docs/gate-a-status-2026-05-06.md`（**§5** 指令速查 `docs/gate-a-status-2026-05-06-commands-appendix.md`）；證據固定入口：`docs/evidence/gate-a-latest.md`（**Next Command** 與 **`preflight:strict`** 並列）
+> Gate A 即時狀態板：`docs/gate-a-status-2026-05-06.md`（**§5** 指令速查 `docs/gate-a-status-2026-05-06-commands-appendix.md`）；證據固定入口：`docs/evidence/gate-a-latest.md`（**Next Command** 與 **`preflight:strict`** 並列；檔尾四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** **`latest`** 段）
 
 ## 今日開工指令（可直接複用）
 
