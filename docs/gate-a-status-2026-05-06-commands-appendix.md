@@ -47,7 +47,7 @@ npm run gatea:evidence:refresh:strict-http
 > `gatea:evidence:all` 現在也會自動執行判定稿引用同步（decision ref／fill snippet／HTTP 嚴格／**全案收尾速查**末行；等同含 `gatea:evidence:decision-sync`，與 `gatea:evidence:decision-mini` 四行 stdout 一致）。
 > `gatea:evidence:all` 會先執行 `gatea:evidence:doctor --write`，再以單一批次指令更新證據索引、Daily Log、2week tracker、kickoff checklist 的 Gate A 自動引用區（等同 `npm run gatea:evidence:docs-sync`；亦即個別之 `gatea:evidence:index-sync`／`daily-sync`／`tracker-sync`／`kickoff-sync`）；區塊內含 **HTTP 嚴格取證** ON／OFF（與 `preflight`／`summary` 同源）。如此 tracker／kickoff 內的 **doctor report** 會對應本次剛落檔的報告。
 > `gatea:evidence:all` 會先產生單檔收斂快照：`docs/evidence/gate-a-report-*.md`（等同 `npm run gatea:evidence:report`），再同步四份文件，確保引用到當次最新 report。
-> `gatea:evidence:all` 亦會更新固定入口：`docs/evidence/gate-a-latest.md`（**Next Command** 與 **`preflight:strict`** 並列；等同 `npm run gatea:evidence:latest`）。
+> `gatea:evidence:all` 亦會更新固定入口：`docs/evidence/gate-a-latest.md`（**Next Command** 與 **`preflight:strict`** 並列；等同 `npm run gatea:evidence:latest`；檔尾 blockquote 由 **`gateALatestMarkdownFooterLines`** 產出，共四行，見 **`scripts/gate-a-markdown-footer.mjs`** 檔首 **Export 契約**）。
 > `gatea:evidence:doctor --write` 本身不計入 exit code（整體成敗仍以上方 auto/http 等步驟為準）；終端仍會列出缺口清單與 `[saved]` 路徑。
 
 產生 Evidence Index 可貼片段：
@@ -159,7 +159,7 @@ npm run gatea:evidence:doctor -- --write
 npm run gatea:evidence:latest
 ```
 
-> `latest`（`gate-a-update-latest-pointer.mjs`）stdout 在 **`[updated]`** 列之後附 **全案收尾**／**§5** 兩行 blockquote（寫入 **`gate-a-latest.md`** 之頁尾仍為檔內三行固定入口＋上列兩行，與終端 stdout 略異）。
+> `latest`（`gate-a-update-latest-pointer.mjs`）stdout 在 **`[updated]`** 列之後附 **全案收尾**／**§5** 兩行 blockquote；寫入 **`gate-a-latest.md`** 之頁尾則為 **`gateALatestMarkdownFooterLines`** 之四行 blockquote（固定入口＋上列兩行＋**stdout 頁尾**一行，見 **`scripts/gate-a-markdown-footer.mjs`** **Export 契約**），與終端 stdout 略異。
 
 僅同步證據索引／日誌／追蹤板／啟動清單（與 `gatea:evidence:all` 內同一批次；建議先跑一次 `doctor --write` 再執行）：
 

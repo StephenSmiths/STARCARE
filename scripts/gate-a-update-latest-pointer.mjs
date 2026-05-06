@@ -1,3 +1,7 @@
+/**
+ * 產出 `docs/evidence/gate-a-latest.md`；檔尾 blockquote 列由 **`gateALatestMarkdownFooterLines`**（四行）寫入。
+ * 本腳本之終端 stdout 僅附 **`gateAStandardCloseoutBlockquotes`** 兩行（與檔內頁尾列數不同；見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** **`latest`** 段）。
+ */
 import { writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
