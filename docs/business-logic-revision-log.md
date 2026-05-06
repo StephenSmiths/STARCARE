@@ -68,3 +68,4 @@
 | 2026-06-28 | §0 對照：**`gate-a-evidence-fill-template`**／**`gate-a-manual-evidence-checklist`** 之 **`gate-a-latest`** 括註與 **`pdf-sequenced-gap-checklist-revision-log.md`** **2026-06-28** 列一致。 |
 | 2026-06-29 | 本檔開首 **全案收尾與證據留痕** 句之歸檔副檔鏈補 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-p4.md`**（與 **`pdf-sequenced-gap-checklist-revision-log.md`** **2026-06-29** 列、**`README.md`**「專案收尾」表、**`.cursorrules`** §3 等一致）。 |
 | 2026-06-30 | §0 對照：**`feature-list.md`** 頁尾「**文件產生**」序號主檔括註補 **`pdf-sequenced-gap-checklist-revision-log`** 歸檔全鏈（**`2026-05-01a`**／**`archive-p2`**／**`archive-p3`**／**`archive-p4`**）；**`pdf-sequenced-gap-checklist-revision-log.md`** **2026-06-30** 列一致。 |
+| 2026-07-01 | §0 對照：**`go-live-checklist.md`** 開首 **對照** 句補修訂日誌主／歸檔鏈指 **`README.md`**「專案收尾」表；**`pdf-sequenced-gap-checklist-revision-log.md`** **2026-07-01** 列一致。 |
