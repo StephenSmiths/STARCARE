@@ -1,6 +1,6 @@
 # STARCARE 收尾驗收證據索引（2026-05）
 
-> **對照（運維鏈）**：**`docs/business-logic.md`** §0；序號主檔 **`docs/pdf-sequenced-gap-checklist.md`**「**運維與工程**」列；上線 **`docs/go-live-checklist.md`**。  
+> **對照（運維鏈）**：**`docs/business-logic.md`** §0；序號主檔 **`docs/pdf-sequenced-gap-checklist.md`**「**運維與工程**」列；**`pdf-sequenced-gap-checklist-revision-log`** 主檔與歸檔（**`2026-05-01a`**／**`archive-p2`**／**`archive-p3`**／**`archive-p4`**）路徑見 **`README.md`**「專案收尾」文件表；上線 **`docs/go-live-checklist.md`**。  
 > **全案收尾母索引**：**`README.md`**「專案收尾」；Gate A **`docs/evidence/gate-a-latest.md`**（檔內 **Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／**`npm run gatea:evidence:preflight:strict`**）。  
 > 對照：`docs/project-completion-audit-2026-05-05.md`、`docs/project-completion-kickoff-checklist-2026-05.md`、`docs/project-completion-2week-tracker-2026-05-05.md`、`docs/project-completion-daily-log-2026-05.md`、`docs/go-live-checklist.md`
 

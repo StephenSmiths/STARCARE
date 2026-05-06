@@ -1,6 +1,6 @@
 # STARCARE 兩週收尾計畫（2026-05-05）
 
-> **對照**：盤點 **`docs/project-completion-audit-2026-05-05.md`**；進度板 **`docs/project-completion-2week-tracker-2026-05-05.md`**；運維總覽 **`docs/business-logic.md`** §0；序號主檔 **`docs/pdf-sequenced-gap-checklist.md`**「**運維與工程**」列。  
+> **對照**：盤點 **`docs/project-completion-audit-2026-05-05.md`**；進度板 **`docs/project-completion-2week-tracker-2026-05-05.md`**；運維總覽 **`docs/business-logic.md`** §0；序號主檔 **`docs/pdf-sequenced-gap-checklist.md`**「**運維與工程**」列；**`pdf-sequenced-gap-checklist-revision-log`** 主檔與歸檔（**`2026-05-01a`**／**`archive-p2`**／**`archive-p3`**／**`archive-p4`**）路徑見 **`README.md`**「專案收尾」文件表。  
 > **全案收尾母索引**：**`README.md`**「專案收尾」；啟動清單 **`docs/project-completion-kickoff-checklist-2026-05.md`**；Gate A 自動證據固定入口 **`docs/evidence/gate-a-latest.md`**（檔內 **Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／**`npm run gatea:evidence:preflight:strict`**）。  
 > 依據：`docs/project-completion-audit-2026-05-05.md`。  
 > 目標：在 10 個工作天內完成「可上線宣告」所需的閉環驗收、權限/RLS抽測、缺陷收斂與簽核。
