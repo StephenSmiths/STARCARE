@@ -1,3 +1,4 @@
+import { gateAStandardCloseoutBlockquotes } from './gate-a-markdown-footer.mjs'
 import { computeGateAReadyState, recommendNextCommand } from './gate-a-ready-core.mjs'
 
 const s = computeGateAReadyState()
@@ -25,5 +26,8 @@ if (s.ready) {
   lines.push(`- doctor 完成度：${s.doctorTotal > 0 ? `${s.doctorDone}/${s.doctorTotal}` : '未找到 doctor'}`)
   lines.push('- 補人工截圖後再檢查：`npm run gatea:evidence:ready -- --strict`')
 }
+
+lines.push(``)
+lines.push(...gateAStandardCloseoutBlockquotes())
 
 process.stdout.write(`${lines.join('\n')}\n`)

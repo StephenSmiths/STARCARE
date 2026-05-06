@@ -1,3 +1,4 @@
+import { gateAStandardCloseoutBlockquotes } from './gate-a-markdown-footer.mjs'
 import { computeGateAReadyState } from './gate-a-ready-core.mjs'
 
 const s = computeGateAReadyState()
@@ -17,6 +18,8 @@ if (!s.ready) {
     'hint: run `npm run gatea:evidence:all` and complete manual screenshots per checklist.\n',
   )
 }
+
+process.stdout.write(['', ...gateAStandardCloseoutBlockquotes()].join('\n') + '\n')
 
 if (strict && !s.ready) {
   process.exitCode = 1
