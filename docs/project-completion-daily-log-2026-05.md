@@ -77,6 +77,8 @@
 - SQL：`audit_events_entity_type_check` 已更新含 `Auth`（Supabase SQL Editor）；`npm run db:push` 已將 `20260505160000` 正式寫入遠端 migration 歷史
 - 截圖/文件：Supabase Functions 清單含 `admin-user-role-set`、`#user-role-admin` 成功操作與審計列；**Gate A 自動證據最新路徑**見 `docs/evidence/gate-a-latest.md`（Day 2 當日曾留存 `gate-a-auto-evidence-2026-05-06-152954.md`，僅供歷史對照）
 
+> 下列「Gate A」清單由 `npm run gatea:evidence:docs-sync`／`refresh` 覆寫；與上文「證據連結」並讀時以 `docs/evidence/gate-a-latest.md` 為單一入口。
+
 <!-- gatea-daily-auto-ref:start -->
 - Gate A 可否判定：`NOT_READY`
 - Gate A HTTP 嚴格取證：OFF

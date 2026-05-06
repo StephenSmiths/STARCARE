@@ -15,7 +15,7 @@
 | 日期 | Day | 模組/主題 | 對照條款 | PR/Commit | CI/Artifact | SQL 證據 | 截圖/文件 | Owner | 備註 |
 |---|---|---|---|---|---|---|---|---|---|
 | 2026-05-05 | D1 | 驗收範圍與版本基線 | Plan D1 |  |  |  |  | TL |  |
-| 2026-05-06 | D2 | Auth / RLS 初檢 | go-live §1 | `3f1652d` / `d970f84` | 本機 typecheck/lint/vitest 通過；`ops:verify` 成功（2026-05-06 13:45 BST）；自動證據：`docs/evidence/gate-a-auto-evidence-2026-05-06-152954.md` | `user_roles` SQL（待補截圖） | 管理員登入＋`#user-role-admin` 操作截圖（已留存）；401 文字證據：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-06-143013.7.txt` | FE/BE | `admin-user-role-set` 已部署至 `qrrreijvihiypgpagnln`；functions 清單顯示 ACTIVE、`admin-user-role-set` v2；sandbox 內 `test:e2e:auth` Chromium SIGSEGV，需本機補測 |
+| 2026-05-06 | D2 | Auth / RLS 初檢 | go-live §1 | `3f1652d` / `d970f84` | 本機 typecheck/lint/vitest 通過；`ops:verify` 成功（2026-05-06 13:45 BST）；自動證據現況見 `docs/evidence/gate-a-latest.md`（當日首次快照檔名曾為 `gate-a-auto-evidence-2026-05-06-152954.md`） | `user_roles` SQL（待補截圖） | 管理員登入＋`#user-role-admin` 操作截圖（已留存）；401 文字證據現況見 `docs/evidence/gate-a-latest.md` 與下方「Gate A 自動引用」（當日曾留存 `gate-a-d2-401-admin-user-role-set-2026-05-06-143013.7.txt`） | FE/BE | `admin-user-role-set` 已部署至 `qrrreijvihiypgpagnln`；functions 清單顯示 ACTIVE、`admin-user-role-set` v2；sandbox 內 `test:e2e:auth` Chromium SIGSEGV，需本機補測 |
 | 2026-05-07 | D3 | 排班閉環 | go-live §3 | `d970f84` | `ops:verify` 成功（環境一致） | `scheduling_history` SQL（待補截圖） | 排班儲存成功提示截圖（待補） | FE/BE/QA | 待補一次當日最新批次 `batch_id` 與 `actor_id` 對照 |
 | 2026-05-08 | D4 | 審計抽測（RES-06） | go-live §8 | `3f1652d` / `d970f84` | `npm run db:push`、`npm run ops:verify`（2026-05-06） | `audit_events` 約束修正 SQL（含 `Auth`）與 migration `20260505160000` 已落遠端 | `USER_RBAC_ROLE_SET` 審計列出現在角色頁審計區截圖 | FE/BE | staff/teamlead/admin 可見性差異抽測仍待補齊 |
 | 2026-05-09 | D5 | Gate A 結論 | Gate A |  |  |  |  | TL/QA |  |
@@ -25,7 +25,7 @@
 | 2026-05-15 | D9 | 部署/回滾/憑證 | go-live §2/§6 |  |  |  |  | OPS/BE |  |
 | 2026-05-16 | D10 | 最終簽核 | Gate C |  |  |  |  | TL/QA/業務 |  |
 
-> **Gate A 證據檔名**：上表 2026-05-06 列內之 `152954`／`143013.7` 等為當日一次留存檔名；**現況**以 `docs/evidence/gate-a-latest.md` 及本文件下方「Gate A 自動引用」區塊（腳本同步）為準。
+> **Gate A 證據檔名**：上表 2026-05-06 列括號內之歷史檔名僅供追溯；**現況**以 `docs/evidence/gate-a-latest.md` 及本文件下方「Gate A 自動引用」區塊（`docs-sync`／`refresh` 覆寫）為準。
 
 > 2026-05-06 取證助手：  
 > - 速跑步驟：`docs/gate-a-evidence-capture-2026-05-06.md`  
@@ -35,6 +35,8 @@
 ## Gate A 待填檔名（完成後刪除本段）
 
 ### Gate A 自動引用（由腳本同步）
+
+> 下列清單由 `npm run gatea:evidence:docs-sync`／`refresh` 覆寫；路徑彙總以 `docs/evidence/gate-a-latest.md` 為準。
 
 <!-- gatea-auto-ref:start -->
 - 可否判定：`NOT_READY`（規則：scripts/gate-a-ready-core.mjs）
