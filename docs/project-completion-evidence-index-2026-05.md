@@ -41,12 +41,12 @@
 <!-- gatea-auto-ref:start -->
 - 可否判定：`NOT_READY`（規則：scripts/gate-a-ready-core.mjs）
 - HTTP 嚴格取證：OFF（`--strict-http`／`GATEA_STRICT_HTTP`）
-- auto evidence：`docs/evidence/gate-a-auto-evidence-2026-05-06-165413.md`
-- 401 text：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-06-155438.8.txt`
+- auto evidence：`docs/evidence/gate-a-auto-evidence-2026-05-06-204753.md`
+- 401 text：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-06-194814.5.txt`
 - 403 text：`<待補 403 text>`
-- decision ref：`docs/evidence/gate-a-decision-ref-20260506-155439.md`
-- fill snippet：`docs/evidence/gate-a-fill-snippet-20260506-155439.md`
-- report：`docs/evidence/gate-a-report-20260506-155439.md`
+- decision ref：`docs/evidence/gate-a-decision-ref-20260506-194815.md`
+- fill snippet：`docs/evidence/gate-a-fill-snippet-20260506-194814.md`
+- report：`docs/evidence/gate-a-report-20260506-194815.md`
 <!-- gatea-auto-ref:end -->
 
 - D2（§1）：

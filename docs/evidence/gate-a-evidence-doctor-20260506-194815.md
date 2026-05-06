@@ -1,5 +1,6 @@
 # Gate A Evidence Doctor
 
+- HTTP 嚴格取證（執行當下合併環境）：OFF
 - 完成度：1 / 12
 - 缺口數：11
 
@@ -18,6 +19,6 @@
 - [ ] D4 RLS admin 截圖
 
 ## 建議下一步
-- 先補 403：`npm run gatea:evidence:http:auth`（或帶 token 跑 `gatea:evidence:http`）
+- 先補 403：`npm run gatea:evidence:http:auth`（需 `.env` 之 GATEA_STAFF_EMAIL／PASSWORD）；或於 `.env` 設 GATEA_STAFF_ACCESS_TOKEN 後跑 `gatea:evidence:http`
 - 跑一次總同步：`npm run gatea:evidence:all`
 - 補人工截圖後再跑：`npm run gatea:evidence:doctor`
