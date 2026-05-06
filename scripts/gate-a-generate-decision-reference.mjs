@@ -1,6 +1,7 @@
 import { readdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
+import { gateAStandardCloseoutBlockquotes } from './gate-a-markdown-footer.mjs'
 import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
 
 const dir = resolve(process.cwd(), 'docs/evidence')
@@ -31,6 +32,8 @@ lines.push(`- 401 證據：${e401 ? `\`docs/evidence/${e401}\`` : '`<待補 401 
 lines.push(`- 403 證據：${e403 ? `\`docs/evidence/${e403}\`` : '`<待補 403 證據>`'}`)
 lines.push('')
 lines.push('> 若 403 顯示待補，請先執行 `npm run gatea:evidence:http:auth` 或帶 token 執行 `npm run gatea:evidence:http`。')
+lines.push('')
+lines.push(...gateAStandardCloseoutBlockquotes())
 
 const output = `${lines.join('\n')}\n`
 const shouldWrite = process.argv.includes('--write')

@@ -1,6 +1,7 @@
 import { readdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
+import { gateAStandardCloseoutBlockquotes } from './gate-a-markdown-footer.mjs'
 import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
 
 const evidenceDir = resolve(process.cwd(), 'docs/evidence')
@@ -62,6 +63,9 @@ if (missing.length > 0) {
   lines.push('- 跑一次總同步：`npm run gatea:evidence:all`')
   lines.push('- 補人工截圖後再跑：`npm run gatea:evidence:doctor`')
 }
+
+lines.push('')
+lines.push(...gateAStandardCloseoutBlockquotes())
 
 const output = `${lines.join('\n')}\n`
 const shouldWrite = process.argv.includes('--write')

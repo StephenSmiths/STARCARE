@@ -2,6 +2,8 @@ import { execSync } from 'node:child_process'
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
+import { gateAStandardCloseoutBlockquotes } from './gate-a-markdown-footer.mjs'
+
 const run = (cmd) => execSync(cmd, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim()
 
 const now = new Date()
@@ -38,6 +40,8 @@ ${functionsList}
 \`\`\`
 
 > 本檔由 \`scripts/gate-a-auto-evidence.mjs\` 產生；搭配 \`docs/gate-a-evidence-capture-2026-05-06.md\` 手動補齊截圖證據。
+
+${gateAStandardCloseoutBlockquotes().join('\n')}
 `
 
 const outPath = resolve(outDir, `gate-a-auto-evidence-${ymd}-${hms}.md`)

@@ -1,6 +1,7 @@
 import { readdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
+import { gateAStandardCloseoutBlockquotes } from './gate-a-markdown-footer.mjs'
 import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
 
 const dir = resolve(process.cwd(), 'docs/evidence')
@@ -39,6 +40,8 @@ lines.push('  - `<gateA-d4-rls-teamlead-2026-05-06.png>`')
 lines.push('  - `<gateA-d4-rls-admin-2026-05-06.png>`')
 lines.push('')
 lines.push('> 其餘人工證據請依 docs/gate-a-manual-evidence-checklist-2026-05-06.md 補齊。')
+lines.push('')
+lines.push(...gateAStandardCloseoutBlockquotes())
 
 const output = `${lines.join('\n')}\n`
 const shouldWrite = process.argv.includes('--write')

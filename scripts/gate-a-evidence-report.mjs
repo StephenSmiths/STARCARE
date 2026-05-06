@@ -1,6 +1,7 @@
 import { writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
+import { gateAStandardCloseoutBlockquotes } from './gate-a-markdown-footer.mjs'
 import { computeGateAReadyState } from './gate-a-ready-core.mjs'
 
 const strictHttpLbl = gateAStrictHttpEnabled(process.argv, buildSpawnBaseEnv()) ? 'ON' : 'OFF'
@@ -34,6 +35,8 @@ lines.push('- `docs/project-completion-evidence-index-2026-05.md`')
 lines.push('- `docs/project-completion-daily-log-2026-05.md`')
 lines.push('- `docs/project-completion-2week-tracker-2026-05-05.md`')
 lines.push('- `docs/project-completion-kickoff-checklist-2026-05.md`')
+lines.push('')
+lines.push(...gateAStandardCloseoutBlockquotes())
 
 const output = `${lines.join('\n')}\n`
 const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\..+$/, '').replace('T', '-')
