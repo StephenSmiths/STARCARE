@@ -3,18 +3,18 @@ access-control-allow-headers: authorization, x-client-info, apikey
 access-control-allow-origin: *
 alt-svc: h3=":443"; ma=86400
 cf-cache-status: DYNAMIC
-cf-ray: 9f7a8057c829005f-LHR
+cf-ray: 9f7aabdf1996c765-LHR
 connection: keep-alive
 content-encoding: gzip
 content-length: 94
 content-type: application/json
-date: Wed, 06 May 2026 19:48:14 GMT
+date: Wed, 06 May 2026 20:17:57 GMT
 sb-error-code: UNAUTHORIZED_NO_AUTH_HEADER
 sb-gateway-version: 1
 sb-project-ref: qrrreijvihiypgpagnln
-sb-request-id: 019dfed5-72e6-7ecc-956d-bc9248e8a366
+sb-request-id: 019dfef0-a779-7fee-a913-6a38fce2c1dc
 server: cloudflare
-set-cookie: __cf_bm=.7PRc649lxygT.AS_qu4f6pwVP2zqvPU9KJhuzNSfQo-1778096894.6878967-1.0.1.1-jYEDZOIKbLGznzIEgjgJrSPc4cHo__t5FjjhUfun56gogiN8snWhXrYLDHVxilYozUpaJcxM78D3GzMq22e9h3QO9Vr49i74E8jaxKzjYfUor2pnwV.SU7.NRK.gQZF2; HttpOnly; Secure; Path=/; Domain=supabase.co; Expires=Wed, 06 May 2026 20:18:14 GMT
+set-cookie: __cf_bm=Bha0gvgMPDQQ9AlxYM1rZfMtuK4uA2VQQtUjM.9shuY-1778098677.6200237-1.0.1.1-sIPuJV3fBXIqtgJIpQa1nymheczy90gAXsSgfbqXqa30SFGF5ihpPZdpJjhMc_hwCbd07t3opDB1n_54XD_pzsL38byuIlXxbHxdxuSXqS1WCZ2BI9enXhVYhuYnlkGr; HttpOnly; Secure; Path=/; Domain=supabase.co; Expires=Wed, 06 May 2026 20:47:57 GMT
 strict-transport-security: max-age=31536000; includeSubDomains; preload
 vary: Accept-Encoding
 x-sb-edge-region: eu-west-2

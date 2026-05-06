@@ -1,6 +1,6 @@
 # `pdf-sequenced-gap-checklist` 修訂／日誌（重出）
 
-> **對照**：主檔 **`docs/pdf-sequenced-gap-checklist.md`**（Seq 1–38、**「運維與工程」**列與 §A–C 主表）；為遵守專案單檔 **≤200** 行，原主檔末尾修訂表移出至本檔。**2026-05-01a**、**`archive-p2`** 歸檔檔見 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**。新增修訂列請寫入下表；維護閉環見 **`docs/pdf03-cursorrules-alignment.md`** §4。
+> **對照**：主檔 **`docs/pdf-sequenced-gap-checklist.md`**（Seq 1–38、**「運維與工程」**列與 §A–C 主表）；為遵守專案單檔 **≤200** 行，原主檔末尾修訂表移出至本檔。**2026-05-01a**、**`archive-p2`**、**`archive-p3`** 歸檔檔見 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p3.md`**。新增修訂列請寫入下表；維護閉環見 **`docs/pdf03-cursorrules-alignment.md`** §4。
 
 ---
 
@@ -8,29 +8,7 @@
 
 | 日期 | 說明 |
 |------|------|
-| 註 | **2026-05-01a**：同日最早列見 **`pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**。**Archive p2**：**2026-05-01**～**05-02** 中段（原列 12–50）見 **`pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**；以下續列。 |
-| 2026-05-02 | 更新 Seq 1／3：同上 E2E 補 **退回重改** 路徑之自審阻擋（`rejectServiceFormRevision` 與核准同規則）。 |
-| 2026-05-02 | 更新 Seq 3／5：抽 **`e2e/service-forms-readonly.spec.ts`**（唯讀檢視）；**本人 SUBMITTED 軟刪除** E2E（`service-forms-state`）。 |
-| 2026-05-02 | 更新 Seq 3：**`e2e/auth-login.spec.ts`** 於可選登入通過時另驗 **`/#service-forms`**（模組標題與審計區）；`feature-list` §8、`go-live-checklist` §1.1 同步。 |
-| 2026-05-02 | 更新 Seq 3：**`auth-login`** 之 **`/#service-forms`** 案例補 **Staff／待審** 標題可見與排除 **`無法載入時段或院友資料`**（真庫工作區載入）。 |
-| 2026-05-02 | 更新 Seq 3：抽 **`e2e/helpers/authLogin.ts`**（可選登入憑證＋`loginWithE2ECredentials`）；`.env.example` 補 **`starcare_staff_profile_id`** 與 E2E 關係說明。 |
-| 2026-05-02 | 更新 Seq 3／16：**`e2e/auth-login.spec.ts`** 增 **`/#work-session-plans`** 可選登入載入斷言（對齊 **`useWorkSessionPlans`** 時段來源）。 |
-| 2026-05-02 | 更新 Seq 3／25：**`e2e/auth-login.spec.ts`** 增 **`/#residents`** 可選登入載入斷言（**院友資料概覽**、審計區標題）。 |
-| 2026-05-02 | 更新 Seq 25／3：**`useResidents`** 名單 **`refresh`** 補 try/catch 與固定錯誤句；**`auth-login`** **`/#residents`** 斷言排除該句。 |
-| 2026-05-02 | 更新 Seq 25：抽 **`residentListRefreshOutcome`**（`runResidentListRefresh`＋**`RESIDENT_LIST_LOAD_ERROR_MESSAGE`**）與 **`residentListRefreshOutcome.test.ts`**；**`useResidents`**／**`auth-login`** 共用常數。 |
-| 2026-05-02 | 更新 Seq 3／15：**`schedulingDataLoadMessage`**；**`e2e/auth-login`** 增 **`/#scheduling`** 可選登入斷言。 |
-| 2026-05-02 | 更新 Seq 15：抽 **`schedulingReloadPageData`**（`runSchedulingReloadPageData`＋測試）以收斂 **`useScheduling`** 行數。 |
-| 2026-05-02 | 更新 Seq 3／23／27：**`e2e/auth-login`** 增 **`/#notification-center`**、**`/#historical-documents`** 可選登入斷言；`feature-list` §8、`go-live-checklist` §1.1 同步。 |
-| 2026-05-02 | 更新 Seq 3／18／19／21／22／28：**`e2e/auth-login`** 增 **開工／收工交更**、**復康追蹤**、**評估管理**、**用戶手冊** hash；註記預設 Staff 與 **`playwright.auth.config`** 範圍。 |
-| 2026-05-02 | 更新 Seq 3／37：可選登入拆 **`e2e/auth-login.staff-modules.spec.ts`**；**`playwright.auth.config`**／**`playwright.config`** 改 **`auth-login*.spec.ts`**；`feature-list` §8、`go-live-checklist` §1.1 同步。 |
-| 2026-05-02 | 更新 Seq 13／母本 P0：`staff-profiles-list` Edge、**`staffProfilesListRepository`**、**`StaffOverviewRow.roleType`**；**`rehabDisciplineFamilyFromStaff`** 優先 `role_type`；**`ops:deploy:all`** 納入 deploy；`pdf-alignment-p0-backlog` changelog；主清單「相關檔」連結 P0 backlog。 |
-| 2026-05-02 | 更新 Seq 26：`staffOverviewExportCsv` 匯出增 **職類** 欄（`role_type`）；`StaffOverviewPanel` 說明同步。 |
-| 2026-05-02 | 更新 Seq 25：`residentsExportCsv` 匯出增機讀代碼末三欄（對齊批量匯入範本）；`ResidentsDashboard` 說明、`feature-list` RES-04 備註同步。 |
-| 2026-05-02 | 更新 Seq 14／26：`WorkPlanComposerPanel` 員工選單顯示 **role_type**；`StaffOverviewPanel` 表格增 **職類** 欄。 |
-| 2026-05-02 | 更新 Seq 26：`staff-profile-update` Edge、**`guardTeamLeadOrAdmin`**、**`staffProfileUpdateRepository`**、**`StaffProfileEditSheet`**；**`staff-profiles-list`** 回傳 **service_scope**；**`StaffOverviewRow.serviceScope`**；**`useStaffManagementOverview.reload`**。 |
-| 2026-05-02 | 更新 Seq 1／26：**`staff-import-validate`**、**`staff-import-commit`**、**`staff-soft-delete`** 改 **`guardTeamLeadOrAdmin`**（Staff JWT 一律 403）；**`StaffOverviewPanel`** 無 `view:staff-import` 時操作欄顯示「—」；**`rbac-seq1-verification-checklist`** 增 4b。 |
-| 2026-05-02 | 更新 Seq 1／25／15：**`residents-create`**／**update**／**soft-delete**、**`residents-import-validate`**／**commit**、**`activity-sessions-import-validate`**／**commit**、**`activity-sessions-soft-delete`** 改 **`guardTeamLeadOrAdmin`**；**`rbac-seq1-verification-checklist`** 增 4c。 |
-| 2026-05-02 | 更新 Seq 1／25／15：前端 **`ResidentsDashboard`**（**`ResidentsAdminWriteSections`**、`ResidentsListPanel`）、**`ActivitySessionImportPanel`**／**`ActivitySessionListPanel`** 依 **`view:residents`**／**`view:activity-sessions-import`** 隱藏寫入 UI，與 Edge 403 一致。 |
+| 註 | **2026-05-01a**：同日最早列見 **`pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**。**Archive p2**：**2026-05-01**～**05-02** 中段（再拆分前原列 12–50）見 **`pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**。**Archive p3**：**2026-05-02**（E2E **`auth-login`** 模組覆蓋、院友／排程載入、**`staff-profiles-list`** 與 Seq 1／25／15 RBAC；原主日誌列 12–33）見 **`pdf-sequenced-gap-checklist-revision-log-archive-p3.md`**；以下續列。 |
 | 2026-05-02 | 更新 Seq 13／29：**`rehabDisciplineFamilyFromStaff`** 移除顯示名推斷（無 `role_type` 歸其他）；**`schedulingCore.pickSession`** 於 **`allowScTherapistOnly`** 時擋 SC→PTA／OTA／TeamLead（有 **`staffRoleType`** 時）；**`schedulingConfigService.listSchedulingSessions`** 併 **`staff-profiles-list`**；**`buildEngineConstraintsFromRulesAndUi`** 合併 **`scheduling_rules`** 與本機 **SC 僅治療師**；種子時段補 **`staffRoleType`**。 |
 | 2026-05-02 | 更新 Seq 29：**`systemSettingsExternalStore`**（bump＋`storage`）與 **`saveSystemSettings`** 聯動；**`useRehabActivityTracking`** 以 **`useSyncExternalStore`** 訂閱，使乾跑約束於儲存設定或他分頁變更後重算。 |
 | 2026-05-02 | 更新 Seq 15／29：**`schedulingConfigService.listSchedulingSessions`** 對 **`staff-profiles-list`** **`.catch(() => [])`**，主檔失敗時仍載入活動時段（略過 **`staffRoleType`**）。 |
@@ -216,3 +194,4 @@
 | 2026-06-22 | **`README.md`** Gate A 長句、**`.github/workflows/ci.yml`** 文件入口註解、**`gate-a-manual-evidence-checklist`** 開頭：補 **`npm run gatea:evidence:preflight:strict`** 與取證前診斷互鏈。 |
 | 2026-06-23 | **`business-logic.md`** §0、**`go-live-checklist.md`**（開首 **對照** 與全案收尾句、**§0.1**）、**`feature-list.md`**（開首與 §8 第 25 點）、**`pdf03-cursorrules-alignment.md`**、**`gate-a-evidence-fill-template`**、**`business-logic-revision-log.md`** 開首對照：Gate A 鏈補 **`npm run gatea:evidence:preflight:strict`**。 |
 | 2026-06-24 | **`pdf-sequenced-gap-checklist.md`** 開首全案收尾段 Gate A 補 **`list`**／**`refresh`**／**`preflight:strict`**；**`docs/seq*-*.md`**、**`phase*.md`**、**`stage*.md`**、**`project-completion-*`**、runbook／合約／backlog 等開首對照與 **`.cursorrules`** §3 Gate A 括註批次對齊；**`feature-list.md`** 頁尾「文件產生」補 **`preflight:strict`**；**`business-logic-revision-log.md`** 一筆。 |
+| 2026-06-25 | **Archive p3**：主日誌原列 **12–33** 移出至 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-p3.md`**（主檔 ≤200 行）；**`README.md`**「專案收尾」表、**`.cursorrules`** §3、**`.github/workflows/ci.yml`**、**`feature-list.md`**、**`pdf03-cursorrules-alignment.md`**、**`pdf-sequenced-gap-checklist.md`**、**`business-logic-revision-log.md`** 及多份 traceability／合約開首 **全案收尾** 句之歸檔副檔鏈補 **`archive-p3`**；**`pdf-sequenced-gap-checklist-revision-log-archive-p2.md`** 開首對照補 **p3** 互鏈。 |
