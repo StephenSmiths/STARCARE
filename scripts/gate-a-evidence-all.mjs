@@ -2,15 +2,7 @@ import { spawnSync } from 'node:child_process'
 import { existsSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
-const run = (label, cmd, args, extraEnv = {}) => {
-  process.stdout.write(`\n== ${label} ==\n`)
-  const out = spawnSync(cmd, args, {
-    stdio: 'inherit',
-    env: { ...process.env, ...extraEnv },
-  })
-  return out.status ?? 1
-}
-
+/** 讓子程序能讀到僅存在於 `.env` 的變數（如 VITE_*）；仍以目前 shell／CI 的 `process.env` 為準。 */
 const readDotenv = () => {
   const path = resolve(process.cwd(), '.env')
   if (!existsSync(path)) return {}
@@ -28,12 +20,23 @@ const readDotenv = () => {
   return out
 }
 
-let failed = false
 const dotenv = readDotenv()
+const baseEnv = { ...dotenv, ...process.env }
+
+const run = (label, cmd, args, extraEnv = {}) => {
+  process.stdout.write(`\n== ${label} ==\n`)
+  const out = spawnSync(cmd, args, {
+    stdio: 'inherit',
+    env: { ...baseEnv, ...extraEnv },
+  })
+  return out.status ?? 1
+}
+
+let failed = false
 const mergedEnv = {
-  GATEA_STAFF_EMAIL: process.env.GATEA_STAFF_EMAIL || dotenv.GATEA_STAFF_EMAIL || '',
-  GATEA_STAFF_PASSWORD: process.env.GATEA_STAFF_PASSWORD || dotenv.GATEA_STAFF_PASSWORD || '',
-  GATEA_STAFF_ACCESS_TOKEN: process.env.GATEA_STAFF_ACCESS_TOKEN || dotenv.GATEA_STAFF_ACCESS_TOKEN || '',
+  GATEA_STAFF_EMAIL: baseEnv.GATEA_STAFF_EMAIL || '',
+  GATEA_STAFF_PASSWORD: baseEnv.GATEA_STAFF_PASSWORD || '',
+  GATEA_STAFF_ACCESS_TOKEN: baseEnv.GATEA_STAFF_ACCESS_TOKEN || '',
 }
 
 if (run('auto evidence', 'node', ['scripts/gate-a-auto-evidence.mjs']) !== 0) {
@@ -46,12 +49,14 @@ if (hasStaffCreds) {
     failed = true
   }
 } else {
-  if (run('http evidence (401 only)', 'node', ['scripts/gate-a-http-evidence.mjs'], mergedEnv) !== 0) {
+  if (run('http evidence（401／有 token 則另有 403）', 'node', ['scripts/gate-a-http-evidence.mjs'], mergedEnv) !== 0) {
     failed = true
   }
-  process.stdout.write(
-    '\n[hint] 未設定 GATEA_STAFF_EMAIL / GATEA_STAFF_PASSWORD（含 .env），已略過 403 自動取證。\n',
-  )
+  if (!mergedEnv.GATEA_STAFF_ACCESS_TOKEN) {
+    process.stdout.write(
+      '\n[hint] 未取得 staff JWT：請在 `.env` 設定 GATEA_STAFF_EMAIL／PASSWORD（將自動換取 token），或直接設定 GATEA_STAFF_ACCESS_TOKEN；否則僅會產生 401 文字證據。\n',
+    )
+  }
 }
 
 if (run('evidence summary', 'node', ['scripts/gate-a-evidence-summary.mjs']) !== 0) {
