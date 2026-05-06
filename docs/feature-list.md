@@ -138,6 +138,7 @@
 22. **失敗可觀測性**：`perf:bundle:ci` 先生成 `bundle-diff`／`bundle-history` 再執行 delta gate，確保失敗時仍有排查工件。  
 23. **CI 內建摘要**：`perf:bundle:ci:summary` 會產生 `bundle-ci-summary.md`，包含 Top chunk 變化；CI 直接顯示於 Step Summary 並上傳 artifact。  
 24. **全案收尾盤點與兩週執行**：入口見 **`README.md`**「專案收尾」小節；細部為 **`docs/project-completion-audit-2026-05-05.md`**（完成率）、**`docs/project-completion-2week-plan-2026-05-05.md`**（日程與 Gate）、**`docs/project-completion-2week-tracker-2026-05-05.md`**（追蹤與指令）、**`docs/project-completion-daily-log-2026-05.md`**（日誌）、**`docs/project-completion-evidence-index-2026-05.md`**（證據索引）；首次啟動見 **`docs/project-completion-kickoff-checklist-2026-05.md`**；與 **`docs/go-live-checklist.md`** 併用；序號主檔修訂留痕見 **`docs/pdf-sequenced-gap-checklist-revision-log.md`**，歸檔副檔見 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**。  
+25. **Gate A 取證自動化**：證據固定入口 **`docs/evidence/gate-a-latest.md`**（檔名隨取證變更）；指令總表 **`npm run gatea:evidence:list`**；收證後一鍵 **`npm run gatea:evidence:refresh`**；手順 **`docs/gate-a-evidence-capture-2026-05-06.md`**、狀態板 **`docs/gate-a-status-2026-05-06.md`**，與 **`docs/go-live-checklist.md`** 開首 Gate A 小節併讀。  
 
 ---
 
