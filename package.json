@@ -56,6 +56,7 @@
     "gatea:evidence:kickoff-sync": "node scripts/gate-a-sync-kickoff-checklist.mjs",
     "gatea:evidence:docs-sync": "node scripts/gate-a-sync-all-markdown.mjs",
     "gatea:evidence:doctor": "node scripts/gate-a-evidence-doctor.mjs",
+    "gatea:evidence:prune": "node scripts/gate-a-evidence-prune.mjs",
     "gatea:evidence:ready": "node scripts/gate-a-evidence-ready.mjs",
     "gatea:evidence:gate": "node scripts/gate-a-evidence-gate.mjs",
     "gatea:evidence:report": "node scripts/gate-a-evidence-report.mjs",

@@ -181,3 +181,10 @@ npm run gatea:evidence:latest
 ```bash
 npm run gatea:evidence:docs-sync
 ```
+
+清理 `docs/evidence` 內舊的自動快照（預設 dry-run，實際刪除需 `--apply`）：
+
+```bash
+npm run gatea:evidence:prune
+npm run gatea:evidence:prune -- --keep=2 --apply
+```
