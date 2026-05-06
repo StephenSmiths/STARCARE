@@ -10,7 +10,9 @@ const anon = process.env.VITE_SUPABASE_ANON_KEY
 const staffToken = process.env.GATEA_STAFF_ACCESS_TOKEN
 
 if (!url || !anon) {
-  throw new Error('缺少 VITE_SUPABASE_URL 或 VITE_SUPABASE_ANON_KEY')
+  throw new Error(
+    '缺少 VITE_SUPABASE_URL 或 VITE_SUPABASE_ANON_KEY（請寫入 repo 根 `.env` 或於 shell 匯出；此腳本會補讀未匯出之 `.env` 鍵）',
+  )
 }
 
 const outDir = resolve(process.cwd(), 'docs/evidence')

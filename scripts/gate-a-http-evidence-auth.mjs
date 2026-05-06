@@ -7,7 +7,11 @@ const anon = process.env.VITE_SUPABASE_ANON_KEY
 const staffEmail = process.env.GATEA_STAFF_EMAIL
 const staffPassword = process.env.GATEA_STAFF_PASSWORD
 
-if (!url || !anon) throw new Error('缺少 VITE_SUPABASE_URL 或 VITE_SUPABASE_ANON_KEY')
+if (!url || !anon) {
+  throw new Error(
+    '缺少 VITE_SUPABASE_URL 或 VITE_SUPABASE_ANON_KEY（請寫入 repo 根 `.env` 或於 shell 匯出；此腳本會補讀未匯出之 `.env` 鍵）',
+  )
+}
 if (!staffEmail || !staffPassword) {
   throw new Error(
     '缺少 GATEA_STAFF_EMAIL 或 GATEA_STAFF_PASSWORD（請寫入 repo 根 `.env`，或於 shell 匯出）；若僅有 access token 請改跑 npm run gatea:evidence:http',
