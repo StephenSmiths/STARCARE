@@ -25,6 +25,8 @@
 | 2026-05-15 | D9 | 部署/回滾/憑證 | go-live §2/§6 |  |  |  |  | OPS/BE |  |
 | 2026-05-16 | D10 | 最終簽核 | Gate C |  |  |  |  | TL/QA/業務 |  |
 
+> **Gate A 證據檔名**：上表 2026-05-06 列內之 `152954`／`143013.7` 等為當日一次留存檔名；**現況**以 `docs/evidence/gate-a-latest.md` 及本文件下方「Gate A 自動引用」區塊（腳本同步）為準。
+
 > 2026-05-06 取證助手：  
 > - 速跑步驟：`docs/gate-a-evidence-capture-2026-05-06.md`  
 > - 回填模板：`docs/gate-a-evidence-fill-template-2026-05-06.md`

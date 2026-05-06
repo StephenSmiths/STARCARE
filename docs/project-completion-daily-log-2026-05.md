@@ -75,7 +75,7 @@
 - PR/Commit：`3f1652d`、`d970f84`
 - CI：本機 `typecheck`／`lint`／`vitest` 通過（對話執行紀錄）
 - SQL：`audit_events_entity_type_check` 已更新含 `Auth`（Supabase SQL Editor）；`npm run db:push` 已將 `20260505160000` 正式寫入遠端 migration 歷史
-- 截圖/文件：Supabase Functions 清單含 `admin-user-role-set`、`#user-role-admin` 成功操作與審計列；自動證據檔 `docs/evidence/gate-a-auto-evidence-2026-05-06-152954.md`
+- 截圖/文件：Supabase Functions 清單含 `admin-user-role-set`、`#user-role-admin` 成功操作與審計列；**Gate A 自動證據最新路徑**見 `docs/evidence/gate-a-latest.md`（Day 2 當日曾留存 `gate-a-auto-evidence-2026-05-06-152954.md`，僅供歷史對照）
 
 <!-- gatea-daily-auto-ref:start -->
 - Gate A 可否判定：`NOT_READY`
