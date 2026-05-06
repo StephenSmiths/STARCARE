@@ -13,6 +13,9 @@
 ### 0.1 Gate A 取證入口（2026-05-06）
 - 取證步驟：**`docs/gate-a-evidence-capture-2026-05-06.md`**
 - 回填模板：**`docs/gate-a-evidence-fill-template-2026-05-06.md`**
+- 即時證據固定入口（檔名會隨每次取證變更）：**`docs/evidence/gate-a-latest.md`**
+- 一鍵：全流程 → 修剪舊快照 → 刷新上列入口 → 同步收尾 markdown／判定稿：**`npm run gatea:evidence:refresh`**（見 **`docs/gate-a-status-2026-05-06.md`**）
+- 由 `package.json` 列出所有 **`gatea:evidence:*`**：**`npm run gatea:evidence:list`**
 
 ## 1. 身分與授權（Auth / RLS）
 - [ ] 至少有 1 位 `admin` 與 1 位 `staff` 可成功登入。
