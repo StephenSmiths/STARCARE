@@ -62,10 +62,6 @@ if (hasStaffCreds) {
   }
 }
 
-if (run('evidence summary', 'node', ['scripts/gate-a-evidence-summary.mjs']) !== 0) {
-  failed = true
-}
-
 if (run('fill snippet', 'node', ['scripts/gate-a-generate-fill-snippet.mjs', '--write']) !== 0) {
   failed = true
 }
@@ -82,6 +78,11 @@ if (run('decision draft sync', 'node', ['scripts/gate-a-sync-decision-draft.mjs'
 run('evidence doctor', 'node', ['scripts/gate-a-evidence-doctor.mjs', '--write'])
 
 if (run('gate a report snapshot', 'node', ['scripts/gate-a-evidence-report.mjs']) !== 0) {
+  failed = true
+}
+
+// 置於 doctor／report 落檔之後，彙總與 READY 解析才與當輪產物一致
+if (run('evidence summary', 'node', ['scripts/gate-a-evidence-summary.mjs']) !== 0) {
   failed = true
 }
 
