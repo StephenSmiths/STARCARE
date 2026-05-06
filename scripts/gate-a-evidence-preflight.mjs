@@ -75,7 +75,7 @@ if (strict) {
   const viteOk = pick('VITE_SUPABASE_URL') === 'SET' && pick('VITE_SUPABASE_ANON_KEY') === 'SET'
   if (!evidenceDirOk || !viteOk) {
     process.stderr.write(
-      '[gatea preflight --strict] 失敗：需存在 docs/evidence 且 VITE_SUPABASE_URL／VITE_SUPABASE_ANON_KEY 皆為 SET。\n',
+      '[gatea preflight:strict] 失敗：需存在 docs/evidence 且 VITE_SUPABASE_URL／VITE_SUPABASE_ANON_KEY 皆為 SET。\n',
     )
     process.exitCode = 1
   }

@@ -80,7 +80,7 @@ npm run perf:bundle-diff:md -- <base.json> <current.json> --out docs/perf-diff.m
 npm run perf:bundle-diff:baseline # 直接比對 baseline vs dist/bundle-report.json
 npm run perf:bundle-diff:baseline:md # 直接產生 baseline vs current 的 Markdown 差異
 npm run perf:bundle-diff:baseline:md:file # baseline Markdown 差異輸出到 dist/bundle-diff.md
-npm run gatea:evidence:all # Gate A：開頭自動跑 preflight strict，再 auto/http…與五份 markdown（可 `--no-preflight`、`--strict-http`）
+npm run gatea:evidence:all # Gate A：開頭自動跑 gatea:evidence:preflight:strict，再 auto/http…與五份 markdown（可 `--no-preflight`、`--strict-http`）
 npm run gatea:evidence:refresh # all → prune --apply → latest → docs-sync → decision-sync（可 `--keep=2`、`--strict-http` 等轉給 all）
 npm run gatea:evidence:refresh:strict-http # 同上並強制 HTTP 狀態檢查
 npm run gatea:evidence:http:strict # 同 gatea:evidence:http + --strict-http

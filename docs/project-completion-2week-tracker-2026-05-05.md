@@ -57,7 +57,7 @@ npm run test:e2e:auth:user-role-admin
 npm run gatea:evidence:all
 # 2c) 僅四份收尾 markdown 自動引用（可選）：npm run gatea:evidence:docs-sync
 # 2d) 可選：全流程後 prune + latest + docs-sync + decision-sync：npm run gatea:evidence:refresh
-# 2e) 可選：取證前診斷：npm run gatea:evidence:preflight；指令總表：npm run gatea:evidence:list
+# 2e) 可選：取證前診斷 npm run gatea:evidence:preflight（嚴格：npm run gatea:evidence:preflight:strict）；指令總表：npm run gatea:evidence:list
 
 # 3) Bundle 治理（與 CI 同源）
 npm run perf:bundle:ci

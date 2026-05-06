@@ -13,7 +13,7 @@ if (!skipPreflight) {
   })
   if ((pre.status ?? 1) !== 0) {
     process.stderr.write(
-      '\n[abort] `preflight --strict` 未通過，已中止全流程（略過：`npm run gatea:evidence:all -- --no-preflight`）。\n',
+      '\n[abort] `gatea:evidence:preflight:strict` 未通過，已中止全流程（略過：`npm run gatea:evidence:all -- --no-preflight`）。\n',
     )
     process.exit(1)
   }
