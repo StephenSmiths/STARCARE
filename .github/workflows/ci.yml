@@ -1,7 +1,7 @@
 # 閉環：lint → 單元測試 → demo 建置 → Playwright 煙霧（`PW_PREVIEW_ONLY` 不重複 vite build）。
 # 可選登入 E2E（`npm run test:e2e:auth`）需 E2E_AUTH_*，預設於本機／有密鑰之 pipeline 執行。
 # 本 job 之分步指令集合等同 **`npm run ci`**（`package.json`），僅拆成多個 step 以利 Actions 快取與日誌分段。
-# 文件入口：`docs/business-logic.md` §0、專案根 `.cursorrules` §3、`README.md`（「專案收尾」與 `docs/project-completion-*.md`）、`docs/evidence/gate-a-latest.md`（Gate A 自動證據入口；`npm run gatea:evidence:list`；取證前嚴格環境檢查可 `npm run gatea:evidence:preflight:strict`）、`docs/pdf-sequenced-gap-checklist.md` 主檔「運維與工程」列與開首全案收尾句、`docs/pdf-sequenced-gap-checklist-revision-log.md`（日誌；歸檔見 `pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`、`pdf-sequenced-gap-checklist-revision-log-archive-p2.md`、`pdf-sequenced-gap-checklist-revision-log-archive-p3.md`）、`docs/go-live-checklist.md`、`docs/supabase-deploy-runbook.md`、`docs/security-token-rotation-checklist.md`、`docs/feature-list.md` §8；`docs/phase*.md`／`stage*.md`／`docs/seq*.md` 開首對照互鏈該「運維與工程」列。
+# 文件入口：`docs/business-logic.md` §0、專案根 `.cursorrules` §3、`README.md`（「專案收尾」與 `docs/project-completion-*.md`）、`docs/evidence/gate-a-latest.md`（檔內 Next Command 與 preflight strict 並列；`npm run gatea:evidence:list`；取證前嚴格檢查 `npm run gatea:evidence:preflight:strict`）、`docs/pdf-sequenced-gap-checklist.md` 主檔「運維與工程」列與開首全案收尾句、`docs/pdf-sequenced-gap-checklist-revision-log.md`（日誌；歸檔見 `pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`、`pdf-sequenced-gap-checklist-revision-log-archive-p2.md`、`pdf-sequenced-gap-checklist-revision-log-archive-p3.md`）、`docs/go-live-checklist.md`、`docs/supabase-deploy-runbook.md`、`docs/security-token-rotation-checklist.md`、`docs/feature-list.md` §8；`docs/phase*.md`／`stage*.md`／`docs/seq*.md` 開首對照互鏈該「運維與工程」列。
 name: CI
 
 env:
