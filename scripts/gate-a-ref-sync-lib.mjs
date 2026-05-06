@@ -5,7 +5,7 @@ import { readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
 import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
-import { computeGateAReadyState } from './gate-a-ready-core.mjs'
+import { computeGateAReadyState, gateAPreflightStrictNextMarkdownLine } from './gate-a-ready-core.mjs'
 
 function gateLabel() {
   const g = computeGateAReadyState()
@@ -68,6 +68,7 @@ export function blockEvidenceIndex(a) {
     `- decision ref：${pick(a.decisionRef, PL.decisionRef)}`,
     `- fill snippet：${pick(a.fillSnippet, PL.fillSnippet)}`,
     `- report：${pick(a.report, PL.report)}`,
+    gateAPreflightStrictNextMarkdownLine(),
     '<!-- gatea-auto-ref:end -->',
   ].join('\n')
 }
@@ -83,6 +84,7 @@ export function blockDailyLog(a) {
     `- Gate A decision ref：${pick(a.decisionRef, PL.decisionRef)}`,
     `- Gate A fill snippet：${pick(a.fillSnippet, PL.fillSnippet)}`,
     `- Gate A report：${pick(a.report, PL.report)}`,
+    gateAPreflightStrictNextMarkdownLine(),
     '<!-- gatea-daily-auto-ref:end -->',
   ].join('\n')
 }
@@ -99,6 +101,7 @@ function blockWithDoctorMarkers(markerStart, markerEnd, a) {
     `- fill snippet：${pick(a.fillSnippet, PL.fillSnippet)}`,
     `- doctor report：${pick(a.doctorReport, PL.doctorReport)}`,
     `- report：${pick(a.report, PL.report)}`,
+    gateAPreflightStrictNextMarkdownLine(),
     markerEnd,
   ].join('\n')
 }

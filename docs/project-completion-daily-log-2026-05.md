@@ -88,6 +88,7 @@
 - Gate A decision ref：`docs/evidence/gate-a-decision-ref-20260506-201757.md`
 - Gate A fill snippet：`docs/evidence/gate-a-fill-snippet-20260506-201757.md`
 - Gate A report：`docs/evidence/gate-a-report-20260506-201758.md`
+- `npm run gatea:evidence:preflight:strict`（取證前嚴格環境檢查；與 README／go-live 並讀）
 <!-- gatea-daily-auto-ref:end -->
 
 ### 明日計畫（Day 3～Day 5）

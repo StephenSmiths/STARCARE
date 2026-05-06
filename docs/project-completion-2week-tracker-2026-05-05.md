@@ -127,6 +127,7 @@ limit 20;
 - fill snippet：`docs/evidence/gate-a-fill-snippet-20260506-201757.md`
 - doctor report：`docs/evidence/gate-a-evidence-doctor-20260506-201757.md`
 - report：`docs/evidence/gate-a-report-20260506-201758.md`
+- `npm run gatea:evidence:preflight:strict`（取證前嚴格環境檢查；與 README／go-live 並讀）
 <!-- gatea-tracker-auto-ref:end -->
 
 ## 缺陷收斂板（上線範圍）
