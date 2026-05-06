@@ -78,6 +78,8 @@ npm run gatea:evidence:decision-mini
 npm run gatea:evidence:decision-sync
 ```
 
+> `decision-sync`（`gate-a-sync-decision-draft.mjs`）stdout 在 mini 區塊與 **`[updated]`**／**`[skip]`** 列之後附 **全案收尾**／**§5** 兩行 blockquote（與 **`docs-sync`** 末段同源字串）。
+
 若已在 `.env` 設好 `GATEA_STAFF_EMAIL` / `GATEA_STAFF_PASSWORD`，可直接一鍵：
 
 ```bash
@@ -154,6 +156,8 @@ npm run gatea:evidence:doctor -- --write
 ```bash
 npm run gatea:evidence:latest
 ```
+
+> `latest`（`gate-a-update-latest-pointer.mjs`）stdout 在 **`[updated]`** 列之後附 **全案收尾**／**§5** 兩行 blockquote（寫入 **`gate-a-latest.md`** 之頁尾仍為檔內三行固定入口＋上列兩行，與終端 stdout 略異）。
 
 僅同步證據索引／日誌／追蹤板／啟動清單（與 `gatea:evidence:all` 內同一批次；建議先跑一次 `doctor --write` 再執行）：
 

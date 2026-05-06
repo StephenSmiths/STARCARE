@@ -1,7 +1,7 @@
 import { writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
-import { gateALatestMarkdownFooterLines } from './gate-a-markdown-footer.mjs'
+import { gateALatestMarkdownFooterLines, gateAStandardCloseoutBlockquotes } from './gate-a-markdown-footer.mjs'
 import {
   computeGateAReadyState,
   gateAPreflightStrictNextMarkdownLine,
@@ -40,4 +40,6 @@ for (const line of gateALatestMarkdownFooterLines()) {
 
 const outPath = resolve(evidenceDir, 'gate-a-latest.md')
 writeFileSync(outPath, `${lines.join('\n')}\n`, 'utf8')
-process.stdout.write(`[updated] ${outPath}\n`)
+process.stdout.write(
+  `[updated] ${outPath}\n` + ['', ...gateAStandardCloseoutBlockquotes()].join('\n') + '\n',
+)

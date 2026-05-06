@@ -2,7 +2,7 @@ import { readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
 import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
-import { gateAAutoRefClosingHintLine } from './gate-a-markdown-footer.mjs'
+import { gateAAutoRefClosingHintLine, gateAStandardCloseoutBlockquotes } from './gate-a-markdown-footer.mjs'
 
 const evidenceDir = resolve(process.cwd(), 'docs/evidence')
 const decisionDraftPath = resolve(process.cwd(), 'docs/gate-a-decision-draft-2026-05-06.md')
@@ -39,4 +39,10 @@ if (changed) {
   writeFileSync(decisionDraftPath, updated, 'utf8')
 }
 
-process.stdout.write(`${changed ? '[updated]' : '[skip]'} ${decisionDraftPath}\n${replacement}\n`)
+const out = [
+  `${changed ? '[updated]' : '[skip]'} ${decisionDraftPath}`,
+  replacement,
+  '',
+  ...gateAStandardCloseoutBlockquotes(),
+].join('\n')
+process.stdout.write(`${out}\n`)
