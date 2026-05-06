@@ -82,7 +82,7 @@ npm run perf:bundle-diff:baseline:md:file # baseline Markdown 差異輸出到 di
 npm run gatea:evidence:all # Gate A：開頭自動跑 preflight strict，再 auto/http…與五份 markdown（可 `--no-preflight`、`--strict-http`）
 npm run gatea:evidence:http:strict # 同 gatea:evidence:http + --strict-http
 npm run gatea:evidence:http:auth:strict # 同 http:auth + --strict-http
-npm run gatea:evidence:all:strict-http # 全流程 + HTTP 狀態嚴格檢查
+npm run gatea:evidence:all:strict-http # 全流程 + HTTP 狀態嚴格檢查（或設 GATEA_STRICT_HTTP=1）
 npm run gatea:evidence:latest # 更新固定入口 docs/evidence/gate-a-latest.md
 npm run gatea:evidence:summary # 自動證據彙總（含 READY 一行）
 npm run gatea:evidence:ready # READY/NOT_READY；加 --strict 缺項時非 0

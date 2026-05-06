@@ -1,6 +1,6 @@
 import { spawnSync } from 'node:child_process'
 
-import { buildSpawnBaseEnv } from './gate-a-env-lib.mjs'
+import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
 
 const baseEnv = buildSpawnBaseEnv()
 
@@ -29,7 +29,7 @@ const run = (label, cmd, args, extraEnv = {}) => {
 }
 
 let failed = false
-const strictHttp = process.argv.includes('--strict-http')
+const strictHttp = gateAStrictHttpEnabled(process.argv, baseEnv)
 const httpEvidenceArgs = strictHttp ? ['--strict-http'] : []
 
 const mergedEnv = {

@@ -1,11 +1,11 @@
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
-import { hydrateProcessEnvMissingFromDotenv } from './gate-a-env-lib.mjs'
+import { gateAStrictHttpEnabled, hydrateProcessEnvMissingFromDotenv } from './gate-a-env-lib.mjs'
 
 hydrateProcessEnvMissingFromDotenv()
 
-const strictHttp = process.argv.includes('--strict-http')
+const strictHttp = gateAStrictHttpEnabled(process.argv, process.env)
 
 const url = process.env.VITE_SUPABASE_URL
 const anon = process.env.VITE_SUPABASE_ANON_KEY
@@ -77,6 +77,6 @@ if (p403) {
 }
 
 if (strictHttpViolation) {
-  process.stderr.write('[gatea http] `--strict-http`：HTTP 狀態與預期不符，exit 1。\n')
+  process.stderr.write('[gatea http] 嚴格模式（`--strict-http` 或 `GATEA_STRICT_HTTP`）：HTTP 狀態與預期不符，exit 1。\n')
   process.exitCode = 1
 }

@@ -60,7 +60,7 @@
 
 ### 4.1 每次收證後快速檢查
 
-`gatea:evidence:http`／`gatea:evidence:http:auth` 內含的 HTTP 請求會把實際狀態寫入 `.txt`；若與預期（無 JWT → 401、staff JWT → 403）不符，會在 **stderr** 印出警告並**仍會落檔**，方便人工複核／附在簽核討論。加上 `--strict-http`（例如 `npm run gatea:evidence:http -- --strict-http`，或 `gatea:evidence:all -- --strict-http`）則上述不符時 **exit 非 0**。捷徑：`npm run gatea:evidence:http:strict`、`npm run gatea:evidence:http:auth:strict`、`npm run gatea:evidence:all:strict-http`。
+`gatea:evidence:http`／`gatea:evidence:http:auth` 內含的 HTTP 請求會把實際狀態寫入 `.txt`；若與預期（無 JWT → 401、staff JWT → 403）不符，會在 **stderr** 印出警告並**仍會落檔**，方便人工複核／附在簽核討論。加上 `--strict-http`（例如 `npm run gatea:evidence:http -- --strict-http`，或 `gatea:evidence:all -- --strict-http`）則上述不符時 **exit 非 0**。亦可設環境變數 **`GATEA_STRICT_HTTP=1`**（或 `true`／`yes`，可寫入 `.env`）。捷徑：`npm run gatea:evidence:http:strict`、`npm run gatea:evidence:http:auth:strict`、`npm run gatea:evidence:all:strict-http`。
 
 ```bash
 npm run gatea:evidence:summary

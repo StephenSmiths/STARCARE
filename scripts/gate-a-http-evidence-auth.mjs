@@ -1,4 +1,4 @@
-import { hydrateProcessEnvMissingFromDotenv } from './gate-a-env-lib.mjs'
+import { gateAStrictHttpEnabled, hydrateProcessEnvMissingFromDotenv } from './gate-a-env-lib.mjs'
 
 hydrateProcessEnvMissingFromDotenv()
 
@@ -38,7 +38,7 @@ process.stdout.write(`已取得 staff token（${staffEmail}）\n`)
 process.env.GATEA_STAFF_ACCESS_TOKEN = token
 
 const { spawnSync } = await import('node:child_process')
-const strictForward = process.argv.includes('--strict-http') ? ['--strict-http'] : []
+const strictForward = gateAStrictHttpEnabled(process.argv, process.env) ? ['--strict-http'] : []
 const out = spawnSync(
   'node',
   ['scripts/gate-a-http-evidence.mjs', ...strictForward],

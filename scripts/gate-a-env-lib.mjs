@@ -36,3 +36,10 @@ export function hydrateProcessEnvMissingFromDotenv(cwd = process.cwd()) {
 export function buildSpawnBaseEnv(cwd = process.cwd()) {
   return { ...readRepoDotenv(cwd), ...process.env }
 }
+
+/** `--strict-http` 或 `GATEA_STRICT_HTTP`=1／true／yes（經合併環境後）。 */
+export function gateAStrictHttpEnabled(argv, env) {
+  if (argv.includes('--strict-http')) return true
+  const v = String(env.GATEA_STRICT_HTTP ?? '').trim().toLowerCase()
+  return v === '1' || v === 'true' || v === 'yes'
+}
