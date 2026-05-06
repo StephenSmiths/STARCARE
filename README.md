@@ -80,7 +80,8 @@ npm run perf:bundle-diff:baseline # 直接比對 baseline vs dist/bundle-report.
 npm run perf:bundle-diff:baseline:md # 直接產生 baseline vs current 的 Markdown 差異
 npm run perf:bundle-diff:baseline:md:file # baseline Markdown 差異輸出到 dist/bundle-diff.md
 npm run gatea:evidence:all # Gate A：開頭自動跑 preflight strict，再 auto/http…與五份 markdown（可 `--no-preflight`、`--strict-http`）
-npm run gatea:evidence:refresh # 等同 all → prune --apply → latest（可 `--keep=2`、`--strict-http` 等轉給 all）
+npm run gatea:evidence:refresh # all → prune --apply → latest → docs-sync（可 `--keep=2`、`--strict-http` 等轉給 all）
+npm run gatea:evidence:refresh:strict-http # 同上並強制 HTTP 狀態檢查
 npm run gatea:evidence:http:strict # 同 gatea:evidence:http + --strict-http
 npm run gatea:evidence:http:auth:strict # 同 http:auth + --strict-http
 npm run gatea:evidence:all:strict-http # 全流程 + HTTP 狀態嚴格檢查（或設 GATEA_STRICT_HTTP=1）
@@ -99,7 +100,7 @@ npm run gatea:evidence:prune # 清理舊 Gate A 自動快照（預設 dry-run；
 - **CI**：推上 GitHub 後由 [`.github/workflows/ci.yml`](.github/workflows/ci.yml) 執行（含 Playwright 快取；demo 建置為 **`npm run build:demo`**，避免與本機 `.env` 內嵌 Supabase 混用）。
 - **效能報告**：CI 會在 bundle budget check 後上傳 `bundle-report` artifact（`dist/bundle-report.json`）。
 - **憑證與部署後自檢**：[docs/security-token-rotation-checklist.md](docs/security-token-rotation-checklist.md) **§D**（可選 **`npm run ci`**；與 [docs/go-live-checklist.md](docs/go-live-checklist.md) §6 對齊）。
-- **Gate A 取證助手**：步驟見 `docs/gate-a-evidence-capture-2026-05-06.md`，一鍵腳本 `npm run gatea:evidence:all`（預設先 `preflight --strict`，含 `doctor`/`report` 落檔等；`--no-preflight` 略過前置檢查；HTTP 嚴格狀態可用 `gatea:evidence:all:strict-http` 或 `--strict-http`）；收證後順便修剪舊快照並再刷新 `gate-a-latest.md` 可用 **`npm run gatea:evidence:refresh`**（`--keep=N` 僅作用於 prune）；僅同步四份收尾 markdown 可用 `npm run gatea:evidence:docs-sync`；彙總 `npm run gatea:evidence:summary`，可否判定 `npm run gatea:evidence:ready`，下一步導引 `npm run gatea:evidence:next`；取證前診斷 `npm run gatea:evidence:preflight`；需直接當關卡可用 `npm run gatea:evidence:gate`（NOT_READY 即非 0）；缺口細項 `npm run gatea:evidence:doctor`；清理舊自動快照可用 `npm run gatea:evidence:prune`（預設 dry-run，`-- --apply` 才刪檔）。即時狀態：`docs/gate-a-status-2026-05-06.md`。
+- **Gate A 取證助手**：步驟見 `docs/gate-a-evidence-capture-2026-05-06.md`，一鍵腳本 `npm run gatea:evidence:all`（預設先 `preflight --strict`，含 `doctor`/`report` 落檔等；`--no-preflight` 略過前置檢查；HTTP 嚴格狀態可用 `gatea:evidence:all:strict-http` 或 `--strict-http`）；收證後順便修剪舊快照、刷新 `gate-a-latest.md`、再 **`docs-sync`** 可用 **`npm run gatea:evidence:refresh`**（`--keep=N` 僅作用於 prune；另有 **`gatea:evidence:refresh:strict-http`**）；僅同步四份收尾 markdown 可用 `npm run gatea:evidence:docs-sync`；彙總 `npm run gatea:evidence:summary`，可否判定 `npm run gatea:evidence:ready`，下一步導引 `npm run gatea:evidence:next`；取證前診斷 `npm run gatea:evidence:preflight`；需直接當關卡可用 `npm run gatea:evidence:gate`（NOT_READY 即非 0）；缺口細項 `npm run gatea:evidence:doctor`；清理舊自動快照可用 `npm run gatea:evidence:prune`（預設 dry-run，`-- --apply` 才刪檔）。即時狀態：`docs/gate-a-status-2026-05-06.md`。
 
 ## 技術棧
 

@@ -50,6 +50,7 @@
     "gatea:evidence:all": "node scripts/gate-a-evidence-all.mjs",
     "gatea:evidence:all:strict-http": "node scripts/gate-a-evidence-all.mjs --strict-http",
     "gatea:evidence:refresh": "node scripts/gate-a-evidence-refresh.mjs",
+    "gatea:evidence:refresh:strict-http": "node scripts/gate-a-evidence-refresh.mjs --strict-http",
     "gatea:evidence:fill-snippet": "node scripts/gate-a-generate-fill-snippet.mjs",
     "gatea:evidence:decision-ref": "node scripts/gate-a-generate-decision-reference.mjs",
     "gatea:evidence:decision-mini": "node scripts/gate-a-generate-decision-mini.mjs",

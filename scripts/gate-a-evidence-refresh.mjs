@@ -1,5 +1,5 @@
 /**
- * 一鍵：全流程取證 → 修剪舊快照 → 刷新 gate-a-latest.md。
+ * 一鍵：全流程取證 → 修剪舊快照 → 刷新 gate-a-latest.md → 再跑四份 markdown 自動引用區同步。
  * 選項：`--keep=N`（僅給 prune，預設 2）；其餘旗標轉給 `gate-a-evidence-all.mjs`（如 `--no-preflight`、`--strict-http`）。
  */
 import { spawnSync } from 'node:child_process'
@@ -29,3 +29,4 @@ run('gatea evidence prune', 'node', [
   '--apply',
 ])
 run('gatea evidence latest', 'node', ['scripts/gate-a-update-latest-pointer.mjs'])
+run('markdown docs sync bundle', 'node', ['scripts/gate-a-sync-all-markdown.mjs'])
