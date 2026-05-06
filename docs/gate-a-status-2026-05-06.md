@@ -150,6 +150,12 @@ npm run gatea:evidence:ready
 npm run gatea:evidence:next
 ```
 
+取證前環境與證據目錄診斷（不列印密值，僅 SET／MISSING）：
+
+```bash
+npm run gatea:evidence:preflight
+```
+
 > `gatea:evidence:next` 與 `gatea:evidence:summary` 內之「next」行，會依 `{ .env ∪ process.env }` 判斷：有 staff 帳密則建議 `gatea:evidence:http:auth`；僅有 `GATEA_STAFF_ACCESS_TOKEN` 則建議 `gatea:evidence:http`。
 
 規則實作單點：`scripts/gate-a-ready-core.mjs`（`gatea:evidence:latest`、`gatea:evidence:report`、終端 READY 輸出共用）。

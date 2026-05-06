@@ -17,6 +17,7 @@
 - [x] 可選：`npm run gatea:evidence:summary`（401/403/auto 進度與可否判定 `READY`／`NOT_READY` 一行）。
 - [x] 可選：`npm run gatea:evidence:ready`；加 `--strict` 缺項時 exit 非 0（CI／本機 gate）。
 - [x] 可選：`npm run gatea:evidence:next`（依目前缺口自動給下一步命令）。
+- [x] 可選：`npm run gatea:evidence:preflight`（取證前環境／證據目錄診斷，不列印密值）。
 - [x] 可選：`npm run gatea:evidence:gate`（NOT_READY 直接 exit 非 0，適合作為關卡）。
 - [x] 可選：`npm run gatea:evidence:latest` 刷新固定入口 `docs/evidence/gate-a-latest.md`。
 - [x] 判定規則單點：`scripts/gate-a-ready-core.mjs`。
