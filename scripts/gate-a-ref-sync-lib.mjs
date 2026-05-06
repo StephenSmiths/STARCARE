@@ -4,11 +4,16 @@
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
+import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
 import { computeGateAReadyState } from './gate-a-ready-core.mjs'
 
 function gateLabel() {
   const g = computeGateAReadyState()
   return `\`${g.ready ? 'READY' : 'NOT_READY'}\``
+}
+
+function httpStrictLabel() {
+  return gateAStrictHttpEnabled(process.argv, buildSpawnBaseEnv()) ? 'ON' : 'OFF'
 }
 
 export function evidenceFilenames() {
@@ -56,6 +61,7 @@ export function blockEvidenceIndex(a) {
   return [
     '<!-- gatea-auto-ref:start -->',
     `- 可否判定：${gateLabel()}（規則：scripts/gate-a-ready-core.mjs）`,
+    `- HTTP 嚴格取證：${httpStrictLabel()}（\`--strict-http\`／\`GATEA_STRICT_HTTP\`）`,
     `- auto evidence：${pick(a.auto, PL.auto)}`,
     `- 401 text：${pick(a.e401, PL.e401)}`,
     `- 403 text：${pick(a.e403, PL.e403)}`,
@@ -70,6 +76,7 @@ export function blockDailyLog(a) {
   return [
     '<!-- gatea-daily-auto-ref:start -->',
     `- Gate A 可否判定：${gateLabel()}`,
+    `- Gate A HTTP 嚴格取證：${httpStrictLabel()}`,
     `- Gate A 自動證據：${pick(a.auto, PL.auto)}`,
     `- Gate A 401：${pick(a.e401, PL.e401)}`,
     `- Gate A 403：${pick(a.e403, PL.e403)}`,
@@ -84,6 +91,7 @@ function blockWithDoctorMarkers(markerStart, markerEnd, a) {
   return [
     markerStart,
     `- 可否判定：${gateLabel()}`,
+    `- HTTP 嚴格取證：${httpStrictLabel()}`,
     `- auto evidence：${pick(a.auto, PL.auto)}`,
     `- 401 text：${pick(a.e401, PL.e401)}`,
     `- 403 text：${pick(a.e403, PL.e403)}`,

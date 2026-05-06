@@ -79,6 +79,7 @@
 
 <!-- gatea-daily-auto-ref:start -->
 - Gate A 可否判定：`NOT_READY`
+- Gate A HTTP 嚴格取證：OFF
 - Gate A 自動證據：`docs/evidence/gate-a-auto-evidence-2026-05-06-152954.md`
 - Gate A 401：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-06-143013.7.txt`
 - Gate A 403：`<待補 403 text>`

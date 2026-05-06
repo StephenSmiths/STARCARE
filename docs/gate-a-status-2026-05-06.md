@@ -91,7 +91,7 @@ npm run gatea:evidence:all -- --strict-http
 > `gatea:evidence:all` 預設先執行 `gatea:evidence:preflight --strict`（無 `docs/evidence` 或缺 VITE_* 即中止）；需略過加 `--no-preflight`。
 > 加 `--strict-http` 時會轉給 HTTP 取證：401／403 狀態不符預期則該步 exit 非 0（證據檔仍會寫入）。  
 > `gatea:evidence:all` 現在也會自動執行判定稿兩行引用同步（等同含 `gatea:evidence:decision-sync`）。
-> `gatea:evidence:all` 會先執行 `gatea:evidence:doctor --write`，再以單一批次指令更新證據索引、Daily Log、2week tracker、kickoff checklist 的 Gate A 自動引用區（等同 `npm run gatea:evidence:docs-sync`；亦即個別之 `gatea:evidence:index-sync`／`daily-sync`／`tracker-sync`／`kickoff-sync`）。如此 tracker／kickoff 內的 **doctor report** 會對應本次剛落檔的報告。
+> `gatea:evidence:all` 會先執行 `gatea:evidence:doctor --write`，再以單一批次指令更新證據索引、Daily Log、2week tracker、kickoff checklist 的 Gate A 自動引用區（等同 `npm run gatea:evidence:docs-sync`；亦即個別之 `gatea:evidence:index-sync`／`daily-sync`／`tracker-sync`／`kickoff-sync`）；區塊內含 **HTTP 嚴格取證** ON／OFF（與 `preflight`／`summary` 同源）。如此 tracker／kickoff 內的 **doctor report** 會對應本次剛落檔的報告。
 > `gatea:evidence:all` 會先產生單檔收斂快照：`docs/evidence/gate-a-report-*.md`（等同 `npm run gatea:evidence:report`），再同步四份文件，確保引用到當次最新 report。
 > `gatea:evidence:all` 亦會更新固定入口：`docs/evidence/gate-a-latest.md`（等同 `npm run gatea:evidence:latest`）。
 > `gatea:evidence:doctor --write` 本身不計入 exit code（整體成敗仍以上方 auto/http 等步驟為準）；終端仍會列出缺口清單與 `[saved]` 路徑。
