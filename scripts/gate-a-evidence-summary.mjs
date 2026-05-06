@@ -1,6 +1,7 @@
 import { readdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 
+import { gateAStandardCloseoutBlockquotes } from './gate-a-markdown-footer.mjs'
 import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
 import {
   computeGateAReadyState,
@@ -60,5 +61,7 @@ lines.push(`- next command：\`${rec.command}\`（${rec.reason}）`)
 lines.push(`- preflight：${gateAPreflightStrictNextMarkdownLine().replace(/^- /, '')}`)
 lines.push(``)
 lines.push(`> 人工證據仍需依 docs/gate-a-manual-evidence-checklist-2026-05-06.md 補齊。`)
+lines.push(``)
+lines.push(...gateAStandardCloseoutBlockquotes())
 
 process.stdout.write(`${lines.join('\n')}\n`)
