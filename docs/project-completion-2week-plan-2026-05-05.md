@@ -44,6 +44,7 @@
 - `Gate A（D5）`：
   - go-live §1 / §3 / §8 主證據齊全
   - `RES-06` 明確判定（完成或列阻塞）
+  - 取證自動化與固定入口：`docs/go-live-checklist.md` §0.1、`docs/evidence/gate-a-latest.md`；可選 **`npm run gatea:evidence:refresh`**
 - `Gate B（D8）`：
   - P0/P1 必須為 0
   - RC 可重複部署且 CI 綠燈
@@ -75,3 +76,4 @@
 - 每日進度板：`docs/project-completion-2week-tracker-2026-05-05.md`
 - 每日日誌：`docs/project-completion-daily-log-2026-05.md`
 - 證據索引：`docs/project-completion-evidence-index-2026-05.md`
+- Gate A 證據固定入口：`docs/evidence/gate-a-latest.md`

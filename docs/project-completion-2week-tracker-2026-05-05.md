@@ -39,7 +39,7 @@
 | 建立證據存放位置（SQL/截圖/artifact） | QA | 證據路徑可追溯 | [ ] |  |
 | 確認 PAT / 部署窗口 | OPS | D9 可執行條件清楚 | [ ] |  |
 
-> Gate A 即時狀態板：`docs/gate-a-status-2026-05-06.md`
+> Gate A 即時狀態板：`docs/gate-a-status-2026-05-06.md`；證據固定入口：`docs/evidence/gate-a-latest.md`
 
 ## 今日開工指令（可直接複用）
 
@@ -56,6 +56,8 @@ npm run test:e2e:auth:user-role-admin
 # 2b) Gate A 自動流程（含 doctor 與收尾 markdown 同步；細節見 docs/gate-a-status-2026-05-06.md）
 npm run gatea:evidence:all
 # 2c) 僅四份收尾 markdown 自動引用（可選）：npm run gatea:evidence:docs-sync
+# 2d) 可選：全流程後 prune + latest + docs-sync + decision-sync：npm run gatea:evidence:refresh
+# 2e) 可選：取證前診斷：npm run gatea:evidence:preflight；指令總表：npm run gatea:evidence:list
 
 # 3) Bundle 治理（與 CI 同源）
 npm run perf:bundle:ci
