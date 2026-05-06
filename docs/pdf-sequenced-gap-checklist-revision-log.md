@@ -124,3 +124,4 @@
 | 2026-07-02 | **`business-logic.md`** §0「專案工程規範」句：補 **`go-live-checklist.md`** 開首 **對照** 與 **`README.md`**「專案收尾」修訂日誌主／歸檔路徑互鏈（與 **2026-07-01** **`go-live`** 列一致）；**`business-logic-revision-log.md`** 一筆。 |
 | 2026-07-03 | **`project-completion-kickoff-checklist-2026-05.md`** 開首 **對照**：補序號主檔修訂日誌主檔與 **`2026-05-01a`**／**`archive-p2`**／**`archive-p3`**／**`archive-p4`** 歸檔路徑指 **`README.md`**「專案收尾」文件表（與 **`go-live-checklist.md`**、**`business-logic.md`** §0 互鏈）。 |
 | 2026-07-04 | **`project-completion-audit`**、**`2week-plan`**、**`2week-tracker`**、**`daily-log`**、**`evidence-index`** 開首 **對照**：補 **`pdf-sequenced-gap-checklist-revision-log`** 主／歸檔（**`2026-05-01a`**／**`archive-p2`**／**`archive-p3`**／**`archive-p4`**）指 **`README.md`**「專案收尾」文件表（與 **`kickoff`** **2026-07-03** 列一致）。 |
+| 2026-07-05 | **`README.md`**「專案收尾」：補六份 **`project-completion-*`** 開首 **對照** 與下表修訂日誌主／歸檔路徑互鏈之讀者指引（與 **2026-07-03**／**2026-07-04** 列一致）。 |

@@ -32,6 +32,8 @@
 
 執行時同步對照 [go-live-checklist.md](docs/go-live-checklist.md)、[supabase-deploy-runbook.md](docs/supabase-deploy-runbook.md)、[security-token-rotation-checklist.md](docs/security-token-rotation-checklist.md)。運維總覽 [business-logic.md](docs/business-logic.md) §0；序號主檔「運維與工程」列見 [pdf-sequenced-gap-checklist.md](docs/pdf-sequenced-gap-checklist.md)。
 
+六份 **project-completion-***（**kickoff**／**audit**／**plan**／**tracker**／**daily-log**／**evidence-index**）開首 **對照** 與下表修訂日誌主檔及歸檔列路徑互鏈。
+
 | 文件 | 用途 |
 |------|------|
 | [project-completion-audit-2026-05-05.md](docs/project-completion-audit-2026-05-05.md) | 完成率估算、缺口、工期 |
