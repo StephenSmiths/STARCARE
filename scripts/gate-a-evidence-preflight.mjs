@@ -5,7 +5,11 @@ import { existsSync } from 'node:fs'
 import { resolve } from 'node:path'
 
 import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
-import { computeGateAReadyState, recommendNextCommand } from './gate-a-ready-core.mjs'
+import {
+  computeGateAReadyState,
+  gateAPreflightStrictNextMarkdownLine,
+  recommendNextCommand,
+} from './gate-a-ready-core.mjs'
 
 const strict = process.argv.includes('--strict')
 
@@ -37,6 +41,7 @@ if (!evidenceDirOk) {
   lines.push('')
   lines.push('## 建議')
   lines.push('- 建立 `docs/evidence` 後執行 `npm run gatea:evidence:all` 或依 `docs/gate-a-evidence-capture-2026-05-06.md`')
+  lines.push(gateAPreflightStrictNextMarkdownLine())
 } else {
   const gate = computeGateAReadyState(evidenceDir)
   const rec = recommendNextCommand(gate)
@@ -53,6 +58,7 @@ if (!evidenceDirOk) {
   lines.push('')
   lines.push('## 建議下一步')
   lines.push(`- \`${rec.command}\`（${rec.reason}）`)
+  lines.push(gateAPreflightStrictNextMarkdownLine())
 }
 
 lines.push('')
