@@ -1,7 +1,7 @@
 # `pdf-sequenced-gap-checklist` 修訂紀錄歸檔（p4：2026-05-01～05-03 前段）
 
 > **對照**：主修訂日誌 **`docs/pdf-sequenced-gap-checklist-revision-log.md`**；**2026-05-01a** 同日最早列 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**；**p2** 見 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**；**p3** 見 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-p3.md`**。本檔收錄自該主日誌再拆出之原列 **12–91**（排程／評估／**CORE-05**／CI／runbook／憑證與對照骨架鏈等），以符合主日誌單檔 ≤200 行。  
-> **全案收尾與證據留痕**：**`README.md`**「專案收尾」（**`docs/business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引；**`docs/project-completion-*.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log.md`** 及歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p3.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p4.md`**）；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**。
+> **全案收尾與證據留痕**：**`README.md`**「專案收尾」（**`docs/business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**）；**`docs/project-completion-*.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log.md`** 及歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p3.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p4.md`**）；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**。
 
 ---
 
