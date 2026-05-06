@@ -145,3 +145,8 @@ export function recommendNextCommand(state) {
     reason: '尚未 READY，先跑全流程再做 strict gate',
   }
 }
+
+/** 供 `gate-a-latest`／證據彙總與主命令並列（與 README／go-live 敘述一致）。 */
+export function gateAPreflightStrictNextMarkdownLine() {
+  return '- `npm run gatea:evidence:preflight:strict`（取證前嚴格環境檢查；與 README／go-live 並讀）'
+}

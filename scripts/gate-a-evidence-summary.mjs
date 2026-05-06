@@ -2,7 +2,11 @@ import { readdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 
 import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
-import { computeGateAReadyState, recommendNextCommand } from './gate-a-ready-core.mjs'
+import {
+  computeGateAReadyState,
+  gateAPreflightStrictNextMarkdownLine,
+  recommendNextCommand,
+} from './gate-a-ready-core.mjs'
 
 const strictHttpLbl = gateAStrictHttpEnabled(process.argv, buildSpawnBaseEnv()) ? 'ON' : 'OFF'
 
@@ -53,6 +57,7 @@ lines.push(`- report：${rel(latestName('gate-a-report-'))}`)
 lines.push(`- fill snippet：${rel(latestName('gate-a-fill-snippet-'))}`)
 lines.push(`- decision ref：${rel(latestName('gate-a-decision-ref-'))}`)
 lines.push(`- next command：\`${rec.command}\`（${rec.reason}）`)
+lines.push(`- preflight：${gateAPreflightStrictNextMarkdownLine().replace(/^- /, '')}`)
 lines.push(``)
 lines.push(`> 人工證據仍需依 docs/gate-a-manual-evidence-checklist-2026-05-06.md 補齊。`)
 
