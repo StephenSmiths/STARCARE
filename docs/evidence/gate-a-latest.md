@@ -15,4 +15,5 @@
 - `npm run gatea:evidence:http:auth`（缺 403；請先在 `.env` 設定 GATEA_STAFF_EMAIL／GATEA_STAFF_PASSWORD；或設定 GATEA_STAFF_ACCESS_TOKEN 後改跑 `npm run gatea:evidence:http`）
 - `npm run gatea:evidence:preflight:strict`（取證前嚴格環境檢查；與 README／go-live 並讀）
 
-> 此檔為固定入口，便於在文件／群組貼單一連結。
+> 此檔為固定入口，便於在文件／群組貼單一連結。  
+> **全案收尾與證據留痕**：見 **`docs/go-live-checklist.md`** 開首 **全案收尾與證據留痕**（**`README.md`**「專案收尾」、**`docs/business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**））。
