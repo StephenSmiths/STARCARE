@@ -1,7 +1,7 @@
 # STARCARE 收尾啟動 30 分鐘清單（2026-05）
 
 > **對照**：運維總覽 **`docs/business-logic.md`** §0；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**；**`pdf-sequenced-gap-checklist-revision-log`** 主檔與歸檔（**`2026-05-01a`**／**`archive-p2`**／**`archive-p3`**／**`archive-p4`**）路徑見 **`README.md`**「專案收尾」文件表；上線勾選 **`docs/go-live-checklist.md`**。  
-> **全案收尾母索引**：**`README.md`**「專案收尾」（併讀 **`docs/business-logic.md`** §0 **全案收尾執行** 所載 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**））；Gate A **`docs/evidence/gate-a-latest.md`**（檔內 **Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／**`npm run gatea:evidence:preflight:strict`**）。  
+> **全案收尾母索引**：**`README.md`**「專案收尾」（併讀 **`docs/business-logic.md`** §0 **全案收尾執行** 所載 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**））；Gate A **`docs/evidence/gate-a-latest.md`**（檔內 **Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／**`npm run gatea:evidence:preflight:strict`**）；多數 **`gatea:evidence:*`** 終端 stdout 頁尾 **`scripts/gate-a-markdown-footer.mjs`**（**Export 契約**）。  
 > 目的：讓任何成員在 30 分鐘內完成收尾任務啟動，避免只看懂文件但無法開工。  
 > 背景與完成率估算：`docs/project-completion-audit-2026-05-05.md`。
 
