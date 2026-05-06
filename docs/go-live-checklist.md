@@ -17,6 +17,7 @@
 - 一鍵：全流程 → 修剪舊快照 → 刷新上列入口 → 同步收尾 markdown／判定稿：**`npm run gatea:evidence:refresh`**（見 **`docs/gate-a-status-2026-05-06.md`** **§5**、**`docs/gate-a-status-2026-05-06-commands-appendix.md`**）
 - 由 `package.json` 列出所有 **`gatea:evidence:*`**：**`npm run gatea:evidence:list`**
 - 取證前環境／目錄：`npm run gatea:evidence:preflight`；嚴格（缺 VITE_* 或無 `docs/evidence` 即非 0）：**`npm run gatea:evidence:preflight:strict`**
+- 終端 stdout 末兩行 blockquote（**全案收尾**／**§5**）之維護：**`scripts/gate-a-markdown-footer.mjs`**（檔首 **Export 契約**；**`http:auth`** 見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** **inherit** 說明）；**`README.md`**「Gate A 終端頁尾（維護）」列並讀。
 
 ## 1. 身分與授權（Auth / RLS）
 - [ ] 至少有 1 位 `admin` 與 1 位 `staff` 可成功登入。
