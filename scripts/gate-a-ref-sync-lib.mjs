@@ -1,9 +1,11 @@
 /**
  * Gate A 自動引用區塊：共用於證據索引、日誌、追蹤板、啟動清單等 markdown。
+ * 僅替換 `<!-- gatea-*-auto-ref:start/end -->` 範圍內文；各檔開首 **對照**／**全案收尾** blockquote 不在此範圍。
  */
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
+import { gateAAutoRefClosingHintLine } from './gate-a-markdown-footer.mjs'
 import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
 import { computeGateAReadyState, gateAPreflightStrictNextMarkdownLine } from './gate-a-ready-core.mjs'
 
@@ -69,6 +71,7 @@ export function blockEvidenceIndex(a) {
     `- fill snippet：${pick(a.fillSnippet, PL.fillSnippet)}`,
     `- report：${pick(a.report, PL.report)}`,
     gateAPreflightStrictNextMarkdownLine(),
+    gateAAutoRefClosingHintLine(),
     '<!-- gatea-auto-ref:end -->',
   ].join('\n')
 }
@@ -85,6 +88,7 @@ export function blockDailyLog(a) {
     `- Gate A fill snippet：${pick(a.fillSnippet, PL.fillSnippet)}`,
     `- Gate A report：${pick(a.report, PL.report)}`,
     gateAPreflightStrictNextMarkdownLine(),
+    gateAAutoRefClosingHintLine(),
     '<!-- gatea-daily-auto-ref:end -->',
   ].join('\n')
 }
@@ -102,6 +106,7 @@ function blockWithDoctorMarkers(markerStart, markerEnd, a) {
     `- doctor report：${pick(a.doctorReport, PL.doctorReport)}`,
     `- report：${pick(a.report, PL.report)}`,
     gateAPreflightStrictNextMarkdownLine(),
+    gateAAutoRefClosingHintLine(),
     markerEnd,
   ].join('\n')
 }

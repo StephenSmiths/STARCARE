@@ -15,3 +15,8 @@ export function gateAStandardCloseoutBlockquotes() {
 export function gateALatestMarkdownFooterLines() {
   return ['> 此檔為固定入口，便於在文件／群組貼單一連結。', ...gateAStandardCloseoutBlockquotes()]
 }
+
+/** 自動引用區塊末行（compact；與上列 blockquotes 同鏈，供 `gate-a-ref-sync-lib`）。 */
+export function gateAAutoRefClosingHintLine() {
+  return '- **全案收尾與指令速查**：`docs/go-live-checklist.md`（開首長鏈）；`docs/gate-a-status-2026-05-06.md` **§5**／`docs/gate-a-status-2026-05-06-commands-appendix.md`。'
+}
