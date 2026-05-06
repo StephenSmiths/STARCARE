@@ -67,6 +67,7 @@ lines.push(
 lines.push(
   '- 全流程後順便 prune 並再同步引用區：`npm run gatea:evidence:refresh`（末尾會再跑 `docs-sync` 與判定稿 `decision-sync`；嚴格 HTTP 可用 `npm run gatea:evidence:refresh:strict-http`）',
 )
+lines.push('- 指令總表（與 package.json 同源）：`npm run gatea:evidence:list`')
 
 process.stdout.write(`${lines.join('\n')}\n`)
 

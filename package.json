@@ -83,7 +83,8 @@
     "closeout:phase5:fresh": "npm run delivery:phase5:clean && npm run closeout:phase5",
     "test:e2e:auth:user-role-admin": "playwright test e2e/auth-login.user-role-admin.spec.ts --config=playwright.auth.config.ts",
     "gatea:evidence:next": "node scripts/gate-a-evidence-next.mjs",
-    "gatea:evidence:preflight": "node scripts/gate-a-evidence-preflight.mjs"
+    "gatea:evidence:preflight": "node scripts/gate-a-evidence-preflight.mjs",
+    "gatea:evidence:list": "node scripts/gate-a-evidence-list.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1",

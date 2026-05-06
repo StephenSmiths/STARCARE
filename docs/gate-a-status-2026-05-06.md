@@ -173,6 +173,12 @@ npm run gatea:evidence:preflight
 npm run gatea:evidence:preflight -- --strict
 ```
 
+列出目前倉庫內所有 **`gatea:evidence:*`** npm 指令（自 `package.json` 讀取，免文件漏列）：
+
+```bash
+npm run gatea:evidence:list
+```
+
 > `preflight` 會列出「HTTP 嚴格取證」ON／OFF（對應 `--strict-http` 或 `GATEA_STRICT_HTTP`）。
 
 > `--strict`：若不存在 `docs/evidence`、或 `VITE_SUPABASE_URL`／`VITE_SUPABASE_ANON_KEY` 合併後仍缺，則以非 0 exit（不等同 Gate A READY；全流程關卡仍用 `gatea:evidence:gate`）。
