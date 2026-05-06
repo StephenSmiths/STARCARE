@@ -60,6 +60,8 @@
 
 ### 4.1 每次收證後快速檢查
 
+`gatea:evidence:http`／`gatea:evidence:http:auth` 內含的 HTTP 請求會把實際狀態寫入 `.txt`；若與預期（無 JWT → 401、staff JWT → 403）不符，會在 **stderr** 印出警告並**仍會落檔**，方便人工複核／附在簽核討論。
+
 ```bash
 npm run gatea:evidence:summary
 ```

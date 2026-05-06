@@ -53,8 +53,19 @@ if (staffToken) {
   writeFileSync(p403, await toText(r403), 'utf8')
 }
 
+if (r401.status !== 401) {
+  process.stderr.write(
+    `[gatea http] 警告：未附 Authorization 的請求預期 HTTP 401，實際為 ${r401.status}。已仍寫入證據檔，請核對 Edge \`verify_jwt\` 與部署版本。\n`,
+  )
+}
+
 process.stdout.write(`401 evidence: ${p401}\n`)
 if (p403) {
+  if (r403.status !== 403) {
+    process.stderr.write(
+      `[gatea http] 警告：staff JWT 呼叫管理專用函式預期 HTTP 403，實際為 ${r403.status}。已仍寫入證據檔；若為 200 請檢查 staff 角色與函式授權邏輯。\n`,
+    )
+  }
   process.stdout.write(`403 evidence: ${p403}\n`)
 } else {
   process.stdout.write('403 evidence: skipped (set GATEA_STAFF_ACCESS_TOKEN to enable)\n')
