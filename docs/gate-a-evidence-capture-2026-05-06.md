@@ -12,6 +12,7 @@
 - [x] 可選：`npm run gatea:evidence:auto` 產生自動證據檔（`docs/evidence/gate-a-auto-evidence-*.md`）。
 - [x] 可選：`npm run gatea:evidence:http` 產生 401 證據；若設定 `GATEA_STAFF_ACCESS_TOKEN` 會一併產生 403 證據。
 - [x] 可選：`npm run gatea:evidence:http:auth` 以 `GATEA_STAFF_EMAIL/PASSWORD` 先換 token，再自動產生 401/403 證據。
+- [x] 可選：一鍵 `npm run gatea:evidence:all`（預設先跑 `preflight --strict`，缺 `docs/evidence` 或 VITE_* 會立即中止；加 `--no-preflight` 可略過）。
 - [x] 可選：`npm run gatea:evidence:doctor` 檢查 `docs/evidence` 內人工截圖／401/403 是否齊備；加 `--write` 可另存報告檔（`npm run gatea:evidence:all` 會於同步 markdown 前先 `--write`）。
 - [x] 可選：`npm run gatea:evidence:docs-sync` 只更新四份收尾 markdown 的 Gate A 自動引用區（與 `gatea:evidence:all` 內同一批次邏輯；需已存在最新 doctor 檔時再跑，或先跑 `doctor --write`）。
 - [x] 可選：`npm run gatea:evidence:summary`（401/403/auto 進度與可否判定 `READY`／`NOT_READY` 一行）。

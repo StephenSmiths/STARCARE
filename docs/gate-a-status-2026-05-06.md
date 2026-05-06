@@ -82,8 +82,10 @@ npm run gatea:evidence:http:auth
 
 ```bash
 npm run gatea:evidence:all
+npm run gatea:evidence:all -- --no-preflight
 ```
 
+> `gatea:evidence:all` 預設先執行 `gatea:evidence:preflight --strict`（無 `docs/evidence` 或缺 VITE_* 即中止）；需略過加 `--no-preflight`。  
 > `gatea:evidence:all` 現在也會自動執行判定稿兩行引用同步（等同含 `gatea:evidence:decision-sync`）。
 > `gatea:evidence:all` 會先執行 `gatea:evidence:doctor --write`，再以單一批次指令更新證據索引、Daily Log、2week tracker、kickoff checklist 的 Gate A 自動引用區（等同 `npm run gatea:evidence:docs-sync`；亦即個別之 `gatea:evidence:index-sync`／`daily-sync`／`tracker-sync`／`kickoff-sync`）。如此 tracker／kickoff 內的 **doctor report** 會對應本次剛落檔的報告。
 > `gatea:evidence:all` 會先產生單檔收斂快照：`docs/evidence/gate-a-report-*.md`（等同 `npm run gatea:evidence:report`），再同步四份文件，確保引用到當次最新 report。

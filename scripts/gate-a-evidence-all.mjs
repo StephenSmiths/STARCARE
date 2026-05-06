@@ -4,6 +4,21 @@ import { buildSpawnBaseEnv } from './gate-a-env-lib.mjs'
 
 const baseEnv = buildSpawnBaseEnv()
 
+const skipPreflight = process.argv.includes('--no-preflight')
+if (!skipPreflight) {
+  process.stdout.write('\n== gatea preflight (strict) ==\n')
+  const pre = spawnSync('node', ['scripts/gate-a-evidence-preflight.mjs', '--strict'], {
+    stdio: 'inherit',
+    env: baseEnv,
+  })
+  if ((pre.status ?? 1) !== 0) {
+    process.stderr.write(
+      '\n[abort] `preflight --strict` 未通過，已中止全流程（略過：`npm run gatea:evidence:all -- --no-preflight`）。\n',
+    )
+    process.exit(1)
+  }
+}
+
 const run = (label, cmd, args, extraEnv = {}) => {
   process.stdout.write(`\n== ${label} ==\n`)
   const out = spawnSync(cmd, args, {
