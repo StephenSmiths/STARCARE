@@ -15,7 +15,9 @@ const keys = Object.keys(scripts)
 const lines = []
 lines.push('# Gate A npm 指令一覽（package.json）')
 lines.push('')
-lines.push(`- 共 ${keys.length} 條；詳見 README、docs/gate-a-status-2026-05-06.md、docs/gate-a-evidence-capture-2026-05-06.md。`)
+lines.push(
+  `- 共 ${keys.length} 條；證據固定入口 docs/evidence/gate-a-latest.md（Next Command 與 preflight:strict 並列）；詳見 README、docs/gate-a-status-2026-05-06.md、docs/gate-a-evidence-capture-2026-05-06.md。`,
+)
 lines.push('')
 for (const k of keys) {
   lines.push(`- \`${k}\``)
