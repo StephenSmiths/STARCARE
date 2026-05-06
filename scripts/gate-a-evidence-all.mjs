@@ -1,27 +1,8 @@
 import { spawnSync } from 'node:child_process'
-import { existsSync, readFileSync } from 'node:fs'
-import { resolve } from 'node:path'
 
-/** 讓子程序能讀到僅存在於 `.env` 的變數（如 VITE_*）；仍以目前 shell／CI 的 `process.env` 為準。 */
-const readDotenv = () => {
-  const path = resolve(process.cwd(), '.env')
-  if (!existsSync(path)) return {}
-  const text = readFileSync(path, 'utf8')
-  const out = {}
-  for (const raw of text.split('\n')) {
-    const line = raw.trim()
-    if (!line || line.startsWith('#')) continue
-    const eq = line.indexOf('=')
-    if (eq <= 0) continue
-    const k = line.slice(0, eq).trim()
-    const v = line.slice(eq + 1).trim().replace(/^['"]|['"]$/g, '')
-    out[k] = v
-  }
-  return out
-}
+import { buildSpawnBaseEnv } from './gate-a-env-lib.mjs'
 
-const dotenv = readDotenv()
-const baseEnv = { ...dotenv, ...process.env }
+const baseEnv = buildSpawnBaseEnv()
 
 const run = (label, cmd, args, extraEnv = {}) => {
   process.stdout.write(`\n== ${label} ==\n`)

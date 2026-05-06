@@ -1,6 +1,10 @@
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
+import { hydrateProcessEnvMissingFromDotenv } from './gate-a-env-lib.mjs'
+
+hydrateProcessEnvMissingFromDotenv()
+
 const url = process.env.VITE_SUPABASE_URL
 const anon = process.env.VITE_SUPABASE_ANON_KEY
 const staffToken = process.env.GATEA_STAFF_ACCESS_TOKEN

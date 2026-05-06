@@ -1,3 +1,7 @@
+import { hydrateProcessEnvMissingFromDotenv } from './gate-a-env-lib.mjs'
+
+hydrateProcessEnvMissingFromDotenv()
+
 const url = process.env.VITE_SUPABASE_URL
 const anon = process.env.VITE_SUPABASE_ANON_KEY
 const staffEmail = process.env.GATEA_STAFF_EMAIL
