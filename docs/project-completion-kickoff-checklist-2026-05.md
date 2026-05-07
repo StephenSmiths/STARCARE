@@ -77,7 +77,7 @@ npm run perf:bundle:ci:summary
 
 ### Gate A 自動引用（由腳本同步）
 
-> 下列清單由 `npm run gatea:evidence:docs-sync`／`refresh` 覆寫；路徑彙總以 `docs/evidence/gate-a-latest.md` 為準。
+> 下列清單由 `npm run gatea:evidence:docs-sync`／`refresh` 覆寫；路徑彙總以 `docs/evidence/gate-a-latest.md` 為準（檔尾四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** **`latest`** 段）。
 
 <!-- gatea-kickoff-auto-ref:start -->
 - 可否判定：`NOT_READY`

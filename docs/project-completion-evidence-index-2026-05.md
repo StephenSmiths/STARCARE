@@ -25,7 +25,7 @@
 | 2026-05-15 | D9 | 部署/回滾/憑證 | go-live §2/§6 |  |  |  |  | OPS/BE |  |
 | 2026-05-16 | D10 | 最終簽核 | Gate C |  |  |  |  | TL/QA/業務 |  |
 
-> **Gate A 證據檔名**：上表 2026-05-06 列括號內之歷史檔名僅供追溯；**現況**以 `docs/evidence/gate-a-latest.md` 及本文件下方「Gate A 自動引用」區塊（`docs-sync`／`refresh` 覆寫）為準。若已執行 **`npm run gatea:evidence:refresh`**（內含 **`prune --apply`**），舊自動快照可能自 `docs/evidence/` 實體刪除，上表括號內檔名仍保留作稽核對照。
+> **Gate A 證據檔名**：上表 2026-05-06 列括號內之歷史檔名僅供追溯；**現況**以 `docs/evidence/gate-a-latest.md`（檔尾四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** **`latest`** 段）及本文件下方「Gate A 自動引用」區塊（`docs-sync`／`refresh` 覆寫）為準。若已執行 **`npm run gatea:evidence:refresh`**（內含 **`prune --apply`**），舊自動快照可能自 `docs/evidence/` 實體刪除，上表括號內檔名仍保留作稽核對照。
 
 > 2026-05-06 取證助手：  
 > - 速跑步驟：`docs/gate-a-evidence-capture-2026-05-06.md`  
@@ -36,7 +36,7 @@
 
 ### Gate A 自動引用（由腳本同步）
 
-> 下列清單由 `npm run gatea:evidence:docs-sync`／`refresh` 覆寫；路徑彙總以 `docs/evidence/gate-a-latest.md` 為準。
+> 下列清單由 `npm run gatea:evidence:docs-sync`／`refresh` 覆寫；路徑彙總以 `docs/evidence/gate-a-latest.md` 為準（檔尾四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** **`latest`** 段）。
 
 <!-- gatea-auto-ref:start -->
 - 可否判定：`NOT_READY`（規則：scripts/gate-a-ready-core.mjs）
