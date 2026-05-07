@@ -13,7 +13,7 @@
 | `docs/project-completion-2week-tracker-2026-05-05.md` | 每日追蹤板、開工指令 |
 | `docs/project-completion-daily-log-2026-05.md` | EOD 日誌與風險紀錄 |
 | `docs/project-completion-evidence-index-2026-05.md` | PR/CI/SQL/截圖證據索引 |
-| `docs/evidence/gate-a-latest.md` | Gate A 自動證據固定入口（指令見 `README.md` 常用指令、`docs/go-live-checklist.md` Gate A 小節） |
+| `docs/evidence/gate-a-latest.md` | Gate A 自動證據固定入口（指令見 `README.md` 常用指令、`docs/go-live-checklist.md` Gate A 小節；檔尾四行 `gateALatestMarkdownFooterLines`，見 `docs/gate-a-status-2026-05-06-commands-appendix.md` latest 段） |
 | `docs/project-completion-kickoff-checklist-2026-05.md` | 新成員 30 分鐘啟動清單 |
 
 ## 一句話結論
