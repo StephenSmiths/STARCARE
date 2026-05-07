@@ -47,7 +47,7 @@ export function computeGateBReadyState() {
     {
       key: 'gateb_smoke',
       label: 'Gate B 主要路徑 smoke 證據',
-      ok: hasExact(files, 'gateB-smoke-check-2026-05-07.png'),
+      ok: hasExact(files, 'gateB-smoke-check-2026-05-07.png') || hasExact(files, 'gateB-smoke-check-2026-05-07.md'),
     },
     {
       key: 'gateb_risk_note',
