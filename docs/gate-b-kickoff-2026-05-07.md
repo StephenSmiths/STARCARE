@@ -30,7 +30,7 @@
 
 - [x] 自動檢查：`npm run lint && npm run typecheck`
 - [x] 整合檢查：`npm run ci`（若時間不足，至少執行前兩項）
-- [ ] 證據彙總：產生 Gate B 對應 summary / report
+- [x] 證據彙總：產生 Gate B 對應 summary / report（`docs/evidence/gate-b-summary-2026-05-07.md`）
 - [ ] 人工證據：完成本階段必要截圖與 SQL 查核
 - [ ] 關卡判定：strict gate 為 `READY`
 
