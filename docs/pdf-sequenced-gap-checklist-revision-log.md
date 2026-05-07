@@ -175,3 +175,4 @@
 | 2026-08-22 | **`docs/gate-a-status-2026-05-06-commands-appendix.md`**：`gatea:evidence:next` 小節補 **READY** 時 **`gatea:evidence:latest`**／**`gate-a-latest.md`** 檔尾四行與 stdout 兩行之差（與 **`gate-a-evidence-next.mjs`**、**2026-08-21** 列並讀）。 |
 | 2026-08-23 | **`docs/gate-a-status-2026-05-06-commands-appendix.md`**：**2026-08-22** 列新增 blockquote「**上文** **`latest`**」更正為「**下文** **`latest`**」（與開首對照 blockquote「見下文 **`latest`**」一致）（與 **2026-08-22** 列並讀）。 |
 | 2026-08-24 | **`scripts/gate-a-evidence-next.mjs`**：READY 分支 stdout 用語「的 `latest`」改為「**後文** `latest`」，與 **`commands-appendix`** **2026-08-23** 列並讀（與 **2026-08-23** 列並讀）。 |
+| 2026-08-25 | **`gate-a-evidence-list.mjs`**／**`gate-a-evidence-summary.mjs`**：stdout 首段／**latest pointer** 列補「**後文** `latest`」用語，與 **`gate-a-evidence-next.mjs`**、**`commands-appendix`** **2026-08-24** 列並讀（與 **2026-08-24** 列並讀）。 |
