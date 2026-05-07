@@ -28,7 +28,7 @@ const buckets = [
   { key: 'decision_ref', needle: 'gate-a-decision-ref-' },
 ]
 
-/** 固定入口檔名；檔尾 blockquote 由 `gateALatestMarkdownFooterLines` 寫入（見 `docs/gate-a-status-2026-05-06-commands-appendix.md` 下文 latest 段）。 */
+/** 固定入口檔名；檔尾 blockquote 由 `gateALatestMarkdownFooterLines` 寫入（見 `docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment` 下文 latest 段）。 */
 const keepSet = new Set(['gate-a-latest.md'])
 const deleteList = []
 

@@ -1,6 +1,6 @@
 /**
  * 產出 `docs/evidence/gate-a-latest.md`；檔尾 blockquote 列由 **`gateALatestMarkdownFooterLines`**（四行）寫入。
- * 本腳本之終端 stdout 僅附 **`gateAStandardCloseoutBlockquotes`** 兩行（與檔內頁尾列數不同；見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** 下文 **`latest`** 段）。
+ * 本腳本之終端 stdout 僅附 **`gateAStandardCloseoutBlockquotes`** 兩行（與檔內頁尾列數不同；見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段）。
  */
 import { writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
