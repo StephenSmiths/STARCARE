@@ -170,3 +170,4 @@
 | 2026-08-17 | **`project-completion-kickoff-checklist`**／**`2week-tracker`**／**`evidence-index`**／**`daily-log`**：`gate-a-latest` 路徑彙總／單一入口／證據檔名說明短句補 **`gateALatestMarkdownFooterLines`**／**`commands-appendix`** **`latest`** 互鏈（與 **2026-08-16** 列並讀）。 |
 | 2026-08-18 | **`README.md`**「專案收尾」建議順序、收尾表 Gate A 列、**`gatea:evidence:latest`** 註解、**Gate A 取證助手** 段：補 **`gate-a-latest.md`** 檔尾四行（**`gateALatestMarkdownFooterLines`**／**`commands-appendix`** **`latest`**）互鏈（與 **2026-08-17** 列並讀）。 |
 | 2026-08-19 | **`gate-a-status-2026-05-06.md`**／**`gate-a-decision-draft`**／**`gate-a-evidence-capture`**／**`gate-a-manual-evidence-checklist`**：內文僅路徑之檢核短句補 **`gateALatestMarkdownFooterLines`**／**`commands-appendix`** **`latest`** 互鏈（**`feature-list.md`** §8／頁尾已含，未改）（與 **2026-08-18** 列並讀）。 |
+| 2026-08-20 | **`.env.example`** Gate A 區：第一行註解補指下一行 **`gateALatestMarkdownFooterLines`**／**`commands-appendix`** **`latest`**（與 **2026-08-14**、**2026-08-19** 列並讀）。 |
