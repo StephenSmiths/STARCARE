@@ -14,6 +14,7 @@ type PreviewRow = {
   admission_date: string
   assessment_next_due_date?: string | null
   funding_type: 'GradeA_Subsidized' | 'Voucher' | 'Private'
+  service_types?: Array<'Subsidized_Rehab' | 'Dementia_Service'>
   service_type: 'Subsidized_Rehab' | 'Dementia_Service' | 'Both'
   dementia_level: 'Severe' | 'Moderate' | 'Mild' | 'None'
   is_special_care: boolean

@@ -64,6 +64,40 @@ const normalizeServiceType = (value: string): string => {
   return ''
 }
 
+const splitServiceTypes = (value: string): string[] =>
+  value
+    .split(/[、,，;；/|+]/)
+    .map((item) => item.trim())
+    .filter((item) => item.length > 0)
+
+const normalizeServiceTypes = (value: string): Array<'Subsidized_Rehab' | 'Dementia_Service'> => {
+  const raw = value.trim()
+  if (!raw) return []
+  if (raw === 'Both') return ['Subsidized_Rehab', 'Dementia_Service']
+  const picked = new Set<'Subsidized_Rehab' | 'Dementia_Service'>()
+  for (const token of splitServiceTypes(raw)) {
+    const normalized = normalizeServiceType(token)
+    if (normalized === 'Subsidized_Rehab' || normalized === 'Dementia_Service') {
+      picked.add(normalized)
+    }
+    if (normalized === 'Both') {
+      picked.add('Subsidized_Rehab')
+      picked.add('Dementia_Service')
+    }
+  }
+  return Array.from(picked)
+}
+
+const deriveServiceType = (
+  items: Array<'Subsidized_Rehab' | 'Dementia_Service'>,
+  raw: string,
+): ResidentImportRow['serviceType'] => {
+  if (items.length >= 2) return 'Both'
+  if (items.length === 1) return items[0]
+  if (raw.trim() === '') return 'Subsidized_Rehab'
+  return '' as ResidentImportRow['serviceType']
+}
+
 const normalizeDementiaLevel = (value: string): string => {
   const raw = value.trim()
   if (raw === '重度' || raw === 'Severe') return 'Severe'
@@ -112,6 +146,8 @@ export const parseResidentCsv = (
       headerValue(map, ['assessmentNextDueDate', 'assessment_next_due_date', '下次評估日期']),
     )
     const birthDateRaw = normalizeDateText(headerValue(map, ['birthDate', '出生日期']))
+    const rawServiceType = headerValue(map, ['服務類型', 'serviceType'])
+    const serviceTypes = normalizeServiceTypes(rawServiceType)
     rows.push({
       name: headerValue(map, ['中文姓名', 'name']),
       englishName: headerValue(map, ['英文姓名', 'englishName']),
@@ -123,7 +159,8 @@ export const parseResidentCsv = (
       admissionDate: normalizeDateText(headerValue(map, ['入院日期', 'admissionDate'])),
       ...(dueRaw ? { assessmentNextDueDate: dueRaw } : {}),
       fundingType: normalizeFundingType(headerValue(map, ['資助類別', 'fundingType'])) as ResidentImportRow['fundingType'],
-      serviceType: normalizeServiceType(headerValue(map, ['服務類型', 'serviceType'])) as ResidentImportRow['serviceType'],
+      serviceTypes,
+      serviceType: deriveServiceType(serviceTypes, rawServiceType),
       dementiaLevel: normalizeDementiaLevel(
         headerValue(map, ['認知障礙症程度', 'dementiaLevel']),
       ) as ResidentImportRow['dementiaLevel'],

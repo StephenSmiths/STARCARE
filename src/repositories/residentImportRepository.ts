@@ -15,6 +15,7 @@ export type ResidentImportRow = {
   /** PDF 01 §4.3；可選，YYYY-MM-DD */
   assessmentNextDueDate?: string
   fundingType: 'GradeA_Subsidized' | 'Voucher' | 'Private'
+  serviceTypes?: Array<'Subsidized_Rehab' | 'Dementia_Service'>
   serviceType: 'Subsidized_Rehab' | 'Dementia_Service' | 'Both'
   dementiaLevel: 'Severe' | 'Moderate' | 'Mild' | 'None'
   isSpecialCareCase: boolean
@@ -39,6 +40,7 @@ export type ResidentImportPreviewRow = {
   age: number
   admission_date: string
   funding_type: 'GradeA_Subsidized' | 'Voucher' | 'Private'
+  service_types?: Array<'Subsidized_Rehab' | 'Dementia_Service'>
   service_type: 'Subsidized_Rehab' | 'Dementia_Service' | 'Both'
   dementia_level: 'Severe' | 'Moderate' | 'Mild' | 'None'
   is_special_care: boolean
@@ -73,6 +75,7 @@ class InMemoryResidentImportRepository implements ResidentImportRepository {
       age: row.age,
       admission_date: row.admissionDate,
       funding_type: row.fundingType,
+      service_types: row.serviceTypes,
       service_type: row.serviceType,
       dementia_level: row.dementiaLevel,
       is_special_care: row.isSpecialCareCase,

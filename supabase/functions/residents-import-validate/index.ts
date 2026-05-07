@@ -6,7 +6,7 @@ type IncomingRow = Record<string, unknown>
 type ErrorItem = { rowIndex: number; field: string; message: string }
 
 const FUNDING = new Set(['GradeA_Subsidized', 'Voucher', 'Private'])
-const SERVICE = new Set(['Subsidized_Rehab', 'Dementia_Service', 'Both'])
+const SERVICE = new Set(['Subsidized_Rehab', 'Dementia_Service'])
 const DEMENTIA = new Set(['Severe', 'Moderate', 'Mild', 'None'])
 const GENDER = new Set(['Male', 'Female'])
 
@@ -16,8 +16,28 @@ const toBool = (v: unknown): boolean => {
   return s === 'true' || s === '1' || s === 'yes' || s === 'y'
 }
 
+const normalizeServiceTypes = (v: unknown): string[] => {
+  if (Array.isArray(v)) {
+    const uniq = new Set(v.map((item) => toStr(item)).filter(Boolean))
+    return Array.from(uniq)
+  }
+  const raw = toStr(v)
+  if (!raw) return []
+  if (raw === 'Both') return ['Subsidized_Rehab', 'Dementia_Service']
+  return raw
+    .split(/[、,，;；/|+]/)
+    .map((item) => toStr(item))
+    .filter(Boolean)
+}
+
+const deriveServiceType = (serviceTypes: string[]): 'Subsidized_Rehab' | 'Dementia_Service' | 'Both' => {
+  if (serviceTypes.length >= 2) return 'Both'
+  return serviceTypes[0] === 'Dementia_Service' ? 'Dementia_Service' : 'Subsidized_Rehab'
+}
+
 const normalize = (row: IncomingRow) => {
   const dueRaw = toStr(row.assessmentNextDueDate ?? row.assessment_next_due_date)
+  const serviceTypes = normalizeServiceTypes(row.serviceTypes ?? row.service_types ?? row.serviceType ?? row.service_type)
   return {
     name: toStr(row.name),
     english_name: toStr(row.englishName ?? row.english_name),
@@ -28,7 +48,8 @@ const normalize = (row: IncomingRow) => {
     age: Number(row.age),
     admission_date: toStr(row.admissionDate ?? row.admission_date),
     funding_type: toStr(row.fundingType ?? row.funding_type),
-    service_type: toStr(row.serviceType ?? row.service_type),
+    service_types: serviceTypes,
+    service_type: deriveServiceType(serviceTypes),
     dementia_level: toStr(row.dementiaLevel ?? row.dementia_level),
     is_special_care: toBool(row.isSpecialCareCase ?? row.is_special_care),
     health_condition: toStr(row.healthCondition ?? row.health_condition),
@@ -53,7 +74,10 @@ const validateRow = (row: ReturnType<typeof normalize>, rowIndex: number): Error
   if (!FUNDING.has(row.funding_type)) {
     errors.push({ rowIndex, field: 'funding_type', message: 'funding_type 非法' })
   }
-  if (!SERVICE.has(row.service_type)) {
+  if (!Array.isArray(row.service_types) || row.service_types.length === 0) {
+    errors.push({ rowIndex, field: 'service_type', message: 'service_type 不可為空' })
+  }
+  if (!row.service_types.every((item: string) => SERVICE.has(item))) {
     errors.push({ rowIndex, field: 'service_type', message: 'service_type 非法' })
   }
   if (!DEMENTIA.has(row.dementia_level)) {

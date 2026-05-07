@@ -51,7 +51,7 @@ export const ResidentsImportDryRunSection = ({
       </div>
       <p className={uiTokens.blockHelp}>
         Excel/CSV 範本已改為中文欄位：中文姓名、床號、區域、性別、年齡、入院日期、下次評估日期、資助類別、
-        服務類型、認知障礙症程度、是否Special Care Case、健康狀況、用藥記錄；另含英文姓名與出生日期（支援
+        服務類型（可多選，請用「、」分隔）、認知障礙症程度、是否Special Care Case、健康狀況、用藥記錄；另含英文姓名與出生日期（支援
         YYYY-MM-DD／YYYY/MM/DD／YYYY年MM月DD日）。
       </p>
       <div className={uiTokens.residentImportStepRow}>
