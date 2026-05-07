@@ -1,8 +1,8 @@
-# Gate A 自動證據（2026-05-06 205130）
+# Gate A 自動證據（2026-05-07 070801）
 
-- 產生時間（UTC ISO）：`2026-05-06T19:51:30.402Z`
+- 產生時間（UTC ISO）：`2026-05-07T06:08:01.215Z`
 - branch：`main`
-- commit：`cee099c`
+- commit：`40bcb7f`
 
 ## ops:verify / migration list
 
@@ -70,3 +70,6 @@ ID                                   | NAME                                 | SL
 ```
 
 > 本檔由 `scripts/gate-a-auto-evidence.mjs` 產生；搭配 `docs/gate-a-evidence-capture-2026-05-06.md` 手動補齊截圖證據。
+
+> **全案收尾與證據留痕**：見 **`docs/go-live-checklist.md`** 開首 **全案收尾與證據留痕**（**`README.md`**「專案收尾」、**`docs/business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**））。
+> **收證指令／旗標細部**：**`docs/gate-a-status-2026-05-06.md`** **§5**、**`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`**。

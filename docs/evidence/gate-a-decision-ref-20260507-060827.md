@@ -1,0 +1,13 @@
+## Gate A 判定稿引用片段（自動產生）
+
+- HTTP 嚴格取證（產生當下合併環境）：OFF
+- 建議貼到：`docs/gate-a-decision-draft-2026-05-06.md` 的「依據（已完成）」之後
+- fill snippet：`docs/evidence/gate-a-fill-snippet-20260507-060827.md`
+- auto 證據：`docs/evidence/gate-a-auto-evidence-2026-05-07-070801.md`
+- 401 證據：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-07-060825.9.txt`
+- 403 證據：`docs/evidence/gate-a-d2-403-admin-user-role-set-2026-05-07-060825.9.txt`
+
+> 若 403 顯示待補，請先執行 `npm run gatea:evidence:http:auth` 或帶 token 執行 `npm run gatea:evidence:http`。
+
+> **全案收尾與證據留痕**：見 **`docs/go-live-checklist.md`** 開首 **全案收尾與證據留痕**（**`README.md`**「專案收尾」、**`docs/business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**））。
+> **收證指令／旗標細部**：**`docs/gate-a-status-2026-05-06.md`** **§5**、**`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`**。

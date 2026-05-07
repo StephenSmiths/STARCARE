@@ -82,12 +82,12 @@
 <!-- gatea-daily-auto-ref:start -->
 - Gate A 可否判定：`NOT_READY`
 - Gate A HTTP 嚴格取證：OFF
-- Gate A 自動證據：`docs/evidence/gate-a-auto-evidence-2026-05-06-211730.md`
-- Gate A 401：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-06-201757.4.txt`
-- Gate A 403：`<待補 403 text>`
-- Gate A decision ref：`docs/evidence/gate-a-decision-ref-20260506-201757.md`
-- Gate A fill snippet：`docs/evidence/gate-a-fill-snippet-20260506-201757.md`
-- Gate A report：`docs/evidence/gate-a-report-20260506-201758.md`
+- Gate A 自動證據：`docs/evidence/gate-a-auto-evidence-2026-05-07-070851.md`
+- Gate A 401：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-07-060918.9.txt`
+- Gate A 403：`docs/evidence/gate-a-d2-403-admin-user-role-set-2026-05-07-060918.9.txt`
+- Gate A decision ref：`docs/evidence/gate-a-decision-ref-20260507-060920.md`
+- Gate A fill snippet：`docs/evidence/gate-a-fill-snippet-20260507-060920.md`
+- Gate A report：`docs/evidence/gate-a-report-20260507-060920.md`
 - `npm run gatea:evidence:preflight:strict`（取證前嚴格環境檢查；與 README／go-live 並讀）
 - **全案收尾與指令速查**：`docs/go-live-checklist.md`（開首長鏈）；`docs/gate-a-status-2026-05-06.md` **§5**／`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`。
 <!-- gatea-daily-auto-ref:end -->

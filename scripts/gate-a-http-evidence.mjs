@@ -41,9 +41,10 @@ const p401 = resolve(outDir, `gate-a-d2-401-admin-user-role-set-${ts}.txt`)
 writeFileSync(p401, await toText(r401), 'utf8')
 
 let p403 = ''
+let r403 = null
 if (staffToken) {
   // 403: staff token 呼叫 admin-only edge
-  const r403 = await fetch(endpoint, {
+  r403 = await fetch(endpoint, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -66,7 +67,7 @@ if (r401.status !== 401) {
 
 process.stdout.write(`401 evidence: ${p401}\n`)
 if (p403) {
-  if (r403.status !== 403) {
+  if (r403 && r403.status !== 403) {
     process.stderr.write(
       `[gatea http] 警告：staff JWT 呼叫管理專用函式預期 HTTP 403，實際為 ${r403.status}。已仍寫入證據檔；若為 200 請檢查 staff 角色與函式授權邏輯。\n`,
     )
