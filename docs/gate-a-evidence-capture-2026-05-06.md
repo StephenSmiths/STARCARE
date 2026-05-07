@@ -25,7 +25,7 @@
 - [x] 可選：`npm run gatea:evidence:preflight`（取證前環境／證據目錄診斷，不列印密值）；嚴格檢查可用 `npm run gatea:evidence:preflight:strict`（或 `npm run gatea:evidence:preflight -- --strict`；失敗時 exit 非 0）。
 - [x] 可選：`npm run gatea:evidence:list`（自 `package.json` 列出所有 `gatea:evidence:*` 指令）。
 - [x] 可選：`npm run gatea:evidence:gate`（NOT_READY 直接 exit 非 0，適合作為關卡）。
-- [x] 可選：`npm run gatea:evidence:latest` 刷新固定入口 `docs/evidence/gate-a-latest.md`。
+- [x] 可選：`npm run gatea:evidence:latest` 刷新固定入口 `docs/evidence/gate-a-latest.md`（檔尾四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** **`latest`** 段）。
 - [x] 判定規則單點：`scripts/gate-a-ready-core.mjs`。
 
 ### 0.1 取得 `GATEA_STAFF_ACCESS_TOKEN`（快速法）

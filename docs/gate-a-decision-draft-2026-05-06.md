@@ -28,13 +28,13 @@ npm run gatea:evidence:decision-mini
 - [x] CORS + `x-idempotency-key` 已修正並重佈
 - [x] migration `20260505160000` 已補齊至遠端（Local/Remote 一致）
 - [x] `USER_RBAC_ROLE_SET` 流程可成功執行
-- [x] `db:push` / `ops:verify` 已留存自動證據（現況路徑以 `docs/evidence/gate-a-latest.md` 及 `npm run gatea:evidence:summary` 為準）
+- [x] `db:push` / `ops:verify` 已留存自動證據（現況路徑以 `docs/evidence/gate-a-latest.md`（檔尾四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** **`latest`** 段）及 `npm run gatea:evidence:summary` 為準）
 
 ## 依據（待補人工證據）
 
 ### go-live §1（Auth/RLS）
 - [ ] admin/staff 登入截圖
-- [x] 401 證據（文字）：路徑見 `docs/evidence/gate-a-latest.md`（`401 text` 列）
+- [x] 401 證據（文字）：路徑見 `docs/evidence/gate-a-latest.md`（`401 text` 列；檔尾定義見 **`gateALatestMarkdownFooterLines`**／**`docs/gate-a-status-2026-05-06-commands-appendix.md`** **`latest`** 段）
 - [ ] 403 截圖（staff 呼叫 admin-only API）
 - [ ] `user_roles` SQL 截圖
 
