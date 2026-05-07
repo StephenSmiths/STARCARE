@@ -14,7 +14,9 @@ if (s.ready) {
   lines.push('## 建議動作')
   lines.push('- 進行 Gate A 判定與簽核。')
   lines.push(`- 建議先跑：\`${rec.command}\`（${rec.reason}）`)
-  lines.push('- 再確認：`npm run gatea:evidence:latest`（固定入口）')
+  lines.push(
+    '- 再確認：`npm run gatea:evidence:latest`（寫入 `docs/evidence/gate-a-latest.md`；檔尾 blockquote 四行：`gateALatestMarkdownFooterLines`，敘述見 `docs/gate-a-status-2026-05-06-commands-appendix.md` 的 `latest` 段）',
+  )
 } else {
   lines.push('## 缺口導向')
   lines.push(`- 建議先跑：\`${rec.command}\`（${rec.reason}）`)
