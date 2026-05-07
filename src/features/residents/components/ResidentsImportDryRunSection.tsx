@@ -21,7 +21,7 @@ export type ResidentsImportDryRunSectionProps = {
   commitValidatedRows: (actorId: string) => Promise<void>
 }
 
-/** 院友 CSV：預檢與確認匯入（Dry-run；PDF 01／業務防連點於 hook） */
+/** 院友匯入：預檢與確認匯入（Dry-run；PDF 01／業務防連點於 hook） */
 export const ResidentsImportDryRunSection = ({
   actorId,
   onImportCommitted,
@@ -45,26 +45,27 @@ export const ResidentsImportDryRunSection = ({
     <section className={uiTokens.residentImportSection}>
       <div className={uiTokens.layoutFlexBetweenGap2}>
         <h3 className={uiTokens.blockHeading}>預檢與確認匯入（Dry-run）</h3>
-        <a className={uiTokens.linkDownload} href="/residents-import-template.csv" download>
-          下載 CSV 範本
+        <a className={uiTokens.linkDownload} href="/residents-import-template.xlsx" download>
+          下載 Excel 範本
         </a>
       </div>
       <p className={uiTokens.blockHelp}>
-        CSV 欄位需含：name, bedNumber, area, gender, age, admissionDate, fundingType, serviceType, dementiaLevel,
+        Excel/CSV 欄位需含：name, bedNumber, area, gender, age, admissionDate, fundingType, serviceType,
+        dementiaLevel,
         isSpecialCareCase, healthCondition, medicationRecord；可選 **assessmentNextDueDate**（YYYY-MM-DD，PDF 01 §4.3）
       </p>
       <div className={uiTokens.residentImportStepRow}>
-        <span className={uiTokens.residentImportStepPill}>1. 上傳 CSV</span>
+        <span className={uiTokens.residentImportStepPill}>1. 上傳 Excel/CSV</span>
         <span className={uiTokens.residentImportStepPill}>2. 預檢錯誤</span>
         <span className={uiTokens.residentImportStepPill}>3. 確認匯入</span>
       </div>
       <p className={uiTokens.inlineNoticeWarn}>
-        提示：若出現本地格式錯誤（例如欄位缺漏、數值格式錯誤），系統會先停止預檢，請先修正 CSV 後再重試。
+        提示：若出現本地格式錯誤（例如欄位缺漏、數值格式錯誤），系統會先停止預檢，請先修正檔案後再重試。
       </p>
       <input
         className={uiTokens.formInputMt2}
         type="file"
-        accept=".csv,text/csv"
+        accept=".xlsx,.xls,.csv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
         disabled={isValidating}
         onChange={(event) => {
           const file = event.target.files?.[0]

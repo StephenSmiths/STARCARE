@@ -28,7 +28,7 @@ export const ResidentsAdminWriteSections = ({
         <h3 id="residents-bulk-import-heading" className={uiTokens.blockHeading}>
           院友批量匯入
         </h3>
-        <p className={uiTokens.blockHelp}>以 CSV 預檢後匯入；通過預檢後再確認寫入名單。</p>
+        <p className={uiTokens.blockHelp}>以 Excel/CSV 預檢後匯入；通過預檢後再確認寫入名單。</p>
         <ResidentsImportPanel actorId={actorId} onImportCommitted={onImportCommitted} />
       </section>
       <section aria-labelledby="residents-single-heading">

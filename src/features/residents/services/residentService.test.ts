@@ -7,6 +7,7 @@ const baseInput = {
   bedNumber: 'T-01',
   area: '測試區',
   gender: 'Male' as const,
+  birthDate: '1954-01-01',
   age: 72,
   admissionDate: '2026-01-01',
   fundingType: 'Private' as const,

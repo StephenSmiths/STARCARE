@@ -1,4 +1,5 @@
 import type { Resident, ResidentInput } from '../types/resident'
+import { calculateAgeFromBirthDate, deriveBirthDateFromAge, isValidBirthDate } from '../utils/residentBirthDate'
 
 /** 合併後院友主檔：§4.3 錨點空白字串正規化為 null（與 `normalizeResidentInput` 一致） */
 export const normalizeResidentAssessmentAnchor = (resident: Resident): Resident => {
@@ -15,6 +16,7 @@ export const residentToInput = (resident: Resident): ResidentInput => ({
   bedNumber: resident.bedNumber,
   area: resident.area,
   gender: resident.gender,
+  birthDate: deriveBirthDateFromAge(resident.age),
   age: resident.age,
   admissionDate: resident.admissionDate,
   assessmentNextDueDate: resident.assessmentNextDueDate ?? null,
@@ -28,12 +30,26 @@ export const residentToInput = (resident: Resident): ResidentInput => ({
 
 /** 空白評估錨點正規化為 null，供 DB／Edge 寫入 */
 export const normalizeResidentInput = (input: ResidentInput): ResidentInput => {
+  const normalizedBirthDate = String(input.birthDate ?? '').trim()
+  const normalizedAge = isValidBirthDate(normalizedBirthDate)
+    ? calculateAgeFromBirthDate(normalizedBirthDate)
+    : input.age
   const raw = input.assessmentNextDueDate
   if (raw === undefined || raw === null) {
-    return { ...input, assessmentNextDueDate: null }
+    return {
+      ...input,
+      birthDate: normalizedBirthDate,
+      age: normalizedAge,
+      assessmentNextDueDate: null,
+    }
   }
   const t = String(raw).trim()
-  return { ...input, assessmentNextDueDate: t === '' ? null : t }
+  return {
+    ...input,
+    birthDate: normalizedBirthDate,
+    age: normalizedAge,
+    assessmentNextDueDate: t === '' ? null : t,
+  }
 }
 
 export const validateResidentInput = (input: ResidentInput): void => {
@@ -43,8 +59,11 @@ export const validateResidentInput = (input: ResidentInput): void => {
   if (!input.admissionDate) {
     throw new Error('請提供入院日期')
   }
+  if (!isValidBirthDate(input.birthDate)) {
+    throw new Error('出生日期須為 YYYY-MM-DD')
+  }
   if (input.age < 1 || input.age > 130) {
-    throw new Error('年齡格式不正確')
+    throw new Error('出生日期換算年齡不正確')
   }
   if (!['GradeA_Subsidized', 'Voucher', 'Private'].includes(input.fundingType)) {
     throw new Error('funding_type 僅允許 GradeA_Subsidized、Voucher、Private')

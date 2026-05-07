@@ -1,5 +1,6 @@
 import { uiTokens } from '../../shared/ui/uiTokens'
 import type { ResidentInput } from '../types/resident'
+import { calculateAgeFromBirthDate, isValidBirthDate } from '../utils/residentBirthDate'
 
 /** 基本身分與入住／評估日期欄位（院友管理 SOP） */
 export type ResidentsSingleResidentFormBasicFieldsProps = {
@@ -40,12 +41,19 @@ export const ResidentsSingleResidentFormBasicFields = ({
       />
     </label>
     <label className={uiTokens.formFieldStack}>
-      <span className={uiTokens.formLabel}>年齡</span>
+      <span className={uiTokens.formLabel}>出生日期（YYYY-MM-DD）</span>
       <input
         className={uiTokens.formInput}
-        type="number"
-        value={form.age}
-        onChange={(event) => onChange({ ...form, age: Number(event.target.value) })}
+        type="date"
+        value={form.birthDate}
+        onChange={(event) => {
+          const nextBirthDate = event.target.value
+          onChange({
+            ...form,
+            birthDate: nextBirthDate,
+            age: isValidBirthDate(nextBirthDate) ? calculateAgeFromBirthDate(nextBirthDate) : form.age,
+          })
+        }}
       />
     </label>
     <label className={uiTokens.formFieldStack}>

@@ -9,6 +9,7 @@ import {
   applyResidentCsvCommitOutcome,
   applyResidentCsvDryRunOutcome,
 } from '../utils/residentImportDryRunOutcomeApply'
+import { parseResidentImportFileToCsvText } from '../utils/parseResidentImportFile'
 import { commitResidentCsvPreview, runResidentCsvDryRun } from '../utils/residentImportDryRunFlow'
 
 type ParseError = { rowIndex: number; message: string }
@@ -36,7 +37,7 @@ export const useResidentImportDryRun = () => {
       setResult(null)
       setIsValidating(true)
       try {
-        const text = await file.text()
+        const text = await parseResidentImportFileToCsvText(file)
         const outcome = await runResidentCsvDryRun(text)
         applyResidentCsvDryRunOutcome(outcome, {
           setParseErrors,

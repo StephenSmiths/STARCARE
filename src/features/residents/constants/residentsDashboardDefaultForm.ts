@@ -6,6 +6,7 @@ export const RESIDENT_DASHBOARD_DEFAULT_FORM: ResidentInput = {
   bedNumber: '',
   area: '',
   gender: 'Female',
+  birthDate: '',
   age: 70,
   admissionDate: '',
   assessmentNextDueDate: null,

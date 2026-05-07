@@ -6,12 +6,14 @@ import {
   residentToInput,
   validateResidentInput,
 } from './residentServiceDomain'
+import { deriveBirthDateFromAge } from '../utils/residentBirthDate'
 
 const validBase = (): ResidentInput => ({
   name: '甲',
   bedNumber: 'B1',
   area: '東區',
   gender: 'Male',
+  birthDate: '1954-01-01',
   age: 72,
   admissionDate: '2026-01-01',
   fundingType: 'Private',
@@ -66,6 +68,7 @@ describe('residentServiceDomain', () => {
       bedNumber: r.bedNumber,
       area: r.area,
       gender: r.gender,
+      birthDate: deriveBirthDateFromAge(r.age),
       age: r.age,
       admissionDate: r.admissionDate,
       assessmentNextDueDate: r.assessmentNextDueDate ?? null,
@@ -78,11 +81,16 @@ describe('residentServiceDomain', () => {
     })
   })
 
-  it('validateResidentInput：必填與年齡、funding_type', () => {
+  it('validateResidentInput：必填、出生日期、funding_type', () => {
     expect(() => validateResidentInput({ ...validBase(), name: '   ' })).toThrow(/姓名/)
     expect(() => validateResidentInput({ ...validBase(), admissionDate: '' })).toThrow(/入院日期/)
-    expect(() => validateResidentInput({ ...validBase(), age: 0 })).toThrow(/年齡/)
-    expect(() => validateResidentInput({ ...validBase(), age: 131 })).toThrow(/年齡/)
+    expect(() => validateResidentInput({ ...validBase(), birthDate: '2026-13-99' })).toThrow(/出生日期/)
+    expect(() => validateResidentInput({ ...validBase(), birthDate: '2026-01-01', age: 0 })).toThrow(
+      /年齡/,
+    )
+    expect(() =>
+      validateResidentInput({ ...validBase(), birthDate: '1800-01-01', age: 131 }),
+    ).toThrow(/年齡/)
     expect(() =>
       validateResidentInput({
         ...validBase(),

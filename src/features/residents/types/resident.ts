@@ -30,6 +30,8 @@ export interface ResidentInput {
   bedNumber: string
   area: string
   gender: Gender
+  /** 表單輸入欄位：出生日期（YYYY-MM-DD）；送出時換算 age 寫入既有欄位。 */
+  birthDate: string
   age: number
   admissionDate: string
   assessmentNextDueDate?: string | null
