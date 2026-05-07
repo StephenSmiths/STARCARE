@@ -1,7 +1,7 @@
 # STARCARE 兩週收尾計畫（2026-05-05）
 
 > **對照**：盤點 **`docs/project-completion-audit-2026-05-05.md`**；進度板 **`docs/project-completion-2week-tracker-2026-05-05.md`**；運維總覽 **`docs/business-logic.md`** §0；序號主檔 **`docs/pdf-sequenced-gap-checklist.md`**「**運維與工程**」列；**`pdf-sequenced-gap-checklist-revision-log`** 主檔與歸檔（**`2026-05-01a`**／**`archive-p2`**／**`archive-p3`**／**`archive-p4`**）路徑見 **`README.md`**「專案收尾」文件表。  
-> **全案收尾母索引**：**`README.md`**「專案收尾」（併讀 **`docs/business-logic.md`** §0 **全案收尾執行** 所載 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**））；啟動清單 **`docs/project-completion-kickoff-checklist-2026-05.md`**；Gate A 自動證據固定入口 **`docs/evidence/gate-a-latest.md`**（檔內 **Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／**`npm run gatea:evidence:preflight:strict`**；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**（**`docs/gate-a-status-2026-05-06-commands-appendix.md`** 下文 **`latest`** 段））；多數 **`gatea:evidence:*`** 終端 stdout 頁尾 **`scripts/gate-a-markdown-footer.mjs`**（**Export 契約**）。  
+> **全案收尾母索引**：**`README.md`**「專案收尾」（併讀 **`docs/business-logic.md`** §0 **全案收尾執行** 所載 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**））；啟動清單 **`docs/project-completion-kickoff-checklist-2026-05.md`**；Gate A 自動證據固定入口 **`docs/evidence/gate-a-latest.md`**（檔內 **Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／**`npm run gatea:evidence:preflight:strict`**；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**（**`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段））；多數 **`gatea:evidence:*`** 終端 stdout 頁尾 **`scripts/gate-a-markdown-footer.mjs`**（**Export 契約**）。  
 > 依據：`docs/project-completion-audit-2026-05-05.md`。  
 > 目標：在 10 個工作天內完成「可上線宣告」所需的閉環驗收、權限/RLS抽測、缺陷收斂與簽核。
 
@@ -44,7 +44,7 @@
 - `Gate A（D5）`：
   - go-live §1 / §3 / §8 主證據齊全
   - `RES-06` 明確判定（完成或列阻塞）
-  - 取證自動化與固定入口：`docs/go-live-checklist.md` §0.1、`docs/evidence/gate-a-latest.md`（檔尾四行 **`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** 下文 **`latest`**）；可選 **`npm run gatea:evidence:refresh`**
+  - 取證自動化與固定入口：`docs/go-live-checklist.md` §0.1、`docs/evidence/gate-a-latest.md`（檔尾四行 **`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`**）；可選 **`npm run gatea:evidence:refresh`**
 - `Gate B（D8）`：
   - P0/P1 必須為 0
   - RC 可重複部署且 CI 綠燈
@@ -76,4 +76,4 @@
 - 每日進度板：`docs/project-completion-2week-tracker-2026-05-05.md`
 - 每日日誌：`docs/project-completion-daily-log-2026-05.md`
 - 證據索引：`docs/project-completion-evidence-index-2026-05.md`
-- Gate A 證據固定入口：`docs/evidence/gate-a-latest.md`（檔尾四行 **`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** 下文 **`latest`**）
+- Gate A 證據固定入口：`docs/evidence/gate-a-latest.md`（檔尾四行 **`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`**）

@@ -19,11 +19,11 @@
 ## 2) 待補（人工取證）
 
 目前完成度（人工證據）：請以 `npm run gatea:evidence:doctor` 為準（預設 12 項；401 已有則至少 1/12）
-目前完成度（自動證據面）：請以 `npm run gatea:evidence:summary` 為準（含 `READY`／`NOT_READY`、HTTP 嚴格 ON／OFF、`next command`，以及 doctor／report／snippet／decision ref 指向；`gate-a-latest.md`／`gate-a-report-*.md` 亦含 HTTP 嚴格狀態；`gate-a-latest.md` 檔尾 blockquote 四行定義：**`gateALatestMarkdownFooterLines`**（**`docs/gate-a-status-2026-05-06-commands-appendix.md`** 下文 **`latest`** 段））
+目前完成度（自動證據面）：請以 `npm run gatea:evidence:summary` 為準（含 `READY`／`NOT_READY`、HTTP 嚴格 ON／OFF、`next command`，以及 doctor／report／snippet／decision ref 指向；`gate-a-latest.md`／`gate-a-report-*.md` 亦含 HTTP 嚴格狀態；`gate-a-latest.md` 檔尾 blockquote 四行定義：**`gateALatestMarkdownFooterLines`**（**`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段））
 
 ### go-live §1 Auth / RLS
 - [ ] admin/staff 登入截圖
-- [x] 401 證據（文字檔）已取得（實際路徑見 `docs/evidence/gate-a-latest.md` 之 `401 text` 列，或 `npm run gatea:evidence:summary`；檔尾四行見 **`gateALatestMarkdownFooterLines`**／**`docs/gate-a-status-2026-05-06-commands-appendix.md`** 下文 **`latest`** 段））
+- [x] 401 證據（文字檔）已取得（實際路徑見 `docs/evidence/gate-a-latest.md` 之 `401 text` 列，或 `npm run gatea:evidence:summary`；檔尾四行見 **`gateALatestMarkdownFooterLines`**／**`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段））
 - [ ] 403 截圖（staff 呼叫 admin-only API）
 - [ ] `user_roles` SQL 截圖
 

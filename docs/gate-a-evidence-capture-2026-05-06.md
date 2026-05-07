@@ -3,7 +3,7 @@
 > 目標：一次補齊 `go-live` 的 §1（Auth/RLS）、§3（排班閉環）、§8（審計/RLS 可見性）證據。  
 > 對照：`docs/go-live-checklist.md`、`docs/project-completion-2week-tracker-2026-05-05.md`、`docs/project-completion-evidence-index-2026-05.md`。  
 > **全案收尾與證據留痕**：見 **`docs/go-live-checklist.md`** 開首 **全案收尾與證據留痕**（**`README.md`**「專案收尾」、**`docs/business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**））。
-> 證據固定入口（檔名隨取證變更）：`docs/evidence/gate-a-latest.md`（**Next Command** 與 **`npm run gatea:evidence:preflight:strict`** 並列；與 README／go-live 並讀；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** 下文 **`latest`** 段）；一鍵收證＋修剪＋同步：`npm run gatea:evidence:refresh`；指令總表：`npm run gatea:evidence:list`；指令／旗標細部見 **`docs/gate-a-status-2026-05-06.md`** **§5**／**`docs/gate-a-status-2026-05-06-commands-appendix.md`**。
+> 證據固定入口（檔名隨取證變更）：`docs/evidence/gate-a-latest.md`（**Next Command** 與 **`npm run gatea:evidence:preflight:strict`** 並列；與 README／go-live 並讀；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段）；一鍵收證＋修剪＋同步：`npm run gatea:evidence:refresh`；指令總表：`npm run gatea:evidence:list`；指令／旗標細部見 **`docs/gate-a-status-2026-05-06.md`** **§5**／**`docs/gate-a-status-2026-05-06-commands-appendix.md`**。
 > 多數 `npm run gatea:evidence:*` 終端 stdout 末附 **全案收尾**／**§5** 兩行 blockquote；字串權威與 **`http:auth`**／**`decision-mini`** 等例外見 **`scripts/gate-a-markdown-footer.mjs`** 檔首 **Export 契約**。
 > SQL 一鍵查詢：`docs/sql/gate-a-evidence-queries-2026-05-06.sql`
 > 人工勾選表：`docs/gate-a-manual-evidence-checklist-2026-05-06.md`
@@ -25,7 +25,7 @@
 - [x] 可選：`npm run gatea:evidence:preflight`（取證前環境／證據目錄診斷，不列印密值）；嚴格檢查可用 `npm run gatea:evidence:preflight:strict`（或 `npm run gatea:evidence:preflight -- --strict`；失敗時 exit 非 0）。
 - [x] 可選：`npm run gatea:evidence:list`（自 `package.json` 列出所有 `gatea:evidence:*` 指令）。
 - [x] 可選：`npm run gatea:evidence:gate`（NOT_READY 直接 exit 非 0，適合作為關卡）。
-- [x] 可選：`npm run gatea:evidence:latest` 刷新固定入口 `docs/evidence/gate-a-latest.md`（檔尾四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** 下文 **`latest`** 段）。
+- [x] 可選：`npm run gatea:evidence:latest` 刷新固定入口 `docs/evidence/gate-a-latest.md`（檔尾四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段）。
 - [x] 判定規則單點：`scripts/gate-a-ready-core.mjs`。
 
 ### 0.1 取得 `GATEA_STAFF_ACCESS_TOKEN`（快速法）

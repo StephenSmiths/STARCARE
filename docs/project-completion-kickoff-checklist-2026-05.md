@@ -1,7 +1,7 @@
 # STARCARE 收尾啟動 30 分鐘清單（2026-05）
 
 > **對照**：運維總覽 **`docs/business-logic.md`** §0；序號主檔「**運維與工程**」列 **`docs/pdf-sequenced-gap-checklist.md`**；**`pdf-sequenced-gap-checklist-revision-log`** 主檔與歸檔（**`2026-05-01a`**／**`archive-p2`**／**`archive-p3`**／**`archive-p4`**）路徑見 **`README.md`**「專案收尾」文件表；上線勾選 **`docs/go-live-checklist.md`**。  
-> **全案收尾母索引**：**`README.md`**「專案收尾」（併讀 **`docs/business-logic.md`** §0 **全案收尾執行** 所載 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**））；Gate A **`docs/evidence/gate-a-latest.md`**（檔內 **Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／**`npm run gatea:evidence:preflight:strict`**；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**（**`docs/gate-a-status-2026-05-06-commands-appendix.md`** 下文 **`latest`** 段））；多數 **`gatea:evidence:*`** 終端 stdout 頁尾 **`scripts/gate-a-markdown-footer.mjs`**（**Export 契約**）。  
+> **全案收尾母索引**：**`README.md`**「專案收尾」（併讀 **`docs/business-logic.md`** §0 **全案收尾執行** 所載 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**））；Gate A **`docs/evidence/gate-a-latest.md`**（檔內 **Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／**`npm run gatea:evidence:preflight:strict`**；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**（**`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段））；多數 **`gatea:evidence:*`** 終端 stdout 頁尾 **`scripts/gate-a-markdown-footer.mjs`**（**Export 契約**）。  
 > 目的：讓任何成員在 30 分鐘內完成收尾任務啟動，避免只看懂文件但無法開工。  
 > 背景與完成率估算：`docs/project-completion-audit-2026-05-05.md`。
 
@@ -16,7 +16,7 @@
 - `docs/go-live-checklist.md`
 - `docs/gate-a-status-2026-05-06.md`（D2～D5：Gate A 即時狀態；**§5** 指令速查 `docs/gate-a-status-2026-05-06-commands-appendix.md`）
 - `docs/gate-a-evidence-capture-2026-05-06.md`（Gate A 取證步驟）
-- `docs/evidence/gate-a-latest.md`（Gate A 證據固定入口；**Next Command** 與 **`preflight:strict`** 並列；檔名隨取證更新；檔尾四行 **`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** 下文 **`latest`** 段）
+- `docs/evidence/gate-a-latest.md`（Gate A 證據固定入口；**Next Command** 與 **`preflight:strict`** 並列；檔名隨取證更新；檔尾四行 **`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段）
 - `docs/supabase-deploy-runbook.md`（OPS：遠端部署與驗證）
 - `docs/security-token-rotation-checklist.md`（OPS：PAT 與 §D 自檢）
 
@@ -77,7 +77,7 @@ npm run perf:bundle:ci:summary
 
 ### Gate A 自動引用（由腳本同步）
 
-> 下列清單由 `npm run gatea:evidence:docs-sync`／`refresh` 覆寫；路徑彙總以 `docs/evidence/gate-a-latest.md` 為準（檔尾四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** 下文 **`latest`** 段）。
+> 下列清單由 `npm run gatea:evidence:docs-sync`／`refresh` 覆寫；路徑彙總以 `docs/evidence/gate-a-latest.md` 為準（檔尾四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段）。
 
 <!-- gatea-kickoff-auto-ref:start -->
 - 可否判定：`NOT_READY`
