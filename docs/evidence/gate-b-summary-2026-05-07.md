@@ -24,7 +24,7 @@
 
 ## 4) 下一步建議
 
-1. 定義 Gate B 需求與人工證據欄位（沿用 Gate A 的命名規範）。
-2. 建立 Gate B 對應 `summary` / `ready --strict` 腳本。
-3. 補齊人工證據後執行 strict gate，回寫本檔與 kickoff 清單。
+1. 依 `docs/gate-b-manual-evidence-checklist-2026-05-07.md` 補齊人工證據。
+2. 執行 `npm run gateb:evidence:report` 產生 Gate B 報告快照。
+3. 補齊後執行 strict gate：`npm run gateb:evidence:ready -- --strict`。
 
