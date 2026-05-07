@@ -176,3 +176,4 @@
 | 2026-08-23 | **`docs/gate-a-status-2026-05-06-commands-appendix.md`**：**2026-08-22** 列新增 blockquote「**上文** **`latest`**」更正為「**下文** **`latest`**」（與開首對照 blockquote「見下文 **`latest`**」一致）（與 **2026-08-22** 列並讀）。 |
 | 2026-08-24 | **`scripts/gate-a-evidence-next.mjs`**：READY 分支 stdout 用語「的 `latest`」改為「**後文** `latest`」，與 **`commands-appendix`** **2026-08-23** 列並讀（與 **2026-08-23** 列並讀）。 |
 | 2026-08-25 | **`gate-a-evidence-list.mjs`**／**`gate-a-evidence-summary.mjs`**：stdout 首段／**latest pointer** 列補「**後文** `latest`」用語，與 **`gate-a-evidence-next.mjs`**、**`commands-appendix`** **2026-08-24** 列並讀（與 **2026-08-24** 列並讀）。 |
+| 2026-08-26 | **`README.md`** Gate A 互鏈與 **`gatea:evidence:latest`** 註解：**`commands-appendix`** 與 **`latest`** 之間補「**下文**」用語；**`.env.example`** Gate A 檔尾註解同補（與 **`commands-appendix`** 開首對照、**2026-08-25** 列並讀）。 |
