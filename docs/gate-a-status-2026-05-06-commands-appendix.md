@@ -133,7 +133,7 @@ npm run gatea:evidence:list
 
 > `gatea:evidence:next` 與 `gatea:evidence:summary` 內之「next」行，會依 `{ .env ∪ process.env }` 判斷：有 staff 帳密則建議 `gatea:evidence:http:auth`；僅有 `GATEA_STAFF_ACCESS_TOKEN` 則建議 `gatea:evidence:http`。
 
-> `gatea:evidence:next`：狀態為 **READY** 時會建議再跑 `gatea:evidence:latest`；該步驟寫入 **`docs/evidence/gate-a-latest.md`**，檔尾 blockquote 四行出自 **`gateALatestMarkdownFooterLines`**（細目見上文 **`latest`** 段）。本指令 stdout 末兩行仍為 **`gateAStandardCloseoutBlockquotes`**（**`scripts/gate-a-markdown-footer.mjs`** **Export 契約**）。
+> `gatea:evidence:next`：狀態為 **READY** 時會建議再跑 `gatea:evidence:latest`；該步驟寫入 **`docs/evidence/gate-a-latest.md`**，檔尾 blockquote 四行出自 **`gateALatestMarkdownFooterLines`**（細目見下文 **`latest`** 段）。本指令 stdout 末兩行仍為 **`gateAStandardCloseoutBlockquotes`**（**`scripts/gate-a-markdown-footer.mjs`** **Export 契約**）。
 
 規則實作單點：`scripts/gate-a-ready-core.mjs`（`gatea:evidence:latest`、`gatea:evidence:report`、終端 READY 輸出共用）。
 
