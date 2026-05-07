@@ -28,7 +28,7 @@
 
 ### 專案收尾（全案完成度，2026-05）
 
-建議順序：可選先跑 [project-completion-kickoff-checklist-2026-05.md](docs/project-completion-kickoff-checklist-2026-05.md)（約 30 分鐘）→ [docs/evidence/gate-a-latest.md](docs/evidence/gate-a-latest.md)（Gate A 自動證據；**Next Command** 與 **`preflight:strict`** 並列於該檔；細部見 [go-live-checklist.md](docs/go-live-checklist.md) 開首 Gate A 取證）→ 盤點 → 兩週計畫 → 追蹤板 → 日誌 → 證據索引。
+建議順序：可選先跑 [project-completion-kickoff-checklist-2026-05.md](docs/project-completion-kickoff-checklist-2026-05.md)（約 30 分鐘）→ [docs/evidence/gate-a-latest.md](docs/evidence/gate-a-latest.md)（Gate A 自動證據；**Next Command** 與 **`preflight:strict`** 並列於該檔；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**，見 [docs/gate-a-status-2026-05-06-commands-appendix.md](docs/gate-a-status-2026-05-06-commands-appendix.md) **`latest`** 段；細部見 [go-live-checklist.md](docs/go-live-checklist.md) 開首 Gate A 取證）→ 盤點 → 兩週計畫 → 追蹤板 → 日誌 → 證據索引。
 
 執行時同步對照 [go-live-checklist.md](docs/go-live-checklist.md)、[supabase-deploy-runbook.md](docs/supabase-deploy-runbook.md)、[security-token-rotation-checklist.md](docs/security-token-rotation-checklist.md)。運維總覽 [business-logic.md](docs/business-logic.md) §0；序號主檔「運維與工程」列見 [pdf-sequenced-gap-checklist.md](docs/pdf-sequenced-gap-checklist.md)。
 
@@ -41,7 +41,7 @@
 | [project-completion-2week-tracker-2026-05-05.md](docs/project-completion-2week-tracker-2026-05-05.md) | 進度板與開工指令 |
 | [project-completion-daily-log-2026-05.md](docs/project-completion-daily-log-2026-05.md) | EOD 與風險 |
 | [project-completion-evidence-index-2026-05.md](docs/project-completion-evidence-index-2026-05.md) | PR／CI／SQL／截圖證據 |
-| [docs/evidence/gate-a-latest.md](docs/evidence/gate-a-latest.md) | Gate A 證據固定入口（**Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:latest`**／**`refresh`** 更新） |
+| [docs/evidence/gate-a-latest.md](docs/evidence/gate-a-latest.md) | Gate A 證據固定入口（**Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:latest`**／**`refresh`** 更新；檔尾四行：**`gateALatestMarkdownFooterLines`**，見 [docs/gate-a-status-2026-05-06-commands-appendix.md](docs/gate-a-status-2026-05-06-commands-appendix.md) **`latest`** 段） |
 | [project-completion-kickoff-checklist-2026-05.md](docs/project-completion-kickoff-checklist-2026-05.md) | 新成員 30 分鐘收尾啟動清單 |
 | [pdf-sequenced-gap-checklist-revision-log.md](docs/pdf-sequenced-gap-checklist-revision-log.md) | 序號主檔修訂日誌（最新留痕） |
 | [pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md](docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md) | 修訂日誌歸檔（2026-05-01 前段；與主日誌並讀） |
@@ -90,7 +90,7 @@ npm run gatea:evidence:refresh:strict-http # 同上並強制 HTTP 狀態檢查
 npm run gatea:evidence:http:strict # 同 gatea:evidence:http + --strict-http
 npm run gatea:evidence:http:auth:strict # 同 http:auth + --strict-http
 npm run gatea:evidence:all:strict-http # 全流程 + HTTP 狀態嚴格檢查（或設 GATEA_STRICT_HTTP=1）
-npm run gatea:evidence:latest # 更新固定入口 docs/evidence/gate-a-latest.md
+npm run gatea:evidence:latest # 更新固定入口 docs/evidence/gate-a-latest.md（檔尾四行 gateALatestMarkdownFooterLines；定義見 docs/gate-a-status-2026-05-06-commands-appendix.md latest 段）
 npm run gatea:evidence:summary # 自動證據彙總（含 READY 一行）
 npm run gatea:evidence:ready # READY/NOT_READY；加 --strict 缺項時非 0
 npm run gatea:evidence:next # 依目前缺口直接給下一步命令
@@ -106,7 +106,7 @@ npm run gatea:evidence:prune # 清理舊 Gate A 自動快照（預設 dry-run；
 - **CI**：推上 GitHub 後由 [`.github/workflows/ci.yml`](.github/workflows/ci.yml) 執行（含 Playwright 快取；demo 建置為 **`npm run build:demo`**，避免與本機 `.env` 內嵌 Supabase 混用）。
 - **效能報告**：CI 會在 bundle budget check 後上傳 `bundle-report` artifact（`dist/bundle-report.json`）。
 - **憑證與部署後自檢**：[docs/security-token-rotation-checklist.md](docs/security-token-rotation-checklist.md) **§D**（可選 **`npm run ci`**；與 [docs/go-live-checklist.md](docs/go-live-checklist.md) §6 對齊）。
-- **Gate A 取證助手**：證據固定入口 **`docs/evidence/gate-a-latest.md`**（**Next Command** 與 **`npm run gatea:evidence:preflight:strict`** 並列；與 [go-live-checklist.md](docs/go-live-checklist.md) **§0.1** 並讀）。可用 **`npm run gatea:evidence:list`** 列出所有 `gatea:evidence:*`（與 `package.json` 同步）；步驟見 `docs/gate-a-evidence-capture-2026-05-06.md`，一鍵腳本 `npm run gatea:evidence:all`（預設先 `gatea:evidence:preflight:strict`，含 `doctor`/`report` 落檔等；`--no-preflight` 略過前置檢查；HTTP 嚴格狀態可用 `gatea:evidence:all:strict-http` 或 `--strict-http`）；收證後順便修剪舊快照、刷新 `gate-a-latest.md`、再 **`docs-sync`** 與 **`decision-sync`** 可用 **`npm run gatea:evidence:refresh`**（`--keep=N` 僅作用於 prune；另有 **`gatea:evidence:refresh:strict-http`**）；僅同步四份收尾 markdown 可用 `npm run gatea:evidence:docs-sync`；彙總 `npm run gatea:evidence:summary`，可否判定 `npm run gatea:evidence:ready`，下一步導引 `npm run gatea:evidence:next`；取證前診斷 `npm run gatea:evidence:preflight`（嚴格：`npm run gatea:evidence:preflight:strict`）；需直接當關卡可用 `npm run gatea:evidence:gate`（NOT_READY 即非 0）；缺口細項 `npm run gatea:evidence:doctor`；清理舊自動快照可用 `npm run gatea:evidence:prune`（預設 dry-run，`-- --apply` 才刪檔）。即時狀態：[docs/gate-a-status-2026-05-06.md](docs/gate-a-status-2026-05-06.md)（**§5** [收證指令／旗標速查](docs/gate-a-status-2026-05-06-commands-appendix.md)）。
+- **Gate A 取證助手**：證據固定入口 **`docs/evidence/gate-a-latest.md`**（**Next Command** 與 **`npm run gatea:evidence:preflight:strict`** 並列；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**，見 [docs/gate-a-status-2026-05-06-commands-appendix.md](docs/gate-a-status-2026-05-06-commands-appendix.md) **`latest`** 段；與 [go-live-checklist.md](docs/go-live-checklist.md) **§0.1** 並讀）。可用 **`npm run gatea:evidence:list`** 列出所有 `gatea:evidence:*`（與 `package.json` 同步）；步驟見 `docs/gate-a-evidence-capture-2026-05-06.md`，一鍵腳本 `npm run gatea:evidence:all`（預設先 `gatea:evidence:preflight:strict`，含 `doctor`/`report` 落檔等；`--no-preflight` 略過前置檢查；HTTP 嚴格狀態可用 `gatea:evidence:all:strict-http` 或 `--strict-http`）；收證後順便修剪舊快照、刷新 `gate-a-latest.md`、再 **`docs-sync`** 與 **`decision-sync`** 可用 **`npm run gatea:evidence:refresh`**（`--keep=N` 僅作用於 prune；另有 **`gatea:evidence:refresh:strict-http`**）；僅同步四份收尾 markdown 可用 `npm run gatea:evidence:docs-sync`；彙總 `npm run gatea:evidence:summary`，可否判定 `npm run gatea:evidence:ready`，下一步導引 `npm run gatea:evidence:next`；取證前診斷 `npm run gatea:evidence:preflight`（嚴格：`npm run gatea:evidence:preflight:strict`）；需直接當關卡可用 `npm run gatea:evidence:gate`（NOT_READY 即非 0）；缺口細項 `npm run gatea:evidence:doctor`；清理舊自動快照可用 `npm run gatea:evidence:prune`（預設 dry-run，`-- --apply` 才刪檔）。即時狀態：[docs/gate-a-status-2026-05-06.md](docs/gate-a-status-2026-05-06.md)（**§5** [收證指令／旗標速查](docs/gate-a-status-2026-05-06-commands-appendix.md)）。
 - **Gate A 終端頁尾（維護）**：多數指令 stdout 末兩行 blockquote 與 **`scripts/gate-a-markdown-footer.mjs`** 之 **`gateAStandardCloseoutBlockquotes`** 同源；**`http:auth`** 與 **`decision-mini`** 等例外見該檔檔首 **Export 契約**。
 
 ## 技術棧
