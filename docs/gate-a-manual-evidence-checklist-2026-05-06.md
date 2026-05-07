@@ -4,7 +4,7 @@
 > 由腳本自動產生之 `.txt`／`gate-a-*.md` 檔名含時間戳會變動；**現況路徑**以 **`docs/evidence/gate-a-latest.md`**（檔內 **Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:summary`**；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段）為準。下表以**建議截圖檔名**為主。
 > 取證前可先 `npm run gatea:evidence:preflight`（嚴格：`npm run gatea:evidence:preflight:strict`）確認合併環境之 VITE_* 與 `docs/evidence` 目錄。  
 > **全案收尾與證據留痕**：見 **`docs/go-live-checklist.md`** 開首 **全案收尾與證據留痕**（**`README.md`**「專案收尾」、**`docs/business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**））。  
-> **收證指令／旗標細部**：**`docs/gate-a-status-2026-05-06.md`** **§5**、**`docs/gate-a-status-2026-05-06-commands-appendix.md`**。
+> **收證指令／旗標細部**：**`docs/gate-a-status-2026-05-06.md`** **§5**、**`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`**。
 > 多數 **`gatea:evidence:*`** 終端 stdout 末兩行 blockquote 維護：**`scripts/gate-a-markdown-footer.mjs`**（**Export 契約**；**`README.md`**「Gate A 終端頁尾（維護）」）。
 
 ## A. go-live §1（Auth/RLS）

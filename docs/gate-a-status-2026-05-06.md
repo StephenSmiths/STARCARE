@@ -61,4 +61,4 @@
 
 ## 5) 收證指令與旗標速查
 
-見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`**（**`npm run gatea:evidence:*`**、HTTP strict、preflight、doctor、refresh、prune 等）。
+見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`**（**`npm run gatea:evidence:*`**、HTTP strict、preflight、doctor、refresh、prune 等）。
