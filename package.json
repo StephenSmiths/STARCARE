@@ -91,7 +91,7 @@
     "gateb:evidence:report": "node scripts/gate-b-evidence-report.mjs"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.49.1",
+    "@supabase/supabase-js": "^2.105.3",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "xlsx": "^0.18.5"
