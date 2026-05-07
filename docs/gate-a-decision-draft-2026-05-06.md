@@ -16,7 +16,7 @@ npm run gatea:evidence:decision-mini
 ```
 
 > 將輸出直接貼到本段下方，作為最新留痕引用（含 HTTP 嚴格 ON／OFF）；或使用 `npm run gatea:evidence:decision-sync` 自動回填。  
-> 自動證據主檔彙總入口：`docs/evidence/gate-a-latest.md`（檔內 **Next Command** 與 **`preflight:strict`** 並列；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** **`latest`** 段）。下列 `decision ref`／`fill snippet`／`HTTP 嚴格取證` 前三行由 `gate-a-sync-decision-draft.mjs` 於 `refresh`／`all` 時覆寫；末行與 **`scripts/gate-a-markdown-footer.mjs`** 之 **`gateAAutoRefClosingHintLine()`** 一致（全案收尾／**status** **§5**／**commands-appendix**）。
+> 自動證據主檔彙總入口：`docs/evidence/gate-a-latest.md`（檔內 **Next Command** 與 **`preflight:strict`** 並列；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** 下文 **`latest`** 段）。下列 `decision ref`／`fill snippet`／`HTTP 嚴格取證` 前三行由 `gate-a-sync-decision-draft.mjs` 於 `refresh`／`all` 時覆寫；末行與 **`scripts/gate-a-markdown-footer.mjs`** 之 **`gateAAutoRefClosingHintLine()`** 一致（全案收尾／**status** **§5**／**commands-appendix**）。
 - decision ref：`docs/evidence/gate-a-decision-ref-20260506-201757.md`
 - fill snippet：`docs/evidence/gate-a-fill-snippet-20260506-201757.md`
 - HTTP 嚴格取證：OFF
@@ -28,13 +28,13 @@ npm run gatea:evidence:decision-mini
 - [x] CORS + `x-idempotency-key` 已修正並重佈
 - [x] migration `20260505160000` 已補齊至遠端（Local/Remote 一致）
 - [x] `USER_RBAC_ROLE_SET` 流程可成功執行
-- [x] `db:push` / `ops:verify` 已留存自動證據（現況路徑以 `docs/evidence/gate-a-latest.md`（檔尾四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** **`latest`** 段）及 `npm run gatea:evidence:summary` 為準）
+- [x] `db:push` / `ops:verify` 已留存自動證據（現況路徑以 `docs/evidence/gate-a-latest.md`（檔尾四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** 下文 **`latest`** 段）及 `npm run gatea:evidence:summary` 為準）
 
 ## 依據（待補人工證據）
 
 ### go-live §1（Auth/RLS）
 - [ ] admin/staff 登入截圖
-- [x] 401 證據（文字）：路徑見 `docs/evidence/gate-a-latest.md`（`401 text` 列；檔尾定義見 **`gateALatestMarkdownFooterLines`**／**`docs/gate-a-status-2026-05-06-commands-appendix.md`** **`latest`** 段）
+- [x] 401 證據（文字）：路徑見 `docs/evidence/gate-a-latest.md`（`401 text` 列；檔尾定義見 **`gateALatestMarkdownFooterLines`**／**`docs/gate-a-status-2026-05-06-commands-appendix.md`** 下文 **`latest`** 段）
 - [ ] 403 截圖（staff 呼叫 admin-only API）
 - [ ] `user_roles` SQL 截圖
 
