@@ -20,7 +20,7 @@ npm run gatea:evidence:decision-mini
 - decision ref：`docs/evidence/gate-a-decision-ref-20260506-201757.md`
 - fill snippet：`docs/evidence/gate-a-fill-snippet-20260506-201757.md`
 - HTTP 嚴格取證：OFF
-- **全案收尾與指令速查**：`docs/go-live-checklist.md`（開首長鏈）；`docs/gate-a-status-2026-05-06.md` **§5**／`docs/gate-a-status-2026-05-06-commands-appendix.md`。
+- **全案收尾與指令速查**：`docs/go-live-checklist.md`（開首長鏈）；`docs/gate-a-status-2026-05-06.md` **§5**／`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`。
 
 ## 依據（已完成）
 
