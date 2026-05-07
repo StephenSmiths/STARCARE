@@ -4,7 +4,7 @@
 > 取證入口：`docs/gate-a-evidence-capture-2026-05-06.md`  
 > 勾選表：`docs/gate-a-manual-evidence-checklist-2026-05-06.md`  
 > 自動證據檔名會隨每次取證變更；**固定入口**：`docs/evidence/gate-a-latest.md`（**Next Command** 與 **`npm run gatea:evidence:preflight:strict`** 並列；或跑 `npm run gatea:evidence:summary`；檔尾 blockquote 含 **stdout 頁尾** 一行，見 **`gateALatestMarkdownFooterLines`**／**`commands-appendix`** 下文 **`latest`** 段）；**全案收尾與證據留痕**：見 **`docs/go-live-checklist.md`** 開首（**`README.md`**「專案收尾」、**`docs/business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**））。
-> 多數 `gatea:evidence:*` 終端 stdout 末兩行 blockquote 維護：**`scripts/gate-a-markdown-footer.mjs`**（**Export 契約**）；**`http:auth`** 頁尾見附錄 **inherit** 說明。
+> 多數 `gatea:evidence:*` 終端 stdout 末兩行 blockquote 維護：**`scripts/gate-a-markdown-footer.mjs`**（**Export 契約**）；**`http:auth`** 頁尾見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-inherit`**（**inherit** 說明）。
 > 判定草案：`docs/gate-a-decision-draft-2026-05-06.md`
 
 ## 1) 已完成（系統可驗證）

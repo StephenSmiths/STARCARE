@@ -6,6 +6,8 @@
 
 `gatea:evidence:http`／`gatea:evidence:http:auth` 內含的 HTTP 請求會把實際狀態寫入 `.txt`；若與預期（無 JWT → 401、staff JWT → 403）不符，會在 **stderr** 印出警告並**仍會落檔**，方便人工複核／附在簽核討論。加上 `--strict-http`（例如 `npm run gatea:evidence:http -- --strict-http`，或 `gatea:evidence:all -- --strict-http`）則上述不符時 **exit 非 0**。亦可設環境變數 **`GATEA_STRICT_HTTP=1`**（或 `true`／`yes`，可寫入 `.env`）。捷徑：`npm run gatea:evidence:http:strict`、`npm run gatea:evidence:http:auth:strict`、`npm run gatea:evidence:all:strict-http`。
 
+<a id="gate-a-appendix-inherit"></a>
+
 > **終端 stdout 頁尾**：`gatea:evidence:http` 末段附 **全案收尾**／**§5** 兩行 blockquote（`scripts/gate-a-http-evidence.mjs`）。`gatea:evidence:http:auth` 以 **`stdio: inherit`** 委派子程序，頁尾由子程序輸出、**不重複列印**（`scripts/gate-a-http-evidence-auth.mjs`）；字串權威與例外見 `scripts/gate-a-markdown-footer.mjs` 檔首 **Export 契約**。
 
 ```bash
@@ -159,7 +161,7 @@ npm run gatea:evidence:doctor -- --write
 
 ### 下文 `latest` 段（`gatea:evidence:latest`）
 
-全倉互鏈所稱「見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段」者，即**本小節**（可於瀏覽器／Git 託管連結加 **`#gate-a-appendix-latest-segment`** 直達；固定入口檔尾四行與本指令終端 stdout 兩行之差異）。
+全倉互鏈所稱「見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段」者，即**本小節**（可於瀏覽器／Git 託管連結加 **`#gate-a-appendix-latest-segment`** 直達；固定入口檔尾四行與本指令終端 stdout 兩行之差異）。**`http:auth`**／**`inherit`** 說明見 **`#gate-a-appendix-inherit`**（本附錄 **`## 1)`** 開首 **inherit** blockquote 列上）。
 
 更新固定入口（便於貼單一連結）：
 
