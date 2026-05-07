@@ -85,7 +85,9 @@
     "gatea:evidence:next": "node scripts/gate-a-evidence-next.mjs",
     "gatea:evidence:preflight": "node scripts/gate-a-evidence-preflight.mjs",
     "gatea:evidence:preflight:strict": "node scripts/gate-a-evidence-preflight.mjs --strict",
-    "gatea:evidence:list": "node scripts/gate-a-evidence-list.mjs"
+    "gatea:evidence:list": "node scripts/gate-a-evidence-list.mjs",
+    "gateb:evidence:doctor": "node scripts/gate-b-evidence-doctor.mjs",
+    "gateb:evidence:ready": "node scripts/gate-b-evidence-ready.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1",

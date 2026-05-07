@@ -44,9 +44,9 @@ npm run typecheck
 # 2) 可選整體檢查
 npm run ci
 
-# 3) 依 Gate B 腳本（建立後）執行彙總與判定
-# npm run gateb:evidence:summary
-# npm run gateb:evidence:ready -- --strict
+# 3) Gate B 證據檢查與判定
+npm run gateb:evidence:doctor
+npm run gateb:evidence:ready -- --strict
 ```
 
 ## 4) 證據命名規範（先行）
