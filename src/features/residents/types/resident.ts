@@ -9,9 +9,11 @@ export type ServiceType = 'Subsidized_Rehab' | 'Dementia_Service' | 'Both'
 export interface Resident {
   id: string
   name: string
+  englishName?: string
   bedNumber: string
   area: string
   gender: Gender
+  birthDate?: string | null
   age: number
   admissionDate: string
   /** DB `assessment_next_due_date`；有值且落在 14 天視窗內時優先於入住週期估算（Seq 9） */
@@ -27,6 +29,7 @@ export interface Resident {
 
 export interface ResidentInput {
   name: string
+  englishName?: string
   bedNumber: string
   area: string
   gender: Gender
@@ -46,9 +49,11 @@ export interface ResidentInput {
 export interface ResidentRecord {
   id: string
   name: string
+  english_name?: string | null
   bed_number: string
   area: string
   gender: Gender
+  birth_date?: string | null
   age: number
   admission_date: string
   assessment_next_due_date?: string | null

@@ -13,10 +13,11 @@ export const normalizeResidentAssessmentAnchor = (resident: Resident): Resident 
 
 export const residentToInput = (resident: Resident): ResidentInput => ({
   name: resident.name,
+  englishName: resident.englishName ?? '',
   bedNumber: resident.bedNumber,
   area: resident.area,
   gender: resident.gender,
-  birthDate: deriveBirthDateFromAge(resident.age),
+  birthDate: resident.birthDate ?? deriveBirthDateFromAge(resident.age),
   age: resident.age,
   admissionDate: resident.admissionDate,
   assessmentNextDueDate: resident.assessmentNextDueDate ?? null,
@@ -30,6 +31,7 @@ export const residentToInput = (resident: Resident): ResidentInput => ({
 
 /** 空白評估錨點正規化為 null，供 DB／Edge 寫入 */
 export const normalizeResidentInput = (input: ResidentInput): ResidentInput => {
+  const normalizedEnglishName = String(input.englishName ?? '').trim()
   const normalizedBirthDate = String(input.birthDate ?? '').trim()
   const normalizedAge = isValidBirthDate(normalizedBirthDate)
     ? calculateAgeFromBirthDate(normalizedBirthDate)
@@ -38,6 +40,7 @@ export const normalizeResidentInput = (input: ResidentInput): ResidentInput => {
   if (raw === undefined || raw === null) {
     return {
       ...input,
+      englishName: normalizedEnglishName,
       birthDate: normalizedBirthDate,
       age: normalizedAge,
       assessmentNextDueDate: null,
@@ -46,6 +49,7 @@ export const normalizeResidentInput = (input: ResidentInput): ResidentInput => {
   const t = String(raw).trim()
   return {
     ...input,
+    englishName: normalizedEnglishName,
     birthDate: normalizedBirthDate,
     age: normalizedAge,
     assessmentNextDueDate: t === '' ? null : t,

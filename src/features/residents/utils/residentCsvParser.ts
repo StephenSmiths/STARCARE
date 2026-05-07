@@ -30,7 +30,58 @@ const splitCsvLine = (line: string): string[] => {
 
 const readBool = (value: string): boolean => {
   const raw = value.trim().toLowerCase()
-  return raw === 'true' || raw === '1' || raw === 'yes' || raw === 'y'
+  return raw === 'true' || raw === '1' || raw === 'yes' || raw === 'y' || raw === '是'
+}
+
+const headerValue = (map: Record<string, string>, aliases: string[]): string => {
+  for (const key of aliases) {
+    const hit = map[key]
+    if (hit !== undefined) return hit
+  }
+  return ''
+}
+
+const normalizeGender = (value: string): string => {
+  const raw = value.trim()
+  if (raw === '男' || raw.toLowerCase() === 'male') return 'Male'
+  if (raw === '女' || raw.toLowerCase() === 'female') return 'Female'
+  return ''
+}
+
+const normalizeFundingType = (value: string): string => {
+  const raw = value.trim()
+  if (raw === '甲一買位' || raw === 'GradeA_Subsidized') return 'GradeA_Subsidized'
+  if (raw === '院舍券' || raw === 'Voucher') return 'Voucher'
+  if (raw === '私位' || raw === 'Private') return 'Private'
+  return ''
+}
+
+const normalizeServiceType = (value: string): string => {
+  const raw = value.trim()
+  if (raw === '資助復康服務' || raw === 'Subsidized_Rehab') return 'Subsidized_Rehab'
+  if (raw === '認知障礙症服務' || raw === 'Dementia_Service') return 'Dementia_Service'
+  if (raw === 'Both') return 'Both'
+  return ''
+}
+
+const normalizeDementiaLevel = (value: string): string => {
+  const raw = value.trim()
+  if (raw === '重度' || raw === 'Severe') return 'Severe'
+  if (raw === '中度' || raw === 'Moderate') return 'Moderate'
+  if (raw === '輕度' || raw === 'Mild') return 'Mild'
+  if (raw === '沒有認知障礙' || raw === 'None') return 'None'
+  return ''
+}
+
+const normalizeDateText = (value: string): string => {
+  const raw = value.trim()
+  if (!raw) return ''
+  if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) return raw
+  if (/^\d{4}\/\d{2}\/\d{2}$/.test(raw)) return raw.replaceAll('/', '-')
+  const zhMatch = raw.match(/^(\d{4})年(\d{1,2})月(\d{1,2})日$/)
+  if (!zhMatch) return raw
+  const [, y, m, d] = zhMatch
+  return `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`
 }
 
 export const parseResidentCsv = (
@@ -51,26 +102,34 @@ export const parseResidentCsv = (
       continue
     }
     const map = Object.fromEntries(headers.map((h, i) => [h.trim(), cols[i] ?? '']))
-    const age = Number(map.age)
+    const ageRaw = headerValue(map, ['age', '年齡'])
+    const age = Number(ageRaw)
     if (!Number.isFinite(age)) {
-      errors.push({ rowIndex: idx + 1, message: 'age 需為數字' })
+      errors.push({ rowIndex: idx + 1, message: '年齡需為數字' })
       continue
     }
-    const dueRaw = (map.assessmentNextDueDate ?? map.assessment_next_due_date ?? '').trim()
+    const dueRaw = normalizeDateText(
+      headerValue(map, ['assessmentNextDueDate', 'assessment_next_due_date', '下次評估日期']),
+    )
+    const birthDateRaw = normalizeDateText(headerValue(map, ['birthDate', '出生日期']))
     rows.push({
-      name: map.name ?? '',
-      bedNumber: map.bedNumber ?? '',
-      area: map.area ?? '',
-      gender: (map.gender as ResidentImportRow['gender']) ?? 'Female',
+      name: headerValue(map, ['中文姓名', 'name']),
+      englishName: headerValue(map, ['英文姓名', 'englishName']),
+      bedNumber: headerValue(map, ['床號', 'bedNumber']),
+      area: headerValue(map, ['區域', 'area']),
+      gender: normalizeGender(headerValue(map, ['性別', 'gender'])) as ResidentImportRow['gender'],
+      ...(birthDateRaw ? { birthDate: birthDateRaw } : {}),
       age,
-      admissionDate: map.admissionDate ?? '',
+      admissionDate: normalizeDateText(headerValue(map, ['入院日期', 'admissionDate'])),
       ...(dueRaw ? { assessmentNextDueDate: dueRaw } : {}),
-      fundingType: (map.fundingType as ResidentImportRow['fundingType']) ?? 'GradeA_Subsidized',
-      serviceType: (map.serviceType as ResidentImportRow['serviceType']) ?? 'Subsidized_Rehab',
-      dementiaLevel: (map.dementiaLevel as ResidentImportRow['dementiaLevel']) ?? 'None',
-      isSpecialCareCase: readBool(map.isSpecialCareCase ?? ''),
-      healthCondition: map.healthCondition ?? '',
-      medicationRecord: map.medicationRecord ?? '',
+      fundingType: normalizeFundingType(headerValue(map, ['資助類別', 'fundingType'])) as ResidentImportRow['fundingType'],
+      serviceType: normalizeServiceType(headerValue(map, ['服務類型', 'serviceType'])) as ResidentImportRow['serviceType'],
+      dementiaLevel: normalizeDementiaLevel(
+        headerValue(map, ['認知障礙症程度', 'dementiaLevel']),
+      ) as ResidentImportRow['dementiaLevel'],
+      isSpecialCareCase: readBool(headerValue(map, ['是否Special Care Case', 'isSpecialCareCase'])),
+      healthCondition: headerValue(map, ['健康狀況', 'healthCondition']),
+      medicationRecord: headerValue(map, ['用藥記錄', 'medicationRecord']),
     })
   }
   return { rows, errors }

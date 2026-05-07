@@ -22,4 +22,26 @@ describe('parseResidentCsv', () => {
     expect(rows[0]?.bedNumber).toBe('B2')
     expect(rows[0]?.assessmentNextDueDate).toBe('2026-03-01')
   })
+
+  it('可解析中文表頭與中文欄位值', () => {
+    const csv = [
+      '中文姓名,英文姓名,床號,區域,性別,出生日期,年齡,入院日期,下次評估日期,資助類別,服務類型,認知障礙症程度,是否Special Care Case,健康狀況,用藥記錄',
+      '丙,Resident C,B3,三區,男,1946年8月3日,79,2026/03/01,2026-06-01,甲一買位,資助復康服務,中度,是,需留意血壓,飯後服藥',
+    ].join('\n')
+    const { rows, errors } = parseResidentCsv(csv)
+    expect(errors).toHaveLength(0)
+    expect(rows[0]).toMatchObject({
+      name: '丙',
+      englishName: 'Resident C',
+      bedNumber: 'B3',
+      gender: 'Male',
+      birthDate: '1946-08-03',
+      admissionDate: '2026-03-01',
+      assessmentNextDueDate: '2026-06-01',
+      fundingType: 'GradeA_Subsidized',
+      serviceType: 'Subsidized_Rehab',
+      dementiaLevel: 'Moderate',
+      isSpecialCareCase: true,
+    })
+  })
 })

@@ -3,6 +3,7 @@ import type { ResidentInput } from '../types/resident'
 /** 院友總覽新增表單初始值（PDF 01 §院友管理） */
 export const RESIDENT_DASHBOARD_DEFAULT_FORM: ResidentInput = {
   name: '',
+  englishName: '',
   bedNumber: '',
   area: '',
   gender: 'Female',

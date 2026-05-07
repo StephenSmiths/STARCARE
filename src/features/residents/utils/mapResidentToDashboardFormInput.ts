@@ -4,10 +4,11 @@ import { deriveBirthDateFromAge } from './residentBirthDate'
 /** 院友總覽側欄：實體欄位映射為表單輸入（與 `RESIDENT_DASHBOARD_DEFAULT_FORM` 鍵一致）。 */
 export const mapResidentToDashboardFormInput = (selected: Resident): ResidentInput => ({
   name: selected.name,
+  englishName: selected.englishName ?? '',
   bedNumber: selected.bedNumber,
   area: selected.area,
   gender: selected.gender,
-  birthDate: deriveBirthDateFromAge(selected.age),
+  birthDate: selected.birthDate ?? deriveBirthDateFromAge(selected.age),
   age: selected.age,
   admissionDate: selected.admissionDate,
   assessmentNextDueDate: selected.assessmentNextDueDate ?? null,

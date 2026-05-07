@@ -26,11 +26,22 @@ const parseAssessmentNextDueDate = (v: unknown): { ok: true; value: string | nul
   return { ok: true, value: raw }
 }
 
+const parseBirthDate = (v: unknown): { ok: true; value: string | null } | { ok: false; message: string } => {
+  const raw = toStr(v)
+  if (raw === '') return { ok: true, value: null }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
+    return { ok: false, message: 'birth_date 須為 YYYY-MM-DD 或留空' }
+  }
+  return { ok: true, value: raw }
+}
+
 type ResidentWritable = {
   name: string
+  english_name: string | null
   bed_number: string
   area: string
   gender: string
+  birth_date: string | null
   age: number
   admission_date: string
   assessment_next_due_date: string | null
@@ -44,9 +55,11 @@ type ResidentWritable = {
 
 const parseWritable = (body: Record<string, unknown>): { ok: true; row: ResidentWritable } | { ok: false; message: string } => {
   const name = toStr(body.name)
+  const english_name = toStr(body.english_name)
   const bed_number = toStr(body.bed_number)
   const area = toStr(body.area)
   const gender = toStr(body.gender)
+  const birth_date = toStr(body.birth_date)
   const age = Number(body.age)
   const admission_date = toStr(body.admission_date)
   const funding_type = toStr(body.funding_type)
@@ -70,14 +83,18 @@ const parseWritable = (body: Record<string, unknown>): { ok: true; row: Resident
 
   const due = parseAssessmentNextDueDate(body.assessment_next_due_date)
   if (!due.ok) return due
+  const birth = parseBirthDate(birth_date)
+  if (!birth.ok) return birth
 
   return {
     ok: true,
     row: {
       name,
+      english_name: english_name || null,
       bed_number,
       area,
       gender,
+      birth_date: birth.value,
       age,
       admission_date,
       assessment_next_due_date: due.value,

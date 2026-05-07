@@ -23,6 +23,15 @@ export const ResidentsSingleResidentFormBasicFields = ({
       />
     </label>
     <label className={uiTokens.formFieldStack}>
+      <span className={uiTokens.formLabel}>英文姓名</span>
+      <input
+        className={uiTokens.formInput}
+        placeholder="例如 Chan Tai Man"
+        value={form.englishName ?? ''}
+        onChange={(event) => onChange({ ...form, englishName: event.target.value })}
+      />
+    </label>
+    <label className={uiTokens.formFieldStack}>
       <span className={uiTokens.formLabel}>床號</span>
       <input
         className={uiTokens.formInput}

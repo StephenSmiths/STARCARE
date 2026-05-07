@@ -20,9 +20,11 @@ const normalize = (row: IncomingRow) => {
   const dueRaw = toStr(row.assessmentNextDueDate ?? row.assessment_next_due_date)
   return {
     name: toStr(row.name),
+    english_name: toStr(row.englishName ?? row.english_name),
     bed_number: toStr(row.bedNumber ?? row.bed_number),
     area: toStr(row.area),
     gender: toStr(row.gender),
+    birth_date: toStr(row.birthDate ?? row.birth_date),
     age: Number(row.age),
     admission_date: toStr(row.admissionDate ?? row.admission_date),
     funding_type: toStr(row.fundingType ?? row.funding_type),
@@ -41,6 +43,9 @@ const validateRow = (row: ReturnType<typeof normalize>, rowIndex: number): Error
   if (!row.bed_number) errors.push({ rowIndex, field: 'bed_number', message: '床號不可為空' })
   if (!row.area) errors.push({ rowIndex, field: 'area', message: '區域不可為空' })
   if (!GENDER.has(row.gender)) errors.push({ rowIndex, field: 'gender', message: 'gender 僅允許 Male/Female' })
+  if (row.birth_date && !/^\d{4}-\d{2}-\d{2}$/.test(row.birth_date)) {
+    errors.push({ rowIndex, field: 'birth_date', message: '須為 YYYY-MM-DD 或留空' })
+  }
   if (!Number.isFinite(row.age) || row.age < 1 || row.age > 130) {
     errors.push({ rowIndex, field: 'age', message: '年齡需介乎 1-130' })
   }

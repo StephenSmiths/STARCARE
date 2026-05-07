@@ -5,9 +5,11 @@ import { getServiceClient } from '../_shared/supabaseAdmin.ts'
 
 type PreviewRow = {
   name: string
+  english_name?: string | null
   bed_number: string
   area: string
   gender: 'Male' | 'Female'
+  birth_date?: string | null
   age: number
   admission_date: string
   assessment_next_due_date?: string | null
@@ -85,7 +87,7 @@ Deno.serve(async (req) => {
       actor_id: actorId,
       before_state: null,
       after_state: JSON.stringify({ count: insertRows.length, batchId, residentIds }),
-      detail: `院友 CSV 批量匯入（batch=${batchId}）`,
+      detail: `院友批量匯入（batch=${batchId}）`,
     })
     if (!audit.ok) {
       await supabase.from('residents').update({ is_deleted: true }).in('id', residentIds).eq('is_deleted', false)

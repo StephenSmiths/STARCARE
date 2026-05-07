@@ -3,9 +3,13 @@ import { buildEdgeInvokeHeaders } from './edgeFunctionHeaders'
 
 export type ResidentImportRow = {
   name: string
+  /** 批量匯入附加欄位：目前僅作輸入留存，不入 residents 主檔。 */
+  englishName?: string
   bedNumber: string
   area: string
   gender: 'Male' | 'Female'
+  /** 批量匯入附加欄位：目前僅作輸入留存，不入 residents 主檔。 */
+  birthDate?: string
   age: number
   admissionDate: string
   /** PDF 01 §4.3；可選，YYYY-MM-DD */
@@ -27,9 +31,11 @@ export type ResidentImportValidationResult = {
 
 export type ResidentImportPreviewRow = {
   name: string
+  english_name?: string | null
   bed_number: string
   area: string
   gender: 'Male' | 'Female'
+  birth_date?: string | null
   age: number
   admission_date: string
   funding_type: 'GradeA_Subsidized' | 'Voucher' | 'Private'
@@ -59,9 +65,11 @@ class InMemoryResidentImportRepository implements ResidentImportRepository {
   async validateRows(rows: ResidentImportRow[]): Promise<ResidentImportValidationResult> {
     const preview: ResidentImportPreviewRow[] = rows.map((row) => ({
       name: row.name,
+      english_name: row.englishName?.trim() ? row.englishName.trim() : null,
       bed_number: row.bedNumber,
       area: row.area,
       gender: row.gender,
+      birth_date: row.birthDate?.trim() ? row.birthDate.trim() : null,
       age: row.age,
       admission_date: row.admissionDate,
       funding_type: row.fundingType,

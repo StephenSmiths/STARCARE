@@ -4,9 +4,11 @@ export const toResident = (record: ResidentRecord): Resident => {
   return {
     id: record.id,
     name: record.name,
+    englishName: record.english_name ?? '',
     bedNumber: record.bed_number,
     area: record.area,
     gender: record.gender,
+    birthDate: record.birth_date ?? null,
     age: record.age,
     admissionDate: record.admission_date,
     assessmentNextDueDate: record.assessment_next_due_date ?? null,
@@ -24,9 +26,11 @@ export const toResidentRecord = (resident: Resident): ResidentRecord => {
   return {
     id: resident.id,
     name: resident.name,
+    english_name: resident.englishName?.trim() ? resident.englishName.trim() : null,
     bed_number: resident.bedNumber,
     area: resident.area,
     gender: resident.gender,
+    birth_date: resident.birthDate?.trim() ? resident.birthDate.trim() : null,
     age: resident.age,
     admission_date: resident.admissionDate,
     assessment_next_due_date: (() => {

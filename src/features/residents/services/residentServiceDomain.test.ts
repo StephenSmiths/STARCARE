@@ -65,6 +65,7 @@ describe('residentServiceDomain', () => {
     const r = sampleResident()
     expect(residentToInput(r)).toEqual({
       name: r.name,
+      englishName: '',
       bedNumber: r.bedNumber,
       area: r.area,
       gender: r.gender,
