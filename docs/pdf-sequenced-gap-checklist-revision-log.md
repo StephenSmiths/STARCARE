@@ -182,3 +182,4 @@
 | 2026-08-29 | **`docs/gate-a-status-2026-05-06.md`** 固定入口行：**`commands-appendix`** 與 **`latest`** 之間補「**下文**」；**`pdf03-cursorrules-alignment.md`** §4 **`gate-a-evidence-list`**／**`gate-a-evidence-summary`** 維護括註同補（與 **2026-08-28** 列並讀）。 |
 | 2026-08-30 | **`gate-a-evidence-summary.mjs`**：**latest pointer** 列改為「見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** 下文 **`latest`** 段」（與 **`gate-a-evidence-list.mjs`**、**`gate-a-evidence-next.mjs`** stdout 並讀；與 **2026-08-29** 列並讀）。 |
 | 2026-08-31 | 本檔歷史表格列（**2026-08-11**～**2026-08-21** 等）：**`commands-appendix`** 與 **`latest`** 之間補「**下文**」用語（與 **2026-08-28** 列全倉敘述對齊）；**2026-08-20** 列原文保留「`**`commands-appendix`** **`latest`**（歷史修訂日誌表格列除外）」以反映當日掃描範圍（與 **2026-08-20** 列並讀）。 |
+| 2026-09-01 | **`docs/gate-a-status-2026-05-06-commands-appendix.md`**：於 **`gatea:evidence:latest`** 指令前增 **`###` 下文 `latest` 段** 小節，標定全倉「下文 **`latest`** 段」互鏈所指範圍（與開首 **對照** blockquote、**2026-08-31** 列並讀）。 |

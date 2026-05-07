@@ -155,6 +155,10 @@ npm run gatea:evidence:gate
 npm run gatea:evidence:doctor -- --write
 ```
 
+### 下文 `latest` 段（`gatea:evidence:latest`）
+
+全倉互鏈所稱「見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** 下文 **`latest`** 段」者，即**本小節**（固定入口檔尾四行與本指令終端 stdout 兩行之差異）。
+
 更新固定入口（便於貼單一連結）：
 
 ```bash
