@@ -7,7 +7,7 @@ export type ResidentsListFundingFilter = 'all' | ResidentInput['fundingType']
 export const useResidentsListPanel = (residents: Resident[]) => {
   const [keyword, setKeyword] = useState('')
   const [fundingFilter, setFundingFilter] = useState<ResidentsListFundingFilter>('all')
-  const [pageSize, setPageSize] = useState(20)
+  const [pageSize, setPageSize] = useState(50)
   const [page, setPage] = useState(1)
 
   const filteredResidents = useMemo(() => {
