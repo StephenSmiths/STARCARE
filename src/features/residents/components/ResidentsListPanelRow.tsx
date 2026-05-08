@@ -1,5 +1,10 @@
 import { uiTokens } from '../../shared/ui/uiTokens'
 import type { Resident } from '../types/resident'
+import {
+  residentDementiaLevelLabelZh,
+  residentFundingLabelZh,
+  residentSpecialCareLabelZh,
+} from '../utils/residentDisplayLabels'
 
 export type ResidentsListPanelRowProps = {
   resident: Resident
@@ -26,7 +31,8 @@ export const ResidentsListPanelRow = ({
       {resident.name}（{resident.bedNumber}）
     </p>
     <p className={uiTokens.residentListRowMeta}>
-      {resident.fundingType} / {resident.dementiaLevel} / {resident.isSpecialCareCase ? 'SC' : '非SC'}
+      {residentFundingLabelZh(resident.fundingType)} / {residentDementiaLevelLabelZh(resident.dementiaLevel)} /{' '}
+      {residentSpecialCareLabelZh(resident.isSpecialCareCase)}
     </p>
     <div className={uiTokens.layoutFlexGap2Mt2}>
       {canMaintainResidentRecords ? (
