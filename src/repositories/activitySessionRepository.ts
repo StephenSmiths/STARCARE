@@ -9,6 +9,13 @@ export type ActivitySession = {
   staffName: string
   sessionDate: string
   timeSlot: string
+  startTime?: string
+  durationMinutes?: number
+  endTime?: string
+  activityType?: 'Individual' | 'Group' | 'Assessment' | 'Other'
+  residentIds?: string[]
+  activityContent?: string
+  activityDetail?: string
   capacity: number
   serviceType: 'Subsidized_Rehab' | 'Dementia_Care'
   skillMatched?: boolean

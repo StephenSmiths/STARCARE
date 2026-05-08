@@ -3,6 +3,8 @@ import { STARCARE_DEFAULT_FACILITY_ID } from '../../../constants/starcareDefault
 import type { Activity } from '../../../repositories/activityRepository'
 import {
   buildActivitySessionImportRows,
+  computeEndTime,
+  formatRangeLabel,
   pickDefaultActivityId,
   validateWorkPlanDraftLine,
   type WorkPlanDraftLine,
@@ -35,16 +37,42 @@ describe('workPlanDraftService (Seq 14)', () => {
       sessionDate: 'bad',
       staffProfileId: '',
       staffDisplayName: '',
+      staffRoleType: 'PT',
+      startTime: '',
+      durationMinutes: 0,
+      endTime: '',
       timeSlot: '',
+      activityType: 'Individual',
+      residentIds: [],
+      activityContent: '',
       capacity: 0,
       serviceType: 'Subsidized_Rehab',
     }
     expect(validateWorkPlanDraftLine(bad)).toBeTruthy()
   })
 
+  it('個別訓練強制容量與院友數量皆為 1', () => {
+    const line: WorkPlanDraftLine = {
+      sessionDate: '2026-05-10',
+      staffProfileId: 'st-1',
+      staffDisplayName: '張 PT',
+      staffRoleType: 'PT',
+      startTime: '09:00',
+      durationMinutes: 30,
+      endTime: '09:30',
+      timeSlot: '09:00 - 09:30',
+      activityType: 'Individual',
+      residentIds: ['r-1', 'r-2'],
+      activityContent: '肌力訓練',
+      capacity: 2,
+      serviceType: 'Subsidized_Rehab',
+    }
+    expect(validateWorkPlanDraftLine(line)).toContain('個別訓練')
+  })
+
   it('pickDefaultActivityId：依服務類型挑選', () => {
-    expect(pickDefaultActivityId(sampleActivities, 'Subsidized_Rehab')).toBe('act-r')
-    expect(pickDefaultActivityId(sampleActivities, 'Dementia_Care')).toBe('act-d')
+    expect(pickDefaultActivityId(sampleActivities, 'Subsidized_Rehab', 'Group')).toBe('act-r')
+    expect(pickDefaultActivityId(sampleActivities, 'Dementia_Care', 'Group')).toBe('act-d')
   })
 
   it('buildActivitySessionImportRows：輸出匯入列', () => {
@@ -53,7 +81,14 @@ describe('workPlanDraftService (Seq 14)', () => {
         sessionDate: '2026-05-10',
         staffProfileId: 'st-1',
         staffDisplayName: '張 PT',
-        timeSlot: '09:00',
+        staffRoleType: 'PT',
+        startTime: '09:00',
+        durationMinutes: 60,
+        endTime: '10:00',
+        timeSlot: '09:00 - 10:00',
+        activityType: 'Group',
+        residentIds: ['r-1', 'r-2'],
+        activityContent: '主動伸展',
         capacity: 2,
         serviceType: 'Subsidized_Rehab',
       },
@@ -68,5 +103,10 @@ describe('workPlanDraftService (Seq 14)', () => {
       sessionDate: '2026-05-10',
     })
     expect(out.rows[0]?.sessionDate).toBe('2026-05-10')
+  })
+
+  it('computeEndTime：計算結束時間與區間字串', () => {
+    expect(computeEndTime('09:00', 90)).toBe('10:30')
+    expect(formatRangeLabel('09:00', '10:30')).toBe('09:00 - 10:30')
   })
 })

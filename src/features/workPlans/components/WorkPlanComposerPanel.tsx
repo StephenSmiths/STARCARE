@@ -16,10 +16,30 @@ export const WorkPlanComposerPanel = () => {
     setSessionDate,
     staffProfileId,
     setStaffProfileId,
-    timeSlot,
-    setTimeSlot,
+    staffRoleType,
+    startTime,
+    setStartTime,
+    durationMinutes,
+    setDurationMinutes,
+    effectiveActivityType,
+    setActivityType,
+    allowedActivityTypes,
+    residents,
+    residentIds,
+    toggleResident,
+    activityContent,
+    setActivityContent,
+    activityContentOther,
+    setActivityContentOther,
+    activityDetail,
+    setActivityDetail,
+    activityDetailOther,
+    setActivityDetailOther,
+    contentOptions,
+    detailOptions,
     capacity,
     setCapacity,
+    maxGroupCapacity,
     serviceType,
     setServiceType,
     formError,
@@ -47,7 +67,7 @@ export const WorkPlanComposerPanel = () => {
       <WorkPlanSopStepper
         sessionDate={sessionDate}
         staffProfileId={staffProfileId}
-        timeSlot={timeSlot}
+        timeSlot={startTime}
         capacity={capacity}
         draftsCount={drafts.length}
         commitSuccess={commitSuccess}
@@ -66,10 +86,30 @@ export const WorkPlanComposerPanel = () => {
         staffRows={staffRows}
         staffProfileId={staffProfileId}
         onStaffProfileIdChange={setStaffProfileId}
-        timeSlot={timeSlot}
-        onTimeSlotChange={setTimeSlot}
+        staffRoleType={staffRoleType}
+        startTime={startTime}
+        onStartTimeChange={setStartTime}
+        durationMinutes={durationMinutes}
+        onDurationMinutesChange={setDurationMinutes}
+        activityType={effectiveActivityType}
+        allowedActivityTypes={allowedActivityTypes}
+        onActivityTypeChange={setActivityType}
+        residents={residents}
+        residentIds={residentIds}
+        onToggleResident={toggleResident}
+        activityContent={activityContent}
+        contentOptions={contentOptions}
+        onActivityContentChange={setActivityContent}
+        activityContentOther={activityContentOther}
+        onActivityContentOtherChange={setActivityContentOther}
+        activityDetail={activityDetail}
+        detailOptions={detailOptions}
+        onActivityDetailChange={setActivityDetail}
+        activityDetailOther={activityDetailOther}
+        onActivityDetailOtherChange={setActivityDetailOther}
         capacity={capacity}
         onCapacityChange={setCapacity}
+        maxGroupCapacity={maxGroupCapacity}
         serviceType={serviceType}
         onServiceTypeChange={setServiceType}
       />

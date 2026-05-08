@@ -1,6 +1,9 @@
 import { uiTokens } from '../../shared/ui/uiTokens'
+import type { Resident } from '../../residents/types/resident'
 import type { StaffOverviewRow } from '../../staff/services/staffManagementService'
-import type { WorkPlanDraftLine } from '../services/workPlanDraftService'
+import type { StaffProfileRoleType } from '../../../services/schedulingService'
+import type { WorkPlanContentOption } from '../constants/workPlanCascadeCatalog'
+import type { WorkPlanActivityType, WorkPlanDraftLine } from '../services/workPlanDraftService'
 
 /** 工作計劃 Composer：日期／員工／時段／名額／服務類型（PDF 02【2】） */
 export const WorkPlanComposerFieldGrid = ({
@@ -9,10 +12,30 @@ export const WorkPlanComposerFieldGrid = ({
   staffRows,
   staffProfileId,
   onStaffProfileIdChange,
-  timeSlot,
-  onTimeSlotChange,
+  staffRoleType,
+  startTime,
+  onStartTimeChange,
+  durationMinutes,
+  onDurationMinutesChange,
+  activityType,
+  allowedActivityTypes,
+  onActivityTypeChange,
+  residents,
+  residentIds,
+  onToggleResident,
+  activityContent,
+  contentOptions,
+  onActivityContentChange,
+  activityContentOther,
+  onActivityContentOtherChange,
+  activityDetail,
+  detailOptions,
+  onActivityDetailChange,
+  activityDetailOther,
+  onActivityDetailOtherChange,
   capacity,
   onCapacityChange,
+  maxGroupCapacity,
   serviceType,
   onServiceTypeChange,
 }: {
@@ -21,10 +44,30 @@ export const WorkPlanComposerFieldGrid = ({
   staffRows: StaffOverviewRow[]
   staffProfileId: string
   onStaffProfileIdChange: (value: string) => void
-  timeSlot: string
-  onTimeSlotChange: (value: string) => void
+  staffRoleType: StaffProfileRoleType
+  startTime: string
+  onStartTimeChange: (value: string) => void
+  durationMinutes: number
+  onDurationMinutesChange: (value: number) => void
+  activityType: WorkPlanActivityType
+  allowedActivityTypes: WorkPlanActivityType[]
+  onActivityTypeChange: (value: WorkPlanActivityType) => void
+  residents: Resident[]
+  residentIds: string[]
+  onToggleResident: (id: string) => void
+  activityContent: string
+  contentOptions: WorkPlanContentOption[]
+  onActivityContentChange: (value: string) => void
+  activityContentOther: string
+  onActivityContentOtherChange: (value: string) => void
+  activityDetail: string
+  detailOptions: string[]
+  onActivityDetailChange: (value: string) => void
+  activityDetailOther: string
+  onActivityDetailOtherChange: (value: string) => void
   capacity: number
   onCapacityChange: (value: number) => void
+  maxGroupCapacity: number
   serviceType: WorkPlanDraftLine['serviceType']
   onServiceTypeChange: (value: WorkPlanDraftLine['serviceType']) => void
 }) => (
@@ -54,19 +97,104 @@ export const WorkPlanComposerFieldGrid = ({
       </select>
     </label>
     <label className={uiTokens.formFieldStack}>
-      <span className={uiTokens.formLabel}>時段</span>
+      <span className={uiTokens.formLabel}>開始時間</span>
       <input
+        type="time"
         className={uiTokens.formInput}
-        value={timeSlot}
-        onChange={(event) => onTimeSlotChange(event.target.value)}
-        placeholder="09:00"
+        value={startTime}
+        onChange={(event) => onStartTimeChange(event.target.value)}
       />
     </label>
     <label className={uiTokens.formFieldStack}>
+      <span className={uiTokens.formLabel}>時長（分鐘）</span>
+      <select
+        className={uiTokens.formSelect}
+        value={durationMinutes}
+        onChange={(event) => onDurationMinutesChange(Number(event.target.value))}
+      >
+        {[15, 30, 45, 60, 75, 90, 105, 120].map((item) => (
+          <option key={item} value={item}>
+            {item}
+          </option>
+        ))}
+      </select>
+    </label>
+    <label className={uiTokens.formFieldStack}>
+      <span className={uiTokens.formLabel}>員工職位（自動帶入）</span>
+      <input className={uiTokens.formInput} value={staffRoleType} disabled readOnly />
+    </label>
+    <label className={uiTokens.formFieldStack}>
+      <span className={uiTokens.formLabel}>活動類型</span>
+      <select
+        className={uiTokens.formSelect}
+        value={activityType}
+        onChange={(event) => onActivityTypeChange(event.target.value as WorkPlanActivityType)}
+      >
+        {allowedActivityTypes.map((item) => (
+          <option key={item} value={item}>
+            {item === 'Individual' ? '個別訓練' : item === 'Group' ? '小組訓練' : item === 'Assessment' ? '評估' : '其他'}
+          </option>
+        ))}
+      </select>
+    </label>
+    <label className={uiTokens.formFieldStack}>
+      <span className={uiTokens.formLabel}>活動內容</span>
+      <select
+        className={uiTokens.formSelect}
+        value={activityContent}
+        onChange={(event) => onActivityContentChange(event.target.value)}
+      >
+        <option value="">請選擇</option>
+        {contentOptions.map((item) => (
+          <option key={item.value} value={item.value}>
+            {item.value}
+          </option>
+        ))}
+      </select>
+    </label>
+    {activityContent === '其他' ? (
+      <label className={uiTokens.formFieldStack}>
+        <span className={uiTokens.formLabel}>活動內容（其他）</span>
+        <textarea
+          className={uiTokens.formTextarea}
+          value={activityContentOther}
+          onChange={(event) => onActivityContentOtherChange(event.target.value)}
+        />
+      </label>
+    ) : null}
+    {detailOptions.length > 0 ? (
+      <label className={uiTokens.formFieldStack}>
+        <span className={uiTokens.formLabel}>活動細項</span>
+        <select
+          className={uiTokens.formSelect}
+          value={activityDetail}
+          onChange={(event) => onActivityDetailChange(event.target.value)}
+        >
+          <option value="">請選擇</option>
+          {detailOptions.map((item) => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
+        </select>
+      </label>
+    ) : null}
+    {activityDetail === '其他細項' ? (
+      <label className={uiTokens.formFieldStack}>
+        <span className={uiTokens.formLabel}>活動細項（其他）</span>
+        <input
+          className={uiTokens.formInput}
+          value={activityDetailOther}
+          onChange={(event) => onActivityDetailOtherChange(event.target.value)}
+        />
+      </label>
+    ) : null}
+    <label className={uiTokens.formFieldStackSmColSpan2Lg1}>
       <span className={uiTokens.formLabel}>名額</span>
       <input
         type="number"
         min={1}
+        max={maxGroupCapacity}
         className={uiTokens.formInput}
         value={capacity}
         onChange={(event) => onCapacityChange(Number(event.target.value))}
@@ -85,5 +213,20 @@ export const WorkPlanComposerFieldGrid = ({
         <option value="Dementia_Care">認知障礙症服務</option>
       </select>
     </label>
+    <div className={uiTokens.formFieldStackSmColSpan2Lg1}>
+      <span className={uiTokens.formLabel}>選擇院友</span>
+      <div className={uiTokens.stackVertical}>
+        {residents.map((row) => (
+          <label key={row.id} className={uiTokens.layoutFlexItemsCenterGap2}>
+            <input
+              type="checkbox"
+              checked={residentIds.includes(row.id)}
+              onChange={() => onToggleResident(row.id)}
+            />
+            <span>{row.name}</span>
+          </label>
+        ))}
+      </div>
+    </div>
   </div>
 )

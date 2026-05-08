@@ -61,7 +61,10 @@ export const ActivitySessionImportDryRunCard = ({
             下載 CSV 範本
           </a>
         </div>
-        <p className={uiTokens.blockHelp}>欄位：id, facilityId, activityId, staffProfileId, sessionDate, timeSlot, capacity</p>
+        <p className={uiTokens.blockHelp}>
+          欄位：id, facilityId, activityId, staffProfileId, sessionDate, timeSlot, capacity（可選：startTime,
+          durationMinutes, endTime, activityType, residentIds, activityContent, activityDetail）
+        </p>
         <p className={uiTokens.inlineNoticeWarn}>
           提示：若出現本地格式錯誤（例如欄位缺漏、數值格式錯誤），系統會先停止預檢，請先修正 CSV 後再重試。
         </p>

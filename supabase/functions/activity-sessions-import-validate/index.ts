@@ -15,6 +15,15 @@ const normalize = (row: IncomingRow) => ({
   session_date: toStr(row.sessionDate ?? row.session_date),
   time_slot: toStr(row.timeSlot ?? row.time_slot),
   capacity: Number(row.capacity),
+  start_time: toStr(row.startTime ?? row.start_time),
+  duration_minutes: Number(row.durationMinutes ?? row.duration_minutes),
+  end_time: toStr(row.endTime ?? row.end_time),
+  activity_type: toStr(row.activityType ?? row.activity_type),
+  resident_ids: Array.isArray(row.residentIds ?? row.resident_ids)
+    ? (row.residentIds ?? row.resident_ids).map((item) => String(item))
+    : [],
+  activity_content: toStr(row.activityContent ?? row.activity_content),
+  activity_detail: toStr(row.activityDetail ?? row.activity_detail),
 })
 
 const validateRow = (row: ReturnType<typeof normalize>, rowIndex: number): ErrorItem[] => {
@@ -26,6 +35,21 @@ const validateRow = (row: ReturnType<typeof normalize>, rowIndex: number): Error
   }
   if (!row.session_date) errors.push({ rowIndex, field: 'session_date', message: 'session_date 不可為空' })
   if (!row.time_slot) errors.push({ rowIndex, field: 'time_slot', message: 'time_slot 不可為空' })
+  if (row.start_time && !/^([01]\d|2[0-3]):[0-5]\d$/.test(row.start_time)) {
+    errors.push({ rowIndex, field: 'start_time', message: 'start_time 須為 HH:mm' })
+  }
+  if (row.end_time && !/^([01]\d|2[0-3]):[0-5]\d$/.test(row.end_time)) {
+    errors.push({ rowIndex, field: 'end_time', message: 'end_time 須為 HH:mm' })
+  }
+  if (Number.isFinite(row.duration_minutes) && row.duration_minutes % 15 !== 0) {
+    errors.push({ rowIndex, field: 'duration_minutes', message: 'duration_minutes 須為 15 的倍數' })
+  }
+  if (
+    (row.activity_type === 'Individual' || row.activity_type === 'Assessment') &&
+    (row.capacity !== 1 || row.resident_ids.length !== 1)
+  ) {
+    errors.push({ rowIndex, field: 'capacity', message: '個別訓練/評估需容量=1且僅1位院友' })
+  }
   if (!Number.isFinite(row.capacity) || row.capacity < 1) {
     errors.push({ rowIndex, field: 'capacity', message: 'capacity 需為大於等於 1 的數字' })
   }

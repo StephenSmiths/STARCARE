@@ -9,6 +9,13 @@ type ActivitySessionRow = {
   staff_profile_id: string
   session_date: string
   time_slot: string
+  start_time: string | null
+  duration_minutes: number | null
+  end_time: string | null
+  activity_type: 'Individual' | 'Group' | 'Assessment' | 'Other' | null
+  resident_ids: string[] | null
+  activity_content: string | null
+  activity_detail: string | null
   capacity: number
   staff_profiles: { display_name: string } | null
   activities: { service_type: 'Subsidized_Rehab' | 'Dementia_Care' } | null
@@ -28,7 +35,7 @@ Deno.serve(async (req) => {
     let query = supabase
       .from('activity_sessions')
       .select(
-        'id, facility_id, activity_id, staff_profile_id, session_date, time_slot, capacity, staff_profiles!inner(display_name), activities!inner(service_type)',
+        'id, facility_id, activity_id, staff_profile_id, session_date, time_slot, start_time, duration_minutes, end_time, activity_type, resident_ids, activity_content, activity_detail, capacity, staff_profiles!inner(display_name), activities!inner(service_type)',
       )
       .eq('is_deleted', false)
       .order('session_date', { ascending: true })
@@ -45,6 +52,13 @@ Deno.serve(async (req) => {
       staffName: row.staff_profiles?.display_name ?? row.staff_profile_id,
       sessionDate: row.session_date,
       timeSlot: row.time_slot,
+      startTime: row.start_time ?? undefined,
+      durationMinutes: row.duration_minutes ?? undefined,
+      endTime: row.end_time ?? undefined,
+      activityType: row.activity_type ?? undefined,
+      residentIds: row.resident_ids ?? [],
+      activityContent: row.activity_content ?? '',
+      activityDetail: row.activity_detail ?? '',
       capacity: row.capacity,
       serviceType: row.activities?.service_type ?? 'Subsidized_Rehab',
     }))

@@ -21,8 +21,16 @@ export const WorkPlanComposerDraftPreview = ({
             className={uiTokens.layoutFlexWrapBetweenGap2Py2}
           >
             <span>
-              {row.sessionDate} · {row.staffDisplayName || row.staffProfileId} · {row.timeSlot} · 名額{' '}
-              {row.capacity} · {row.serviceType === 'Subsidized_Rehab' ? '資助復康' : '認知'}
+              {row.sessionDate} · {row.staffDisplayName || row.staffProfileId}（{row.staffRoleType}）·{' '}
+              {row.timeSlot} · 名額 {row.capacity} ·{' '}
+              {row.activityType === 'Individual'
+                ? '個別訓練'
+                : row.activityType === 'Group'
+                  ? '小組訓練'
+                  : row.activityType === 'Assessment'
+                    ? '評估'
+                    : '其他'}{' '}
+              · {row.serviceType === 'Subsidized_Rehab' ? '資助復康服務' : '認知障礙症服務'}
             </span>
             <button type="button" className={uiTokens.btnDangerOutline} onClick={() => onRemoveDraft(index)}>
               移除

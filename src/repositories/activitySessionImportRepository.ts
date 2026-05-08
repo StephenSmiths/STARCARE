@@ -10,6 +10,13 @@ export type ActivitySessionImportRow = {
   sessionDate: string
   timeSlot: string
   capacity: number
+  startTime?: string
+  durationMinutes?: number
+  endTime?: string
+  activityType?: 'Individual' | 'Group' | 'Assessment' | 'Other'
+  activityContent?: string
+  activityDetail?: string
+  residentIds?: string[]
 }
 
 export type ActivitySessionImportPreviewRow = {
@@ -20,6 +27,13 @@ export type ActivitySessionImportPreviewRow = {
   session_date: string
   time_slot: string
   capacity: number
+  start_time?: string
+  duration_minutes?: number
+  end_time?: string
+  activity_type?: 'Individual' | 'Group' | 'Assessment' | 'Other'
+  activity_content?: string
+  activity_detail?: string
+  resident_ids?: string[]
 }
 
 export type ActivitySessionImportValidationResult = {
@@ -60,6 +74,13 @@ class InMemoryActivitySessionImportRepository implements ActivitySessionImportRe
       session_date: row.sessionDate,
       time_slot: row.timeSlot,
       capacity: row.capacity,
+      start_time: row.startTime,
+      duration_minutes: row.durationMinutes,
+      end_time: row.endTime,
+      activity_type: row.activityType,
+      activity_content: row.activityContent,
+      activity_detail: row.activityDetail,
+      resident_ids: row.residentIds,
     }))
     return { ok: true, summary: { total: rows.length, valid: rows.length, invalid: 0 }, errors: [], preview }
   }

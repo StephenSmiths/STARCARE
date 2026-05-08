@@ -11,6 +11,13 @@ type PreviewRow = {
   session_date: string
   time_slot: string
   capacity: number
+  start_time?: string
+  duration_minutes?: number
+  end_time?: string
+  activity_type?: 'Individual' | 'Group' | 'Assessment' | 'Other'
+  resident_ids?: string[]
+  activity_content?: string
+  activity_detail?: string
 }
 
 type AuditAction = 'ACTIVITY_SESSIONS_IMPORT_COMMIT' | 'WORK_PLAN_SESSION_COMMIT'
@@ -50,6 +57,13 @@ Deno.serve(async (req) => {
       session_date: row.session_date,
       time_slot: row.time_slot,
       capacity: row.capacity,
+      start_time: row.start_time ?? null,
+      duration_minutes: row.duration_minutes ?? null,
+      end_time: row.end_time ?? null,
+      activity_type: row.activity_type ?? null,
+      resident_ids: row.resident_ids ?? [],
+      activity_content: row.activity_content ?? '',
+      activity_detail: row.activity_detail ?? '',
       is_deleted: false,
     }))
     const { error } = await supabase.from('activity_sessions').insert(insertRows)

@@ -33,6 +33,9 @@ export const ActivitySessionListPanel = ({ actorId, canMaintainSessions }: Activ
                 <th className={uiTokens.tableCell}>日期</th>
                 <th className={uiTokens.tableCell}>時段</th>
                 <th className={uiTokens.tableCell}>員工</th>
+                <th className={uiTokens.tableCell}>活動類型</th>
+                <th className={uiTokens.tableCell}>活動內容/細項</th>
+                <th className={uiTokens.tableCell}>院友數</th>
                 <th className={uiTokens.tableCell}>容量</th>
                 <th className={uiTokens.tableCell}>操作</th>
               </tr>
@@ -43,6 +46,21 @@ export const ActivitySessionListPanel = ({ actorId, canMaintainSessions }: Activ
                   <td className={uiTokens.tableCellNowrap}>{row.sessionDate}</td>
                   <td className={uiTokens.tableCell}>{row.timeSlot}</td>
                   <td className={uiTokens.tableCell}>{row.staffName}</td>
+                  <td className={uiTokens.tableCellNowrapMuted}>
+                    {row.activityType === 'Individual'
+                      ? '個別訓練'
+                      : row.activityType === 'Group'
+                        ? '小組訓練'
+                        : row.activityType === 'Assessment'
+                          ? '評估'
+                          : row.activityType === 'Other'
+                            ? '其他'
+                            : '—'}
+                  </td>
+                  <td className={uiTokens.tableCell}>
+                    {row.activityContent ? `${row.activityContent}${row.activityDetail ? ` / ${row.activityDetail}` : ''}` : '—'}
+                  </td>
+                  <td className={uiTokens.tableCell}>{row.residentIds?.length ?? 0}</td>
                   <td className={uiTokens.tableCell}>{row.capacity}</td>
                   <td className={uiTokens.tableCell}>
                     {canMaintainSessions ? (
