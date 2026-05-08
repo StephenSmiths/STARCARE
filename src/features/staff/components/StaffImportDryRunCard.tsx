@@ -43,12 +43,17 @@ export const StaffImportDryRunCard = ({
     <article className={uiTokens.surfaceCard}>
       <div className={uiTokens.layoutFlexBetweenGap2}>
         <h2 className={uiTokens.pageSectionHeading}>員工批量匯入</h2>
-        <a className={uiTokens.linkDownload} href="/staff-import-template.xlsx" download>
-          下載 Excel 範本
-        </a>
+        <div className={uiTokens.layoutFlexItemsCenterGap2}>
+          <a className={uiTokens.linkDownload} href="/staff-import-template.xlsx" download>
+            下載 Excel 範本
+          </a>
+          <a className={uiTokens.linkDownload} href="/staff-import-template.csv" download>
+            下載 CSV 範本
+          </a>
+        </div>
       </div>
       <p className={uiTokens.sectionHelp}>
-        欄位：員工編號（可空）、姓名、職位（PT／PTA／OT／OTA）、性別（男／女）、聯絡電話、電子郵箱。院舍與服務範圍由系統預設，無須填寫。
+        支援上傳 CSV 與 Excel（.csv/.xlsx/.xls）。欄位：員工編號（可空）、姓名、職位（PT／PTA／OT／OTA）、性別（男／女）、聯絡電話、電子郵箱。院舍與服務範圍由系統預設，無須填寫。
       </p>
       <div className={uiTokens.residentImportStepRow}>
         <span className={uiTokens.residentImportStepPill}>1. 上傳檔案</span>
