@@ -1,10 +1,11 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import type {
   StaffImportPreviewRow,
   StaffImportValidationResult,
 } from '../../../repositories/staffImportRepository'
 import { IMPORT_RUN_HISTORY_CAP } from '../../shared/csvImportRunSummary'
 import type { ImportRunSummary } from '../../shared/importRunSummary'
+import { parseStaffImportFileToCsvText } from '../utils/parseStaffImportFile'
 import {
   applyStaffCsvCommitOutcome,
   applyStaffCsvDryRunOutcome,
@@ -13,7 +14,16 @@ import { commitStaffCsvPreview, runStaffCsvDryRun } from '../utils/staffImportDr
 
 type ParseError = { rowIndex: number; message: string }
 
-export const useStaffImportDryRun = () => {
+export type UseStaffImportDryRunOptions = {
+  onCommitSuccess?: () => void
+}
+
+export const useStaffImportDryRun = (options?: UseStaffImportDryRunOptions) => {
+  const onCommitSuccessRef = useRef(options?.onCommitSuccess)
+  useEffect(() => {
+    onCommitSuccessRef.current = options?.onCommitSuccess
+  }, [options?.onCommitSuccess])
+
   /** 防止確認匯入連點（對齊業務 PDF 防重覆提交） */
   const commitLockRef = useRef(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -36,7 +46,8 @@ export const useStaffImportDryRun = () => {
       setParseErrors([])
       setIsLoading(true)
       try {
-        const outcome = await runStaffCsvDryRun(await file.text())
+        const csvText = await parseStaffImportFileToCsvText(file)
+        const outcome = await runStaffCsvDryRun(csvText)
         applyStaffCsvDryRunOutcome(outcome, {
           setParseErrors,
           setErrorMessage,
@@ -71,6 +82,7 @@ export const useStaffImportDryRun = () => {
           setLastRunSummary,
           pushHistory,
         })
+        if (outcome.kind === 'success') onCommitSuccessRef.current?.()
       } finally {
         commitLockRef.current = false
         setIsLoading(false)

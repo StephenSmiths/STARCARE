@@ -3,12 +3,15 @@ import { AuditTrailPanel } from '../../shared/components/AuditTrailPanel'
 import { useAuditTrailList } from '../../shared/hooks/useAuditTrailList'
 import { uiTokens } from '../../shared/ui/uiTokens'
 import { useStaffImportDryRun } from '../hooks/useStaffImportDryRun'
+import { useStaffManagementOverview } from '../hooks/useStaffManagementOverview'
 import { StaffImportDryRunCard } from './StaffImportDryRunCard'
 import { StaffOverviewPanel } from './StaffOverviewPanel'
+import { StaffSingleCreateCard } from './StaffSingleCreateCard'
 
 export const StaffImportPanel = () => {
   const auditTrail = useAuditTrailList()
   const actorId = useAuthActorId()
+  const overview = useStaffManagementOverview()
   const {
     isLoading,
     parseErrors,
@@ -19,11 +22,20 @@ export const StaffImportPanel = () => {
     runHistory,
     validateCsv,
     commitValidatedRows,
-  } = useStaffImportDryRun()
+  } = useStaffImportDryRun({ onCommitSuccess: () => void overview.reload() })
 
   return (
     <div className={uiTokens.stackVertical}>
-      <StaffOverviewPanel actorId={actorId} />
+      <StaffOverviewPanel
+        actorId={actorId}
+        rows={overview.rows}
+        isLoading={overview.isLoading}
+        error={overview.error}
+        softDeleteBusyStaffId={overview.softDeleteBusyStaffId}
+        reload={overview.reload}
+        softDeleteStaff={overview.softDeleteStaff}
+      />
+      <StaffSingleCreateCard actorId={actorId} onCreated={() => void overview.reload()} />
       <StaffImportDryRunCard
         actorId={actorId}
         isLoading={isLoading}

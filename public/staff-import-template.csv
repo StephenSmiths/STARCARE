@@ -1,3 +1,3 @@
-id,facilityId,displayName,roleType,serviceScope
-,facility-main,示例治療師A,PT,Subsidized_Rehab
-,facility-main,示例治療助理B,PTA,Both
+員工編號,姓名,職位,性別,聯絡電話,電子郵箱
+,示例治療師A,PT,男,91234567,example.a@demo.local
+,示例治療助理B,PTA,女,92345678,example.b@demo.local

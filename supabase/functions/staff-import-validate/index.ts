@@ -5,28 +5,67 @@ import { getServiceClient } from '../_shared/supabaseAdmin.ts'
 type IncomingRow = Record<string, unknown>
 type ErrorItem = { rowIndex: number; field: string; message: string }
 
+type PreviewRow = {
+  id?: string
+  facility_id: string
+  display_name: string
+  role_type: 'PT' | 'OT' | 'PTA' | 'OTA' | 'TeamLead'
+  service_scope: 'Subsidized_Rehab' | 'Dementia_Care' | 'Both'
+  gender: 'Male' | 'Female' | null
+  phone: string
+  email: string
+}
+
 const ROLE_TYPES = new Set(['PT', 'OT', 'PTA', 'OTA', 'TeamLead'])
 const SERVICE_SCOPE = new Set(['Subsidized_Rehab', 'Dementia_Care', 'Both'])
 
 const toStr = (value: unknown): string => String(value ?? '').trim()
 
-const normalize = (row: IncomingRow) => ({
+const normalizeGender = (raw: string): { ok: true; value: 'Male' | 'Female' | null } | { ok: false } => {
+  if (!raw) return { ok: true, value: null }
+  if (raw === 'Male' || raw === '男') return { ok: true, value: 'Male' }
+  if (raw === 'Female' || raw === '女') return { ok: true, value: 'Female' }
+  return { ok: false }
+}
+
+/** SOP PDF 02【13】員工批量匯入預檢；範本無院舍／ServiceScope 時預設 facility-main、Both。 */
+const normalizeIn = (row: IncomingRow) => ({
   id: toStr(row.id),
   facility_id: toStr(row.facilityId ?? row.facility_id) || 'facility-main',
   display_name: toStr(row.displayName ?? row.display_name),
   role_type: toStr(row.roleType ?? row.role_type),
-  service_scope: toStr(row.serviceScope ?? row.service_scope),
+  service_scope: toStr(row.serviceScope ?? row.service_scope) || 'Both',
+  phone: toStr(row.phone),
+  email: toStr(row.email),
+  gender_raw: toStr(row.gender),
 })
 
-const validateRow = (row: ReturnType<typeof normalize>, rowIndex: number): ErrorItem[] => {
+const validateRow = (row: ReturnType<typeof normalizeIn>, rowIndex: number): ErrorItem[] => {
   const errors: ErrorItem[] = []
   if (!row.display_name) errors.push({ rowIndex, field: 'display_name', message: '姓名不可為空' })
-  if (!row.facility_id) errors.push({ rowIndex, field: 'facility_id', message: 'facility_id 不可為空' })
-  if (!ROLE_TYPES.has(row.role_type)) errors.push({ rowIndex, field: 'role_type', message: 'role_type 非法' })
+  if (!row.facility_id) errors.push({ rowIndex, field: 'facility_id', message: '院舍編號不可為空' })
+  if (!ROLE_TYPES.has(row.role_type)) {
+    errors.push({ rowIndex, field: 'role_type', message: '職位非法（須為 PT／PTA／OT／OTA；舊檔可含 TeamLead）' })
+  }
   if (!SERVICE_SCOPE.has(row.service_scope)) {
     errors.push({ rowIndex, field: 'service_scope', message: 'service_scope 非法' })
   }
+  if (!normalizeGender(row.gender_raw).ok) errors.push({ rowIndex, field: 'gender', message: '性別須為 男／女' })
   return errors
+}
+
+const toPreview = (row: ReturnType<typeof normalizeIn>): PreviewRow => {
+  const g = normalizeGender(row.gender_raw)
+  return {
+    id: row.id || undefined,
+    facility_id: row.facility_id,
+    display_name: row.display_name,
+    role_type: row.role_type as PreviewRow['role_type'],
+    service_scope: row.service_scope as PreviewRow['service_scope'],
+    gender: g.ok ? g.value : null,
+    phone: row.phone,
+    email: row.email,
+  }
 }
 
 Deno.serve(async (req) => {
@@ -38,19 +77,19 @@ Deno.serve(async (req) => {
     const body = (await req.json()) as { rows?: IncomingRow[] }
     const incoming = body.rows ?? []
     if (incoming.length === 0) return json({ error: 'rows 不可為空' }, 400)
-    const rows = incoming.map(normalize)
+    const normalized = incoming.map(normalizeIn)
     const errors: ErrorItem[] = []
-    rows.forEach((row, idx) => errors.push(...validateRow(row, idx + 1)))
+    normalized.forEach((row, idx) => errors.push(...validateRow(row, idx + 1)))
 
     const seenIds = new Set<string>()
-    for (let i = 0; i < rows.length; i += 1) {
-      const id = rows[i].id
+    for (let i = 0; i < normalized.length; i += 1) {
+      const id = normalized[i].id
       if (!id) continue
-      if (seenIds.has(id)) errors.push({ rowIndex: i + 1, field: 'id', message: 'CSV 內 id 重覆' })
+      if (seenIds.has(id)) errors.push({ rowIndex: i + 1, field: 'id', message: '檔案內員工編號重覆' })
       seenIds.add(id)
     }
 
-    const ids = rows.map((r) => r.id).filter(Boolean)
+    const ids = normalized.map((r) => r.id).filter(Boolean)
     if (ids.length > 0) {
       const supabase = getServiceClient()
       const { data, error } = await supabase
@@ -60,18 +99,22 @@ Deno.serve(async (req) => {
         .in('id', ids)
       if (error) return json({ error: error.message }, 400)
       const existed = new Set((data ?? []).map((item) => String(item.id)))
-      rows.forEach((row, idx) => {
+      normalized.forEach((row, idx) => {
         if (row.id && existed.has(row.id)) {
-          errors.push({ rowIndex: idx + 1, field: 'id', message: 'id 已存在於系統' })
+          errors.push({ rowIndex: idx + 1, field: 'id', message: '員工編號已存在於系統' })
         }
       })
     }
 
     const invalidRows = new Set(errors.map((item) => item.rowIndex))
-    const preview = rows.filter((_row, idx) => !invalidRows.has(idx + 1))
+    const preview: PreviewRow[] = normalized
+      .map((row, idx) => ({ row, idx }))
+      .filter(({ idx }) => !invalidRows.has(idx + 1))
+      .map(({ row }) => toPreview(row))
+
     return json({
       ok: errors.length === 0,
-      summary: { total: rows.length, valid: preview.length, invalid: invalidRows.size },
+      summary: { total: normalized.length, valid: preview.length, invalid: invalidRows.size },
       errors,
       preview,
     })

@@ -20,7 +20,7 @@ export type StaffImportDryRunCardProps = {
   commitValidatedRows: (actorId: string) => Promise<void>
 }
 
-/** 員工 CSV：預檢／確認匯入（PDF 02【13】／防連點於 hook） */
+/** PDF 02【13】員工批量匯入：Excel／CSV 預檢與確認（防連點於 hook） */
 export const StaffImportDryRunCard = ({
   actorId,
   isLoading,
@@ -43,23 +43,25 @@ export const StaffImportDryRunCard = ({
     <article className={uiTokens.surfaceCard}>
       <div className={uiTokens.layoutFlexBetweenGap2}>
         <h2 className={uiTokens.pageSectionHeading}>員工批量匯入</h2>
-        <a className={uiTokens.linkDownload} href="/staff-import-template.csv" download>
-          下載 CSV 範本
+        <a className={uiTokens.linkDownload} href="/staff-import-template.xlsx" download>
+          下載 Excel 範本
         </a>
       </div>
-      <p className={uiTokens.sectionHelp}>欄位：id(可空), facilityId, displayName, roleType, serviceScope</p>
+      <p className={uiTokens.sectionHelp}>
+        欄位：員工編號（可空）、姓名、職位（PT／PTA／OT／OTA）、性別（男／女）、聯絡電話、電子郵箱。院舍與服務範圍由系統預設，無須填寫。
+      </p>
       <div className={uiTokens.residentImportStepRow}>
-        <span className={uiTokens.residentImportStepPill}>1. 上傳 CSV</span>
+        <span className={uiTokens.residentImportStepPill}>1. 上傳檔案</span>
         <span className={uiTokens.residentImportStepPill}>2. 預檢錯誤</span>
         <span className={uiTokens.residentImportStepPill}>3. 確認匯入</span>
       </div>
       <p className={uiTokens.inlineNoticeWarn}>
-        提示：若出現本地格式錯誤（例如欄位缺漏、數值格式錯誤），系統會先停止預檢，請先修正 CSV 後再重試。
+        提示：若出現本地格式錯誤（例如欄位缺漏、數值格式錯誤），系統會先停止預檢，請先修正後再重試。亦相容舊版英文 CSV 表頭。
       </p>
       <input
         className={uiTokens.formInputMt3}
         type="file"
-        accept=".csv,text/csv"
+        accept=".xlsx,.xls,.csv,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         disabled={isLoading}
         onChange={(event) => {
           const file = event.target.files?.[0]

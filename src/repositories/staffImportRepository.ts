@@ -8,6 +8,9 @@ export type StaffImportRow = {
   displayName: string
   roleType: 'PT' | 'OT' | 'PTA' | 'OTA' | 'TeamLead'
   serviceScope: 'Subsidized_Rehab' | 'Dementia_Care' | 'Both'
+  gender?: 'Male' | 'Female'
+  phone?: string
+  email?: string
 }
 
 export type StaffImportPreviewRow = {
@@ -16,6 +19,9 @@ export type StaffImportPreviewRow = {
   display_name: string
   role_type: 'PT' | 'OT' | 'PTA' | 'OTA' | 'TeamLead'
   service_scope: 'Subsidized_Rehab' | 'Dementia_Care' | 'Both'
+  gender?: 'Male' | 'Female' | null
+  phone?: string
+  email?: string
 }
 
 export type StaffImportValidationResult = {
@@ -45,6 +51,9 @@ class InMemoryStaffImportRepository implements StaffImportRepository {
       display_name: row.displayName,
       role_type: row.roleType,
       service_scope: row.serviceScope,
+      gender: row.gender ?? null,
+      phone: row.phone ?? '',
+      email: row.email ?? '',
     }))
     return {
       ok: true,

@@ -9,6 +9,9 @@ type PreviewRow = {
   display_name: string
   role_type: 'PT' | 'OT' | 'PTA' | 'OTA' | 'TeamLead'
   service_scope: 'Subsidized_Rehab' | 'Dementia_Care' | 'Both'
+  gender?: 'Male' | 'Female' | null
+  phone?: string
+  email?: string
 }
 
 Deno.serve(async (req) => {
@@ -30,7 +33,7 @@ Deno.serve(async (req) => {
       const { data, error } = await supabase.from('staff_profiles').select('id').eq('is_deleted', false).in('id', ids)
       if (error) return json({ error: error.message }, 400)
       const existed = (data ?? []).map((item) => String(item.id))
-      if (existed.length > 0) return json({ error: `id 已存在：${existed.join(', ')}` }, 409)
+      if (existed.length > 0) return json({ error: `員工編號已存在：${existed.join(', ')}` }, 409)
     }
 
     const batchId = `staff-import-${crypto.randomUUID()}`
@@ -40,6 +43,9 @@ Deno.serve(async (req) => {
       display_name: row.display_name,
       role_type: row.role_type,
       service_scope: row.service_scope,
+      gender: row.gender ?? null,
+      phone: row.phone ?? '',
+      email: row.email ?? '',
       is_deleted: false,
     }))
     const { error } = await supabase.from('staff_profiles').insert(insertRows)
@@ -53,7 +59,7 @@ Deno.serve(async (req) => {
       actor_id: actorId,
       before_state: null,
       after_state: JSON.stringify({ count: insertRows.length, batchId, staffIds }),
-      detail: `員工 CSV 批量匯入（batch=${batchId}）`,
+      detail: `員工批量匯入（batch=${batchId}）`,
     })
     if (!audit.ok) {
       await supabase.from('staff_profiles').update({ is_deleted: true }).in('id', staffIds).eq('is_deleted', false)

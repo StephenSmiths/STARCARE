@@ -1,21 +1,32 @@
 import { useState } from 'react'
 import { useAuth } from '../../auth'
 import { uiTokens } from '../../shared/ui/uiTokens'
-import { useStaffManagementOverview } from '../hooks/useStaffManagementOverview'
 import { downloadStaffOverviewExportCsv } from '../services/staffOverviewExportCsvService'
 import { recordStaffOverviewExportAudit } from '../services/staffOverviewExportAuditService'
 import type { StaffOverviewRow } from '../services/staffManagementService'
 import { StaffProfileEditSheet } from './StaffProfileEditSheet'
 
-interface StaffOverviewPanelProps {
+export interface StaffOverviewPanelProps {
   actorId: string
+  rows: StaffOverviewRow[]
+  isLoading: boolean
+  error: string
+  softDeleteBusyStaffId: string | null
+  reload: () => Promise<void>
+  softDeleteStaff: (actorId: string, staffId: string) => Promise<void>
 }
 
-export const StaffOverviewPanel = ({ actorId }: StaffOverviewPanelProps) => {
+export const StaffOverviewPanel = ({
+  actorId,
+  rows,
+  isLoading,
+  error,
+  softDeleteBusyStaffId,
+  reload,
+  softDeleteStaff,
+}: StaffOverviewPanelProps) => {
   const { hasPermission } = useAuth()
   const canMaintainProfiles = hasPermission('view:staff-import')
-  const { rows, isLoading, error, softDeleteBusyStaffId, softDeleteStaff, reload } =
-    useStaffManagementOverview()
   const [editRow, setEditRow] = useState<StaffOverviewRow | null>(null)
   const softDeleteLocked = softDeleteBusyStaffId !== null
   const exportCsv = () => {

@@ -22,7 +22,7 @@ export type StaffDryRunValidateOk = {
   summary: ImportRunSummary
 }
 
-/** 員工 CSV 預檢（不含 React）；防重覆提交由呼叫端鎖控制。 */
+/** 員工匯入檔預檢（不含 React）；防重覆提交由呼叫端鎖控制。 */
 export async function runStaffCsvDryRun(
   csvText: string,
 ): Promise<StaffDryRunParseBlocked | StaffDryRunValidateOk | { kind: 'throw'; error: unknown }> {
@@ -32,11 +32,11 @@ export async function runStaffCsvDryRun(
     return {
       kind: 'parse_errors',
       errors: parsed.errors,
-      userMessage: 'CSV 內容有格式錯誤，請先修正後再進行預檢',
+      userMessage: '匯入檔有格式錯誤，請先修正後再進行預檢',
     }
   }
   if (parsed.rows.length === 0) {
-    return { kind: 'empty_rows', userMessage: 'CSV 沒有可預檢資料列' }
+    return { kind: 'empty_rows', userMessage: '匯入檔沒有可預檢資料列' }
   }
   try {
     const validated = await staffImportService.validateRows(parsed.rows)
