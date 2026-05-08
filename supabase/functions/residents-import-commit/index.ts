@@ -14,6 +14,7 @@ type PreviewRow = {
   admission_date: string
   assessment_next_due_date?: string | null
   funding_type: 'GradeA_Subsidized' | 'Voucher' | 'Private'
+  /** 預檢回傳供前端顯示；residents 表無此欄，落庫時必須省略（否則 INSERT 400）。 */
   service_types?: Array<'Subsidized_Rehab' | 'Dementia_Service'>
   service_type: 'Subsidized_Rehab' | 'Dementia_Service' | 'Both'
   dementia_level: 'Severe' | 'Moderate' | 'Mild' | 'None'
@@ -22,7 +23,46 @@ type PreviewRow = {
   medication_record: string
 }
 
-type InsertRow = PreviewRow & { id: string; is_deleted: boolean }
+/** residents 實際欄位（不含 service_types；多選由觸發器依 service_type 同步至 resident_service_types） */
+type ResidentInsertPayload = {
+  id: string
+  name: string
+  english_name?: string | null
+  bed_number: string
+  area: string
+  gender: 'Male' | 'Female'
+  birth_date?: string | null
+  age: number
+  admission_date: string
+  assessment_next_due_date?: string | null
+  funding_type: 'GradeA_Subsidized' | 'Voucher' | 'Private'
+  service_type: 'Subsidized_Rehab' | 'Dementia_Service' | 'Both'
+  dementia_level: 'Severe' | 'Moderate' | 'Mild' | 'None'
+  is_special_care: boolean
+  health_condition: string
+  medication_record: string
+  is_deleted: boolean
+}
+
+const previewToResidentRow = (row: PreviewRow): Omit<ResidentInsertPayload, 'id' | 'is_deleted'> => ({
+  name: row.name,
+  english_name: row.english_name ?? null,
+  bed_number: row.bed_number,
+  area: row.area,
+  gender: row.gender,
+  birth_date: row.birth_date ?? null,
+  age: row.age,
+  admission_date: row.admission_date,
+  assessment_next_due_date: row.assessment_next_due_date ?? null,
+  funding_type: row.funding_type,
+  service_type: row.service_type,
+  dementia_level: row.dementia_level,
+  is_special_care: row.is_special_care,
+  health_condition: row.health_condition,
+  medication_record: row.medication_record,
+})
+
+type InsertRow = ResidentInsertPayload
 
 const assertRows = (rows: PreviewRow[]): string | null => {
   if (rows.length === 0) return 'rows 不可為空'
@@ -74,7 +114,7 @@ Deno.serve(async (req) => {
     const batchId = `residents-import-${crypto.randomUUID()}`
     const insertRows: InsertRow[] = rows.map((row) => ({
       id: `resident-${crypto.randomUUID()}`,
-      ...row,
+      ...previewToResidentRow(row),
       is_deleted: false,
     }))
     const { error: insertErr } = await supabase.from('residents').insert(insertRows)
