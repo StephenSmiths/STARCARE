@@ -3,7 +3,8 @@ import { ACTIVITY_SESSIONS_WORKSPACE_FACILITY_ID } from '../constants/activitySe
 
 type ParseError = { rowIndex: number; message: string }
 
-const splitCsvLine = (line: string): string[] => {
+/** 供週更表／活動時段 CSV 共用（RFC 風格引號欄位） */
+export const splitCsvLine = (line: string): string[] => {
   const out: string[] = []
   let current = ''
   let inQuote = false

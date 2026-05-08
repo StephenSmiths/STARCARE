@@ -8,6 +8,8 @@ import {
   commitActivitySessionCsvPreview,
   runActivitySessionCsvDryRun,
 } from '../utils/activitySessionImportDryRunFlow'
+import { runWeeklyRosterActivityImportDryRun } from '../../scheduling/utils/runWeeklyRosterActivityImportDryRun'
+import { ACTIVITY_SESSIONS_WORKSPACE_FACILITY_ID } from '../constants/activitySessionsWorkspaceDefaults'
 import { useActivitySessionImportDryRunState } from './useActivitySessionImportDryRunState'
 
 export type ActivitySessionImportDryRunOptions = {
@@ -47,6 +49,27 @@ export const useActivitySessionImportDryRun = (options?: ActivitySessionImportDr
       reset()
       try {
         const outcome = await runActivitySessionCsvDryRun(csvText)
+        applyActivitySessionCsvDryRunOutcome(outcome, {
+          setParseErrors,
+          setErrorMessage,
+          setResult,
+          setLastRunSummary,
+          pushHistory,
+        })
+      } finally {
+        setIsBusy(false)
+      }
+    },
+    [pushHistory, reset, setErrorMessage, setIsBusy, setLastRunSummary, setParseErrors, setResult],
+  )
+
+  /** PDF 02【3】週更表：Excel／CSV 首頁欄位（中文表頭）→ 活動時段預檢。 */
+  const validateWeeklyRosterSheetText = useCallback(
+    async (sheetCsvText: string) => {
+      setIsBusy(true)
+      reset()
+      try {
+        const outcome = await runWeeklyRosterActivityImportDryRun(sheetCsvText, ACTIVITY_SESSIONS_WORKSPACE_FACILITY_ID)
         applyActivitySessionCsvDryRunOutcome(outcome, {
           setParseErrors,
           setErrorMessage,
@@ -108,6 +131,7 @@ export const useActivitySessionImportDryRun = (options?: ActivitySessionImportDr
       lastRunSummary,
       runHistory,
       validateCsvText,
+      validateWeeklyRosterSheetText,
       commitValidatedRows,
       reset,
     }),
@@ -120,6 +144,7 @@ export const useActivitySessionImportDryRun = (options?: ActivitySessionImportDr
       lastRunSummary,
       runHistory,
       validateCsvText,
+      validateWeeklyRosterSheetText,
       commitValidatedRows,
       reset,
     ],

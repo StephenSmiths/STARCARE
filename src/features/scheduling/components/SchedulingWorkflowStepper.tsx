@@ -2,7 +2,7 @@ import { uiTokens } from '../../shared/ui/uiTokens'
 import type { SchedulingWorkflowUiModel } from '../services/schedulingWorkflowStepService'
 
 const STEPS: Array<{ id: 1 | 2 | 3 | 4 | 5; label: string; hint: string }> = [
-  { id: 1, label: '導入週更表', hint: 'CSV 與活動時段主檔一致' },
+  { id: 1, label: '導入週更表', hint: 'Excel 範本與活動時段主檔一致' },
   { id: 2, label: '確認', hint: '核對本週更表／時段' },
   { id: 3, label: '智能排班', hint: '執行 3-Pass 與約束' },
   { id: 4, label: '預覽', hint: '指派與衝突檢視' },

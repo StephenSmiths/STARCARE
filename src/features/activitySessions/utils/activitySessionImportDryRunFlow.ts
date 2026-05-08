@@ -1,6 +1,7 @@
 import { activitySessionImportService } from '../../../services/activitySessionImportService'
 import type {
   ActivitySessionImportPreviewRow,
+  ActivitySessionImportRow,
   ActivitySessionImportValidationResult,
 } from '../../../repositories/activitySessionImportRepository'
 import {
@@ -22,6 +23,24 @@ export type ActivitySessionDryRunValidateOk = {
   summary: ImportRunSummary
 }
 
+/** 活動時段列預檢（已解析為 `ActivitySessionImportRow`；不含 React 狀態）。 */
+export async function runActivitySessionRowsDryRun(
+  rows: ActivitySessionImportRow[],
+  startedAt: number,
+): Promise<ActivitySessionDryRunParseBlocked | ActivitySessionDryRunValidateOk | { kind: 'throw'; error: unknown }> {
+  if (rows.length === 0) {
+    return { kind: 'empty_rows', userMessage: '沒有可用資料列' }
+  }
+  try {
+    const response = await activitySessionImportService.validateRows(rows)
+    const ranAt = new Date().toISOString()
+    const summary = buildCsvImportDryRunSummary(response.summary, Date.now() - startedAt, ranAt)
+    return { kind: 'validated', result: response, summary }
+  } catch (error) {
+    return { kind: 'throw', error }
+  }
+}
+
 /** 活動時段 CSV 預檢（不含 React 狀態）；對齊 PDF 防重覆提交語意由呼叫端鎖控制。 */
 export async function runActivitySessionCsvDryRun(
   csvText: string,
@@ -38,14 +57,7 @@ export async function runActivitySessionCsvDryRun(
   if (parsed.rows.length === 0) {
     return { kind: 'empty_rows', userMessage: 'CSV 沒有可用資料列' }
   }
-  try {
-    const response = await activitySessionImportService.validateRows(parsed.rows)
-    const ranAt = new Date().toISOString()
-    const summary = buildCsvImportDryRunSummary(response.summary, Date.now() - startedAt, ranAt)
-    return { kind: 'validated', result: response, summary }
-  } catch (error) {
-    return { kind: 'throw', error }
-  }
+  return runActivitySessionRowsDryRun(parsed.rows, startedAt)
 }
 
 export type ActivitySessionDryRunCommitOutcome =
