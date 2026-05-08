@@ -46,6 +46,9 @@ export const ResidentsDashboard = () => {
             softDeleteBusyResidentId={vm.softDeleteBusyResidentId}
             onEdit={vm.openEditResidentSheet}
             onSoftDelete={vm.softDeleteResident}
+            onBatchSoftDelete={vm.batchSoftDeleteResidentsByIds}
+            onBatchUpdate={vm.batchUpdateResidentsByIds}
+            onExportSelected={vm.exportSelectedResidentsCsv}
           />
         </section>
         <AuditTrailPanel auditTrail={vm.auditTrail} />

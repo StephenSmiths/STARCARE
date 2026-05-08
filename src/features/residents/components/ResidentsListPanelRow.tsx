@@ -10,6 +10,8 @@ export type ResidentsListPanelRowProps = {
   resident: Resident
   actorId: string
   canMaintainResidentRecords: boolean
+  selected: boolean
+  onToggleSelected: (residentId: string) => void
   softDeleteLocked: boolean
   softDeleteBusyResidentId: string | null
   onEdit: (residentId: string) => void
@@ -21,12 +23,20 @@ export const ResidentsListPanelRow = ({
   resident,
   actorId,
   canMaintainResidentRecords,
+  selected,
+  onToggleSelected,
   softDeleteLocked,
   softDeleteBusyResidentId,
   onEdit,
   onSoftDelete,
 }: ResidentsListPanelRowProps) => (
   <li className={uiTokens.residentListRow}>
+    {canMaintainResidentRecords ? (
+      <label className={uiTokens.layoutFlexItemsCenterGap2}>
+        <input type="checkbox" checked={selected} onChange={() => onToggleSelected(resident.id)} />
+        <span className={uiTokens.textSubtleXs}>批量選取</span>
+      </label>
+    ) : null}
     <p className={uiTokens.textWeightMedium}>
       {resident.name}（{resident.bedNumber}）
     </p>

@@ -8,6 +8,7 @@ export const useResidentsMutations = (
   setErrorMessage: Dispatch<SetStateAction<string>>,
 ) => {
   const softDeleteLockRef = useRef(false)
+  const batchLockRef = useRef(false)
   const [softDeleteBusyResidentId, setSoftDeleteBusyResidentId] = useState<string | null>(null)
 
   const createResident = useCallback(
@@ -52,10 +53,52 @@ export const useResidentsMutations = (
     [refreshResidents, setErrorMessage],
   )
 
+  const batchSoftDeleteResidents = useCallback(
+    async (actorId: string, ids: string[]) => {
+      if (batchLockRef.current || ids.length === 0) return
+      batchLockRef.current = true
+      setSoftDeleteBusyResidentId('BATCH')
+      try {
+        for (const id of ids) {
+          await residentService.softDeleteResident(actorId, id)
+        }
+        await refreshResidents()
+      } catch (error) {
+        setErrorMessage(error instanceof Error ? error.message : '批量軟刪除院友失敗')
+      } finally {
+        batchLockRef.current = false
+        setSoftDeleteBusyResidentId(null)
+      }
+    },
+    [refreshResidents, setErrorMessage],
+  )
+
+  const batchUpdateResidents = useCallback(
+    async (actorId: string, updates: Array<{ id: string; input: ResidentInput }>) => {
+      if (batchLockRef.current || updates.length === 0) return
+      batchLockRef.current = true
+      setSoftDeleteBusyResidentId('BATCH')
+      try {
+        for (const item of updates) {
+          await residentService.updateResident(actorId, item.id, item.input)
+        }
+        await refreshResidents()
+      } catch (error) {
+        setErrorMessage(error instanceof Error ? error.message : '批量更新院友欄位失敗')
+      } finally {
+        batchLockRef.current = false
+        setSoftDeleteBusyResidentId(null)
+      }
+    },
+    [refreshResidents, setErrorMessage],
+  )
+
   return {
     createResident,
     updateResident,
     softDeleteResident,
+    batchSoftDeleteResidents,
+    batchUpdateResidents,
     softDeleteBusyResidentId,
   }
 }

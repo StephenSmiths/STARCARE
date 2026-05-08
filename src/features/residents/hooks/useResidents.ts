@@ -10,6 +10,8 @@ export const useResidents = () => {
     createResident,
     updateResident,
     softDeleteResident,
+    batchSoftDeleteResidents,
+    batchUpdateResidents,
     softDeleteBusyResidentId,
   } = useResidentsMutations(refreshResidents, setErrorMessage)
 
@@ -19,6 +21,8 @@ export const useResidents = () => {
     createResident,
     updateResident,
     softDeleteResident,
+    batchSoftDeleteResidents,
+    batchUpdateResidents,
     softDeleteBusyResidentId,
     refreshResidents,
     auditTrail,
