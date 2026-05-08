@@ -34,6 +34,7 @@ export const StaffImportPanel = () => {
         softDeleteBusyStaffId={overview.softDeleteBusyStaffId}
         reload={overview.reload}
         softDeleteStaff={overview.softDeleteStaff}
+        batchSoftDeleteStaff={overview.batchSoftDeleteStaff}
       />
       <StaffSingleCreateCard actorId={actorId} onCreated={() => void overview.reload()} />
       <StaffImportDryRunCard

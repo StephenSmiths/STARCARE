@@ -52,5 +52,29 @@ export const useStaffManagementOverview = (facilityId: string = STAFF_WORKSPACE_
     }
   }
 
-  return { rows, isLoading, error, softDeleteBusyStaffId, softDeleteStaff, reload }
+  /** 批量軟刪除：逐筆呼叫 Edge（與單筆相同審計／連動）；防連點與單筆共用鎖。 */
+  const batchSoftDeleteStaff = async (actorId: string, staffIds: string[]): Promise<boolean> => {
+    const unique = [...new Set(staffIds.map((id) => id.trim()).filter(Boolean))]
+    if (unique.length === 0) return false
+    if (softDeleteLockRef.current) return false
+    softDeleteLockRef.current = true
+    setSoftDeleteBusyStaffId('BATCH')
+    setError('')
+    try {
+      for (const id of unique) {
+        await staffManagementService.softDeleteStaff(actorId, id)
+      }
+      setRows((prev) => prev.filter((row) => !unique.includes(row.staffId)))
+      return true
+    } catch {
+      setError('批量軟刪除失敗，已中止；請重新整理確認現況。')
+      void reload()
+      return false
+    } finally {
+      softDeleteLockRef.current = false
+      setSoftDeleteBusyStaffId(null)
+    }
+  }
+
+  return { rows, isLoading, error, softDeleteBusyStaffId, softDeleteStaff, batchSoftDeleteStaff, reload }
 }
