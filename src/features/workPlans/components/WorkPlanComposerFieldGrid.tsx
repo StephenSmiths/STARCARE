@@ -1,3 +1,4 @@
+import { useMemo, useState } from 'react'
 import { uiTokens } from '../../shared/ui/uiTokens'
 import type { Resident } from '../../residents/types/resident'
 import type { StaffOverviewRow } from '../../staff/services/staffManagementService'
@@ -71,7 +72,119 @@ export const WorkPlanComposerFieldGrid = ({
   serviceType: WorkPlanDraftLine['serviceType']
   onServiceTypeChange: (value: WorkPlanDraftLine['serviceType']) => void
 }) => (
-  <div className={uiTokens.composerFieldGrid}>
+  <WorkPlanComposerFieldGridInner
+    sessionDate={sessionDate}
+    onSessionDateChange={onSessionDateChange}
+    staffRows={staffRows}
+    staffProfileId={staffProfileId}
+    onStaffProfileIdChange={onStaffProfileIdChange}
+    staffRoleType={staffRoleType}
+    startTime={startTime}
+    onStartTimeChange={onStartTimeChange}
+    durationMinutes={durationMinutes}
+    onDurationMinutesChange={onDurationMinutesChange}
+    activityType={activityType}
+    allowedActivityTypes={allowedActivityTypes}
+    onActivityTypeChange={onActivityTypeChange}
+    residents={residents}
+    residentIds={residentIds}
+    onToggleResident={onToggleResident}
+    activityContent={activityContent}
+    contentOptions={contentOptions}
+    onActivityContentChange={onActivityContentChange}
+    activityContentOther={activityContentOther}
+    onActivityContentOtherChange={onActivityContentOtherChange}
+    activityDetail={activityDetail}
+    detailOptions={detailOptions}
+    onActivityDetailChange={onActivityDetailChange}
+    activityDetailOther={activityDetailOther}
+    onActivityDetailOtherChange={onActivityDetailOtherChange}
+    capacity={capacity}
+    onCapacityChange={onCapacityChange}
+    maxGroupCapacity={maxGroupCapacity}
+    serviceType={serviceType}
+    onServiceTypeChange={onServiceTypeChange}
+  />
+)
+
+const WorkPlanComposerFieldGridInner = ({
+  sessionDate,
+  onSessionDateChange,
+  staffRows,
+  staffProfileId,
+  onStaffProfileIdChange,
+  staffRoleType,
+  startTime,
+  onStartTimeChange,
+  durationMinutes,
+  onDurationMinutesChange,
+  activityType,
+  allowedActivityTypes,
+  onActivityTypeChange,
+  residents,
+  residentIds,
+  onToggleResident,
+  activityContent,
+  contentOptions,
+  onActivityContentChange,
+  activityContentOther,
+  onActivityContentOtherChange,
+  activityDetail,
+  detailOptions,
+  onActivityDetailChange,
+  activityDetailOther,
+  onActivityDetailOtherChange,
+  capacity,
+  onCapacityChange,
+  maxGroupCapacity,
+  serviceType,
+  onServiceTypeChange,
+}: {
+  sessionDate: string
+  onSessionDateChange: (value: string) => void
+  staffRows: StaffOverviewRow[]
+  staffProfileId: string
+  onStaffProfileIdChange: (value: string) => void
+  staffRoleType: StaffProfileRoleType
+  startTime: string
+  onStartTimeChange: (value: string) => void
+  durationMinutes: number
+  onDurationMinutesChange: (value: number) => void
+  activityType: WorkPlanActivityType
+  allowedActivityTypes: WorkPlanActivityType[]
+  onActivityTypeChange: (value: WorkPlanActivityType) => void
+  residents: Resident[]
+  residentIds: string[]
+  onToggleResident: (id: string) => void
+  activityContent: string
+  contentOptions: WorkPlanContentOption[]
+  onActivityContentChange: (value: string) => void
+  activityContentOther: string
+  onActivityContentOtherChange: (value: string) => void
+  activityDetail: string
+  detailOptions: string[]
+  onActivityDetailChange: (value: string) => void
+  activityDetailOther: string
+  onActivityDetailOtherChange: (value: string) => void
+  capacity: number
+  onCapacityChange: (value: number) => void
+  maxGroupCapacity: number
+  serviceType: WorkPlanDraftLine['serviceType']
+  onServiceTypeChange: (value: WorkPlanDraftLine['serviceType']) => void
+}) => {
+  const [residentQuery, setResidentQuery] = useState('')
+  const filteredResidents = useMemo(() => {
+    const q = residentQuery.trim().toLowerCase()
+    if (!q) return residents
+    return residents.filter(
+      (row) =>
+        row.name.toLowerCase().includes(q) ||
+        row.bedNumber.toLowerCase().includes(q) ||
+        row.id.toLowerCase().includes(q),
+    )
+  }, [residents, residentQuery])
+
+  return <div className={uiTokens.composerFieldGrid}>
     <label className={uiTokens.formFieldStack}>
       <span className={uiTokens.formLabel}>日期</span>
       <input
@@ -215,18 +328,30 @@ export const WorkPlanComposerFieldGrid = ({
     </label>
     <div className={uiTokens.formFieldStackSmColSpan2Lg1}>
       <span className={uiTokens.formLabel}>選擇院友</span>
-      <div className={uiTokens.stackVertical}>
-        {residents.map((row) => (
-          <label key={row.id} className={uiTokens.layoutFlexItemsCenterGap2}>
-            <input
-              type="checkbox"
-              checked={residentIds.includes(row.id)}
-              onChange={() => onToggleResident(row.id)}
-            />
-            <span>{row.name}</span>
-          </label>
-        ))}
+      <p className={uiTokens.textSubtleXs}>已選 {residentIds.length} 位；顯示 {filteredResidents.length} / {residents.length}</p>
+      <input
+        className={uiTokens.formInputMt3TextXs}
+        placeholder="搜尋院友（姓名 / 床號 / ID）"
+        value={residentQuery}
+        onChange={(event) => setResidentQuery(event.target.value)}
+      />
+      <div className="mt-2 max-h-56 overflow-y-auto rounded border border-slate-200 p-2">
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-3">
+          {filteredResidents.map((row) => (
+            <label key={row.id} className={uiTokens.layoutFlexItemsCenterGap2}>
+              <input
+                type="checkbox"
+                checked={residentIds.includes(row.id)}
+                onChange={() => onToggleResident(row.id)}
+              />
+              <span>
+                {row.name}
+                <span className={uiTokens.textSubtleXs}>（{row.bedNumber || '—'}）</span>
+              </span>
+            </label>
+          ))}
+        </div>
       </div>
     </div>
   </div>
-)
+}
