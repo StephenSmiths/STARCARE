@@ -16,7 +16,7 @@ const webServerCommand = previewOnly
  * 若本機 `.env` 含 Supabase，**務必**以 **`build:demo`** 建置後再跑 E2E，否則 bundle 內嵌真實 URL 會破壞 demo 流程（與 CI 不一致）。
  * 部分受限執行環境下 Chromium 可能 SIGSEGV，請於一般終端或 CI（Ubuntu）重跑。
  *
- * **Demo 錄影**：`PW_DEMO_VIDEO=1` 時開啟每測試錄影（`test-results/…/video.webm`）並 `slowMo` 放慢操作；見 **`npm run test:e2e:demo:staff-batch-delete`**。
+ * **Demo 錄影**：`PW_DEMO_VIDEO=1` 時開啟每測試錄影（`test-results/…/video.webm`）、`slowMo` 放慢操作，並將 viewport 設為 **1920×1080**（預設 Desktop Chrome 為 1280×720，錄影會偏糊）；見 **`npm run test:e2e:demo:staff-batch-delete`**。
  */
 const demoVideo = process.env.PW_DEMO_VIDEO === '1'
 
@@ -33,7 +33,15 @@ export default defineConfig({
     video: demoVideo ? 'on' : 'off',
     launchOptions: demoVideo ? { slowMo: 450 } : undefined,
   },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
+  projects: [
+    {
+      name: 'chromium',
+      use: {
+        ...devices['Desktop Chrome'],
+        ...(demoVideo ? { viewport: { width: 1920, height: 1080 } } : {}),
+      },
+    },
+  ],
   webServer: {
     command: webServerCommand,
     url: `http://${previewHost}:${previewPort}`,
