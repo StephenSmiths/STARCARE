@@ -36,6 +36,7 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:e2e:smoke": "npm run build:demo && PW_PREVIEW_ONLY=1 VITE_SUPABASE_URL= VITE_SUPABASE_ANON_KEY= playwright test e2e/smoke.spec.ts --project=chromium",
+    "test:e2e:list-ui": "npm run build:demo && PW_PREVIEW_ONLY=1 VITE_SUPABASE_URL= VITE_SUPABASE_ANON_KEY= playwright test e2e/list-section-collapse.spec.ts --project=chromium",
     "test:e2e:demo:staff-batch-delete": "npm run build:demo && PW_PREVIEW_ONLY=1 PW_DEMO_VIDEO=1 VITE_SUPABASE_URL= VITE_SUPABASE_ANON_KEY= playwright test e2e/staff-overview-batch-soft-delete.demo.spec.ts --project=chromium",
     "test:e2e:demo:staff-batch-delete:chrome": "npm run build:demo && PW_PREVIEW_ONLY=1 PW_DEMO_VIDEO=1 PW_DEMO_USE_CHROME=1 VITE_SUPABASE_URL= VITE_SUPABASE_ANON_KEY= playwright test e2e/staff-overview-batch-soft-delete.demo.spec.ts --project=chromium",
     "test:e2e:auth": "playwright test --config=playwright.auth.config.ts",
