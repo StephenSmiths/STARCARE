@@ -120,3 +120,6 @@ jobs:
           PW_PREVIEW_ONLY: '1'
           VITE_SUPABASE_URL: ''
           VITE_SUPABASE_ANON_KEY: ''
+
+      - name: Playwright list UI collapse（清單頁預設收合規格）
+        run: npm run test:e2e:list-ui
