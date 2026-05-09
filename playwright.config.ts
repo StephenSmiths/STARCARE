@@ -16,14 +16,13 @@ const webServerCommand = previewOnly
  * 若本機 `.env` 含 Supabase，**務必**以 **`build:demo`** 建置後再跑 E2E，否則 bundle 內嵌真實 URL 會破壞 demo 流程（與 CI 不一致）。
  * 部分受限執行環境下 Chromium 可能 SIGSEGV，請於一般終端或 CI（Ubuntu）重跑。
  *
- * **Demo 錄影**：`PW_DEMO_VIDEO=1` 時 **`headless: false`（有頭瀏覽器）**、`slowMo`、viewport **1920×1080**、`deviceScaleFactor: 2`、**錄影強制 3840×2160**。
- * `chrome-headless-shell` 錄影常出現「檔案實際很小／糊」，故 Demo 改為 headed；會短暫彈出視窗。
+ * **Demo 錄影**：`PW_DEMO_VIDEO=1` 時 **`headless: false`**、`slowMo`、viewport **2560×1440**、`deviceScaleFactor: 1`、`video` **不強制 size**（避免擷取緩衝小卻被拉大編碼→糊）。
+ * 可選 **`PW_DEMO_USE_CHROME=1`** 改用本機 **Google Chrome**（須已安裝）錄影。
  */
 const demoVideo = process.env.PW_DEMO_VIDEO === '1'
-/** 邏輯 viewport（CSS px） */
-const DEMO_VIEWPORT = { width: 1920, height: 1080 } as const
-/** 輸出檔寬高（強制；約為 viewport×deviceScaleFactor） */
-const DEMO_VIDEO_SIZE = { width: 3840, height: 2160 } as const
+const demoUseChrome = process.env.PW_DEMO_USE_CHROME === '1'
+/** Demo：較大 viewport + 1× scale，錄影像素與 CSS 1:1，文字較不易糊 */
+const DEMO_VIEWPORT = { width: 2560, height: 1440 } as const
 
 export default defineConfig({
   testDir: 'e2e',
@@ -35,7 +34,7 @@ export default defineConfig({
   use: {
     baseURL: `http://${previewHost}:${previewPort}`,
     trace: demoVideo ? 'off' : 'on-first-retry',
-    video: demoVideo ? { mode: 'on', size: DEMO_VIDEO_SIZE } : 'off',
+    video: demoVideo ? { mode: 'on' } : 'off',
     launchOptions: demoVideo
       ? {
           slowMo: 900,
@@ -49,7 +48,12 @@ export default defineConfig({
       use: {
         ...devices['Desktop Chrome'],
         ...(demoVideo
-          ? { viewport: DEMO_VIEWPORT, deviceScaleFactor: 2, headless: false }
+          ? {
+              viewport: DEMO_VIEWPORT,
+              deviceScaleFactor: 1,
+              headless: false,
+              ...(demoUseChrome ? { channel: 'chrome' as const } : {}),
+            }
           : {}),
       },
     },
