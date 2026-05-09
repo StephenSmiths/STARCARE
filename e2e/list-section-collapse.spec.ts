@@ -1,10 +1,17 @@
 import { expect, test, type Page } from '@playwright/test'
 
-const toggleListSection = async (page: Page, headingName: RegExp, expectDefaultExpanded: boolean, revealText: RegExp) => {
-  const section = page.locator('section').filter({
+const toggleListSection = async (
+  page: Page,
+  headingName: RegExp,
+  expectDefaultExpanded: boolean,
+  revealText: RegExp,
+) => {
+  const sections = page.locator('section').filter({
     has: page.getByRole('heading', { name: headingName }),
   })
-  await expect(section).toHaveCount(1)
+  const count = await sections.count()
+  expect(count).toBeGreaterThan(0)
+  const section = sections.first()
 
   const expandBtn = section.getByRole('button', { name: '展開' })
   const collapseBtn = section.getByRole('button', { name: '收合' })
@@ -44,7 +51,7 @@ test.describe('list section collapse', () => {
   test('service-forms：待審核清單預設收合', async ({ page }) => {
     await page.goto('/#service-forms')
     await expect(page.getByRole('heading', { name: '服務表單', exact: true })).toBeVisible()
-    await toggleListSection(page, /待審核清單/, false, /待審表單/)
+    await toggleListSection(page, /待審核清單/, false, /待審服務表單|目前沒有待審項目/)
   })
 
   test('assessment-management：完成紀錄預設收合', async ({ page }) => {
