@@ -22,6 +22,7 @@
 | [docs/go-live-checklist.md](docs/go-live-checklist.md) | 上線檢核 |
 | [docs/gate-a-status-2026-05-06.md](docs/gate-a-status-2026-05-06.md) | Gate A（D2～D5）即時狀態板；[`gate-a-status-2026-05-06-commands-appendix.md`](docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment) 收證指令／旗標速查 |
 | [docs/gate-a-evidence-capture-2026-05-06.md](docs/gate-a-evidence-capture-2026-05-06.md) | Gate A 取證速跑步驟（含 SQL 與回填） |
+| [docs/ui-list-page-guideline-v1.md](docs/ui-list-page-guideline-v1.md) | 清單頁 UI/UX 統一規範（預設收合、分層揭露、角色化資訊密度） |
 | [docs/security-token-rotation-checklist.md](docs/security-token-rotation-checklist.md) | PAT／憑證輪替；**§D** 部署後自檢（可選 **`npm run ci`**） |
 | [docs/supabase-deploy-runbook.md](docs/supabase-deploy-runbook.md) | §2 **`npm run ops:deploy:all`**（清單見 **`package.json`**）；§5 SQL；§6 **`npm run ci`**（與 Actions 同源） |
 | [.env.example](.env.example) | 環境變數與可選 E2E 帳號 |
