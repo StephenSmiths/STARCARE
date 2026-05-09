@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { ServiceFormReviewPanel } from '../../serviceForms/components/ServiceFormReviewPanel'
 import { useServiceFormsWorkspace } from '../../serviceForms/hooks/useServiceFormsWorkspace'
 import { AuditTrailPanel } from '../../shared/components/AuditTrailPanel'
+import { ListSectionPanel } from '../../shared/components/ListSectionPanel'
 import { useAuditTrailList } from '../../shared/hooks/useAuditTrailList'
 import { uiTokens } from '../../shared/ui/uiTokens'
 import { buildFormSubmissionOverview } from '../services/workAnalysisReviewSummaryService'
@@ -31,8 +32,12 @@ export const WorkAnalysisReviewHome = () => {
     <div className={uiTokens.stackVertical}>
       <SubmissionOverviewCards overview={overview} />
       <TeamReportActionsPanel overview={overview} pendingReview={workspace.pendingReview} />
-      <ServiceFormReviewPanel workspace={workspace} />
-      <FeedbackAndNotifyStubs />
+      <ListSectionPanel title="待審服務表單" summary={`${workspace.pendingReview.length} 筆`} defaultExpanded>
+        <ServiceFormReviewPanel workspace={workspace} />
+      </ListSectionPanel>
+      <ListSectionPanel title="回饋與通知" defaultExpanded={false}>
+        <FeedbackAndNotifyStubs />
+      </ListSectionPanel>
       <AuditTrailPanel
         title="表單與審批相關審計（全域）"
         help="含 FORM_SUBMIT／APPROVE／REJECT_REVISION／SOFT_DELETE 等；與通知中心同源（PDF 02【7】／Seq 20）。"

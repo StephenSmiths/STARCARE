@@ -1,6 +1,7 @@
 import { useAuth } from '../../auth'
 import { uiTokens } from '../../shared/ui/uiTokens'
 import { AuditTrailPanel } from '../../shared/components/AuditTrailPanel'
+import { ListSectionPanel } from '../../shared/components/ListSectionPanel'
 import { useAuditTrailList } from '../../shared/hooks/useAuditTrailList'
 import { DashboardDailyFlowPanel } from './DashboardDailyFlowPanel'
 import { DashboardOverviewPanel } from './DashboardOverviewPanel'
@@ -20,26 +21,27 @@ export const DashboardHome = () => {
         <DashboardTeamLeadWednesdayCard alerts={teamLeadWednesdayAlerts} />
       ) : null}
       <DashboardOverviewPanel summary={summary} isLoading={isLoading} error={error} onRetry={reload} />
-      <section className={uiTokens.dashboardQuickLinksCard}>
-        <p className={uiTokens.dashboardQuickLinksTitle}>快速連結</p>
-        <ul className={uiTokens.dashboardQuickLinksList}>
-          <li>
-            <a href="#scheduling" className={uiTokens.hashLinkAccent}>
-              智能排班
-            </a>
-          </li>
-          <li>
-            <a href="#residents" className={uiTokens.hashLinkAccent}>
-              院友管理
-            </a>
-          </li>
-          <li>
-            <a href="#staff-import" className={uiTokens.hashLinkAccent}>
-              員工管理
-            </a>
-          </li>
-        </ul>
-      </section>
+      <ListSectionPanel title="快速連結" defaultExpanded={false}>
+        <section className={uiTokens.dashboardQuickLinksCard}>
+          <ul className={uiTokens.dashboardQuickLinksList}>
+            <li>
+              <a href="#scheduling" className={uiTokens.hashLinkAccent}>
+                智能排班
+              </a>
+            </li>
+            <li>
+              <a href="#residents" className={uiTokens.hashLinkAccent}>
+                院友管理
+              </a>
+            </li>
+            <li>
+              <a href="#staff-import" className={uiTokens.hashLinkAccent}>
+                員工管理
+              </a>
+            </li>
+          </ul>
+        </section>
+      </ListSectionPanel>
       <AuditTrailPanel
         title="全域審計摘要（儀表盤）"
         help="登入後會自雲端合併最近紀錄；完整篩選亦見智能排班／院友等頁（01 §5／Seq 12）。"

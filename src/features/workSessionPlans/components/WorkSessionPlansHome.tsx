@@ -1,5 +1,6 @@
 import { uiTokens } from '../../shared/ui/uiTokens'
 import { AuditTrailPanel } from '../../shared/components/AuditTrailPanel'
+import { ListSectionPanel } from '../../shared/components/ListSectionPanel'
 import { useAuditTrailList } from '../../shared/hooks/useAuditTrailList'
 import { MyWorkPlanPanel } from './MyWorkPlanPanel'
 import { TeamWorkPlanPanel } from './TeamWorkPlanPanel'
@@ -12,33 +13,37 @@ export const WorkSessionPlansHome = () => {
 
   return (
     <div className={uiTokens.layoutSpaceY8}>
-      <MyWorkPlanPanel
-        role={plans.role}
-        effectiveStaffProfileId={plans.effectiveStaffProfileId}
-        rows={plans.filteredMyRows}
-        isLoading={plans.isLoading}
-        error={plans.error}
-        selectedDate={plans.selectedDate}
-        onSelectedDateChange={plans.setSelectedDate}
-        showAllDates={plans.showAllDates}
-        onShowAllDatesChange={plans.setShowAllDates}
-        statusFilter={plans.statusFilter}
-        onStatusFilterChange={plans.setStatusFilter}
-        onAccept={plans.accept}
-        onReject={plans.reject}
-      />
-      <TeamWorkPlanPanel
-        role={plans.role}
-        rows={plans.filteredTeamRows}
-        isLoading={plans.isLoading}
-        selectedDate={plans.selectedDate}
-        showAllDates={plans.showAllDates}
-        onShowAllDatesChange={plans.setShowAllDates}
-        onSelectedDateChange={plans.setSelectedDate}
-        statusFilter={plans.statusFilter}
-        onStatusFilterChange={plans.setStatusFilter}
-        onBulkSoftDelete={plans.bulkSoftDelete}
-      />
+      <ListSectionPanel title="我的工作計劃" summary={`${plans.filteredMyRows.length} 筆`} defaultExpanded>
+        <MyWorkPlanPanel
+          role={plans.role}
+          effectiveStaffProfileId={plans.effectiveStaffProfileId}
+          rows={plans.filteredMyRows}
+          isLoading={plans.isLoading}
+          error={plans.error}
+          selectedDate={plans.selectedDate}
+          onSelectedDateChange={plans.setSelectedDate}
+          showAllDates={plans.showAllDates}
+          onShowAllDatesChange={plans.setShowAllDates}
+          statusFilter={plans.statusFilter}
+          onStatusFilterChange={plans.setStatusFilter}
+          onAccept={plans.accept}
+          onReject={plans.reject}
+        />
+      </ListSectionPanel>
+      <ListSectionPanel title="團隊計劃（批量軟刪）" summary={`${plans.filteredTeamRows.length} 筆`} defaultExpanded={false}>
+        <TeamWorkPlanPanel
+          role={plans.role}
+          rows={plans.filteredTeamRows}
+          isLoading={plans.isLoading}
+          selectedDate={plans.selectedDate}
+          showAllDates={plans.showAllDates}
+          onShowAllDatesChange={plans.setShowAllDates}
+          onSelectedDateChange={plans.setSelectedDate}
+          statusFilter={plans.statusFilter}
+          onStatusFilterChange={plans.setStatusFilter}
+          onBulkSoftDelete={plans.bulkSoftDelete}
+        />
+      </ListSectionPanel>
       <AuditTrailPanel
         title="工作節與計劃審計（全域）"
         help="含 WORK_SESSION_*、WORK_PLAN_SESSION_COMMIT 等（PDF 02【2】【4】／Seq 12）。"

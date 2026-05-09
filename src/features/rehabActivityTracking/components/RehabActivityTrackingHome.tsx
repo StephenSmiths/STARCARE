@@ -1,4 +1,5 @@
 import { AuditTrailPanel } from '../../shared/components/AuditTrailPanel'
+import { ListSectionPanel } from '../../shared/components/ListSectionPanel'
 import { useAuditTrailList } from '../../shared/hooks/useAuditTrailList'
 import { uiTokens } from '../../shared/ui/uiTokens'
 import { useRehabActivityTracking } from '../hooks/useRehabActivityTracking'
@@ -29,8 +30,12 @@ export const RehabActivityTrackingHome = () => {
       <p className={uiTokens.moduleDescription}>
         以下為依目前院友與活動時段之<strong>乾跑預覽</strong>（未儲存排班、不寫入 SCHEDULING_RUN）；正式採用以智能排班頁為準。
       </p>
-      <RehabTrackSection snapshot={rehabSnapshot} showDementiaColumn={false} />
-      <RehabTrackSection snapshot={dementiaSnapshot} showDementiaColumn />
+      <ListSectionPanel title="資助復康服務追蹤" defaultExpanded>
+        <RehabTrackSection snapshot={rehabSnapshot} showDementiaColumn={false} />
+      </ListSectionPanel>
+      <ListSectionPanel title="認知障礙症服務追蹤" defaultExpanded={false}>
+        <RehabTrackSection snapshot={dementiaSnapshot} showDementiaColumn />
+      </ListSectionPanel>
       <AuditTrailPanel
         title="復康／排班相關審計（全域）"
         help="本頁乾跑不寫 SCHEDULING_RUN；其他模組之排班／匯出審計仍見此處（PDF 02【8】／Seq 12）。"

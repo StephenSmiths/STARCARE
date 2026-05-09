@@ -1,4 +1,5 @@
 import { AuditTrailPanel } from '../../shared/components/AuditTrailPanel'
+import { ListSectionPanel } from '../../shared/components/ListSectionPanel'
 import { useAuditTrailList } from '../../shared/hooks/useAuditTrailList'
 import { uiTokens } from '../../shared/ui/uiTokens'
 import { useAiReportCenterWorkspace } from '../hooks/useAiReportCenterWorkspace'
@@ -20,22 +21,26 @@ export const AiReportCenterHome = () => {
           重新載入
         </button>
       </div>
-      <AiReportComposer
-        titleInput={ws.titleInput}
-        onTitleChange={ws.setTitleInput}
-        onGenerate={() => ws.generateDraft()}
-      />
+      <ListSectionPanel title="報告草稿生成" defaultExpanded>
+        <AiReportComposer
+          titleInput={ws.titleInput}
+          onTitleChange={ws.setTitleInput}
+          onGenerate={() => ws.generateDraft()}
+        />
+      </ListSectionPanel>
       {ws.error ? <p className={uiTokens.formInlineError}>{ws.error}</p> : null}
-      <AiReportList
-        rows={ws.reports}
-        editId={ws.editId}
-        editBody={ws.editBody}
-        onEditBody={ws.setEditBody}
-        onOpenDraft={ws.openDraftEditor}
-        onSaveBody={() => ws.saveDraftBody()}
-        onAdopt={(id) => ws.adopt(id)}
-        onDistribute={(id) => ws.distribute(id)}
-      />
+      <ListSectionPanel title="報告清單" summary={`${ws.reports.length} 筆`} defaultExpanded={false}>
+        <AiReportList
+          rows={ws.reports}
+          editId={ws.editId}
+          editBody={ws.editBody}
+          onEditBody={ws.setEditBody}
+          onOpenDraft={ws.openDraftEditor}
+          onSaveBody={() => ws.saveDraftBody()}
+          onAdopt={(id) => ws.adopt(id)}
+          onDistribute={(id) => ws.distribute(id)}
+        />
+      </ListSectionPanel>
       <AuditTrailPanel
         title="報告中心審計"
         help="含 AI_REPORT_CENTER_* 動作。"

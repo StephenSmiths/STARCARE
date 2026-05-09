@@ -1,4 +1,5 @@
 import { uiTokens } from '../../shared/ui/uiTokens'
+import { ListSectionPanel } from '../../shared/components/ListSectionPanel'
 
 const manualSections = [
   {
@@ -32,15 +33,16 @@ export const UserManualHome = () => (
     <p className={uiTokens.moduleDescription}>
       此頁提供站內操作摘要；正式交付版可再補圖文教學、角色分章節與常見問題。
     </p>
-    {manualSections.map((section) => (
-      <section key={section.title} className={uiTokens.surfaceCardCompact}>
-        <h2 className={uiTokens.blockHeading}>{section.title}</h2>
-        <ul className={uiTokens.bulletListDiscSm}>
-          {section.items.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </section>
+    {manualSections.map((section, index) => (
+      <ListSectionPanel key={section.title} title={section.title} defaultExpanded={index === 0}>
+        <section className={uiTokens.surfaceCardCompact}>
+          <ul className={uiTokens.bulletListDiscSm}>
+            {section.items.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </section>
+      </ListSectionPanel>
     ))}
   </div>
 )
