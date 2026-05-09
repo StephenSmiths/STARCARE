@@ -15,7 +15,11 @@ const webServerCommand = previewOnly
  * 快速煙霧：`npm run test:e2e:smoke`（先 **`build:demo`** 再跑 `smoke.spec.ts`）。
  * 若本機 `.env` 含 Supabase，**務必**以 **`build:demo`** 建置後再跑 E2E，否則 bundle 內嵌真實 URL 會破壞 demo 流程（與 CI 不一致）。
  * 部分受限執行環境下 Chromium 可能 SIGSEGV，請於一般終端或 CI（Ubuntu）重跑。
+ *
+ * **Demo 錄影**：`PW_DEMO_VIDEO=1` 時開啟每測試錄影（`test-results/…/video.webm`）並 `slowMo` 放慢操作；見 **`npm run test:e2e:demo:staff-batch-delete`**。
  */
+const demoVideo = process.env.PW_DEMO_VIDEO === '1'
+
 export default defineConfig({
   testDir: 'e2e',
   testIgnore: '**/auth-login*.spec.ts',
@@ -25,7 +29,9 @@ export default defineConfig({
   reporter: [['list']],
   use: {
     baseURL: `http://${previewHost}:${previewPort}`,
-    trace: 'on-first-retry',
+    trace: demoVideo ? 'off' : 'on-first-retry',
+    video: demoVideo ? 'on' : 'off',
+    launchOptions: demoVideo ? { slowMo: 450 } : undefined,
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {
