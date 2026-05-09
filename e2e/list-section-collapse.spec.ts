@@ -39,7 +39,7 @@ test.describe('list section collapse', () => {
   test('activity-sessions-import：活動時段列表預設收合', async ({ page }) => {
     await page.goto('/#activity-sessions-import')
     await expect(page.getByRole('heading', { name: '活動時段匯入', exact: true })).toBeVisible()
-    await toggleListSection(page, /活動時段列表/, false, /活動內容\/細項/)
+    await toggleListSection(page, /活動時段列表/, false, /依 Seq 10/)
   })
 
   test('historical-documents：歷史文件清單預設收合', async ({ page }) => {
@@ -51,7 +51,7 @@ test.describe('list section collapse', () => {
   test('service-forms：待審核清單預設收合', async ({ page }) => {
     await page.goto('/#service-forms')
     await expect(page.getByRole('heading', { name: '服務表單', exact: true })).toBeVisible()
-    await toggleListSection(page, /待審核清單/, false, /待審服務表單|目前沒有待審項目/)
+    await toggleListSection(page, /待審核清單/, false, /待審服務表單/)
   })
 
   test('assessment-management：完成紀錄預設收合', async ({ page }) => {
