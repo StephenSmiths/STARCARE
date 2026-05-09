@@ -1,4 +1,5 @@
 import { AuditTrailPanel } from '../../shared/components/AuditTrailPanel'
+import { ListSectionPanel } from '../../shared/components/ListSectionPanel'
 import { useAuditTrailList } from '../../shared/hooks/useAuditTrailList'
 import { uiTokens } from '../../shared/ui/uiTokens'
 import { useShiftStartHandoverWorkspace } from '../hooks/useShiftStartHandoverWorkspace'
@@ -11,7 +12,9 @@ export const ShiftStartHandoverHome = () => {
 
   return (
     <div className={uiTokens.handoverHomeContentWidth}>
-      <ShiftStartHandoverPanel workspace={workspace} />
+      <ListSectionPanel title="開工接更表單" defaultExpanded>
+        <ShiftStartHandoverPanel workspace={workspace} />
+      </ListSectionPanel>
       <AuditTrailPanel
         title="開工接更審計（全域）"
         help="含 SHIFT_START_HANDOVER_* 等（PDF 02【5b】／Seq 12）。"

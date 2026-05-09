@@ -59,4 +59,15 @@ test.describe('list section collapse', () => {
     await expect(page.getByRole('heading', { name: '評估管理', exact: true })).toBeVisible()
     await toggleListSection(page, /完成紀錄（最近優先）/, false, /版本/)
   })
+
+  test('dashboard：快速連結預設收合', async ({ page }) => {
+    await page.goto('/#dashboard')
+    await expect(page.getByRole('heading', { name: '儀表盤', exact: true })).toBeVisible()
+    await toggleListSection(page, /快速連結/, false, /智能排班/)
+  })
+
+  test('user-manual：文件章節可展開', async ({ page }) => {
+    await page.goto('/#user-manual')
+    await toggleListSection(page, /快速上手/, true, /左側選單已分組/)
+  })
 })
