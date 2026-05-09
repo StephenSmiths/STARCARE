@@ -23,8 +23,9 @@ const toStr = (value: unknown): string => String(value ?? '').trim()
 
 const normalizeGender = (raw: string): { ok: true; value: 'Male' | 'Female' | null } | { ok: false } => {
   if (!raw) return { ok: true, value: null }
-  if (raw === 'Male' || raw === '男') return { ok: true, value: 'Male' }
-  if (raw === 'Female' || raw === '女') return { ok: true, value: 'Female' }
+  const u = raw.toUpperCase()
+  if (raw === 'Male' || raw === '男' || u === 'M') return { ok: true, value: 'Male' }
+  if (raw === 'Female' || raw === '女' || u === 'F') return { ok: true, value: 'Female' }
   return { ok: false }
 }
 
@@ -50,7 +51,9 @@ const validateRow = (row: ReturnType<typeof normalizeIn>, rowIndex: number): Err
   if (!SERVICE_SCOPE.has(row.service_scope)) {
     errors.push({ rowIndex, field: 'service_scope', message: 'service_scope 非法' })
   }
-  if (!normalizeGender(row.gender_raw).ok) errors.push({ rowIndex, field: 'gender', message: '性別須為 男／女' })
+  if (!normalizeGender(row.gender_raw).ok) {
+    errors.push({ rowIndex, field: 'gender', message: '性別須為 男／女／M／F（或 Male／Female）' })
+  }
   return errors
 }
 
@@ -102,6 +105,28 @@ Deno.serve(async (req) => {
       normalized.forEach((row, idx) => {
         if (row.id && existed.has(row.id)) {
           errors.push({ rowIndex: idx + 1, field: 'id', message: '員工編號已存在於系統' })
+        }
+      })
+    }
+
+    /** 與 staff_profiles.facility_id FK 對齊：預檢須驗證院舍主檔存在，避免預檢通過但匯入 400。 */
+    const facilityIds = [...new Set(normalized.map((r) => r.facility_id).filter(Boolean))]
+    if (facilityIds.length > 0) {
+      const supabase = getServiceClient()
+      const { data: facRows, error: facErr } = await supabase
+        .from('facilities')
+        .select('id')
+        .eq('is_deleted', false)
+        .in('id', facilityIds)
+      if (facErr) return json({ error: facErr.message }, 400)
+      const facOk = new Set((facRows ?? []).map((r) => String(r.id)))
+      normalized.forEach((row, idx) => {
+        if (!facOk.has(row.facility_id)) {
+          errors.push({
+            rowIndex: idx + 1,
+            field: 'facility_id',
+            message: `院舍編號不存在於系統：${row.facility_id}（請先建立 facilities 主檔，或範本留空以使用 facility-main）`,
+          })
         }
       })
     }

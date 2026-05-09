@@ -19,6 +19,13 @@ describe('parseStaffCsv', () => {
     })
   })
 
+  it('範本常見 M／F 性別可解析', () => {
+    const csv = ['員工編號,姓名,職位,性別,聯絡電話,電子郵箱', ',李四,PT,F,,'].join('\n')
+    const { rows, errors } = parseStaffCsv(csv)
+    expect(errors).toHaveLength(0)
+    expect(rows[0]?.gender).toBe('Female')
+  })
+
   it('舊版英文列可不填性別', () => {
     const csv = ['Id,facilityId,DisplayName,RoleType,ServiceScope', 'x,facility-main,Z,PT,Both'].join('\n')
     const { rows, errors } = parseStaffCsv(csv)

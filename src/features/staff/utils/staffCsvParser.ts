@@ -50,8 +50,9 @@ const normalizeGender = (
 ): { gender?: StaffImportRow['gender']; invalid?: boolean } => {
   const raw = value.trim()
   if (raw === '') return {}
-  if (raw === '男' || raw.toLowerCase() === 'male') return { gender: 'Male' }
-  if (raw === '女' || raw.toLowerCase() === 'female') return { gender: 'Female' }
+  const u = raw.toUpperCase()
+  if (raw === '男' || raw.toLowerCase() === 'male' || u === 'M') return { gender: 'Male' }
+  if (raw === '女' || raw.toLowerCase() === 'female' || u === 'F') return { gender: 'Female' }
   return { invalid: true }
 }
 

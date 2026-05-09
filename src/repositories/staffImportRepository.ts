@@ -43,6 +43,20 @@ export interface StaffImportRepository {
   commitRows: (actorId: string, rows: StaffImportPreviewRow[]) => Promise<StaffImportCommitResult>
 }
 
+/** Edge Function 錯誤 JSON（`{ error: string }`）解析，便於客戶端顯示真實原因。 */
+const readEdgeFunctionErrorDetail = async (response: Response): Promise<string> => {
+  const text = await response.text()
+  if (!text.trim()) return ''
+  try {
+    const parsed = JSON.parse(text) as { error?: unknown }
+    if (typeof parsed.error === 'string' && parsed.error.trim()) return parsed.error.trim()
+  } catch {
+    /* 非 JSON 時略過 */
+  }
+  const trimmed = text.trim()
+  return trimmed.length > 240 ? `${trimmed.slice(0, 240)}…` : trimmed
+}
+
 class InMemoryStaffImportRepository implements StaffImportRepository {
   async validateRows(rows: StaffImportRow[]): Promise<StaffImportValidationResult> {
     const preview = rows.map((row) => ({
@@ -89,7 +103,12 @@ class EdgeStaffImportRepository implements StaffImportRepository {
       headers,
       body: JSON.stringify({ rows }),
     })
-    if (!response.ok) throw new Error(`員工匯入預檢失敗（HTTP ${response.status}）`)
+    if (!response.ok) {
+      const detail = await readEdgeFunctionErrorDetail(response)
+      throw new Error(
+        `員工匯入預檢失敗（HTTP ${response.status}）${detail ? `：${detail}` : ''}`.trim(),
+      )
+    }
     return (await response.json()) as StaffImportValidationResult
   }
 
@@ -103,7 +122,12 @@ class EdgeStaffImportRepository implements StaffImportRepository {
       headers,
       body: JSON.stringify({ actorId, rows }),
     })
-    if (!response.ok) throw new Error(`員工批量匯入失敗（HTTP ${response.status}）`)
+    if (!response.ok) {
+      const detail = await readEdgeFunctionErrorDetail(response)
+      throw new Error(
+        `員工批量匯入失敗（HTTP ${response.status}）${detail ? `：${detail}` : ''}`.trim(),
+      )
+    }
     return (await response.json()) as StaffImportCommitResult
   }
 }
