@@ -1,8 +1,8 @@
 import type { Locator, Page } from '@playwright/test'
 
 /**
- * Demo 錄影用：Playwright 輸出之 video 不含系統游標；在目標中心顯示固定於頁面之最上層圓點，
- * 並以 mouse.move 帶入軌跡（對齊觀眾「游標移動」預期；PDF 02【13】僅錄影輔助、非業務邏輯）。
+ * Demo 錄影用：Playwright 輸出之 video 不含系統游標；在目標中心顯示**大型**高對比圓環＋脈衝，
+ * 全螢幕播放時仍易辨識（PDF 02【13】僅錄影輔助、非業務邏輯）。
  */
 export async function cueDemoPointerThenHover(page: Page, locator: Locator): Promise<void> {
   const box = await locator.boundingBox()
@@ -10,10 +10,23 @@ export async function cueDemoPointerThenHover(page: Page, locator: Locator): Pro
   const cx = box.x + box.width / 2
   const cy = box.y + box.height / 2
 
-  await page.mouse.move(cx, cy, { steps: 18 })
+  await page.mouse.move(cx, cy, { steps: 22 })
 
   await page.evaluate(
     ({ x, y }) => {
+      const styleId = 'starcare-demo-pointer-styles'
+      if (!document.getElementById(styleId)) {
+        const style = document.createElement('style')
+        style.id = styleId
+        style.textContent = `
+          @keyframes starcare-demo-pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(1.12); opacity: 0.92; }
+          }
+        `
+        document.head.appendChild(style)
+      }
+
       const id = 'starcare-demo-pointer-dot'
       let dot = document.getElementById(id)
       if (!dot) {
@@ -23,17 +36,23 @@ export async function cueDemoPointerThenHover(page: Page, locator: Locator): Pro
           position: 'fixed',
           left: '0',
           top: '0',
-          width: '24px',
-          height: '24px',
+          width: '56px',
+          height: '56px',
           borderRadius: '50%',
-          border: '3px solid #dc2626',
-          background: 'rgba(254, 226, 226, 0.92)',
-          boxShadow: '0 2px 14px rgba(220, 38, 38, 0.5)',
+          border: '5px solid #b91c1c',
+          background: 'rgba(254, 202, 202, 0.95)',
+          boxShadow:
+            '0 0 0 4px #fff, 0 0 0 6px #dc2626, 0 6px 28px rgba(185, 28, 28, 0.75)',
           pointerEvents: 'none',
           zIndex: '2147483647',
           transform: 'translate(-50%, -50%)',
+          animation: 'starcare-demo-pulse 0.9s ease-in-out 2',
         })
         document.body.appendChild(dot)
+      } else {
+        dot.style.animation = 'none'
+        void dot.offsetWidth
+        dot.style.animation = 'starcare-demo-pulse 0.9s ease-in-out 2'
       }
       dot.style.left = `${x}px`
       dot.style.top = `${y}px`
@@ -41,5 +60,5 @@ export async function cueDemoPointerThenHover(page: Page, locator: Locator): Pro
     { x: cx, y: cy },
   )
 
-  await page.waitForTimeout(380)
+  await page.waitForTimeout(700)
 }
