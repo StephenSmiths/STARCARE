@@ -35,9 +35,12 @@ test.describe('staff overview batch soft-delete (demo)', () => {
 
     await expect(page.getByRole('heading', { name: '員工資料概覽', exact: true })).toBeVisible()
     await expect(page.getByRole('button', { name: '全選目前清單' })).toBeVisible({ timeout: 30_000 })
+    // Demo：略停頓便于錄影閱讀（非業務斷言）
+    await page.waitForTimeout(1200)
 
     await page.getByRole('button', { name: '全選目前清單' }).click()
     await expect(page.getByText(/已選 3 位/)).toBeVisible()
+    await page.waitForTimeout(800)
 
     await page.getByRole('button', { name: '軟刪除已選' }).click()
 

@@ -16,10 +16,10 @@ const webServerCommand = previewOnly
  * 若本機 `.env` 含 Supabase，**務必**以 **`build:demo`** 建置後再跑 E2E，否則 bundle 內嵌真實 URL 會破壞 demo 流程（與 CI 不一致）。
  * 部分受限執行環境下 Chromium 可能 SIGSEGV，請於一般終端或 CI（Ubuntu）重跑。
  *
- * **Demo 錄影**：`PW_DEMO_VIDEO=1` 時開啟錄影並指定 **`video.size`＝viewport（1920×1080）**、`--window-size` 對齊 Chromium；播放器視窗小不代表檔案解析度低，請以檔案資訊確認。見 **`npm run test:e2e:demo:staff-batch-delete`**。
+ * **Demo 錄影**：`PW_DEMO_VIDEO=1` 時錄影、`slowMo`、viewport **1920×1080**、`deviceScaleFactor: 2`（錄影像素約 **3840×2160**，文字較銳利；勿只用 1080p×1× 否則放大播放易糊）。見 **`npm run test:e2e:demo:staff-batch-delete`**。
  */
 const demoVideo = process.env.PW_DEMO_VIDEO === '1'
-/** Demo 錄影與 viewport 對齊（避免僅設 viewport 時 encoded 尺寸仍偏小） */
+/** 邏輯 viewport（CSS px）；搭配 deviceScaleFactor:2 時錄影預設為寬高各 ×2 */
 const DEMO_VIEWPORT = { width: 1920, height: 1080 } as const
 
 export default defineConfig({
@@ -32,10 +32,11 @@ export default defineConfig({
   use: {
     baseURL: `http://${previewHost}:${previewPort}`,
     trace: demoVideo ? 'off' : 'on-first-retry',
-    video: demoVideo ? { mode: 'on', size: DEMO_VIEWPORT } : 'off',
+    // 不指定 size：依 Playwright 預設為 viewport×deviceScaleFactor（Demo 時約 3840×2160）
+    video: demoVideo ? { mode: 'on' } : 'off',
     launchOptions: demoVideo
       ? {
-          slowMo: 450,
+          slowMo: 900,
           args: [`--window-size=${DEMO_VIEWPORT.width},${DEMO_VIEWPORT.height}`],
         }
       : undefined,
@@ -45,7 +46,7 @@ export default defineConfig({
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
-        ...(demoVideo ? { viewport: DEMO_VIEWPORT } : {}),
+        ...(demoVideo ? { viewport: DEMO_VIEWPORT, deviceScaleFactor: 2 } : {}),
       },
     },
   ],
