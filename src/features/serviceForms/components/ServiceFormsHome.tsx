@@ -1,4 +1,5 @@
 import { AuditTrailPanel } from '../../shared/components/AuditTrailPanel'
+import { ListSectionPanel } from '../../shared/components/ListSectionPanel'
 import { useAuditTrailList } from '../../shared/hooks/useAuditTrailList'
 import { uiTokens } from '../../shared/ui/uiTokens'
 import { useServiceFormsWorkspace } from '../hooks/useServiceFormsWorkspace'
@@ -20,8 +21,12 @@ export const ServiceFormsHome = () => {
 
   return (
     <div className={uiTokens.stackVertical}>
-      <ServiceFormStaffPanel workspace={workspace} />
-      <ServiceFormReviewPanel workspace={workspace} />
+      <ListSectionPanel title="我的服務表單清單" summary={`${workspace.myForms.length} 筆`} defaultExpanded>
+        <ServiceFormStaffPanel workspace={workspace} />
+      </ListSectionPanel>
+      <ListSectionPanel title="待審核清單" summary={`${workspace.pendingReview.length} 筆`} defaultExpanded={false}>
+        <ServiceFormReviewPanel workspace={workspace} />
+      </ListSectionPanel>
       <AuditTrailPanel
         title="服務表單相關審計（全域）"
         help="含 FORM_* 與雲端合併紀錄（01 §2.2／Seq 12）。"

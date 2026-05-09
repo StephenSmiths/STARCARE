@@ -1,5 +1,6 @@
 import { uiTokens } from '../../shared/ui/uiTokens'
 import { AuditTrailPanel } from '../../shared/components/AuditTrailPanel'
+import { ListSectionPanel } from '../../shared/components/ListSectionPanel'
 import { useAuditTrailList } from '../../shared/hooks/useAuditTrailList'
 import { useHistoricalDocumentsWorkspace } from '../hooks/useHistoricalDocumentsWorkspace'
 import { HistoricalDocumentsTable } from './HistoricalDocumentsTable'
@@ -25,7 +26,13 @@ export const HistoricalDocumentsHome = () => {
         匯出為 UTF-8 CSV，可直接以 Excel 開啟。
       </p>
       <HistoricalDocumentsToolbar {...workspace} />
-      <HistoricalDocumentsTable rows={workspace.rows} isLoading={workspace.isLoading} />
+      <ListSectionPanel
+        title="已核准歷史文件清單"
+        summary={`共 ${workspace.rows.length} 筆`}
+        defaultExpanded={false}
+      >
+        <HistoricalDocumentsTable rows={workspace.rows} isLoading={workspace.isLoading} />
+      </ListSectionPanel>
       <AuditTrailPanel
         title="匯出審計（含 HISTORICAL_DOCUMENTS_EXPORT）"
         help="與其他模組共用全域軌跡。"

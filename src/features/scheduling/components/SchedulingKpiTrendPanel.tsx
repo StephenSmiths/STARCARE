@@ -1,6 +1,7 @@
 import type { SchedulingKpiRunRecord } from '../../../services/schedulingKpiService'
 import type { SchedulingKpiHistoryFilter } from '../hooks/useSchedulingKpiHistory'
 import { uiTokens } from '../../shared/ui/uiTokens'
+import { ListSectionPanel } from '../../shared/components/ListSectionPanel'
 import { SchedulingKpiTrendFilterBar } from './SchedulingKpiTrendFilterBar'
 import { SchedulingKpiTrendHistoryTable } from './SchedulingKpiTrendHistoryTable'
 
@@ -93,11 +94,13 @@ export const SchedulingKpiTrendPanel = ({
           ) : null}
         </div>
       </div>
-      {history.length === 0 ? (
-        <p className={uiTokens.schedulingKpiTrendEmptyHint}>目前沒有符合條件的趨勢資料。</p>
-      ) : (
-        <SchedulingKpiTrendHistoryTable history={history} />
-      )}
+      <ListSectionPanel title="KPI 趨勢清單" summary={`${history.length} 筆`} defaultExpanded={false}>
+        {history.length === 0 ? (
+          <p className={uiTokens.schedulingKpiTrendEmptyHint}>目前沒有符合條件的趨勢資料。</p>
+        ) : (
+          <SchedulingKpiTrendHistoryTable history={history} />
+        )}
+      </ListSectionPanel>
     </div>
   )
 }

@@ -3,6 +3,7 @@ import { ResidentsListPanel } from './ResidentsListPanel'
 import { ResidentsOverviewPanel } from './ResidentsOverviewPanel'
 import { ResidentsAssessmentDuePanel } from './ResidentsAssessmentDuePanel'
 import { AuditTrailPanel } from '../../shared/components/AuditTrailPanel'
+import { ListSectionPanel } from '../../shared/components/ListSectionPanel'
 import { ResponsiveFormSheet } from '../../shared/components/ResponsiveFormSheet'
 import { uiTokens } from '../../shared/ui/uiTokens'
 import { ResidentsSingleResidentForm } from './ResidentsSingleResidentForm'
@@ -24,10 +25,7 @@ export const ResidentsDashboard = () => {
         />
         {vm.errorMessage ? <p className={uiTokens.formInlineError}>{vm.errorMessage}</p> : null}
         <ResidentsAssessmentDuePanel actorId={vm.actorId} residents={vm.residents} />
-        <section aria-labelledby="residents-list-heading">
-          <h3 id="residents-list-heading" className={uiTokens.blockHeading}>
-            院友名單
-          </h3>
+        <ListSectionPanel title="院友名單" summary={`${vm.residents.length} 位`} defaultExpanded>
           <p className={uiTokens.blockHelp}>
             支援搜尋、篩選與軟刪除；編輯會開啟同一張表單。匯出 CSV 末三欄為機讀代碼（資助／服務類型／特殊照護），語意與批量匯入範本一致。
           </p>
@@ -50,7 +48,7 @@ export const ResidentsDashboard = () => {
             onBatchUpdate={vm.batchUpdateResidentsByIds}
             onExportSelected={vm.exportSelectedResidentsCsv}
           />
-        </section>
+        </ListSectionPanel>
         <AuditTrailPanel auditTrail={vm.auditTrail} />
       </div>
       <ResponsiveFormSheet

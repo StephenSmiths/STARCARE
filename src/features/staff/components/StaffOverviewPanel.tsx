@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 import { useAuth } from '../../auth'
 import { uiTokens } from '../../shared/ui/uiTokens'
+import { ListSectionPanel } from '../../shared/components/ListSectionPanel'
 import { downloadStaffOverviewExportCsv } from '../services/staffOverviewExportCsvService'
 import { recordStaffOverviewExportAudit } from '../services/staffOverviewExportAuditService'
 import type { StaffOverviewRow } from '../services/staffManagementService'
@@ -61,10 +62,8 @@ export const StaffOverviewPanel = ({
 
   return (
     <article className={uiTokens.surfaceCard}>
-      <div className={uiTokens.layoutFlexBetweenGap2}>
-        <h2 className={uiTokens.pageSectionHeading}>員工資料概覽</h2>
+      <ListSectionPanel title="員工資料概覽" summary={`共 ${rows.length} 位`} defaultExpanded>
         <div className={uiTokens.layoutFlexItemsCenterGap2}>
-          <span className={uiTokens.textSubtleXs}>共 {rows.length} 位</span>
           <button
             type="button"
             className={uiTokens.btnSecondary}
@@ -74,43 +73,43 @@ export const StaffOverviewPanel = ({
             匯出 Excel（CSV）
           </button>
         </div>
-      </div>
-      <p className={uiTokens.sectionHelp}>
-        依現有可排時段與技能資料整合（session 數 / 技能數）。匯出含「職類」欄（與 staff_profiles.role_type 一致；主檔未載入時可能空白）。
-        {canMaintainProfiles ? ' TeamLead／Admin 可編輯主檔（顯示名、職類、服務範圍）；可勾選多位後「軟刪除已選」（與單筆相同連動標記）。' : null}
-      </p>
-      {canMaintainProfiles && rows.length > 0 ? (
-        <div className={uiTokens.stackVerticalMt3}>
-          <StaffOverviewSelectionToolbar
+        <p className={uiTokens.sectionHelp}>
+          依現有可排時段與技能資料整合（session 數 / 技能數）。匯出含「職類」欄（與 staff_profiles.role_type 一致；主檔未載入時可能空白）。
+          {canMaintainProfiles ? ' TeamLead／Admin 可編輯主檔（顯示名、職類、服務範圍）；可勾選多位後「軟刪除已選」（與單筆相同連動標記）。' : null}
+        </p>
+        {canMaintainProfiles && rows.length > 0 ? (
+          <div className={uiTokens.stackVerticalMt3}>
+            <StaffOverviewSelectionToolbar
+              rows={rows}
+              selectedIds={selectedIds}
+              disabled={softDeleteLocked}
+              onSelectAllVisible={selectAllVisible}
+              onClearSelection={clearSelection}
+              onBatchSoftDelete={(ids) => {
+                void handleBatchSoftDelete(ids)
+              }}
+            />
+          </div>
+        ) : null}
+        {isLoading ? <p className={uiTokens.textSubtleXsMt3}>載入中...</p> : null}
+        {error ? <p className={uiTokens.formInlineErrorMt3Xs}>{error}</p> : null}
+        {!isLoading && !error && rows.length === 0 ? (
+          <p className={uiTokens.textSubtleXsMt3}>目前尚無可顯示的員工資料。</p>
+        ) : null}
+        {rows.length > 0 ? (
+          <StaffOverviewTable
             rows={rows}
+            canMaintainProfiles={canMaintainProfiles}
+            softDeleteLocked={softDeleteLocked}
+            softDeleteBusyStaffId={softDeleteBusyStaffId}
             selectedIds={selectedIds}
-            disabled={softDeleteLocked}
-            onSelectAllVisible={selectAllVisible}
-            onClearSelection={clearSelection}
-            onBatchSoftDelete={(ids) => {
-              void handleBatchSoftDelete(ids)
-            }}
+            actorId={actorId}
+            onToggleSelected={toggleSelected}
+            onEditRow={setEditRow}
+            onSoftDeleteOne={softDeleteStaff}
           />
-        </div>
-      ) : null}
-      {isLoading ? <p className={uiTokens.textSubtleXsMt3}>載入中...</p> : null}
-      {error ? <p className={uiTokens.formInlineErrorMt3Xs}>{error}</p> : null}
-      {!isLoading && !error && rows.length === 0 ? (
-        <p className={uiTokens.textSubtleXsMt3}>目前尚無可顯示的員工資料。</p>
-      ) : null}
-      {rows.length > 0 ? (
-        <StaffOverviewTable
-          rows={rows}
-          canMaintainProfiles={canMaintainProfiles}
-          softDeleteLocked={softDeleteLocked}
-          softDeleteBusyStaffId={softDeleteBusyStaffId}
-          selectedIds={selectedIds}
-          actorId={actorId}
-          onToggleSelected={toggleSelected}
-          onEditRow={setEditRow}
-          onSoftDeleteOne={softDeleteStaff}
-        />
-      ) : null}
+        ) : null}
+      </ListSectionPanel>
       <StaffProfileEditSheet
         open={editRow !== null}
         row={editRow}

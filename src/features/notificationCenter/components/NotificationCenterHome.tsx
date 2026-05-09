@@ -1,4 +1,5 @@
 import { AuditTrailPanel } from '../../shared/components/AuditTrailPanel'
+import { ListSectionPanel } from '../../shared/components/ListSectionPanel'
 import { uiTokens } from '../../shared/ui/uiTokens'
 import { useNotificationCenter } from '../hooks/useNotificationCenter'
 
@@ -28,34 +29,36 @@ export const NotificationCenterHome = () => {
           </div>
         </div>
       </div>
-      <div className={uiTokens.layoutSpaceY3}>
-        {items.length === 0 ? (
-          <p className={uiTokens.moduleDescription}>暫無通知（尚未有對應事件）。</p>
-        ) : (
-          items.map((item) => (
-            <article key={item.id} className={uiTokens.surfaceCardCompact}>
-              <div className={uiTokens.layoutFlexWrapBetweenGap2}>
-                <p className={uiTokens.panelTitleSm}>{item.title}</p>
-                <span className={badgeClass(item.severity)}>
-                  {item.severity.toUpperCase()}
-                </span>
-              </div>
-              <p className={uiTokens.moduleDescriptionMt2Slate700}>{item.message}</p>
-              <div className={uiTokens.notificationMetaRow}>
-                <span>{item.occurredAt}</span>
-                <span>{item.sourceAction}</span>
-                {!item.isRead ? (
-                  <button type="button" className={uiTokens.btnCompact} onClick={() => markRead(item.id)}>
-                    標記已讀
-                  </button>
-                ) : (
-                  <span className={uiTokens.dryRunStatusPillPass}>已讀</span>
-                )}
-              </div>
-            </article>
-          ))
-        )}
-      </div>
+      <ListSectionPanel title="通知清單" summary={`共 ${items.length} 筆`} defaultExpanded>
+        <div className={uiTokens.layoutSpaceY3}>
+          {items.length === 0 ? (
+            <p className={uiTokens.moduleDescription}>暫無通知（尚未有對應事件）。</p>
+          ) : (
+            items.map((item) => (
+              <article key={item.id} className={uiTokens.surfaceCardCompact}>
+                <div className={uiTokens.layoutFlexWrapBetweenGap2}>
+                  <p className={uiTokens.panelTitleSm}>{item.title}</p>
+                  <span className={badgeClass(item.severity)}>
+                    {item.severity.toUpperCase()}
+                  </span>
+                </div>
+                <p className={uiTokens.moduleDescriptionMt2Slate700}>{item.message}</p>
+                <div className={uiTokens.notificationMetaRow}>
+                  <span>{item.occurredAt}</span>
+                  <span>{item.sourceAction}</span>
+                  {!item.isRead ? (
+                    <button type="button" className={uiTokens.btnCompact} onClick={() => markRead(item.id)}>
+                      標記已讀
+                    </button>
+                  ) : (
+                    <span className={uiTokens.dryRunStatusPillPass}>已讀</span>
+                  )}
+                </div>
+              </article>
+            ))
+          )}
+        </div>
+      </ListSectionPanel>
       <AuditTrailPanel
         title="審計紀錄節錄（與通知同源資料）"
         help="上方為篩選後之通知；此處為可篩選之完整審計列（PDF 02【14】／Seq 12）。"

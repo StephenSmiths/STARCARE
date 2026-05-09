@@ -1,5 +1,6 @@
 import type { AssessmentDueTask } from '../../residents/services/assessmentDueTaskService'
 import { uiTokens } from '../../shared/ui/uiTokens'
+import { ListSectionPanel } from '../../shared/components/ListSectionPanel'
 import type { AssessmentCompletionRecord } from '../types/assessmentManagement'
 import type { AssessmentOverdueRow } from '../services/assessmentManagementDomainService'
 
@@ -12,8 +13,11 @@ type Props = {
 /** PDF 02【9】清單：逾期、14 天內到期、完成紀錄倒序 */
 export const AssessmentManagementTables = ({ overdueRows, dueSoonTasks, history }: Props) => (
   <div className={uiTokens.layoutFlexColGap8}>
-    <section>
-      <h2 className={uiTokens.blockHeading}>逾期（待補 PT／OT）</h2>
+    <ListSectionPanel
+      title="逾期（待補 PT／OT）"
+      summary={`${overdueRows.length} 筆`}
+      defaultExpanded
+    >
       <div className={uiTokens.assessmentTableWrapMt2}>
         <table className={uiTokens.tableMinWidthCollapse}>
           <thead>
@@ -48,10 +52,13 @@ export const AssessmentManagementTables = ({ overdueRows, dueSoonTasks, history 
           </tbody>
         </table>
       </div>
-    </section>
+    </ListSectionPanel>
 
-    <section>
-      <h2 className={uiTokens.blockHeading}>14 天內到期（估算）</h2>
+    <ListSectionPanel
+      title="14 天內到期（估算）"
+      summary={`${dueSoonTasks.length} 筆`}
+      defaultExpanded
+    >
       <div className={uiTokens.assessmentTableWrapMt2}>
         <table className={uiTokens.tableMinWidthCollapse}>
           <thead>
@@ -82,10 +89,13 @@ export const AssessmentManagementTables = ({ overdueRows, dueSoonTasks, history 
           </tbody>
         </table>
       </div>
-    </section>
+    </ListSectionPanel>
 
-    <section>
-      <h2 className={uiTokens.blockHeading}>完成紀錄（最近優先）</h2>
+    <ListSectionPanel
+      title="完成紀錄（最近優先）"
+      summary={`${history.length} 筆`}
+      defaultExpanded={false}
+    >
       <div className={uiTokens.assessmentTableWrapMt2}>
         <table className={uiTokens.tableMinWidthCollapse}>
           <thead>
@@ -118,6 +128,6 @@ export const AssessmentManagementTables = ({ overdueRows, dueSoonTasks, history 
           </tbody>
         </table>
       </div>
-    </section>
+    </ListSectionPanel>
   </div>
 )

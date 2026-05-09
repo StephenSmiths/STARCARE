@@ -35,6 +35,21 @@ const HASH_AUDIT_CASES: ReadonlyArray<{
 ]
 
 test.describe('smoke', () => {
+  test('audit panel 預設收合，可展開與收回', async ({ page }) => {
+    await page.goto('/#staff-import')
+    await expect(page.getByRole('heading', { name: '員工管理', exact: true })).toBeVisible()
+    await expect(page.getByRole('button', { name: '展開審計' })).toBeVisible()
+    await expect(page.getByPlaceholder('搜尋 actor / entity / detail')).toHaveCount(0)
+
+    await page.getByRole('button', { name: '展開審計' }).click()
+    await expect(page.getByRole('button', { name: '收合審計' })).toBeVisible()
+    await expect(page.getByPlaceholder('搜尋 actor / entity / detail')).toBeVisible()
+
+    await page.getByRole('button', { name: '收合審計' }).click()
+    await expect(page.getByRole('button', { name: '展開審計' })).toBeVisible()
+    await expect(page.getByPlaceholder('搜尋 actor / entity / detail')).toHaveCount(0)
+  })
+
   test('首屏載入、導向儀表盤且模組與審計標題可見', async ({ page }) => {
     await page.goto('/')
     await expect(page.locator('#root')).toBeVisible()
