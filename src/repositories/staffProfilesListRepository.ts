@@ -1,3 +1,4 @@
+import { STARCARE_DEFAULT_FACILITY_ID } from '../constants/starcareDefaultFacilityId'
 import { getSupabaseBrowserCredentials } from '../services/supabaseBrowserEnv'
 import { buildEdgeInvokeHeaders } from './edgeFunctionHeaders'
 
@@ -10,13 +11,41 @@ export type StaffProfileListRow = {
   serviceScope: 'Subsidized_Rehab' | 'Dementia_Care' | 'Both'
 }
 
+/** 與 `schedulingSessionRepository` 預設時段 staffId 對齊，供無 Supabase 預覽／E2E 總覽列。 */
+const DEMO_MEMORY_STAFF_PROFILES: StaffProfileListRow[] = [
+  {
+    id: 'staff-ot-1',
+    facilityId: STARCARE_DEFAULT_FACILITY_ID,
+    displayName: '王姑娘 OT',
+    roleType: 'OT',
+    serviceScope: 'Subsidized_Rehab',
+  },
+  {
+    id: 'staff-ot-2',
+    facilityId: STARCARE_DEFAULT_FACILITY_ID,
+    displayName: '李先生 PTA',
+    roleType: 'PTA',
+    serviceScope: 'Subsidized_Rehab',
+  },
+  {
+    id: 'staff-ot-3',
+    facilityId: STARCARE_DEFAULT_FACILITY_ID,
+    displayName: '張姑娘 OT',
+    roleType: 'OT',
+    serviceScope: 'Subsidized_Rehab',
+  },
+]
+
 export interface StaffProfilesListRepository {
   listStaffProfiles: (facilityId?: string) => Promise<StaffProfileListRow[]>
 }
 
 class InMemoryStaffProfilesListRepository implements StaffProfilesListRepository {
-  async listStaffProfiles(): Promise<StaffProfileListRow[]> {
-    return []
+  async listStaffProfiles(facilityId?: string): Promise<StaffProfileListRow[]> {
+    if (facilityId && facilityId !== STARCARE_DEFAULT_FACILITY_ID) {
+      return []
+    }
+    return DEMO_MEMORY_STAFF_PROFILES.map((row) => ({ ...row }))
   }
 }
 

@@ -1,5 +1,10 @@
 import { expect, test } from '@playwright/test'
-import { acceptAllDialogs, fillAcceptedSessionDraftAndSubmit, loadServiceFormsDemoPage } from './helpers/serviceFormsDemo'
+import {
+  acceptAllDialogs,
+  expandServiceFormsPendingReviewIfCollapsed,
+  fillAcceptedSessionDraftAndSubmit,
+  loadServiceFormsDemoPage,
+} from './helpers/serviceFormsDemo'
 
 /**
  * Seq 3／01 §2 與 **01 §1**（不可自審）：demo（無 Supabase）下表單狀態與審核閉環之 E2E。
@@ -23,6 +28,7 @@ test.describe('service-forms state (demo)', () => {
     acceptAllDialogs(page)
     const { staff, review } = await loadServiceFormsDemoPage(page, 'clear')
     await fillAcceptedSessionDraftAndSubmit(staff, 'E2E 一鍵提交紀要')
+    await expandServiceFormsPendingReviewIfCollapsed(page)
     await expect(staff.getByText('待審', { exact: true })).toBeVisible()
     await expect(review.getByText('E2E 一鍵提交紀要')).toBeVisible()
   })
@@ -35,6 +41,7 @@ test.describe('service-forms state (demo)', () => {
     })
     const { staff, review } = await loadServiceFormsDemoPage(page, 'clear')
     await fillAcceptedSessionDraftAndSubmit(staff, 'E2E 自審阻擋紀要')
+    await expandServiceFormsPendingReviewIfCollapsed(page)
     await review.getByRole('button', { name: '核准' }).click()
     expect(dialogs.some((m) => m.includes('不可審批本人表單'))).toBe(true)
     await review.getByRole('button', { name: '退回重改' }).click()

@@ -54,13 +54,30 @@ export const prepareServiceFormsDemoStorage = async (page: Page, forms: 'clear' 
   await page.reload()
 }
 
+/**
+ * `ServiceFormsHome` 之「待審核清單」預設收合且子樹未掛載；審核斷言前須展開。
+ * 提交表單後 `runSubmit` 會觸發 `reloadContext()`，整模組重掛載後此區塊會再次收合，須重複呼叫。
+ */
+export const expandServiceFormsPendingReviewIfCollapsed = async (page: Page): Promise<void> => {
+  await expect(page.getByRole('heading', { name: '服務表單', exact: true })).toBeVisible()
+  // 提交後 `reloadContext()` 期間僅顯示「載入服務表單模組…」，須待清單區掛回再判斷收合。
+  await expect(page.getByRole('heading', { name: '待審核清單' })).toBeVisible({ timeout: 20_000 })
+  const pendingListSection = page.locator('section').filter({
+    has: page.getByRole('heading', { name: '待審核清單' }),
+  })
+  const expandBtn = pendingListSection.getByRole('button', { name: '展開' })
+  if (await expandBtn.isVisible()) {
+    await expandBtn.click()
+  }
+}
+
 /** `prepareServiceFormsDemoStorage` 後斷言模組標題並回傳 Staff／待審區塊定位器。 */
 export const loadServiceFormsDemoPage = async (
   page: Page,
   forms: 'clear' | string,
 ): Promise<{ staff: Locator; review: Locator }> => {
   await prepareServiceFormsDemoStorage(page, forms)
-  await expect(page.getByRole('heading', { name: '服務表單', exact: true })).toBeVisible()
+  await expandServiceFormsPendingReviewIfCollapsed(page)
   return {
     staff: page.locator('section').filter({ hasText: '填寫服務表單（Staff）' }),
     review: page.locator('section').filter({ hasText: '待審服務表單' }),
