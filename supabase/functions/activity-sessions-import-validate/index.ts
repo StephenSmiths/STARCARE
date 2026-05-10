@@ -53,6 +53,16 @@ const validateRow = (row: ReturnType<typeof normalize>, rowIndex: number): Error
   if (!Number.isFinite(row.capacity) || row.capacity < 1) {
     errors.push({ rowIndex, field: 'capacity', message: 'capacity 需為大於等於 1 的數字' })
   }
+  if (
+    row.activity_type &&
+    !['Individual', 'Group', 'Assessment', 'Other'].includes(row.activity_type)
+  ) {
+    errors.push({
+      rowIndex,
+      field: 'activity_type',
+      message: 'activity_type 須為 Individual／Group／Assessment／Other 或留空（週更表可留空）',
+    })
+  }
   return errors
 }
 

@@ -1,6 +1,7 @@
 import { STARCARE_DEFAULT_FACILITY_ID } from '../constants/starcareDefaultFacilityId'
 import { getSupabaseBrowserCredentials } from '../services/supabaseBrowserEnv'
 import { buildEdgeInvokeHeaders } from './edgeFunctionHeaders'
+import { readEdgeFunctionErrorDetail } from './readEdgeFunctionErrorDetail'
 
 export type ActivitySessionImportRow = {
   id?: string
@@ -111,7 +112,10 @@ class EdgeActivitySessionImportRepository implements ActivitySessionImportReposi
       headers,
       body: JSON.stringify({ rows }),
     })
-    if (!response.ok) throw new Error(`活動時段匯入預檢失敗（HTTP ${response.status}）`)
+    if (!response.ok) {
+      const detail = await readEdgeFunctionErrorDetail(response)
+      throw new Error(`活動時段匯入預檢失敗（HTTP ${response.status}）${detail ? `：${detail}` : ''}`.trim())
+    }
     return (await response.json()) as ActivitySessionImportValidationResult
   }
 
@@ -131,7 +135,10 @@ class EdgeActivitySessionImportRepository implements ActivitySessionImportReposi
       headers,
       body: JSON.stringify(payload),
     })
-    if (!response.ok) throw new Error(`活動時段批量匯入失敗（HTTP ${response.status}）`)
+    if (!response.ok) {
+      const detail = await readEdgeFunctionErrorDetail(response)
+      throw new Error(`活動時段批量匯入失敗（HTTP ${response.status}）${detail ? `：${detail}` : ''}`.trim())
+    }
     return (await response.json()) as ActivitySessionImportCommitResult
   }
 }

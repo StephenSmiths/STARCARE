@@ -25,6 +25,26 @@ type AuditAction = 'ACTIVITY_SESSIONS_IMPORT_COMMIT' | 'WORK_PLAN_SESSION_COMMIT
 const parseAuditAction = (raw: unknown): AuditAction =>
   raw === 'WORK_PLAN_SESSION_COMMIT' ? 'WORK_PLAN_SESSION_COMMIT' : 'ACTIVITY_SESSIONS_IMPORT_COMMIT'
 
+/** 週更表等來源常省略 activity_type；空字串須寫 NULL，否則違反 DB check（只允許 null 或四枚舉）。 */
+const activityTypeForDb = (
+  v: unknown,
+): 'Individual' | 'Group' | 'Assessment' | 'Other' | null => {
+  const s = typeof v === 'string' ? v.trim() : ''
+  if (!s) return null
+  if (s === 'Individual' || s === 'Group' || s === 'Assessment' || s === 'Other') return s
+  return null
+}
+
+const optionalText = (v: unknown): string | null => {
+  const s = typeof v === 'string' ? v.trim() : String(v ?? '').trim()
+  return s ? s : null
+}
+
+const optionalDuration = (v: unknown): number | null => {
+  const n = typeof v === 'number' ? v : Number(v)
+  return Number.isFinite(n) ? n : null
+}
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return emptyOk()
   if (req.method !== 'POST') return json({ error: '僅支援 POST' }, 405)
@@ -57,10 +77,10 @@ Deno.serve(async (req) => {
       session_date: row.session_date,
       time_slot: row.time_slot,
       capacity: row.capacity,
-      start_time: row.start_time ?? null,
-      duration_minutes: row.duration_minutes ?? null,
-      end_time: row.end_time ?? null,
-      activity_type: row.activity_type ?? null,
+      start_time: optionalText(row.start_time),
+      duration_minutes: optionalDuration(row.duration_minutes),
+      end_time: optionalText(row.end_time),
+      activity_type: activityTypeForDb(row.activity_type),
       resident_ids: row.resident_ids ?? [],
       activity_content: row.activity_content ?? '',
       activity_detail: row.activity_detail ?? '',
