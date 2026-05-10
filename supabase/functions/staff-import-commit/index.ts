@@ -42,19 +42,17 @@ Deno.serve(async (req) => {
     const supabase = getServiceClient()
     const ids = rows.map((row) => row.id?.trim()).filter(Boolean) as string[]
 
-    if (ids.length > 0) {
-      const { data, error } = await supabase.from('staff_profiles').select('id').eq('is_deleted', false).in('id', ids)
-      if (error) return json({ error: error.message }, 400)
-      const existed = (data ?? []).map((item) => String(item.id))
-      if (existed.length > 0) return json({ error: `員工編號已存在：${existed.join(', ')}` }, 409)
-    }
-
-    /** 含已軟刪除列，供「同編號復原匯入」判斷（01 §5 軟刪除主鍵仍佔用）。 */
-    const existingById = new Map<string, boolean>()
+    /** 同編號：僅 is_deleted===false 為現役；true／null 等皆視為可復原（勿用 Boolean(is_deleted) 致 null 誤判為可 INSERT）。 */
+    const idState = new Map<string, 'active' | 'restore'>()
     if (ids.length > 0) {
       const { data: allRows, error: allErr } = await supabase.from('staff_profiles').select('id,is_deleted').in('id', ids)
       if (allErr) return json({ error: allErr.message }, 400)
-      for (const r of allRows ?? []) existingById.set(String(r.id), Boolean(r.is_deleted))
+      for (const r of allRows ?? []) {
+        const sid = String(r.id)
+        idState.set(sid, r.is_deleted === false ? 'active' : 'restore')
+      }
+      const activeIds = [...idState.entries()].filter(([, s]) => s === 'active').map(([i]) => i)
+      if (activeIds.length > 0) return json({ error: `員工編號已存在：${activeIds.join(', ')}` }, 409)
     }
 
     const insertPayloads: Record<string, unknown>[] = []
@@ -63,8 +61,7 @@ Deno.serve(async (req) => {
     for (const row of rows) {
       const trimmed = row.id?.trim()
       const id = trimmed || `staff-${crypto.randomUUID()}`
-      const wasDeleted = trimmed ? existingById.get(trimmed) === true : false
-      if (trimmed && wasDeleted) {
+      if (trimmed && idState.get(trimmed) === 'restore') {
         restoreOps.push({ id: trimmed, row })
       } else {
         insertPayloads.push(rowPayload(row, id))
@@ -90,7 +87,6 @@ Deno.serve(async (req) => {
           is_deleted: false,
         })
         .eq('id', id)
-        .eq('is_deleted', true)
       if (upErr) return json({ error: upErr.message }, 400)
     }
 

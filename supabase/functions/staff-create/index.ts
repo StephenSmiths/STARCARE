@@ -34,15 +34,14 @@ Deno.serve(async (req) => {
 
     const id = idRaw || `staff-${crypto.randomUUID()}`
     const supabase = getServiceClient()
-    const { data: activeDup } = await supabase
+    /** 單次查詢：僅 is_deleted===false 為現役；true／null 等均走 UPDATE 復原，避免 Boolean(null) 或 ===true 漏判而 INSERT 撞 pkey。 */
+    const { data: existingRow, error: selErr } = await supabase
       .from('staff_profiles')
-      .select('id')
+      .select('id,is_deleted')
       .eq('id', id)
-      .eq('is_deleted', false)
       .maybeSingle()
-    if (activeDup) return json({ error: '員工編號已存在' }, 409)
+    if (selErr) return json({ error: selErr.message }, 400)
 
-    const { data: softRow } = await supabase.from('staff_profiles').select('id,is_deleted').eq('id', id).maybeSingle()
     const row = {
       id,
       facility_id: facilityId,
@@ -55,7 +54,14 @@ Deno.serve(async (req) => {
       is_deleted: false,
     }
 
-    if (softRow?.is_deleted === true) {
+    const wasRestore = !!existingRow && existingRow.is_deleted !== false
+
+    if (!existingRow) {
+      const { error: insErr } = await supabase.from('staff_profiles').insert(row)
+      if (insErr) return json({ error: insErr.message }, 400)
+    } else if (existingRow.is_deleted === false) {
+      return json({ error: '員工編號已存在' }, 409)
+    } else {
       const { error: upErr } = await supabase
         .from('staff_profiles')
         .update({
@@ -69,11 +75,7 @@ Deno.serve(async (req) => {
           is_deleted: false,
         })
         .eq('id', id)
-        .eq('is_deleted', true)
       if (upErr) return json({ error: upErr.message }, 400)
-    } else {
-      const { error: insErr } = await supabase.from('staff_profiles').insert(row)
-      if (insErr) return json({ error: insErr.message }, 400)
     }
 
     const audit = await insertAuditEvent(supabase, {
@@ -81,19 +83,15 @@ Deno.serve(async (req) => {
       entity_type: 'Staff',
       entity_id: id,
       actor_id: actorId,
-      before_state: softRow?.is_deleted === true ? JSON.stringify({ id, is_deleted: true }) : null,
+      before_state: wasRestore ? JSON.stringify({ id, is_deleted: existingRow?.is_deleted }) : null,
       after_state: JSON.stringify(row),
-      detail: softRow?.is_deleted === true ? '單筆復原已軟刪之員工主檔（同編號；PDF 02【13】）' : '單筆新增員工主檔',
+      detail: wasRestore ? '單筆復原已軟刪之員工主檔（同編號；PDF 02【13】）' : '單筆新增員工主檔',
     })
     if (!audit.ok) {
-      if (softRow?.is_deleted === true) {
-        await supabase.from('staff_profiles').update({ is_deleted: true }).eq('id', id).eq('is_deleted', false)
-      } else {
-        await supabase.from('staff_profiles').update({ is_deleted: true }).eq('id', id).eq('is_deleted', false)
-      }
+      await supabase.from('staff_profiles').update({ is_deleted: true }).eq('id', id).eq('is_deleted', false)
       return json({ error: `審計落庫失敗，已回溯新增（軟刪）：${audit.message}` }, 500)
     }
-    return json({ ok: true, id }, softRow?.is_deleted === true ? 200 : 201)
+    return json({ ok: true, id }, wasRestore ? 200 : 201)
   } catch (e) {
     return json({ error: String(e) }, 500)
   }
