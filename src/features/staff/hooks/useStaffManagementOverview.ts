@@ -44,8 +44,8 @@ export const useStaffManagementOverview = (facilityId: string = STAFF_WORKSPACE_
     try {
       await staffManagementService.softDeleteStaff(actorId, staffId)
       setRows((prev) => prev.filter((row) => row.staffId !== staffId))
-    } catch {
-      setError('員工軟刪除失敗，請稍後再試。')
+    } catch (e) {
+      setError(e instanceof Error ? e.message : '員工軟刪除失敗，請稍後再試。')
     } finally {
       softDeleteLockRef.current = false
       setSoftDeleteBusyStaffId(null)
@@ -66,8 +66,8 @@ export const useStaffManagementOverview = (facilityId: string = STAFF_WORKSPACE_
       }
       setRows((prev) => prev.filter((row) => !unique.includes(row.staffId)))
       return true
-    } catch {
-      setError('批量軟刪除失敗，已中止；請重新整理確認現況。')
+    } catch (e) {
+      setError(e instanceof Error ? e.message : '批量軟刪除失敗，已中止；請重新整理確認現況。')
       void reload()
       return false
     } finally {

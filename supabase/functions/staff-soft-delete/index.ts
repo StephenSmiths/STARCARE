@@ -49,13 +49,7 @@ Deno.serve(async (req) => {
     if (schedSelErr) return json({ error: schedSelErr.message }, 400)
     const schedulingSessionIds = (schedRows ?? []).map((r) => String(r.id))
 
-    const { error: profileErr } = await supabase
-      .from('staff_profiles')
-      .update({ is_deleted: true })
-      .eq('id', staffId)
-      .eq('is_deleted', false)
-    if (profileErr) return json({ error: profileErr.message }, 400)
-
+    /** 先軟刪子表再軟刪主檔，避免依賴順序／觸發器導致中途失敗（與 01 §5 軟刪除一致）。 */
     if (skillIds.length > 0) {
       const { error: skillsErr } = await supabase.from('staff_skills').update({ is_deleted: true }).in('id', skillIds)
       if (skillsErr) return json({ error: skillsErr.message }, 400)
@@ -77,6 +71,13 @@ Deno.serve(async (req) => {
       if (schedulingSessionsErr) return json({ error: schedulingSessionsErr.message }, 400)
     }
 
+    const { error: profileErr } = await supabase
+      .from('staff_profiles')
+      .update({ is_deleted: true })
+      .eq('id', staffId)
+      .eq('is_deleted', false)
+    if (profileErr) return json({ error: profileErr.message }, 400)
+
     const audit = await insertAuditEvent(supabase, {
       action: 'SOFT_DELETE',
       entity_type: 'Staff',
@@ -88,13 +89,13 @@ Deno.serve(async (req) => {
     })
     if (!audit.ok) {
       await supabase.from('staff_profiles').update({ is_deleted: false }).eq('id', staffId)
-      if (skillIds.length > 0) await supabase.from('staff_skills').update({ is_deleted: false }).in('id', skillIds)
-      if (activitySessionIds.length > 0) {
-        await supabase.from('activity_sessions').update({ is_deleted: false }).in('id', activitySessionIds)
-      }
       if (schedulingSessionIds.length > 0) {
         await supabase.from('scheduling_sessions').update({ is_deleted: false }).in('id', schedulingSessionIds)
       }
+      if (activitySessionIds.length > 0) {
+        await supabase.from('activity_sessions').update({ is_deleted: false }).in('id', activitySessionIds)
+      }
+      if (skillIds.length > 0) await supabase.from('staff_skills').update({ is_deleted: false }).in('id', skillIds)
       return json({ error: `審計落庫失敗，已回溯軟刪：${audit.message}` }, 500)
     }
     return json({ ok: true, staffId })

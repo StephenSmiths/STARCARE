@@ -34,9 +34,15 @@ Deno.serve(async (req) => {
 
     const id = idRaw || `staff-${crypto.randomUUID()}`
     const supabase = getServiceClient()
-    const { data: dup } = await supabase.from('staff_profiles').select('id').eq('id', id).eq('is_deleted', false).maybeSingle()
-    if (dup) return json({ error: '員工編號已存在' }, 409)
+    const { data: activeDup } = await supabase
+      .from('staff_profiles')
+      .select('id')
+      .eq('id', id)
+      .eq('is_deleted', false)
+      .maybeSingle()
+    if (activeDup) return json({ error: '員工編號已存在' }, 409)
 
+    const { data: softRow } = await supabase.from('staff_profiles').select('id,is_deleted').eq('id', id).maybeSingle()
     const row = {
       id,
       facility_id: facilityId,
@@ -48,23 +54,46 @@ Deno.serve(async (req) => {
       email,
       is_deleted: false,
     }
-    const { error: insErr } = await supabase.from('staff_profiles').insert(row)
-    if (insErr) return json({ error: insErr.message }, 400)
+
+    if (softRow?.is_deleted === true) {
+      const { error: upErr } = await supabase
+        .from('staff_profiles')
+        .update({
+          facility_id: facilityId,
+          display_name: displayName,
+          role_type: roleType,
+          service_scope: 'Both',
+          gender,
+          phone,
+          email,
+          is_deleted: false,
+        })
+        .eq('id', id)
+        .eq('is_deleted', true)
+      if (upErr) return json({ error: upErr.message }, 400)
+    } else {
+      const { error: insErr } = await supabase.from('staff_profiles').insert(row)
+      if (insErr) return json({ error: insErr.message }, 400)
+    }
 
     const audit = await insertAuditEvent(supabase, {
       action: 'CREATE',
       entity_type: 'Staff',
       entity_id: id,
       actor_id: actorId,
-      before_state: null,
+      before_state: softRow?.is_deleted === true ? JSON.stringify({ id, is_deleted: true }) : null,
       after_state: JSON.stringify(row),
-      detail: '單筆新增員工主檔',
+      detail: softRow?.is_deleted === true ? '單筆復原已軟刪之員工主檔（同編號；PDF 02【13】）' : '單筆新增員工主檔',
     })
     if (!audit.ok) {
-      await supabase.from('staff_profiles').update({ is_deleted: true }).eq('id', id).eq('is_deleted', false)
+      if (softRow?.is_deleted === true) {
+        await supabase.from('staff_profiles').update({ is_deleted: true }).eq('id', id).eq('is_deleted', false)
+      } else {
+        await supabase.from('staff_profiles').update({ is_deleted: true }).eq('id', id).eq('is_deleted', false)
+      }
       return json({ error: `審計落庫失敗，已回溯新增（軟刪）：${audit.message}` }, 500)
     }
-    return json({ ok: true, id }, 201)
+    return json({ ok: true, id }, softRow?.is_deleted === true ? 200 : 201)
   } catch (e) {
     return json({ error: String(e) }, 500)
   }

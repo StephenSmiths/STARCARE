@@ -1,6 +1,7 @@
 import { STARCARE_DEFAULT_FACILITY_ID } from '../constants/starcareDefaultFacilityId'
 import { getSupabaseBrowserCredentials } from '../services/supabaseBrowserEnv'
 import { buildEdgeInvokeHeaders } from './edgeFunctionHeaders'
+import { readEdgeFunctionErrorDetail } from './readEdgeFunctionErrorDetail'
 
 export type StaffImportRow = {
   id?: string
@@ -41,20 +42,6 @@ export type StaffImportCommitResult = {
 export interface StaffImportRepository {
   validateRows: (rows: StaffImportRow[]) => Promise<StaffImportValidationResult>
   commitRows: (actorId: string, rows: StaffImportPreviewRow[]) => Promise<StaffImportCommitResult>
-}
-
-/** Edge Function 錯誤 JSON（`{ error: string }`）解析，便於客戶端顯示真實原因。 */
-const readEdgeFunctionErrorDetail = async (response: Response): Promise<string> => {
-  const text = await response.text()
-  if (!text.trim()) return ''
-  try {
-    const parsed = JSON.parse(text) as { error?: unknown }
-    if (typeof parsed.error === 'string' && parsed.error.trim()) return parsed.error.trim()
-  } catch {
-    /* 非 JSON 時略過 */
-  }
-  const trimmed = text.trim()
-  return trimmed.length > 240 ? `${trimmed.slice(0, 240)}…` : trimmed
 }
 
 class InMemoryStaffImportRepository implements StaffImportRepository {

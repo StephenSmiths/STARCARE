@@ -1,5 +1,6 @@
 import { getSupabaseBrowserCredentials } from '../services/supabaseBrowserEnv'
 import { buildEdgeInvokeHeaders } from './edgeFunctionHeaders'
+import { readEdgeFunctionErrorDetail } from './readEdgeFunctionErrorDetail'
 
 export interface StaffProfileRepository {
   softDeleteStaffProfile: (staffId: string) => Promise<void>
@@ -31,7 +32,10 @@ class EdgeStaffProfileRepository implements StaffProfileRepository {
       headers,
       body: JSON.stringify({ id: staffId, is_deleted: true }),
     })
-    if (!response.ok) throw new Error(`員工軟刪除失敗（HTTP ${response.status}）`)
+    if (!response.ok) {
+      const detail = await readEdgeFunctionErrorDetail(response)
+      throw new Error(`員工軟刪除失敗（HTTP ${response.status}）${detail ? `：${detail}` : ''}`.trim())
+    }
   }
 }
 
