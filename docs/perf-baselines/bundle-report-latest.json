@@ -1,32 +1,32 @@
 {
-  "generatedAt": "2026-05-05T11:11:31.662Z",
+  "generatedAt": "2026-05-10T14:53:33.843Z",
   "keyChunks": [
     {
-      "fileName": "index-D3I3tyrd.js",
-      "bytes": 38479
+      "fileName": "index-BkxSHdgR.js",
+      "bytes": 40847
     },
     {
-      "fileName": "vendor-react-C3ejh6V7.js",
+      "fileName": "vendor-react-CTO-m0x4.js",
       "bytes": 186142
     },
     {
-      "fileName": "vendor-supabase-DdJC7hoj.js",
+      "fileName": "vendor-supabase-ZwvRctrs.js",
       "bytes": 100184
     },
     {
-      "fileName": "scheduling-BdU57bva.js",
-      "bytes": 41946
+      "fileName": "scheduling-Ctr-KyZD.js",
+      "bytes": 42529
     },
     {
-      "fileName": "residents-CaXVUqSQ.js",
-      "bytes": 30641
+      "fileName": "residents-DPQKVTtw.js",
+      "bytes": 37423
     },
     {
-      "fileName": "AppMainViews-u5fM6yCo.js",
-      "bytes": 7635
+      "fileName": "AppMainViews-JEWKB98J.js",
+      "bytes": 8156
     }
   ],
-  "totalBytes": 604253,
+  "totalBytes": 982064,
   "budgets": {
     "maxIndexKB": null,
     "maxTotalKB": null
