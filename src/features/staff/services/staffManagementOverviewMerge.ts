@@ -5,6 +5,7 @@ import type { StaffOverviewRow } from './staffManagementTypes'
 
 /**
  * PDF 02【1】合併主檔／排班時段／技能為員工總覽列（不含 IO）。
+ * 列來源僅為未刪主檔；時段／技能僅補計數，避免已軟刪主檔因排班或技能殘留仍顯示（與 soft-delete 404 不同步）。
  */
 export const mergeStaffOverviewRows = (
   profileRows: StaffProfileListRow[],
@@ -23,18 +24,18 @@ export const mergeStaffOverviewRows = (
     if (!skillCountMap.has(item.staffProfileId)) skillCountMap.set(item.staffProfileId, new Set())
     skillCountMap.get(item.staffProfileId)?.add(item.activityId)
   }
-  const ids = new Set([...sessionCountMap.keys(), ...skillCountMap.keys(), ...profileById.keys()])
-  return Array.from(ids)
-    .map((staffId) => {
-      const prof = profileById.get(staffId)
-      return {
-        staffId,
-        staffName: prof?.displayName ?? staffNameMap.get(staffId) ?? '(未命名員工)',
-        roleType: prof?.roleType,
-        serviceScope: prof?.serviceScope,
-        sessionCount: sessionCountMap.get(staffId) ?? 0,
-        skillCount: skillCountMap.get(staffId)?.size ?? 0,
-      }
-    })
-    .sort((a, b) => a.staffId.localeCompare(b.staffId))
+  const ids = [...profileById.keys()].sort((a, b) => a.localeCompare(b))
+  return ids.map((staffId) => {
+    const prof = profileById.get(staffId)
+    return {
+      staffId,
+      staffName: prof?.displayName?.trim()
+        ? prof.displayName
+        : staffNameMap.get(staffId) ?? '(未命名員工)',
+      roleType: prof?.roleType,
+      serviceScope: prof?.serviceScope,
+      sessionCount: sessionCountMap.get(staffId) ?? 0,
+      skillCount: skillCountMap.get(staffId)?.size ?? 0,
+    }
+  })
 }
