@@ -1,5 +1,6 @@
 import { guardTeamLeadOrAdmin } from '../_shared/guardTeamLeadOrAdmin.ts'
 import { emptyOk, json } from '../_shared/http.ts'
+import { normalizeStaffProfileId } from '../_shared/staffProfileIdNormalize.ts'
 import { getServiceClient } from '../_shared/supabaseAdmin.ts'
 
 type IncomingRow = Record<string, unknown>
@@ -31,7 +32,7 @@ const normalizeGender = (raw: string): { ok: true; value: 'Male' | 'Female' | nu
 
 /** SOP PDF 02【13】員工批量匯入預檢；範本無院舍／ServiceScope 時預設 facility-main、Both。 */
 const normalizeIn = (row: IncomingRow) => ({
-  id: toStr(row.id),
+  id: normalizeStaffProfileId(row.id),
   facility_id: toStr(row.facilityId ?? row.facility_id) || 'facility-main',
   display_name: toStr(row.displayName ?? row.display_name),
   role_type: toStr(row.roleType ?? row.role_type),

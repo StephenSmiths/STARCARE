@@ -1,6 +1,7 @@
 import { insertAuditEvent } from '../_shared/insertAuditEvent.ts'
 import { requireTeamLeadOrAdmin } from '../_shared/guardTeamLeadOrAdmin.ts'
 import { emptyOk, json } from '../_shared/http.ts'
+import { normalizeStaffProfileId } from '../_shared/staffProfileIdNormalize.ts'
 import { getServiceClient } from '../_shared/supabaseAdmin.ts'
 
 type PreviewRow = {
@@ -40,7 +41,7 @@ Deno.serve(async (req) => {
     if (rows.length === 0) return json({ error: 'rows 不可為空' }, 400)
 
     const supabase = getServiceClient()
-    const ids = rows.map((row) => row.id?.trim()).filter(Boolean) as string[]
+    const ids = rows.map((row) => normalizeStaffProfileId(row.id)).filter(Boolean) as string[]
 
     /** 同編號：僅 is_deleted===false 為現役；true／null 等皆視為可復原（勿用 Boolean(is_deleted) 致 null 誤判為可 INSERT）。 */
     const idState = new Map<string, 'active' | 'restore'>()
@@ -59,7 +60,8 @@ Deno.serve(async (req) => {
     const restoreOps: { id: string; row: PreviewRow }[] = []
 
     for (const row of rows) {
-      const trimmed = row.id?.trim()
+      const trimmedRaw = normalizeStaffProfileId(row.id)
+      const trimmed = trimmedRaw || undefined
       const id = trimmed || `staff-${crypto.randomUUID()}`
       if (trimmed && idState.get(trimmed) === 'restore') {
         restoreOps.push({ id: trimmed, row })
@@ -68,9 +70,70 @@ Deno.serve(async (req) => {
       }
     }
 
+    const isPkDuplicate = (msg: string) =>
+      msg.includes('duplicate key') || msg.includes('staff_profiles_pkey') || msg.includes('unique constraint')
+
+    const insertedNewIds: string[] = []
+    const restoredViaFallback: string[] = []
+
+    const rollbackNewInserts = async () => {
+      if (insertedNewIds.length === 0) return
+      await supabase.from('staff_profiles').update({ is_deleted: true }).in('id', insertedNewIds).eq('is_deleted', false)
+    }
+    const rollbackFallbackRestores = async () => {
+      if (restoredViaFallback.length === 0) return
+      await supabase.from('staff_profiles').update({ is_deleted: true }).in('id', restoredViaFallback).eq('is_deleted', false)
+    }
+
     if (insertPayloads.length > 0) {
-      const { error: insErr } = await supabase.from('staff_profiles').insert(insertPayloads)
-      if (insErr) return json({ error: insErr.message }, 400)
+      for (const payload of insertPayloads) {
+        const pid = String(payload.id)
+        const { error: e1 } = await supabase.from('staff_profiles').insert([payload])
+        if (!e1) {
+          insertedNewIds.push(pid)
+          continue
+        }
+        if (!isPkDuplicate(e1.message)) {
+          await rollbackNewInserts()
+          await rollbackFallbackRestores()
+          return json({ error: e1.message }, 400)
+        }
+        const { data: r2, error: e2 } = await supabase.from('staff_profiles').select('id,is_deleted').eq('id', pid).maybeSingle()
+        if (e2) {
+          await rollbackNewInserts()
+          await rollbackFallbackRestores()
+          return json({ error: e2.message }, 400)
+        }
+        if (r2 && r2.is_deleted !== false) {
+          const { error: upErr } = await supabase
+            .from('staff_profiles')
+            .update({
+              facility_id: String(payload.facility_id),
+              display_name: String(payload.display_name),
+              role_type: String(payload.role_type),
+              service_scope: String(payload.service_scope),
+              gender: (payload.gender as 'Male' | 'Female' | null | undefined) ?? null,
+              phone: String(payload.phone ?? ''),
+              email: String(payload.email ?? ''),
+              is_deleted: false,
+            })
+            .eq('id', pid)
+          if (upErr) {
+            await rollbackNewInserts()
+            await rollbackFallbackRestores()
+            return json({ error: upErr.message }, 400)
+          }
+          restoredViaFallback.push(pid)
+        } else if (r2?.is_deleted === false) {
+          await rollbackNewInserts()
+          await rollbackFallbackRestores()
+          return json({ error: `員工編號已存在：${pid}` }, 409)
+        } else {
+          await rollbackNewInserts()
+          await rollbackFallbackRestores()
+          return json({ error: e1.message }, 400)
+        }
+      }
     }
 
     for (const { id, row } of restoreOps) {
@@ -91,10 +154,7 @@ Deno.serve(async (req) => {
     }
 
     const batchId = `staff-import-${crypto.randomUUID()}`
-    const staffIds = [
-      ...insertPayloads.map((p) => String(p.id)),
-      ...restoreOps.map((o) => o.id),
-    ]
+    const staffIds = [...new Set([...insertedNewIds, ...restoredViaFallback, ...restoreOps.map((o) => o.id)])]
     const audit = await insertAuditEvent(supabase, {
       action: 'STAFF_IMPORT_COMMIT',
       entity_type: 'Staff',
@@ -105,15 +165,18 @@ Deno.serve(async (req) => {
         count: rows.length,
         batchId,
         staffIds,
-        insertedNew: insertPayloads.length,
-        restored: restoreOps.length,
+        insertedNew: insertedNewIds.length,
+        restoredViaFallback: restoredViaFallback.length,
+        restoredFromPlan: restoreOps.length,
       }),
-      detail: `員工批量匯入（batch=${batchId}；新增 ${insertPayloads.length}、復原 ${restoreOps.length}）`,
+      detail: `員工批量匯入（batch=${batchId}；新增 ${insertedNewIds.length}、主鍵衝突後復原 ${restoredViaFallback.length}、計畫復原 ${restoreOps.length}）`,
     })
     if (!audit.ok) {
-      if (insertPayloads.length > 0) {
-        const newIds = insertPayloads.map((p) => String(p.id))
-        await supabase.from('staff_profiles').update({ is_deleted: true }).in('id', newIds).eq('is_deleted', false)
+      if (insertedNewIds.length > 0) {
+        await supabase.from('staff_profiles').update({ is_deleted: true }).in('id', insertedNewIds).eq('is_deleted', false)
+      }
+      if (restoredViaFallback.length > 0) {
+        await supabase.from('staff_profiles').update({ is_deleted: true }).in('id', restoredViaFallback).eq('is_deleted', false)
       }
       for (const { id } of restoreOps) {
         await supabase.from('staff_profiles').update({ is_deleted: true }).eq('id', id).eq('is_deleted', false)

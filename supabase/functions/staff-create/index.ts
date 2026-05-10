@@ -1,6 +1,7 @@
 import { insertAuditEvent } from '../_shared/insertAuditEvent.ts'
 import { emptyOk, json } from '../_shared/http.ts'
 import { requireTeamLeadOrAdmin } from '../_shared/guardTeamLeadOrAdmin.ts'
+import { normalizeStaffProfileId } from '../_shared/staffProfileIdNormalize.ts'
 import { getServiceClient } from '../_shared/supabaseAdmin.ts'
 
 const ROLE_THERAPIST = new Set(['PT', 'OT', 'PTA', 'OTA'])
@@ -19,7 +20,7 @@ Deno.serve(async (req) => {
     const genderRaw = String(body.gender ?? '').trim()
     const phone = String(body.phone ?? '').trim()
     const email = String(body.email ?? '').trim()
-    const idRaw = String(body.id ?? '').trim()
+    const idRaw = normalizeStaffProfileId(body.id)
     const facilityId = String(body.facility_id ?? body.facilityId ?? 'facility-main').trim()
 
     if (!actorId) return json({ error: '缺少 actorId' }, 400)
@@ -54,11 +55,41 @@ Deno.serve(async (req) => {
       is_deleted: false,
     }
 
-    const wasRestore = !!existingRow && existingRow.is_deleted !== false
+    const isPkDuplicate = (msg: string) =>
+      msg.includes('duplicate key') || msg.includes('staff_profiles_pkey') || msg.includes('unique constraint')
+
+    let wasRestore = !!existingRow && existingRow.is_deleted !== false
+    let restoreBeforeIsDeleted: boolean | null | undefined = existingRow?.is_deleted
 
     if (!existingRow) {
       const { error: insErr } = await supabase.from('staff_profiles').insert(row)
-      if (insErr) return json({ error: insErr.message }, 400)
+      if (insErr) {
+        if (!isPkDuplicate(insErr.message)) return json({ error: insErr.message }, 400)
+        const { data: r2, error: e2 } = await supabase.from('staff_profiles').select('id,is_deleted').eq('id', id).maybeSingle()
+        if (e2) return json({ error: e2.message }, 400)
+        if (r2 && r2.is_deleted !== false) {
+          restoreBeforeIsDeleted = r2.is_deleted
+          const { error: upErr } = await supabase
+            .from('staff_profiles')
+            .update({
+              facility_id: facilityId,
+              display_name: displayName,
+              role_type: roleType,
+              service_scope: 'Both',
+              gender,
+              phone,
+              email,
+              is_deleted: false,
+            })
+            .eq('id', id)
+          if (upErr) return json({ error: upErr.message }, 400)
+          wasRestore = true
+        } else if (r2?.is_deleted === false) {
+          return json({ error: '員工編號已存在' }, 409)
+        } else {
+          return json({ error: insErr.message }, 400)
+        }
+      }
     } else if (existingRow.is_deleted === false) {
       return json({ error: '員工編號已存在' }, 409)
     } else {
@@ -83,7 +114,7 @@ Deno.serve(async (req) => {
       entity_type: 'Staff',
       entity_id: id,
       actor_id: actorId,
-      before_state: wasRestore ? JSON.stringify({ id, is_deleted: existingRow?.is_deleted }) : null,
+      before_state: wasRestore ? JSON.stringify({ id, is_deleted: restoreBeforeIsDeleted }) : null,
       after_state: JSON.stringify(row),
       detail: wasRestore ? '單筆復原已軟刪之員工主檔（同編號；PDF 02【13】）' : '單筆新增員工主檔',
     })
