@@ -71,7 +71,14 @@ describe('SystemSettingsHome', () => {
     const policyContentId = policyCollapse.getAttribute('aria-controls')
     expect(policyContentId).toBeTruthy()
     expect(document.getElementById(policyContentId!)?.hasAttribute('hidden')).toBe(false)
-    expectSectionForHeading(screen.getByRole('heading', { name: '系統設定與相關審計（全域）' }) as HTMLElement)
+    const auditH3 = screen.getByRole('heading', { name: '系統設定與相關審計（全域）' }) as HTMLElement
+    expectSectionForHeading(auditH3)
+    const auditSection = container.querySelector(`section[aria-labelledby="${auditH3.id}"]`) as HTMLElement
+    expect(auditSection).not.toBeNull()
+    const expandAudit = within(auditSection).getByRole('button', { name: '展開審計' })
+    const auditContentId = expandAudit.getAttribute('aria-controls')
+    expect(auditContentId).toBeTruthy()
+    expect(document.getElementById(auditContentId!)?.hasAttribute('hidden')).toBe(true)
     expect(screen.getByRole('button', { name: '儲存設定（本機）' })).toBeTruthy()
     expect(screen.getByText(/未偵測到 Supabase 環境變數/)).toBeTruthy()
   })
