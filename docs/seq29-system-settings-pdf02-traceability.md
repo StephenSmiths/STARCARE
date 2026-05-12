@@ -55,7 +55,7 @@
 | `systemSettingsValidation.test.ts` | 驗證規則 |
 | `systemSettingsExternalStore.test.ts` | 版本 bump |
 | `e2e/smoke.spec.ts` | **`#system-settings`**、**系統設定與相關審計** |
-| `e2e/system-settings-policy-p1-demo.spec.ts` | **`npm run test:e2e:system-settings-policy`**：本機區 **`group`**／**`aria-busy`**；**智能排班設定**／政策版本（P1）**`section[aria-labelledby]`** 與對應標題 **id**、無 Edge 本機說明 |
+| `e2e/system-settings-policy-p1-demo.spec.ts` | **`npm run test:e2e:system-settings-policy`**：本機區 **`group`**／**`aria-busy`**；**智能排班設定**／**復康服務基本設定**／政策版本（P1）**`section[aria-labelledby]`** 與對應標題 **id**、無 Edge 本機說明 |
 | `useSystemSettingsPolicySync*.test.ts`（Vitest） | 載入／提交成功與失敗路徑（**`@testing-library/react`**） |
 | `useSystemSettingsPolicySync.reload.test.ts`（Vitest） | **`loadError`** 後 **`reloadPolicy`** 成功則清除錯誤並 **hydrate** |
 | `useSystemSettingsPolicySync.postCommitRefresh.test.ts`（Vitest） | 提交成功後靜默 **`loadPolicy`** 失敗時 **`submitMessage`** 補述與 **`loadError`** |
@@ -107,3 +107,4 @@
 | 2026-05-12 | §1／§4：**`ListSectionPanel`** **`section aria-labelledby`**；**`ListSectionPanel.test`**；**policy P1 demo E2E** 斷言 **section** 與政策標題 **id**。 |
 | 2026-05-12 | §1／§4：本機儲存 **`save`** **`setTimeout(0)`**；**`SystemSettingsHome`** **`role="group"`** **`aria-busy`**；**`useSystemSettings.saveSavingState.test`**；**policy P1 demo E2E** 本機 **group**。 |
 | 2026-05-12 | §1／§4：**`SystemSettingsPdf16Section`** **`section aria-labelledby`**（**`h2`** **id**）；**`SystemSettingsPdf16Section.test`**；**policy P1 demo E2E** 斷言 **智能排班設定** 區段。 |
+| 2026-05-12 | §4：**policy P1 demo E2E** 補 **復康服務基本設定** **`section[aria-labelledby]`** 與 **`id`** 有別於智能排班。 |

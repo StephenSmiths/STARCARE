@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 
 /**
  * Demo 建置（`VITE_SUPABASE_*` 清空）：與 **`npm run test:e2e:smoke`** 同型 preview；
- * 驗證 Seq 29 P1：**Pdf16 大節**、**政策版本** landmark 與無 Edge 時之本機說明（對照 UAT 未設 env 預期）。
+ * 驗證 Seq 29 P1：兩個 **Pdf16 大節**（智能排班／復康服務）、**政策版本** landmark 與無 Edge 時之本機說明（對照 UAT 未設 env 預期）。
  */
 test.describe('system-settings policy P1（demo 無 Supabase）', () => {
   test('政策區塊標題與本機儲存說明可見', async ({ page }) => {
@@ -14,6 +14,12 @@ test.describe('system-settings policy P1（demo 無 Supabase）', () => {
     const schedulingSectionId = await schedulingHeading.getAttribute('id')
     expect(schedulingSectionId).toBeTruthy()
     await expect(page.locator(`section[aria-labelledby="${schedulingSectionId}"]`)).toHaveCount(1)
+    const rehabHeading = page.getByRole('heading', { name: '復康服務基本設定', exact: true })
+    await expect(rehabHeading).toBeVisible()
+    const rehabSectionId = await rehabHeading.getAttribute('id')
+    expect(rehabSectionId).toBeTruthy()
+    expect(rehabSectionId).not.toBe(schedulingSectionId)
+    await expect(page.locator(`section[aria-labelledby="${rehabSectionId}"]`)).toHaveCount(1)
     const localGroup = page.getByRole('group', { name: '本機設定（瀏覽器儲存）' })
     await expect(localGroup).toBeVisible()
     await expect(localGroup).toHaveAttribute('aria-busy', 'false')
