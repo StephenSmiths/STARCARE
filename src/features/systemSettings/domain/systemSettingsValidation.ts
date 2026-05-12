@@ -38,5 +38,11 @@ export const validateSystemSettings = (input: SystemSettingsSnapshot): Validatio
   ) {
     errors.push('非治療開始須早於非治療結束')
   }
+  const t = input.therapistGroupSessionsDailyCap
+  const a = input.assistantGroupSessionsDailyCap
+  const g = input.groupParticipantCap
+  if (!Number.isFinite(t) || !Number.isInteger(t) || t < 0) errors.push('治療師小組每日上限須為非負整數')
+  if (!Number.isFinite(a) || !Number.isInteger(a) || a < 0) errors.push('治療助理小組每日上限須為非負整數')
+  if (!Number.isFinite(g) || !Number.isInteger(g) || g < 1) errors.push('小組人數上限須為至少 1 之整數')
   return { ok: errors.length === 0, errors }
 }

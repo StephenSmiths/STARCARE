@@ -1,0 +1,86 @@
+import { STARCARE_DEFAULT_FACILITY_ID } from '../constants/starcareDefaultFacilityId'
+import { getSupabaseBrowserCredentials } from '../services/supabaseBrowserEnv'
+import { buildEdgeInvokeHeaders } from './edgeFunctionHeaders'
+import type { PolicyCommitResponse, PolicyValidateResponse, SchedulingPolicyBundle } from './schedulingPolicyTypes'
+
+export interface SchedulingPolicyRepository {
+  getCurrentBundle: (facilityId?: string) => Promise<SchedulingPolicyBundle | null>
+  validateBundle: (body: Record<string, unknown>) => Promise<PolicyValidateResponse>
+  commitBundle: (body: Record<string, unknown>, idempotencyKey: string) => Promise<PolicyCommitResponse>
+}
+
+class InMemorySchedulingPolicyRepository implements SchedulingPolicyRepository {
+  async getCurrentBundle(): Promise<SchedulingPolicyBundle | null> {
+    return null
+  }
+
+  async validateBundle(): Promise<PolicyValidateResponse> {
+    return { ok: false, errors: [{ code: 'NO_EDGE', message: '未設定 Supabase，無法驗證政策版本' }] }
+  }
+
+  async commitBundle(): Promise<PolicyCommitResponse> {
+    return { ok: false, error: '未設定 Supabase，無法提交政策版本' }
+  }
+}
+
+class EdgeSchedulingPolicyRepository implements SchedulingPolicyRepository {
+  private readonly supabaseUrl: string
+  private readonly anonKey: string
+
+  constructor(config: { supabaseUrl: string; anonKey: string }) {
+    this.supabaseUrl = config.supabaseUrl
+    this.anonKey = config.anonKey
+  }
+
+  async getCurrentBundle(facilityId: string = STARCARE_DEFAULT_FACILITY_ID): Promise<SchedulingPolicyBundle | null> {
+    const headers = await buildEdgeInvokeHeaders(this.anonKey)
+    const url = `${this.supabaseUrl}/functions/v1/scheduling-policy-current-get?facilityId=${encodeURIComponent(facilityId)}`
+    const response = await fetch(url, { headers })
+    if (!response.ok) throw new Error(`載入院舍政策失敗（HTTP ${response.status}）`)
+    return (await response.json()) as SchedulingPolicyBundle
+  }
+
+  async validateBundle(body: Record<string, unknown>): Promise<PolicyValidateResponse> {
+    const headers = await buildEdgeInvokeHeaders(this.anonKey)
+    const response = await fetch(`${this.supabaseUrl}/functions/v1/scheduling-policy-version-validate`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(body),
+    })
+    if (!response.ok) throw new Error(`驗證政策失敗（HTTP ${response.status}）`)
+    return (await response.json()) as PolicyValidateResponse
+  }
+
+  async commitBundle(body: Record<string, unknown>, idempotencyKey: string): Promise<PolicyCommitResponse> {
+    const headers = await buildEdgeInvokeHeaders(this.anonKey, idempotencyKey)
+    const response = await fetch(`${this.supabaseUrl}/functions/v1/scheduling-policy-version-commit`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(body),
+    })
+    const data = (await response.json()) as PolicyCommitResponse & {
+      errors?: { code: string; message: string }[]
+      error?: string
+    }
+    if (response.status === 409) {
+      return {
+        ok: false,
+        policyVersionId: data.policyVersionId,
+        error: String(data.error ?? 'idempotency 衝突'),
+      }
+    }
+    if (response.ok && data.ok === true && typeof data.policyVersionId === 'string') {
+      return { ok: true, policyVersionId: data.policyVersionId }
+    }
+    if (data.errors && Array.isArray(data.errors)) {
+      return { ok: false, errors: data.errors }
+    }
+    return { ok: false, error: data.error ?? `提交失敗（HTTP ${response.status}）` }
+  }
+}
+
+export const createSchedulingPolicyRepository = (): SchedulingPolicyRepository => {
+  const creds = getSupabaseBrowserCredentials()
+  if (!creds) return new InMemorySchedulingPolicyRepository()
+  return new EdgeSchedulingPolicyRepository({ supabaseUrl: creds.supabaseUrl, anonKey: creds.anonKey })
+}

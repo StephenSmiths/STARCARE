@@ -7,6 +7,12 @@ export interface SystemSettingsSnapshot {
   schedulingWindowEnd: string
   nonTherapyWindowStart: string
   nonTherapyWindowEnd: string
+  /** P1：開工準備時段（SHIFT_PREP_BLOCK）是否寫入政策版本 */
+  shiftPrepBlockEnabled: boolean
+  /** P1：與 Edge `numericLimits` 對齊 */
+  therapistGroupSessionsDailyCap: number
+  assistantGroupSessionsDailyCap: number
+  groupParticipantCap: number
   rulesEngineEnabled: boolean
   fixedActivitiesEnabled: boolean
   serviceTypesEnabled: boolean

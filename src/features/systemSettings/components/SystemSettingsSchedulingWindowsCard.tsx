@@ -4,7 +4,11 @@ import { uiTokens } from '../../shared/ui/uiTokens'
 
 type DraftPick = Pick<
   SystemSettingsSnapshot,
-  'schedulingWindowStart' | 'schedulingWindowEnd' | 'nonTherapyWindowStart' | 'nonTherapyWindowEnd'
+  | 'schedulingWindowStart'
+  | 'schedulingWindowEnd'
+  | 'nonTherapyWindowStart'
+  | 'nonTherapyWindowEnd'
+  | 'shiftPrepBlockEnabled'
 >
 
 /** PDF 02【16】Seq 29：排班視窗與非治療時段（占位 UI） */
@@ -19,7 +23,9 @@ export const SystemSettingsSchedulingWindowsCard = ({
 }: SystemSettingsSchedulingWindowsCardProps) => (
   <article className={uiTokens.surfaceCard}>
     <h2 className={uiTokens.pageSectionHeading}>排班與時段</h2>
-    <p className={uiTokens.sectionHelp}>PDF 02【16】Seq 29：每日排班可用視窗與非治療時段（占位，待接 Pass／引擎）。</p>
+    <p className={uiTokens.sectionHelp}>
+      PDF 02【16】Seq 29：每日排班可用視窗、午休（LUNCH）與開工準備（SHIFT_PREP_BLOCK，最長 30 分鐘且不超出排班視窗）。
+    </p>
     <div className={uiTokens.settingsFieldGrid}>
       <label className={uiTokens.formFieldStack}>
         <span className={uiTokens.formLabel}>排班開始（HH:mm）</span>
@@ -60,6 +66,14 @@ export const SystemSettingsSchedulingWindowsCard = ({
           value={draft.nonTherapyWindowEnd}
           onChange={(e) => setField('nonTherapyWindowEnd', e.target.value)}
         />
+      </label>
+      <label className={uiTokens.formToggleLabel}>
+        <input
+          type="checkbox"
+          checked={draft.shiftPrepBlockEnabled}
+          onChange={(e) => setField('shiftPrepBlockEnabled', e.target.checked)}
+        />
+        啟用開工準備時段（自排班開始起 30 分鐘內，且不超出排班結束）
       </label>
     </div>
   </article>

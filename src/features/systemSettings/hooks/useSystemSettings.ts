@@ -1,13 +1,17 @@
 import { useCallback, useRef, useState } from 'react'
 /** 勿自 `../index` barrel 匯入：index 匯出之 `SystemSettingsHome` 依賴本 hook，會循環依賴 */
 import { validateSystemSettings } from '../domain/systemSettingsValidation'
+import { p1FieldsFromPolicyBundle } from '../domain/p1FieldsFromPolicyBundle'
 import { loadSystemSettings } from '../repository/systemSettingsRepository'
 import { saveSystemSettingsWithAudit } from '../services/systemSettingsPersistService'
+import type { SchedulingPolicyBundle } from '../../../repositories/schedulingPolicyTypes'
 import type { SystemSettingsSnapshot } from '../types'
 
 export interface UseSystemSettingsResult {
   draft: SystemSettingsSnapshot
   setField: <K extends keyof SystemSettingsSnapshot>(key: K, value: SystemSettingsSnapshot[K]) => void
+  /** 自 `scheduling-policy-current-get` 合併 P1 欄位至草稿 */
+  hydrateP1FromBundle: (bundle: SchedulingPolicyBundle) => void
   validationErrors: string[]
   savedMessage: string | null
   save: () => void
@@ -29,6 +33,11 @@ export const useSystemSettings = (actorId: string): UseSystemSettingsResult => {
     setSavedMessage(null)
   }, [])
 
+  const hydrateP1FromBundle = useCallback((bundle: SchedulingPolicyBundle) => {
+    setDraft((prev) => ({ ...prev, ...p1FieldsFromPolicyBundle(bundle) }))
+    setSavedMessage(null)
+  }, [])
+
   const save = useCallback(() => {
     if (lockRef.current) return
     const v = validateSystemSettings(draft)
@@ -37,10 +46,10 @@ export const useSystemSettings = (actorId: string): UseSystemSettingsResult => {
     lockRef.current = true
     setIsSaving(true)
     saveSystemSettingsWithAudit(actorId, draft)
-    setSavedMessage('已儲存（僅本機瀏覽器；後端同步待接）')
+    setSavedMessage('已儲存（本機瀏覽器；若已連線可另於下方「提交政策版本」同步雲端）')
     setIsSaving(false)
     lockRef.current = false
   }, [actorId, draft])
 
-  return { draft, setField, validationErrors, savedMessage, save, isSaving }
+  return { draft, setField, hydrateP1FromBundle, validationErrors, savedMessage, save, isSaving }
 }
