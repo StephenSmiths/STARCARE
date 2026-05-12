@@ -1,6 +1,7 @@
 # 系統設定（PDF 02【16】）院舍政策 PRD
 
 > **Edge 契約**：**`docs/scheduling-policy-edge-function-contract.md`**（**`scheduling-policy-current-get`**／**`scheduling-policy-at-get`**／**`scheduling-policy-version-validate`**／**`scheduling-policy-version-commit`**）。  
+> **對客回覆範本**（逐條同意／需調整）：**`docs/system-settings-policy-customer-reply-2026-05-09.md`**。  
 > **對照母本**：`docs/pdf/02-STARCARE-智能院舍照護管理系統.pdf` **【16】**（智能排班設定、復康服務基本設定）。  
 > **客戶定案日**：2026-05-09（多表存放、`effectiveFrom`、版本不重疊、分期驗收）。  
 > **資料結構詳述**：`docs/system-settings-policy-schema-2026-05-09.md`。  
@@ -86,3 +87,4 @@
 | 日期 | 說明 |
 |------|------|
 | 2026-05-09 | 初版：依客戶回函定稿 R1～R7、分期 P1／P2、與 seq29／遷移骨架互鏈。 |
+| 2026-05-09 | 增列對客回覆範本互鏈：**`docs/system-settings-policy-customer-reply-2026-05-09.md`**。 |
