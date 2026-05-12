@@ -53,4 +53,16 @@ describe('ListSectionPanel', () => {
     const collapsed = section?.querySelector(`[id="${controls}"]`)
     expect(collapsed?.hasAttribute('hidden')).toBe(true)
   })
+
+  it('defaultExpanded 為 false 時子項先不掛載，展開後顯示', () => {
+    render(
+      <ListSectionPanel title="預設收合" defaultExpanded={false}>
+        <p>僅展開見</p>
+      </ListSectionPanel>,
+    )
+    const section = screen.getByRole('heading', { name: '預設收合' }).closest('section') as HTMLElement
+    expect(within(section).queryByText('僅展開見')).toBeNull()
+    fireEvent.click(within(section).getByRole('button', { name: '展開' }))
+    expect(within(section).getByText('僅展開見')).toBeTruthy()
+  })
 })

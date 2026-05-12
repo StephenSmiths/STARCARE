@@ -60,4 +60,11 @@ describe('AuditTrailPanel', () => {
     )
     expect(section?.querySelector(`[id="${controls}"]`)?.hasAttribute('hidden')).toBe(true)
   })
+
+  it('defaultExpanded 為 true 時篩選列一開始即掛載', () => {
+    render(<AuditTrailPanel title="預設展開" auditTrail={emptyTrail} defaultExpanded />)
+    const section = screen.getByRole('heading', { name: '預設展開' }).closest('section') as HTMLElement
+    expect(within(section).getByPlaceholderText('搜尋 actor / entity / detail')).toBeTruthy()
+    expect(within(section).getByRole('button', { name: '收合審計' }).getAttribute('aria-expanded')).toBe('true')
+  })
 })

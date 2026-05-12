@@ -49,8 +49,8 @@
 
 | 測試／E2E | 涵蓋 |
 |-----------|------|
-| `ListSectionPanel.test.tsx`（Vitest） | **`section`** **`aria-labelledby`** 與 **`h2`／`h3`** 標題 **id** 一致；**`aria-controls`**／收合 **`hidden`** |
-| `AuditTrailPanel.test.tsx`（Vitest） | **`section`** **`aria-labelledby`** 與 **`h3`** **id** 一致；同頁雙實例 **id** 不重複；**`aria-controls`**／展開篩選／**`hidden`** |
+| `ListSectionPanel.test.tsx`（Vitest） | **`section`** **`aria-labelledby`** 與 **`h2`／`h3`** 標題 **id** 一致；**`aria-controls`**／收合 **`hidden`**；**`defaultExpanded={false}`** |
+| `AuditTrailPanel.test.tsx`（Vitest） | **`section`** **`aria-labelledby`** 與 **`h3`** **id** 一致；同頁雙實例 **id** 不重複；**`aria-controls`**／展開篩選／**`hidden`**；**`defaultExpanded`** |
 | `SystemSettingsPdf16Section.test.tsx`（Vitest） | **Pdf16** 大節 **`section`** **`aria-labelledby`** 與 **`h2`** **id** 一致 |
 | `useSystemSettings.saveSavingState.test.ts`（Vitest） | **`save`** 延後儲存期間 **`isSaving`**；驗證失敗不觸發 **`saveSystemSettingsWithAudit`** |
 | `systemSettingsValidation.test.ts` | 驗證規則 |
@@ -115,3 +115,4 @@
 | 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **儲存設定（本機）** 與無 Edge 說明（**未偵測到 Supabase 環境變數**）。 |
 | 2026-05-09 | §1／§4：**`ListSectionPanel`** 展開鈕 **`aria-controls`**、內容區 **`hidden`**；擴充 **`ListSectionPanel.test`**。 |
 | 2026-05-09 | §1／§4：**`AuditTrailPanel`** 展開鈕 **`aria-controls`**、可摺疊內容 **`hidden`**；擴充 **`AuditTrailPanel.test`**。 |
+| 2026-05-09 | §4：**`ListSectionPanel.test`**／**`AuditTrailPanel.test`** 補 **`defaultExpanded`** 邊界。 |
