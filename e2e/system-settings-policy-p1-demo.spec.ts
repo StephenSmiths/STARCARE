@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 
 /**
  * Demo 建置（`VITE_SUPABASE_*` 清空）：與 **`npm run test:e2e:smoke`** 同型 preview；
- * 驗證 Seq 29 P1：兩個 **Pdf16 大節**（智能排班／復康服務）、**政策版本**、**審計** landmark 與無 Edge 時之本機說明（對照 UAT 未設 env 預期）。
+ * 驗證 Seq 29 P1：兩個 **Pdf16 大節**（智能排班／復康服務）、**`ListSectionPanel`** 預設收合區（**`aria-controls`**／**`hidden`**）、**政策版本**、**審計** landmark 與無 Edge 時之本機說明（對照 UAT 未設 env 預期）。
  */
 test.describe('system-settings policy P1（demo 無 Supabase）', () => {
   test('政策區塊標題與本機儲存說明可見', async ({ page }) => {
@@ -20,6 +20,22 @@ test.describe('system-settings policy P1（demo 無 Supabase）', () => {
     expect(rehabSectionId).toBeTruthy()
     expect(rehabSectionId).not.toBe(schedulingSectionId)
     await expect(page.locator(`section[aria-labelledby="${rehabSectionId}"]`)).toHaveCount(1)
+    const subsidizedListHeading = page.getByRole('heading', {
+      name: '資助復康服務與認知障礙症服務（P1）',
+      exact: true,
+    })
+    await expect(subsidizedListHeading).toBeVisible()
+    const subsidizedPanel = page.locator('section').filter({ has: subsidizedListHeading })
+    const expandSubsidized = subsidizedPanel.getByRole('button', { name: '展開' })
+    await expect(expandSubsidized).toBeVisible()
+    const subsidizedContentId = await expandSubsidized.getAttribute('aria-controls')
+    expect(subsidizedContentId).toBeTruthy()
+    const subsidizedContent = page.locator(`[id="${subsidizedContentId}"]`)
+    await expect(subsidizedContent).toHaveCount(1)
+    await expect(subsidizedContent).toHaveAttribute('hidden', '')
+    await expandSubsidized.click()
+    await expect(subsidizedContent).not.toHaveAttribute('hidden')
+    await expect(subsidizedPanel.getByText(/Special Care 僅由治療師承接/)).toBeVisible()
     const localGroup = page.getByRole('group', { name: '本機設定（瀏覽器儲存）' })
     await expect(localGroup).toBeVisible()
     await expect(localGroup).toHaveAttribute('aria-busy', 'false')
