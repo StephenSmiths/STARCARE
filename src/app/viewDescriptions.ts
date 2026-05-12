@@ -21,7 +21,7 @@ const VIEW_DESCRIPTIONS: Record<ViewId, string> = {
   'assessment-management':
     '評估到期／逾期追蹤、完成率與 PT／OT 版本紀錄（PDF 02【9】Seq 22）；與 Seq 9 週期估算一致。',
   'system-settings':
-    '院舍級偏好（排班視窗、非治療時段、服務啟用與 SC 規則占位）（PDF 02【16】Seq 29）；暫存本地。',
+    '院舍級偏好（排班視窗、非治療時段、數字上限、服務啟用與 SC 規則）（PDF 02【16】Seq 29）：「儲存設定」寫本機；已設定 Supabase 時可「提交政策版本」至 Edge（P1，Team Lead／Admin）。',
   'user-role-admin':
     '僅 Admin：同步變更他人 public.user_roles 與 Auth app_metadata（PDF 01 §1）；對方須重登入；審計 action 為 USER_RBAC_ROLE_SET。',
   residents: '院友名單、批量／個別建立與審計。',
