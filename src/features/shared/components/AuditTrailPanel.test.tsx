@@ -1,10 +1,14 @@
 /** @vitest-environment happy-dom */
-import { render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
+import { afterEach, describe, expect, it } from 'vitest'
 import type { AuditTrailRecord } from '../../../services/auditTrailService'
 import { AuditTrailPanel } from './AuditTrailPanel'
 
 const emptyTrail: AuditTrailRecord[] = []
+
+afterEach(() => {
+  cleanup()
+})
 
 describe('AuditTrailPanel', () => {
   it('section aria-labelledby 指向標題 h3 id', () => {
@@ -31,5 +35,29 @@ describe('AuditTrailPanel', () => {
     expect(a.id).toBeTruthy()
     expect(b.id).toBeTruthy()
     expect(a.id).not.toBe(b.id)
+  })
+
+  it('展開審計鈕 aria-controls 指向內容區；展開後可見篩選、收合後 hidden', () => {
+    const { container } = render(<AuditTrailPanel title="審計區" auditTrail={emptyTrail} />)
+    const section = container.querySelector('section')
+    expect(section).toBeTruthy()
+    const toggle = within(section as HTMLElement).getByRole('button', { name: '展開審計' })
+    const controls = toggle.getAttribute('aria-controls')
+    expect(controls).toBeTruthy()
+    const region = section?.querySelector(`[id="${controls}"]`)
+    expect(region?.hasAttribute('hidden')).toBe(true)
+    fireEvent.click(toggle)
+    expect(within(section as HTMLElement).getByRole('button', { name: '收合審計' }).getAttribute('aria-expanded')).toBe(
+      'true',
+    )
+    expect(region?.hasAttribute('hidden')).toBe(false)
+    expect(
+      within(section as HTMLElement).queryByPlaceholderText('搜尋 actor / entity / detail'),
+    ).not.toBeNull()
+    fireEvent.click(within(section as HTMLElement).getByRole('button', { name: '收合審計' }))
+    expect(within(section as HTMLElement).getByRole('button', { name: '展開審計' }).getAttribute('aria-expanded')).toBe(
+      'false',
+    )
+    expect(section?.querySelector(`[id="${controls}"]`)?.hasAttribute('hidden')).toBe(true)
   })
 })

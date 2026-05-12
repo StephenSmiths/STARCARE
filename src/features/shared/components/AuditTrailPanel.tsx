@@ -19,7 +19,7 @@ export interface AuditTrailPanelProps {
   auditTrail: AuditTrailRecord[]
 }
 
-/** 全域審計列表：支援動作／實體類型／關鍵字篩選（Seq 12）。**`section`** 以 **`useId`** 綁定 **`aria-labelledby`**，避免同路由多實例時 **`id`** 重複。 */
+/** 全域審計列表：支援動作／實體類型／關鍵字篩選（Seq 12）。**`section`** 以 **`useId`** 綁定 **`aria-labelledby`**；展開鈕 **`aria-controls`** 指向內容區，收合時 **`hidden`** 仍保留節點（與 **`ListSectionPanel`** 一致）。 */
 export const AuditTrailPanel = ({
   title = '最近審計紀錄（Audit Trail）',
   help,
@@ -27,6 +27,7 @@ export const AuditTrailPanel = ({
   auditTrail,
 }: AuditTrailPanelProps) => {
   const headingId = useId()
+  const contentId = useId()
   const vm = useAuditTrailPanelFilter(auditTrail)
   const [expanded, setExpanded] = useState(defaultExpanded)
 
@@ -42,6 +43,7 @@ export const AuditTrailPanel = ({
             type="button"
             className={uiTokens.btnCompact}
             aria-expanded={expanded}
+            aria-controls={contentId}
             onClick={() => setExpanded((v) => !v)}
           >
             {expanded ? '收合審計' : '展開審計'}
@@ -49,57 +51,59 @@ export const AuditTrailPanel = ({
         </div>
       </div>
       {help ? <p className={uiTokens.helpFinePrint}>{help}</p> : null}
-      {expanded ? (
-        <>
-          <div className={uiTokens.layoutFlexWrapItemsCenterGap2Mt2}>
-            <select
-              className={uiTokens.auditTrailFilterSelectMin9}
-              value={vm.actionFilter}
-              onChange={(event) =>
-                vm.setActionFilter(event.target.value as 'all' | AuditTrailRecord['action'])
-              }
-            >
-              <option value="all">全部動作</option>
-              {AUDIT_TRAIL_PANEL_ACTION_OPTIONS.map((action) => (
-                <option key={action} value={action}>
-                  {action}
-                </option>
-              ))}
-            </select>
-            <select
-              className={uiTokens.auditTrailFilterSelectMin8}
-              value={vm.entityFilter}
-              onChange={(event) =>
-                vm.setEntityFilter(event.target.value as 'all' | AuditTrailRecord['entityType'])
-              }
-            >
-              <option value="all">全部類型</option>
-              {AUDIT_TRAIL_PANEL_ENTITY_OPTIONS.map((entity) => (
-                <option key={entity} value={entity}>
-                  {entity}
-                </option>
-              ))}
-            </select>
-            <input
-              className={uiTokens.formInputMaxXsTextXs}
-              placeholder="搜尋 actor / entity / detail"
-              value={vm.keyword}
-              onChange={(event) => vm.setKeyword(event.target.value)}
-            />
-          </div>
-          <div className={uiTokens.layoutSpaceY1Mt2}>
-            {vm.filtered.length === 0 ? (
-              <p className={uiTokens.emptyStatePill}>沒有符合條件的審計紀錄。</p>
-            ) : (
-              vm.filtered.map((log, index) => (
-                <p key={`${log.entityId}-${log.occurredAt}-${log.action}-${index}`}>
-                  {log.occurredAt} · {log.action} / {log.entityType} / {log.actorId} / {log.detail}
-                </p>
-              ))
-            )}
-          </div>
-        </>
-      ) : null}
+      <div id={contentId} hidden={!expanded}>
+        {expanded ? (
+          <>
+            <div className={uiTokens.layoutFlexWrapItemsCenterGap2Mt2}>
+              <select
+                className={uiTokens.auditTrailFilterSelectMin9}
+                value={vm.actionFilter}
+                onChange={(event) =>
+                  vm.setActionFilter(event.target.value as 'all' | AuditTrailRecord['action'])
+                }
+              >
+                <option value="all">全部動作</option>
+                {AUDIT_TRAIL_PANEL_ACTION_OPTIONS.map((action) => (
+                  <option key={action} value={action}>
+                    {action}
+                  </option>
+                ))}
+              </select>
+              <select
+                className={uiTokens.auditTrailFilterSelectMin8}
+                value={vm.entityFilter}
+                onChange={(event) =>
+                  vm.setEntityFilter(event.target.value as 'all' | AuditTrailRecord['entityType'])
+                }
+              >
+                <option value="all">全部類型</option>
+                {AUDIT_TRAIL_PANEL_ENTITY_OPTIONS.map((entity) => (
+                  <option key={entity} value={entity}>
+                    {entity}
+                  </option>
+                ))}
+              </select>
+              <input
+                className={uiTokens.formInputMaxXsTextXs}
+                placeholder="搜尋 actor / entity / detail"
+                value={vm.keyword}
+                onChange={(event) => vm.setKeyword(event.target.value)}
+              />
+            </div>
+            <div className={uiTokens.layoutSpaceY1Mt2}>
+              {vm.filtered.length === 0 ? (
+                <p className={uiTokens.emptyStatePill}>沒有符合條件的審計紀錄。</p>
+              ) : (
+                vm.filtered.map((log, index) => (
+                  <p key={`${log.entityId}-${log.occurredAt}-${log.action}-${index}`}>
+                    {log.occurredAt} · {log.action} / {log.entityType} / {log.actorId} / {log.detail}
+                  </p>
+                ))
+              )}
+            </div>
+          </>
+        ) : null}
+      </div>
     </section>
   )
 }
