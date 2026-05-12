@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 
 /**
  * Demo 建置（`VITE_SUPABASE_*` 清空）：與 **`npm run test:e2e:smoke`** 同型 preview；
- * 驗證 Seq 29 P1：兩個 **Pdf16 大節**（智能排班／復康服務）；**`ListSectionPanel`**：**排班時間設定**／**排班規則設定（P1）**（**`h3`**、預設展開、**`aria-controls`**）與 **資助復康**（預設收合、**`hidden`**）；**政策版本**、**審計** landmark 與無 Edge 時之本機說明（對照 UAT 未設 env 預期）。
+ * 驗證 Seq 29 P1：兩個 **Pdf16 大節**（智能排班／復康服務）；**`ListSectionPanel`**：**排班時間設定**／**排班規則設定（P1）**（**`h3`**、預設展開、**`aria-controls`**）與 **資助復康**（預設收合、**`hidden`**）；**政策版本**、**審計** landmark、**審計** **展開**／**收合**（**`aria-controls`**、**`hidden`**、搜尋 **`placeholder`**）與無 Edge 時之本機說明（對照 UAT 未設 env 預期）。
  */
 test.describe('system-settings policy P1（demo 無 Supabase）', () => {
   test('政策區塊標題與本機儲存說明可見', async ({ page }) => {
@@ -77,6 +77,25 @@ test.describe('system-settings policy P1（demo 無 Supabase）', () => {
     await expect(auditHeading).toBeVisible()
     const auditHeadingId = await auditHeading.getAttribute('id')
     expect(auditHeadingId).toBeTruthy()
-    await expect(page.locator(`section[aria-labelledby="${auditHeadingId}"]`)).toHaveCount(1)
+    const auditSection = page.locator(`section[aria-labelledby="${auditHeadingId}"]`)
+    await expect(auditSection).toHaveCount(1)
+    const expandAudit = auditSection.getByRole('button', { name: '展開審計' })
+    await expect(expandAudit).toBeVisible()
+    const auditRegionId = await expandAudit.getAttribute('aria-controls')
+    expect(auditRegionId).toBeTruthy()
+    const auditRegion = page.locator(`[id="${auditRegionId}"]`)
+    await expect(auditRegion).toHaveCount(1)
+    await expect(auditRegion).toHaveAttribute('hidden', '')
+    await expect(page.getByPlaceholder('搜尋 actor / entity / detail')).toHaveCount(0)
+
+    await expandAudit.click()
+    await expect(auditSection.getByRole('button', { name: '收合審計' })).toBeVisible()
+    await expect(auditRegion).not.toHaveAttribute('hidden')
+    await expect(page.getByPlaceholder('搜尋 actor / entity / detail')).toBeVisible()
+
+    await auditSection.getByRole('button', { name: '收合審計' }).click()
+    await expect(expandAudit).toBeVisible()
+    await expect(auditRegion).toHaveAttribute('hidden', '')
+    await expect(page.getByPlaceholder('搜尋 actor / entity / detail')).toHaveCount(0)
   })
 })
