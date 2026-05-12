@@ -118,6 +118,7 @@
 | 2026-05-12 | §1／§4：**`AuditTrailPanel`** 標題 **`useId`**（取代固定 **`audit-trail-heading`**）；**`AuditTrailPanel.test`**；**policy P1 demo E2E** 審計 **section**。 |
 | 2026-05-12 | §4：**`e2e/smoke`** 於 **`#system-settings`** 斷言本機 **`group`**（Seq 29）。 |
 | 2026-05-09 | §4：**`README.md`**：**`test:e2e:smoke`** 註解補 **`#system-settings`** **審計** 展開收合煙霧。 |
+| 2026-05-13 | **Schema** 開首互鏈 **seq29**／**UAT** **二之一**／**demo E2E**；**`docs/feature-list.md`** §8 第 5 點補 **二之一** 與 **seq29** 第 4 節。 |
 | 2026-05-13 | **Edge 契約**（**`docs/scheduling-policy-edge-function-contract.md`**）開首補 **前端 demo 煙霧**；**`docs/pdf03-cursorrules-alignment.md`** §3 **Seq 29** 檢核併列 **`test:e2e:smoke`** 與 **UAT** **二之一**。 |
 | 2026-05-13 | **PRD** 開首 **Demo E2E** 併列 **`test:e2e:smoke`** 與 **UAT** **二之一**。 |
 | 2026-05-13 | 開首 **Demo E2E** 併列 **`test:e2e:smoke`**（**`#system-settings`**）；**`docs/system-settings-policy-customer-reply-2026-05-09.md`** 開首互鏈 **UAT** **二之一**。 |

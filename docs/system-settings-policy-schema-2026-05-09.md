@@ -3,7 +3,8 @@
 > **PRD**：`docs/system-settings-policy-prd-2026-05-09.md`。  
 > **Edge 契約**：**`docs/scheduling-policy-edge-function-contract.md`**。  
 > **SQL 骨架**：**`supabase/migrations/20260509153000_facility_scheduling_policy_versioned_skeleton.sql`**（表／觸發器）、**`supabase/migrations/20260509153100_facility_scheduling_policy_versioned_rls.sql`**（RLS）。  
-> **母本**：PDF 02【16】智能排班設定、復康服務基本設定。
+> **母本**：PDF 02【16】智能排班設定、復康服務基本設定。  
+> **對照骨架與測試**：**`docs/seq29-system-settings-pdf02-traceability.md`** 第 4 節；**Staging／UAT**（**二之一** 無 env 指令表）：**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`**；**`npm run test:e2e:system-settings-policy`**、**`npm run test:e2e:smoke`**（**`hash #system-settings`**）。
 
 以下為 **邏輯表** 清單；實際欄位名以 **`20260509153000`**／**`20260509153100`** migration 為準，演進時可增欄不改表意。
 
@@ -138,4 +139,5 @@
 
 | 日期 | 說明 |
 |------|------|
+| 2026-05-13 | 開首互鏈 **seq29** 第 4 節、**UAT** **二之一** 與 **demo** **E2E** 指令。 |
 | 2026-05-09 | 初版：表清單、欄位概念、讀取契約。 |
