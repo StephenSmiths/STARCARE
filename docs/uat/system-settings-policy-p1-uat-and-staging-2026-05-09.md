@@ -29,6 +29,7 @@
 | U4 | 填寫變更原因、勾選確認、生效時間選「此刻」或數分鐘後，按 **提交政策版本** | 成功訊息含版本 id 前綴；無 R_OVERLAP／R_EFFECTIVE 錯誤 |
 | U5 | 以相同表單連按兩次提交（相同內容） | 第二次可能 **409** 或 **R_OVERLAP**（視 idempotency 與生效日）；屬預期防重／不重疊行為 |
 | U6 | 再開新分頁載入系統設定 | 若 U4 成功，午休／上限應與伺服器 **scheduling-policy-current-get** 一致（由 hydrate 帶入） |
+| U7 | U4 成功後，於同一頁檢視 **政策版本列表（雲端）** | 新列出現於表首（依 effective_from 新→舊）；狀態與變更摘要與提交內容合理一致 |
 
 ---
 
@@ -47,4 +48,4 @@
 |------|------|
 | 2026-05-09 | 初版：P1 畫面接 API 後之 Staging／UAT 合併文件。 |
 | 2026-05-09 | 補 Staging：`VITE_SUPABASE_*` 與 Vercel／Dashboard 對齊說明；新增 **`npm run verify:supabase-vite-env`**、**`npm run verify:supabase-vite-env:ping`**。 |
-| 2026-05-12 | Staging 前置 Edge 增 **`scheduling-policy-versions-list`**；U1 預期含版本列表。 |
+| 2026-05-12 | Staging 前置 Edge 增 **`scheduling-policy-versions-list`**；U1 預期含版本列表；增 **U7**（提交後版本列表可見性）。 |
