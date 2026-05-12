@@ -19,6 +19,7 @@ export const useSystemSettingsPolicySync = ({ draft, hydrateP1FromBundle }: Args
   const repo = useMemo(() => createSchedulingPolicyRepository(), [])
   const [baseBundle, setBaseBundle] = useState<SchedulingPolicyBundle | null>(null)
   const [loadError, setLoadError] = useState<string | null>(null)
+  const [isPolicyLoading, setIsPolicyLoading] = useState(false)
   const [submitMessage, setSubmitMessage] = useState<string | null>(null)
   const [validateErrors, setValidateErrors] = useState<PolicyValidateError[]>([])
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -30,6 +31,7 @@ export const useSystemSettingsPolicySync = ({ draft, hydrateP1FromBundle }: Args
     if (!edgeEnabled) return
     let alive = true
     void (async () => {
+      setIsPolicyLoading(true)
       try {
         const b = await repo.getCurrentBundle(STARCARE_DEFAULT_FACILITY_ID)
         if (!alive) return
@@ -38,6 +40,8 @@ export const useSystemSettingsPolicySync = ({ draft, hydrateP1FromBundle }: Args
         setLoadError(null)
       } catch (e) {
         if (alive) setLoadError(String(e))
+      } finally {
+        if (alive) setIsPolicyLoading(false)
       }
     })()
     return () => {
@@ -107,5 +111,14 @@ export const useSystemSettingsPolicySync = ({ draft, hydrateP1FromBundle }: Args
     [draft, baseBundle, edgeEnabled, repo],
   )
 
-  return { edgeEnabled, loadError, validateErrors, submitMessage, isSubmitting, submitPolicyVersion }
+  return {
+    edgeEnabled,
+    loadError,
+    isPolicyLoading,
+    currentPolicyVersion: baseBundle?.policyVersion ?? null,
+    validateErrors,
+    submitMessage,
+    isSubmitting,
+    submitPolicyVersion,
+  }
 }

@@ -7,6 +7,7 @@ import { useSystemSettings } from '../hooks/useSystemSettings'
 import { useSystemSettingsPolicySync } from '../hooks/useSystemSettingsPolicySync'
 import { SystemSettingsNumericCapsCard } from './SystemSettingsNumericCapsCard'
 import { SystemSettingsPdf16Section } from './SystemSettingsPdf16Section'
+import { SystemSettingsCurrentPolicyVersionCard } from './SystemSettingsCurrentPolicyVersionCard'
 import { SystemSettingsPolicySubmitCard } from './SystemSettingsPolicySubmitCard'
 import { SystemSettingsRulesTogglesCard } from './SystemSettingsRulesTogglesCard'
 import { SystemSettingsSchedulingWindowsCard } from './SystemSettingsSchedulingWindowsCard'
@@ -65,14 +66,22 @@ export const SystemSettingsHome = () => {
       </div>
 
       <ListSectionPanel title="政策版本（雲端提交）（P1）" defaultExpanded>
-        <SystemSettingsPolicySubmitCard
-          edgeEnabled={policySync.edgeEnabled}
-          loadError={policySync.loadError}
-          validateErrors={policySync.validateErrors}
-          submitMessage={policySync.submitMessage}
-          isSubmitting={policySync.isSubmitting}
-          onSubmit={policySync.submitPolicyVersion}
-        />
+        <div className="flex flex-col gap-4">
+          <SystemSettingsCurrentPolicyVersionCard
+            edgeEnabled={policySync.edgeEnabled}
+            loadError={policySync.loadError}
+            isPolicyLoading={policySync.isPolicyLoading}
+            version={policySync.currentPolicyVersion}
+          />
+          <SystemSettingsPolicySubmitCard
+            edgeEnabled={policySync.edgeEnabled}
+            loadError={policySync.loadError}
+            validateErrors={policySync.validateErrors}
+            submitMessage={policySync.submitMessage}
+            isSubmitting={policySync.isSubmitting}
+            onSubmit={policySync.submitPolicyVersion}
+          />
+        </div>
       </ListSectionPanel>
 
       <AuditTrailPanel
