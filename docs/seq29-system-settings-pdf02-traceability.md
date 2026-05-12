@@ -4,7 +4,7 @@
 > **上一序號**：**`docs/seq28-user-manual-pdf02-traceability.md`**（用戶手冊【15】）。  
 > **用途**：將 **排班視窗、非治療時段、規則／服務開關、SC 僅治療師、本機儲存、審計、跨模組重載** 與母本對表；標示 **院舍設定後端 API** 與 **PDF 逐欄簽核** 缺口。  
 > **UAT／Staging（P1）**：**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`**（含 **二之一** 無 Supabase 建置之 **Playwright** 指令對照）；**對客範本**：**`docs/system-settings-policy-customer-reply-2026-05-09.md`**。  
-> **Demo E2E（無 Supabase）**：**`npm run test:e2e:system-settings-policy`**（**`e2e/system-settings-policy-p1-demo.spec.ts`**；與 **`README.md`** 常用指令並列）。
+> **Demo E2E（無 Supabase）**：**`npm run test:e2e:system-settings-policy`**（**`e2e/system-settings-policy-p1-demo.spec.ts`**）、**`npm run test:e2e:smoke`**（**`hash #system-settings`**）；與 **`README.md`** 常用指令並列。
 
 > **全案收尾與證據留痕**：**`README.md`**「專案收尾」（**`docs/business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**）；**`docs/project-completion-*.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log.md`** 及歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p3.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p4.md`**）；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**；Gate A 自動證據固定入口 **`docs/evidence/gate-a-latest.md`**（檔內 **Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／**`npm run gatea:evidence:preflight:strict`**；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**（**`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段））；多數 **`gatea:evidence:*`** 終端 stdout 頁尾 **`scripts/gate-a-markdown-footer.mjs`**（**Export 契約**）。
 
@@ -118,6 +118,7 @@
 | 2026-05-12 | §1／§4：**`AuditTrailPanel`** 標題 **`useId`**（取代固定 **`audit-trail-heading`**）；**`AuditTrailPanel.test`**；**policy P1 demo E2E** 審計 **section**。 |
 | 2026-05-12 | §4：**`e2e/smoke`** 於 **`#system-settings`** 斷言本機 **`group`**（Seq 29）。 |
 | 2026-05-09 | §4：**`README.md`**：**`test:e2e:smoke`** 註解補 **`#system-settings`** **審計** 展開收合煙霧。 |
+| 2026-05-13 | 開首 **Demo E2E** 併列 **`test:e2e:smoke`**（**`#system-settings`**）；**`docs/system-settings-policy-customer-reply-2026-05-09.md`** 開首互鏈 **UAT** **二之一**。 |
 | 2026-05-13 | 開首 **UAT** 互鏈補 **二之一** 無 env 煙霧；**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`** 增 **二之一** 與 **§四** 修訂紀錄。 |
 | 2026-05-09 | §4：**`README.md`**：**`test:e2e:smoke`** 註解補 **`#system-settings`** 政策收合／**`Set.size === 5`**。 |
 | 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **政策版本** **收合**／**展開** 與五區 **`aria-controls`** **`id`** **`Set.size === 5`**（與 **policy P1 demo E2E** 對齊）。 |
