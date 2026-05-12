@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 /**
  * 與 `src/app/viewRouting.ts` 模組標題、各頁 **`AuditTrailPanel`** 標題對齊（demo 無 Supabase，Seq 3）。
  * 審計收合測試並斷言 **`aria-controls`** 與 **`hidden`**（Seq 12；與 Vitest 一致）。
- * **`#system-settings`** 另斷言本機草稿 **group**、**Pdf16 智能排班** 內 **排班時間設定**／**排班規則設定（P1）** **`ListSectionPanel`**（**`aria-controls`**、無 **`hidden`**、兩區 **`id`** 有別）、**政策版本** **`ListSectionPanel`** 預設展開、**本機儲存** 鈕與無 Edge 說明（Seq 29 P1）。
+ * **`#system-settings`** 另斷言本機草稿 **group**、**Pdf16 智能排班** 內 **排班時間設定**／**排班規則設定（P1）** **`ListSectionPanel`**（**`aria-controls`**、無 **`hidden`**、兩區 **`id`** 有別）、**Pdf16 復康** 內 **資助復康服務（P1）** **`ListSectionPanel`** 預設收合（**展開**、**`aria-controls`**、**`hidden`**）、**政策版本** **`ListSectionPanel`** 預設展開、**本機儲存** 鈕與無 Edge 說明（Seq 29 P1）。
  * 不含 `#dashboard`（首屏另測）、不含 `#user-manual`（無審計區，另測）。
  */
 const HASH_AUDIT_CASES: ReadonlyArray<{
@@ -101,6 +101,25 @@ test.describe('smoke', () => {
         expect(rulesContentId).toBeTruthy()
         expect(rulesContentId).not.toBe(scheduleTimeContentId)
         await expect(page.locator(`[id="${rulesContentId}"]`)).not.toHaveAttribute('hidden')
+        const rehabHeading = page.getByRole('heading', { name: '復康服務基本設定', exact: true })
+        await expect(rehabHeading).toBeVisible()
+        const rehabSectionId = await rehabHeading.getAttribute('id')
+        expect(rehabSectionId).toBeTruthy()
+        expect(rehabSectionId).not.toBe(schedulingSectionId)
+        const rehabPdfSection = page.locator(`section[aria-labelledby="${rehabSectionId}"]`)
+        const subsidizedHeading = page.getByRole('heading', {
+          name: '資助復康服務與認知障礙症服務（P1）',
+          exact: true,
+        })
+        await expect(subsidizedHeading).toBeVisible()
+        const subsidizedPanel = rehabPdfSection.locator('section').filter({ has: subsidizedHeading })
+        const expandSubsidized = subsidizedPanel.getByRole('button', { name: '展開' })
+        await expect(expandSubsidized).toBeVisible()
+        const subsidizedContentId = await expandSubsidized.getAttribute('aria-controls')
+        expect(subsidizedContentId).toBeTruthy()
+        expect(subsidizedContentId).not.toBe(scheduleTimeContentId)
+        expect(subsidizedContentId).not.toBe(rulesContentId)
+        await expect(page.locator(`[id="${subsidizedContentId}"]`)).toHaveAttribute('hidden', '')
         const policyListHeading = page.getByRole('heading', {
           name: '政策版本（雲端提交）（P1）',
           exact: true,
