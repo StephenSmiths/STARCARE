@@ -102,7 +102,7 @@
 | `staff-profile-update` | Seq 26（TeamLead／Admin 單筆主檔） |
 | `schedule-assignments-batch`／`scheduling-history-soft-delete` | SCH-10（Seq 10 批次軟刪） |
 | `scheduling-sessions-list` / `scheduling-rules-get` / `activities-list` | SCH-11、SCH-12、STF-01 |
-| **`scheduling-policy-current-get`**／**`scheduling-policy-at-get`**／**`scheduling-policy-versions-list`**／**`scheduling-policy-version-validate`**／**`scheduling-policy-version-commit`**（契約：**`docs/scheduling-policy-edge-function-contract.md`**；已列入 **`ops:deploy:all`**） | Seq 29【16】、SCH-11 接軌 |
+| **`scheduling-policy-current-get`**／**`scheduling-policy-at-get`**／**`scheduling-policy-versions-list`**／**`scheduling-policy-version-validate`**／**`scheduling-policy-version-commit`**（契約：**`docs/scheduling-policy-edge-function-contract.md`**；已列入 **`ops:deploy:all`**） | Seq 29【16】、SCH-11 接軌；**UAT** **二之一**／**`go-live-checklist`** §5 見 **`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`**、**`docs/go-live-checklist.md`** |
 | `scheduling-kpi-history-list` / `scheduling-kpi-history-upsert` / `scheduling-kpi-history-clear` | SCH-05 |
 | `assessment-due-list` / `assessment-completion-records-list` / `assessment-completion-records-append`（審計見 **`docs/assessment-completion-records-contract.md`**） | Seq 9（§4.3 待辦）／Seq 22（評估完成紀錄讀寫） |
 | `activity-sessions-list` | ACT-02 |

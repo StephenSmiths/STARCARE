@@ -120,6 +120,7 @@
 | 2026-05-12 | §4：**`e2e/smoke`** 於 **`#system-settings`** 斷言本機 **`group`**（Seq 29）。 |
 | 2026-05-09 | §4：**`README.md`**：**`test:e2e:smoke`** 註解補 **`#system-settings`** **審計** 展開收合煙霧。 |
 | 2026-05-23 | §6 **P1** 列：**UAT** 補 **二之一**；**`pdf-alignment-p0-backlog.md`** Seq 29：五支 Edge、**UAT**／**demo E2E** 互鏈；**`business-logic.md`** §0 補 **UAT**／**demo** 一句。 |
+| 2026-05-23 | **`pdf03`** §4／**`feature-list`** §7：**Seq 29** 維護與 **`scheduling-policy-*`** 列補 **runbook**／**go-live**／**`seq29`** §5。 |
 | 2026-05-23 | **§5**：維護閉環增 **runbook**／**go-live**／**UAT** **二之一** 對齊；**`supabase-deploy-runbook.md`** §2／§6、**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`** **二之一** 互鏈。 |
 | 2026-05-23 | **`go-live-checklist.md`** §5：Edge 契約勾選項補 **UAT** **二之一** 與 **demo** **Playwright** 指令互鏈。 |
 | 2026-05-13 | **Schema** 開首互鏈 **seq29**／**UAT** **二之一**／**demo E2E**；**`docs/feature-list.md`** §8 第 5 點補 **二之一** 與 **seq29** 第 4 節。 |
