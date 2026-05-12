@@ -33,7 +33,7 @@ class InMemorySchedulingPolicyRepository implements SchedulingPolicyRepository {
   }
 }
 
-class EdgeSchedulingPolicyRepository implements SchedulingPolicyRepository {
+export class EdgeSchedulingPolicyRepository implements SchedulingPolicyRepository {
   private readonly supabaseUrl: string
   private readonly anonKey: string
 
