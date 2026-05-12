@@ -10,9 +10,11 @@ test.describe('system-settings policy P1（demo 無 Supabase）', () => {
     await expect(page).toHaveURL(/#system-settings/)
     await expect(page.getByRole('heading', { name: '系統設定', exact: true })).toBeVisible()
     await expect(page.getByRole('heading', { name: '智能排班設定', exact: true })).toBeVisible()
-    await expect(
-      page.getByRole('heading', { name: '政策版本（雲端提交）（P1）', exact: true }),
-    ).toBeVisible()
+    const policyHeading = page.getByRole('heading', { name: '政策版本（雲端提交）（P1）', exact: true })
+    await expect(policyHeading).toBeVisible()
+    const policyHeadingId = await policyHeading.getAttribute('id')
+    expect(policyHeadingId).toBeTruthy()
+    await expect(page.locator(`section[aria-labelledby="${policyHeadingId}"]`)).toHaveCount(1)
     await expect(page.getByText('未偵測到 Supabase 環境變數')).toBeVisible()
     await expect(page.getByRole('button', { name: '儲存設定（本機）' })).toBeVisible()
   })

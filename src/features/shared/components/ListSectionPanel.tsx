@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react'
+import { useId, useState, type ReactNode } from 'react'
 import { uiTokens } from '../ui/uiTokens'
 
 type ListSectionPanelProps = {
@@ -10,7 +10,7 @@ type ListSectionPanelProps = {
   children: ReactNode
 }
 
-/** 清單區塊：預設收合＋可展開（降低主流程頁面干擾）。 */
+/** 清單區塊：預設收合＋可展開（降低主流程頁面干擾）。**`section`** 以 **`aria-labelledby`** 與標題 **`id`** 關聯（無障礙 landmark）。 */
 export const ListSectionPanel = ({
   title,
   summary,
@@ -18,13 +18,16 @@ export const ListSectionPanel = ({
   titleHeadingLevel = 2,
   children,
 }: ListSectionPanelProps) => {
+  const headingId = useId()
   const [expanded, setExpanded] = useState(defaultExpanded)
   const TitleTag = titleHeadingLevel === 3 ? 'h3' : 'h2'
 
   return (
-    <section>
+    <section aria-labelledby={headingId}>
       <div className={uiTokens.layoutFlexBetweenGap2}>
-        <TitleTag className={uiTokens.blockHeading}>{title}</TitleTag>
+        <TitleTag id={headingId} className={uiTokens.blockHeading}>
+          {title}
+        </TitleTag>
         <div className={uiTokens.layoutFlexItemsCenterGap2}>
           {summary ? <span className={uiTokens.metaChip}>{summary}</span> : null}
           <button
