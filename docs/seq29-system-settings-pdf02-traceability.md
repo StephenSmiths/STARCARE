@@ -76,6 +76,7 @@
 ## 5. 維護閉環
 
 - 變更 **`SystemSettingsSnapshot`** 欄位、**驗證規則**或 **審計 `detail`** 時：同步本檔、**`docs/seq15-scheduling-pdf02-traceability.md`**（排班域）、**`pdf-sequenced-gap-checklist.md`** Seq 29、**`pdf-sequenced-gap-checklist-revision-log.md`**（**`docs/pdf03-cursorrules-alignment.md`** §4）。
+- 變更 **`scheduling-policy-*`** 部署敘述（**`docs/supabase-deploy-runbook.md`** §2 **Seq 29**、§6）或 **`docs/go-live-checklist.md`** §5（Edge 契約／前向煙霧）時：維持與 **本檔** §4、**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`** **二之一** 一致。
 - **下一序號（02 模組鏈結束）**：母本 **03** 工程治理 **Seq 35** — **`docs/seq35-pdf03-cursorrules-alignment-traceability.md`**（對 **`docs/pdf03-cursorrules-alignment.md`** 換版差異與閉環）；鏈 **Seq 36～38** 見該檔與 **`pdf-sequenced-gap-checklist.md`** **C 區**。
 
 ---
@@ -119,6 +120,7 @@
 | 2026-05-12 | §4：**`e2e/smoke`** 於 **`#system-settings`** 斷言本機 **`group`**（Seq 29）。 |
 | 2026-05-09 | §4：**`README.md`**：**`test:e2e:smoke`** 註解補 **`#system-settings`** **審計** 展開收合煙霧。 |
 | 2026-05-23 | §6 **P1** 列：**UAT** 補 **二之一**；**`pdf-alignment-p0-backlog.md`** Seq 29：五支 Edge、**UAT**／**demo E2E** 互鏈；**`business-logic.md`** §0 補 **UAT**／**demo** 一句。 |
+| 2026-05-23 | **§5**：維護閉環增 **runbook**／**go-live**／**UAT** **二之一** 對齊；**`supabase-deploy-runbook.md`** §2／§6、**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`** **二之一** 互鏈。 |
 | 2026-05-23 | **`go-live-checklist.md`** §5：Edge 契約勾選項補 **UAT** **二之一** 與 **demo** **Playwright** 指令互鏈。 |
 | 2026-05-13 | **Schema** 開首互鏈 **seq29**／**UAT** **二之一**／**demo E2E**；**`docs/feature-list.md`** §8 第 5 點補 **二之一** 與 **seq29** 第 4 節。 |
 | 2026-05-13 | **Edge 契約**（**`docs/scheduling-policy-edge-function-contract.md`**）開首補 **前端 demo 煙霧**；**`docs/pdf03-cursorrules-alignment.md`** §3 **Seq 29** 檢核併列 **`test:e2e:smoke`** 與 **UAT** **二之一**。 |
