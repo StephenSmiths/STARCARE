@@ -51,7 +51,7 @@
 - [ ] **Seq 26** — 員工管理【13】：**單筆維護**流程、部門／TeamLead／Member **完整架構**與 PDF 對表。對照骨架：**`docs/seq26-staff-management-pdf02-traceability.md`**。
 - [ ] **Seq 27** — 通知中心【14】：**電郵／即時**通道與收件對象規則與 PDF 對表。對照骨架：**`docs/seq27-notification-center-pdf02-traceability.md`**。
 - [ ] **Seq 28** — 用戶手冊【15】：**正式圖文版**（或客戶提供 PDF）與 **角色分章**。對照骨架：**`docs/seq28-user-manual-pdf02-traceability.md`**。
-- [ ] **Seq 29** — 系統設定【16】：**院舍設定後端 API**（**`docs/scheduling-policy-edge-function-contract.md`** 四端點；**`docs/system-settings-policy-prd-2026-05-09.md`**／**`docs/system-settings-policy-schema-2026-05-09.md`**／migration **`20260509153000_facility_scheduling_policy_versioned_skeleton.sql`**＋**`20260509153100_facility_scheduling_policy_versioned_rls.sql`**）、`specialCareTherapistOnly` 納入指派邏輯、與 PDF **逐欄對表**。對照骨架：**`docs/seq29-system-settings-pdf02-traceability.md`**。
+- [ ] **Seq 29** — 系統設定【16】：**院舍設定後端 API**（**`docs/scheduling-policy-edge-function-contract.md`** 五支 **`scheduling-policy-*`**；**`docs/system-settings-policy-prd-2026-05-09.md`**／**`docs/system-settings-policy-schema-2026-05-09.md`**／migration **`20260509153000_facility_scheduling_policy_versioned_skeleton.sql`**＋**`20260509153100_facility_scheduling_policy_versioned_rls.sql`**）、`specialCareTherapistOnly` 納入指派邏輯、與 PDF **逐欄對表**。**Staging／UAT 與本機 demo 煙霧**：**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`**（**二之一**）；**`npm run test:e2e:system-settings-policy`**、**`npm run test:e2e:smoke`**（**`hash #system-settings`**，細目 **`docs/seq29-system-settings-pdf02-traceability.md`** 第 4 節）。對照骨架：**`docs/seq29-system-settings-pdf02-traceability.md`**。
 
 ---
 
@@ -112,6 +112,7 @@
 | 2026-05-15 | **`business-logic-revision-log.md`**（**`business-logic.md`** §8 拆出）；**`README.md`**、**`pdf03`** §4、**`feature-list.md`** 頁尾、本檔 Seq 38 敘述。 |
 | 2026-05-16 | **`pdf-sequenced-gap-checklist-revision-log.md`**／**`pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**；**`pdf-sequenced-gap-checklist.md`** 主檔；**`pdf03`**、**`README.md`**、**`feature-list.md`**。 |
 | 2026-05-17 | **`pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**；主修訂日誌再瘦身；**`pdf03`**、**`README.md`**、**`.cursorrules`** §3。 |
+| 2026-05-23 | Seq 29 勾選項：後端 **五支** **`scheduling-policy-*`**（契約 **`scheduling-policy-edge-function-contract.md`**）；補 **UAT** **二之一** 與 **`test:e2e:system-settings-policy`**／**`test:e2e:smoke`**、**`seq29`** 第 4 節互鏈。 |
 | 2026-05-22 | 開首 **對照**：補 **Seq 35～38**（03／**C**）對照骨架路徑（**`seq35`**～**`seq38`**）；與 **`business-logic.md`** §0、**`pdf-sequenced-gap-checklist.md`**「**運維與工程**」／**§C** 一致；**`pdf-sequenced-gap-checklist-revision-log.md`** 一筆。 |
 | 2026-05-02 | 初版：依 `docs/pdf-sequenced-gap-checklist.md` Seq 1～38 摘要「仍待／待／需」拆為可勾選 P0。 |
 | 2026-05-02 | 程式進度：`staff-profiles-list` Edge＋`StaffOverviewRow.roleType`；儀表盤 PT/OT 以 DB `role_type` 為優先（P0「Seq 13 PT/OT」之實作面；**逐欄對表簽核**仍待）。 |
