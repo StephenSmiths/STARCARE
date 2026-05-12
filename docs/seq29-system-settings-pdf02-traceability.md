@@ -55,7 +55,7 @@
 | `useSystemSettings.saveSavingState.test.ts`（Vitest） | **`save`** 延後儲存期間 **`isSaving`**；驗證失敗不觸發 **`saveSystemSettingsWithAudit`** |
 | `systemSettingsValidation.test.ts` | 驗證規則 |
 | `systemSettingsExternalStore.test.ts` | 版本 bump |
-| `e2e/smoke.spec.ts` | 各 hash 模組與審計標題；**`#staff-import`** 審計 **`aria-controls`**／**`hidden`**；**`#system-settings`**：**本機設定（瀏覽器儲存）** **`group`**、**政策版本（P1）**、**儲存設定（本機）**、無 Edge 說明 |
+| `e2e/smoke.spec.ts` | 各 hash 模組與審計標題；**`#staff-import`** 審計 **`aria-controls`**／**`hidden`**；**`#system-settings`**：**本機設定（瀏覽器儲存）** **`group`**、**政策版本** **`ListSectionPanel`** 預設展開（**`aria-controls`**、無 **`hidden`**）、**政策版本（P1）**、**儲存設定（本機）**、無 Edge 說明 |
 | `e2e/system-settings-policy-p1-demo.spec.ts` | **`npm run test:e2e:system-settings-policy`**：本機區 **`group`**／**`aria-busy`**；**智能排班設定**／**復康服務基本設定**／**資助復康** **`ListSectionPanel`** **`aria-controls`**／**`hidden`**／展開後 **SC** 文案；政策版本（P1）／**審計** **`section[aria-labelledby]`** 與對應標題 **id**、無 Edge 本機說明 |
 | `useSystemSettingsPolicySync*.test.ts`（Vitest） | 載入／提交成功與失敗路徑（**`@testing-library/react`**） |
 | `useSystemSettingsPolicySync.reload.test.ts`（Vitest） | **`loadError`** 後 **`reloadPolicy`** 成功則清除錯誤並 **hydrate** |
@@ -118,3 +118,4 @@
 | 2026-05-09 | §4：**`ListSectionPanel.test`**／**`AuditTrailPanel.test`** 補 **`defaultExpanded`** 邊界。 |
 | 2026-05-09 | §4：**`e2e/smoke`** 審計收合測試斷言 **`aria-controls`**／**`hidden`**（**`#staff-import`**）。 |
 | 2026-05-09 | §4：**`e2e/system-settings-policy-p1-demo`** 補 **資助復康** **`ListSectionPanel`** **`aria-controls`**／**`hidden`**。 |
+| 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **政策版本** **`ListSectionPanel`** 預設展開（**`aria-controls`**）。 |

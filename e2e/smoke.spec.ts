@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 /**
  * 與 `src/app/viewRouting.ts` 模組標題、各頁 **`AuditTrailPanel`** 標題對齊（demo 無 Supabase，Seq 3）。
  * 審計收合測試並斷言 **`aria-controls`** 與 **`hidden`**（Seq 12；與 Vitest 一致）。
- * **`#system-settings`** 另斷言本機草稿 **group**、**政策版本（P1）** 標題、**本機儲存** 鈕與無 Edge 說明（Seq 29 P1）。
+ * **`#system-settings`** 另斷言本機草稿 **group**、**政策版本** **`ListSectionPanel`** 預設展開（**`aria-controls`**、無 **`hidden`**）、**本機儲存** 鈕與無 Edge 說明（Seq 29 P1）。
  * 不含 `#dashboard`（首屏另測）、不含 `#user-manual`（無審計區，另測）。
  */
 const HASH_AUDIT_CASES: ReadonlyArray<{
@@ -79,11 +79,21 @@ test.describe('smoke', () => {
       await expect(page.getByRole('heading', { name: row.auditHeading })).toBeVisible()
       if (row.hash === 'system-settings') {
         await expect(page.getByRole('group', { name: '本機設定（瀏覽器儲存）' })).toBeVisible()
-        await expect(
-          page.getByRole('heading', { name: '政策版本（雲端提交）（P1）', exact: true }),
-        ).toBeVisible()
+        const policyListHeading = page.getByRole('heading', {
+          name: '政策版本（雲端提交）（P1）',
+          exact: true,
+        })
+        await expect(policyListHeading).toBeVisible()
         await expect(page.getByRole('button', { name: '儲存設定（本機）' })).toBeVisible()
         await expect(page.getByText('未偵測到 Supabase 環境變數')).toBeVisible()
+        const policyListPanel = page.locator('section').filter({ has: policyListHeading })
+        const collapsePolicy = policyListPanel.getByRole('button', { name: '收合' })
+        await expect(collapsePolicy).toBeVisible()
+        const policyListContentId = await collapsePolicy.getAttribute('aria-controls')
+        expect(policyListContentId).toBeTruthy()
+        const policyListContent = page.locator(`[id="${policyListContentId}"]`)
+        await expect(policyListContent).toHaveCount(1)
+        await expect(policyListContent).not.toHaveAttribute('hidden')
       }
     })
   }
