@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import type { AuditTrailRecord } from '../../../services/auditTrailService'
 import { uiTokens } from '../ui/uiTokens'
 import {
@@ -19,20 +19,21 @@ export interface AuditTrailPanelProps {
   auditTrail: AuditTrailRecord[]
 }
 
-/** 全域審計列表：支援動作／實體類型／關鍵字篩選（Seq 12） */
+/** 全域審計列表：支援動作／實體類型／關鍵字篩選（Seq 12）。**`section`** 以 **`useId`** 綁定 **`aria-labelledby`**，避免同路由多實例時 **`id`** 重複。 */
 export const AuditTrailPanel = ({
   title = '最近審計紀錄（Audit Trail）',
   help,
   defaultExpanded = false,
   auditTrail,
 }: AuditTrailPanelProps) => {
+  const headingId = useId()
   const vm = useAuditTrailPanelFilter(auditTrail)
   const [expanded, setExpanded] = useState(defaultExpanded)
 
   return (
-    <section className={uiTokens.auditTrailPanel} aria-labelledby="audit-trail-heading">
+    <section className={uiTokens.auditTrailPanel} aria-labelledby={headingId}>
       <div className={uiTokens.layoutFlexBetweenGap2}>
-        <h3 id="audit-trail-heading" className={uiTokens.panelTitleSm}>
+        <h3 id={headingId} className={uiTokens.panelTitleSm}>
           {title}
         </h3>
         <div className={uiTokens.layoutFlexItemsCenterGap2}>

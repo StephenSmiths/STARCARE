@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 
 /**
  * Demo 建置（`VITE_SUPABASE_*` 清空）：與 **`npm run test:e2e:smoke`** 同型 preview；
- * 驗證 Seq 29 P1：兩個 **Pdf16 大節**（智能排班／復康服務）、**政策版本** landmark 與無 Edge 時之本機說明（對照 UAT 未設 env 預期）。
+ * 驗證 Seq 29 P1：兩個 **Pdf16 大節**（智能排班／復康服務）、**政策版本**、**審計** landmark 與無 Edge 時之本機說明（對照 UAT 未設 env 預期）。
  */
 test.describe('system-settings policy P1（demo 無 Supabase）', () => {
   test('政策區塊標題與本機儲存說明可見', async ({ page }) => {
@@ -30,5 +30,10 @@ test.describe('system-settings policy P1（demo 無 Supabase）', () => {
     await expect(page.locator(`section[aria-labelledby="${policyHeadingId}"]`)).toHaveCount(1)
     await expect(page.getByText('未偵測到 Supabase 環境變數')).toBeVisible()
     await expect(page.getByRole('button', { name: '儲存設定（本機）' })).toBeVisible()
+    const auditHeading = page.getByRole('heading', { name: '系統設定與相關審計（全域）', exact: true })
+    await expect(auditHeading).toBeVisible()
+    const auditHeadingId = await auditHeading.getAttribute('id')
+    expect(auditHeadingId).toBeTruthy()
+    await expect(page.locator(`section[aria-labelledby="${auditHeadingId}"]`)).toHaveCount(1)
   })
 })

@@ -20,7 +20,7 @@
 | 規則與服務 | 第二段 | **`rulesEngineEnabled`**、**`fixedActivitiesEnabled`**、**`serviceTypesEnabled`**。 |
 | SC | 第三段 | **`specialCareTherapistOnly`**（與 DB **`scheduling_rules.allow_sc_therapist_only`** 併用敘述見主檔）。 |
 | 儲存 | **`useSystemSettings`**、**`SystemSettingsHome`** 本機區 | **`validateSystemSettings`**、**`lockRef`**、**`SYSTEM_SETTINGS_SAVE`** 審計；**`save`** 於 **`setTimeout(0)`** 落檔（避免 **`isSaving`** 與 **`setIsSaving(false)`** 併批致無法觀測）；本機表單外殼 **`role="group"`** **`aria-label="本機設定（瀏覽器儲存）"`** **`aria-busy={isSaving}`**。 |
-| 審計 | **`AuditTrailPanel`**（頁底） | 與 **Seq 12** 同源；**`SYSTEM_SETTINGS_SAVE`** 亦進 **Seq 27** 通知。 |
+| 審計 | **`AuditTrailPanel`**（頁底） | 與 **Seq 12** 同源；**`section aria-labelledby`** 綁 **`h3`**（**`useId`**，避免多實例 **`id`** 衝突）；**`SYSTEM_SETTINGS_SAVE`** 亦進 **Seq 27** 通知。 |
 
 **路由**：`view:system-settings`、**`#system-settings`**。
 
@@ -50,12 +50,13 @@
 | 測試／E2E | 涵蓋 |
 |-----------|------|
 | `ListSectionPanel.test.tsx`（Vitest） | **`section`** **`aria-labelledby`** 與 **`h2`／`h3`** 標題 **id** 一致 |
+| `AuditTrailPanel.test.tsx`（Vitest） | **`section`** **`aria-labelledby`** 與 **`h3`** **id** 一致；同頁雙實例 **id** 不重複 |
 | `SystemSettingsPdf16Section.test.tsx`（Vitest） | **Pdf16** 大節 **`section`** **`aria-labelledby`** 與 **`h2`** **id** 一致 |
 | `useSystemSettings.saveSavingState.test.ts`（Vitest） | **`save`** 延後儲存期間 **`isSaving`**；驗證失敗不觸發 **`saveSystemSettingsWithAudit`** |
 | `systemSettingsValidation.test.ts` | 驗證規則 |
 | `systemSettingsExternalStore.test.ts` | 版本 bump |
 | `e2e/smoke.spec.ts` | **`#system-settings`**、**系統設定與相關審計** |
-| `e2e/system-settings-policy-p1-demo.spec.ts` | **`npm run test:e2e:system-settings-policy`**：本機區 **`group`**／**`aria-busy`**；**智能排班設定**／**復康服務基本設定**／政策版本（P1）**`section[aria-labelledby]`** 與對應標題 **id**、無 Edge 本機說明 |
+| `e2e/system-settings-policy-p1-demo.spec.ts` | **`npm run test:e2e:system-settings-policy`**：本機區 **`group`**／**`aria-busy`**；**智能排班設定**／**復康服務基本設定**／政策版本（P1）／**審計** **`section[aria-labelledby]`** 與對應標題 **id**、無 Edge 本機說明 |
 | `useSystemSettingsPolicySync*.test.ts`（Vitest） | 載入／提交成功與失敗路徑（**`@testing-library/react`**） |
 | `useSystemSettingsPolicySync.reload.test.ts`（Vitest） | **`loadError`** 後 **`reloadPolicy`** 成功則清除錯誤並 **hydrate** |
 | `useSystemSettingsPolicySync.postCommitRefresh.test.ts`（Vitest） | 提交成功後靜默 **`loadPolicy`** 失敗時 **`submitMessage`** 補述與 **`loadError`** |
@@ -108,3 +109,4 @@
 | 2026-05-12 | §1／§4：本機儲存 **`save`** **`setTimeout(0)`**；**`SystemSettingsHome`** **`role="group"`** **`aria-busy`**；**`useSystemSettings.saveSavingState.test`**；**policy P1 demo E2E** 本機 **group**。 |
 | 2026-05-12 | §1／§4：**`SystemSettingsPdf16Section`** **`section aria-labelledby`**（**`h2`** **id**）；**`SystemSettingsPdf16Section.test`**；**policy P1 demo E2E** 斷言 **智能排班設定** 區段。 |
 | 2026-05-12 | §4：**policy P1 demo E2E** 補 **復康服務基本設定** **`section[aria-labelledby]`** 與 **`id`** 有別於智能排班。 |
+| 2026-05-12 | §1／§4：**`AuditTrailPanel`** 標題 **`useId`**（取代固定 **`audit-trail-heading`**）；**`AuditTrailPanel.test`**；**policy P1 demo E2E** 審計 **section**。 |
