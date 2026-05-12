@@ -6,5 +6,21 @@ enabled = true
 
 [functions]
 # JWT 驗證改由 Supabase 平台函式設定管理；此檔案保留區塊供本機 CLI 解析。
-
 # 資料庫：npm run db:push（RLS：20260429130000、角色：20260429140000）
+
+# 院舍政策 Edge（Seq 29）：瀏覽器對含 Authorization 之請求會先送 OPTIONS 預檢。
+# 若平台層 verify_jwt 在進入 Deno 程式前擋下 OPTIONS（無 JWT），預檢非 2xx
+# → Console「CORS preflight…does not have HTTP ok status」→ Failed to fetch。
+# 下列函式改為應用內驗證（guardStaffUser → requireStaffUser），與官方建議之 webhook 模式一致。
+# 對照：https://supabase.com/docs/guides/functions/function-configuration
+[functions.scheduling-policy-current-get]
+verify_jwt = false
+
+[functions.scheduling-policy-at-get]
+verify_jwt = false
+
+[functions.scheduling-policy-version-validate]
+verify_jwt = false
+
+[functions.scheduling-policy-version-commit]
+verify_jwt = false

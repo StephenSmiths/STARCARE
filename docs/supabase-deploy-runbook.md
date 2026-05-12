@@ -85,3 +85,4 @@ limit 20;
 - `Access token not provided`：設定 `SUPABASE_ACCESS_TOKEN` 或先 `supabase login`。
 - `unknown flag: --all`：CLI 不支援 `functions deploy --all`；請用 **`npm run ops:deploy:all`** 或逐支 **`supabase functions deploy <name>`**。
 - `verify_jwt expected map/struct`：不要在 `config.toml` 寫舊版布林格式。
+- **Staging／Vercel 主控台出現 CORS preflight 失敗、`scheduling-policy-*` 的 `Failed to fetch`**：多為平台 **`verify_jwt`** 先擋 **OPTIONS**（預檢無 Bearer）。本 repo 已於 **`supabase/config.toml`** 將 **`scheduling-policy-current-get`**、**`scheduling-policy-at-get`**、**`scheduling-policy-version-validate`**、**`scheduling-policy-version-commit`** 設為 **`verify_jwt = false`**（實際請求仍由 **`requireStaffUser`** 驗證 JWT）。請 **`npx supabase functions deploy <name>`** 重新部署該支或執行 **`npm run ops:deploy:all`**。

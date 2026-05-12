@@ -15,8 +15,9 @@ export type SystemSettingsRulesTogglesCardProps = {
 
 export const SystemSettingsRulesTogglesCard = ({ draft, setField }: SystemSettingsRulesTogglesCardProps) => (
   <article className={uiTokens.surfaceCard}>
-    <h2 className={uiTokens.pageSectionHeading}>規則與服務啟用</h2>
-    <p className={uiTokens.sectionHelp}>規則引擎、固定活動與服務類型總開關（細項待後端對齊）。</p>
+    <p className={uiTokens.sectionHelp}>
+      PDF 02【16】§3.1「排班規則設定」延伸：規則引擎、固定活動與服務類型總開關（P2 矩陣等見 PRD §6）。
+    </p>
     <div className={uiTokens.settingsToggleStack}>
       <label className={uiTokens.formToggleLabel}>
         <input

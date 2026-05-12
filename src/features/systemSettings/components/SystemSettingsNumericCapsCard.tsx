@@ -33,8 +33,10 @@ const capField = (
 
 export const SystemSettingsNumericCapsCard = ({ draft, setField }: SystemSettingsNumericCapsCardProps) => (
   <article className={uiTokens.surfaceCard}>
-    <h2 className={uiTokens.pageSectionHeading}>排班數字上限（P1）</h2>
-    <p className={uiTokens.sectionHelp}>與院舍政策版本 `facility_policy_numeric_limits` 對齊；提交政策版本時一併寫入。</p>
+    <p className={uiTokens.sectionHelp}>
+      PDF 02【16】§3.1「排班規則設定」：治療師／治療助理小組活動每日上限與小組人數上限（P1）；與
+      `facility_policy_numeric_limits` 對齊，提交政策版本時一併寫入。
+    </p>
     <div className={uiTokens.settingsFieldGrid}>
       {capField('治療師小組活動每日上限（節）', draft.therapistGroupSessionsDailyCap, (n) =>
         setField('therapistGroupSessionsDailyCap', n),

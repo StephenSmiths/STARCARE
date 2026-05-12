@@ -2,7 +2,7 @@ import type { UseSystemSettingsResult } from '../hooks/useSystemSettings'
 import type { SystemSettingsSnapshot } from '../types'
 import { uiTokens } from '../../shared/ui/uiTokens'
 
-/** SC 個案承接規則占位（PDF 02【16】與排班規則對齊說明） */
+/** SC 個案承接規則占位（PDF 02【16】§3.2 Special Care） */
 export type SystemSettingsSpecialCareCardProps = {
   draft: Pick<SystemSettingsSnapshot, 'specialCareTherapistOnly'>
   setField: UseSystemSettingsResult['setField']
@@ -10,9 +10,8 @@ export type SystemSettingsSpecialCareCardProps = {
 
 export const SystemSettingsSpecialCareCard = ({ draft, setField }: SystemSettingsSpecialCareCardProps) => (
   <article className={uiTokens.surfaceCard}>
-    <h2 className={uiTokens.pageSectionHeading}>特別照護（SC）</h2>
     <p className={uiTokens.sectionHelp}>
-      勾選時與資料庫排班規則之「僅治療師」併用：SC 院友僅能使用職類為 PT／OT 之活動時段（須有員工主檔職類）。
+      PDF 02【16】§3.2：資助復康服務與認知障礙症服務項下之「Special Care 是否只限治療師」；與排班規則及員工主檔職類併用。
     </p>
     <label className={uiTokens.formToggleLabelMt4}>
       <input
@@ -20,7 +19,7 @@ export const SystemSettingsSpecialCareCard = ({ draft, setField }: SystemSetting
         checked={draft.specialCareTherapistOnly}
         onChange={(e) => setField('specialCareTherapistOnly', e.target.checked)}
       />
-      SC 個案僅由治療師承接
+      Special Care 僅由治療師承接（PT／OT 活動時段）
     </label>
   </article>
 )

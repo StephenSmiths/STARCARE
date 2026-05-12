@@ -6,6 +6,7 @@ import { uiTokens } from '../../shared/ui/uiTokens'
 import { useSystemSettings } from '../hooks/useSystemSettings'
 import { useSystemSettingsPolicySync } from '../hooks/useSystemSettingsPolicySync'
 import { SystemSettingsNumericCapsCard } from './SystemSettingsNumericCapsCard'
+import { SystemSettingsPdf16Section } from './SystemSettingsPdf16Section'
 import { SystemSettingsPolicySubmitCard } from './SystemSettingsPolicySubmitCard'
 import { SystemSettingsRulesTogglesCard } from './SystemSettingsRulesTogglesCard'
 import { SystemSettingsSchedulingWindowsCard } from './SystemSettingsSchedulingWindowsCard'
@@ -21,18 +22,29 @@ export const SystemSettingsHome = () => {
 
   return (
     <div className={uiTokens.stackVertical}>
-      <ListSectionPanel title="排班時窗設定" defaultExpanded>
-        <SystemSettingsSchedulingWindowsCard draft={draft} setField={setField} />
-      </ListSectionPanel>
-      <ListSectionPanel title="排班數字上限（P1）" defaultExpanded>
-        <SystemSettingsNumericCapsCard draft={draft} setField={setField} />
-      </ListSectionPanel>
-      <ListSectionPanel title="規則與開關設定" defaultExpanded={false}>
-        <SystemSettingsRulesTogglesCard draft={draft} setField={setField} />
-      </ListSectionPanel>
-      <ListSectionPanel title="特殊照顧設定" defaultExpanded={false}>
-        <SystemSettingsSpecialCareCard draft={draft} setField={setField} />
-      </ListSectionPanel>
+      <SystemSettingsPdf16Section
+        title="智能排班設定"
+        description="母本 PDF 02【16】§3.1：排班時間設定、排班規則設定（P1 已含之欄位見下）"
+      >
+        <ListSectionPanel title="排班時間設定" titleHeadingLevel={3} defaultExpanded>
+          <SystemSettingsSchedulingWindowsCard draft={draft} setField={setField} />
+        </ListSectionPanel>
+        <ListSectionPanel title="排班規則設定（P1）" titleHeadingLevel={3} defaultExpanded>
+          <div className="flex flex-col gap-4">
+            <SystemSettingsNumericCapsCard draft={draft} setField={setField} />
+            <SystemSettingsRulesTogglesCard draft={draft} setField={setField} />
+          </div>
+        </ListSectionPanel>
+      </SystemSettingsPdf16Section>
+
+      <SystemSettingsPdf16Section
+        title="復康服務基本設定"
+        description="母本 PDF 02【16】§3.2：資助復康服務、認知障礙症服務等；P1 先含可交付子項"
+      >
+        <ListSectionPanel title="資助復康服務與認知障礙症服務（P1）" titleHeadingLevel={3} defaultExpanded={false}>
+          <SystemSettingsSpecialCareCard draft={draft} setField={setField} />
+        </ListSectionPanel>
+      </SystemSettingsPdf16Section>
 
       {validationErrors.length > 0 ? (
         <div className={uiTokens.bannerDanger} role="alert">
@@ -52,7 +64,7 @@ export const SystemSettingsHome = () => {
         </button>
       </div>
 
-      <ListSectionPanel title="雲端政策版本（P1）" defaultExpanded>
+      <ListSectionPanel title="政策版本（雲端提交）（P1）" defaultExpanded>
         <SystemSettingsPolicySubmitCard
           edgeEnabled={policySync.edgeEnabled}
           loadError={policySync.loadError}

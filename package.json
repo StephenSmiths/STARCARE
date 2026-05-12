@@ -92,7 +92,14 @@
     "gatea:evidence:list": "node scripts/gate-a-evidence-list.mjs",
     "gateb:evidence:doctor": "node scripts/gate-b-evidence-doctor.mjs",
     "gateb:evidence:ready": "node scripts/gate-b-evidence-ready.mjs",
-    "gateb:evidence:report": "node scripts/gate-b-evidence-report.mjs"
+    "gateb:evidence:report": "node scripts/gate-b-evidence-report.mjs",
+    "vercel:version": "vercel --version",
+    "vercel:preview": "vercel",
+    "vercel:build": "vercel build",
+    "vercel:pull-env": "vercel env pull",
+    "vercel:prod": "vercel --prod",
+    "verify:supabase-vite-env": "node scripts/verify-supabase-vite-env.mjs",
+    "verify:supabase-vite-env:ping": "node scripts/verify-supabase-vite-env.mjs --ping"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.1",
@@ -116,6 +123,7 @@
     "tailwindcss": "^4.2.4",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.58.2",
+    "vercel": "53.4.0",
     "vite": "^8.0.10",
     "vitest": "^3.2.4"
   }

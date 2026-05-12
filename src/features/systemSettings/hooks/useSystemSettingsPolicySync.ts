@@ -13,7 +13,7 @@ type Args = {
   hydrateP1FromBundle: (b: SchedulingPolicyBundle) => void
 }
 
-/** P1：載入 `scheduling-policy-current-get`、驗證並提交 `version-commit`（Repository 閉環） */
+/** P1：政策版本（雲端提交）— 載入 `scheduling-policy-current-get`、驗證並提交 `version-commit`（Repository 閉環） */
 export const useSystemSettingsPolicySync = ({ draft, hydrateP1FromBundle }: Args) => {
   const edgeEnabled = Boolean(getSupabaseBrowserCredentials())
   const repo = useMemo(() => createSchedulingPolicyRepository(), [])

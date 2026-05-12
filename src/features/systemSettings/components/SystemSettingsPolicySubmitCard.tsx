@@ -33,7 +33,6 @@ export const SystemSettingsPolicySubmitCard = ({
   if (!edgeEnabled) {
     return (
       <article className={uiTokens.surfaceCard}>
-        <h2 className={uiTokens.pageSectionHeading}>提交政策版本至雲端</h2>
         <p className={uiTokens.sectionHelp}>
           未偵測到 Supabase 環境變數，僅可使用本機儲存。Staging／正式環境請設定 VITE_SUPABASE_URL 與 ANON_KEY。
         </p>
@@ -43,9 +42,9 @@ export const SystemSettingsPolicySubmitCard = ({
 
   return (
     <article className={uiTokens.surfaceCard}>
-      <h2 className={uiTokens.pageSectionHeading}>提交政策版本至雲端（P1）</h2>
       <p className={uiTokens.sectionHelp}>
-        呼叫 scheduling-policy-version-validate／commit；須 Team Lead／Admin。契約見 docs/scheduling-policy-edge-function-contract.md。
+        PRD §4「新建版本」：呼叫 scheduling-policy-version-validate／commit；須 Team Lead／Admin。契約見
+        docs/scheduling-policy-edge-function-contract.md。
       </p>
       {loadError ? <p className={uiTokens.bannerDanger}>{loadError}</p> : null}
       <div className={uiTokens.settingsFieldGrid}>

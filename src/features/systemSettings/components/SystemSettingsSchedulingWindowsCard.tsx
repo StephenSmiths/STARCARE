@@ -22,9 +22,9 @@ export const SystemSettingsSchedulingWindowsCard = ({
   setField,
 }: SystemSettingsSchedulingWindowsCardProps) => (
   <article className={uiTokens.surfaceCard}>
-    <h2 className={uiTokens.pageSectionHeading}>排班與時段</h2>
     <p className={uiTokens.sectionHelp}>
-      PDF 02【16】Seq 29：每日排班可用視窗、午休（LUNCH）與開工準備（SHIFT_PREP_BLOCK，最長 30 分鐘且不超出排班視窗）。
+      PDF 02【16】§3.1「排班時間設定」：每日排班可用視窗、非治療時段（午休／LUNCH）與開工準備（SHIFT_PREP_BLOCK，最長 30
+      分鐘且不超出排班視窗）；與 `facility_policy_non_therapy_slots` 對齊。
     </p>
     <div className={uiTokens.settingsFieldGrid}>
       <label className={uiTokens.formFieldStack}>
