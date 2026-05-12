@@ -13,6 +13,8 @@ type Args = {
   hydrateP1FromBundle: (b: SchedulingPolicyBundle) => void
 }
 
+type LoadPolicyResult = { ok: true } | { ok: false; error: string }
+
 /** P1：政策版本（雲端提交）— 載入 `scheduling-policy-current-get`、驗證並提交 `version-commit`（Repository 閉環） */
 export const useSystemSettingsPolicySync = ({ draft, hydrateP1FromBundle }: Args) => {
   const edgeEnabled = Boolean(getSupabaseBrowserCredentials())
@@ -31,8 +33,8 @@ export const useSystemSettingsPolicySync = ({ draft, hydrateP1FromBundle }: Args
     hydrateRef.current = hydrateP1FromBundle
   }, [hydrateP1FromBundle])
 
-  const loadPolicy = useCallback(async (opts?: { withLoadingIndicator?: boolean }) => {
-    if (!edgeEnabled) return
+  const loadPolicy = useCallback(async (opts?: { withLoadingIndicator?: boolean }): Promise<LoadPolicyResult> => {
+    if (!edgeEnabled) return { ok: true }
     const withLoadingIndicator = opts?.withLoadingIndicator !== false
     const seq = ++loadSeqRef.current
     if (withLoadingIndicator) setIsPolicyLoading(true)
@@ -41,14 +43,17 @@ export const useSystemSettingsPolicySync = ({ draft, hydrateP1FromBundle }: Args
         repo.getCurrentBundle(STARCARE_DEFAULT_FACILITY_ID),
         repo.listPolicyVersionSummaries(STARCARE_DEFAULT_FACILITY_ID, 50),
       ])
-      if (seq !== loadSeqRef.current) return
+      if (seq !== loadSeqRef.current) return { ok: true }
       setBaseBundle(b)
       setPolicyVersions(versions)
       if (b) hydrateRef.current(b)
       setLoadError(null)
+      return { ok: true }
     } catch (e) {
-      if (seq !== loadSeqRef.current) return
-      setLoadError(String(e))
+      if (seq !== loadSeqRef.current) return { ok: true }
+      const msg = String(e)
+      setLoadError(msg)
+      return { ok: false, error: msg }
     } finally {
       if (seq === loadSeqRef.current && withLoadingIndicator) setIsPolicyLoading(false)
     }
@@ -111,7 +116,12 @@ export const useSystemSettingsPolicySync = ({ draft, hydrateP1FromBundle }: Args
         }
         setSubmitMessage(`已建立政策版本（${committed.policyVersionId.slice(0, 8)}…）`)
         bumpSystemSettingsExternalVersion()
-        await loadPolicy({ withLoadingIndicator: false })
+        const refresh = await loadPolicy({ withLoadingIndicator: false })
+        if (!refresh.ok) {
+          setSubmitMessage(
+            `已建立政策版本（${committed.policyVersionId.slice(0, 8)}…）；重新載入雲端摘要／版本列時失敗，請按「重新載入雲端政策」或稍後再試。`,
+          )
+        }
       } catch (e) {
         setSubmitMessage(String(e))
       } finally {

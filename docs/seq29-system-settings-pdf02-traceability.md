@@ -16,7 +16,7 @@
 |------|------------|------|
 | 排班與時段 | **`SystemSettingsHome`** 首段 | **HH:mm** 欄位：`schedulingWindowStart`／`End`、`nonTherapyWindowStart`／`End`；**開工準備**開關（`SHIFT_PREP_BLOCK`）。 |
 | 數字上限（P1） | **`SystemSettingsNumericCapsCard`** | 與 Edge **`numericLimits`** 對齊；提交時併入 **`mergeP1DraftIntoPolicyBundle`**。 |
-| 政策版本（雲端提交） | **`SystemSettingsCurrentPolicyVersionCard`**、**`SystemSettingsPolicyVersionsListCard`**、**`SystemSettingsPolicySubmitCard`**、**`useSystemSettingsPolicySync`** | **`schedulingPolicyRepository`** → current-get／**versions-list** 摘要／validate／commit；**`X-Idempotency-Key`**；**`loadError`** 時目前版／版本列表卡皆顯示引導並可 **重新載入**（技術訊息見提交卡）；**`reloadPolicy`** 手動重試並行讀取；提交鈕於 **`isPolicyLoading`** 時停用；提交成功後以 **`loadPolicy({ withLoadingIndicator: false })`** 靜默刷新。 |
+| 政策版本（雲端提交） | **`SystemSettingsCurrentPolicyVersionCard`**、**`SystemSettingsPolicyVersionsListCard`**、**`SystemSettingsPolicySubmitCard`**、**`useSystemSettingsPolicySync`** | **`schedulingPolicyRepository`** → current-get／**versions-list** 摘要／validate／commit；**`X-Idempotency-Key`**；**`loadError`** 時目前版／版本列表卡皆顯示引導並可 **重新載入**（技術訊息見提交卡）；**`reloadPolicy`** 手動重試並行讀取；提交鈕於 **`isPolicyLoading`** 時停用；提交成功後 **`loadPolicy({ withLoadingIndicator: false })`** 靜默刷新，若失敗則 **`submitMessage`** 併述補救（**`loadPolicy`** 回傳 **`{ ok }`**）。 |
 | 規則與服務 | 第二段 | **`rulesEngineEnabled`**、**`fixedActivitiesEnabled`**、**`serviceTypesEnabled`**。 |
 | SC | 第三段 | **`specialCareTherapistOnly`**（與 DB **`scheduling_rules.allow_sc_therapist_only`** 併用敘述見主檔）。 |
 | 儲存 | **`useSystemSettings`** | **`validateSystemSettings`**、**`lockRef`**、**`SYSTEM_SETTINGS_SAVE`** 審計。 |
@@ -55,6 +55,7 @@
 | `e2e/system-settings-policy-p1-demo.spec.ts` | **`npm run test:e2e:system-settings-policy`**：政策版本（P1）區標題與無 Edge 本機說明 |
 | `useSystemSettingsPolicySync*.test.ts`（Vitest） | 載入／提交成功與失敗路徑（**`@testing-library/react`**） |
 | `useSystemSettingsPolicySync.reload.test.ts`（Vitest） | **`loadError`** 後 **`reloadPolicy`** 成功則清除錯誤並 **hydrate** |
+| `useSystemSettingsPolicySync.postCommitRefresh.test.ts`（Vitest） | 提交成功後靜默 **`loadPolicy`** 失敗時 **`submitMessage`** 補述與 **`loadError`** |
 | `SystemSettingsPolicyVersionsListCard.test.tsx`（Vitest） | **`loadError`** 時版本列表引導訊息；未啟用 Edge 不渲染 |
 | `SystemSettingsPolicySubmitCard.test.tsx`（Vitest） | **`isPolicyLoading`** 時提交鈕 **disabled** |
 
@@ -91,4 +92,5 @@
 | 2026-05-12 | §1／§4：**`reloadPolicy`** 手動重試讀取；**`useSystemSettingsPolicySync.reload.test.ts`**。 |
 | 2026-05-12 | §1：版本列表 **`loadError`** 卡同掛 **重新載入**（與目前版卡一致）。 |
 | 2026-05-12 | §1：提交鈕 **`isPolicyLoading`** 停用；成功後 **`loadPolicy`** 靜默刷新。 |
+| 2026-05-12 | §1／§4：**`loadPolicy`** 回傳 **`{ ok }`**；提交後靜默刷新失敗時 **`submitMessage`** 補述；**`postCommitRefresh`** Vitest。 |
 | 2026-05-12 | §4：**`SystemSettingsPolicySubmitCard.test.tsx`**。 |
