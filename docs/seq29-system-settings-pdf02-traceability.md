@@ -51,7 +51,7 @@
 |-----------|------|
 | `ListSectionPanel.test.tsx`（Vitest） | **`section`** **`aria-labelledby`** 與 **`h2`／`h3`** 標題 **id** 一致；**`aria-controls`**／收合 **`hidden`**；**`defaultExpanded={false}`** |
 | `AuditTrailPanel.test.tsx`（Vitest） | **`section`** **`aria-labelledby`** 與 **`h3`** **id** 一致；同頁雙實例 **id** 不重複；**`aria-controls`**／展開篩選／**`hidden`**；**`defaultExpanded`** |
-| `SystemSettingsPdf16Section.test.tsx`（Vitest） | **Pdf16** 大節 **`section`** **`aria-labelledby`** 與 **`h2`** **id** 一致（**智能排班設定**／**復康服務基本設定**） |
+| `SystemSettingsPdf16Section.test.tsx`（Vitest） | **Pdf16** 大節 **`section`** **`aria-labelledby`** 與 **`h2`** **id** 一致（**智能排班設定**／**復康服務基本設定**）；**`description`** 說明段落呈現 |
 | `useSystemSettings.saveSavingState.test.ts`（Vitest） | **`save`** 延後儲存期間 **`isSaving`**；驗證失敗不觸發 **`saveSystemSettingsWithAudit`** |
 | `systemSettingsValidation.test.ts` | 驗證規則 |
 | `systemSettingsExternalStore.test.ts` | 版本 bump |
@@ -124,6 +124,7 @@
 | 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **Pdf16 智能排班** 內 **排班時間**／**排班規則** **`ListSectionPanel`**（**`aria-controls`**、無 **`hidden`**、兩內容區 **`id`** 有別）。 |
 | 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **Pdf16 復康** 內 **資助復康** **`ListSectionPanel`** 預設收合（**`aria-controls`**、**`hidden`**）。 |
 | 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補本機 **`group`** **`aria-busy="false"`**（與 **policy P1 demo E2E** 對齊）。 |
+| 2026-05-09 | §4：**`SystemSettingsPdf16Section.test`** 斷言 **`description`** 說明段落呈現；**`afterEach(cleanup)`** 避免同檔連測 DOM 堆疊。 |
 | 2026-05-09 | §4：**`SystemSettingsPdf16Section.test`** 補 **復康服務基本設定** 標題 **`aria-labelledby`** 用例。 |
 | 2026-05-09 | §4：**`README.md`** 常用指令：**`test:e2e:smoke`** 註解補 **`#system-settings`** Seq 29 P1 煙霧與 **`docs/seq29-system-settings-pdf02-traceability.md`** 第 4 節對照。 |
 | 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **政策版本**／**審計** **`section[aria-labelledby]`**（與 **policy P1 demo E2E** 對齊）。 |

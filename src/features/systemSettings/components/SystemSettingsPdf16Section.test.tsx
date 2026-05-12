@@ -1,7 +1,11 @@
 /** @vitest-environment happy-dom */
-import { render, screen } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { cleanup, render, screen } from '@testing-library/react'
+import { afterEach, describe, expect, it } from 'vitest'
 import { SystemSettingsPdf16Section } from './SystemSettingsPdf16Section'
+
+afterEach(() => {
+  cleanup()
+})
 
 describe('SystemSettingsPdf16Section', () => {
   it('智能排班設定：section aria-labelledby 指向 h2 標題 id', () => {
@@ -16,6 +20,7 @@ describe('SystemSettingsPdf16Section', () => {
     const heading = screen.getByRole('heading', { name: '智能排班設定' })
     expect(heading.tagName.toLowerCase()).toBe('h2')
     expect(heading.id).toBe(labelledBy)
+    expect(screen.getByText('說明文字')).toBeTruthy()
   })
 
   it('復康服務基本設定：section aria-labelledby 指向 h2 標題 id', () => {
@@ -30,5 +35,6 @@ describe('SystemSettingsPdf16Section', () => {
     const heading = screen.getByRole('heading', { name: '復康服務基本設定' })
     expect(heading.tagName.toLowerCase()).toBe('h2')
     expect(heading.id).toBe(labelledBy)
+    expect(screen.getByText('說明文字')).toBeTruthy()
   })
 })
