@@ -53,6 +53,7 @@
 | `AuditTrailPanel.test.tsx`（Vitest） | **`section`** **`aria-labelledby`** 與 **`h3`** **id** 一致；同頁雙實例 **id** 不重複；**`aria-controls`**／展開篩選／**`hidden`**；**`defaultExpanded`** |
 | `SystemSettingsPdf16Section.test.tsx`（Vitest） | **Pdf16** 大節 **`section`** **`aria-labelledby`** 與 **`h2`** **id** 一致（**智能排班設定**／**復康服務基本設定**）；**`description`** 說明段落呈現 |
 | `SystemSettingsSchedulingWindowsCard.test.tsx`（Vitest） | PDF 02【16】**排班時間設定**卡：**HH:mm** 欄位標籤可見；輸入／**開工準備** checkbox 變更委派 **`setField`** |
+| `SystemSettingsNumericCapsCard.test.tsx`（Vitest） | PDF 02【16】**排班規則設定** P1 數字上限：三欄 **`type="number"`** 標籤可見；變更委派 **`setField`**（數值） |
 | `useSystemSettings.saveSavingState.test.ts`（Vitest） | **`save`** 延後儲存期間 **`isSaving`**；驗證失敗不觸發 **`saveSystemSettingsWithAudit`** |
 | `systemSettingsValidation.test.ts` | 驗證規則 |
 | `systemSettingsExternalStore.test.ts` | 版本 bump |
@@ -125,6 +126,7 @@
 | 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **Pdf16 智能排班** 內 **排班時間**／**排班規則** **`ListSectionPanel`**（**`aria-controls`**、無 **`hidden`**、兩內容區 **`id`** 有別）。 |
 | 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **Pdf16 復康** 內 **資助復康** **`ListSectionPanel`** 預設收合（**`aria-controls`**、**`hidden`**）。 |
 | 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補本機 **`group`** **`aria-busy="false"`**（與 **policy P1 demo E2E** 對齊）。 |
+| 2026-05-09 | §4：**`SystemSettingsNumericCapsCard.test.tsx`**：P1 數字上限欄位與 **`setField`**（Vitest）。 |
 | 2026-05-09 | §4：**`SystemSettingsSchedulingWindowsCard.test.tsx`**：**排班時間設定**卡欄位與 **`setField`** 委派（Vitest）。 |
 | 2026-05-09 | §4：**`SystemSettingsPdf16Section.test`** 斷言 **`description`** 說明段落呈現；**`afterEach(cleanup)`** 避免同檔連測 DOM 堆疊。 |
 | 2026-05-09 | §4：**`SystemSettingsPdf16Section.test`** 補 **復康服務基本設定** 標題 **`aria-labelledby`** 用例。 |
