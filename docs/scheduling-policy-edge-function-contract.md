@@ -1,0 +1,118 @@
+# STARCARE 院舍排班政策 Edge Function 契約
+
+> **對照**：**`docs/business-logic.md`** §0（**`.cursorrules`** §3）；序號主檔 **`docs/pdf-sequenced-gap-checklist.md`** Seq **29**；PRD **`docs/system-settings-policy-prd-2026-05-09.md`**；資料表 **`docs/system-settings-policy-schema-2026-05-09.md`**；migration **`20260509153000`**（表）＋**`20260509153100`**（RLS）；系統設定對照骨架 **`docs/seq29-system-settings-pdf02-traceability.md`**。  
+> **既有讀規則**：**`scheduling-rules-get`**（`public.scheduling_rules` 單列扁平）仍為現行排班參數來源；本契約之 **`scheduling-policy-*`** 實作完成後，應依 PRD §7 與 **`scheduling-rules-get`** **合併或遷移**（須另開 ADR 或更新 **`docs/adr-0001-scheduling-logic-placement.md`** 附註）。
+
+**全案收尾與證據留痕**：**`README.md`**「專案收尾」（**`docs/business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引）；**`docs/project-completion-*.md`**；Gate A **`docs/evidence/gate-a-latest.md`**（**Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:preflight:strict`**）。
+
+## 1. 目標與範圍
+
+- 定義 **PDF 02【16】** 院舍政策（**多表**＋**`effective_from`** 版本化）之 **HTTP 契約**；DB 欄位以 **snake_case** 為準，回應 JSON 以 **camelCase** 為準（與現行 **`scheduling-rules-get`** 一致）。
+- **讀取**：已登入 **staff／teamlead／admin**（與 **`guardStaffUser`** 同級之 JWT 驗證）。
+- **寫入**：僅 **teamlead／admin**（**`guardTeamLeadOrAdmin`** 或 **`requireTeamLeadOrAdmin`**，與院友／員工匯入相同）。
+- **軟刪除**：政策版本列以 **`status`** 流轉，**嚴禁硬刪除**版本列（與專案資料完整性原則一致）。
+
+## 2. 共用驗證規則（客戶定案）
+
+| 規則 | 說明 |
+|------|------|
+| **R‑effective** | **`effective_from`** 儲存時須 **`>=` 伺服器收到請求時之現在**（禁止「今天以前」）；**允許當日立即生效**。 |
+| **R‑overlap** | 同一 **`facility_id`** 下，已提交版本之 **`[effective_from, effective_until)`** 區間 **不得重疊**；至多一筆 **`status = 'active'`**。 |
+| **R‑promote** | 新版到點生效時，須將舊版 **`effective_until`** 寫入並標 **`superseded`**，新版標 **`active`**（或由讀取層惰性結算—實作須固定一種並文件化）。 |
+
+## 3. 回應物件：`SchedulingPolicyBundle`（邏輯合併視圖）
+
+以下為 **GET 成功 200** 之 JSON 形狀（欄位可依實作增補；**`legacySchedulingRules`** 過渡期可併附現行 **`scheduling-rules-get`** 之對應欄位）。
+
+```json
+{
+  "facilityId": "facility-main",
+  "policyVersion": {
+    "id": "uuid",
+    "effectiveFrom": "2026-05-10T02:00:00.000Z",
+    "effectiveUntil": null,
+    "status": "active",
+    "changeSummary": "調整午休時段",
+    "createdAt": "2026-05-09T10:00:00.000Z"
+  },
+  "nonTherapySlots": [
+    { "slotKind": "LUNCH", "timeStart": "12:30", "timeEnd": "13:30" }
+  ],
+  "numericLimits": {
+    "therapistGroupSessionsDailyCap": 8,
+    "assistantGroupSessionsDailyCap": 8,
+    "groupParticipantCap": 6
+  },
+  "fixedActivities": [],
+  "subsidizedTiers": [],
+  "subsidizedRoleOfferings": [],
+  "subsidizedPassOrder": [],
+  "dementiaCore": null,
+  "dementiaRoleOfferings": [],
+  "legacySchedulingRules": null
+}
+```
+
+**`slotKind` 固定字串**：`LUNCH`｜`MORNING_DOC`｜`AFTERNOON_DOC`｜`OTHER`｜`SHIFT_PREP_BLOCK`。  
+**`fundingTier`（資助列）**：`GradeA_Subsidized`｜`Voucher`｜`Private`（與院友 **`funding_type`** 對齊）。
+
+## 4. Edge Function 端點契約
+
+### 4.1 GET `/functions/v1/scheduling-policy-current-get?facilityId={id}`
+
+- **用途**：回傳 **`asOf = now()`** 時應適用之 **`SchedulingPolicyBundle`**（客戶 R3：日常排班只看**目前生效**）。  
+- **授權**：**`guardStaffUser`**（與 **`scheduling-rules-get`** 一致）。  
+- **參數**：**`facilityId`** 可省略，預設 **`facility-main`**。  
+- **成功**：`200 + SchedulingPolicyBundle`（若尚無任何版本列，允許 **`policyVersion: null`** 且 **`legacySchedulingRules`** 由 **`scheduling_rules`** 表補齊—實作選項見 PRD §7）。  
+- **錯誤**：`401`／`403` 未登入或 JWT 無效。
+
+### 4.2 GET `/functions/v1/scheduling-policy-at-get?facilityId={id}&asOf={ISO8601}`
+
+- **用途**：回傳 **`asOf`** 瞬時應適用之政策 bundle（客戶 R4：歷史報表依排班日回溯版本）。  
+- **授權**：同 **§4.1**。  
+- **參數**：**`asOf`** 必填，須為合法 ISO 8601；**`facilityId`** 同 **§4.1**。  
+- **成功**：`200 + SchedulingPolicyBundle`（若該日無版本，回傳 **`policyVersion: null`** 並附 **`legacySchedulingRules`** 或 **`404`**—須與報表產品約定一致後定稿）。  
+- **錯誤**：`400`（`asOf` 非法）、`401`／`403`。
+
+### 4.3 POST `/functions/v1/scheduling-policy-version-validate`
+
+- **用途**：校驗即將建立之版本草稿（**R‑effective**、子表完整性、Pass 順序恰好三筆等），**不寫入**正式版本列。  
+- **授權**：**`guardTeamLeadOrAdmin`**。  
+- **請求 Body（camelCase 白名單）**：
+  - **`facilityId`**：`string`  
+  - **`effectiveFrom`**：`string`（ISO 8601）  
+  - **`changeSummary`**：`string`（必填；對應客戶「變更原因／備註」）  
+  - **`confirmToken`**：可選；若前端已做二次確認，可傳固定字串 **`"CONFIRMED"`**（實作可改為單次 nonce，第二階段強化）  
+  - **`nonTherapySlots`**、**`numericLimits`**、**`fixedActivities`**、**`subsidizedTiers`** 等：與 **`SchedulingPolicyBundle`** 內層形狀一致之陣列／物件  
+- **成功**：`200 + { ok: true, errors: [], normalized: SchedulingPolicyBundle }`  
+- **失敗**：`200 + { ok: false, errors: [ { "code": "...", "message": "..." } ] }` 或 `400`（請求 JSON 無法解析）。
+
+### 4.4 POST `/functions/v1/scheduling-policy-version-commit`
+
+- **用途**：寫入 **`facility_scheduling_policy_versions`** 及子表；觸發 **`active`／`superseded`** 流轉與 **`audit-trail-append`**（或等效審計）。  
+- **授權**：**`requireTeamLeadOrAdmin`**（寫入）。  
+- **請求 Body**：須與 **`validate`** 通過之 **`normalized`** 相同形狀，並含 **`idempotencyKey`**（字串，建議 UUID）以符合 Seq 11 防抖／防重入。  
+- **成功**：`201 + { ok: true, policyVersionId: "uuid" }`  
+- **錯誤**：`400`（驗證失敗）、`401`／`403`、`409`（**`idempotencyKey`** 重複且已成功提交）。
+
+## 5. 錯誤碼建議
+
+| HTTP | 情境 |
+|------|------|
+| `400` | 欄位驗證失敗、`effective_from` 早於現在、區間重疊 |
+| `401` | 未帶有效 JWT |
+| `403` | 角色非 staff／teamlead／admin（讀）或 非 teamlead／admin（寫） |
+| `404` | 院舍不存在或無可套用政策（若選擇嚴格模式） |
+| `409` | 重複 **`idempotencyKey`** 或樂觀鎖衝突 |
+| `501` | （僅限占位部署期）尚未接軌 DB |
+
+## 6. 部署與 CI
+
+- **實作完成後**：將 **`scheduling-policy-current-get`**、**`scheduling-policy-at-get`**、**`scheduling-policy-version-validate`**、**`scheduling-policy-version-commit`** 四支函式加入 **`package.json`** 之 **`ops:deploy:all`**（與 **`docs/supabase-deploy-runbook.md`** §2 並讀）。  
+- **migration**：先執行 **`npx supabase db push`** 套用 **`20260509153000_facility_scheduling_policy_versioned_skeleton.sql`** 與 **`20260509153100_facility_scheduling_policy_versioned_rls.sql`**（單檔 ≤200 行，拆表與 RLS）。
+
+## 7. 修訂紀錄
+
+| 日期 | 說明 |
+|------|------|
+| 2026-05-09 | 初版：四端點契約、Bundle 形狀、客戶 R1～R4 映射、部署註記。 |

@@ -21,7 +21,7 @@
 1. **三份母本**已固定存放於專案 **`docs/pdf/`**，檔名統一、便於版控與搜尋。  
 2. **`docs/business-logic.md`**：已依 **01 核心業務邏輯與 SOP** 整理為工程可讀之條目，並載明與 **02** 之分工及**程式落差摘要**（供內部與客戶技術窗口查閱）。  
 3. **`.cursorrules`（工程規範）**已更新為**明列三份 PDF 路徑**，後續開發一律以此對齊。  
-4. **上線／部署／憑證／母本 P0**：內部可引用 **`docs/go-live-checklist.md`**、**`docs/supabase-deploy-runbook.md`**（含 **`npm run ops:deploy:all`**、**`npm run ci`**）、**`docs/security-token-rotation-checklist.md`**（PAT 輪替；**§D** 部署後自檢含可選 **`npm run ci`**）、**`docs/pdf-alignment-p0-backlog.md`**（P0 勾選項）、**`docs/pdf-sequenced-gap-checklist.md`**（主檔「**運維與工程**」列與 **§0**／**`README`** 對齊），作為對外「有書面程序」之補充附件；院友／評估完成之 Edge 行為見 **`docs/residents-edge-function-contract.md`**、**`docs/assessment-completion-records-contract.md`**。
+4. **上線／部署／憑證／母本 P0**：內部可引用 **`docs/go-live-checklist.md`**、**`docs/supabase-deploy-runbook.md`**（含 **`npm run ops:deploy:all`**、**`npm run ci`**）、**`docs/security-token-rotation-checklist.md`**（PAT 輪替；**§D** 部署後自檢含可選 **`npm run ci`**）、**`docs/pdf-alignment-p0-backlog.md`**（P0 勾選項）、**`docs/pdf-sequenced-gap-checklist.md`**（主檔「**運維與工程**」列與 **§0**／**`README`** 對齊），作為對外「有書面程序」之補充附件；院友／評估完成／**Seq 29 院舍排班政策**之 Edge 行為見 **`docs/residents-edge-function-contract.md`**、**`docs/assessment-completion-records-contract.md`**、**`docs/scheduling-policy-edge-function-contract.md`**。
 
 ---
 
@@ -159,6 +159,7 @@
 | 2026-05-15 | **`business-logic-revision-log.md`**（**`business-logic.md`** §8 拆出）；**`README.md`**、**`pdf03`** §4、**`feature-list.md`** 頁尾、**`pdf-alignment-p0-backlog.md`** Seq 38。 |
 | 2026-05-16 | **`pdf-sequenced-gap-checklist-revision-log.md`**（及 **`pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**）；**`pdf-sequenced-gap-checklist.md`** 主檔 ≤200 行；**`pdf03`**、**`README.md`**、**`feature-list.md`**。 |
 | 2026-05-17 | **`pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**；主修訂日誌預留 ≤200 行；**`pdf03`**、**`README.md`**、**`.cursorrules`** §3。 |
+| 2026-05-09 | **§2 第 4 點**：補 **`docs/scheduling-policy-edge-function-contract.md`**（Seq 29 **`scheduling-policy-*`**）與院友／評估契約並列。 |
 
 ---
 

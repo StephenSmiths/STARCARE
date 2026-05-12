@@ -66,7 +66,9 @@
 |------|------|
 | **`docs/system-settings-policy-prd-2026-05-09.md`** | PRD：R1～R7、流程、分期、與 `scheduling_rules` 接軌策略 |
 | **`docs/system-settings-policy-schema-2026-05-09.md`** | 表清單、欄位概念、排班／報表讀版規則 |
-| **`supabase/migrations/20260509153000_facility_scheduling_policy_versioned_skeleton.sql`** | PostgreSQL 表與 RLS（SELECT）骨架；寫入預設走 Edge |
+| **`docs/scheduling-policy-edge-function-contract.md`** | Edge **`scheduling-policy-*`** 四端點請求／回應契約（讀：staff／teamlead／admin；寫：teamlead／admin） |
+| **`supabase/migrations/20260509153000_facility_scheduling_policy_versioned_skeleton.sql`** | PostgreSQL **表／觸發器**（單檔 ≤200 行） |
+| **`supabase/migrations/20260509153100_facility_scheduling_policy_versioned_rls.sql`** | **RLS**（SELECT）；寫入預設走 Edge |
 
 ---
 
@@ -74,4 +76,4 @@
 |------|------|
 | 2026-05-04 | 初版：Seq 29 **對照骨架**（02【16】末序）；與 Seq 28 互鏈。 |
 | 2026-05-04 | §5：補 **Seq 35～38**（03／C 區）對照骨架互鏈。 |
-| 2026-05-09 | §6：院舍政策版本 PRD／Schema／migration 骨架；客戶回函定案互鏈。 |
+| 2026-05-09 | §6：院舍政策版本 PRD／Schema／Edge 契約／migration（**153000** 表、**153100** RLS）；客戶回函定案互鏈。 |

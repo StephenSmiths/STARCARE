@@ -1,11 +1,7 @@
--- PDF 02【16】院舍政策：版本化骨架（多表 + effective_from）
+-- PDF 02【16】院舍政策：版本化骨架（多表 + effective_from）— 表與觸發器
+-- RLS 見 **下一支** migration：`20260509153100_facility_scheduling_policy_versioned_rls.sql`
 -- 對照：docs/system-settings-policy-prd-2026-05-09.md、docs/system-settings-policy-schema-2026-05-09.md
--- 說明：不修改既有 public.scheduling_rules；後續 PR 接軌 scheduling-rules-get 與 UI。
--- 客戶定案：生效時間不得早於現在、允許當日立即生效；版本區間不重疊；完整歷程供稽核。
 
--- ---------------------------------------------------------------------------
--- 1) 版本頭表
--- ---------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.facility_scheduling_policy_versions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   facility_id TEXT NOT NULL REFERENCES public.facilities (id) ON DELETE RESTRICT,
@@ -38,9 +34,6 @@ CREATE TRIGGER trg_facility_scheduling_policy_versions_updated_at
   BEFORE UPDATE ON public.facility_scheduling_policy_versions
   FOR EACH ROW EXECUTE PROCEDURE public.set_updated_at_now();
 
--- ---------------------------------------------------------------------------
--- 2) P1：非治療時段、開工準備、數字上限
--- ---------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.facility_policy_non_therapy_slots (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   policy_version_id UUID NOT NULL
@@ -78,9 +71,6 @@ CREATE TRIGGER trg_facility_policy_numeric_limits_updated_at
   BEFORE UPDATE ON public.facility_policy_numeric_limits
   FOR EACH ROW EXECUTE PROCEDURE public.set_updated_at_now();
 
--- ---------------------------------------------------------------------------
--- 3) P2：固定活動、資助分層、Pass 順序、認知軌（骨架列）
--- ---------------------------------------------------------------------------
 CREATE TABLE IF NOT EXISTS public.facility_policy_fixed_activities (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   policy_version_id UUID NOT NULL
@@ -161,115 +151,3 @@ CREATE TABLE IF NOT EXISTS public.facility_policy_dementia_role_offerings (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   UNIQUE (policy_version_id, role_type, slot_variant)
 );
-
--- ---------------------------------------------------------------------------
--- 4) RLS：與 scheduling_rules 類似，authenticated 可讀；寫入預設走 Edge（無 INSERT policy）
--- ---------------------------------------------------------------------------
-ALTER TABLE public.facility_scheduling_policy_versions ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.facility_policy_non_therapy_slots ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.facility_policy_numeric_limits ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.facility_policy_fixed_activities ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.facility_policy_subsidized_tier ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.facility_policy_subsidized_role_offerings ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.facility_policy_subsidized_pass_order ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.facility_policy_dementia_core ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public.facility_policy_dementia_role_offerings ENABLE ROW LEVEL SECURITY;
-
-DROP POLICY IF EXISTS facility_scheduling_policy_versions_select_staff ON public.facility_scheduling_policy_versions;
-CREATE POLICY facility_scheduling_policy_versions_select_staff
-  ON public.facility_scheduling_policy_versions
-  FOR SELECT TO authenticated
-  USING (
-    EXISTS (
-      SELECT 1 FROM public.user_roles ur
-      WHERE ur.user_id = auth.uid() AND ur.role IN ('staff', 'teamlead', 'admin')
-    )
-  );
-
-DROP POLICY IF EXISTS facility_policy_non_therapy_slots_select_staff ON public.facility_policy_non_therapy_slots;
-CREATE POLICY facility_policy_non_therapy_slots_select_staff
-  ON public.facility_policy_non_therapy_slots
-  FOR SELECT TO authenticated
-  USING (
-    EXISTS (
-      SELECT 1 FROM public.user_roles ur
-      WHERE ur.user_id = auth.uid() AND ur.role IN ('staff', 'teamlead', 'admin')
-    )
-  );
-
-DROP POLICY IF EXISTS facility_policy_numeric_limits_select_staff ON public.facility_policy_numeric_limits;
-CREATE POLICY facility_policy_numeric_limits_select_staff
-  ON public.facility_policy_numeric_limits
-  FOR SELECT TO authenticated
-  USING (
-    EXISTS (
-      SELECT 1 FROM public.user_roles ur
-      WHERE ur.user_id = auth.uid() AND ur.role IN ('staff', 'teamlead', 'admin')
-    )
-  );
-
-DROP POLICY IF EXISTS facility_policy_fixed_activities_select_staff ON public.facility_policy_fixed_activities;
-CREATE POLICY facility_policy_fixed_activities_select_staff
-  ON public.facility_policy_fixed_activities
-  FOR SELECT TO authenticated
-  USING (
-    EXISTS (
-      SELECT 1 FROM public.user_roles ur
-      WHERE ur.user_id = auth.uid() AND ur.role IN ('staff', 'teamlead', 'admin')
-    )
-  );
-
-DROP POLICY IF EXISTS facility_policy_subsidized_tier_select_staff ON public.facility_policy_subsidized_tier;
-CREATE POLICY facility_policy_subsidized_tier_select_staff
-  ON public.facility_policy_subsidized_tier
-  FOR SELECT TO authenticated
-  USING (
-    EXISTS (
-      SELECT 1 FROM public.user_roles ur
-      WHERE ur.user_id = auth.uid() AND ur.role IN ('staff', 'teamlead', 'admin')
-    )
-  );
-
-DROP POLICY IF EXISTS facility_policy_subsidized_role_offerings_select_staff ON public.facility_policy_subsidized_role_offerings;
-CREATE POLICY facility_policy_subsidized_role_offerings_select_staff
-  ON public.facility_policy_subsidized_role_offerings
-  FOR SELECT TO authenticated
-  USING (
-    EXISTS (
-      SELECT 1 FROM public.user_roles ur
-      WHERE ur.user_id = auth.uid() AND ur.role IN ('staff', 'teamlead', 'admin')
-    )
-  );
-
-DROP POLICY IF EXISTS facility_policy_subsidized_pass_order_select_staff ON public.facility_policy_subsidized_pass_order;
-CREATE POLICY facility_policy_subsidized_pass_order_select_staff
-  ON public.facility_policy_subsidized_pass_order
-  FOR SELECT TO authenticated
-  USING (
-    EXISTS (
-      SELECT 1 FROM public.user_roles ur
-      WHERE ur.user_id = auth.uid() AND ur.role IN ('staff', 'teamlead', 'admin')
-    )
-  );
-
-DROP POLICY IF EXISTS facility_policy_dementia_core_select_staff ON public.facility_policy_dementia_core;
-CREATE POLICY facility_policy_dementia_core_select_staff
-  ON public.facility_policy_dementia_core
-  FOR SELECT TO authenticated
-  USING (
-    EXISTS (
-      SELECT 1 FROM public.user_roles ur
-      WHERE ur.user_id = auth.uid() AND ur.role IN ('staff', 'teamlead', 'admin')
-    )
-  );
-
-DROP POLICY IF EXISTS facility_policy_dementia_role_offerings_select_staff ON public.facility_policy_dementia_role_offerings;
-CREATE POLICY facility_policy_dementia_role_offerings_select_staff
-  ON public.facility_policy_dementia_role_offerings
-  FOR SELECT TO authenticated
-  USING (
-    EXISTS (
-      SELECT 1 FROM public.user_roles ur
-      WHERE ur.user_id = auth.uid() AND ur.role IN ('staff', 'teamlead', 'admin')
-    )
-  );

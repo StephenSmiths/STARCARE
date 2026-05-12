@@ -22,6 +22,7 @@ npm run ops:deploy:all
 若需單支除錯，可改 **`npx supabase functions deploy <function-name>`**（名稱與 **`ops:deploy:all`** 內之 **`deploy …`** 一致）。
 
 - 遠端若曾以**舊版** **`ops:deploy:all`**（未含 **`service-forms-list`**／**`upsert`**／**`soft-delete`**）部署，請再執行一次 **`npm run ops:deploy:all`** 以補齊服務表單 Edge；變更說明見 **`docs/pdf-sequenced-gap-checklist.md`**（**2026-05-03**）。
+- **Seq 29 院舍政策 Edge**：契約見 **`docs/scheduling-policy-edge-function-contract.md`**；**`scheduling-policy-current-get`**、**`scheduling-policy-at-get`**、**`scheduling-policy-version-validate`**、**`scheduling-policy-version-commit`** 實作完成後，須追加至 **`package.json`** 之 **`ops:deploy:all`** 並再執行部署；DB 見 **`supabase/migrations/20260509153000_facility_scheduling_policy_versioned_skeleton.sql`**（表）＋**`20260509153100_facility_scheduling_policy_versioned_rls.sql`**（RLS）；先 **`db push`**。
 
 ## 3) 快速狀態檢查
 ```bash

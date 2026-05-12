@@ -1,9 +1,10 @@
 # 系統設定（PDF 02【16】）院舍政策 PRD
 
+> **Edge 契約**：**`docs/scheduling-policy-edge-function-contract.md`**（**`scheduling-policy-current-get`**／**`scheduling-policy-at-get`**／**`scheduling-policy-version-validate`**／**`scheduling-policy-version-commit`**）。  
 > **對照母本**：`docs/pdf/02-STARCARE-智能院舍照護管理系統.pdf` **【16】**（智能排班設定、復康服務基本設定）。  
 > **客戶定案日**：2026-05-09（多表存放、`effectiveFrom`、版本不重疊、分期驗收）。  
 > **資料結構詳述**：`docs/system-settings-policy-schema-2026-05-09.md`。  
-> **SQL 骨架**：`supabase/migrations/20260509153000_facility_scheduling_policy_versioned_skeleton.sql`。  
+> **SQL 骨架**：**`supabase/migrations/20260509153000_facility_scheduling_policy_versioned_skeleton.sql`**（表／觸發器）、**`supabase/migrations/20260509153100_facility_scheduling_policy_versioned_rls.sql`**（RLS）。  
 > **既有對照骨架**：`docs/seq29-system-settings-pdf02-traceability.md`（本 PRD 為其 **院舍後端政策** 延伸）。
 
 ---
