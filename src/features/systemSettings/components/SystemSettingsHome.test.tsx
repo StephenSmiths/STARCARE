@@ -110,4 +110,21 @@ describe('SystemSettingsHome', () => {
     expect(auditRegion.hasAttribute('hidden')).toBe(true)
     expect(screen.queryByPlaceholderText('搜尋 actor / entity / detail')).toBeNull()
   })
+
+  it('資助復康 panel 可展開並顯示 Special Care 說明', () => {
+    const { container } = render(<SystemSettingsHome />)
+    const rehabH2 = screen.getByRole('heading', { name: '復康服務基本設定' }) as HTMLElement
+    const rehabPdfSection = container.querySelector(`section[aria-labelledby="${rehabH2.id}"]`) as HTMLElement
+    const subsidizedH3 = screen.getByRole('heading', { name: '資助復康服務與認知障礙症服務（P1）' }) as HTMLElement
+    const subsidizedPanel = rehabPdfSection.querySelector(
+      `section[aria-labelledby="${subsidizedH3.id}"]`,
+    ) as HTMLElement
+    expect(screen.queryByText(/Special Care 僅由治療師承接/)).toBeNull()
+    fireEvent.click(within(subsidizedPanel).getByRole('button', { name: '展開' }))
+    expect(screen.getByText(/Special Care 僅由治療師承接/)).toBeTruthy()
+    const collapseSub = within(subsidizedPanel).getByRole('button', { name: '收合' })
+    const subContentId = collapseSub.getAttribute('aria-controls')
+    expect(subContentId).toBeTruthy()
+    expect(document.getElementById(subContentId!)?.hasAttribute('hidden')).toBe(false)
+  })
 })
