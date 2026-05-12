@@ -56,7 +56,7 @@
 | `SystemSettingsNumericCapsCard.test.tsx`（Vitest） | PDF 02【16】**排班規則設定** P1 數字上限：三欄 **`type="number"`** 標籤可見；變更委派 **`setField`**（數值） |
 | `SystemSettingsRulesTogglesCard.test.tsx`（Vitest） | 規則引擎／固定活動／服務類型三 **checkbox**；勾選委派 **`setField`** |
 | `SystemSettingsSpecialCareCard.test.tsx`（Vitest） | **Special Care 僅治療師** **checkbox**；**`rerender`** 更新 **`draft`** 後可驗證開→關 **`setField`** |
-| `SystemSettingsHome.test.tsx`（Vitest） | 整合：**`useAuth`**／**`useAuditTrailList`** mock 下 **Pdf16** 大節、**排班時間／規則／資助復康** **`h3`**、本機 **`group`** **`aria-busy="false"`**、**政策版本（P1）**、**審計** **`h3`**、**儲存設定（本機）**、**`supabaseBrowserEnv`** mock 下無 Edge **Supabase** 說明可見 |
+| `SystemSettingsHome.test.tsx`（Vitest） | 整合：**`useAuth`**／**`useAuditTrailList`** mock 下 **Pdf16** 兩大節／**政策**／**審計** **`section[aria-labelledby]`** 與 **排班時間／規則／資助復康** **`h3`**、本機 **`group`** **`aria-busy="false"`**、**儲存設定（本機）**、**`supabaseBrowserEnv`** mock 下無 Edge **Supabase** 說明可見 |
 | `useSystemSettings.saveSavingState.test.ts`（Vitest） | **`save`** 延後儲存期間 **`isSaving`**；驗證失敗不觸發 **`saveSystemSettingsWithAudit`** |
 | `systemSettingsValidation.test.ts` | 驗證規則 |
 | `systemSettingsExternalStore.test.ts` | 版本 bump |
@@ -129,6 +129,7 @@
 | 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **Pdf16 智能排班** 內 **排班時間**／**排班規則** **`ListSectionPanel`**（**`aria-controls`**、無 **`hidden`**、兩內容區 **`id`** 有別）。 |
 | 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **Pdf16 復康** 內 **資助復康** **`ListSectionPanel`** 預設收合（**`aria-controls`**、**`hidden`**）。 |
 | 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補本機 **`group`** **`aria-busy="false"`**（與 **policy P1 demo E2E** 對齊）。 |
+| 2026-05-09 | §4：**`SystemSettingsHome.test`** 補 **Pdf16**／**政策**／**審計** **`section[aria-labelledby]`** landmark。 |
 | 2026-05-09 | §4：**`SystemSettingsHome.test`** 補 **排班規則**／**資助復康** **`h3`** 與本機 **`group`** **`aria-busy`**。 |
 | 2026-05-09 | §4：**`SystemSettingsHome.test`** 補 **排班時間設定** **`h3`**、無 Edge **Supabase** 說明；**`supabaseBrowserEnv`** mock 使 **CI** 具 **`VITE_SUPABASE_*`** 時仍與 **demo** 一致。 |
 | 2026-05-09 | §4：**`SystemSettingsHome.test`** 補 **審計** **`h3`** 標題可見；**`getByRole`** 移除 **`exact`** 以符合 **typecheck**。 |
