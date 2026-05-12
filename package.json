@@ -102,7 +102,7 @@
     "verify:supabase-vite-env:ping": "node scripts/verify-supabase-vite-env.mjs --ping"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.49.1",
+    "@supabase/supabase-js": "^2.105.4",
     "react": "^19.2.5",
     "react-dom": "^19.2.5",
     "xlsx": "^0.18.5"
