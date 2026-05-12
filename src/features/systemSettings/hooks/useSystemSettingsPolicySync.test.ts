@@ -8,23 +8,8 @@ import {
 } from '../../../repositories/schedulingPolicyRepository.fixtures'
 import { getSupabaseBrowserCredentials } from '../../../services/supabaseBrowserEnv'
 import { bumpSystemSettingsExternalVersion } from '../systemSettingsExternalStore'
-import type { SystemSettingsSnapshot } from '../types'
+import { POLICY_SYNC_VALID_DRAFT } from './policySyncTestDraft'
 import { useSystemSettingsPolicySync } from './useSystemSettingsPolicySync'
-
-const validDraft: SystemSettingsSnapshot = {
-  schedulingWindowStart: '08:00',
-  schedulingWindowEnd: '18:00',
-  nonTherapyWindowStart: '12:00',
-  nonTherapyWindowEnd: '13:00',
-  shiftPrepBlockEnabled: false,
-  therapistGroupSessionsDailyCap: 4,
-  assistantGroupSessionsDailyCap: 4,
-  groupParticipantCap: 6,
-  rulesEngineEnabled: false,
-  fixedActivitiesEnabled: false,
-  serviceTypesEnabled: false,
-  specialCareTherapistOnly: false,
-}
 
 const { mockRepo, createRepoMock } = vi.hoisted(() => {
   const r = {
@@ -71,7 +56,7 @@ describe('useSystemSettingsPolicySync', () => {
   it('無 Supabase 憑證時不觸發載入、edgeEnabled 為 false', async () => {
     const hydrate = vi.fn()
     const { result } = renderHook(() =>
-      useSystemSettingsPolicySync({ draft: validDraft, hydrateP1FromBundle: hydrate }),
+      useSystemSettingsPolicySync({ draft: POLICY_SYNC_VALID_DRAFT, hydrateP1FromBundle: hydrate }),
     )
 
     expect(result.current.edgeEnabled).toBe(false)
@@ -93,7 +78,7 @@ describe('useSystemSettingsPolicySync', () => {
 
     const hydrate = vi.fn()
     const { result } = renderHook(() =>
-      useSystemSettingsPolicySync({ draft: validDraft, hydrateP1FromBundle: hydrate }),
+      useSystemSettingsPolicySync({ draft: POLICY_SYNC_VALID_DRAFT, hydrateP1FromBundle: hydrate }),
     )
 
     expect(result.current.edgeEnabled).toBe(true)
@@ -115,7 +100,7 @@ describe('useSystemSettingsPolicySync', () => {
     vi.mocked(mockRepo.listPolicyVersionSummaries).mockResolvedValue([])
 
     const { result } = renderHook(() =>
-      useSystemSettingsPolicySync({ draft: validDraft, hydrateP1FromBundle: vi.fn() }),
+      useSystemSettingsPolicySync({ draft: POLICY_SYNC_VALID_DRAFT, hydrateP1FromBundle: vi.fn() }),
     )
     await waitFor(() => expect(result.current.isPolicyLoading).toBe(false))
 
@@ -141,7 +126,7 @@ describe('useSystemSettingsPolicySync', () => {
     vi.mocked(mockRepo.listPolicyVersionSummaries).mockResolvedValue([samplePolicyVersionSummary])
 
     const { result } = renderHook(() =>
-      useSystemSettingsPolicySync({ draft: validDraft, hydrateP1FromBundle: vi.fn() }),
+      useSystemSettingsPolicySync({ draft: POLICY_SYNC_VALID_DRAFT, hydrateP1FromBundle: vi.fn() }),
     )
     await waitFor(() => expect(result.current.isPolicyLoading).toBe(false))
 
