@@ -198,6 +198,7 @@
 | 2026-05-12 | **Seq 29／E2E、功能清單與 pdf03**：**`e2e/system-settings-policy-p1-demo.spec.ts`**、**`npm run test:e2e:system-settings-policy`**；**`feature-list.md`** §8 第 5 點；**`README.md`** 常用指令；**`pdf03-cursorrules-alignment.md`** §3 PR 檢核增 **Seq 29【16】政策 P1 demo E2E**；§4 維護增 Seq 29 政策區／E2E 對齊檢視。 |
 | 2026-05-12 | **Seq 29／`seq29-system-settings-pdf02-traceability.md`** 與 **`system-settings-policy-prd-2026-05-09.md`**：§4 補 demo E2E 與 Vitest 列、開首 **Demo E2E** 互鏈；§6 契約敘述改 **五支** Edge；PRD 開首互鏈與修訂列（與上列 **E2E、pdf03** 並讀）。 |
 | 2026-05-12 | **Seq 29／政策版本列表載入失敗**：**`SystemSettingsPolicyVersionsListCard`** 於 **`loadError`** 顯示引導；**`SystemSettingsPolicyVersionsListCard.test.tsx`**；**`seq29-*`** §1／§4 同步。 |
+| 2026-05-23 | **`README.md`** 文件表與 **`pdf03`** §3：**Seq 29** PR 檢核併 **runbook**／**go-live**／**`seq29`** §5／**`feature-list`** §7。 |
 | 2026-05-23 | **`pdf03-cursorrules-alignment.md`** §4：**Seq 29** 維護句併列 **runbook**／**go-live**／**`seq29`** §5；**`feature-list.md`** §7 **`scheduling-policy-*`** 列補 **UAT**／**go-live**。 |
 | 2026-05-23 | **Seq 29／runbook 與 UAT**：**`supabase-deploy-runbook.md`** §2 **Seq 29**、§6 **CI 煙霧**；**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`** **二之一** 與 **`go-live-checklist.md`** §5；**`seq29-system-settings-pdf02-traceability.md`** §5 維護閉環。 |
 | 2026-05-23 | **Seq 29／`go-live-checklist` §5**：Edge 契約勾選項補 **UAT** **二之一** 與 **`test:e2e:system-settings-policy`**／**`test:e2e:smoke`**（**`#system-settings`**）、**`seq29`** 第 4 節。 |
