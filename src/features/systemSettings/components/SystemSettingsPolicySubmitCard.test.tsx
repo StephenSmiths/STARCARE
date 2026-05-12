@@ -23,6 +23,7 @@ describe('SystemSettingsPolicySubmitCard', () => {
     const btn = screen.getByText('提交政策版本', { selector: 'button' }) as HTMLButtonElement
     expect(btn.disabled).toBe(true)
     expect(screen.getByRole('status').textContent).toMatch(/提交政策版本至雲端/)
+    expect(document.querySelector('article')?.getAttribute('aria-busy')).toBe('true')
   })
 
   it('Edge 模式且 isPolicyLoading 時提交鈕為 disabled', () => {
@@ -40,6 +41,7 @@ describe('SystemSettingsPolicySubmitCard', () => {
     const btn = screen.getByText('提交政策版本', { selector: 'button' }) as HTMLButtonElement
     expect(btn.disabled).toBe(true)
     expect(screen.getByRole('status').textContent).toMatch(/載入中/)
+    expect(document.querySelector('article')?.getAttribute('aria-busy')).toBe('true')
   })
 
   it('同時 isSubmitting 與 isPolicyLoading 時 status 以提交中為優先', () => {
@@ -55,6 +57,7 @@ describe('SystemSettingsPolicySubmitCard', () => {
       />,
     )
     expect(screen.getByRole('status').textContent).toMatch(/提交政策版本至雲端/)
+    expect(document.querySelector('article')?.getAttribute('aria-busy')).toBe('true')
   })
 
   it('非載入、非提交中時提交鈕可點', () => {
@@ -72,5 +75,7 @@ describe('SystemSettingsPolicySubmitCard', () => {
     const btn = screen.getByText('提交政策版本', { selector: 'button' }) as HTMLButtonElement
     expect(btn.disabled).toBe(false)
     expect(screen.queryByRole('status')).toBeNull()
+    const busy = document.querySelector('article')?.getAttribute('aria-busy')
+    expect(busy === null || busy === 'false').toBe(true)
   })
 })

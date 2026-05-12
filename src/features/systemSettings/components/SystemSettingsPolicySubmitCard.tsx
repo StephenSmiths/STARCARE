@@ -44,7 +44,7 @@ export const SystemSettingsPolicySubmitCard = ({
   }
 
   return (
-    <article className={uiTokens.surfaceCard}>
+    <article className={uiTokens.surfaceCard} aria-busy={isPolicyLoading || isSubmitting}>
       <p className={uiTokens.sectionHelp}>
         PRD §4「新建版本」：呼叫 scheduling-policy-version-validate／commit；須 Team Lead／Admin。契約見
         docs/scheduling-policy-edge-function-contract.md。
