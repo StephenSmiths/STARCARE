@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 /**
  * 與 `src/app/viewRouting.ts` 模組標題、各頁 **`AuditTrailPanel`** 標題對齊（demo 無 Supabase，Seq 3）。
  * 審計收合測試並斷言 **`aria-controls`** 與 **`hidden`**（Seq 12；與 Vitest 一致）。
- * **`#system-settings`** 另斷言本機草稿 **group**、**Pdf16 智能排班** 內 **排班時間設定**／**排班規則設定（P1）** **`ListSectionPanel`**（**`aria-controls`**、無 **`hidden`**、兩區 **`id`** 有別）、**Pdf16 復康** 內 **資助復康服務（P1）** **`ListSectionPanel`** 預設收合（**展開**、**`aria-controls`**、**`hidden`**）、**政策版本** **`ListSectionPanel`** 預設展開、**本機儲存** 鈕與無 Edge 說明（Seq 29 P1）。
+ * **`#system-settings`** 另斷言本機草稿 **group**（**`aria-busy="false"`** 閒置）、**Pdf16 智能排班** 內 **排班時間設定**／**排班規則設定（P1）** **`ListSectionPanel`**（**`aria-controls`**、無 **`hidden`**、兩區 **`id`** 有別）、**Pdf16 復康** 內 **資助復康服務（P1）** **`ListSectionPanel`** 預設收合（**展開**、**`aria-controls`**、**`hidden`**）、**政策版本** **`ListSectionPanel`** 預設展開、**本機儲存** 鈕與無 Edge 說明（Seq 29 P1）。
  * 不含 `#dashboard`（首屏另測）、不含 `#user-manual`（無審計區，另測）。
  */
 const HASH_AUDIT_CASES: ReadonlyArray<{
@@ -78,7 +78,9 @@ test.describe('smoke', () => {
       }
       await expect(page.getByRole('heading', { name: row.auditHeading })).toBeVisible()
       if (row.hash === 'system-settings') {
-        await expect(page.getByRole('group', { name: '本機設定（瀏覽器儲存）' })).toBeVisible()
+        const localSettingsGroup = page.getByRole('group', { name: '本機設定（瀏覽器儲存）' })
+        await expect(localSettingsGroup).toBeVisible()
+        await expect(localSettingsGroup).toHaveAttribute('aria-busy', 'false')
         const schedulingHeading = page.getByRole('heading', { name: '智能排班設定', exact: true })
         await expect(schedulingHeading).toBeVisible()
         const schedulingSectionId = await schedulingHeading.getAttribute('id')
