@@ -85,6 +85,7 @@ export const SystemSettingsHome = () => {
           <SystemSettingsPolicySubmitCard
             edgeEnabled={policySync.edgeEnabled}
             loadError={policySync.loadError}
+            isPolicyLoading={policySync.isPolicyLoading}
             validateErrors={policySync.validateErrors}
             submitMessage={policySync.submitMessage}
             isSubmitting={policySync.isSubmitting}

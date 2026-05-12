@@ -31,10 +31,11 @@ export const useSystemSettingsPolicySync = ({ draft, hydrateP1FromBundle }: Args
     hydrateRef.current = hydrateP1FromBundle
   }, [hydrateP1FromBundle])
 
-  const loadPolicy = useCallback(async () => {
+  const loadPolicy = useCallback(async (opts?: { withLoadingIndicator?: boolean }) => {
     if (!edgeEnabled) return
+    const withLoadingIndicator = opts?.withLoadingIndicator !== false
     const seq = ++loadSeqRef.current
-    setIsPolicyLoading(true)
+    if (withLoadingIndicator) setIsPolicyLoading(true)
     try {
       const [b, versions] = await Promise.all([
         repo.getCurrentBundle(STARCARE_DEFAULT_FACILITY_ID),
@@ -49,7 +50,7 @@ export const useSystemSettingsPolicySync = ({ draft, hydrateP1FromBundle }: Args
       if (seq !== loadSeqRef.current) return
       setLoadError(String(e))
     } finally {
-      if (seq === loadSeqRef.current) setIsPolicyLoading(false)
+      if (seq === loadSeqRef.current && withLoadingIndicator) setIsPolicyLoading(false)
     }
   }, [edgeEnabled, repo])
 
@@ -110,13 +111,7 @@ export const useSystemSettingsPolicySync = ({ draft, hydrateP1FromBundle }: Args
         }
         setSubmitMessage(`已建立政策版本（${committed.policyVersionId.slice(0, 8)}…）`)
         bumpSystemSettingsExternalVersion()
-        const [fresh, vList] = await Promise.all([
-          repo.getCurrentBundle(STARCARE_DEFAULT_FACILITY_ID),
-          repo.listPolicyVersionSummaries(STARCARE_DEFAULT_FACILITY_ID, 50),
-        ])
-        setBaseBundle(fresh)
-        setPolicyVersions(vList)
-        if (fresh) hydrateRef.current(fresh)
+        await loadPolicy({ withLoadingIndicator: false })
       } catch (e) {
         setSubmitMessage(String(e))
       } finally {
@@ -124,7 +119,7 @@ export const useSystemSettingsPolicySync = ({ draft, hydrateP1FromBundle }: Args
         lockRef.current = false
       }
     },
-    [draft, baseBundle, edgeEnabled, repo],
+    [draft, baseBundle, edgeEnabled, repo, loadPolicy],
   )
 
   return {

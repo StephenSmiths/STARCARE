@@ -11,6 +11,8 @@ const defaultEffectiveLocal = (): string => {
 export type SystemSettingsPolicySubmitCardProps = {
   edgeEnabled: boolean
   loadError: string | null
+  /** 與並行讀取同源：載入中不允許提交，避免 baseBundle 尚未就緒 */
+  isPolicyLoading: boolean
   validateErrors: PolicyValidateError[]
   submitMessage: string | null
   isSubmitting: boolean
@@ -21,6 +23,7 @@ export type SystemSettingsPolicySubmitCardProps = {
 export const SystemSettingsPolicySubmitCard = ({
   edgeEnabled,
   loadError,
+  isPolicyLoading,
   validateErrors,
   submitMessage,
   isSubmitting,
@@ -74,7 +77,7 @@ export const SystemSettingsPolicySubmitCard = ({
       <button
         type="button"
         className={uiTokens.btnPrimary}
-        disabled={isSubmitting}
+        disabled={isSubmitting || isPolicyLoading}
         onClick={() => void onSubmit({ effectiveFromLocal: eff, changeSummary: summary, confirmed })}
       >
         提交政策版本
