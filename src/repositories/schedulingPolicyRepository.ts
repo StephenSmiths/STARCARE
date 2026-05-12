@@ -15,20 +15,26 @@ export interface SchedulingPolicyRepository {
   commitBundle: (body: Record<string, unknown>, idempotencyKey: string) => Promise<PolicyCommitResponse>
 }
 
-class InMemorySchedulingPolicyRepository implements SchedulingPolicyRepository {
-  async getCurrentBundle(): Promise<SchedulingPolicyBundle | null> {
+export class InMemorySchedulingPolicyRepository implements SchedulingPolicyRepository {
+  async getCurrentBundle(_facilityId?: string): Promise<SchedulingPolicyBundle | null> {
     return null
   }
 
-  async listPolicyVersionSummaries(): Promise<SchedulingPolicyVersionSummary[]> {
+  async listPolicyVersionSummaries(
+    _facilityId?: string,
+    _limit?: number,
+  ): Promise<SchedulingPolicyVersionSummary[]> {
     return []
   }
 
-  async validateBundle(): Promise<PolicyValidateResponse> {
+  async validateBundle(_body: Record<string, unknown>): Promise<PolicyValidateResponse> {
     return { ok: false, errors: [{ code: 'NO_EDGE', message: '未設定 Supabase，無法驗證政策版本' }] }
   }
 
-  async commitBundle(): Promise<PolicyCommitResponse> {
+  async commitBundle(
+    _body: Record<string, unknown>,
+    _idempotencyKey: string,
+  ): Promise<PolicyCommitResponse> {
     return { ok: false, error: '未設定 Supabase，無法提交政策版本' }
   }
 }
