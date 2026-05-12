@@ -1,10 +1,11 @@
 /**
  * 01 §3／Seq 4／§4.1：資助復康排班乾跑資料載入＋引擎呼叫（從 useScheduling 抽出以控行數）；
- * 院友僅 **`mapActiveResidentsToSubsidizedSchedulingResidents`**；時段先視窗過濾再 **`filterToSubsidizedRehabServiceOnly`**。
+ * 院友僅 **`mapActiveResidentsToSubsidizedSchedulingResidents`**；時段先 **`resolveSchedulingWindowSnapshot`**（雲端 P1 優先）再以視窗過濾，最後 **`filterToSubsidizedRehabServiceOnly`**。
  */
 import { schedulingService } from '../../../services/schedulingService'
 import type { SchedulingResident } from '../../../services/schedulingService'
 import { schedulingConfigService } from '../../../services/schedulingConfigService'
+import { resolveSchedulingWindowSnapshot } from '../../../services/schedulingWindowSnapshotService'
 import { residentService } from '../../residents/services/residentService'
 import { mapActiveResidentsToSubsidizedSchedulingResidents } from '../utils/mapActiveResidentsToSubsidizedSchedulingResidents'
 import { buildEngineConstraintsFromRulesAndUi, cloneResidents, cloneSessions } from '../hooks/schedulingHookHelpers'
@@ -30,10 +31,11 @@ export const runSubsidizedRehabSchedulingOrchestration = async (
   facilityId: string,
 ): Promise<SubsidizedRehabRunOutcome> => {
   try {
-    const [residentRows, sessionRows, rules] = await Promise.all([
+    const [residentRows, sessionRows, rules, windowSnapshot] = await Promise.all([
       residentService.listActiveResidents(),
       schedulingConfigService.listSchedulingSessions(facilityId),
       schedulingConfigService.getRules(facilityId),
+      resolveSchedulingWindowSnapshot(facilityId),
     ])
     const latestResidents = mapActiveResidentsToSubsidizedSchedulingResidents(residentRows)
     if (latestResidents.length === 0) {
@@ -41,7 +43,9 @@ export const runSubsidizedRehabSchedulingOrchestration = async (
     }
     const nextResidents = cloneResidents(latestResidents)
     const sessionCopy = cloneSessions(
-      filterToSubsidizedRehabServiceOnly(filterSchedulingSessionsForSubsidizedEngine(sessionRows)),
+      filterToSubsidizedRehabServiceOnly(
+        filterSchedulingSessionsForSubsidizedEngine(sessionRows, windowSnapshot),
+      ),
     )
     const output = schedulingService.runSubsidizedRehabScheduling(
       actorId,
