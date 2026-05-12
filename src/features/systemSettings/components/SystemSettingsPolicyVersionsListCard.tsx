@@ -12,6 +12,8 @@ export type SystemSettingsPolicyVersionsListCardProps = {
   loadError: string | null
   isPolicyLoading: boolean
   versions: SchedulingPolicyVersionSummary[]
+  /** 與「目前政策版本」卡同源，皆呼叫 hook 之 reloadPolicy */
+  onReloadPolicy?: () => void
 }
 
 /** PRD §4：已建立政策版本列（唯讀）；資料來自 scheduling-policy-versions-list */
@@ -20,6 +22,7 @@ export const SystemSettingsPolicyVersionsListCard = ({
   loadError,
   isPolicyLoading,
   versions,
+  onReloadPolicy,
 }: SystemSettingsPolicyVersionsListCardProps) => {
   if (!edgeEnabled) return null
 
@@ -30,9 +33,16 @@ export const SystemSettingsPolicyVersionsListCard = ({
         <p className={uiTokens.sectionHelp}>
           依 effective_from 新→舊排列（最多 50 筆）；含 scheduled／active／superseded，供稽核與確認未來生效稿。
         </p>
-        <p className={uiTokens.inlineNoticeWarn} role="status">
-          無法載入版本列表；請查看本段下方「提交政策版本」卡片之錯誤訊息（與「目前政策版本」載入同源）。
-        </p>
+        <div className="mt-2 flex flex-col gap-2">
+          <p className={uiTokens.inlineNoticeWarn} role="status">
+            無法載入版本列表；請查看本段下方「提交政策版本」卡片之錯誤訊息（與「目前政策版本」載入同源）。
+          </p>
+          {onReloadPolicy ? (
+            <button type="button" className={uiTokens.btnSecondaryMt3} onClick={onReloadPolicy}>
+              重新載入雲端政策
+            </button>
+          ) : null}
+        </div>
       </article>
     )
   }
