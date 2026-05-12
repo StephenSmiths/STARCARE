@@ -1,5 +1,5 @@
 /** @vitest-environment happy-dom */
-import { cleanup, render, screen, within } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { SystemSettingsHome } from './SystemSettingsHome'
 
@@ -88,5 +88,26 @@ describe('SystemSettingsHome', () => {
     ).toBe(5)
     expect(screen.getByRole('button', { name: '儲存設定（本機）' })).toBeTruthy()
     expect(screen.getByText(/未偵測到 Supabase 環境變數/)).toBeTruthy()
+  })
+
+  it('審計面板可展開與收回', () => {
+    const { container } = render(<SystemSettingsHome />)
+    const auditH3 = screen.getByRole('heading', { name: '系統設定與相關審計（全域）' }) as HTMLElement
+    const auditSection = container.querySelector(`section[aria-labelledby="${auditH3.id}"]`) as HTMLElement
+    expect(auditSection).not.toBeNull()
+    const expandAudit = within(auditSection).getByRole('button', { name: '展開審計' })
+    const auditRegionId = expandAudit.getAttribute('aria-controls')
+    expect(auditRegionId).toBeTruthy()
+    const auditRegion = document.getElementById(auditRegionId!) as HTMLElement
+    expect(auditRegion.hasAttribute('hidden')).toBe(true)
+    expect(screen.queryByPlaceholderText('搜尋 actor / entity / detail')).toBeNull()
+    fireEvent.click(expandAudit)
+    expect(within(auditSection).getByRole('button', { name: '收合審計' })).toBeTruthy()
+    expect(auditRegion.hasAttribute('hidden')).toBe(false)
+    expect(screen.getByPlaceholderText('搜尋 actor / entity / detail')).toBeTruthy()
+    fireEvent.click(within(auditSection).getByRole('button', { name: '收合審計' }))
+    expect(within(auditSection).getByRole('button', { name: '展開審計' })).toBeTruthy()
+    expect(auditRegion.hasAttribute('hidden')).toBe(true)
+    expect(screen.queryByPlaceholderText('搜尋 actor / entity / detail')).toBeNull()
   })
 })
