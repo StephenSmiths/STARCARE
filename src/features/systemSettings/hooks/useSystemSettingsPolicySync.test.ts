@@ -91,6 +91,45 @@ describe('useSystemSettingsPolicySync', () => {
     expect(result.current.loadError).toBeNull()
   })
 
+  it('並行載入失敗時設定 loadError、結束 loading、不 hydrate', async () => {
+    vi.mocked(getSupabaseBrowserCredentials).mockReturnValue({
+      supabaseUrl: 'https://x.supabase.co',
+      anonKey: 'anon',
+    })
+    vi.mocked(mockRepo.getCurrentBundle).mockRejectedValue(new Error('載入院舍政策失敗（HTTP 502）'))
+    vi.mocked(mockRepo.listPolicyVersionSummaries).mockResolvedValue([])
+
+    const hydrate = vi.fn()
+    const { result } = renderHook(() =>
+      useSystemSettingsPolicySync({ draft: POLICY_SYNC_VALID_DRAFT, hydrateP1FromBundle: hydrate }),
+    )
+
+    expect(result.current.edgeEnabled).toBe(true)
+    await waitFor(() => expect(result.current.isPolicyLoading).toBe(false))
+    expect(result.current.loadError).toBe('Error: 載入院舍政策失敗（HTTP 502）')
+    expect(hydrate).not.toHaveBeenCalled()
+    expect(result.current.policyVersions).toEqual([])
+    expect(result.current.currentPolicyVersion).toBeNull()
+  })
+
+  it('版本列載入失敗時 Promise.all 失敗並設定 loadError', async () => {
+    vi.mocked(getSupabaseBrowserCredentials).mockReturnValue({
+      supabaseUrl: 'https://x.supabase.co',
+      anonKey: 'anon',
+    })
+    vi.mocked(mockRepo.getCurrentBundle).mockResolvedValue(minimalSchedulingPolicyBundle)
+    vi.mocked(mockRepo.listPolicyVersionSummaries).mockRejectedValue(
+      new Error('載入政策版本列表失敗（HTTP 500）'),
+    )
+
+    const { result } = renderHook(() =>
+      useSystemSettingsPolicySync({ draft: POLICY_SYNC_VALID_DRAFT, hydrateP1FromBundle: vi.fn() }),
+    )
+
+    await waitFor(() => expect(result.current.isPolicyLoading).toBe(false))
+    expect(result.current.loadError).toBe('Error: 載入政策版本列表失敗（HTTP 500）')
+  })
+
   it('未勾選確認時不呼叫 validate／commit', async () => {
     vi.mocked(getSupabaseBrowserCredentials).mockReturnValue({
       supabaseUrl: 'https://x.supabase.co',
