@@ -30,9 +30,18 @@ describe('SystemSettingsHome', () => {
     const rehabH2 = screen.getByRole('heading', { name: '復康服務基本設定' }) as HTMLElement
     expectSectionForHeading(schedulingH2)
     expectSectionForHeading(rehabH2)
-    expect(screen.getByRole('heading', { name: '排班時間設定' })).toBeTruthy()
-    expect(screen.getByRole('heading', { name: '排班規則設定（P1）' })).toBeTruthy()
-    expect(screen.getByRole('heading', { name: '資助復康服務與認知障礙症服務（P1）' })).toBeTruthy()
+    const schedulingPdfSection = container.querySelector(
+      `section[aria-labelledby="${schedulingH2.id}"]`,
+    ) as HTMLElement
+    const rehabPdfSection = container.querySelector(`section[aria-labelledby="${rehabH2.id}"]`) as HTMLElement
+    expect(schedulingPdfSection).not.toBeNull()
+    expect(rehabPdfSection).not.toBeNull()
+    const scheduleTimeH3 = screen.getByRole('heading', { name: '排班時間設定' }) as HTMLElement
+    const rulesH3 = screen.getByRole('heading', { name: '排班規則設定（P1）' }) as HTMLElement
+    const subsidizedH3 = screen.getByRole('heading', { name: '資助復康服務與認知障礙症服務（P1）' }) as HTMLElement
+    expect(schedulingPdfSection.querySelector(`section[aria-labelledby="${scheduleTimeH3.id}"]`)).not.toBeNull()
+    expect(schedulingPdfSection.querySelector(`section[aria-labelledby="${rulesH3.id}"]`)).not.toBeNull()
+    expect(rehabPdfSection.querySelector(`section[aria-labelledby="${subsidizedH3.id}"]`)).not.toBeNull()
     const localGroup = screen.getByRole('group', { name: '本機設定（瀏覽器儲存）' })
     expect(localGroup).toBeTruthy()
     expect(localGroup.getAttribute('aria-busy')).toBe('false')
