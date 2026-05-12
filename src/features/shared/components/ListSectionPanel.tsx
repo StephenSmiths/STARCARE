@@ -10,7 +10,7 @@ type ListSectionPanelProps = {
   children: ReactNode
 }
 
-/** 清單區塊：預設收合＋可展開（降低主流程頁面干擾）。**`section`** 以 **`aria-labelledby`** 與標題 **`id`** 關聯（無障礙 landmark）。 */
+/** 清單區塊：預設收合＋可展開（降低主流程頁面干擾）。**`section`** 以 **`aria-labelledby`** 與標題 **`id`** 關聯；展開鈕以 **`aria-controls`** 指向內容區 **`id`**，收合時內容區 **`hidden`** 仍保留節點以維持參照（無障礙）。 */
 export const ListSectionPanel = ({
   title,
   summary,
@@ -19,6 +19,7 @@ export const ListSectionPanel = ({
   children,
 }: ListSectionPanelProps) => {
   const headingId = useId()
+  const contentId = useId()
   const [expanded, setExpanded] = useState(defaultExpanded)
   const TitleTag = titleHeadingLevel === 3 ? 'h3' : 'h2'
 
@@ -34,13 +35,16 @@ export const ListSectionPanel = ({
             type="button"
             className={uiTokens.btnCompact}
             aria-expanded={expanded}
+            aria-controls={contentId}
             onClick={() => setExpanded((v) => !v)}
           >
             {expanded ? '收合' : '展開'}
           </button>
         </div>
       </div>
-      {expanded ? children : null}
+      <div id={contentId} hidden={!expanded}>
+        {expanded ? children : null}
+      </div>
     </section>
   )
 }

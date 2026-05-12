@@ -14,7 +14,7 @@
 
 | 區塊 | 元件／Hook | 說明 |
 |------|------------|------|
-| 排班與時段 | **`SystemSettingsHome`** 首段 | **HH:mm** 欄位：`schedulingWindowStart`／`End`、`nonTherapyWindowStart`／`End`；**開工準備**開關（`SHIFT_PREP_BLOCK`）；**`SystemSettingsPdf16Section`** 外層 **`section aria-labelledby`** 與 **`h2`** 標題 **id**；內嵌各段 **`ListSectionPanel`** 為 **`section aria-labelledby`** 與 **`h2`／`h3`** 標題關聯。 |
+| 排班與時段 | **`SystemSettingsHome`** 首段 | **HH:mm** 欄位：`schedulingWindowStart`／`End`、`nonTherapyWindowStart`／`End`；**開工準備**開關（`SHIFT_PREP_BLOCK`）；**`SystemSettingsPdf16Section`** 外層 **`section aria-labelledby`** 與 **`h2`** 標題 **id**；內嵌各段 **`ListSectionPanel`** 為 **`section aria-labelledby`** 與 **`h2`／`h3`** 標題關聯，展開鈕 **`aria-controls`** 綁內容區 **`id`**（收合時 **`hidden`**）。 |
 | 數字上限（P1） | **`SystemSettingsNumericCapsCard`** | 與 Edge **`numericLimits`** 對齊；提交時併入 **`mergeP1DraftIntoPolicyBundle`**。 |
 | 政策版本（雲端提交） | **`SystemSettingsCurrentPolicyVersionCard`**、**`SystemSettingsPolicyVersionsListCard`**、**`SystemSettingsPolicySubmitCard`**、**`useSystemSettingsPolicySync`** | **`schedulingPolicyRepository`** → current-get／**versions-list** 摘要／validate／commit；**`X-Idempotency-Key`**；**`loadError`** 時目前版／版本列表卡皆顯示引導並可 **重新載入**（技術訊息見提交卡；**`isSubmitting`** 時重載鈕 **disabled**）；**`reloadPolicy`** 手動重試並行讀取；**目前版／版本列表／提交** 三卡 **`article`** **`aria-busy`**（**`isPolicyLoading`** 或 **`isSubmitting`** 為真；提交卡另併 **`role="status"`**）；提交成功後 **`loadPolicy({ withLoadingIndicator: false, bypassSubmitLock: true })`** 靜默刷新（**`lockRef`** 期間阻擋一般 **`reloadPolicy`**），若失敗則 **`submitMessage`** 併述補救（**`loadPolicy`** 回傳 **`{ ok }`**）。 |
 | 規則與服務 | 第二段 | **`rulesEngineEnabled`**、**`fixedActivitiesEnabled`**、**`serviceTypesEnabled`**。 |
@@ -49,7 +49,7 @@
 
 | 測試／E2E | 涵蓋 |
 |-----------|------|
-| `ListSectionPanel.test.tsx`（Vitest） | **`section`** **`aria-labelledby`** 與 **`h2`／`h3`** 標題 **id** 一致 |
+| `ListSectionPanel.test.tsx`（Vitest） | **`section`** **`aria-labelledby`** 與 **`h2`／`h3`** 標題 **id** 一致；**`aria-controls`**／收合 **`hidden`** |
 | `AuditTrailPanel.test.tsx`（Vitest） | **`section`** **`aria-labelledby`** 與 **`h3`** **id** 一致；同頁雙實例 **id** 不重複 |
 | `SystemSettingsPdf16Section.test.tsx`（Vitest） | **Pdf16** 大節 **`section`** **`aria-labelledby`** 與 **`h2`** **id** 一致 |
 | `useSystemSettings.saveSavingState.test.ts`（Vitest） | **`save`** 延後儲存期間 **`isSaving`**；驗證失敗不觸發 **`saveSystemSettingsWithAudit`** |
@@ -113,3 +113,4 @@
 | 2026-05-12 | §4：**`e2e/smoke`** 於 **`#system-settings`** 斷言本機 **`group`**（Seq 29）。 |
 | 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **政策版本（P1）** 區 **`heading`** 可見。 |
 | 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **儲存設定（本機）** 與無 Edge 說明（**未偵測到 Supabase 環境變數**）。 |
+| 2026-05-09 | §1／§4：**`ListSectionPanel`** 展開鈕 **`aria-controls`**、內容區 **`hidden`**；擴充 **`ListSectionPanel.test`**。 |
