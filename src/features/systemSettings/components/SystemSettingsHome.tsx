@@ -24,46 +24,53 @@ export const SystemSettingsHome = () => {
 
   return (
     <div className={uiTokens.stackVertical}>
-      <SystemSettingsPdf16Section
-        title="智能排班設定"
-        description="母本 PDF 02【16】§3.1：排班時間設定、排班規則設定（P1 已含之欄位見下）"
+      <div
+        role="group"
+        aria-label="本機設定（瀏覽器儲存）"
+        aria-busy={isSaving}
+        className={uiTokens.stackVertical}
       >
-        <ListSectionPanel title="排班時間設定" titleHeadingLevel={3} defaultExpanded>
-          <SystemSettingsSchedulingWindowsCard draft={draft} setField={setField} />
-        </ListSectionPanel>
-        <ListSectionPanel title="排班規則設定（P1）" titleHeadingLevel={3} defaultExpanded>
-          <div className="flex flex-col gap-4">
-            <SystemSettingsNumericCapsCard draft={draft} setField={setField} />
-            <SystemSettingsRulesTogglesCard draft={draft} setField={setField} />
+        <SystemSettingsPdf16Section
+          title="智能排班設定"
+          description="母本 PDF 02【16】§3.1：排班時間設定、排班規則設定（P1 已含之欄位見下）"
+        >
+          <ListSectionPanel title="排班時間設定" titleHeadingLevel={3} defaultExpanded>
+            <SystemSettingsSchedulingWindowsCard draft={draft} setField={setField} />
+          </ListSectionPanel>
+          <ListSectionPanel title="排班規則設定（P1）" titleHeadingLevel={3} defaultExpanded>
+            <div className="flex flex-col gap-4">
+              <SystemSettingsNumericCapsCard draft={draft} setField={setField} />
+              <SystemSettingsRulesTogglesCard draft={draft} setField={setField} />
+            </div>
+          </ListSectionPanel>
+        </SystemSettingsPdf16Section>
+
+        <SystemSettingsPdf16Section
+          title="復康服務基本設定"
+          description="母本 PDF 02【16】§3.2：資助復康服務、認知障礙症服務等；P1 先含可交付子項"
+        >
+          <ListSectionPanel title="資助復康服務與認知障礙症服務（P1）" titleHeadingLevel={3} defaultExpanded={false}>
+            <SystemSettingsSpecialCareCard draft={draft} setField={setField} />
+          </ListSectionPanel>
+        </SystemSettingsPdf16Section>
+
+        {validationErrors.length > 0 ? (
+          <div className={uiTokens.bannerDanger} role="alert">
+            <ul className={uiTokens.listDiscInsideTight}>
+              {validationErrors.map((err) => (
+                <li key={err}>{err}</li>
+              ))}
+            </ul>
           </div>
-        </ListSectionPanel>
-      </SystemSettingsPdf16Section>
+        ) : null}
 
-      <SystemSettingsPdf16Section
-        title="復康服務基本設定"
-        description="母本 PDF 02【16】§3.2：資助復康服務、認知障礙症服務等；P1 先含可交付子項"
-      >
-        <ListSectionPanel title="資助復康服務與認知障礙症服務（P1）" titleHeadingLevel={3} defaultExpanded={false}>
-          <SystemSettingsSpecialCareCard draft={draft} setField={setField} />
-        </ListSectionPanel>
-      </SystemSettingsPdf16Section>
+        {savedMessage ? <p className={uiTokens.inlineSuccessText}>{savedMessage}</p> : null}
 
-      {validationErrors.length > 0 ? (
-        <div className={uiTokens.bannerDanger} role="alert">
-          <ul className={uiTokens.listDiscInsideTight}>
-            {validationErrors.map((err) => (
-              <li key={err}>{err}</li>
-            ))}
-          </ul>
+        <div>
+          <button type="button" className={uiTokens.btnPrimary} onClick={() => save()} disabled={isSaving}>
+            儲存設定（本機）
+          </button>
         </div>
-      ) : null}
-
-      {savedMessage ? <p className={uiTokens.inlineSuccessText}>{savedMessage}</p> : null}
-
-      <div>
-        <button type="button" className={uiTokens.btnPrimary} onClick={() => save()} disabled={isSaving}>
-          儲存設定（本機）
-        </button>
       </div>
 
       <ListSectionPanel title="政策版本（雲端提交）（P1）" defaultExpanded>

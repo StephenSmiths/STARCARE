@@ -45,10 +45,13 @@ export const useSystemSettings = (actorId: string): UseSystemSettingsResult => {
     if (!v.ok) return
     lockRef.current = true
     setIsSaving(true)
-    saveSystemSettingsWithAudit(actorId, draft)
-    setSavedMessage('已儲存（本機瀏覽器；若已連線可另於下方「提交政策版本」同步雲端）')
-    setIsSaving(false)
-    lockRef.current = false
+    /** 延至次一 macrotask：避免與 **`setIsSaving(false)`** 併入同一 React 批次，致 **`isSaving`**／**`aria-busy`** 無法被輔助技術感知（PDF 02【16】Seq 29 本機儲存閉環）。 */
+    globalThis.setTimeout(() => {
+      saveSystemSettingsWithAudit(actorId, draft)
+      setSavedMessage('已儲存（本機瀏覽器；若已連線可另於下方「提交政策版本」同步雲端）')
+      setIsSaving(false)
+      lockRef.current = false
+    }, 0)
   }, [actorId, draft])
 
   return { draft, setField, hydrateP1FromBundle, validationErrors, savedMessage, save, isSaving }

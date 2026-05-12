@@ -19,7 +19,7 @@
 | 政策版本（雲端提交） | **`SystemSettingsCurrentPolicyVersionCard`**、**`SystemSettingsPolicyVersionsListCard`**、**`SystemSettingsPolicySubmitCard`**、**`useSystemSettingsPolicySync`** | **`schedulingPolicyRepository`** → current-get／**versions-list** 摘要／validate／commit；**`X-Idempotency-Key`**；**`loadError`** 時目前版／版本列表卡皆顯示引導並可 **重新載入**（技術訊息見提交卡；**`isSubmitting`** 時重載鈕 **disabled**）；**`reloadPolicy`** 手動重試並行讀取；**目前版／版本列表／提交** 三卡 **`article`** **`aria-busy`**（**`isPolicyLoading`** 或 **`isSubmitting`** 為真；提交卡另併 **`role="status"`**）；提交成功後 **`loadPolicy({ withLoadingIndicator: false, bypassSubmitLock: true })`** 靜默刷新（**`lockRef`** 期間阻擋一般 **`reloadPolicy`**），若失敗則 **`submitMessage`** 併述補救（**`loadPolicy`** 回傳 **`{ ok }`**）。 |
 | 規則與服務 | 第二段 | **`rulesEngineEnabled`**、**`fixedActivitiesEnabled`**、**`serviceTypesEnabled`**。 |
 | SC | 第三段 | **`specialCareTherapistOnly`**（與 DB **`scheduling_rules.allow_sc_therapist_only`** 併用敘述見主檔）。 |
-| 儲存 | **`useSystemSettings`** | **`validateSystemSettings`**、**`lockRef`**、**`SYSTEM_SETTINGS_SAVE`** 審計。 |
+| 儲存 | **`useSystemSettings`**、**`SystemSettingsHome`** 本機區 | **`validateSystemSettings`**、**`lockRef`**、**`SYSTEM_SETTINGS_SAVE`** 審計；**`save`** 於 **`setTimeout(0)`** 落檔（避免 **`isSaving`** 與 **`setIsSaving(false)`** 併批致無法觀測）；本機表單外殼 **`role="group"`** **`aria-label="本機設定（瀏覽器儲存）"`** **`aria-busy={isSaving}`**。 |
 | 審計 | **`AuditTrailPanel`**（頁底） | 與 **Seq 12** 同源；**`SYSTEM_SETTINGS_SAVE`** 亦進 **Seq 27** 通知。 |
 
 **路由**：`view:system-settings`、**`#system-settings`**。
@@ -50,10 +50,11 @@
 | 測試／E2E | 涵蓋 |
 |-----------|------|
 | `ListSectionPanel.test.tsx`（Vitest） | **`section`** **`aria-labelledby`** 與 **`h2`／`h3`** 標題 **id** 一致 |
+| `useSystemSettings.saveSavingState.test.ts`（Vitest） | **`save`** 延後儲存期間 **`isSaving`**；驗證失敗不觸發 **`saveSystemSettingsWithAudit`** |
 | `systemSettingsValidation.test.ts` | 驗證規則 |
 | `systemSettingsExternalStore.test.ts` | 版本 bump |
 | `e2e/smoke.spec.ts` | **`#system-settings`**、**系統設定與相關審計** |
-| `e2e/system-settings-policy-p1-demo.spec.ts` | **`npm run test:e2e:system-settings-policy`**：政策版本（P1）區標題、**`section[aria-labelledby]`** 與標題 **id** 對齊、無 Edge 本機說明 |
+| `e2e/system-settings-policy-p1-demo.spec.ts` | **`npm run test:e2e:system-settings-policy`**：本機區 **`group`**／**`aria-busy`**；政策版本（P1）區標題、**`section[aria-labelledby]`** 與標題 **id** 對齊、無 Edge 本機說明 |
 | `useSystemSettingsPolicySync*.test.ts`（Vitest） | 載入／提交成功與失敗路徑（**`@testing-library/react`**） |
 | `useSystemSettingsPolicySync.reload.test.ts`（Vitest） | **`loadError`** 後 **`reloadPolicy`** 成功則清除錯誤並 **hydrate** |
 | `useSystemSettingsPolicySync.postCommitRefresh.test.ts`（Vitest） | 提交成功後靜默 **`loadPolicy`** 失敗時 **`submitMessage`** 補述與 **`loadError`** |
@@ -103,3 +104,4 @@
 | 2026-05-12 | §1／§4：**`loadPolicy`** 遇 **`lockRef`** 早退（**`bypassSubmitLock`** 僅提交成功後靜默刷新）；**`submitLockLoadPolicy`** Vitest。 |
 | 2026-05-12 | §1／§4：**目前版／版本列表** **`article`** **`aria-busy`**；**`CurrentPolicyVersionCard.test`**／擴充 **VersionsListCard.test**。 |
 | 2026-05-12 | §1／§4：**`ListSectionPanel`** **`section aria-labelledby`**；**`ListSectionPanel.test`**；**policy P1 demo E2E** 斷言 **section** 與政策標題 **id**。 |
+| 2026-05-12 | §1／§4：本機儲存 **`save`** **`setTimeout(0)`**；**`SystemSettingsHome`** **`role="group"`** **`aria-busy`**；**`useSystemSettings.saveSavingState.test`**；**policy P1 demo E2E** 本機 **group**。 |
