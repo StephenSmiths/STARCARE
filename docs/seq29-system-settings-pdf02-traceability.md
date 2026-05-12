@@ -58,7 +58,20 @@
 
 ---
 
+## 6. 院舍政策版本（客戶定案 2026-05-09）
+
+**多表**＋**`effective_from` 分段生效**、版本不重疊、Team Lead／Admin 變更＋二次確認與備註、分期驗收（P1／P2）。詳見：
+
+| 檔案 | 用途 |
+|------|------|
+| **`docs/system-settings-policy-prd-2026-05-09.md`** | PRD：R1～R7、流程、分期、與 `scheduling_rules` 接軌策略 |
+| **`docs/system-settings-policy-schema-2026-05-09.md`** | 表清單、欄位概念、排班／報表讀版規則 |
+| **`supabase/migrations/20260509153000_facility_scheduling_policy_versioned_skeleton.sql`** | PostgreSQL 表與 RLS（SELECT）骨架；寫入預設走 Edge |
+
+---
+
 | 日期 | 說明 |
 |------|------|
 | 2026-05-04 | 初版：Seq 29 **對照骨架**（02【16】末序）；與 Seq 28 互鏈。 |
 | 2026-05-04 | §5：補 **Seq 35～38**（03／C 區）對照骨架互鏈。 |
+| 2026-05-09 | §6：院舍政策版本 PRD／Schema／migration 骨架；客戶回函定案互鏈。 |

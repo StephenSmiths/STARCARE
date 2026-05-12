@@ -14,6 +14,7 @@
 **備註**：專案根目錄舊版 PDF（含 `#` 檔名或空檔）已移除，請一律以 **`docs/pdf/`** 內三份為準。
 
 **對客戶之補強與分期交付說明**：見 **`docs/client-delivery-remediation-plan.md`**（會議邀請範本、對照矩陣範本、驗收階段）。  
+**02【16】院舍政策（多表＋`effective_from`）**：**`docs/system-settings-policy-prd-2026-05-09.md`**、**`docs/system-settings-policy-schema-2026-05-09.md`**（**`seq29-system-settings-pdf02-traceability.md`** §6 互鏈）。  
 **依序補回 Feature／缺漏**：見 **`docs/pdf-sequenced-gap-checklist.md`**（Seq **1～38**：01 鐵律→02【1】～【16】→03 工程對照；開首 **對照**；主檔「**運維與工程**」列與本節及 **`README.md`**、**`.cursorrules`** §3 對齊）。  
 **母本 P0 可勾選 backlog**：見 **`docs/pdf-alignment-p0-backlog.md`**（與上列序號檢核配套）。  
 **架構決策（排班演算放置，Seq 36）**：見 **`docs/adr-0001-scheduling-logic-placement.md`**。  
