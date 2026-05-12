@@ -20,6 +20,8 @@ describe('SystemSettingsPolicyVersionsListCard', () => {
     expect(screen.getByRole('heading', { name: '政策版本列表（雲端）' })).toBeTruthy()
     expect(screen.getByRole('status').textContent).toMatch(/無法載入版本列表/)
     expect(screen.queryByRole('button', { name: '重新載入雲端政策' })).toBeNull()
+    const busy = document.querySelector('article')?.getAttribute('aria-busy')
+    expect(busy === null || busy === 'false').toBe(true)
   })
 
   it('loadError 且傳入 onReloadPolicy 時顯示重載按鈕並可觸發', () => {
@@ -55,6 +57,20 @@ describe('SystemSettingsPolicyVersionsListCard', () => {
     expect(btn.disabled).toBe(true)
     btn.click()
     expect(onReload).not.toHaveBeenCalled()
+    expect(document.querySelector('article')?.getAttribute('aria-busy')).toBe('true')
+  })
+
+  it('無 loadError 且 isPolicyLoading 時 article 為 aria-busy', () => {
+    render(
+      <SystemSettingsPolicyVersionsListCard
+        edgeEnabled
+        loadError={null}
+        isPolicyLoading
+        versions={[]}
+      />,
+    )
+    expect(screen.getByText('載入版本列表中…')).toBeTruthy()
+    expect(document.querySelector('article')?.getAttribute('aria-busy')).toBe('true')
   })
 
   it('未啟用 Edge 時不渲染', () => {

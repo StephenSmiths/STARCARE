@@ -30,7 +30,7 @@ export const SystemSettingsCurrentPolicyVersionCard = ({
   if (!edgeEnabled) return null
 
   return (
-    <article className={uiTokens.surfaceCard}>
+    <article className={uiTokens.surfaceCard} aria-busy={isPolicyLoading || isSubmitting}>
       <h3 className={uiTokens.pageSectionHeading}>目前政策版本（雲端摘要）</h3>
       <p className={uiTokens.sectionHelp}>對照 PRD §4：載入自 scheduling-policy-current-get；供 TL／Admin 確認寫入標的。</p>
       {loadError ? (

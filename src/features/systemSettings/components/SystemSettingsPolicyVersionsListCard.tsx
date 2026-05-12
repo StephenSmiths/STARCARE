@@ -31,7 +31,7 @@ export const SystemSettingsPolicyVersionsListCard = ({
 
   if (loadError) {
     return (
-      <article className={uiTokens.surfaceCard}>
+      <article className={uiTokens.surfaceCard} aria-busy={isPolicyLoading || isSubmitting}>
         <h3 className={uiTokens.pageSectionHeading}>政策版本列表（雲端）</h3>
         <p className={uiTokens.sectionHelp}>
           依 effective_from 新→舊排列（最多 50 筆）；含 scheduled／active／superseded，供稽核與確認未來生效稿。
@@ -56,7 +56,7 @@ export const SystemSettingsPolicyVersionsListCard = ({
   }
 
   return (
-    <article className={uiTokens.surfaceCard}>
+    <article className={uiTokens.surfaceCard} aria-busy={isPolicyLoading || isSubmitting}>
       <h3 className={uiTokens.pageSectionHeading}>政策版本列表（雲端）</h3>
       <p className={uiTokens.sectionHelp}>
         依 effective_from 新→舊排列（最多 50 筆）；含 scheduled／active／superseded，供稽核與確認未來生效稿。
