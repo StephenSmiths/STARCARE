@@ -173,3 +173,4 @@
 | 2026-05-09 | §4：**`README.md`** 常用指令：**`test:e2e:smoke`** 註解補 **`#system-settings`** Seq 29 P1 煙霧與 **`docs/seq29-system-settings-pdf02-traceability.md`** 第 4 節對照。 |
 | 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **政策版本**／**審計** **`section[aria-labelledby]`**（與 **policy P1 demo E2E** 對齊）。 |
 | 2026-05-09 | **§5**：維護閉環增 **`.github/workflows/ci.yml`** 檔首 **Seq 29【16】** 專段；**`scheduling-policy-edge-function-contract.md`** §7 初版「四端點」修訂列括註（嗣後五支 Edge）。 |
+| 2026-05-09 | **`pdf03-cursorrules-alignment.md`** §3 **文件入口**／§4 **Seq 29** 維護與 **`feature-list.md`** §8 第 7 點：**`ci.yml`** **Seq 29【16】** 專段與 **UAT** **二之一**／本檔 §4 對齊敘述。 |
