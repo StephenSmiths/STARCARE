@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 
 /**
  * 與 `src/app/viewRouting.ts` 模組標題、各頁 `AuditTrailPanel` 標題對齊（demo 無 Supabase，Seq 3）。
- * **`#system-settings`** 另斷言本機草稿 **group**、**政策版本（P1）** 標題（Seq 29 P1）。
+ * **`#system-settings`** 另斷言本機草稿 **group**、**政策版本（P1）** 標題、**本機儲存** 鈕與無 Edge 說明（Seq 29 P1）。
  * 不含 `#dashboard`（首屏另測）、不含 `#user-manual`（無審計區，另測）。
  */
 const HASH_AUDIT_CASES: ReadonlyArray<{
@@ -73,6 +73,8 @@ test.describe('smoke', () => {
         await expect(
           page.getByRole('heading', { name: '政策版本（雲端提交）（P1）', exact: true }),
         ).toBeVisible()
+        await expect(page.getByRole('button', { name: '儲存設定（本機）' })).toBeVisible()
+        await expect(page.getByText('未偵測到 Supabase 環境變數')).toBeVisible()
       }
     })
   }
