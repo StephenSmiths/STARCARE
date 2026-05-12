@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 
 /**
  * Demo 建置（`VITE_SUPABASE_*` 清空）：與 **`npm run test:e2e:smoke`** 同型 preview；
- * 驗證 Seq 29 P1：兩個 **Pdf16 大節**（智能排班／復康服務）、**`ListSectionPanel`** 預設收合區（**`aria-controls`**／**`hidden`**）、**政策版本**、**審計** landmark 與無 Edge 時之本機說明（對照 UAT 未設 env 預期）。
+ * 驗證 Seq 29 P1：兩個 **Pdf16 大節**（智能排班／復康服務）；**`ListSectionPanel`**：**排班時間設定**（**`h3`**、預設展開、**`aria-controls`**）與 **資助復康**（預設收合、**`hidden`**）；**政策版本**、**審計** landmark 與無 Edge 時之本機說明（對照 UAT 未設 env 預期）。
  */
 test.describe('system-settings policy P1（demo 無 Supabase）', () => {
   test('政策區塊標題與本機儲存說明可見', async ({ page }) => {
@@ -14,6 +14,20 @@ test.describe('system-settings policy P1（demo 無 Supabase）', () => {
     const schedulingSectionId = await schedulingHeading.getAttribute('id')
     expect(schedulingSectionId).toBeTruthy()
     await expect(page.locator(`section[aria-labelledby="${schedulingSectionId}"]`)).toHaveCount(1)
+    const scheduleTimeHeading = page.getByRole('heading', { name: '排班時間設定', exact: true })
+    await expect(scheduleTimeHeading).toBeVisible()
+    expect(await scheduleTimeHeading.evaluate((el) => el.tagName.toLowerCase())).toBe('h3')
+    // 自 Pdf16 大節內篩選內層 section，避免與「排班規則設定（P1）」之第二個「收合」同時命中（Playwright strict）。
+    const schedulingPdfSection = page.locator(`section[aria-labelledby="${schedulingSectionId}"]`)
+    const scheduleTimePanel = schedulingPdfSection.locator('section').filter({ has: scheduleTimeHeading })
+    const collapseScheduleTime = scheduleTimePanel.getByRole('button', { name: '收合' })
+    await expect(collapseScheduleTime).toBeVisible()
+    const scheduleTimeContentId = await collapseScheduleTime.getAttribute('aria-controls')
+    expect(scheduleTimeContentId).toBeTruthy()
+    const scheduleTimeContent = page.locator(`[id="${scheduleTimeContentId}"]`)
+    await expect(scheduleTimeContent).toHaveCount(1)
+    await expect(scheduleTimeContent).not.toHaveAttribute('hidden')
+    await expect(scheduleTimePanel.getByText('排班開始（HH:mm）')).toBeVisible()
     const rehabHeading = page.getByRole('heading', { name: '復康服務基本設定', exact: true })
     await expect(rehabHeading).toBeVisible()
     const rehabSectionId = await rehabHeading.getAttribute('id')
