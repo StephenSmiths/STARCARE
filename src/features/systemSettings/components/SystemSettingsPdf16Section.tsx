@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useId, type ReactNode } from 'react'
 import { uiTokens } from '../../shared/ui/uiTokens'
 
 export type SystemSettingsPdf16SectionProps = {
@@ -9,13 +9,18 @@ export type SystemSettingsPdf16SectionProps = {
   children: ReactNode
 }
 
-/** PDF 02【16】：智能排班設定、復康服務基本設定 兩大區外殼 */
-export const SystemSettingsPdf16Section = ({ title, description, children }: SystemSettingsPdf16SectionProps) => (
-  <section className="flex flex-col gap-4">
-    <header>
-      <h2 className={uiTokens.moduleTitle}>{title}</h2>
-      <p className={uiTokens.moduleDescription}>{description}</p>
-    </header>
-    <div className={uiTokens.stackVertical}>{children}</div>
-  </section>
-)
+/** PDF 02【16】：智能排班設定、復康服務基本設定 兩大區外殼；**`section`** 以 **`aria-labelledby`** 與 **`h2`** 關聯（landmark）。 */
+export const SystemSettingsPdf16Section = ({ title, description, children }: SystemSettingsPdf16SectionProps) => {
+  const headingId = useId()
+  return (
+    <section className="flex flex-col gap-4" aria-labelledby={headingId}>
+      <header>
+        <h2 id={headingId} className={uiTokens.moduleTitle}>
+          {title}
+        </h2>
+        <p className={uiTokens.moduleDescription}>{description}</p>
+      </header>
+      <div className={uiTokens.stackVertical}>{children}</div>
+    </section>
+  )
+}
