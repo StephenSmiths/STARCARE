@@ -50,6 +50,11 @@ export const SystemSettingsPolicySubmitCard = ({
         docs/scheduling-policy-edge-function-contract.md。
       </p>
       {loadError ? <p className={uiTokens.bannerDanger}>{loadError}</p> : null}
+      {isPolicyLoading ? (
+        <p className={uiTokens.sectionHelp} role="status">
+          雲端政策摘要與版本列載入中，「提交政策版本」暫停以免基準不完整。
+        </p>
+      ) : null}
       <div className={uiTokens.settingsFieldGrid}>
         <label className={uiTokens.formFieldStack}>
           <span className={uiTokens.formLabel}>生效時間（本地）</span>

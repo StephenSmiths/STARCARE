@@ -22,6 +22,7 @@ describe('SystemSettingsPolicySubmitCard', () => {
     )
     const btn = screen.getByText('提交政策版本', { selector: 'button' }) as HTMLButtonElement
     expect(btn.disabled).toBe(true)
+    expect(screen.getByRole('status').textContent).toMatch(/載入中/)
   })
 
   it('非載入、非提交中時提交鈕可點', () => {
@@ -38,5 +39,6 @@ describe('SystemSettingsPolicySubmitCard', () => {
     )
     const btn = screen.getByText('提交政策版本', { selector: 'button' }) as HTMLButtonElement
     expect(btn.disabled).toBe(false)
+    expect(screen.queryByRole('status')).toBeNull()
   })
 })
