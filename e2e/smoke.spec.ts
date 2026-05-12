@@ -1,7 +1,8 @@
 import { expect, test } from '@playwright/test'
 
 /**
- * 與 `src/app/viewRouting.ts` 模組標題、各頁 `AuditTrailPanel` 標題對齊（demo 無 Supabase，Seq 3）。
+ * 與 `src/app/viewRouting.ts` 模組標題、各頁 **`AuditTrailPanel`** 標題對齊（demo 無 Supabase，Seq 3）。
+ * 審計收合測試並斷言 **`aria-controls`** 與 **`hidden`**（Seq 12；與 Vitest 一致）。
  * **`#system-settings`** 另斷言本機草稿 **group**、**政策版本（P1）** 標題、**本機儲存** 鈕與無 Edge 說明（Seq 29 P1）。
  * 不含 `#dashboard`（首屏另測）、不含 `#user-manual`（無審計區，另測）。
  */
@@ -39,15 +40,23 @@ test.describe('smoke', () => {
   test('audit panel 預設收合，可展開與收回', async ({ page }) => {
     await page.goto('/#staff-import')
     await expect(page.getByRole('heading', { name: '員工管理', exact: true })).toBeVisible()
-    await expect(page.getByRole('button', { name: '展開審計' })).toBeVisible()
+    const expandAudit = page.getByRole('button', { name: '展開審計' })
+    await expect(expandAudit).toBeVisible()
+    const auditRegionId = await expandAudit.getAttribute('aria-controls')
+    expect(auditRegionId).toBeTruthy()
+    const auditRegion = page.locator(`[id="${auditRegionId}"]`)
+    await expect(auditRegion).toHaveCount(1)
+    await expect(auditRegion).toHaveAttribute('hidden', '')
     await expect(page.getByPlaceholder('搜尋 actor / entity / detail')).toHaveCount(0)
 
-    await page.getByRole('button', { name: '展開審計' }).click()
+    await expandAudit.click()
     await expect(page.getByRole('button', { name: '收合審計' })).toBeVisible()
+    await expect(auditRegion).not.toHaveAttribute('hidden')
     await expect(page.getByPlaceholder('搜尋 actor / entity / detail')).toBeVisible()
 
     await page.getByRole('button', { name: '收合審計' }).click()
     await expect(page.getByRole('button', { name: '展開審計' })).toBeVisible()
+    await expect(auditRegion).toHaveAttribute('hidden', '')
     await expect(page.getByPlaceholder('搜尋 actor / entity / detail')).toHaveCount(0)
   })
 
