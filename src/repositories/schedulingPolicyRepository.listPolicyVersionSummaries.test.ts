@@ -1,6 +1,6 @@
-import { afterEach, describe, expect, it, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { STARCARE_DEFAULT_FACILITY_ID } from '../constants/starcareDefaultFacilityId'
-import type { SchedulingPolicyVersionSummary } from './schedulingPolicyTypes'
+import { samplePolicyVersionSummary } from './schedulingPolicyRepository.fixtures'
 import { EdgeSchedulingPolicyRepository } from './schedulingPolicyRepository'
 
 vi.mock('./edgeFunctionHeaders', () => ({
@@ -11,29 +11,24 @@ vi.mock('./edgeFunctionHeaders', () => ({
   })),
 }))
 
-const sampleSummary: SchedulingPolicyVersionSummary = {
-  id: 'pv-test-1',
-  effectiveFrom: '2026-01-15T08:00:00.000Z',
-  effectiveUntil: null,
-  status: 'active',
-  changeSummary: '午休調整',
-  createdAt: '2026-01-14T10:00:00.000Z',
-}
-
-describe('EdgeSchedulingPolicyRepository', () => {
+describe('EdgeSchedulingPolicyRepository.listPolicyVersionSummaries', () => {
   const repo = new EdgeSchedulingPolicyRepository({
     supabaseUrl: 'https://example.supabase.co',
     anonKey: 'anon-key',
+  })
+
+  beforeEach(() => {
+    vi.clearAllMocks()
   })
 
   afterEach(() => {
     vi.unstubAllGlobals()
   })
 
-  it('listPolicyVersionSummaries 呼叫 scheduling-policy-versions-list 並帶 facilityId、limit', async () => {
+  it('呼叫 scheduling-policy-versions-list 並帶 facilityId、limit', async () => {
     const fetchMock = vi.fn().mockResolvedValue({
       ok: true,
-      json: async () => ({ versions: [sampleSummary] }),
+      json: async () => ({ versions: [samplePolicyVersionSummary] }),
     })
     vi.stubGlobal('fetch', fetchMock)
 
@@ -44,10 +39,10 @@ describe('EdgeSchedulingPolicyRepository', () => {
     expect(url).toContain('/functions/v1/scheduling-policy-versions-list?')
     expect(url).toContain(`facilityId=${encodeURIComponent('custom-facility')}`)
     expect(url).toContain('limit=10')
-    expect(rows).toEqual([sampleSummary])
+    expect(rows).toEqual([samplePolicyVersionSummary])
   })
 
-  it('listPolicyVersionSummaries 預設院舍與 limit 50', async () => {
+  it('預設院舍與 limit 50', async () => {
     const fetchMock = vi.fn().mockResolvedValue({
       ok: true,
       json: async () => ({ versions: [] }),
@@ -61,7 +56,7 @@ describe('EdgeSchedulingPolicyRepository', () => {
     expect(url).toContain('limit=50')
   })
 
-  it('listPolicyVersionSummaries 若無 versions 欄位則回傳空陣列', async () => {
+  it('若無 versions 欄位則回傳空陣列', async () => {
     vi.stubGlobal(
       'fetch',
       vi.fn().mockResolvedValue({
@@ -72,7 +67,7 @@ describe('EdgeSchedulingPolicyRepository', () => {
     expect(await repo.listPolicyVersionSummaries()).toEqual([])
   })
 
-  it('listPolicyVersionSummaries 非 OK 時拋錯', async () => {
+  it('非 OK 時拋錯', async () => {
     vi.stubGlobal(
       'fetch',
       vi.fn().mockResolvedValue({
