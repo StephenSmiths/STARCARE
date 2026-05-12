@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 /**
  * 與 `src/app/viewRouting.ts` 模組標題、各頁 **`AuditTrailPanel`** 標題對齊（demo 無 Supabase，Seq 3）。
  * 審計收合測試並斷言 **`aria-controls`** 與 **`hidden`**（Seq 12；與 Vitest 一致）。
- * **`#system-settings`** 另斷言本機草稿 **group**（**`aria-busy="false"`** 閒置）、**Pdf16 智能排班** 內 **排班時間設定**／**排班規則設定（P1）** **`ListSectionPanel`**（**`aria-controls`**、無 **`hidden`**、兩區 **`id`** 有別）、**Pdf16 復康** 內 **資助復康服務（P1）** **`ListSectionPanel`** 預設收合（**展開**、**`aria-controls`**、**`hidden`**）、**政策版本** **`ListSectionPanel`** 預設展開與 **`section[aria-labelledby]`**、**審計** **`section[aria-labelledby]`** 與 **展開審計**／**收合審計**（**`aria-controls`**、**`hidden`**、搜尋 **`placeholder`**）、**本機儲存** 鈕與無 Edge 說明（Seq 29 P1）。
+ * **`#system-settings`** 另斷言本機草稿 **group**（**`aria-busy="false"`** 閒置）、**Pdf16 智能排班** 內 **排班時間設定**／**排班規則設定（P1）** **`ListSectionPanel`**（**`aria-controls`**、無 **`hidden`**、兩區 **`id`** 有別）、**Pdf16 復康** 內 **資助復康服務（P1）** **`ListSectionPanel`** 預設收合（**展開**、**`aria-controls`**、**`hidden`**）、**政策版本** **`ListSectionPanel`** 預設展開、**收合**／**展開** 與 **`section[aria-labelledby]`**、**審計** **`section[aria-labelledby]`** 與 **展開審計**／**收合審計**（**`aria-controls`**、**`hidden`**、搜尋 **`placeholder`**）、**排班時間／規則／資助復康／政策／審計** 五區 **`aria-controls`** 目標 **`id`** 全相異（**`Set.size === 5`**）、**本機儲存** 鈕與無 Edge 說明（Seq 29 P1）。
  * 不含 `#dashboard`（首屏另測）、不含 `#user-manual`（無審計區，另測）。
  */
 const HASH_AUDIT_CASES: ReadonlyArray<{
@@ -134,8 +134,15 @@ test.describe('smoke', () => {
         await expect(collapsePolicy).toBeVisible()
         const policyListContentId = await collapsePolicy.getAttribute('aria-controls')
         expect(policyListContentId).toBeTruthy()
+        expect(policyListContentId).not.toBe(scheduleTimeContentId)
+        expect(policyListContentId).not.toBe(rulesContentId)
+        expect(policyListContentId).not.toBe(subsidizedContentId)
         const policyListContent = page.locator(`[id="${policyListContentId}"]`)
         await expect(policyListContent).toHaveCount(1)
+        await expect(policyListContent).not.toHaveAttribute('hidden')
+        await collapsePolicy.click()
+        await expect(policyListContent).toHaveAttribute('hidden', '')
+        await policyListPanel.getByRole('button', { name: '展開' }).click()
         await expect(policyListContent).not.toHaveAttribute('hidden')
         const policyListHeadingId = await policyListHeading.getAttribute('id')
         expect(policyListHeadingId).toBeTruthy()
@@ -164,6 +171,15 @@ test.describe('smoke', () => {
         await expect(expandAuditSys).toBeVisible()
         await expect(auditRegionSys).toHaveAttribute('hidden', '')
         await expect(page.getByPlaceholder('搜尋 actor / entity / detail')).toHaveCount(0)
+        expect(
+          new Set([
+            scheduleTimeContentId!,
+            rulesContentId!,
+            subsidizedContentId!,
+            policyListContentId!,
+            auditRegionIdSys!,
+          ]).size,
+        ).toBe(5)
       }
     })
   }
