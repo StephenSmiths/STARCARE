@@ -6,7 +6,8 @@
 > **客戶定案日**：2026-05-09（多表存放、`effectiveFrom`、版本不重疊、分期驗收）。  
 > **資料結構詳述**：`docs/system-settings-policy-schema-2026-05-09.md`。  
 > **SQL 骨架**：**`supabase/migrations/20260509153000_facility_scheduling_policy_versioned_skeleton.sql`**（表／觸發器）、**`supabase/migrations/20260509153100_facility_scheduling_policy_versioned_rls.sql`**（RLS）。  
-> **既有對照骨架**：`docs/seq29-system-settings-pdf02-traceability.md`（本 PRD 為其 **院舍後端政策** 延伸）。
+> **既有對照骨架**：`docs/seq29-system-settings-pdf02-traceability.md`（本 PRD 為其 **院舍後端政策** 延伸）。  
+> **Demo E2E（無 Supabase 政策區煙霧）**：**`npm run test:e2e:system-settings-policy`**（**`e2e/system-settings-policy-p1-demo.spec.ts`**；見 **seq29** §4）。
 
 ---
 
@@ -89,3 +90,4 @@
 | 2026-05-09 | 初版：依客戶回函定稿 R1～R7、分期 P1／P2、與 seq29／遷移骨架互鏈。 |
 | 2026-05-09 | 增列對客回覆範本互鏈：**`docs/system-settings-policy-customer-reply-2026-05-09.md`**。 |
 | 2026-05-12 | 開首 Edge 列舉補 **`scheduling-policy-versions-list`**（§4 版本列唯讀）；與 **`docs/scheduling-policy-edge-function-contract.md`** §4.2a 對齊。 |
+| 2026-05-12 | 開首互鏈補 **Demo E2E**（**`test:e2e:system-settings-policy`**／**seq29** §4）。 |
