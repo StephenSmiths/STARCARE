@@ -25,8 +25,8 @@
 
 | 函式 | 軌道 | 程式錨點 | 備註 |
 |------|------|----------|------|
-| `buildSubsidizedRehabTrackSnapshot` | 資助復康 | `runSubsidizedRehabScheduling`（**`recordAudit: false`**） | `mapActiveResidentsToSubsidizedSchedulingResidents`、時段經 **`filterSchedulingSessionsForSubsidizedEngine`** |
-| `buildDementiaServiceTrackSnapshot` | 認知 | `runDementiaTrackDryRun` | **`isDementiaCareCohort`**、`filterToDementiaServiceOnly`、**`DEMENTIA_WEEKLY_TARGET`**（**01 §3.3／§4** 與復康分離） |
+| `buildSubsidizedRehabTrackSnapshot` | 資助復康 | `runSubsidizedRehabScheduling`（**`recordAudit: false`**） | `mapActiveResidentsToSubsidizedSchedulingResidents`、**`windowSnapshot`**（**`resolveSchedulingWindowSnapshot`**）經 **`filterSchedulingSessionsForSubsidizedEngine`** |
+| `buildDementiaServiceTrackSnapshot` | 認知 | `runDementiaTrackDryRun` | **`isDementiaCareCohort`**、**`windowSnapshot`** 同上、**`filterToDementiaServiceOnly`**、**`DEMENTIA_WEEKLY_TARGET`**（**01 §3.3／§4** 與復康分離） |
 
 **型別**：**`RehabActivityTrackSnapshot`**、**`RehabActivityTrackRow`**（週目標、預覽完成、達標、可選 **`dementiaLevel`**）。
 

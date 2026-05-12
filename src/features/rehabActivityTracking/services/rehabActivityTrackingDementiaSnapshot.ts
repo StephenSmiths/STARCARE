@@ -9,6 +9,7 @@ import {
   filterSchedulingSessionsForSubsidizedEngine,
   filterToDementiaServiceOnly,
 } from '../../scheduling/services/schedulingSessionWindowFilterService'
+import type { SystemSettingsSnapshot } from '../../systemSettings/types'
 import { DEMENTIA_WEEKLY_TARGET, runDementiaTrackDryRun } from './dementiaTrackDryRunService'
 import type { RehabActivityTrackRow, RehabActivityTrackSnapshot } from './rehabActivityTrackingSnapshotTypes'
 
@@ -29,17 +30,18 @@ export const mapResidentToDementiaSchedulingResident = (r: Resident): Scheduling
   assignedDates: [],
 })
 
-/** 認知障礙症軌：獨立乾跑（01 §3.3／§4 與復康軌統計分離） */
+/** 認知障礙症軌：獨立乾跑（01 §3.3／§4 與復康軌統計分離）；時段過濾用 `windowSnapshot`（與資助軌一致） */
 export const buildDementiaServiceTrackSnapshot = (
   residentsAll: Resident[],
   sessionsAll: SchedulingSession[],
   constraints: SchedulingConstraints,
+  windowSnapshot: SystemSettingsSnapshot,
 ): RehabActivityTrackSnapshot => {
   const cohort = [...residentsAll.filter(isDementiaCareCohort)].sort(
     (a, b) => dementiaSeverityRank(a.dementiaLevel) - dementiaSeverityRank(b.dementiaLevel),
   )
   const dementiaEngineSessions = filterToDementiaServiceOnly(
-    filterSchedulingSessionsForSubsidizedEngine(sessionsAll),
+    filterSchedulingSessionsForSubsidizedEngine(sessionsAll, windowSnapshot),
   )
   const mapped = cohort.map(mapResidentToDementiaSchedulingResident)
   const { assignments, conflicts, residentsOut } = runDementiaTrackDryRun(

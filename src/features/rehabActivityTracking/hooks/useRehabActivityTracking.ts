@@ -20,7 +20,8 @@ export type RehabActivityTrackingState = {
 /** PDF 02【8】兩軌快照（乾跑；不觸發正式排班審計） */
 export const useRehabActivityTracking = (): RehabActivityTrackingState => {
   const actorId = useAuthActorId()
-  const { residents, sessions, rules, loadError, isLoading, reload } = useRehabActivityTrackingLoad()
+  const { residents, sessions, rules, windowSnapshot, loadError, isLoading, reload } =
+    useRehabActivityTrackingLoad()
 
   const systemSettingsVersion = useSystemSettingsExternalVersion()
   const constraints = useMemo(() => {
@@ -29,13 +30,13 @@ export const useRehabActivityTracking = (): RehabActivityTrackingState => {
   }, [rules, systemSettingsVersion])
 
   const rehabSnapshot = useMemo(
-    () => buildSubsidizedRehabTrackSnapshot(actorId, residents, sessions, constraints),
-    [actorId, residents, sessions, constraints],
+    () => buildSubsidizedRehabTrackSnapshot(actorId, residents, sessions, constraints, windowSnapshot),
+    [actorId, residents, sessions, constraints, windowSnapshot],
   )
 
   const dementiaSnapshot = useMemo(
-    () => buildDementiaServiceTrackSnapshot(residents, sessions, constraints),
-    [residents, sessions, constraints],
+    () => buildDementiaServiceTrackSnapshot(residents, sessions, constraints, windowSnapshot),
+    [residents, sessions, constraints, windowSnapshot],
   )
 
   return {

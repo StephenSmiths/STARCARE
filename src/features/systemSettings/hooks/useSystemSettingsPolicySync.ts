@@ -6,6 +6,7 @@ import { getSupabaseBrowserCredentials } from '../../../services/supabaseBrowser
 import { bundleToPolicyCommitBody, mergeP1DraftIntoPolicyBundle } from '../domain/mergeP1DraftIntoPolicyBundle'
 import { validateSystemSettings } from '../domain/systemSettingsValidation'
 import type { SystemSettingsSnapshot } from '../types'
+import { bumpSystemSettingsExternalVersion } from '../systemSettingsExternalStore'
 
 type Args = {
   draft: SystemSettingsSnapshot
@@ -92,6 +93,7 @@ export const useSystemSettingsPolicySync = ({ draft, hydrateP1FromBundle }: Args
           return
         }
         setSubmitMessage(`已建立政策版本（${committed.policyVersionId.slice(0, 8)}…）`)
+        bumpSystemSettingsExternalVersion()
         const fresh = await repo.getCurrentBundle(STARCARE_DEFAULT_FACILITY_ID)
         setBaseBundle(fresh)
         if (fresh) hydrateRef.current(fresh)

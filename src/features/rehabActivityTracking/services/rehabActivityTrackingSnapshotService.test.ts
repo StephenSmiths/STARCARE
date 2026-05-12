@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import type { Resident } from '../../residents/types/resident'
 import type { SchedulingSession } from '../../../services/schedulingService'
+import { DEFAULT_SYSTEM_SETTINGS } from '../../systemSettings/repository/systemSettingsRepository'
 import {
   buildDementiaServiceTrackSnapshot,
   buildSubsidizedRehabTrackSnapshot,
@@ -48,7 +49,7 @@ describe('rehabActivityTrackingSnapshotService (PDF 02【8】)', () => {
       baseResident({ id: 'a', serviceType: 'Subsidized_Rehab' }),
       baseResident({ id: 'b', serviceType: 'Dementia_Service', dementiaLevel: 'Mild' }),
     ]
-    const snap = buildSubsidizedRehabTrackSnapshot('actor-1', residents, [rehabSession()], constraints)
+    const snap = buildSubsidizedRehabTrackSnapshot('actor-1', residents, [rehabSession()], constraints, DEFAULT_SYSTEM_SETTINGS)
     expect(snap.cohortCount).toBe(1)
     expect(snap.rows.some((row) => row.id === 'b')).toBe(false)
   })
@@ -67,7 +68,7 @@ describe('rehabActivityTrackingSnapshotService (PDF 02【8】)', () => {
       id: 'dm1',
       serviceType: 'Dementia_Service',
     }
-    const snap = buildDementiaServiceTrackSnapshot(residents, [demSession], constraints)
+    const snap = buildDementiaServiceTrackSnapshot(residents, [demSession], constraints, DEFAULT_SYSTEM_SETTINGS)
     expect(snap.cohortCount).toBe(1)
     expect(snap.rows[0]?.id).toBe('d1')
   })

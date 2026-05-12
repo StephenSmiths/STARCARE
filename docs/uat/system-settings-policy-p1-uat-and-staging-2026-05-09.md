@@ -32,7 +32,8 @@
 
 - **P2 欄位**（固定活動、資助矩陣等）仍須在後端或第二階段 UI 維護；本 P1 表單提交時會**保留**伺服器上既有子表，僅覆寫非治療時段與數字上限。  
 - **審計**：Edge commit 會寫 **`audit_events`**；本機「儲存設定」仍為 **`SYSTEM_SETTINGS_SAVE`** 審計列，兩者並存至全鏈收斂。  
-- **智能排班乾跑**：已於 **`runSubsidizedRehabSchedulingOrchestration`** 併用 **`schedulingWindowSnapshotService.resolveSchedulingWindowSnapshot`**（有 **`policyVersion`** 時與雲端 P1 一致）；**復康活動追蹤**乾跑仍僅本機視窗（待下一階段收斂）。
+- **智能排班乾跑**：已於 **`runSubsidizedRehabSchedulingOrchestration`** 併用 **`schedulingWindowSnapshotService.resolveSchedulingWindowSnapshot`**（有 **`policyVersion`** 時與雲端 P1 一致）。  
+- **復康活動追蹤**：**`useRehabActivityTrackingLoad`** 並行載入 **`windowSnapshot`**，**`buildSubsidizedRehabTrackSnapshot`**／**`buildDementiaServiceTrackSnapshot`** 與排班乾跑同源過濾；雲端提交成功後 **`bumpSystemSettingsExternalVersion`** 觸發跨頁重載。
 
 ---
 
