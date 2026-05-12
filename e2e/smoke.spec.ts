@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 /**
  * 與 `src/app/viewRouting.ts` 模組標題、各頁 **`AuditTrailPanel`** 標題對齊（demo 無 Supabase，Seq 3）。
  * 審計收合測試並斷言 **`aria-controls`** 與 **`hidden`**（Seq 12；與 Vitest 一致）。
- * **`#system-settings`** 另斷言本機草稿 **group**（**`aria-busy="false"`** 閒置）、**Pdf16 智能排班** 內 **排班時間設定**／**排班規則設定（P1）** **`ListSectionPanel`**（**`aria-controls`**、無 **`hidden`**、兩區 **`id`** 有別）、**Pdf16 復康** 內 **資助復康服務（P1）** **`ListSectionPanel`** 預設收合（**展開**、**`aria-controls`**、**`hidden`**）、**政策版本** **`ListSectionPanel`** 預設展開、**本機儲存** 鈕與無 Edge 說明（Seq 29 P1）。
+ * **`#system-settings`** 另斷言本機草稿 **group**（**`aria-busy="false"`** 閒置）、**Pdf16 智能排班** 內 **排班時間設定**／**排班規則設定（P1）** **`ListSectionPanel`**（**`aria-controls`**、無 **`hidden`**、兩區 **`id`** 有別）、**Pdf16 復康** 內 **資助復康服務（P1）** **`ListSectionPanel`** 預設收合（**展開**、**`aria-controls`**、**`hidden`**）、**政策版本** **`ListSectionPanel`** 預設展開與 **`section[aria-labelledby]`**、**審計** **`section[aria-labelledby]`**、**本機儲存** 鈕與無 Edge 說明（Seq 29 P1）。
  * 不含 `#dashboard`（首屏另測）、不含 `#user-manual`（無審計區，另測）。
  */
 const HASH_AUDIT_CASES: ReadonlyArray<{
@@ -137,6 +137,14 @@ test.describe('smoke', () => {
         const policyListContent = page.locator(`[id="${policyListContentId}"]`)
         await expect(policyListContent).toHaveCount(1)
         await expect(policyListContent).not.toHaveAttribute('hidden')
+        const policyListHeadingId = await policyListHeading.getAttribute('id')
+        expect(policyListHeadingId).toBeTruthy()
+        await expect(page.locator(`section[aria-labelledby="${policyListHeadingId}"]`)).toHaveCount(1)
+        const auditTrailHeading = page.getByRole('heading', { name: '系統設定與相關審計（全域）', exact: true })
+        await expect(auditTrailHeading).toBeVisible()
+        const auditTrailHeadingId = await auditTrailHeading.getAttribute('id')
+        expect(auditTrailHeadingId).toBeTruthy()
+        await expect(page.locator(`section[aria-labelledby="${auditTrailHeadingId}"]`)).toHaveCount(1)
       }
     })
   }
