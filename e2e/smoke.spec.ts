@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 /**
  * 與 `src/app/viewRouting.ts` 模組標題、各頁 **`AuditTrailPanel`** 標題對齊（demo 無 Supabase，Seq 3）。
  * 審計收合測試並斷言 **`aria-controls`** 與 **`hidden`**（Seq 12；與 Vitest 一致）。
- * **`#system-settings`** 另斷言本機草稿 **group**（**`aria-busy="false"`** 閒置）、**Pdf16 智能排班** 內 **排班時間設定**／**排班規則設定（P1）** **`ListSectionPanel`**（**`aria-controls`**、無 **`hidden`**、兩區 **`id`** 有別）、**Pdf16 復康** 內 **資助復康服務（P1）** **`ListSectionPanel`** 預設收合（**展開**、**`aria-controls`**、**`hidden`**）、**政策版本** **`ListSectionPanel`** 預設展開與 **`section[aria-labelledby]`**、**審計** **`section[aria-labelledby]`**、**本機儲存** 鈕與無 Edge 說明（Seq 29 P1）。
+ * **`#system-settings`** 另斷言本機草稿 **group**（**`aria-busy="false"`** 閒置）、**Pdf16 智能排班** 內 **排班時間設定**／**排班規則設定（P1）** **`ListSectionPanel`**（**`aria-controls`**、無 **`hidden`**、兩區 **`id`** 有別）、**Pdf16 復康** 內 **資助復康服務（P1）** **`ListSectionPanel`** 預設收合（**展開**、**`aria-controls`**、**`hidden`**）、**政策版本** **`ListSectionPanel`** 預設展開與 **`section[aria-labelledby]`**、**審計** **`section[aria-labelledby]`** 與 **展開審計**／**收合審計**（**`aria-controls`**、**`hidden`**、搜尋 **`placeholder`**）、**本機儲存** 鈕與無 Edge 說明（Seq 29 P1）。
  * 不含 `#dashboard`（首屏另測）、不含 `#user-manual`（無審計區，另測）。
  */
 const HASH_AUDIT_CASES: ReadonlyArray<{
@@ -144,7 +144,26 @@ test.describe('smoke', () => {
         await expect(auditTrailHeading).toBeVisible()
         const auditTrailHeadingId = await auditTrailHeading.getAttribute('id')
         expect(auditTrailHeadingId).toBeTruthy()
-        await expect(page.locator(`section[aria-labelledby="${auditTrailHeadingId}"]`)).toHaveCount(1)
+        const auditSection = page.locator(`section[aria-labelledby="${auditTrailHeadingId}"]`)
+        await expect(auditSection).toHaveCount(1)
+        const expandAuditSys = auditSection.getByRole('button', { name: '展開審計' })
+        await expect(expandAuditSys).toBeVisible()
+        const auditRegionIdSys = await expandAuditSys.getAttribute('aria-controls')
+        expect(auditRegionIdSys).toBeTruthy()
+        const auditRegionSys = page.locator(`[id="${auditRegionIdSys}"]`)
+        await expect(auditRegionSys).toHaveCount(1)
+        await expect(auditRegionSys).toHaveAttribute('hidden', '')
+        await expect(page.getByPlaceholder('搜尋 actor / entity / detail')).toHaveCount(0)
+
+        await expandAuditSys.click()
+        await expect(auditSection.getByRole('button', { name: '收合審計' })).toBeVisible()
+        await expect(auditRegionSys).not.toHaveAttribute('hidden')
+        await expect(page.getByPlaceholder('搜尋 actor / entity / detail')).toBeVisible()
+
+        await auditSection.getByRole('button', { name: '收合審計' }).click()
+        await expect(expandAuditSys).toBeVisible()
+        await expect(auditRegionSys).toHaveAttribute('hidden', '')
+        await expect(page.getByPlaceholder('搜尋 actor / entity / detail')).toHaveCount(0)
       }
     })
   }
