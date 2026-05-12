@@ -9,6 +9,7 @@ test.describe('system-settings policy P1（demo 無 Supabase）', () => {
     await page.goto('/#system-settings')
     await expect(page).toHaveURL(/#system-settings/)
     await expect(page.getByRole('heading', { name: '系統設定', exact: true })).toBeVisible()
+    await expect(page.getByRole('heading', { name: '智能排班設定', exact: true })).toBeVisible()
     await expect(
       page.getByRole('heading', { name: '政策版本（雲端提交）（P1）', exact: true }),
     ).toBeVisible()

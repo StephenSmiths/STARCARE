@@ -50,7 +50,10 @@
 |-----------|------|
 | `systemSettingsValidation.test.ts` | 驗證規則 |
 | `systemSettingsExternalStore.test.ts` | 版本 bump |
+| `useSystemSettingsPolicySync.test.ts`、`useSystemSettingsPolicySync.submitFailures.test.ts`（**`policySyncTestDraft.ts`**） | 政策同步 hook：載入、guard、成功／失敗提交、`loadError` |
+| `schedulingPolicyRepository.*.test.ts`、`schedulingPolicyRepository.fixtures.ts` | **`schedulingPolicyRepository`** Edge／InMemory／工廠 |
 | `e2e/smoke.spec.ts` | **`#system-settings`**、**系統設定與相關審計** |
+| **`e2e/system-settings-policy-p1-demo.spec.ts`**（**`npm run test:e2e:system-settings-policy`**） | P1 政策區標題、無 Supabase 本機說明（與 UAT 未設 env 對齊） |
 
 ---
 
@@ -69,7 +72,7 @@
 |------|------|
 | **`docs/system-settings-policy-prd-2026-05-09.md`** | PRD：R1～R7、流程、分期、與 `scheduling_rules` 接軌策略 |
 | **`docs/system-settings-policy-schema-2026-05-09.md`** | 表清單、欄位概念、排班／報表讀版規則 |
-| **`docs/scheduling-policy-edge-function-contract.md`** | Edge **`scheduling-policy-*`** 四端點請求／回應契約（讀：staff／teamlead／admin；寫：teamlead／admin） |
+| **`docs/scheduling-policy-edge-function-contract.md`** | Edge **`scheduling-policy-*`** 五支（current-get／at-get／**versions-list**／validate／commit）請求／回應契約（讀：staff／teamlead／admin；寫：teamlead／admin） |
 | **`supabase/migrations/20260509153000_facility_scheduling_policy_versioned_skeleton.sql`** | PostgreSQL **表／觸發器**（單檔 ≤200 行） |
 | **`supabase/migrations/20260509153100_facility_scheduling_policy_versioned_rls.sql`** | **RLS**（SELECT）；寫入預設走 Edge |
 
@@ -80,3 +83,4 @@
 | 2026-05-04 | 初版：Seq 29 **對照骨架**（02【16】末序）；與 Seq 28 互鏈。 |
 | 2026-05-04 | §5：補 **Seq 35～38**（03／C 區）對照骨架互鏈。 |
 | 2026-05-09 | §6：院舍政策版本 PRD／Schema／Edge 契約／migration（**153000** 表、**153100** RLS）；客戶回函定案互鏈。 |
+| 2026-05-12 | §4：補 Vitest（**`useSystemSettingsPolicySync`**、**`schedulingPolicyRepository`**）與 **`e2e/system-settings-policy-p1-demo.spec.ts`**；§6 契約敘述改 **五支** Edge。 |
