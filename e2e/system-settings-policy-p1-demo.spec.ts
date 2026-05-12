@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 
 /**
  * Demo 建置（`VITE_SUPABASE_*` 清空）：與 **`npm run test:e2e:smoke`** 同型 preview；
- * 驗證 Seq 29 P1：兩個 **Pdf16 大節**（智能排班／復康服務）；**`ListSectionPanel`**：**排班時間設定**／**排班規則設定（P1）**（**`h3`**、預設展開、**`aria-controls`**）與 **資助復康**（預設收合、**`hidden`**）；**政策版本**、**審計** landmark、**審計** **展開**／**收合**（**`aria-controls`**、**`hidden`**、搜尋 **`placeholder`**）與無 Edge 時之本機說明（對照 UAT 未設 env 預期）。
+ * 驗證 Seq 29 P1：兩個 **Pdf16 大節**（智能排班／復康服務）；**`ListSectionPanel`**：**排班時間設定**／**排班規則設定（P1）**（**`h3`**、預設展開、**`aria-controls`**）與 **資助復康**（於復康大節內篩選、預設收合、**`hidden`**）；**政策版本** **`ListSectionPanel`**（**`section[aria-labelledby]`**、預設展開、**收合**／**展開** 與 **`hidden`**）；五處 **`aria-controls`** 目標 **`id`** 全相異；**審計** landmark、**審計** **展開**／**收合**（**`aria-controls`**、**`hidden`**、搜尋 **`placeholder`**）與無 Edge 時之本機說明（對照 UAT 未設 env 預期）。
  */
 test.describe('system-settings policy P1（demo 無 Supabase）', () => {
   test('政策區塊標題與本機儲存說明可見', async ({ page }) => {
@@ -46,13 +46,14 @@ test.describe('system-settings policy P1（demo 無 Supabase）', () => {
     const rehabSectionId = await rehabHeading.getAttribute('id')
     expect(rehabSectionId).toBeTruthy()
     expect(rehabSectionId).not.toBe(schedulingSectionId)
-    await expect(page.locator(`section[aria-labelledby="${rehabSectionId}"]`)).toHaveCount(1)
+    const rehabPdfSection = page.locator(`section[aria-labelledby="${rehabSectionId}"]`)
+    await expect(rehabPdfSection).toHaveCount(1)
     const subsidizedListHeading = page.getByRole('heading', {
       name: '資助復康服務與認知障礙症服務（P1）',
       exact: true,
     })
     await expect(subsidizedListHeading).toBeVisible()
-    const subsidizedPanel = page.locator('section').filter({ has: subsidizedListHeading })
+    const subsidizedPanel = rehabPdfSection.locator('section').filter({ has: subsidizedListHeading })
     const expandSubsidized = subsidizedPanel.getByRole('button', { name: '展開' })
     await expect(expandSubsidized).toBeVisible()
     const subsidizedContentId = await expandSubsidized.getAttribute('aria-controls')
@@ -71,6 +72,21 @@ test.describe('system-settings policy P1（demo 無 Supabase）', () => {
     const policyHeadingId = await policyHeading.getAttribute('id')
     expect(policyHeadingId).toBeTruthy()
     await expect(page.locator(`section[aria-labelledby="${policyHeadingId}"]`)).toHaveCount(1)
+    const policyListPanel = page.locator('section').filter({ has: policyHeading })
+    const collapsePolicy = policyListPanel.getByRole('button', { name: '收合' })
+    await expect(collapsePolicy).toBeVisible()
+    const policyListContentId = await collapsePolicy.getAttribute('aria-controls')
+    expect(policyListContentId).toBeTruthy()
+    expect(policyListContentId).not.toBe(scheduleTimeContentId)
+    expect(policyListContentId).not.toBe(rulesContentId)
+    expect(policyListContentId).not.toBe(subsidizedContentId)
+    const policyListContent = page.locator(`[id="${policyListContentId}"]`)
+    await expect(policyListContent).toHaveCount(1)
+    await expect(policyListContent).not.toHaveAttribute('hidden')
+    await collapsePolicy.click()
+    await expect(policyListContent).toHaveAttribute('hidden', '')
+    await policyListPanel.getByRole('button', { name: '展開' }).click()
+    await expect(policyListContent).not.toHaveAttribute('hidden')
     await expect(page.getByText('未偵測到 Supabase 環境變數')).toBeVisible()
     await expect(page.getByRole('button', { name: '儲存設定（本機）' })).toBeVisible()
     const auditHeading = page.getByRole('heading', { name: '系統設定與相關審計（全域）', exact: true })
@@ -97,5 +113,14 @@ test.describe('system-settings policy P1（demo 無 Supabase）', () => {
     await expect(expandAudit).toBeVisible()
     await expect(auditRegion).toHaveAttribute('hidden', '')
     await expect(page.getByPlaceholder('搜尋 actor / entity / detail')).toHaveCount(0)
+    expect(
+      new Set([
+        scheduleTimeContentId!,
+        rulesContentId!,
+        subsidizedContentId!,
+        policyListContentId!,
+        auditRegionId!,
+      ]).size,
+    ).toBe(5)
   })
 })

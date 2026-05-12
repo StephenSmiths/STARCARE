@@ -62,7 +62,7 @@
 | `systemSettingsValidation.test.ts` | 驗證規則 |
 | `systemSettingsExternalStore.test.ts` | 版本 bump |
 | `e2e/smoke.spec.ts` | 各 hash 模組與審計標題；**`#staff-import`** 審計 **`aria-controls`**／**`hidden`**；**`#system-settings`**：**本機設定（瀏覽器儲存）** **`group`**（**`aria-busy="false"`**）、**Pdf16 智能排班** 內 **排班時間設定**／**排班規則設定（P1）** **`ListSectionPanel`**（**`aria-controls`**、無 **`hidden`**、兩內容區 **`id`** 有別）、**Pdf16 復康** 內 **資助復康服務（P1）** **`ListSectionPanel`** 預設收合（**展開**、**`aria-controls`**、**`hidden`**）、**政策版本** **`ListSectionPanel`** 預設展開（**`aria-controls`**、無 **`hidden`**）與 **`section[aria-labelledby]`**、**審計** **`section[aria-labelledby]`** 與 **展開審計**／**收合審計**（**`aria-controls`**、**`hidden`**、搜尋 **`placeholder`**）、**政策版本（P1）**、**儲存設定（本機）**、無 Edge 說明 |
-| `e2e/system-settings-policy-p1-demo.spec.ts` | **`npm run test:e2e:system-settings-policy`**：本機區 **`group`**／**`aria-busy`**；**智能排班設定**／**復康服務基本設定**；**排班時間設定**／**排班規則設定（P1）**（於 **Pdf16** 大節內篩 **`ListSectionPanel`**、**`h3`**、預設展開、**`aria-controls`**）與 **資助復康** **`ListSectionPanel`** **`aria-controls`**／**`hidden`**／展開後 **SC** 文案；政策版本（P1）／**審計** **`section[aria-labelledby]`** 與對應標題 **id**、**展開審計**／**收合審計**（**`aria-controls`**、**`hidden`**、搜尋 **`placeholder`**）、無 Edge 本機說明 |
+| `e2e/system-settings-policy-p1-demo.spec.ts` | **`npm run test:e2e:system-settings-policy`**：本機區 **`group`**／**`aria-busy`**；**智能排班設定**／**復康服務基本設定**；**排班時間設定**／**排班規則設定（P1）**（於 **Pdf16** 大節內篩 **`ListSectionPanel`**、**`h3`**、預設展開、**`aria-controls`**）與 **資助復康**（於復康大節內篩 **`ListSectionPanel`**、**`aria-controls`**／**`hidden`**／展開後 **SC** 文案）；**政策版本** **`ListSectionPanel`** **`section[aria-labelledby]`**、**收合**／**展開** 與 **`hidden`**；**排班時間／規則／資助復康／政策／審計** 五處 **`aria-controls`** 目標 **`id`** 全相異（**`Set.size === 5`**）；**審計** **展開審計**／**收合審計**（**`aria-controls`**、**`hidden`**、搜尋 **`placeholder`**）、無 Edge 本機說明 |
 | `useSystemSettingsPolicySync*.test.ts`（Vitest） | 載入／提交成功與失敗路徑（**`@testing-library/react`**；含 **`submitFailures`** 提交例外） |
 | `useSystemSettingsPolicySync.reload.test.ts`（Vitest） | **`loadError`** 後 **`reloadPolicy`** 成功則清除錯誤並 **hydrate** |
 | `useSystemSettingsPolicySync.postCommitRefresh.test.ts`（Vitest） | 提交成功後靜默 **`loadPolicy`** 失敗時 **`submitMessage`** 補述與 **`loadError`** |
@@ -118,6 +118,8 @@
 | 2026-05-12 | §1／§4：**`AuditTrailPanel`** 標題 **`useId`**（取代固定 **`audit-trail-heading`**）；**`AuditTrailPanel.test`**；**policy P1 demo E2E** 審計 **section**。 |
 | 2026-05-12 | §4：**`e2e/smoke`** 於 **`#system-settings`** 斷言本機 **`group`**（Seq 29）。 |
 | 2026-05-09 | §4：**`README.md`**：**`test:e2e:smoke`** 註解補 **`#system-settings`** **審計** 展開收合煙霧。 |
+| 2026-05-09 | §4：**`README.md`**：**`test:e2e:system-settings-policy`** 註解補政策清單收合／**`Set.size === 5`**。 |
+| 2026-05-09 | §4：**`e2e/system-settings-policy-p1-demo`** 補 **政策版本** **`ListSectionPanel`** **收合**／**展開**、復康內層於 **`rehabPdfSection`** 篩選、五區 **`aria-controls`** **`id`** **`Set.size === 5`**。 |
 | 2026-05-09 | §4：**`README.md`**：**`test:e2e:system-settings-policy`** 註解補 **審計** 展開收合與 **seq29** §4 互鏈。 |
 | 2026-05-09 | §4：**`e2e/system-settings-policy-p1-demo`** 補 **審計** **展開**／**收合** 與 **`aria-controls`**／**`hidden`**／搜尋 **`placeholder`**（與 **`e2e/smoke`** **`#system-settings`** 對齊）。 |
 | 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **審計** **展開**／**收合** 與 **`aria-controls`**／**`hidden`**／搜尋 **`placeholder`**（與 **`#staff-import`** 單測及 **`SystemSettingsHome.interactions`** Vitest 對齊）。 |
