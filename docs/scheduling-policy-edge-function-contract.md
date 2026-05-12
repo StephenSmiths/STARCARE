@@ -74,6 +74,14 @@
 - **成功**：`200 + SchedulingPolicyBundle`（若該日無版本，回傳 **`policyVersion: null`** 並附 **`legacySchedulingRules`** 或 **`404`**—須與報表產品約定一致後定稿）。  
 - **錯誤**：`400`（`asOf` 非法）、`401`／`403`。
 
+### 4.2a GET `/functions/v1/scheduling-policy-versions-list?facilityId={id}&limit={n}`
+
+- **用途**：回傳該院舍 **`facility_scheduling_policy_versions`** 頭表摘要列（依 **`effective_from`** 新→舊），供 **PRD §4**「已排程／歷程」檢視；**不**含子表明細。  
+- **授權**：同 **§4.1**（**`guardStaffUser`**）。  
+- **參數**：**`facilityId`** 可省略（預設 **`facility-main`**）；**`limit`** 可選 **1～100**（預設 **50**）。  
+- **成功**：`200 + { "facilityId": "…", "versions": [ { "id", "effectiveFrom", "effectiveUntil", "status", "changeSummary", "createdAt" } ] }`（欄位 camelCase，與 **`SchedulingPolicyBundle.policyVersion`** 同形）。  
+- **錯誤**：`401`／`403`、`404`（院舍不存在）。
+
 ### 4.3 POST `/functions/v1/scheduling-policy-version-validate`
 
 - **用途**：校驗即將建立之版本草稿（**R‑effective**、子表完整性、Pass 順序恰好三筆等），**不寫入**正式版本列。  
@@ -108,7 +116,7 @@
 
 ## 6. 部署與 CI
 
-- **實作完成後**：將 **`scheduling-policy-current-get`**、**`scheduling-policy-at-get`**、**`scheduling-policy-version-validate`**、**`scheduling-policy-version-commit`** 四支函式加入 **`package.json`** 之 **`ops:deploy:all`**（與 **`docs/supabase-deploy-runbook.md`** §2 並讀）。  
+- **實作完成後**：將 **`scheduling-policy-current-get`**、**`scheduling-policy-at-get`**、**`scheduling-policy-versions-list`**、**`scheduling-policy-version-validate`**、**`scheduling-policy-version-commit`** 納入 **`package.json`** 之 **`ops:deploy:all`**（與 **`docs/supabase-deploy-runbook.md`** §2 並讀）。  
 - **migration**：先執行 **`npx supabase db push`** 套用 **`20260509153000_facility_scheduling_policy_versioned_skeleton.sql`** 與 **`20260509153100_facility_scheduling_policy_versioned_rls.sql`**（單檔 ≤200 行，拆表與 RLS）。
 
 ## 7. 修訂紀錄
@@ -116,3 +124,4 @@
 | 日期 | 說明 |
 |------|------|
 | 2026-05-09 | 初版：四端點契約、Bundle 形狀、客戶 R1～R4 映射、部署註記。 |
+| 2026-05-12 | 增 **§4.2a `scheduling-policy-versions-list`**（版本列唯讀）；部署清單五支。 |

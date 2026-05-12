@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { STARCARE_DEFAULT_FACILITY_ID } from '../../../constants/starcareDefaultFacilityId'
 import { createSchedulingPolicyRepository } from '../../../repositories/schedulingPolicyRepository'
-import type { PolicyValidateError, SchedulingPolicyBundle } from '../../../repositories/schedulingPolicyTypes'
+import type { PolicyValidateError, SchedulingPolicyBundle, SchedulingPolicyVersionSummary } from '../../../repositories/schedulingPolicyTypes'
 import { getSupabaseBrowserCredentials } from '../../../services/supabaseBrowserEnv'
 import { bundleToPolicyCommitBody, mergeP1DraftIntoPolicyBundle } from '../domain/mergeP1DraftIntoPolicyBundle'
 import { validateSystemSettings } from '../domain/systemSettingsValidation'
@@ -18,6 +18,7 @@ export const useSystemSettingsPolicySync = ({ draft, hydrateP1FromBundle }: Args
   const edgeEnabled = Boolean(getSupabaseBrowserCredentials())
   const repo = useMemo(() => createSchedulingPolicyRepository(), [])
   const [baseBundle, setBaseBundle] = useState<SchedulingPolicyBundle | null>(null)
+  const [policyVersions, setPolicyVersions] = useState<SchedulingPolicyVersionSummary[]>([])
   const [loadError, setLoadError] = useState<string | null>(null)
   const [isPolicyLoading, setIsPolicyLoading] = useState(false)
   const [submitMessage, setSubmitMessage] = useState<string | null>(null)
@@ -33,9 +34,13 @@ export const useSystemSettingsPolicySync = ({ draft, hydrateP1FromBundle }: Args
     void (async () => {
       setIsPolicyLoading(true)
       try {
-        const b = await repo.getCurrentBundle(STARCARE_DEFAULT_FACILITY_ID)
+        const [b, versions] = await Promise.all([
+          repo.getCurrentBundle(STARCARE_DEFAULT_FACILITY_ID),
+          repo.listPolicyVersionSummaries(STARCARE_DEFAULT_FACILITY_ID, 50),
+        ])
         if (!alive) return
         setBaseBundle(b)
+        setPolicyVersions(versions)
         if (b) hydrateRef.current(b)
         setLoadError(null)
       } catch (e) {
@@ -98,8 +103,12 @@ export const useSystemSettingsPolicySync = ({ draft, hydrateP1FromBundle }: Args
         }
         setSubmitMessage(`已建立政策版本（${committed.policyVersionId.slice(0, 8)}…）`)
         bumpSystemSettingsExternalVersion()
-        const fresh = await repo.getCurrentBundle(STARCARE_DEFAULT_FACILITY_ID)
+        const [fresh, vList] = await Promise.all([
+          repo.getCurrentBundle(STARCARE_DEFAULT_FACILITY_ID),
+          repo.listPolicyVersionSummaries(STARCARE_DEFAULT_FACILITY_ID, 50),
+        ])
         setBaseBundle(fresh)
+        setPolicyVersions(vList)
         if (fresh) hydrateRef.current(fresh)
       } catch (e) {
         setSubmitMessage(String(e))
@@ -116,6 +125,7 @@ export const useSystemSettingsPolicySync = ({ draft, hydrateP1FromBundle }: Args
     loadError,
     isPolicyLoading,
     currentPolicyVersion: baseBundle?.policyVersion ?? null,
+    policyVersions,
     validateErrors,
     submitMessage,
     isSubmitting,

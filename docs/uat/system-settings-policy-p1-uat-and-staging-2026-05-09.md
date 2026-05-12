@@ -8,7 +8,7 @@
 ## 一、Staging 環境前置（營運／工程）
 
 1. **Supabase**：目標專案已執行 **`npm run db:push`**（含 **`20260509153000`**、**`20260509153100`**、**`20260509160000`** 等 migration）。  
-2. **Edge**：已部署 **`scheduling-policy-current-get`**、**`scheduling-policy-at-get`**、**`scheduling-policy-version-validate`**、**`scheduling-policy-version-commit`**（見 **`package.json`** 之 **`ops:deploy:all`**）。  
+2. **Edge**：已部署 **`scheduling-policy-current-get`**、**`scheduling-policy-at-get`**、**`scheduling-policy-versions-list`**、**`scheduling-policy-version-validate`**、**`scheduling-policy-version-commit`**（見 **`package.json`** 之 **`ops:deploy:all`**）。  
 3. **前端**：Staging build 已注入 **`VITE_SUPABASE_URL`**、**`VITE_SUPABASE_ANON_KEY`**（與該專案一致）。  
    - **對齊 Vercel 與 Supabase（手動＋本機檢查）**  
      - Supabase：**Project Settings → API**：**Project URL** 應等於 Vercel 的 **`VITE_SUPABASE_URL`**（含 **`https://`**，結尾不要多斜線）；**anon public** 應等於 **`VITE_SUPABASE_ANON_KEY`**。兩邊不一致會連錯專案或驗證失敗（有時仍表現成 `Failed to fetch`）。  
@@ -23,7 +23,7 @@
 
 | 編號 | 操作 | 預期 |
 |------|------|------|
-| U1 | 以 TL／Admin 登入 Staging，進入 **系統設定** | 可見 **智能排班設定**、**復康服務基本設定**、**政策版本（雲端提交）**；已設 env 時可見 **目前政策版本（雲端摘要）**；未設 env 時僅見本機儲存說明 |
+| U1 | 以 TL／Admin 登入 Staging，進入 **系統設定** | 可見 **智能排班設定**、**復康服務基本設定**、**政策版本（雲端提交）**；已設 env 時可見 **目前政策版本（雲端摘要）**、**政策版本列表（雲端）**；未設 env 時僅見本機儲存說明 |
 | U2 | 調整午休起訖、勾選「開工準備」、修改三項數字上限，按 **儲存設定（本機）** | 成功訊息；重新整理後本機值保留 |
 | U3 | 未填變更原因或未勾選確認即按 **提交政策版本** | 出現阻擋訊息，不呼叫成功 commit |
 | U4 | 填寫變更原因、勾選確認、生效時間選「此刻」或數分鐘後，按 **提交政策版本** | 成功訊息含版本 id 前綴；無 R_OVERLAP／R_EFFECTIVE 錯誤 |
@@ -47,4 +47,4 @@
 |------|------|
 | 2026-05-09 | 初版：P1 畫面接 API 後之 Staging／UAT 合併文件。 |
 | 2026-05-09 | 補 Staging：`VITE_SUPABASE_*` 與 Vercel／Dashboard 對齊說明；新增 **`npm run verify:supabase-vite-env`**、**`npm run verify:supabase-vite-env:ping`**。 |
-| 2026-05-12 | U1：補「**目前政策版本（雲端摘要）**」預期（PRD §4）。 |
+| 2026-05-12 | Staging 前置 Edge 增 **`scheduling-policy-versions-list`**；U1 預期含版本列表。 |

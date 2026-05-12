@@ -1,5 +1,5 @@
 import type { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2.49.1'
-import type { SchedulingPolicyBundle } from './schedulingPolicyTypes.ts'
+import type { PolicyVersionCamel, SchedulingPolicyBundle } from './schedulingPolicyTypes.ts'
 import { fetchChildTablesAsBundle } from './schedulingPolicyBundleChildren.ts'
 
 type RuleRow = {
@@ -119,4 +119,28 @@ export async function policyVersionOverlapsExisting(
     if (Math.max(newStart, s) < Math.min(newEnd, e)) return true
   }
   return false
+}
+
+/** 院舍政策版本頭表：依 effective_from 新→舊（PRD §4 版本列表／稽核） */
+export async function listPolicyVersionSummaries(
+  supabase: SupabaseClient,
+  facilityId: string,
+  limit = 50,
+): Promise<PolicyVersionCamel[]> {
+  const cap = Math.min(100, Math.max(1, limit))
+  const { data, error } = await supabase
+    .from('facility_scheduling_policy_versions')
+    .select('id, facility_id, effective_from, effective_until, status, change_summary, created_at')
+    .eq('facility_id', facilityId)
+    .order('effective_from', { ascending: false })
+    .limit(cap)
+  if (error) throw new Error(error.message)
+  return ((data ?? []) as PolicyVersionDbRow[]).map((r) => ({
+    id: r.id,
+    effectiveFrom: r.effective_from,
+    effectiveUntil: r.effective_until,
+    status: r.status as PolicyVersionCamel['status'],
+    changeSummary: r.change_summary ?? '',
+    createdAt: r.created_at,
+  }))
 }

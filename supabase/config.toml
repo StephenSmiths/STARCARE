@@ -24,3 +24,6 @@ verify_jwt = false
 
 [functions.scheduling-policy-version-commit]
 verify_jwt = false
+
+[functions.scheduling-policy-versions-list]
+verify_jwt = false

@@ -8,6 +8,7 @@ import { useSystemSettingsPolicySync } from '../hooks/useSystemSettingsPolicySyn
 import { SystemSettingsNumericCapsCard } from './SystemSettingsNumericCapsCard'
 import { SystemSettingsPdf16Section } from './SystemSettingsPdf16Section'
 import { SystemSettingsCurrentPolicyVersionCard } from './SystemSettingsCurrentPolicyVersionCard'
+import { SystemSettingsPolicyVersionsListCard } from './SystemSettingsPolicyVersionsListCard'
 import { SystemSettingsPolicySubmitCard } from './SystemSettingsPolicySubmitCard'
 import { SystemSettingsRulesTogglesCard } from './SystemSettingsRulesTogglesCard'
 import { SystemSettingsSchedulingWindowsCard } from './SystemSettingsSchedulingWindowsCard'
@@ -72,6 +73,12 @@ export const SystemSettingsHome = () => {
             loadError={policySync.loadError}
             isPolicyLoading={policySync.isPolicyLoading}
             version={policySync.currentPolicyVersion}
+          />
+          <SystemSettingsPolicyVersionsListCard
+            edgeEnabled={policySync.edgeEnabled}
+            loadError={policySync.loadError}
+            isPolicyLoading={policySync.isPolicyLoading}
+            versions={policySync.policyVersions}
           />
           <SystemSettingsPolicySubmitCard
             edgeEnabled={policySync.edgeEnabled}

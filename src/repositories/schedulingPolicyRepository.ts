@@ -1,10 +1,16 @@
 import { STARCARE_DEFAULT_FACILITY_ID } from '../constants/starcareDefaultFacilityId'
 import { getSupabaseBrowserCredentials } from '../services/supabaseBrowserEnv'
 import { buildEdgeInvokeHeaders } from './edgeFunctionHeaders'
-import type { PolicyCommitResponse, PolicyValidateResponse, SchedulingPolicyBundle } from './schedulingPolicyTypes'
+import type {
+  PolicyCommitResponse,
+  PolicyValidateResponse,
+  SchedulingPolicyBundle,
+  SchedulingPolicyVersionSummary,
+} from './schedulingPolicyTypes'
 
 export interface SchedulingPolicyRepository {
   getCurrentBundle: (facilityId?: string) => Promise<SchedulingPolicyBundle | null>
+  listPolicyVersionSummaries: (facilityId?: string, limit?: number) => Promise<SchedulingPolicyVersionSummary[]>
   validateBundle: (body: Record<string, unknown>) => Promise<PolicyValidateResponse>
   commitBundle: (body: Record<string, unknown>, idempotencyKey: string) => Promise<PolicyCommitResponse>
 }
@@ -12,6 +18,10 @@ export interface SchedulingPolicyRepository {
 class InMemorySchedulingPolicyRepository implements SchedulingPolicyRepository {
   async getCurrentBundle(): Promise<SchedulingPolicyBundle | null> {
     return null
+  }
+
+  async listPolicyVersionSummaries(): Promise<SchedulingPolicyVersionSummary[]> {
+    return []
   }
 
   async validateBundle(): Promise<PolicyValidateResponse> {
@@ -38,6 +48,22 @@ class EdgeSchedulingPolicyRepository implements SchedulingPolicyRepository {
     const response = await fetch(url, { headers })
     if (!response.ok) throw new Error(`載入院舍政策失敗（HTTP ${response.status}）`)
     return (await response.json()) as SchedulingPolicyBundle
+  }
+
+  async listPolicyVersionSummaries(
+    facilityId: string = STARCARE_DEFAULT_FACILITY_ID,
+    limit = 50,
+  ): Promise<SchedulingPolicyVersionSummary[]> {
+    const headers = await buildEdgeInvokeHeaders(this.anonKey)
+    const q = new URLSearchParams({
+      facilityId,
+      limit: String(limit),
+    })
+    const url = `${this.supabaseUrl}/functions/v1/scheduling-policy-versions-list?${q.toString()}`
+    const response = await fetch(url, { headers })
+    if (!response.ok) throw new Error(`載入政策版本列表失敗（HTTP ${response.status}）`)
+    const data = (await response.json()) as { versions?: SchedulingPolicyVersionSummary[] }
+    return Array.isArray(data.versions) ? data.versions : []
   }
 
   async validateBundle(body: Record<string, unknown>): Promise<PolicyValidateResponse> {
