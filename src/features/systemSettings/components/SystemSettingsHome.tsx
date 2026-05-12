@@ -73,6 +73,7 @@ export const SystemSettingsHome = () => {
             loadError={policySync.loadError}
             isPolicyLoading={policySync.isPolicyLoading}
             version={policySync.currentPolicyVersion}
+            onReloadPolicy={policySync.reloadPolicy}
           />
           <SystemSettingsPolicyVersionsListCard
             edgeEnabled={policySync.edgeEnabled}

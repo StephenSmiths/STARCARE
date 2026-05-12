@@ -26,35 +26,40 @@ export const useSystemSettingsPolicySync = ({ draft, hydrateP1FromBundle }: Args
   const [isSubmitting, setIsSubmitting] = useState(false)
   const lockRef = useRef(false)
   const hydrateRef = useRef(hydrateP1FromBundle)
+  const loadSeqRef = useRef(0)
   useLayoutEffect(() => {
     hydrateRef.current = hydrateP1FromBundle
   }, [hydrateP1FromBundle])
 
-  useEffect(() => {
+  const loadPolicy = useCallback(async () => {
     if (!edgeEnabled) return
-    let alive = true
-    void (async () => {
-      setIsPolicyLoading(true)
-      try {
-        const [b, versions] = await Promise.all([
-          repo.getCurrentBundle(STARCARE_DEFAULT_FACILITY_ID),
-          repo.listPolicyVersionSummaries(STARCARE_DEFAULT_FACILITY_ID, 50),
-        ])
-        if (!alive) return
-        setBaseBundle(b)
-        setPolicyVersions(versions)
-        if (b) hydrateRef.current(b)
-        setLoadError(null)
-      } catch (e) {
-        if (alive) setLoadError(String(e))
-      } finally {
-        if (alive) setIsPolicyLoading(false)
-      }
-    })()
-    return () => {
-      alive = false
+    const seq = ++loadSeqRef.current
+    setIsPolicyLoading(true)
+    try {
+      const [b, versions] = await Promise.all([
+        repo.getCurrentBundle(STARCARE_DEFAULT_FACILITY_ID),
+        repo.listPolicyVersionSummaries(STARCARE_DEFAULT_FACILITY_ID, 50),
+      ])
+      if (seq !== loadSeqRef.current) return
+      setBaseBundle(b)
+      setPolicyVersions(versions)
+      if (b) hydrateRef.current(b)
+      setLoadError(null)
+    } catch (e) {
+      if (seq !== loadSeqRef.current) return
+      setLoadError(String(e))
+    } finally {
+      if (seq === loadSeqRef.current) setIsPolicyLoading(false)
     }
   }, [edgeEnabled, repo])
+
+  useEffect(() => {
+    void loadPolicy()
+  }, [loadPolicy])
+
+  const reloadPolicy = useCallback(() => {
+    void loadPolicy()
+  }, [loadPolicy])
 
   const submitPolicyVersion = useCallback(
     async (params: { effectiveFromLocal: string; changeSummary: string; confirmed: boolean }) => {
@@ -126,6 +131,7 @@ export const useSystemSettingsPolicySync = ({ draft, hydrateP1FromBundle }: Args
     edgeEnabled,
     loadError,
     isPolicyLoading,
+    reloadPolicy,
     currentPolicyVersion: baseBundle?.policyVersion ?? null,
     policyVersions,
     validateErrors,

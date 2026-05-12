@@ -12,6 +12,8 @@ export type SystemSettingsCurrentPolicyVersionCardProps = {
   loadError: string | null
   isPolicyLoading: boolean
   version: SchedulingPolicyVersionSummary | null
+  /** 載入失敗時可手動重試（對照 PRD §4 閉環：讀取失敗→反饋→重試） */
+  onReloadPolicy?: () => void
 }
 
 /** PRD §4：目前生效（或最新載入）政策版本唯讀摘要 */
@@ -20,6 +22,7 @@ export const SystemSettingsCurrentPolicyVersionCard = ({
   loadError,
   isPolicyLoading,
   version,
+  onReloadPolicy,
 }: SystemSettingsCurrentPolicyVersionCardProps) => {
   if (!edgeEnabled) return null
 
@@ -28,7 +31,16 @@ export const SystemSettingsCurrentPolicyVersionCard = ({
       <h3 className={uiTokens.pageSectionHeading}>目前政策版本（雲端摘要）</h3>
       <p className={uiTokens.sectionHelp}>對照 PRD §4：載入自 scheduling-policy-current-get；供 TL／Admin 確認寫入標的。</p>
       {loadError ? (
-        <p className={uiTokens.inlineNoticeWarn}>無法載入版本摘要（詳見下方「政策版本」區錯誤訊息）。</p>
+        <div className="mt-2 flex flex-col gap-2">
+          <p className={uiTokens.inlineNoticeWarn}>
+            無法載入版本摘要／列表。請查看同段下方「提交政策版本」卡片之紅色錯誤訊息。
+          </p>
+          {onReloadPolicy ? (
+            <button type="button" className={uiTokens.btnSecondaryMt3} onClick={onReloadPolicy}>
+              重新載入雲端政策
+            </button>
+          ) : null}
+        </div>
       ) : isPolicyLoading ? (
         <p className={uiTokens.sectionHelp}>載入雲端政策版本中…</p>
       ) : !version ? (
