@@ -72,6 +72,7 @@ export const SystemSettingsHome = () => {
             edgeEnabled={policySync.edgeEnabled}
             loadError={policySync.loadError}
             isPolicyLoading={policySync.isPolicyLoading}
+            isSubmitting={policySync.isSubmitting}
             version={policySync.currentPolicyVersion}
             onReloadPolicy={policySync.reloadPolicy}
           />
@@ -79,6 +80,7 @@ export const SystemSettingsHome = () => {
             edgeEnabled={policySync.edgeEnabled}
             loadError={policySync.loadError}
             isPolicyLoading={policySync.isPolicyLoading}
+            isSubmitting={policySync.isSubmitting}
             versions={policySync.policyVersions}
             onReloadPolicy={policySync.reloadPolicy}
           />

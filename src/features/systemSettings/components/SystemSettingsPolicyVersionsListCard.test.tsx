@@ -1,7 +1,11 @@
 /** @vitest-environment happy-dom */
-import { render, screen } from '@testing-library/react'
-import { describe, expect, it, vi } from 'vitest'
+import { cleanup, render, screen } from '@testing-library/react'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { SystemSettingsPolicyVersionsListCard } from './SystemSettingsPolicyVersionsListCard'
+
+afterEach(() => {
+  cleanup()
+})
 
 describe('SystemSettingsPolicyVersionsListCard', () => {
   it('Edge 啟用且 loadError 時顯示引導訊息（與提交卡錯誤同源提示）', () => {
@@ -33,6 +37,24 @@ describe('SystemSettingsPolicyVersionsListCard', () => {
     expect(btn).toBeTruthy()
     btn.click()
     expect(onReload).toHaveBeenCalledTimes(1)
+  })
+
+  it('loadError 且 isSubmitting 時重載按鈕 disabled 且不觸發', () => {
+    const onReload = vi.fn()
+    render(
+      <SystemSettingsPolicyVersionsListCard
+        edgeEnabled
+        loadError="err"
+        isPolicyLoading={false}
+        isSubmitting
+        versions={[]}
+        onReloadPolicy={onReload}
+      />,
+    )
+    const btn = screen.getByRole('button', { name: '重新載入雲端政策' }) as HTMLButtonElement
+    expect(btn.disabled).toBe(true)
+    btn.click()
+    expect(onReload).not.toHaveBeenCalled()
   })
 
   it('未啟用 Edge 時不渲染', () => {

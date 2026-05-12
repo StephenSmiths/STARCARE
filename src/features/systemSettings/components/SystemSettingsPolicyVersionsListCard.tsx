@@ -11,6 +11,8 @@ export type SystemSettingsPolicyVersionsListCardProps = {
   edgeEnabled: boolean
   loadError: string | null
   isPolicyLoading: boolean
+  /** 與提交卡同源：提交進行中不允許重載 */
+  isSubmitting?: boolean
   versions: SchedulingPolicyVersionSummary[]
   /** 與「目前政策版本」卡同源，皆呼叫 hook 之 reloadPolicy */
   onReloadPolicy?: () => void
@@ -21,6 +23,7 @@ export const SystemSettingsPolicyVersionsListCard = ({
   edgeEnabled,
   loadError,
   isPolicyLoading,
+  isSubmitting = false,
   versions,
   onReloadPolicy,
 }: SystemSettingsPolicyVersionsListCardProps) => {
@@ -38,7 +41,12 @@ export const SystemSettingsPolicyVersionsListCard = ({
             無法載入版本列表；請查看本段下方「提交政策版本」卡片之錯誤訊息（與「目前政策版本」載入同源）。
           </p>
           {onReloadPolicy ? (
-            <button type="button" className={uiTokens.btnSecondaryMt3} onClick={onReloadPolicy}>
+            <button
+              type="button"
+              className={uiTokens.btnSecondaryMt3}
+              disabled={isSubmitting}
+              onClick={onReloadPolicy}
+            >
               重新載入雲端政策
             </button>
           ) : null}
