@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 
 /**
  * Demo 建置（`VITE_SUPABASE_*` 清空）：與 **`npm run test:e2e:smoke`** 同型 preview；
- * 驗證 Seq 29 P1：兩個 **Pdf16 大節**（智能排班／復康服務）；**`ListSectionPanel`**：**排班時間設定**（**`h3`**、預設展開、**`aria-controls`**）與 **資助復康**（預設收合、**`hidden`**）；**政策版本**、**審計** landmark 與無 Edge 時之本機說明（對照 UAT 未設 env 預期）。
+ * 驗證 Seq 29 P1：兩個 **Pdf16 大節**（智能排班／復康服務）；**`ListSectionPanel`**：**排班時間設定**／**排班規則設定（P1）**（**`h3`**、預設展開、**`aria-controls`**）與 **資助復康**（預設收合、**`hidden`**）；**政策版本**、**審計** landmark 與無 Edge 時之本機說明（對照 UAT 未設 env 預期）。
  */
 test.describe('system-settings policy P1（demo 無 Supabase）', () => {
   test('政策區塊標題與本機儲存說明可見', async ({ page }) => {
@@ -28,6 +28,19 @@ test.describe('system-settings policy P1（demo 無 Supabase）', () => {
     await expect(scheduleTimeContent).toHaveCount(1)
     await expect(scheduleTimeContent).not.toHaveAttribute('hidden')
     await expect(scheduleTimePanel.getByText('排班開始（HH:mm）')).toBeVisible()
+    const rulesHeading = page.getByRole('heading', { name: '排班規則設定（P1）', exact: true })
+    await expect(rulesHeading).toBeVisible()
+    expect(await rulesHeading.evaluate((el) => el.tagName.toLowerCase())).toBe('h3')
+    const rulesPanel = schedulingPdfSection.locator('section').filter({ has: rulesHeading })
+    const collapseRules = rulesPanel.getByRole('button', { name: '收合' })
+    await expect(collapseRules).toBeVisible()
+    const rulesContentId = await collapseRules.getAttribute('aria-controls')
+    expect(rulesContentId).toBeTruthy()
+    expect(rulesContentId).not.toBe(scheduleTimeContentId)
+    const rulesContent = page.locator(`[id="${rulesContentId}"]`)
+    await expect(rulesContent).toHaveCount(1)
+    await expect(rulesContent).not.toHaveAttribute('hidden')
+    await expect(rulesPanel.getByText('治療師小組活動每日上限（節）')).toBeVisible()
     const rehabHeading = page.getByRole('heading', { name: '復康服務基本設定', exact: true })
     await expect(rehabHeading).toBeVisible()
     const rehabSectionId = await rehabHeading.getAttribute('id')
