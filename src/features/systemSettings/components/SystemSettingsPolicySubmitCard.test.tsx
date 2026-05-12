@@ -8,6 +8,23 @@ afterEach(() => {
 })
 
 describe('SystemSettingsPolicySubmitCard', () => {
+  it('Edge 模式且 isSubmitting 時提交鈕為 disabled 並顯示提交中 status', () => {
+    render(
+      <SystemSettingsPolicySubmitCard
+        edgeEnabled
+        loadError={null}
+        isPolicyLoading={false}
+        validateErrors={[]}
+        submitMessage={null}
+        isSubmitting
+        onSubmit={vi.fn()}
+      />,
+    )
+    const btn = screen.getByText('提交政策版本', { selector: 'button' }) as HTMLButtonElement
+    expect(btn.disabled).toBe(true)
+    expect(screen.getByRole('status').textContent).toMatch(/提交政策版本至雲端/)
+  })
+
   it('Edge 模式且 isPolicyLoading 時提交鈕為 disabled', () => {
     render(
       <SystemSettingsPolicySubmitCard
@@ -23,6 +40,21 @@ describe('SystemSettingsPolicySubmitCard', () => {
     const btn = screen.getByText('提交政策版本', { selector: 'button' }) as HTMLButtonElement
     expect(btn.disabled).toBe(true)
     expect(screen.getByRole('status').textContent).toMatch(/載入中/)
+  })
+
+  it('同時 isSubmitting 與 isPolicyLoading 時 status 以提交中為優先', () => {
+    render(
+      <SystemSettingsPolicySubmitCard
+        edgeEnabled
+        loadError={null}
+        isPolicyLoading
+        validateErrors={[]}
+        submitMessage={null}
+        isSubmitting
+        onSubmit={vi.fn()}
+      />,
+    )
+    expect(screen.getByRole('status').textContent).toMatch(/提交政策版本至雲端/)
   })
 
   it('非載入、非提交中時提交鈕可點', () => {

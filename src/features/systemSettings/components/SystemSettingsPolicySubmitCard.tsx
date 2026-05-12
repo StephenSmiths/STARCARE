@@ -50,9 +50,11 @@ export const SystemSettingsPolicySubmitCard = ({
         docs/scheduling-policy-edge-function-contract.md。
       </p>
       {loadError ? <p className={uiTokens.bannerDanger}>{loadError}</p> : null}
-      {isPolicyLoading ? (
+      {isPolicyLoading || isSubmitting ? (
         <p className={uiTokens.sectionHelp} role="status">
-          雲端政策摘要與版本列載入中，「提交政策版本」暫停以免基準不完整。
+          {isSubmitting
+            ? '正在提交政策版本至雲端，請稍候…'
+            : '雲端政策摘要與版本列載入中，「提交政策版本」暫停以免基準不完整。'}
         </p>
       ) : null}
       <div className={uiTokens.settingsFieldGrid}>
