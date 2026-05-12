@@ -54,12 +54,10 @@ describe('SystemSettingsHome', () => {
     const rulesContentId = rulesCollapse.getAttribute('aria-controls')
     expect(scheduleContentId).toBeTruthy()
     expect(rulesContentId).toBeTruthy()
-    expect(scheduleContentId).not.toBe(rulesContentId)
     expect(document.getElementById(scheduleContentId!)?.hasAttribute('hidden')).toBe(false)
     expect(document.getElementById(rulesContentId!)?.hasAttribute('hidden')).toBe(false)
     const subsidizedContentId = expandSub.getAttribute('aria-controls')
     expect(subsidizedContentId).toBeTruthy()
-    expect(subsidizedContentId).not.toBe(scheduleContentId)
     expect(document.getElementById(subsidizedContentId!)?.hasAttribute('hidden')).toBe(true)
     const localGroup = screen.getByRole('group', { name: '本機設定（瀏覽器儲存）' })
     expect(localGroup).toBeTruthy()
@@ -79,9 +77,15 @@ describe('SystemSettingsHome', () => {
     const auditContentId = expandAudit.getAttribute('aria-controls')
     expect(auditContentId).toBeTruthy()
     expect(document.getElementById(auditContentId!)?.hasAttribute('hidden')).toBe(true)
-    expect(policyContentId).not.toBe(auditContentId)
-    expect(auditContentId).not.toBe(scheduleContentId)
-    expect(policyContentId).not.toBe(scheduleContentId)
+    expect(
+      new Set([
+        scheduleContentId!,
+        rulesContentId!,
+        subsidizedContentId!,
+        policyContentId!,
+        auditContentId!,
+      ]).size,
+    ).toBe(5)
     expect(screen.getByRole('button', { name: '儲存設定（本機）' })).toBeTruthy()
     expect(screen.getByText(/未偵測到 Supabase 環境變數/)).toBeTruthy()
   })

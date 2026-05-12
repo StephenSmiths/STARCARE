@@ -56,7 +56,7 @@
 | `SystemSettingsNumericCapsCard.test.tsx`（Vitest） | PDF 02【16】**排班規則設定** P1 數字上限：三欄 **`type="number"`** 標籤可見；變更委派 **`setField`**（數值） |
 | `SystemSettingsRulesTogglesCard.test.tsx`（Vitest） | 規則引擎／固定活動／服務類型三 **checkbox**；勾選委派 **`setField`** |
 | `SystemSettingsSpecialCareCard.test.tsx`（Vitest） | **Special Care 僅治療師** **checkbox**；**`rerender`** 更新 **`draft`** 後可驗證開→關 **`setField`** |
-| `SystemSettingsHome.test.tsx`（Vitest） | 整合：**`useAuth`**／**`useAuditTrailList`** mock 下 **Pdf16** 兩大節／**政策**／**審計** **`section[aria-labelledby]`**；**`ListSectionPanel`** **`aria-controls`** 與內容區 **`hidden`**（排班時間／規則預設展開、資助復康預設收合、政策預設展開；排班兩區 **`id`** 有別）；**`AuditTrailPanel`** 預設收合（**展開審計**、內容 **`hidden`**）；**政策／審計／排班時間** 內容區 **`id`**（**`aria-controls`**）兩兩有別；本機 **`group`** **`aria-busy="false"`**、**儲存設定（本機）**、**`supabaseBrowserEnv`** mock 下無 Edge **Supabase** 說明可見 |
+| `SystemSettingsHome.test.tsx`（Vitest） | 整合：**`useAuth`**／**`useAuditTrailList`** mock 下 **Pdf16** 兩大節／**政策**／**審計** **`section[aria-labelledby]`**；**`ListSectionPanel`** **`aria-controls`** 與內容區 **`hidden`**（排班時間／規則預設展開、資助復康預設收合、政策預設展開）；**`AuditTrailPanel`** 預設收合（**展開審計**、內容 **`hidden`**）；**排班時間／規則／資助復康／政策／審計** 五處 **`aria-controls`** 目標 **`id`** 全相異（**`Set.size === 5`**）；本機 **`group`** **`aria-busy="false"`**、**儲存設定（本機）**、**`supabaseBrowserEnv`** mock 下無 Edge **Supabase** 說明可見 |
 | `useSystemSettings.saveSavingState.test.ts`（Vitest） | **`save`** 延後儲存期間 **`isSaving`**；驗證失敗不觸發 **`saveSystemSettingsWithAudit`** |
 | `systemSettingsValidation.test.ts` | 驗證規則 |
 | `systemSettingsExternalStore.test.ts` | 版本 bump |
@@ -129,6 +129,7 @@
 | 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **Pdf16 智能排班** 內 **排班時間**／**排班規則** **`ListSectionPanel`**（**`aria-controls`**、無 **`hidden`**、兩內容區 **`id`** 有別）。 |
 | 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **Pdf16 復康** 內 **資助復康** **`ListSectionPanel`** 預設收合（**`aria-controls`**、**`hidden`**）。 |
 | 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補本機 **`group`** **`aria-busy="false"`**（與 **policy P1 demo E2E** 對齊）。 |
+| 2026-05-09 | §4：**`SystemSettingsHome.test`**：**五區** **`aria-controls`** 目標 **`id`** 改以 **`Set.size === 5`** 斷言全相異。 |
 | 2026-05-09 | §4：**`SystemSettingsHome.test`** 補 **政策／審計／排班時間** **`aria-controls`** 目標 **`id`** 兩兩有別。 |
 | 2026-05-09 | §4：**`SystemSettingsHome.test`** 補 **`AuditTrailPanel`** **展開審計**／內容 **`hidden`**。 |
 | 2026-05-09 | §4：**`SystemSettingsHome.test`** 補 **`ListSectionPanel`** **`aria-controls`**／內容區 **`hidden`** 與排班兩區 **`id`** 有別。 |
