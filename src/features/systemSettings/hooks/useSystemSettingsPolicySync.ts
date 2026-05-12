@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { STARCARE_DEFAULT_FACILITY_ID } from '../../../constants/starcareDefaultFacilityId'
 import { createSchedulingPolicyRepository } from '../../../repositories/schedulingPolicyRepository'
 import type { PolicyValidateError, SchedulingPolicyBundle, SchedulingPolicyVersionSummary } from '../../../repositories/schedulingPolicyTypes'
@@ -26,7 +26,9 @@ export const useSystemSettingsPolicySync = ({ draft, hydrateP1FromBundle }: Args
   const [isSubmitting, setIsSubmitting] = useState(false)
   const lockRef = useRef(false)
   const hydrateRef = useRef(hydrateP1FromBundle)
-  hydrateRef.current = hydrateP1FromBundle
+  useLayoutEffect(() => {
+    hydrateRef.current = hydrateP1FromBundle
+  }, [hydrateP1FromBundle])
 
   useEffect(() => {
     if (!edgeEnabled) return
