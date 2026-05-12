@@ -21,7 +21,21 @@ export const SystemSettingsPolicyVersionsListCard = ({
   isPolicyLoading,
   versions,
 }: SystemSettingsPolicyVersionsListCardProps) => {
-  if (!edgeEnabled || loadError) return null
+  if (!edgeEnabled) return null
+
+  if (loadError) {
+    return (
+      <article className={uiTokens.surfaceCard}>
+        <h3 className={uiTokens.pageSectionHeading}>政策版本列表（雲端）</h3>
+        <p className={uiTokens.sectionHelp}>
+          依 effective_from 新→舊排列（最多 50 筆）；含 scheduled／active／superseded，供稽核與確認未來生效稿。
+        </p>
+        <p className={uiTokens.inlineNoticeWarn} role="status">
+          無法載入版本列表；請查看本段下方「提交政策版本」卡片之錯誤訊息（與「目前政策版本」載入同源）。
+        </p>
+      </article>
+    )
+  }
 
   return (
     <article className={uiTokens.surfaceCard}>

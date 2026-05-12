@@ -16,7 +16,7 @@
 |------|------------|------|
 | 排班與時段 | **`SystemSettingsHome`** 首段 | **HH:mm** 欄位：`schedulingWindowStart`／`End`、`nonTherapyWindowStart`／`End`；**開工準備**開關（`SHIFT_PREP_BLOCK`）。 |
 | 數字上限（P1） | **`SystemSettingsNumericCapsCard`** | 與 Edge **`numericLimits`** 對齊；提交時併入 **`mergeP1DraftIntoPolicyBundle`**。 |
-| 政策版本（雲端提交） | **`SystemSettingsCurrentPolicyVersionCard`**、**`SystemSettingsPolicyVersionsListCard`**、**`SystemSettingsPolicySubmitCard`**、**`useSystemSettingsPolicySync`** | **`schedulingPolicyRepository`** → current-get／**versions-list** 摘要／validate／commit；**`X-Idempotency-Key`**。 |
+| 政策版本（雲端提交） | **`SystemSettingsCurrentPolicyVersionCard`**、**`SystemSettingsPolicyVersionsListCard`**、**`SystemSettingsPolicySubmitCard`**、**`useSystemSettingsPolicySync`** | **`schedulingPolicyRepository`** → current-get／**versions-list** 摘要／validate／commit；**`X-Idempotency-Key`**；版本列表於 **`loadError`** 時顯示引導（技術訊息見提交卡）。 |
 | 規則與服務 | 第二段 | **`rulesEngineEnabled`**、**`fixedActivitiesEnabled`**、**`serviceTypesEnabled`**。 |
 | SC | 第三段 | **`specialCareTherapistOnly`**（與 DB **`scheduling_rules.allow_sc_therapist_only`** 併用敘述見主檔）。 |
 | 儲存 | **`useSystemSettings`** | **`validateSystemSettings`**、**`lockRef`**、**`SYSTEM_SETTINGS_SAVE`** 審計。 |
@@ -54,7 +54,7 @@
 | `e2e/smoke.spec.ts` | **`#system-settings`**、**系統設定與相關審計** |
 | `e2e/system-settings-policy-p1-demo.spec.ts` | **`npm run test:e2e:system-settings-policy`**：政策版本（P1）區標題與無 Edge 本機說明 |
 | `useSystemSettingsPolicySync*.test.ts`（Vitest） | 載入／提交成功與失敗路徑（**`@testing-library/react`**） |
-| `schedulingPolicyRepository*.test.ts`（Vitest） | Edge／InMemory／工廠與 **`listPolicyVersionSummaries`** 契約 |
+| `SystemSettingsPolicyVersionsListCard.test.tsx`（Vitest） | **`loadError`** 時版本列表引導訊息；未啟用 Edge 不渲染 |
 
 ---
 
@@ -85,3 +85,4 @@
 | 2026-05-04 | §5：補 **Seq 35～38**（03／C 區）對照骨架互鏈。 |
 | 2026-05-09 | §6：院舍政策版本 PRD／Schema／Edge 契約／migration（**153000** 表、**153100** RLS）；客戶回函定案互鏈。 |
 | 2026-05-12 | §4：補 **policy P1 demo E2E**、**`useSystemSettingsPolicySync`**／**`schedulingPolicyRepository`** Vitest；§6 契約敘述改 **五支** Edge。 |
+| 2026-05-12 | §1／§4：政策版本列表於 **`loadError`** 顯示引導；**`SystemSettingsPolicyVersionsListCard.test.tsx`**。 |
