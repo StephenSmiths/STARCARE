@@ -59,6 +59,7 @@ npm run dev              # 開發伺服器
 npm run typecheck        # tsc -b --noEmit（不含 vite bundle）
 npm run ci               # lint → typecheck → 單元測試 → build:demo → Playwright（全套 demo）
 npm run test:e2e:smoke   # build:demo 後僅跑 e2e/smoke.spec.ts（較快）
+npm run test:e2e:system-settings-policy # build:demo 後 Seq 29 P1 系統設定「政策版本」區 demo（無 Supabase；見 docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md）
 npm run test:e2e:all     # demo 煙霧 + 可選登入 E2E（無 E2E_AUTH_* 時登入段 skip）
 npm run test:e2e:auth:user-role-admin # 僅跑 user-role-admin 可選登入 E2E（admin 成功 + staff 403）
 npm run build
