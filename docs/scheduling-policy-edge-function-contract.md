@@ -86,7 +86,7 @@
 
 ### 4.3 POST `/functions/v1/scheduling-policy-version-validate`
 
-- **用途**：校驗即將建立之版本草稿（**R‑effective**、子表完整性、Pass 順序恰好三筆等），**不寫入**正式版本列。  
+- **用途**：校驗即將建立之版本草稿（**R‑effective**、子表欄位解析、Pass 恰好三筆、**P2 子表網格完整性** 等），**不寫入**正式版本列。  
 - **授權**：**`guardTeamLeadOrAdmin`**。  
 - **請求 Body（camelCase 白名單）**：
   - **`facilityId`**：`string`  
@@ -94,8 +94,9 @@
   - **`changeSummary`**：`string`（必填；對應客戶「變更原因／備註」）  
   - **`confirmToken`**：可選；若前端已做二次確認，可傳固定字串 **`"CONFIRMED"`**（實作可改為單次 nonce，第二階段強化）  
   - **`nonTherapySlots`**、**`numericLimits`**、**`fixedActivities`**、**`subsidizedTiers`** 等：與 **`SchedulingPolicyBundle`** 內層形狀一致之陣列／物件  
+- **子表網格（與前端 `validateSystemSettings`／`isValid*` 對齊）**：**`subsidizedTiers`**、**`subsidizedRoleOfferings`**、**`dementiaRoleOfferings`** 可為 **空陣列**（不寫入對應子表）；若 **長度大於 0**，則須分別為 **3** 筆、**48** 筆、**8** 筆且鍵不重複。若帶 **`dementiaCore`** 物件，則 **`weeklyMinSessions`** 須為 **非負整數**。實作：**`supabase/functions/_shared/schedulingPolicyDraftCompleteness.ts`**（由 **`schedulingPolicyDraftValidate.ts`** 於 **`parseDraftChildArrays`** 之後呼叫）。  
 - **成功**：`200 + { ok: true, errors: [], normalized: SchedulingPolicyBundle }`  
-- **失敗**：`200 + { ok: false, errors: [ { "code": "...", "message": "..." } ] }` 或 `400`（請求 JSON 無法解析）。
+- **失敗**：`200 + { ok: false, errors: [ { "code": "...", "message": "..." } ] }` 或 `400`（請求 JSON 無法解析）。欄位枚舉／時段／Pass 等解析錯誤碼見 **`schedulingPolicyDraftMappers.ts`**；網格完整性錯誤碼見 **§5.2**。
 
 ### 4.4 POST `/functions/v1/scheduling-policy-version-commit`
 
@@ -107,14 +108,32 @@
 
 ## 5. 錯誤碼建議
 
+### 5.1 HTTP 層
+
 | HTTP | 情境 |
 |------|------|
-| `400` | 欄位驗證失敗、`effective_from` 早於現在、區間重疊 |
+| `400` | 請求 JSON 無法解析等 |
 | `401` | 未帶有效 JWT |
 | `403` | 角色非 staff／teamlead／admin（讀）或 非 teamlead／admin（寫） |
 | `404` | 院舍不存在或無可套用政策（若選擇嚴格模式） |
 | `409` | 重複 **`idempotencyKey`** 或樂觀鎖衝突 |
 | `501` | （僅限占位部署期）尚未接軌 DB |
+
+### 5.2 `scheduling-policy-version-validate` 應用層（`200` 且 `ok:false` 時 `errors[].code`）
+
+| `code` | 說明（摘要） |
+|--------|----------------|
+| `BAD_JSON`／`MISSING_FIELD`／`BAD_EFFECTIVE` | 請求體結構或必填欄位 |
+| `R_EFFECTIVE` | **`effectiveFrom`** 早於伺服器現在 |
+| `FACILITY`／`FACILITY_NOT_FOUND` | 院舍查詢失敗或不存在 |
+| `R_OVERLAP` | 與既有版本區間重疊 |
+| `BAD_TIER_COUNT` | **`subsidizedTiers`** 非空但筆數≠3 |
+| `BAD_ROLE_OFFER_COUNT` | **`subsidizedRoleOfferings`** 非空但筆數≠48 |
+| `BAD_ROLE_OFFER_DUP` | 48 筆但 **(fundingTier, roleType, slotVariant)** 重複 |
+| `BAD_DEM_ROLE_COUNT` | **`dementiaRoleOfferings`** 非空但筆數≠8 |
+| `BAD_DEM_ROLE_DUP` | 8 筆但 **(roleType, slotVariant)** 重複 |
+| `BAD_DEM_CORE` | **`dementiaCore.weeklyMinSessions`** 須為 **非負整數** |
+| （其餘） | 列枚舉、時段、Pass 等見 **`schedulingPolicyDraftMappers.ts`**（如 **`BAD_SLOT`**、**`BAD_PASS_ORDER`**、**`BAD_FUNDING`**、**`BAD_ROLE`**（資助／認知列上下文不同）） |
 
 ## 6. 部署與 CI
 
@@ -128,4 +147,5 @@
 | 2026-05-09 | 初版：四端點契約（嗣後擴為五支 Edge，見 **2026-05-12** 列）、Bundle 形狀、客戶 R1～R4 映射、部署註記。 |
 | 2026-05-12 | 增 **§4.2a `scheduling-policy-versions-list`**（版本列唯讀）；部署清單五支。 |
 | 2026-05-13 | 開首補 **前端 demo 煙霧**（**`test:e2e:system-settings-policy`**／**`test:e2e:smoke`**、**UAT** **二之一**、**seq29** 第 4 節）。 |
+| 2026-05-09 | **§4.3**／**§5**：**`schedulingPolicyDraftCompleteness`** 與前端 P2 子表筆數一致；**`BAD_TIER_COUNT`**、**`BAD_ROLE_OFFER_*`**、**`BAD_DEM_ROLE_*`**、**`BAD_DEM_CORE`**。 |
 | 2026-05-15 | 開首 **UAT** **二之一** 補括註「段末 **工程維護互鏈**」。 |
