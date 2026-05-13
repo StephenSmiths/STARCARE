@@ -1,9 +1,9 @@
 # STARCARE 院舍排班政策 Edge Function 契約
 
-> **對照**：**`docs/business-logic.md`** §0（**`.cursorrules`** §3）；序號主檔 **`docs/pdf-sequenced-gap-checklist.md`** Seq **29**；PRD **`docs/system-settings-policy-prd-2026-05-09.md`**；資料表 **`docs/system-settings-policy-schema-2026-05-09.md`**；migration **`20260509153000`**（表）＋**`20260509153100`**（RLS）；系統設定對照骨架 **`docs/seq29-system-settings-pdf02-traceability.md`**。  
+> **對照**：**`docs/business-logic.md`** §0（**`.cursorrules`** §3）；序號主檔 **`docs/pdf-sequenced-gap-checklist.md`** Seq **29**；PRD **`docs/system-settings-policy-prd-2026-05-09.md`**；資料表 **`docs/system-settings-policy-schema-2026-05-09.md`**；migration **`20260509153000`**（表）＋**`20260509153100`**（RLS）；系統設定對照骨架 **`docs/seq29-system-settings-pdf02-traceability.md`**、**`docs/seq29-system-settings-pdf02-traceability-revision-log.md`**。  
 > **既有讀規則**：**`scheduling-rules-get`**（`public.scheduling_rules` 單列扁平）仍為現行排班參數來源；本契約之 **`scheduling-policy-*`** 實作完成後，應依 PRD §7 與 **`scheduling-rules-get`** **合併或遷移**（須另開 ADR 或更新 **`docs/adr-0001-scheduling-logic-placement.md`** 附註）。
 
-> **前端 demo 煙霧（無 Supabase）**：**`npm run test:e2e:system-settings-policy`**、**`npm run test:e2e:smoke`**（**`hash #system-settings`**）；**UAT** **二之一**（段末 **工程維護互鏈**）：**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`**；細目 **`docs/seq29-system-settings-pdf02-traceability.md`** 第 4 節。
+> **前端 demo 煙霧（無 Supabase）**：**`npm run test:e2e:system-settings-policy`**、**`npm run test:e2e:smoke`**（**`hash #system-settings`**）；**UAT** **二之一**（段末 **工程維護互鏈**）：**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`**；細目 **`docs/seq29-system-settings-pdf02-traceability.md`** 第 4 節、**`docs/seq29-system-settings-pdf02-traceability-revision-log.md`**。
 
 **全案收尾與證據留痕**：**`README.md`**「專案收尾」（**`docs/business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引）；**`docs/project-completion-*.md`**；Gate A **`docs/evidence/gate-a-latest.md`**（**Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:preflight:strict`**）。
 
@@ -149,3 +149,4 @@
 | 2026-05-13 | 開首補 **前端 demo 煙霧**（**`test:e2e:system-settings-policy`**／**`test:e2e:smoke`**、**UAT** **二之一**、**seq29** 第 4 節）。 |
 | 2026-05-09 | **§4.3**／**§5**／**§4.4**：**`schedulingPolicyDraftCompleteness`** 與 **`BAD_*`** 碼；**`commit`** 驗證失敗時 **HTTP 400**＋**`{ ok: false, errors }`**。 |
 | 2026-05-15 | 開首 **UAT** **二之一** 補括註「段末 **工程維護互鏈**」。 |
+| 2026-05-09 | 開首 **對照**／**前端 demo 煙霧** 併 **`docs/seq29-system-settings-pdf02-traceability-revision-log.md`**（與 **2026-05-13** 列並讀）。 |

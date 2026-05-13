@@ -100,3 +100,4 @@
 | 2026-05-09 | 修訂表自 **`seq29-system-settings-pdf02-traceability.md`** 拆出至本檔（主檔 **§1–§6** 技術骨架 ≤200 行；與 **`pdf-sequenced-gap-checklist-revision-log.md`** **Seq 29** 列併讀）。 |
 | 2026-05-09 | **互鏈延伸**：**UAT** **二之一**（表列 **`test:e2e:smoke`**、**工程維護互鏈**）、**`.env.example`**、**`system-settings-policy-schema-2026-05-09.md`**、**`system-settings-policy-customer-reply-2026-05-09.md`**、**`business-logic-revision-log.md`** **2026-05-23** 列、**`client-delivery-remediation-plan.md`** 修訂表併列本檔；**`pdf-sequenced-gap-checklist-revision-log.md`** 同日留痕（與 **§5** 並讀）。 |
 | 2026-05-09 | **PRD** 開首：**既有對照骨架**／**Demo E2E** 併本檔路徑（**`system-settings-policy-prd-2026-05-09.md`**）。 |
+| 2026-05-09 | **Edge 契約** 開首：**對照**／**前端 demo 煙霧** 併本檔路徑（**`scheduling-policy-edge-function-contract.md`**）。 |
