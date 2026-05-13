@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { DEFAULT_POLICY_SUBSIDIZED_ROLE_OFFERINGS } from './policySubsidizedRoleOfferingDraft'
 import { hmLessThan, isValidHm, validateSystemSettings } from './systemSettingsValidation'
 import type { SystemSettingsSnapshot } from '../types'
 
@@ -18,6 +19,7 @@ const base = (): SystemSettingsSnapshot => ({
   policyFixedActivities: [],
   policySubsidizedPassOrder: [],
   policySubsidizedTiers: [],
+  policySubsidizedRoleOfferings: [],
 })
 
 describe('systemSettingsValidation', () => {
@@ -82,6 +84,16 @@ describe('systemSettingsValidation', () => {
     const r = validateSystemSettings(bad)
     expect(r.ok).toBe(false)
     expect(r.errors.some((e) => e.includes('資助復康三列'))).toBe(true)
+  })
+
+  it('validateSystemSettings：職類矩陣不完整時須報錯', () => {
+    const bad = {
+      ...base(),
+      policySubsidizedRoleOfferings: DEFAULT_POLICY_SUBSIDIZED_ROLE_OFFERINGS.slice(0, 47),
+    }
+    const r = validateSystemSettings(bad)
+    expect(r.ok).toBe(false)
+    expect(r.errors.some((e) => e.includes('職類矩陣'))).toBe(true)
   })
 
   it('validateSystemSettings：合法快照通過', () => {

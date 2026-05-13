@@ -1,5 +1,6 @@
 import type { SystemSettingsSnapshot } from '../types'
 import { isValidPolicySubsidizedPassOrder } from './policyPassOrderDraft'
+import { isValidPolicySubsidizedRoleOfferings } from './policySubsidizedRoleOfferingDraft'
 import { isValidPolicySubsidizedTiers } from './policySubsidizedTierDraft'
 
 /** HH:mm，24 小時制 */
@@ -72,6 +73,14 @@ export const validateSystemSettings = (input: SystemSettingsSnapshot): Validatio
   if (tiersNeedValidation && !isValidPolicySubsidizedTiers(input.policySubsidizedTiers)) {
     errors.push(
       '資助復康三列須為甲一／院舍券／私位各一：enabled／specialCareTherapistOnly 為布林，weeklyMinSessions 須為非負整數（PDF 02【16】facility_policy_subsidized_tier）',
+    )
+  }
+
+  const roleOfferingsNeedValidation =
+    input.policySubsidizedRoleOfferingsHydrated === true || input.policySubsidizedRoleOfferings.length > 0
+  if (roleOfferingsNeedValidation && !isValidPolicySubsidizedRoleOfferings(input.policySubsidizedRoleOfferings)) {
+    errors.push(
+      '資助復康職類矩陣須為完整 48 格（3 資助列 × 4 職類 × 4 節長變體），鍵不重複且 enabled 為布林（PDF 02【16】facility_policy_subsidized_role_offerings）',
     )
   }
 

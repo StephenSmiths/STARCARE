@@ -18,6 +18,22 @@ export type PolicySubsidizedTierRow = {
   specialCareTherapistOnly: boolean
 }
 
+/** 資助復康職類（與 Edge `ROLE_TYPES_SUB` 對齊） */
+export const POLICY_SUBSIDIZED_ROLE_TYPES = ['PT', 'PTA', 'OT', 'OTA'] as const
+export type PolicySubsidizedRoleType = (typeof POLICY_SUBSIDIZED_ROLE_TYPES)[number]
+
+/** 節長變體（與 Edge `SLOT_VARIANTS` 對齊） */
+export const POLICY_SLOT_VARIANTS = ['IND_15', 'IND_30', 'GRP_30', 'GRP_60'] as const
+export type PolicySlotVariant = (typeof POLICY_SLOT_VARIANTS)[number]
+
+/** PDF 02【16】／`facility_policy_subsidized_role_offerings`（P2：資助 × 職類 × 節長） */
+export type PolicySubsidizedRoleOfferingRow = {
+  fundingTier: PolicySubsidizedFundingTier
+  roleType: PolicySubsidizedRoleType
+  slotVariant: PolicySlotVariant
+  enabled: boolean
+}
+
 /** PDF 02【16】／`facility_policy_fixed_activities`（P2 固定活動多筆） */
 export type PolicyFixedActivityRow = {
   serviceType: string
@@ -51,7 +67,7 @@ export type SchedulingPolicyBundle = {
   }
   fixedActivities: PolicyFixedActivityRow[]
   subsidizedTiers: PolicySubsidizedTierRow[]
-  subsidizedRoleOfferings: unknown[]
+  subsidizedRoleOfferings: PolicySubsidizedRoleOfferingRow[]
   subsidizedPassOrder: PolicySubsidizedPassOrderRow[]
   dementiaCore: unknown | null
   dementiaRoleOfferings: unknown[]

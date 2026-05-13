@@ -1,7 +1,7 @@
 import { SYSTEM_SETTINGS_STORAGE_KEY } from '../localStorageKeys'
 import { bumpSystemSettingsExternalVersion } from '../systemSettingsExternalStore'
-import type { PolicyFixedActivityRow, PolicySubsidizedPassOrderRow, PolicySubsidizedTierRow } from '../../../repositories/schedulingPolicyTypes'
-import { POLICY_SUBSIDIZED_FUNDING_TIERS } from '../../../repositories/schedulingPolicyTypes'
+import type { PolicyFixedActivityRow, PolicySubsidizedPassOrderRow, PolicySubsidizedTierRow, PolicySubsidizedRoleOfferingRow } from '../../../repositories/schedulingPolicyTypes'
+import { POLICY_SUBSIDIZED_FUNDING_TIERS, POLICY_SUBSIDIZED_ROLE_TYPES, POLICY_SLOT_VARIANTS } from '../../../repositories/schedulingPolicyTypes'
 import type { SystemSettingsSnapshot } from '../types'
 
 const parsePolicyFixedActivities = (raw: unknown): PolicyFixedActivityRow[] => {
@@ -30,6 +30,8 @@ const parsePolicyFixedActivities = (raw: unknown): PolicyFixedActivityRow[] => {
 }
 
 const FUNDING_TIER_PARSE = new Set<string>(POLICY_SUBSIDIZED_FUNDING_TIERS)
+const ROLE_TYPE_PARSE = new Set<string>(POLICY_SUBSIDIZED_ROLE_TYPES)
+const SLOT_VARIANT_PARSE = new Set<string>(POLICY_SLOT_VARIANTS)
 
 const parsePolicySubsidizedPassOrder = (raw: unknown): PolicySubsidizedPassOrderRow[] => {
   if (!Array.isArray(raw)) return []
@@ -62,6 +64,27 @@ const parsePolicySubsidizedTiers = (raw: unknown): PolicySubsidizedTierRow[] => 
   return out
 }
 
+const parsePolicySubsidizedRoleOfferings = (raw: unknown): PolicySubsidizedRoleOfferingRow[] => {
+  if (!Array.isArray(raw)) return []
+  const out: PolicySubsidizedRoleOfferingRow[] = []
+  for (const x of raw) {
+    if (!isRecord(x)) continue
+    const fundingTier = String(x.fundingTier ?? x.funding_tier ?? '')
+    const roleType = String(x.roleType ?? x.role_type ?? '')
+    const slotVariant = String(x.slotVariant ?? x.slot_variant ?? '')
+    if (!FUNDING_TIER_PARSE.has(fundingTier) || !ROLE_TYPE_PARSE.has(roleType) || !SLOT_VARIANT_PARSE.has(slotVariant)) {
+      continue
+    }
+    out.push({
+      fundingTier: fundingTier as PolicySubsidizedRoleOfferingRow['fundingTier'],
+      roleType: roleType as PolicySubsidizedRoleOfferingRow['roleType'],
+      slotVariant: slotVariant as PolicySubsidizedRoleOfferingRow['slotVariant'],
+      enabled: Boolean(x.enabled),
+    })
+  }
+  return out
+}
+
 export const DEFAULT_SYSTEM_SETTINGS: SystemSettingsSnapshot = {
   schedulingWindowStart: '07:00',
   schedulingWindowEnd: '22:00',
@@ -78,6 +101,7 @@ export const DEFAULT_SYSTEM_SETTINGS: SystemSettingsSnapshot = {
   policyFixedActivities: [],
   policySubsidizedPassOrder: [],
   policySubsidizedTiers: [],
+  policySubsidizedRoleOfferings: [],
 }
 
 const isRecord = (v: unknown): v is Record<string, unknown> =>
@@ -114,6 +138,8 @@ export const parseStoredSnapshot = (raw: string | null): SystemSettingsSnapshot 
     const policySubsidizedPassOrderHydrated = g('policySubsidizedPassOrderHydrated') === true
     const policySubsidizedTiersRaw = g('policySubsidizedTiers')
     const policySubsidizedTiersHydrated = g('policySubsidizedTiersHydrated') === true
+    const policySubsidizedRoleOfferingsRaw = g('policySubsidizedRoleOfferings')
+    const policySubsidizedRoleOfferingsHydrated = g('policySubsidizedRoleOfferingsHydrated') === true
     if (
       typeof schedulingWindowStart !== 'string' ||
       typeof schedulingWindowEnd !== 'string' ||
@@ -129,6 +155,7 @@ export const parseStoredSnapshot = (raw: string | null): SystemSettingsSnapshot 
     const policyFixedActivities = parsePolicyFixedActivities(policyFixedActivitiesRaw)
     const policySubsidizedPassOrder = parsePolicySubsidizedPassOrder(policySubsidizedPassOrderRaw)
     const policySubsidizedTiers = parsePolicySubsidizedTiers(policySubsidizedTiersRaw)
+    const policySubsidizedRoleOfferings = parsePolicySubsidizedRoleOfferings(policySubsidizedRoleOfferingsRaw)
     return {
       schedulingWindowStart,
       schedulingWindowEnd,
@@ -145,9 +172,11 @@ export const parseStoredSnapshot = (raw: string | null): SystemSettingsSnapshot 
       policyFixedActivities,
       policySubsidizedPassOrder,
       policySubsidizedTiers,
+      policySubsidizedRoleOfferings,
       ...(policyFixedActivitiesHydrated ? { policyFixedActivitiesHydrated: true as const } : {}),
       ...(policySubsidizedPassOrderHydrated ? { policySubsidizedPassOrderHydrated: true as const } : {}),
       ...(policySubsidizedTiersHydrated ? { policySubsidizedTiersHydrated: true as const } : {}),
+      ...(policySubsidizedRoleOfferingsHydrated ? { policySubsidizedRoleOfferingsHydrated: true as const } : {}),
     }
   } catch {
     return null

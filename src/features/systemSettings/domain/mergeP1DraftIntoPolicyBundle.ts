@@ -2,6 +2,7 @@ import type { SchedulingPolicyBundle } from '../../../repositories/schedulingPol
 import { draftFixedActivitiesToBundle } from './policyFixedActivityDraft'
 import { bundlePassOrderToDraft, draftPassOrderToBundle } from './policyPassOrderDraft'
 import { draftTiersToBundle } from './policySubsidizedTierDraft'
+import { draftRoleOfferingsToBundle } from './policySubsidizedRoleOfferingDraft'
 import type { SystemSettingsSnapshot } from '../types'
 import { shiftPrepSlotTimes } from './shiftPrepWindow'
 
@@ -39,7 +40,17 @@ const mergedSubsidizedTiers = (
   return base.subsidizedTiers ?? []
 }
 
-/** 以目前 bundle 為底，覆寫 P1（非治療時段、開工準備、數字上限）；P2 固定活動見 `mergedFixedActivities`；P2 Pass 次序見 `mergedSubsidizedPassOrder`；P2 資助三列見 `mergedSubsidizedTiers` */
+const mergedSubsidizedRoleOfferings = (
+  draft: SystemSettingsSnapshot,
+  base: SchedulingPolicyBundle | null,
+): SchedulingPolicyBundle['subsidizedRoleOfferings'] => {
+  if (draft.policySubsidizedRoleOfferingsHydrated === true || !base) {
+    return draftRoleOfferingsToBundle(draft.policySubsidizedRoleOfferings)
+  }
+  return base.subsidizedRoleOfferings ?? []
+}
+
+/** 以目前 bundle 為底，覆寫 P1（非治療時段、開工準備、數字上限）；P2 固定活動見 `mergedFixedActivities`；P2 Pass 次序見 `mergedSubsidizedPassOrder`；P2 資助三列見 `mergedSubsidizedTiers`；P2 職類矩陣見 `mergedSubsidizedRoleOfferings` */
 export const mergeP1DraftIntoPolicyBundle = (
   draft: SystemSettingsSnapshot,
   base: SchedulingPolicyBundle | null,
@@ -66,6 +77,7 @@ export const mergeP1DraftIntoPolicyBundle = (
       subsidizedPassOrder: mergedSubsidizedPassOrder(draft, base),
       fixedActivities: mergedFixedActivities(draft, base),
       subsidizedTiers: mergedSubsidizedTiers(draft, base),
+      subsidizedRoleOfferings: mergedSubsidizedRoleOfferings(draft, base),
     }
   }
   return {
@@ -75,7 +87,7 @@ export const mergeP1DraftIntoPolicyBundle = (
     numericLimits,
     fixedActivities: mergedFixedActivities(draft, null),
     subsidizedTiers: mergedSubsidizedTiers(draft, null),
-    subsidizedRoleOfferings: [],
+    subsidizedRoleOfferings: mergedSubsidizedRoleOfferings(draft, null),
     subsidizedPassOrder: mergedSubsidizedPassOrder(draft, null),
     dementiaCore: null,
     dementiaRoleOfferings: [],

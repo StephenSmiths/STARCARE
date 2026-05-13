@@ -17,4 +17,5 @@ export const POLICY_SYNC_VALID_DRAFT: SystemSettingsSnapshot = {
   policyFixedActivities: [],
   policySubsidizedPassOrder: [],
   policySubsidizedTiers: [],
+  policySubsidizedRoleOfferings: [],
 }

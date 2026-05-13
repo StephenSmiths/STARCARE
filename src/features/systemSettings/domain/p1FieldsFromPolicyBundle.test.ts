@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { minimalSchedulingPolicyBundle } from '../../../repositories/schedulingPolicyRepository.fixtures'
+import { DEFAULT_POLICY_SUBSIDIZED_ROLE_OFFERINGS } from './policySubsidizedRoleOfferingDraft'
 import { p1FieldsFromPolicyBundle } from './p1FieldsFromPolicyBundle'
 
 describe('p1FieldsFromPolicyBundle', () => {
@@ -55,5 +56,23 @@ describe('p1FieldsFromPolicyBundle', () => {
     const p = p1FieldsFromPolicyBundle(b)
     expect(p.policySubsidizedTiersHydrated).toBe(true)
     expect(p.policySubsidizedTiers?.find((x) => x.fundingTier === 'Voucher')?.weeklyMinSessions).toBe(5)
+  })
+
+  it('併入職類矩陣並標記 hydrated（P2）', () => {
+    const customRoles = DEFAULT_POLICY_SUBSIDIZED_ROLE_OFFERINGS.map((r) =>
+      r.fundingTier === 'Private' && r.roleType === 'OTA' && r.slotVariant === 'IND_30' ? { ...r, enabled: true } : r,
+    )
+    const b = {
+      ...minimalSchedulingPolicyBundle,
+      nonTherapySlots: [],
+      subsidizedRoleOfferings: customRoles,
+    }
+    const p = p1FieldsFromPolicyBundle(b)
+    expect(p.policySubsidizedRoleOfferingsHydrated).toBe(true)
+    expect(
+      p.policySubsidizedRoleOfferings?.find(
+        (x) => x.fundingTier === 'Private' && x.roleType === 'OTA' && x.slotVariant === 'IND_30',
+      )?.enabled,
+    ).toBe(true)
   })
 })

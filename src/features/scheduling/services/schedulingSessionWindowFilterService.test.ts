@@ -23,6 +23,7 @@ const baseSnap = (): SystemSettingsSnapshot => ({
   policyFixedActivities: [],
   policySubsidizedPassOrder: [],
   policySubsidizedTiers: [],
+  policySubsidizedRoleOfferings: [],
 })
 
 const rehab = (id: string, timeSlot: string): SchedulingSession => ({

@@ -8,6 +8,7 @@ import { useSystemSettingsPolicySync } from '../hooks/useSystemSettingsPolicySyn
 import { SystemSettingsFixedActivitiesCard } from './SystemSettingsFixedActivitiesCard'
 import { SystemSettingsPassOrderCard } from './SystemSettingsPassOrderCard'
 import { SystemSettingsSubsidizedTiersCard } from './SystemSettingsSubsidizedTiersCard'
+import { SystemSettingsSubsidizedRoleOfferingsCard } from './SystemSettingsSubsidizedRoleOfferingsCard'
 import { SystemSettingsNumericCapsCard } from './SystemSettingsNumericCapsCard'
 import { SystemSettingsPdf16Section } from './SystemSettingsPdf16Section'
 import { SystemSettingsCurrentPolicyVersionCard } from './SystemSettingsCurrentPolicyVersionCard'
@@ -63,6 +64,11 @@ export const SystemSettingsHome = () => {
           {policySync.edgeEnabled ? (
             <ListSectionPanel title="資助復康三列（雲端政策 P2）" titleHeadingLevel={3} defaultExpanded={false}>
               <SystemSettingsSubsidizedTiersCard draft={draft} setField={setField} />
+            </ListSectionPanel>
+          ) : null}
+          {policySync.edgeEnabled ? (
+            <ListSectionPanel title="資助職類矩陣（雲端政策 P2）" titleHeadingLevel={3} defaultExpanded={false}>
+              <SystemSettingsSubsidizedRoleOfferingsCard draft={draft} setField={setField} />
             </ListSectionPanel>
           ) : null}
           {policySync.edgeEnabled ? (

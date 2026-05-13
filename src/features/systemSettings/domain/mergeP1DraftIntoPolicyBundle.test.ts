@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { minimalSchedulingPolicyBundle } from '../../../repositories/schedulingPolicyRepository.fixtures'
 import { DEFAULT_POLICY_SUBSIDIZED_PASS_ORDER } from './policyPassOrderDraft'
 import { DEFAULT_POLICY_SUBSIDIZED_TIER_ROWS } from './policySubsidizedTierDraft'
+import { DEFAULT_POLICY_SUBSIDIZED_ROLE_OFFERINGS } from './policySubsidizedRoleOfferingDraft'
 import { POLICY_SYNC_VALID_DRAFT } from '../hooks/policySyncTestDraft'
 import { mergeP1DraftIntoPolicyBundle } from './mergeP1DraftIntoPolicyBundle'
 
@@ -33,6 +34,12 @@ const serverTiers = [
   { fundingTier: 'Voucher' as const, enabled: true, weeklyMinSessions: 0, specialCareTherapistOnly: false },
   { fundingTier: 'Private' as const, enabled: true, weeklyMinSessions: 1, specialCareTherapistOnly: false },
 ]
+
+const serverRoleOfferings = DEFAULT_POLICY_SUBSIDIZED_ROLE_OFFERINGS.map((r) =>
+  r.fundingTier === 'GradeA_Subsidized' && r.roleType === 'PT' && r.slotVariant === 'IND_15'
+    ? { ...r, enabled: true }
+    : r,
+)
 
 describe('mergeP1DraftIntoPolicyBundle', () => {
   it('已 hydrated 時以草稿覆寫固定活動（P2）', () => {
@@ -103,5 +110,29 @@ describe('mergeP1DraftIntoPolicyBundle', () => {
     }
     const out = mergeP1DraftIntoPolicyBundle(draft, base, 'facility-main')
     expect(out.subsidizedTiers.find((t) => t.fundingTier === 'GradeA_Subsidized')?.enabled).toBe(true)
+  })
+
+  it('雲端職類矩陣、未 hydrated、草稿空時保留雲端（P2）', () => {
+    const base = { ...minimalSchedulingPolicyBundle, subsidizedRoleOfferings: serverRoleOfferings }
+    const draft = { ...POLICY_SYNC_VALID_DRAFT, policySubsidizedRoleOfferings: [] }
+    const out = mergeP1DraftIntoPolicyBundle(draft, base, 'facility-main')
+    const cell = out.subsidizedRoleOfferings.find(
+      (x) => x.fundingTier === 'GradeA_Subsidized' && x.roleType === 'PT' && x.slotVariant === 'IND_15',
+    )
+    expect(cell?.enabled).toBe(true)
+  })
+
+  it('已 hydrated 時以草稿職類矩陣覆寫（P2）', () => {
+    const base = { ...minimalSchedulingPolicyBundle, subsidizedRoleOfferings: serverRoleOfferings }
+    const draft = {
+      ...POLICY_SYNC_VALID_DRAFT,
+      policySubsidizedRoleOfferings: [...DEFAULT_POLICY_SUBSIDIZED_ROLE_OFFERINGS],
+      policySubsidizedRoleOfferingsHydrated: true,
+    }
+    const out = mergeP1DraftIntoPolicyBundle(draft, base, 'facility-main')
+    const cell = out.subsidizedRoleOfferings.find(
+      (x) => x.fundingTier === 'GradeA_Subsidized' && x.roleType === 'PT' && x.slotVariant === 'IND_15',
+    )
+    expect(cell?.enabled).toBe(false)
   })
 })
