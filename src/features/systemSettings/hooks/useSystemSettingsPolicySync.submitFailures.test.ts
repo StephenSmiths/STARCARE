@@ -62,7 +62,9 @@ describe('useSystemSettingsPolicySync（提交失敗與例外）', () => {
     const { result } = renderHook(() =>
       useSystemSettingsPolicySync({ draft: POLICY_SYNC_VALID_DRAFT, hydrateP1FromBundle: vi.fn() }),
     )
-    await waitFor(() => expect(result.current.isPolicyLoading).toBe(false))
+    await waitFor(() =>
+      expect(result.current.currentPolicyVersion).toEqual(minimalSchedulingPolicyBundle.policyVersion),
+    )
 
     await act(async () => {
       await result.current.submitPolicyVersion({
@@ -87,7 +89,9 @@ describe('useSystemSettingsPolicySync（提交失敗與例外）', () => {
     const { result } = renderHook(() =>
       useSystemSettingsPolicySync({ draft: POLICY_SYNC_VALID_DRAFT, hydrateP1FromBundle: vi.fn() }),
     )
-    await waitFor(() => expect(result.current.isPolicyLoading).toBe(false))
+    await waitFor(() =>
+      expect(result.current.currentPolicyVersion).toEqual(minimalSchedulingPolicyBundle.policyVersion),
+    )
 
     await act(async () => {
       await result.current.submitPolicyVersion({
@@ -108,7 +112,9 @@ describe('useSystemSettingsPolicySync（提交失敗與例外）', () => {
     const { result } = renderHook(() =>
       useSystemSettingsPolicySync({ draft: POLICY_SYNC_VALID_DRAFT, hydrateP1FromBundle: vi.fn() }),
     )
-    await waitFor(() => expect(result.current.isPolicyLoading).toBe(false))
+    await waitFor(() =>
+      expect(result.current.currentPolicyVersion).toEqual(minimalSchedulingPolicyBundle.policyVersion),
+    )
 
     await act(async () => {
       await result.current.submitPolicyVersion({
@@ -129,7 +135,9 @@ describe('useSystemSettingsPolicySync（提交失敗與例外）', () => {
     const { result } = renderHook(() =>
       useSystemSettingsPolicySync({ draft: POLICY_SYNC_VALID_DRAFT, hydrateP1FromBundle: vi.fn() }),
     )
-    await waitFor(() => expect(result.current.isPolicyLoading).toBe(false))
+    await waitFor(() =>
+      expect(result.current.currentPolicyVersion).toEqual(minimalSchedulingPolicyBundle.policyVersion),
+    )
 
     await act(async () => {
       await result.current.submitPolicyVersion({

@@ -62,7 +62,8 @@ export const useSystemSettingsPolicySync = ({ draft, hydrateP1FromBundle }: Args
   }, [edgeEnabled, repo])
 
   useEffect(() => {
-    void loadPolicy()
+    // 避免在 effect 同步階段觸發 `loadPolicy` 內之 `setIsPolicyLoading(true)`（react-hooks/set-state-in-effect）。
+    void Promise.resolve().then(() => loadPolicy())
   }, [loadPolicy])
 
   const reloadPolicy = useCallback(() => {

@@ -82,7 +82,7 @@ describe('useSystemSettingsPolicySync', () => {
     )
 
     expect(result.current.edgeEnabled).toBe(true)
-    await waitFor(() => expect(result.current.isPolicyLoading).toBe(false))
+    await waitFor(() => expect(result.current.policyVersions).toEqual([samplePolicyVersionSummary]))
     expect(mockRepo.getCurrentBundle).toHaveBeenCalled()
     expect(mockRepo.listPolicyVersionSummaries).toHaveBeenCalled()
     expect(hydrate).toHaveBeenCalledWith(minimalSchedulingPolicyBundle)
@@ -105,8 +105,9 @@ describe('useSystemSettingsPolicySync', () => {
     )
 
     expect(result.current.edgeEnabled).toBe(true)
-    await waitFor(() => expect(result.current.isPolicyLoading).toBe(false))
-    expect(result.current.loadError).toBe('Error: 載入院舍政策失敗（HTTP 502）')
+    await waitFor(() =>
+      expect(result.current.loadError).toBe('Error: 載入院舍政策失敗（HTTP 502）'),
+    )
     expect(hydrate).not.toHaveBeenCalled()
     expect(result.current.policyVersions).toEqual([])
     expect(result.current.currentPolicyVersion).toBeNull()
@@ -126,8 +127,9 @@ describe('useSystemSettingsPolicySync', () => {
       useSystemSettingsPolicySync({ draft: POLICY_SYNC_VALID_DRAFT, hydrateP1FromBundle: vi.fn() }),
     )
 
-    await waitFor(() => expect(result.current.isPolicyLoading).toBe(false))
-    expect(result.current.loadError).toBe('Error: 載入政策版本列表失敗（HTTP 500）')
+    await waitFor(() =>
+      expect(result.current.loadError).toBe('Error: 載入政策版本列表失敗（HTTP 500）'),
+    )
   })
 
   it('未勾選確認時不呼叫 validate／commit', async () => {
@@ -141,7 +143,7 @@ describe('useSystemSettingsPolicySync', () => {
     const { result } = renderHook(() =>
       useSystemSettingsPolicySync({ draft: POLICY_SYNC_VALID_DRAFT, hydrateP1FromBundle: vi.fn() }),
     )
-    await waitFor(() => expect(result.current.isPolicyLoading).toBe(false))
+    await waitFor(() => expect(result.current.currentPolicyVersion).toEqual(samplePolicyVersionSummary))
 
     await act(async () => {
       await result.current.submitPolicyVersion({
@@ -167,7 +169,7 @@ describe('useSystemSettingsPolicySync', () => {
     const { result } = renderHook(() =>
       useSystemSettingsPolicySync({ draft: POLICY_SYNC_VALID_DRAFT, hydrateP1FromBundle: vi.fn() }),
     )
-    await waitFor(() => expect(result.current.isPolicyLoading).toBe(false))
+    await waitFor(() => expect(result.current.policyVersions).toHaveLength(1))
 
     await act(async () => {
       await result.current.submitPolicyVersion({
@@ -200,7 +202,7 @@ describe('useSystemSettingsPolicySync', () => {
     const { result } = renderHook(() =>
       useSystemSettingsPolicySync({ draft: POLICY_SYNC_VALID_DRAFT, hydrateP1FromBundle: vi.fn() }),
     )
-    await waitFor(() => expect(result.current.isPolicyLoading).toBe(false))
+    await waitFor(() => expect(result.current.currentPolicyVersion).toEqual(samplePolicyVersionSummary))
 
     await act(async () => {
       await result.current.submitPolicyVersion({

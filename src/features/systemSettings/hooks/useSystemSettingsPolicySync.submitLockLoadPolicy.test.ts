@@ -59,7 +59,9 @@ describe('useSystemSettingsPolicySync submit lock vs loadPolicy', () => {
     const { result } = renderHook(() =>
       useSystemSettingsPolicySync({ draft: POLICY_SYNC_VALID_DRAFT, hydrateP1FromBundle: vi.fn() }),
     )
-    await waitFor(() => expect(result.current.isPolicyLoading).toBe(false))
+    await waitFor(() =>
+      expect(result.current.currentPolicyVersion).toEqual(minimalSchedulingPolicyBundle.policyVersion),
+    )
     expect(mockRepo.getCurrentBundle).toHaveBeenCalledTimes(1)
 
     act(() => {

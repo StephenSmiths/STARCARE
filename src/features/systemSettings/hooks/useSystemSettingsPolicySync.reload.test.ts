@@ -50,8 +50,7 @@ describe('useSystemSettingsPolicySync reloadPolicy', () => {
     const { result } = renderHook(() =>
       useSystemSettingsPolicySync({ draft: POLICY_SYNC_VALID_DRAFT, hydrateP1FromBundle: hydrate }),
     )
-    await waitFor(() => expect(result.current.isPolicyLoading).toBe(false))
-    expect(result.current.loadError).toBeTruthy()
+    await waitFor(() => expect(result.current.loadError).toBeTruthy())
 
     await act(async () => {
       result.current.reloadPolicy()
