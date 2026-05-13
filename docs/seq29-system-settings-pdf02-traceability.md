@@ -49,6 +49,7 @@
 | 機制 | 程式錨點 |
 |------|----------|
 | 時段過濾 | **`schedulingSessionWindowFilterService`**、**`buildEngineConstraintsFromRulesAndUi`**（**`scheduling/hooks/schedulingHookHelpers`**）；**資助復康乾跑**另見 **`schedulingWindowSnapshotService.resolveSchedulingWindowSnapshot`**（有 **`policyVersion`** 時合併雲端 P1） |
+| 扁平規則讀取與 P1 上限 | **`scheduling-rules-get`**：仍以 **`scheduling_rules`** 為啟用旗標等權威；若現行政策版本存在，**`groupCapacityLimit`** 以 P1 **`group_participant_cap`** 覆寫（與 **`scheduling-policy-current-get`** **`numericLimits`** 一致；PRD §7 **B**） |
 | SC 僅治療師 | 與 **`pickSession`**、時段 **`staffRoleType`** 對齊（主檔 Seq 29 敘述） |
 
 ---

@@ -1,6 +1,7 @@
 import { getServiceClient } from '../_shared/supabaseAdmin.ts'
 import { corsHeaders, emptyOk, json } from '../_shared/http.ts'
 import { guardStaffUser } from '../_shared/guardStaffUser.ts'
+import { loadSchedulingPolicyBundle } from '../_shared/schedulingPolicyBundleLoad.ts'
 
 type RuleRow = {
   facility_id: string
@@ -31,6 +32,10 @@ Deno.serve(async (req) => {
     if (error) return json({ error: error.message }, 400)
     if (!data) return json({ error: '找不到排班規則' }, 404)
     const row = data as RuleRow
+    // PDF 02【16】Seq 29／PRD §7 **B**：`scheduling_rules` 仍為啟用旗標等扁平權威；若存在現行政策版本，P1 小組人數上限以版本化子表覆寫（與 `scheduling-policy-current-get` 之 `numericLimits` 對齊）。
+    const bundle = await loadSchedulingPolicyBundle(supabase, facilityId, new Date())
+    const groupCapacityLimit =
+      bundle.policyVersion != null ? bundle.numericLimits.groupParticipantCap : row.group_capacity_limit
     const mapped = {
       facilityId: row.facility_id,
       enableSubsidizedRehab: row.enable_subsidized_rehab,
@@ -39,7 +44,7 @@ Deno.serve(async (req) => {
       minGapDaysSameService: row.min_gap_days_same_service,
       scPriorityEnabled: row.sc_priority_enabled,
       allowScTherapistOnly: row.allow_sc_therapist_only,
-      groupCapacityLimit: row.group_capacity_limit,
+      groupCapacityLimit,
     }
     return new Response(JSON.stringify(mapped), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
