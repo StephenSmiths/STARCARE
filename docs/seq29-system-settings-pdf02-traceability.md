@@ -100,7 +100,7 @@
 | 檔案 | 用途 |
 |------|------|
 | **`docs/system-settings-policy-prd-2026-05-09.md`** | PRD：R1～R7、流程、分期、與 `scheduling_rules` 接軌策略 |
-| **`docs/system-settings-policy-schema-2026-05-09.md`** | 表清單、欄位概念、排班／報表讀版規則 |
+| **`docs/system-settings-policy-schema-2026-05-09.md`** | 表清單、欄位概念、讀版規則；**§3.6** Edge 寫入／validate 與空陣列或完整網格（3／48／8） |
 | **`docs/scheduling-policy-edge-function-contract.md`** | Edge **`scheduling-policy-*`** 五支（讀 staff／teamlead／admin；寫 teamlead／admin）；**§4.3** **`validate`** 網格完整性、**§5.2** **`errors[].code`**（**`schedulingPolicyDraftCompleteness.ts`**）。 |
 | **`supabase/migrations/20260509153000_facility_scheduling_policy_versioned_skeleton.sql`** | PostgreSQL **表／觸發器**（單檔 ≤200 行） |
 | **`supabase/migrations/20260509153100_facility_scheduling_policy_versioned_rls.sql`** | **RLS**（SELECT）；寫入預設走 Edge |
@@ -196,5 +196,4 @@
 | 2026-05-09 | **`feature-list.md`** §8 第 3 點：**CI** 括註併 **`.env.example`** **Seq 29【16】** demo 煙霧與 **`package.json`** 鍵名；**`pdf03`** §4 **README** 維護句同補；**§5** **CI／E2E** 維護句併 **§8** 第 3 點括註。 |
 | 2026-05-09 | **P2**（固定活動／Pass）：**`policyFixedActivities`**、**`SystemSettingsFixedActivitiesCard`**、**`policySubsidizedPassOrder`**、**`SystemSettingsPassOrderCard`**、**`mergeP1DraftIntoPolicyBundle`**／**`p1FieldsFromPolicyBundle`**、**`policyPassOrderDraft`**；Vitest 見 §4。 |
 | 2026-05-09 | **P2 切片（資助復康三列＋職類矩陣 48 格）**：**`policySubsidizedTiers`**／**`policySubsidizedRoleOfferings`** 與 **`*Hydrated`**、**`policySubsidizedTierDraft`**、**`policySubsidizedRoleOfferingDraft`**、**`POLICY_SUBSIDIZED_ROLE_TYPES`**／**`POLICY_SLOT_VARIANTS`**、**`SystemSettingsSubsidizedTiersCard`**／**`SystemSettingsSubsidizedRoleOfferingsCard`**、**`mergeP1DraftIntoPolicyBundle`**／**`p1FieldsFromPolicyBundle`**、**`systemSettingsValidation`**、**`systemSettingsRepository`**；**§1**／**§4**；Vitest **`merge`／`p1Fields`／`validation`** 與 P2 卡測試彙整列。 |
-| 2026-05-09 | **P2 切片（認知障礙症）**：**`policyDementiaDraft`**、**`POLICY_DEMENTIA_ROLE_TYPES`**、**`SystemSettingsDementiaPolicyCard`**、**`policyDementia*`**／**`*Hydrated`**、**`schedulingPolicyTypes`** **`PolicyDementiaCore`**；**§1**／**§4**；Vitest **`merge`／`p1Fields`／`validation`／`SystemSettingsDementiaPolicyCard.test`**。 |
-| 2026-05-09 | **Edge validate**：**`schedulingPolicyDraftCompleteness`** 與前端 P2 子表筆數一致；**`scheduling-policy-edge-function-contract.md`** **§4.3**／**§5.2**（**`BAD_TIER_COUNT`**、**`BAD_ROLE_OFFER_*`**、**`BAD_DEM_ROLE_*`**、**`BAD_DEM_CORE`**）。 |
+| 2026-05-09 | **P2 認知＋Edge validate**：**`policyDementiaDraft`**、**`SystemSettingsDementiaPolicyCard`**；**`schedulingPolicyDraftCompleteness`** 與 **`scheduling-policy-edge-function-contract.md`** **§4.3**／**§5.2**（**`BAD_TIER_COUNT`** 等）。 |

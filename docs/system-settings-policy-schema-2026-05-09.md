@@ -114,6 +114,10 @@
 
 **用途**：OT／OTA × 個別／小組（列舉與 3.2 類同，僅 `service_track = Dementia`）。
 
+### 3.6 寫入與校驗（Edge）
+
+**`scheduling-policy-version-validate`**／**`scheduling-policy-version-commit`** 請求體與 **`SchedulingPolicyBundle`** 對齊時：**`subsidizedTiers`**、**`subsidizedRoleOfferings`**、**`dementiaRoleOfferings`** 可為 **空陣列**（persist 不 INSERT 該子表）；若 **長度 > 0**，須分別 **3**／**48**／**8** 筆且鍵不重複。**`dementiaCore`** 有物件時 **`weeklyMinSessions`** 須為 **非負整數**。實作與錯誤碼見 **`docs/scheduling-policy-edge-function-contract.md`** **§4.3**、**§5.2**（**`schedulingPolicyDraftCompleteness.ts`**）。
+
 ---
 
 ## 4. 讀取規則（實作契約）
@@ -142,3 +146,4 @@
 | 2026-05-13 | 開首互鏈 **seq29** 第 4 節、**UAT** **二之一** 與 **demo** **E2E** 指令。 |
 | 2026-05-16 | 開首 **Staging／UAT** 括註補「段末 **工程維護互鏈**」。 |
 | 2026-05-09 | 初版：表清單、欄位概念、讀取契約。 |
+| 2026-05-09 | **§3.6**：Edge validate／commit 與子表空陣列或完整網格（3／48／8）；互鏈 **`scheduling-policy-edge-function-contract.md`** **§4.3**／**§5.2**。 |

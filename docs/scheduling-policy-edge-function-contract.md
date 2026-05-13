@@ -104,7 +104,7 @@
 - **授權**：**`requireTeamLeadOrAdmin`**（寫入）。  
 - **請求 Body**：須與 **`validate`** 通過之 **`normalized`** 相同形狀，並含 **`idempotencyKey`**（字串，建議 UUID）以符合 Seq 11 防抖／防重入。  
 - **成功**：`201 + { ok: true, policyVersionId: "uuid" }`  
-- **錯誤**：`400`（驗證失敗）、`401`／`403`、`409`（**`idempotencyKey`** 重複且已成功提交）。
+- **錯誤**：`400`（**JSON 無法解析**、**`idempotencyKey` 缺失**、**`validateSchedulingPolicyDraft` 失敗**時回 **`{ ok: false, errors: [...] }`**，與 **`validate`** 端點錯誤物件同形但 **HTTP 為 400**）、`401`／`403`、`409`（**`idempotencyKey`** 重複且已成功提交）。
 
 ## 5. 錯誤碼建議
 
@@ -147,5 +147,5 @@
 | 2026-05-09 | 初版：四端點契約（嗣後擴為五支 Edge，見 **2026-05-12** 列）、Bundle 形狀、客戶 R1～R4 映射、部署註記。 |
 | 2026-05-12 | 增 **§4.2a `scheduling-policy-versions-list`**（版本列唯讀）；部署清單五支。 |
 | 2026-05-13 | 開首補 **前端 demo 煙霧**（**`test:e2e:system-settings-policy`**／**`test:e2e:smoke`**、**UAT** **二之一**、**seq29** 第 4 節）。 |
-| 2026-05-09 | **§4.3**／**§5**：**`schedulingPolicyDraftCompleteness`** 與前端 P2 子表筆數一致；**`BAD_TIER_COUNT`**、**`BAD_ROLE_OFFER_*`**、**`BAD_DEM_ROLE_*`**、**`BAD_DEM_CORE`**。 |
+| 2026-05-09 | **§4.3**／**§5**／**§4.4**：**`schedulingPolicyDraftCompleteness`** 與 **`BAD_*`** 碼；**`commit`** 驗證失敗時 **HTTP 400**＋**`{ ok: false, errors }`**。 |
 | 2026-05-15 | 開首 **UAT** **二之一** 補括註「段末 **工程維護互鏈**」。 |
