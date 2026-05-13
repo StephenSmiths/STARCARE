@@ -27,6 +27,7 @@ describe('p1FieldsFromPolicyBundle', () => {
     expect(p.policyFixedActivitiesHydrated).toBe(true)
     expect(p.policyFixedActivities).toHaveLength(1)
     expect(p.policyFixedActivities?.[0]?.activityName).toBe('早操')
+    expect(p.subsidizedRehabNonTherapyIntervals).toBeUndefined()
   })
 
   it('併入 Pass 次序並標記 hydrated（P2）', () => {

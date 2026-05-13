@@ -9,7 +9,7 @@ import type { SystemSettingsSnapshot } from '../types'
 
 export interface UseSystemSettingsResult {
   draft: SystemSettingsSnapshot
-  setField: <K extends keyof SystemSettingsSnapshot>(key: K, value: SystemSettingsSnapshot[K]) => void
+  setField: <K extends keyof SystemSettingsSnapshot>(key: K, value: SystemSettingsSnapshot[K] | undefined) => void
   /** 自 `scheduling-policy-current-get` 合併 P1 欄位至草稿 */
   hydrateP1FromBundle: (bundle: SchedulingPolicyBundle) => void
   validationErrors: string[]
@@ -25,19 +25,19 @@ export const useSystemSettings = (actorId: string): UseSystemSettingsResult => {
   const [savedMessage, setSavedMessage] = useState<string | null>(null)
   const [isSaving, setIsSaving] = useState(false)
 
-  const setField = useCallback(<K extends keyof SystemSettingsSnapshot>(
-    key: K,
-    value: SystemSettingsSnapshot[K],
-  ) => {
-    setDraft((prev) => {
-      const next: SystemSettingsSnapshot = { ...prev, [key]: value }
-      if (key === 'nonTherapyWindowStart' || key === 'nonTherapyWindowEnd') {
-        delete (next as Record<string, unknown>).subsidizedRehabNonTherapyIntervals
-      }
-      return next
-    })
-    setSavedMessage(null)
-  }, [])
+  const setField = useCallback(
+    <K extends keyof SystemSettingsSnapshot>(key: K, value: SystemSettingsSnapshot[K] | undefined) => {
+      setDraft((prev) => {
+        const next = { ...prev, [key]: value } as SystemSettingsSnapshot
+        if (value === undefined) {
+          delete (next as unknown as Record<string, unknown>)[key as string]
+        }
+        return next
+      })
+      setSavedMessage(null)
+    },
+    [],
+  )
 
   const hydrateP1FromBundle = useCallback((bundle: SchedulingPolicyBundle) => {
     setDraft((prev) => ({ ...prev, ...p1FieldsFromPolicyBundle(bundle) }))

@@ -4,6 +4,7 @@
  */
 import type { SchedulingPolicyBundle } from '../../../repositories/schedulingPolicyTypes'
 import type { SubsidizedRehabNonTherapyInterval, SystemSettingsSnapshot } from '../types'
+import { shiftPrepSlotTimes } from './shiftPrepWindow'
 import { hmLessThan, isValidHm } from './systemSettingsValidation'
 
 /** 自政策列組出已驗證、依開始時間排序之排除區間（僅時段，不含 slot_kind 語意） */
@@ -18,9 +19,10 @@ export const intervalsFromPolicyNonTherapySlots = (
   return rows
 }
 
-/** localStorage 反序列化：僅接受物件陣列且每列 HH:mm 合法 */
+/** localStorage 反序列化：空陣列視為「已啟用多段編輯但無額外列」；缺鍵由呼叫端不寫入 snapshot */
 export const parseSubsidizedRehabNonTherapyIntervals = (raw: unknown): SubsidizedRehabNonTherapyInterval[] | undefined => {
-  if (!Array.isArray(raw) || raw.length === 0) return undefined
+  if (!Array.isArray(raw)) return undefined
+  if (raw.length === 0) return []
   const out: SubsidizedRehabNonTherapyInterval[] = []
   for (const x of raw) {
     if (typeof x !== 'object' || x === null) continue
@@ -30,7 +32,49 @@ export const parseSubsidizedRehabNonTherapyIntervals = (raw: unknown): Subsidize
     if (!isValidHm(timeStart) || !isValidHm(timeEnd) || !hmLessThan(timeStart, timeEnd)) continue
     out.push({ timeStart, timeEnd })
   }
-  return out.length > 0 ? out : undefined
+  return out
+}
+
+/** 僅當政策列需與單一午休欄分流（多段或含 DOC／OTHER）時附加至 hydrate 快照 */
+export const shouldAttachSubsidizedRehabNonTherapyIntervalsFromPolicy = (
+  slots: SchedulingPolicyBundle['nonTherapySlots'],
+): boolean => {
+  const rows = slots ?? []
+  if (intervalsFromPolicyNonTherapySlots(rows).length > 1) return true
+  return rows.some((s) => s.slotKind !== 'LUNCH' && s.slotKind !== 'SHIFT_PREP_BLOCK')
+}
+
+/**
+ * 將草稿「多段排除」轉為 **`OTHER`** 列（已排除與午休／開工準備重疊者，供 **`mergeP1DraftIntoPolicyBundle`**）。
+ */
+export const draftOtherNonTherapySlotsFromIntervals = (
+  draft: SystemSettingsSnapshot,
+): Array<{ slotKind: 'OTHER'; timeStart: string; timeEnd: string }> => {
+  const intervals = draft.subsidizedRehabNonTherapyIntervals
+  if (intervals === undefined) return []
+  const lunchS = draft.nonTherapyWindowStart.trim()
+  const lunchE = draft.nonTherapyWindowEnd.trim()
+  let prepS = ''
+  let prepE = ''
+  if (draft.shiftPrepBlockEnabled) {
+    const p = shiftPrepSlotTimes(draft.schedulingWindowStart, draft.schedulingWindowEnd)
+    prepS = p.timeStart.trim()
+    prepE = p.timeEnd.trim()
+  }
+  const seen = new Set<string>()
+  const out: Array<{ slotKind: 'OTHER'; timeStart: string; timeEnd: string }> = []
+  for (const row of intervals) {
+    const ts = row.timeStart.trim()
+    const te = row.timeEnd.trim()
+    if (!isValidHm(ts) || !isValidHm(te) || !hmLessThan(ts, te)) continue
+    if (ts === lunchS && te === lunchE) continue
+    if (draft.shiftPrepBlockEnabled && ts === prepS && te === prepE) continue
+    const k = `${ts}|${te}`
+    if (seen.has(k)) continue
+    seen.add(k)
+    out.push({ slotKind: 'OTHER', timeStart: ts, timeEnd: te })
+  }
+  return out
 }
 
 /**
@@ -53,5 +97,5 @@ export const resolveSubsidizedRehabNonTherapyIntervalsForFilter = (
   return []
 }
 
-/** 提交 P1 時保留雲端僅能由擴充路徑維護之 slot（午休／開工準備由草稿覆寫） */
-export const PRESERVED_NON_THERAPY_SLOT_KINDS = new Set(['MORNING_DOC', 'AFTERNOON_DOC', 'OTHER'])
+/** 提交 P1 時保留雲端 **DOC** 列；**`OTHER`** 由草稿多段或沿用雲端（見 **`mergeP1DraftIntoPolicyBundle`**） */
+export const PRESERVED_DOC_NON_THERAPY_SLOT_KINDS = new Set(['MORNING_DOC', 'AFTERNOON_DOC'])

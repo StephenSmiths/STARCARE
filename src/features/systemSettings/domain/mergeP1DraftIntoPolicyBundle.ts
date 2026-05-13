@@ -4,7 +4,7 @@ import { bundlePassOrderToDraft, draftPassOrderToBundle } from './policyPassOrde
 import { draftTiersToBundle } from './policySubsidizedTierDraft'
 import { draftRoleOfferingsToBundle } from './policySubsidizedRoleOfferingDraft'
 import { draftDementiaCoreToBundle, draftDementiaRoleOfferingsToBundle } from './policyDementiaDraft'
-import { PRESERVED_NON_THERAPY_SLOT_KINDS } from './subsidizedRehabNonTherapyIntervals'
+import { PRESERVED_DOC_NON_THERAPY_SLOT_KINDS, draftOtherNonTherapySlotsFromIntervals } from './subsidizedRehabNonTherapyIntervals'
 import type { SystemSettingsSnapshot } from '../types'
 import { shiftPrepSlotTimes } from './shiftPrepWindow'
 
@@ -85,10 +85,20 @@ export const mergeP1DraftIntoPolicyBundle = (
     const { timeStart, timeEnd } = shiftPrepSlotTimes(draft.schedulingWindowStart, draft.schedulingWindowEnd)
     slotsFromDraft.push({ slotKind: 'SHIFT_PREP_BLOCK', timeStart, timeEnd })
   }
-  const preservedSlots = (base?.nonTherapySlots ?? []).filter((row) =>
-    PRESERVED_NON_THERAPY_SLOT_KINDS.has(String(row.slotKind)),
+  const preservedDocSlots = (base?.nonTherapySlots ?? []).filter((row) =>
+    PRESERVED_DOC_NON_THERAPY_SLOT_KINDS.has(String(row.slotKind)),
   )
-  const nonTherapySlots: SchedulingPolicyBundle['nonTherapySlots'] = [...slotsFromDraft, ...preservedSlots]
+  const preservedOtherFromBase =
+    draft.subsidizedRehabNonTherapyIntervals === undefined
+      ? (base?.nonTherapySlots ?? []).filter((row) => String(row.slotKind) === 'OTHER')
+      : []
+  const draftOtherSlots = draftOtherNonTherapySlotsFromIntervals(draft)
+  const nonTherapySlots: SchedulingPolicyBundle['nonTherapySlots'] = [
+    ...slotsFromDraft,
+    ...preservedDocSlots,
+    ...preservedOtherFromBase,
+    ...draftOtherSlots,
+  ]
   const numericLimits = {
     therapistGroupSessionsDailyCap: draft.therapistGroupSessionsDailyCap,
     assistantGroupSessionsDailyCap: draft.assistantGroupSessionsDailyCap,

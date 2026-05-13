@@ -17,6 +17,7 @@ import { SystemSettingsPolicyVersionsListCard } from './SystemSettingsPolicyVers
 import { SystemSettingsPolicySubmitCard } from './SystemSettingsPolicySubmitCard'
 import { SystemSettingsRulesTogglesCard } from './SystemSettingsRulesTogglesCard'
 import { SystemSettingsSchedulingWindowsCard } from './SystemSettingsSchedulingWindowsCard'
+import { SystemSettingsNonTherapyIntervalsEditor } from './SystemSettingsNonTherapyIntervalsEditor'
 import { SystemSettingsSpecialCareCard } from './SystemSettingsSpecialCareCard'
 
 export const SystemSettingsHome = () => {
@@ -41,6 +42,7 @@ export const SystemSettingsHome = () => {
         >
           <ListSectionPanel title="排班時間設定" titleHeadingLevel={3} defaultExpanded>
             <SystemSettingsSchedulingWindowsCard draft={draft} setField={setField} />
+            <SystemSettingsNonTherapyIntervalsEditor draft={draft} setField={setField} />
           </ListSectionPanel>
           <ListSectionPanel title="排班規則設定（P1）" titleHeadingLevel={3} defaultExpanded>
             <div className="flex flex-col gap-4">

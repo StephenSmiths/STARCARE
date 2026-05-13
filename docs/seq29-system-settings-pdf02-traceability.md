@@ -17,7 +17,7 @@
 
 | 區塊 | 元件／Hook | 說明 |
 |------|------------|------|
-| 排班與時段 | **`SystemSettingsHome`** 首段 | **HH:mm** 欄位：`schedulingWindowStart`／`End`、`nonTherapyWindowStart`／`End`；**開工準備**開關（`SHIFT_PREP_BLOCK`）；**`SystemSettingsPdf16Section`** 外層 **`section aria-labelledby`** 與 **`h2`** 標題 **id**；內嵌各段 **`ListSectionPanel`** 為 **`section aria-labelledby`** 與 **`h2`／`h3`** 標題關聯，展開鈕 **`aria-controls`** 綁內容區 **`id`**（收合時 **`hidden`**）。 |
+| 排班與時段 | **`SystemSettingsHome`** 首段 | **HH:mm** 欄位：`schedulingWindowStart`／`End`、`nonTherapyWindowStart`／`End`；**開工準備**開關（`SHIFT_PREP_BLOCK`）；**`SystemSettingsNonTherapyIntervalsEditor`**（本機多段資助復康非治療排除、送審寫 **OTHER**）；**`SystemSettingsPdf16Section`** 外層 **`section aria-labelledby`** 與 **`h2`** 標題 **id**；內嵌各段 **`ListSectionPanel`** 為 **`section aria-labelledby`** 與 **`h2`／`h3`** 標題關聯，展開鈕 **`aria-controls`** 綁內容區 **`id`**（收合時 **`hidden`**）。 |
 | 數字上限（P1） | **`SystemSettingsNumericCapsCard`** | 與 Edge **`numericLimits`** 對齊；提交時併入 **`mergeP1DraftIntoPolicyBundle`**。 |
 | 固定活動（P2） | **`SystemSettingsFixedActivitiesCard`** | 雲端 **`facility_policy_fixed_activities`** 多筆；**`SystemSettingsSnapshot.policyFixedActivities`**／**`policyFixedActivitiesHydrated`**；**`p1FieldsFromPolicyBundle`** hydrate；**`mergeP1DraftIntoPolicyBundle`** 合併（未 hydrated 且草稿空時保留雲端列）；僅 **`edgeEnabled`** 時顯示。 |
 | 資助復康三列（P2） | **`SystemSettingsSubsidizedTiersCard`** | 雲端 **`facility_policy_subsidized_tier`**；**`policySubsidizedTiers`**／**`policySubsidizedTiersHydrated`**；**`policySubsidizedTierDraft`**；合併規則同固定活動；僅 **`edgeEnabled`** 時顯示（復康大節內）。 |

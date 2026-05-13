@@ -103,3 +103,4 @@
 | 2026-05-12 | 開首互鏈補 **Demo E2E**（**`test:e2e:system-settings-policy`**／**seq29** §4）。 |
 | 2026-05-09 | §7：補 **路徑 B** 已落地之 **`scheduling-rules-get`**／**`groupCapacityLimit`** 合併敘述；互鏈 Edge 契約、**ADR-0001**、Seq 29 主表。 |
 | 2026-05-09 | **資助復康多段非治療**：**`facility_policy_non_therapy_slots`** 全列還原至 **`subsidizedRehabNonTherapyIntervals`** 並驅動 **`filterSchedulingSessionsForSubsidizedEngine`**；**`mergeP1DraftIntoPolicyBundle`** 提交保留 **MORNING_DOC**／**AFTERNOON_DOC**／**OTHER**；互鏈 **Seq 29** 主表／**`seq29`** §3／主修訂日誌。 |
+| 2026-05-09 | **多段 UI**：**`SystemSettingsNonTherapyIntervalsEditor`**（**`#system-settings`** 排班時間設定）；**`p1FieldsFromPolicyBundle`** 條件附加 **`subsidizedRehabNonTherapyIntervals`**；**`useSystemSettings.setField`** **`undefined`** 刪鍵；互鏈 **§7** 實作進度。 |

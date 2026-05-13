@@ -188,9 +188,9 @@ export const parseStoredSnapshot = (raw: string | null): SystemSettingsSnapshot 
     const policyDementiaCoreHydrated = g('policyDementiaCoreHydrated') === true
     const policyDementiaRoleOfferingsRaw = g('policyDementiaRoleOfferings')
     const policyDementiaRoleOfferingsHydrated = g('policyDementiaRoleOfferingsHydrated') === true
-    const subsidizedRehabNonTherapyIntervals = parseSubsidizedRehabNonTherapyIntervals(
-      g('subsidizedRehabNonTherapyIntervals'),
-    )
+    const rawIntervals = g('subsidizedRehabNonTherapyIntervals')
+    const subsidizedRehabNonTherapyIntervals =
+      rawIntervals !== undefined ? parseSubsidizedRehabNonTherapyIntervals(rawIntervals) ?? [] : undefined
     if (
       typeof schedulingWindowStart !== 'string' ||
       typeof schedulingWindowEnd !== 'string' ||
@@ -228,7 +228,7 @@ export const parseStoredSnapshot = (raw: string | null): SystemSettingsSnapshot 
       policySubsidizedRoleOfferings,
       policyDementiaCore,
       policyDementiaRoleOfferings,
-      ...(subsidizedRehabNonTherapyIntervals ? { subsidizedRehabNonTherapyIntervals } : {}),
+      ...(subsidizedRehabNonTherapyIntervals !== undefined ? { subsidizedRehabNonTherapyIntervals } : {}),
       ...(policyFixedActivitiesHydrated ? { policyFixedActivitiesHydrated: true as const } : {}),
       ...(policySubsidizedPassOrderHydrated ? { policySubsidizedPassOrderHydrated: true as const } : {}),
       ...(policySubsidizedTiersHydrated ? { policySubsidizedTiersHydrated: true as const } : {}),
