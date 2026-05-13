@@ -183,3 +183,4 @@
 | 2026-05-16 | **Schema**／**對客範本**／**PRD** §6 **P1**、**`feature-list`** §8 第 5 點、**`README`** 文件表與 **CI**、**`pdf-sequenced`** 主表 Seq 29 列：**UAT** **二之一** 補「段末 **工程維護互鏈**」括註。 |
 | 2026-05-09 | **§5**：維護句增 **`client-delivery-remediation-plan.md`** §2 第 4 點（**Seq 29** 前向煙霧）對齊；**`pdf03`** §4 **Seq 29** 維護檢視句併 **`client-delivery`** §2；**`client-delivery`** §2 句末補 **UAT** **二之一**／**`seq29`**（與 **2026-05-15**／**2026-05-16** 列並讀）。 |
 | 2026-05-09 | **`ci.yml`** **Seq 29【16】** 註解補 **UAT** **二之一**（段末 **工程維護互鏈**）；**`.env.example`** 增 **Seq 29【16】** demo 煙霧註解；**`seq29`** §5／**`pdf03`** §4：維護句併 **`package.json`** **`test:e2e:smoke`**／**`test:e2e:system-settings-policy`** 與 **`.env.example`**。 |
+| 2026-05-09 | **`pdf03`** §3 **Seq 29【16】政策 P1** 檢核：併 **`package.json`** **`test:e2e:smoke`**／**`test:e2e:system-settings-policy`** 與 **`.env.example`** **Seq 29【16】** demo 煙霧註解（與 **§5**、上列 **`ci.yml`**／**`.env.example`** 列並讀）。 |
