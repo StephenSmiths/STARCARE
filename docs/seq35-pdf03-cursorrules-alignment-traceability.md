@@ -1,7 +1,7 @@
 # Seq 35：母本 03 與工程規範對照（`.cursorrules`／`pdf03`）骨架
 
 > **對照**：客戶 PDF **`docs/pdf/03-STARCARE-工程規範-Closed-Loop.pdf`**（**03**）；條文整理與矩陣 **`docs/pdf03-cursorrules-alignment.md`**；序號總表 **`docs/pdf-sequenced-gap-checklist.md`** Seq **35**；P0 **`docs/pdf-alignment-p0-backlog.md`** C 區。  
-> **上一序號（02 鏈）**：**`docs/seq29-system-settings-pdf02-traceability.md`**（系統設定【16】）。  
+> **上一序號（02 鏈）**：**`docs/seq29-system-settings-pdf02-traceability.md`**（系統設定【16】）；**修訂表** **`docs/seq29-system-settings-pdf02-traceability-revision-log.md`**。  
 > **用途**：將 **「與 `.cursorrules` 並讀；衝突時簽核 PDF 優先」** 與 **換版差異重跑** 對表；供換版後填 **頁碼／差異表／簽核**。
 
 > **全案收尾與證據留痕**：**`README.md`**「專案收尾」（**`docs/business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**）；**`docs/project-completion-*.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log.md`** 及歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p3.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p4.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p5.md`**）；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**；Gate A 自動證據固定入口 **`docs/evidence/gate-a-latest.md`**（檔內 **Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／**`npm run gatea:evidence:preflight:strict`**；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**（**`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段））；多數 **`gatea:evidence:*`** 終端 stdout 頁尾 **`scripts/gate-a-markdown-footer.mjs`**（**Export 契約**）。
