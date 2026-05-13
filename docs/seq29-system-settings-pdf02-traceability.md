@@ -85,7 +85,7 @@
 
 ## 5. 維護閉環
 
-- 變更 **`SystemSettingsSnapshot`** 欄位、**驗證規則**或 **審計 `detail`** 時：同步本檔、**`docs/seq15-scheduling-pdf02-traceability.md`**（排班域）、**`pdf-sequenced-gap-checklist.md`** Seq 29、**`pdf-sequenced-gap-checklist-revision-log.md`**（**`docs/pdf03-cursorrules-alignment.md`** §4）。
+- 變更 **`SystemSettingsSnapshot`** 欄位、**驗證規則**或 **審計 `detail`** 時：同步本檔、**`docs/seq15-scheduling-pdf02-traceability.md`**（排班域）、**`pdf-sequenced-gap-checklist.md`** Seq 29、**`pdf-sequenced-gap-checklist-revision-log.md`**（**`docs/pdf03-cursorrules-alignment.md`** §4）、**`docs/seq29-system-settings-pdf02-traceability-revision-log.md`**（本序號修訂表）。
 - 變更 **`scheduling-policy-*`** 部署敘述（**`docs/supabase-deploy-runbook.md`** §2 **Seq 29**、§6）或 **`docs/go-live-checklist.md`** §5（Edge 契約／前向煙霧）時：維持與 **本檔** §4、**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`** **二之一**（段末 **工程維護互鏈**）一致。
 - 變更 **`npm run ci`**、**`.github/workflows/ci.yml`**、**`e2e/smoke.spec.ts`**、**`e2e/system-settings-policy-p1-demo.spec.ts`**、**`package.json`** **`test:e2e:smoke`**／**`test:e2e:system-settings-policy`** 或 **`.env.example`** **Seq 29【16】** demo 煙霧註解時：維持 **`.github/workflows/ci.yml`** 檔首 **Seq 29【16】** 專段註解與 **本檔** §4、**UAT** **二之一**（段末 **工程維護互鏈**）、**`docs/pdf03-cursorrules-alignment.md`** §3、**`docs/feature-list.md`** §8 第 3 點（**README**／**CI**；含 **`.env.example`** 與 **`package.json`** 鍵名對照）一致。
 - 變更 **`docs/client-delivery-remediation-plan.md`** §2 **Seq 29**／前向煙霧敘述時：併 **`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`** **二之一**（段末 **工程維護互鏈**）、**本檔** §4 對齊。
@@ -107,93 +107,6 @@
 
 ---
 
-| 日期 | 說明 |
-|------|------|
-| 2026-05-04 | 初版：Seq 29 **對照骨架**（02【16】末序）；與 Seq 28 互鏈。 |
-| 2026-05-04 | §5：補 **Seq 35～38**（03／C 區）對照骨架互鏈。 |
-| 2026-05-09 | §6：院舍政策版本 PRD／Schema／Edge 契約／migration（**153000** 表、**153100** RLS）；客戶回函定案互鏈。 |
-| 2026-05-12 | §4：補 **policy P1 demo E2E**、**`useSystemSettingsPolicySync`**／**`schedulingPolicyRepository`** Vitest；§6 契約敘述改 **五支** Edge。 |
-| 2026-05-12 | §1／§4：政策版本列表於 **`loadError`** 顯示引導；**`SystemSettingsPolicyVersionsListCard.test.tsx`**。 |
-| 2026-05-12 | §1／§4：**`reloadPolicy`** 手動重試讀取；**`useSystemSettingsPolicySync.reload.test.ts`**。 |
-| 2026-05-12 | §1：版本列表 **`loadError`** 卡同掛 **重新載入**（與目前版卡一致）。 |
-| 2026-05-12 | §1：提交鈕 **`isPolicyLoading`** 停用；成功後 **`loadPolicy`** 靜默刷新。 |
-| 2026-05-12 | §1／§4：**`loadPolicy`** 回傳 **`{ ok }`**；提交後靜默刷新失敗時 **`submitMessage`** 補述；**`postCommitRefresh`** Vitest。 |
-| 2026-05-12 | §1：**`SystemSettingsPolicySubmitCard`** 於 **`isPolicyLoading`** 附 **`role="status"`** 說明。 |
-| 2026-05-12 | §1：**`SystemSettingsPolicySubmitCard`**：**`isSubmitting`** 併入 **`role="status"`**（與載入互斥單節點；提交中優先）。 |
-| 2026-05-12 | §1／§4：提交卡 **`aria-busy`**；**`SystemSettingsPolicySubmitCard.test.tsx`** 斷言。 |
-| 2026-05-12 | §1：目前版／版本列表 **重載鈕** 於 **`isSubmitting`** 時 **disabled**（與提交鎖並行）。 |
-| 2026-05-12 | §1／§4：**`loadPolicy`** 遇 **`lockRef`** 早退（**`bypassSubmitLock`** 僅提交成功後靜默刷新）；**`submitLockLoadPolicy`** Vitest。 |
-| 2026-05-12 | §1／§4：**目前版／版本列表** **`article`** **`aria-busy`**；**`CurrentPolicyVersionCard.test`**／擴充 **VersionsListCard.test**。 |
-| 2026-05-12 | §1／§4：**`ListSectionPanel`** **`section aria-labelledby`**；**`ListSectionPanel.test`**；**policy P1 demo E2E** 斷言 **section** 與政策標題 **id**。 |
-| 2026-05-12 | §1／§4：本機儲存 **`save`** **`setTimeout(0)`**；**`SystemSettingsHome`** **`role="group"`** **`aria-busy`**；**`useSystemSettings.saveSavingState.test`**；**policy P1 demo E2E** 本機 **group**。 |
-| 2026-05-12 | §1／§4：**`SystemSettingsPdf16Section`** **`section aria-labelledby`**（**`h2`** **id**）；**`SystemSettingsPdf16Section.test`**；**policy P1 demo E2E** 斷言 **智能排班設定** 區段。 |
-| 2026-05-12 | §4：**policy P1 demo E2E** 補 **復康服務基本設定** **`section[aria-labelledby]`** 與 **`id`** 有別於智能排班。 |
-| 2026-05-12 | §1／§4：**`AuditTrailPanel`** 標題 **`useId`**（取代固定 **`audit-trail-heading`**）；**`AuditTrailPanel.test`**；**policy P1 demo E2E** 審計 **section**。 |
-| 2026-05-12 | §4：**`e2e/smoke`** 於 **`#system-settings`** 斷言本機 **`group`**（Seq 29）。 |
-| 2026-05-09 | §4：**`README.md`**：**`test:e2e:smoke`** 註解補 **`#system-settings`** **審計** 展開收合煙霧。 |
-| 2026-05-23 | §6 **P1** 列：**UAT** 補 **二之一**；**`pdf-alignment-p0-backlog.md`** Seq 29：五支 Edge、**UAT**／**demo E2E** 互鏈；**`business-logic.md`** §0 補 **UAT**／**demo** 一句。 |
-| 2026-05-23 | **`README.md`** 文件表與 **`pdf03`** §3：**Seq 29** PR 檢核併 **runbook**／**go-live**／**`seq29`** §5／**`feature-list`** §7。 |
-| 2026-05-23 | **`pdf03`** §4／**`feature-list`** §7：**Seq 29** 維護與 **`scheduling-policy-*`** 列補 **runbook**／**go-live**／**`seq29`** §5。 |
-| 2026-05-23 | **§5**：維護閉環增 **runbook**／**go-live**／**UAT** **二之一** 對齊；**`supabase-deploy-runbook.md`** §2／§6、**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`** **二之一** 互鏈。 |
-| 2026-05-23 | **`go-live-checklist.md`** §5：Edge 契約勾選項補 **UAT** **二之一** 與 **demo** **Playwright** 指令互鏈。 |
-| 2026-05-13 | **Schema** 開首互鏈 **seq29**／**UAT** **二之一**／**demo E2E**；**`docs/feature-list.md`** §8 第 5 點補 **二之一** 與 **seq29** 第 4 節。 |
-| 2026-05-13 | **Edge 契約**（**`docs/scheduling-policy-edge-function-contract.md`**）開首補 **前端 demo 煙霧**；**`docs/pdf03-cursorrules-alignment.md`** §3 **Seq 29** 檢核併列 **`test:e2e:smoke`** 與 **UAT** **二之一**。 |
-| 2026-05-13 | **PRD** 開首 **Demo E2E** 併列 **`test:e2e:smoke`** 與 **UAT** **二之一**。 |
-| 2026-05-13 | 開首 **Demo E2E** 併列 **`test:e2e:smoke`**（**`#system-settings`**）；**`docs/system-settings-policy-customer-reply-2026-05-09.md`** 開首互鏈 **UAT** **二之一**。 |
-| 2026-05-13 | 開首 **UAT** 互鏈補 **二之一** 無 env 煙霧；**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`** 增 **二之一** 與 **§四** 修訂紀錄。 |
-| 2026-05-09 | §4：**`README.md`**：**`test:e2e:smoke`** 註解補 **`#system-settings`** 政策收合／**`Set.size === 5`**。 |
-| 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **政策版本** **收合**／**展開** 與五區 **`aria-controls`** **`id`** **`Set.size === 5`**（與 **policy P1 demo E2E** 對齊）。 |
-| 2026-05-09 | §4：**`README.md`**：**`test:e2e:system-settings-policy`** 註解補政策清單收合／**`Set.size === 5`**。 |
-| 2026-05-09 | §4：**`e2e/system-settings-policy-p1-demo`** 補 **政策版本** **`ListSectionPanel`** **收合**／**展開**、復康內層於 **`rehabPdfSection`** 篩選、五區 **`aria-controls`** **`id`** **`Set.size === 5`**。 |
-| 2026-05-09 | §4：**`README.md`**：**`test:e2e:system-settings-policy`** 註解補 **審計** 展開收合與 **seq29** §4 互鏈。 |
-| 2026-05-09 | §4：**`e2e/system-settings-policy-p1-demo`** 補 **審計** **展開**／**收合** 與 **`aria-controls`**／**`hidden`**／搜尋 **`placeholder`**（與 **`e2e/smoke`** **`#system-settings`** 對齊）。 |
-| 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **審計** **展開**／**收合** 與 **`aria-controls`**／**`hidden`**／搜尋 **`placeholder`**（與 **`#staff-import`** 單測及 **`SystemSettingsHome.interactions`** Vitest 對齊）。 |
-| 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **政策版本（P1）** 區 **`heading`** 可見。 |
-| 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **儲存設定（本機）** 與無 Edge 說明（**未偵測到 Supabase 環境變數**）。 |
-| 2026-05-09 | §1／§4：**`ListSectionPanel`** 展開鈕 **`aria-controls`**、內容區 **`hidden`**；擴充 **`ListSectionPanel.test`**。 |
-| 2026-05-09 | §1／§4：**`AuditTrailPanel`** 展開鈕 **`aria-controls`**、可摺疊內容 **`hidden`**；擴充 **`AuditTrailPanel.test`**。 |
-| 2026-05-09 | §4：**`ListSectionPanel.test`**／**`AuditTrailPanel.test`** 補 **`defaultExpanded`** 邊界。 |
-| 2026-05-09 | §4：**`e2e/smoke`** 審計收合測試斷言 **`aria-controls`**／**`hidden`**（**`#staff-import`**）。 |
-| 2026-05-09 | §4：**`e2e/system-settings-policy-p1-demo`** 補 **資助復康** **`ListSectionPanel`** **`aria-controls`**／**`hidden`**。 |
-| 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **政策版本** **`ListSectionPanel`** 預設展開（**`aria-controls`**）。 |
-| 2026-05-09 | §4：**`e2e/system-settings-policy-p1-demo`** 補 **排班時間設定**（**`h3`**）**`ListSectionPanel`** 預設展開。 |
-| 2026-05-09 | §4：**`e2e/system-settings-policy-p1-demo`** 補 **排班規則設定（P1）** **`ListSectionPanel`** 預設展開。 |
-| 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **Pdf16 智能排班** 內 **排班時間**／**排班規則** **`ListSectionPanel`**（**`aria-controls`**、無 **`hidden`**、兩內容區 **`id`** 有別）。 |
-| 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **Pdf16 復康** 內 **資助復康** **`ListSectionPanel`** 預設收合（**`aria-controls`**、**`hidden`**）。 |
-| 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補本機 **`group`** **`aria-busy="false"`**（與 **policy P1 demo E2E** 對齊）。 |
-| 2026-05-09 | §4：**`SystemSettingsHome.test.tsx`** 拆為 **`SystemSettingsHome.smoke.test.tsx`**／**`SystemSettingsHome.interactions.test.tsx`**（單檔維護與 **200** 行規則）。 |
-| 2026-05-09 | §4：**`SystemSettingsHome.test`** 第四用例：**政策版本** **`ListSectionPanel`** **收合**／**展開** 與 **`hidden`**。 |
-| 2026-05-09 | §4：**`SystemSettingsHome.test`** 第三用例：**資助復康** 展開後 **SC** 文案（對齊 **policy P1 demo E2E**）。 |
-| 2026-05-09 | §4：**`SystemSettingsHome.test`** 第二用例：**審計** 展開／收合與 **`placeholder`**（對齊 **smoke** **#staff-import**）。 |
-| 2026-05-09 | §4：**`SystemSettingsHome.test`**：**五區** **`aria-controls`** 目標 **`id`** 改以 **`Set.size === 5`** 斷言全相異。 |
-| 2026-05-09 | §4：**`SystemSettingsHome.test`** 補 **政策／審計／排班時間** **`aria-controls`** 目標 **`id`** 兩兩有別。 |
-| 2026-05-09 | §4：**`SystemSettingsHome.test`** 補 **`AuditTrailPanel`** **展開審計**／內容 **`hidden`**。 |
-| 2026-05-09 | §4：**`SystemSettingsHome.test`** 補 **`ListSectionPanel`** **`aria-controls`**／內容區 **`hidden`** 與排班兩區 **`id`** 有別。 |
-| 2026-05-09 | §4：**`SystemSettingsHome.test`** 補 **ListSectionPanel** 預設 **收合**／**展開** 鈕（**`within`** 範圍）。 |
-| 2026-05-09 | §4：**`SystemSettingsHome.test`** 補 **Pdf16** 內層 **ListSectionPanel** **`section[aria-labelledby]`** 嵌於正確大節。 |
-| 2026-05-09 | §4：**`SystemSettingsHome.test`** 補 **Pdf16**／**政策**／**審計** **`section[aria-labelledby]`** landmark。 |
-| 2026-05-09 | §4：**`SystemSettingsHome.test`** 補 **排班規則**／**資助復康** **`h3`** 與本機 **`group`** **`aria-busy`**。 |
-| 2026-05-09 | §4：**`SystemSettingsHome.test`** 補 **排班時間設定** **`h3`**、無 Edge **Supabase** 說明；**`supabaseBrowserEnv`** mock 使 **CI** 具 **`VITE_SUPABASE_*`** 時仍與 **demo** 一致。 |
-| 2026-05-09 | §4：**`SystemSettingsHome.test`** 補 **審計** **`h3`** 標題可見；**`getByRole`** 移除 **`exact`** 以符合 **typecheck**。 |
-| 2026-05-09 | §4：**`SystemSettingsHome.test.tsx`**：**`SystemSettingsHome`** 輕量整合（**`useAuth`**／**`useAuditTrailList`** mock）。 |
-| 2026-05-09 | §4：**`SystemSettingsRulesTogglesCard.test`**／**`SystemSettingsSpecialCareCard.test`**：規則總開關與 **SC** **checkbox** **`setField`**（Vitest）。 |
-| 2026-05-09 | §4：**`SystemSettingsNumericCapsCard.test.tsx`**：P1 數字上限欄位與 **`setField`**（Vitest）。 |
-| 2026-05-09 | §4：**`SystemSettingsSchedulingWindowsCard.test.tsx`**：**排班時間設定**卡欄位與 **`setField`** 委派（Vitest）。 |
-| 2026-05-09 | §4：**`SystemSettingsPdf16Section.test`** 斷言 **`description`** 說明段落呈現；**`afterEach(cleanup)`** 避免同檔連測 DOM 堆疊。 |
-| 2026-05-09 | §4：**`SystemSettingsPdf16Section.test`** 補 **復康服務基本設定** 標題 **`aria-labelledby`** 用例。 |
-| 2026-05-09 | §4：**`README.md`** 常用指令：**`test:e2e:smoke`** 註解補 **`#system-settings`** Seq 29 P1 煙霧與 **`docs/seq29-system-settings-pdf02-traceability.md`** 第 4 節對照。 |
-| 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **政策版本**／**審計** **`section[aria-labelledby]`**（與 **policy P1 demo E2E** 對齊）。 |
-| 2026-05-09 | **§5**：維護閉環增 **`.github/workflows/ci.yml`** 檔首 **Seq 29【16】** 專段；**`scheduling-policy-edge-function-contract.md`** §7 初版「四端點」修訂列括註（嗣後五支 Edge）。 |
-| 2026-05-09 | **`pdf03-cursorrules-alignment.md`** §3 **文件入口**／§4 **Seq 29** 維護與 **`feature-list.md`** §8 第 7 點：**`ci.yml`** **Seq 29【16】** 專段與 **UAT** **二之一**／本檔 §4 對齊敘述。 |
-| 2026-05-12 | 開首增 **CI（Seq 29）** 對照（**`ci.yml`**、**`npm run ci`**、**`pdf03`** §3、本檔 **§5**）；**`README.md`** 常用指令 **CI** 列互鏈 **pdf03**／本檔第 4 節。 |
-| 2026-05-13 | **`feature-list.md`** §8 第 3 點：**README** **CI** 短列補 **Seq 29**／**`pdf03`** §3／本檔第 4 節；**`pdf03`** §4：**README** 維護句併 **CI** 列；**Seq 29** 維護檢視句併 **`feature-list`** §8 第 3 點；**§5** **CI／E2E** 維護句併 **`feature-list`** §8 第 3 點。 |
-| 2026-05-14 | **UAT** **二之一** 段末 **工程維護互鏈**；**`go-live-checklist`** §5 前向煙霧句併 **工程維護**；開首 **UAT** 括註對齊；**§5** **runbook**／**go-live** 維護句併 **二之一** 段末互鏈。 |
-| 2026-05-15 | **全鏈括註**：**`runbook`** §2／§6、**`business-logic`** §0、**Edge 契約** 開首、**P0 backlog** Seq 29、**`feature-list`** Edge 表、**PRD** 開首、**`pdf03`** §3、**§5** **CI／E2E** 句之 **UAT** **二之一**（段末 **工程維護互鏈**）。 |
-| 2026-05-16 | **Schema**／**對客範本**／**PRD** §6 **P1**、**`feature-list`** §8 第 5 點、**`README`** 文件表與 **CI**、**`pdf-sequenced`** 主表 Seq 29 列：**UAT** **二之一** 補「段末 **工程維護互鏈**」括註。 |
-| 2026-05-09 | **§5**：維護句增 **`client-delivery-remediation-plan.md`** §2 第 4 點（**Seq 29** 前向煙霧）對齊；**`pdf03`** §4 **Seq 29** 維護檢視句併 **`client-delivery`** §2；**`client-delivery`** §2 句末補 **UAT** **二之一**／**`seq29`**（與 **2026-05-15**／**2026-05-16** 列並讀）。 |
-| 2026-05-09 | **`ci.yml`**／**`pdf03`** §3／§4、**`.env.example`**、**`package.json`**：**Seq 29【16】** demo／E2E 鍵、**UAT** **二之一**；維護句互鏈 **§5**。 |
-| 2026-05-09 | **`feature-list.md`** §8 第 3 點：**CI** 括註併 **`.env.example`** **Seq 29【16】** demo 煙霧與 **`package.json`** 鍵名；**`pdf03`** §4 **README** 維護句同補；**§5** **CI／E2E** 維護句併 **§8** 第 3 點括註。 |
-| 2026-05-09 | **P2**（固定活動／Pass）：**`policyFixedActivities`**、**`SystemSettingsFixedActivitiesCard`**、**`policySubsidizedPassOrder`**、**`SystemSettingsPassOrderCard`**、**`mergeP1DraftIntoPolicyBundle`**／**`p1FieldsFromPolicyBundle`**、**`policyPassOrderDraft`**；Vitest 見 §4。 |
-| 2026-05-09 | **P2 切片（資助復康三列＋職類矩陣 48 格）**：**`policySubsidizedTiers`**／**`policySubsidizedRoleOfferings`** 與 **`*Hydrated`**、**`policySubsidizedTierDraft`**、**`policySubsidizedRoleOfferingDraft`**、**`POLICY_SUBSIDIZED_ROLE_TYPES`**／**`POLICY_SLOT_VARIANTS`**、**`SystemSettingsSubsidizedTiersCard`**／**`SystemSettingsSubsidizedRoleOfferingsCard`**、**`mergeP1DraftIntoPolicyBundle`**／**`p1FieldsFromPolicyBundle`**、**`systemSettingsValidation`**、**`systemSettingsRepository`**；**§1**／**§4**；Vitest **`merge`／`p1Fields`／`validation`** 與 P2 卡測試彙整列。 |
-| 2026-05-09 | **P2 認知＋Edge validate**：**`policyDementiaDraft`**、**`SystemSettingsDementiaPolicyCard`**；**`schedulingPolicyDraftCompleteness`** 與 **`scheduling-policy-edge-function-contract.md`** **§4.3**／**§5.2**（**`BAD_TIER_COUNT`** 等）。 |
-| 2026-05-09 | §1／§4／**PRD** §4：**`SystemSettingsPolicySubmitCard`** **`validate`**／**`commit`** 校驗說明與 **`useSystemSettingsPolicySync.test`** **commit** **`errors`**。 |
+## 修訂紀錄
+
+> **修訂表**：全列見 **`docs/seq29-system-settings-pdf02-traceability-revision-log.md`**（併讀 **`docs/pdf-sequenced-gap-checklist-revision-log.md`** **Seq 29** 相關列；本檔 **§1–§6**）。
