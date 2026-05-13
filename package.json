@@ -32,7 +32,7 @@
     "typecheck": "tsc -b --noEmit",
     "lint": "eslint .",
     "preview": "vite preview",
-    "ci": "npm run lint && npm run typecheck && npm run test && npm run build:demo && PW_PREVIEW_ONLY=1 VITE_SUPABASE_URL= VITE_SUPABASE_ANON_KEY= npm run test:e2e",
+    "ci": "npm run lint && npm run typecheck && npm run test && npm run build:demo && env -u npm_config_devdir npm run perf:bundle:ci && PW_PREVIEW_ONLY=1 VITE_SUPABASE_URL= VITE_SUPABASE_ANON_KEY= npm run test:e2e && PW_PREVIEW_ONLY=1 VITE_SUPABASE_URL= VITE_SUPABASE_ANON_KEY= playwright test e2e/list-section-collapse.spec.ts --project=chromium",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "test:e2e:smoke": "npm run build:demo && PW_PREVIEW_ONLY=1 VITE_SUPABASE_URL= VITE_SUPABASE_ANON_KEY= playwright test e2e/smoke.spec.ts --project=chromium",

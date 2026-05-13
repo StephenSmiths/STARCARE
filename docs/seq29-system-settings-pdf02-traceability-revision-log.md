@@ -101,3 +101,4 @@
 | 2026-05-09 | **互鏈延伸**：**UAT** **二之一**（表列 **`test:e2e:smoke`**、**工程維護互鏈**）、**`.env.example`**、**`system-settings-policy-schema-2026-05-09.md`**、**`system-settings-policy-customer-reply-2026-05-09.md`**、**`business-logic-revision-log.md`** **2026-05-23** 列、**`client-delivery-remediation-plan.md`** 修訂表併列本檔；**`pdf-sequenced-gap-checklist-revision-log.md`** 同日留痕（與 **§5** 並讀）。 |
 | 2026-05-09 | **PRD** 開首：**既有對照骨架**／**Demo E2E** 併本檔路徑（**`system-settings-policy-prd-2026-05-09.md`**）。 |
 | 2026-05-09 | **Edge 契約** 開首：**對照**／**前端 demo 煙霧** 併本檔路徑（**`scheduling-policy-edge-function-contract.md`**）。 |
+| 2026-05-09 | **`npm run ci` 與 Actions 對齊**：**`package.json`** **`ci`** 併 **`perf:bundle:ci`**、**`list-section-collapse`** **Playwright**；**`ci.yml`** 檔首、**`README`**、**`feature-list`** §8、**`pdf03`** §4、本檔 **CI（Seq 29）** 句。 |
