@@ -78,7 +78,7 @@
 
 - 變更 **`SystemSettingsSnapshot`** 欄位、**驗證規則**或 **審計 `detail`** 時：同步本檔、**`docs/seq15-scheduling-pdf02-traceability.md`**（排班域）、**`pdf-sequenced-gap-checklist.md`** Seq 29、**`pdf-sequenced-gap-checklist-revision-log.md`**（**`docs/pdf03-cursorrules-alignment.md`** §4）。
 - 變更 **`scheduling-policy-*`** 部署敘述（**`docs/supabase-deploy-runbook.md`** §2 **Seq 29**、§6）或 **`docs/go-live-checklist.md`** §5（Edge 契約／前向煙霧）時：維持與 **本檔** §4、**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`** **二之一**（段末 **工程維護互鏈**）一致。
-- 變更 **`npm run ci`**、**`.github/workflows/ci.yml`**、**`e2e/smoke.spec.ts`**、**`e2e/system-settings-policy-p1-demo.spec.ts`** 或 **`package.json`** **`test:e2e:*`** 指令敘述時：維持 **`.github/workflows/ci.yml`** 檔首 **Seq 29【16】** 專段註解與 **本檔** §4、**UAT** **二之一**（段末 **工程維護互鏈**）、**`docs/pdf03-cursorrules-alignment.md`** §3、**`docs/feature-list.md`** §8 第 3 點（**README**／**CI**）一致。
+- 變更 **`npm run ci`**、**`.github/workflows/ci.yml`**、**`e2e/smoke.spec.ts`**、**`e2e/system-settings-policy-p1-demo.spec.ts`**、**`package.json`** **`test:e2e:smoke`**／**`test:e2e:system-settings-policy`** 或 **`.env.example`** **Seq 29【16】** demo 煙霧註解時：維持 **`.github/workflows/ci.yml`** 檔首 **Seq 29【16】** 專段註解與 **本檔** §4、**UAT** **二之一**（段末 **工程維護互鏈**）、**`docs/pdf03-cursorrules-alignment.md`** §3、**`docs/feature-list.md`** §8 第 3 點（**README**／**CI**）一致。
 - 變更 **`docs/client-delivery-remediation-plan.md`** §2 **Seq 29**／前向煙霧敘述時：併 **`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`** **二之一**（段末 **工程維護互鏈**）、**本檔** §4 對齊。
 - **下一序號（02 模組鏈結束）**：母本 **03** 工程治理 **Seq 35** — **`docs/seq35-pdf03-cursorrules-alignment-traceability.md`**（對 **`docs/pdf03-cursorrules-alignment.md`** 換版差異與閉環）；鏈 **Seq 36～38** 見該檔與 **`pdf-sequenced-gap-checklist.md`** **C 區**。
 
@@ -182,3 +182,4 @@
 | 2026-05-15 | **全鏈括註**：**`runbook`** §2／§6、**`business-logic`** §0、**Edge 契約** 開首、**P0 backlog** Seq 29、**`feature-list`** Edge 表、**PRD** 開首、**`pdf03`** §3、**§5** **CI／E2E** 句之 **UAT** **二之一**（段末 **工程維護互鏈**）。 |
 | 2026-05-16 | **Schema**／**對客範本**／**PRD** §6 **P1**、**`feature-list`** §8 第 5 點、**`README`** 文件表與 **CI**、**`pdf-sequenced`** 主表 Seq 29 列：**UAT** **二之一** 補「段末 **工程維護互鏈**」括註。 |
 | 2026-05-09 | **§5**：維護句增 **`client-delivery-remediation-plan.md`** §2 第 4 點（**Seq 29** 前向煙霧）對齊；**`pdf03`** §4 **Seq 29** 維護檢視句併 **`client-delivery`** §2；**`client-delivery`** §2 句末補 **UAT** **二之一**／**`seq29`**（與 **2026-05-15**／**2026-05-16** 列並讀）。 |
+| 2026-05-09 | **`ci.yml`** **Seq 29【16】** 註解補 **UAT** **二之一**（段末 **工程維護互鏈**）；**`.env.example`** 增 **Seq 29【16】** demo 煙霧註解；**`seq29`** §5／**`pdf03`** §4：維護句併 **`package.json`** **`test:e2e:smoke`**／**`test:e2e:system-settings-policy`** 與 **`.env.example`**。 |
