@@ -1,6 +1,7 @@
 import type { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2.49.1'
 import type { PolicyVersionCamel, SchedulingPolicyBundle } from './schedulingPolicyTypes.ts'
 import { policyVersionOverlapsExisting, loadLegacySchedulingRules } from './schedulingPolicyBundleLoad.ts'
+import { appendPolicyDraftCompletenessErrors } from './schedulingPolicyDraftCompleteness.ts'
 import { parseDraftChildArrays } from './schedulingPolicyDraftMappers.ts'
 
 const err = (code: string, message: string) => ({ code, message })
@@ -42,6 +43,8 @@ export async function validateSchedulingPolicyDraft(
   if (errors.length) return { ok: false, errors }
 
   const arrays = parseDraftChildArrays(o, errors)
+  if (errors.length) return { ok: false, errors }
+  appendPolicyDraftCompletenessErrors(arrays, errors)
   if (errors.length) return { ok: false, errors }
 
   const overlap = await policyVersionOverlapsExisting(supabase, facilityId, effectiveFromIso, null)
