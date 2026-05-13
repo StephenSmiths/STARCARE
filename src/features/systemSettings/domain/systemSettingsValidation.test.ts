@@ -1,26 +1,11 @@
 import { describe, expect, it } from 'vitest'
+import { DEFAULT_POLICY_DEMENTIA_ROLE_OFFERINGS } from './policyDementiaDraft'
 import { DEFAULT_POLICY_SUBSIDIZED_ROLE_OFFERINGS } from './policySubsidizedRoleOfferingDraft'
 import { hmLessThan, isValidHm, validateSystemSettings } from './systemSettingsValidation'
 import type { SystemSettingsSnapshot } from '../types'
+import { DEFAULT_SYSTEM_SETTINGS } from '../repository/systemSettingsRepository'
 
-const base = (): SystemSettingsSnapshot => ({
-  schedulingWindowStart: '07:00',
-  schedulingWindowEnd: '22:00',
-  nonTherapyWindowStart: '12:00',
-  nonTherapyWindowEnd: '14:00',
-  shiftPrepBlockEnabled: false,
-  therapistGroupSessionsDailyCap: 8,
-  assistantGroupSessionsDailyCap: 8,
-  groupParticipantCap: 6,
-  rulesEngineEnabled: true,
-  fixedActivitiesEnabled: true,
-  serviceTypesEnabled: true,
-  specialCareTherapistOnly: false,
-  policyFixedActivities: [],
-  policySubsidizedPassOrder: [],
-  policySubsidizedTiers: [],
-  policySubsidizedRoleOfferings: [],
-})
+const base = (): SystemSettingsSnapshot => ({ ...DEFAULT_SYSTEM_SETTINGS })
 
 describe('systemSettingsValidation', () => {
   it('isValidHm 接受 24h HH:mm', () => {
@@ -94,6 +79,26 @@ describe('systemSettingsValidation', () => {
     const r = validateSystemSettings(bad)
     expect(r.ok).toBe(false)
     expect(r.errors.some((e) => e.includes('職類矩陣'))).toBe(true)
+  })
+
+  it('validateSystemSettings：認知職類格不完整時須報錯', () => {
+    const bad = {
+      ...base(),
+      policyDementiaRoleOfferings: DEFAULT_POLICY_DEMENTIA_ROLE_OFFERINGS.slice(0, 7),
+    }
+    const r = validateSystemSettings(bad)
+    expect(r.ok).toBe(false)
+    expect(r.errors.some((e) => e.includes('認知障礙症職類格'))).toBe(true)
+  })
+
+  it('validateSystemSettings：認知核心 weekly 非整數時須報錯', () => {
+    const bad = {
+      ...base(),
+      policyDementiaCore: { enabled: true, weeklyMinSessions: 1.5, specialCareTherapistOnly: false },
+    }
+    const r = validateSystemSettings(bad)
+    expect(r.ok).toBe(false)
+    expect(r.errors.some((e) => e.includes('認知障礙症政策核心'))).toBe(true)
   })
 
   it('validateSystemSettings：合法快照通過', () => {

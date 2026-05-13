@@ -47,6 +47,24 @@ export type PolicyFixedActivityRow = {
   roleOta: boolean
 }
 
+/** 認知障礙症職類（與 Edge `ROLE_TYPES_DEM` 對齊） */
+export const POLICY_DEMENTIA_ROLE_TYPES = ['OT', 'OTA'] as const
+export type PolicyDementiaRoleType = (typeof POLICY_DEMENTIA_ROLE_TYPES)[number]
+
+/** PDF 02【16】／`facility_policy_dementia_core` */
+export type PolicyDementiaCore = {
+  enabled: boolean
+  weeklyMinSessions: number
+  specialCareTherapistOnly: boolean
+}
+
+/** PDF 02【16】／`facility_policy_dementia_role_offerings`（職類 × 節長變體） */
+export type PolicyDementiaRoleOfferingRow = {
+  roleType: PolicyDementiaRoleType
+  slotVariant: PolicySlotVariant
+  enabled: boolean
+}
+
 export type SchedulingPolicyVersionSummary = {
   id: string
   effectiveFrom: string
@@ -69,8 +87,8 @@ export type SchedulingPolicyBundle = {
   subsidizedTiers: PolicySubsidizedTierRow[]
   subsidizedRoleOfferings: PolicySubsidizedRoleOfferingRow[]
   subsidizedPassOrder: PolicySubsidizedPassOrderRow[]
-  dementiaCore: unknown | null
-  dementiaRoleOfferings: unknown[]
+  dementiaCore: PolicyDementiaCore | null
+  dementiaRoleOfferings: PolicyDementiaRoleOfferingRow[]
   legacySchedulingRules: unknown | null
 }
 

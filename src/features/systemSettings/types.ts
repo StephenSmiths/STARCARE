@@ -1,4 +1,6 @@
 import type {
+  PolicyDementiaCore,
+  PolicyDementiaRoleOfferingRow,
   PolicyFixedActivityRow,
   PolicySubsidizedPassOrderRow,
   PolicySubsidizedRoleOfferingRow,
@@ -41,4 +43,12 @@ export interface SystemSettingsSnapshot {
   policySubsidizedRoleOfferings: PolicySubsidizedRoleOfferingRow[]
   /** 曾自雲端併入職類矩陣後為 true；未帶此鍵時合併仍以雲端既有列為準 */
   policySubsidizedRoleOfferingsHydrated?: boolean
+  /** P2：雲端 `facility_policy_dementia_core`（認知障礙症服務開關／週次／SC 規則） */
+  policyDementiaCore: PolicyDementiaCore
+  /** 曾自雲端併入認知障礙症核心後為 true；未帶此鍵時合併仍以雲端既有列為準 */
+  policyDementiaCoreHydrated?: boolean
+  /** P2：雲端 `facility_policy_dementia_role_offerings`（OT／OTA × 節長變體；完整 8 格） */
+  policyDementiaRoleOfferings: PolicyDementiaRoleOfferingRow[]
+  /** 曾自雲端併入認知職類格後為 true；未帶此鍵時合併仍以雲端既有列為準 */
+  policyDementiaRoleOfferingsHydrated?: boolean
 }

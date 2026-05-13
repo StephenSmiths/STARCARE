@@ -1,5 +1,6 @@
 import type { SystemSettingsSnapshot } from '../types'
 import { isValidPolicySubsidizedPassOrder } from './policyPassOrderDraft'
+import { isValidPolicyDementiaCore, isValidPolicyDementiaRoleOfferings } from './policyDementiaDraft'
 import { isValidPolicySubsidizedRoleOfferings } from './policySubsidizedRoleOfferingDraft'
 import { isValidPolicySubsidizedTiers } from './policySubsidizedTierDraft'
 
@@ -48,6 +49,12 @@ export const validateSystemSettings = (input: SystemSettingsSnapshot): Validatio
   if (!Number.isFinite(a) || !Number.isInteger(a) || a < 0) errors.push('治療助理小組每日上限須為非負整數')
   if (!Number.isFinite(g) || !Number.isInteger(g) || g < 1) errors.push('小組人數上限須為至少 1 之整數')
 
+  if (!isValidPolicyDementiaCore(input.policyDementiaCore)) {
+    errors.push(
+      '認知障礙症政策核心：enabled／specialCareTherapistOnly 須為布林，weeklyMinSessions 須為非負整數（PDF 02【16】facility_policy_dementia_core）',
+    )
+  }
+
   const policySvc = new Set(['Subsidized_Rehab', 'Dementia_Care'])
   const policyDel = new Set(['Individual', 'Group'])
   input.policyFixedActivities.forEach((r, i) => {
@@ -81,6 +88,14 @@ export const validateSystemSettings = (input: SystemSettingsSnapshot): Validatio
   if (roleOfferingsNeedValidation && !isValidPolicySubsidizedRoleOfferings(input.policySubsidizedRoleOfferings)) {
     errors.push(
       '資助復康職類矩陣須為完整 48 格（3 資助列 × 4 職類 × 4 節長變體），鍵不重複且 enabled 為布林（PDF 02【16】facility_policy_subsidized_role_offerings）',
+    )
+  }
+
+  const dementiaRoleNeedsValidation =
+    input.policyDementiaRoleOfferingsHydrated === true || input.policyDementiaRoleOfferings.length > 0
+  if (dementiaRoleNeedsValidation && !isValidPolicyDementiaRoleOfferings(input.policyDementiaRoleOfferings)) {
+    errors.push(
+      '認知障礙症職類格須為完整 8 格（2 職類 × 4 節長變體），鍵不重複且 enabled 為布林（PDF 02【16】facility_policy_dementia_role_offerings）',
     )
   }
 

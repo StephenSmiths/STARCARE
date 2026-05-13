@@ -1,3 +1,4 @@
+import { DEFAULT_POLICY_DEMENTIA_CORE } from '../domain/policyDementiaDraft'
 import type { SystemSettingsSnapshot } from '../types'
 
 /** Vitest：`useSystemSettingsPolicySync` 可通過 `validateSystemSettings` 之最小草稿 */
@@ -18,4 +19,6 @@ export const POLICY_SYNC_VALID_DRAFT: SystemSettingsSnapshot = {
   policySubsidizedPassOrder: [],
   policySubsidizedTiers: [],
   policySubsidizedRoleOfferings: [],
+  policyDementiaCore: { ...DEFAULT_POLICY_DEMENTIA_CORE },
+  policyDementiaRoleOfferings: [],
 }

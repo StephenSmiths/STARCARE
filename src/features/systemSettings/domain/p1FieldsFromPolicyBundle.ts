@@ -3,6 +3,7 @@ import { bundleFixedActivitiesToDraft } from './policyFixedActivityDraft'
 import { bundlePassOrderToDraft } from './policyPassOrderDraft'
 import { bundleTiersToDraft } from './policySubsidizedTierDraft'
 import { bundleRoleOfferingsToDraft } from './policySubsidizedRoleOfferingDraft'
+import { bundleDementiaCoreToDraft, bundleDementiaRoleOfferingsToDraft } from './policyDementiaDraft'
 import { DEFAULT_SYSTEM_SETTINGS } from '../repository/systemSettingsRepository'
 import type { SystemSettingsSnapshot } from '../types'
 
@@ -25,5 +26,9 @@ export const p1FieldsFromPolicyBundle = (b: SchedulingPolicyBundle): Partial<Sys
     policySubsidizedTiersHydrated: true,
     policySubsidizedRoleOfferings: bundleRoleOfferingsToDraft(b.subsidizedRoleOfferings ?? []),
     policySubsidizedRoleOfferingsHydrated: true,
+    policyDementiaCore: bundleDementiaCoreToDraft(b.dementiaCore),
+    policyDementiaCoreHydrated: true,
+    policyDementiaRoleOfferings: bundleDementiaRoleOfferingsToDraft(b.dementiaRoleOfferings),
+    policyDementiaRoleOfferingsHydrated: true,
   }
 }

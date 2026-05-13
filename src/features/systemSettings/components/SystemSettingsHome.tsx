@@ -12,6 +12,7 @@ import { SystemSettingsSubsidizedRoleOfferingsCard } from './SystemSettingsSubsi
 import { SystemSettingsNumericCapsCard } from './SystemSettingsNumericCapsCard'
 import { SystemSettingsPdf16Section } from './SystemSettingsPdf16Section'
 import { SystemSettingsCurrentPolicyVersionCard } from './SystemSettingsCurrentPolicyVersionCard'
+import { SystemSettingsDementiaPolicyCard } from './SystemSettingsDementiaPolicyCard'
 import { SystemSettingsPolicyVersionsListCard } from './SystemSettingsPolicyVersionsListCard'
 import { SystemSettingsPolicySubmitCard } from './SystemSettingsPolicySubmitCard'
 import { SystemSettingsRulesTogglesCard } from './SystemSettingsRulesTogglesCard'
@@ -74,6 +75,11 @@ export const SystemSettingsHome = () => {
           {policySync.edgeEnabled ? (
             <ListSectionPanel title="資助 Pass 優先次序（雲端政策 P2）" titleHeadingLevel={3} defaultExpanded={false}>
               <SystemSettingsPassOrderCard draft={draft} setField={setField} />
+            </ListSectionPanel>
+          ) : null}
+          {policySync.edgeEnabled ? (
+            <ListSectionPanel title="認知障礙症政策（雲端政策 P2）" titleHeadingLevel={3} defaultExpanded={false}>
+              <SystemSettingsDementiaPolicyCard draft={draft} setField={setField} />
             </ListSectionPanel>
           ) : null}
         </SystemSettingsPdf16Section>

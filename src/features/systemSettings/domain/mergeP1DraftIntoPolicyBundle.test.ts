@@ -3,6 +3,7 @@ import { minimalSchedulingPolicyBundle } from '../../../repositories/schedulingP
 import { DEFAULT_POLICY_SUBSIDIZED_PASS_ORDER } from './policyPassOrderDraft'
 import { DEFAULT_POLICY_SUBSIDIZED_TIER_ROWS } from './policySubsidizedTierDraft'
 import { DEFAULT_POLICY_SUBSIDIZED_ROLE_OFFERINGS } from './policySubsidizedRoleOfferingDraft'
+import { DEFAULT_POLICY_DEMENTIA_ROLE_OFFERINGS } from './policyDementiaDraft'
 import { POLICY_SYNC_VALID_DRAFT } from '../hooks/policySyncTestDraft'
 import { mergeP1DraftIntoPolicyBundle } from './mergeP1DraftIntoPolicyBundle'
 
@@ -39,6 +40,12 @@ const serverRoleOfferings = DEFAULT_POLICY_SUBSIDIZED_ROLE_OFFERINGS.map((r) =>
   r.fundingTier === 'GradeA_Subsidized' && r.roleType === 'PT' && r.slotVariant === 'IND_15'
     ? { ...r, enabled: true }
     : r,
+)
+
+const serverDementiaCore = { enabled: true, weeklyMinSessions: 4, specialCareTherapistOnly: true }
+
+const serverDementiaRoles = DEFAULT_POLICY_DEMENTIA_ROLE_OFFERINGS.map((r) =>
+  r.roleType === 'OTA' && r.slotVariant === 'GRP_60' ? { ...r, enabled: true } : r,
 )
 
 describe('mergeP1DraftIntoPolicyBundle', () => {
@@ -134,5 +141,46 @@ describe('mergeP1DraftIntoPolicyBundle', () => {
       (x) => x.fundingTier === 'GradeA_Subsidized' && x.roleType === 'PT' && x.slotVariant === 'IND_15',
     )
     expect(cell?.enabled).toBe(false)
+  })
+
+  it('雲端認知政策、未 hydrated 職類格、草稿空陣列時保留雲端（P2）', () => {
+    const base = {
+      ...minimalSchedulingPolicyBundle,
+      dementiaCore: serverDementiaCore,
+      dementiaRoleOfferings: serverDementiaRoles,
+    }
+    const draft = { ...POLICY_SYNC_VALID_DRAFT, policyDementiaRoleOfferings: [] }
+    const out = mergeP1DraftIntoPolicyBundle(draft, base, 'facility-main')
+    expect(out.dementiaCore?.weeklyMinSessions).toBe(4)
+    const cell = out.dementiaRoleOfferings.find((x) => x.roleType === 'OTA' && x.slotVariant === 'GRP_60')
+    expect(cell?.enabled).toBe(true)
+  })
+
+  it('已 hydrated 時以草稿認知職類格覆寫（P2）', () => {
+    const base = {
+      ...minimalSchedulingPolicyBundle,
+      dementiaCore: serverDementiaCore,
+      dementiaRoleOfferings: serverDementiaRoles,
+    }
+    const draft = {
+      ...POLICY_SYNC_VALID_DRAFT,
+      policyDementiaRoleOfferings: [...DEFAULT_POLICY_DEMENTIA_ROLE_OFFERINGS],
+      policyDementiaRoleOfferingsHydrated: true,
+    }
+    const out = mergeP1DraftIntoPolicyBundle(draft, base, 'facility-main')
+    const cell = out.dementiaRoleOfferings.find((x) => x.roleType === 'OTA' && x.slotVariant === 'GRP_60')
+    expect(cell?.enabled).toBe(false)
+  })
+
+  it('已 hydrated 時以草稿認知核心覆寫（P2）', () => {
+    const base = { ...minimalSchedulingPolicyBundle, dementiaCore: serverDementiaCore }
+    const draft = {
+      ...POLICY_SYNC_VALID_DRAFT,
+      policyDementiaCore: { enabled: false, weeklyMinSessions: 1, specialCareTherapistOnly: false },
+      policyDementiaCoreHydrated: true,
+    }
+    const out = mergeP1DraftIntoPolicyBundle(draft, base, 'facility-main')
+    expect(out.dementiaCore?.weeklyMinSessions).toBe(1)
+    expect(out.dementiaCore?.enabled).toBe(false)
   })
 })

@@ -3,6 +3,7 @@ import { draftFixedActivitiesToBundle } from './policyFixedActivityDraft'
 import { bundlePassOrderToDraft, draftPassOrderToBundle } from './policyPassOrderDraft'
 import { draftTiersToBundle } from './policySubsidizedTierDraft'
 import { draftRoleOfferingsToBundle } from './policySubsidizedRoleOfferingDraft'
+import { draftDementiaCoreToBundle, draftDementiaRoleOfferingsToBundle } from './policyDementiaDraft'
 import type { SystemSettingsSnapshot } from '../types'
 import { shiftPrepSlotTimes } from './shiftPrepWindow'
 
@@ -50,7 +51,27 @@ const mergedSubsidizedRoleOfferings = (
   return base.subsidizedRoleOfferings ?? []
 }
 
-/** 以目前 bundle 為底，覆寫 P1（非治療時段、開工準備、數字上限）；P2 固定活動見 `mergedFixedActivities`；P2 Pass 次序見 `mergedSubsidizedPassOrder`；P2 資助三列見 `mergedSubsidizedTiers`；P2 職類矩陣見 `mergedSubsidizedRoleOfferings` */
+const mergedDementiaCore = (
+  draft: SystemSettingsSnapshot,
+  base: SchedulingPolicyBundle | null,
+): SchedulingPolicyBundle['dementiaCore'] => {
+  if (draft.policyDementiaCoreHydrated === true || !base) {
+    return draftDementiaCoreToBundle(draft.policyDementiaCore)
+  }
+  return base.dementiaCore ?? null
+}
+
+const mergedDementiaRoleOfferings = (
+  draft: SystemSettingsSnapshot,
+  base: SchedulingPolicyBundle | null,
+): SchedulingPolicyBundle['dementiaRoleOfferings'] => {
+  if (draft.policyDementiaRoleOfferingsHydrated === true || !base) {
+    return draftDementiaRoleOfferingsToBundle(draft.policyDementiaRoleOfferings)
+  }
+  return base.dementiaRoleOfferings ?? []
+}
+
+/** 以目前 bundle 為底，覆寫 P1（非治療時段、開工準備、數字上限）；P2 固定活動見 `mergedFixedActivities`；P2 Pass 次序見 `mergedSubsidizedPassOrder`；P2 資助三列見 `mergedSubsidizedTiers`；P2 職類矩陣見 `mergedSubsidizedRoleOfferings`；P2 認知障礙症見 `mergedDementiaCore`／`mergedDementiaRoleOfferings` */
 export const mergeP1DraftIntoPolicyBundle = (
   draft: SystemSettingsSnapshot,
   base: SchedulingPolicyBundle | null,
@@ -78,6 +99,8 @@ export const mergeP1DraftIntoPolicyBundle = (
       fixedActivities: mergedFixedActivities(draft, base),
       subsidizedTiers: mergedSubsidizedTiers(draft, base),
       subsidizedRoleOfferings: mergedSubsidizedRoleOfferings(draft, base),
+      dementiaCore: mergedDementiaCore(draft, base),
+      dementiaRoleOfferings: mergedDementiaRoleOfferings(draft, base),
     }
   }
   return {
@@ -89,8 +112,8 @@ export const mergeP1DraftIntoPolicyBundle = (
     subsidizedTiers: mergedSubsidizedTiers(draft, null),
     subsidizedRoleOfferings: mergedSubsidizedRoleOfferings(draft, null),
     subsidizedPassOrder: mergedSubsidizedPassOrder(draft, null),
-    dementiaCore: null,
-    dementiaRoleOfferings: [],
+    dementiaCore: mergedDementiaCore(draft, null),
+    dementiaRoleOfferings: mergedDementiaRoleOfferings(draft, null),
     legacySchedulingRules: null,
   }
 }

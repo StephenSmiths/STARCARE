@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { minimalSchedulingPolicyBundle } from '../../../repositories/schedulingPolicyRepository.fixtures'
 import { DEFAULT_POLICY_SUBSIDIZED_ROLE_OFFERINGS } from './policySubsidizedRoleOfferingDraft'
+import { DEFAULT_POLICY_DEMENTIA_ROLE_OFFERINGS } from './policyDementiaDraft'
 import { p1FieldsFromPolicyBundle } from './p1FieldsFromPolicyBundle'
 
 describe('p1FieldsFromPolicyBundle', () => {
@@ -74,5 +75,24 @@ describe('p1FieldsFromPolicyBundle', () => {
         (x) => x.fundingTier === 'Private' && x.roleType === 'OTA' && x.slotVariant === 'IND_30',
       )?.enabled,
     ).toBe(true)
+  })
+
+  it('併入認知障礙症核心與職類格並標記 hydrated（P2）', () => {
+    const customDem = DEFAULT_POLICY_DEMENTIA_ROLE_OFFERINGS.map((r) =>
+      r.roleType === 'OT' && r.slotVariant === 'IND_15' ? { ...r, enabled: true } : r,
+    )
+    const b = {
+      ...minimalSchedulingPolicyBundle,
+      nonTherapySlots: [],
+      dementiaCore: { enabled: true, weeklyMinSessions: 3, specialCareTherapistOnly: true },
+      dementiaRoleOfferings: customDem,
+    }
+    const p = p1FieldsFromPolicyBundle(b)
+    expect(p.policyDementiaCoreHydrated).toBe(true)
+    expect(p.policyDementiaRoleOfferingsHydrated).toBe(true)
+    expect(p.policyDementiaCore?.weeklyMinSessions).toBe(3)
+    expect(p.policyDementiaRoleOfferings?.find((x) => x.roleType === 'OT' && x.slotVariant === 'IND_15')?.enabled).toBe(
+      true,
+    )
   })
 })

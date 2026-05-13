@@ -1,7 +1,20 @@
 import { SYSTEM_SETTINGS_STORAGE_KEY } from '../localStorageKeys'
 import { bumpSystemSettingsExternalVersion } from '../systemSettingsExternalStore'
-import type { PolicyFixedActivityRow, PolicySubsidizedPassOrderRow, PolicySubsidizedTierRow, PolicySubsidizedRoleOfferingRow } from '../../../repositories/schedulingPolicyTypes'
-import { POLICY_SUBSIDIZED_FUNDING_TIERS, POLICY_SUBSIDIZED_ROLE_TYPES, POLICY_SLOT_VARIANTS } from '../../../repositories/schedulingPolicyTypes'
+import type {
+  PolicyDementiaCore,
+  PolicyDementiaRoleOfferingRow,
+  PolicyFixedActivityRow,
+  PolicySubsidizedPassOrderRow,
+  PolicySubsidizedRoleOfferingRow,
+  PolicySubsidizedTierRow,
+} from '../../../repositories/schedulingPolicyTypes'
+import {
+  POLICY_DEMENTIA_ROLE_TYPES,
+  POLICY_SUBSIDIZED_FUNDING_TIERS,
+  POLICY_SUBSIDIZED_ROLE_TYPES,
+  POLICY_SLOT_VARIANTS,
+} from '../../../repositories/schedulingPolicyTypes'
+import { DEFAULT_POLICY_DEMENTIA_CORE } from '../domain/policyDementiaDraft'
 import type { SystemSettingsSnapshot } from '../types'
 
 const parsePolicyFixedActivities = (raw: unknown): PolicyFixedActivityRow[] => {
@@ -31,6 +44,7 @@ const parsePolicyFixedActivities = (raw: unknown): PolicyFixedActivityRow[] => {
 
 const FUNDING_TIER_PARSE = new Set<string>(POLICY_SUBSIDIZED_FUNDING_TIERS)
 const ROLE_TYPE_PARSE = new Set<string>(POLICY_SUBSIDIZED_ROLE_TYPES)
+const DEMENTIA_ROLE_PARSE = new Set<string>(POLICY_DEMENTIA_ROLE_TYPES)
 const SLOT_VARIANT_PARSE = new Set<string>(POLICY_SLOT_VARIANTS)
 
 const parsePolicySubsidizedPassOrder = (raw: unknown): PolicySubsidizedPassOrderRow[] => {
@@ -85,6 +99,33 @@ const parsePolicySubsidizedRoleOfferings = (raw: unknown): PolicySubsidizedRoleO
   return out
 }
 
+const parsePolicyDementiaCore = (raw: unknown): PolicyDementiaCore => {
+  if (!isRecord(raw)) return { ...DEFAULT_POLICY_DEMENTIA_CORE }
+  const w = Number(raw.weeklyMinSessions ?? raw.weekly_min_sessions ?? 0)
+  return {
+    enabled: Boolean(raw.enabled ?? true),
+    weeklyMinSessions: Number.isInteger(w) && w >= 0 ? w : 0,
+    specialCareTherapistOnly: Boolean(raw.specialCareTherapistOnly ?? raw.special_care_therapist_only),
+  }
+}
+
+const parsePolicyDementiaRoleOfferings = (raw: unknown): PolicyDementiaRoleOfferingRow[] => {
+  if (!Array.isArray(raw)) return []
+  const out: PolicyDementiaRoleOfferingRow[] = []
+  for (const x of raw) {
+    if (!isRecord(x)) continue
+    const roleType = String(x.roleType ?? x.role_type ?? '')
+    const slotVariant = String(x.slotVariant ?? x.slot_variant ?? '')
+    if (!DEMENTIA_ROLE_PARSE.has(roleType) || !SLOT_VARIANT_PARSE.has(slotVariant)) continue
+    out.push({
+      roleType: roleType as PolicyDementiaRoleOfferingRow['roleType'],
+      slotVariant: slotVariant as PolicyDementiaRoleOfferingRow['slotVariant'],
+      enabled: Boolean(x.enabled),
+    })
+  }
+  return out
+}
+
 export const DEFAULT_SYSTEM_SETTINGS: SystemSettingsSnapshot = {
   schedulingWindowStart: '07:00',
   schedulingWindowEnd: '22:00',
@@ -102,6 +143,8 @@ export const DEFAULT_SYSTEM_SETTINGS: SystemSettingsSnapshot = {
   policySubsidizedPassOrder: [],
   policySubsidizedTiers: [],
   policySubsidizedRoleOfferings: [],
+  policyDementiaCore: { ...DEFAULT_POLICY_DEMENTIA_CORE },
+  policyDementiaRoleOfferings: [],
 }
 
 const isRecord = (v: unknown): v is Record<string, unknown> =>
@@ -140,6 +183,10 @@ export const parseStoredSnapshot = (raw: string | null): SystemSettingsSnapshot 
     const policySubsidizedTiersHydrated = g('policySubsidizedTiersHydrated') === true
     const policySubsidizedRoleOfferingsRaw = g('policySubsidizedRoleOfferings')
     const policySubsidizedRoleOfferingsHydrated = g('policySubsidizedRoleOfferingsHydrated') === true
+    const policyDementiaCoreRaw = g('policyDementiaCore')
+    const policyDementiaCoreHydrated = g('policyDementiaCoreHydrated') === true
+    const policyDementiaRoleOfferingsRaw = g('policyDementiaRoleOfferings')
+    const policyDementiaRoleOfferingsHydrated = g('policyDementiaRoleOfferingsHydrated') === true
     if (
       typeof schedulingWindowStart !== 'string' ||
       typeof schedulingWindowEnd !== 'string' ||
@@ -156,6 +203,8 @@ export const parseStoredSnapshot = (raw: string | null): SystemSettingsSnapshot 
     const policySubsidizedPassOrder = parsePolicySubsidizedPassOrder(policySubsidizedPassOrderRaw)
     const policySubsidizedTiers = parsePolicySubsidizedTiers(policySubsidizedTiersRaw)
     const policySubsidizedRoleOfferings = parsePolicySubsidizedRoleOfferings(policySubsidizedRoleOfferingsRaw)
+    const policyDementiaCore = parsePolicyDementiaCore(policyDementiaCoreRaw)
+    const policyDementiaRoleOfferings = parsePolicyDementiaRoleOfferings(policyDementiaRoleOfferingsRaw)
     return {
       schedulingWindowStart,
       schedulingWindowEnd,
@@ -173,10 +222,14 @@ export const parseStoredSnapshot = (raw: string | null): SystemSettingsSnapshot 
       policySubsidizedPassOrder,
       policySubsidizedTiers,
       policySubsidizedRoleOfferings,
+      policyDementiaCore,
+      policyDementiaRoleOfferings,
       ...(policyFixedActivitiesHydrated ? { policyFixedActivitiesHydrated: true as const } : {}),
       ...(policySubsidizedPassOrderHydrated ? { policySubsidizedPassOrderHydrated: true as const } : {}),
       ...(policySubsidizedTiersHydrated ? { policySubsidizedTiersHydrated: true as const } : {}),
       ...(policySubsidizedRoleOfferingsHydrated ? { policySubsidizedRoleOfferingsHydrated: true as const } : {}),
+      ...(policyDementiaCoreHydrated ? { policyDementiaCoreHydrated: true as const } : {}),
+      ...(policyDementiaRoleOfferingsHydrated ? { policyDementiaRoleOfferingsHydrated: true as const } : {}),
     }
   } catch {
     return null

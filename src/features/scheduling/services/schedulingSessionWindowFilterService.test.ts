@@ -1,30 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import type { SchedulingSession } from '../../../services/schedulingService'
 import type { SystemSettingsSnapshot } from '../../systemSettings'
+import { DEFAULT_SYSTEM_SETTINGS } from '../../systemSettings/repository/systemSettingsRepository'
 import {
   filterSchedulingSessionsForSubsidizedEngine,
   filterToDementiaServiceOnly,
   filterToSubsidizedRehabServiceOnly,
 } from './schedulingSessionWindowFilterService'
 
-const baseSnap = (): SystemSettingsSnapshot => ({
-  schedulingWindowStart: '07:00',
-  schedulingWindowEnd: '22:00',
-  nonTherapyWindowStart: '12:00',
-  nonTherapyWindowEnd: '14:00',
-  shiftPrepBlockEnabled: false,
-  therapistGroupSessionsDailyCap: 8,
-  assistantGroupSessionsDailyCap: 8,
-  groupParticipantCap: 6,
-  rulesEngineEnabled: true,
-  fixedActivitiesEnabled: true,
-  serviceTypesEnabled: true,
-  specialCareTherapistOnly: false,
-  policyFixedActivities: [],
-  policySubsidizedPassOrder: [],
-  policySubsidizedTiers: [],
-  policySubsidizedRoleOfferings: [],
-})
+const baseSnap = (): SystemSettingsSnapshot => ({ ...DEFAULT_SYSTEM_SETTINGS })
 
 const rehab = (id: string, timeSlot: string): SchedulingSession => ({
   id,
