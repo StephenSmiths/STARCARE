@@ -1,7 +1,7 @@
 # 對客回覆（範本）：系統設定（多表＋生效日）上線前確認
 
 > **用途**：貴方主旨「系統設定（多張表＋生效日）上線前請確認」之**逐條回覆**範本；寄送前請依實際聯絡窗口、抬頭與簽署替換方括號欄位。  
-> **內部定稿依據**：**`docs/system-settings-policy-prd-2026-05-09.md`**（R1～R7）、**`docs/system-settings-policy-schema-2026-05-09.md`**、**`docs/scheduling-policy-edge-function-contract.md`**、**`docs/seq29-system-settings-pdf02-traceability.md`**；**Staging／UAT 與本機煙霧指令**：**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`**（**二之一**；段末 **工程維護互鏈**）。
+> **內部定稿依據**：**`docs/system-settings-policy-prd-2026-05-09.md`**（R1～R7）、**`docs/system-settings-policy-schema-2026-05-09.md`**、**`docs/scheduling-policy-edge-function-contract.md`**、**`docs/seq29-system-settings-pdf02-traceability.md`**、**`docs/seq29-system-settings-pdf02-traceability-revision-log.md`**；**Staging／UAT 與本機煙霧指令**：**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`**（**二之一**；段末 **工程維護互鏈**）。
 
 ---
 
@@ -92,5 +92,6 @@
 | 日期 | 說明 |
 |------|------|
 | 2026-05-13 | 開首 **內部定稿依據** 互鏈 **UAT**（**二之一** 無 env **E2E**）。 |
+| 2026-05-09 | 開首 **內部定稿依據** 併 **`docs/seq29-system-settings-pdf02-traceability-revision-log.md`**。 |
 | 2026-05-16 | 開首 **UAT** 括註補「段末 **工程維護互鏈**」。 |
 | 2026-05-09 | 初版：依客戶來函與 PRD R1～R7 撰寫對客範本。 |

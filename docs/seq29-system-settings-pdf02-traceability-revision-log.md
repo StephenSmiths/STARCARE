@@ -98,3 +98,4 @@
 | 2026-05-09 | **P2 認知＋Edge validate**：**`policyDementiaDraft`**、**`SystemSettingsDementiaPolicyCard`**；**`schedulingPolicyDraftCompleteness`** 與 **`scheduling-policy-edge-function-contract.md`** **§4.3**／**§5.2**（**`BAD_TIER_COUNT`** 等）。 |
 | 2026-05-09 | §1／§4／**PRD** §4：**`SystemSettingsPolicySubmitCard`** **`validate`**／**`commit`** 校驗說明與 **`useSystemSettingsPolicySync.test`** **commit** **`errors`**。 |
 | 2026-05-09 | 修訂表自 **`seq29-system-settings-pdf02-traceability.md`** 拆出至本檔（主檔 **§1–§6** 技術骨架 ≤200 行；與 **`pdf-sequenced-gap-checklist-revision-log.md`** **Seq 29** 列併讀）。 |
+| 2026-05-09 | **互鏈延伸**：**UAT** **二之一**（表列 **`test:e2e:smoke`**、**工程維護互鏈**）、**`.env.example`**、**`system-settings-policy-schema-2026-05-09.md`**、**`system-settings-policy-customer-reply-2026-05-09.md`**、**`business-logic-revision-log.md`** **2026-05-23** 列、**`client-delivery-remediation-plan.md`** 修訂表併列本檔；**`pdf-sequenced-gap-checklist-revision-log.md`** 同日留痕（與 **§5** 並讀）。 |

@@ -40,11 +40,11 @@
 | 指令 | 涵蓋 |
 |------|------|
 | **`npm run test:e2e:system-settings-policy`** | **`/#system-settings`**：**Pdf16** 兩大節、**`ListSectionPanel`**（排班時間／規則／資助復康於復康大節內篩選／政策）**`aria-controls`**／**`hidden`**、政策 **收合**／**展開**、五區 **`aria-controls`** 目標 **`id`** 全相異、**審計** 展開／收合與搜尋 **`placeholder`**、無 Edge 說明 |
-| **`npm run test:e2e:smoke`** | 同上模組之 **`hash #system-settings`** 路徑（與多 hash 審計標題一併跑）；細目見 **`docs/seq29-system-settings-pdf02-traceability.md`** 第 4 節 **`e2e/smoke.spec.ts`** 列 |
+| **`npm run test:e2e:smoke`** | 同上模組之 **`hash #system-settings`** 路徑（與多 hash 審計標題一併跑）；細目見 **`docs/seq29-system-settings-pdf02-traceability.md`** 第 4 節、修訂表 **`docs/seq29-system-settings-pdf02-traceability-revision-log.md`**（**`e2e/smoke.spec.ts`** 列） |
 
 **上線勾單對照**：**`docs/go-live-checklist.md`** §5「已確認 Edge 契約」列 **`scheduling-policy-*`**，並與本節 **Playwright** 指令互鏈；**`docs/supabase-deploy-runbook.md`** §2 **Seq 29**、§6 **CI 煙霧** 亦述及本節。
 
-**工程維護互鏈**：**`README.md`** 常用指令 **CI**、**`docs/feature-list.md`** §8 第 3／7 點、**`docs/pdf03-cursorrules-alignment.md`** §3／§4、**`docs/seq29-system-settings-pdf02-traceability.md`** §5、**`.github/workflows/ci.yml`** 檔首 **Seq 29【16】**（與上項 **上線勾單** 併讀）。
+**工程維護互鏈**：**`README.md`** 常用指令 **CI**、**`docs/feature-list.md`** §8 第 3／7 點、**`docs/pdf03-cursorrules-alignment.md`** §3／§4、**`docs/seq29-system-settings-pdf02-traceability.md`** §5、**`docs/seq29-system-settings-pdf02-traceability-revision-log.md`**、**`.github/workflows/ci.yml`** 檔首 **Seq 29【16】**（與上項 **上線勾單** 併讀）。
 
 ---
 
@@ -68,4 +68,5 @@
 | 2026-05-13 | 增 **二之一**：無 Supabase 建置下 **`test:e2e:system-settings-policy`**／**`test:e2e:smoke`**（**`#system-settings`**）與 **U1**、**seq29** §4 對照。 |
 | 2026-05-12 | Staging 前置 Edge 增 **`scheduling-policy-versions-list`**；U1 預期含版本列表；增 **U7**；本機 demo E2E：**`npm run test:e2e:system-settings-policy`**（**`e2e/system-settings-policy-p1-demo.spec.ts`**）。 |
 | 2026-05-09 | 補 Staging：`VITE_SUPABASE_*` 與 Vercel／Dashboard 對齊說明；新增 **`npm run verify:supabase-vite-env`**、**`npm run verify:supabase-vite-env:ping`**。 |
+| 2026-05-09 | **二之一**：**`test:e2e:smoke`** 表列細目與 **工程維護互鏈** 併 **`docs/seq29-system-settings-pdf02-traceability-revision-log.md`**。 |
 | 2026-05-09 | 初版：P1 畫面接 API 後之 Staging／UAT 合併文件。 |
