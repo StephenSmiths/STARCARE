@@ -207,3 +207,4 @@
 | 2026-05-09 | **`pdf03-cursorrules-alignment.md`** §3 **文件入口**／§4 **Seq 29** 維護：**`ci.yml`** 註解括入 **Seq 29【16】** 專段與 **UAT** **二之一**／**`seq29`** 第 4 節對齊上項 **Seq 29【16】政策 P1** 檢核；**`feature-list.md`** §8 第 7 點 CI 列補檔首專段敘述。 |
 | 2026-05-12 | **`README.md`** 常用指令 **CI** 列：**`ci.yml`** 檔首 **Seq 29【16】**、**UAT** **二之一** 與 **`pdf03`** §3／**`seq29`** 第 4 節互鏈；**`seq29-system-settings-pdf02-traceability.md`** 開首增 **CI（Seq 29）** 對照句。 |
 | 2026-05-13 | **`feature-list.md`** §8 第 3 點 **README** 列：**CI** 短列補 **Seq 29**／**`pdf03`** §3／**`seq29`** 第 4 節互鏈；**`pdf03-cursorrules-alignment.md`** §4：**README** 維護句併 **常用指令** **CI** 列；**Seq 29** 維護檢視句併 **`feature-list`** §8 第 3 點；**`seq29`** §5 **CI／E2E** 維護句併 **`feature-list`** §8 第 3 點。 |
+| 2026-05-14 | **UAT** **二之一**／**`go-live-checklist`** §5／**`seq29`** 開首／**`pdf03`** §3 **Seq 29【16】政策 P1**／§4：**工程維護互鏈**（**`README`** **CI**、**`feature-list`** §8 第 3／7 點、**`pdf03`** §3／§4、**`seq29`** §5、**`ci.yml`** **Seq 29【16】**）。 |

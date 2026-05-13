@@ -91,7 +91,7 @@ limit 20;
 
 ## 5. 風險與回復方案
 - [ ] 已備妥回復路徑：`docs/supabase-deploy-runbook.md`（含可選 **`npm run ci`** 與審計 §8 交叉引用）。
-- [ ] 已確認 Edge 契約：**`docs/residents-edge-function-contract.md`**（院友 CRUD／匯入）；**`docs/assessment-completion-records-contract.md`**（評估完成／審計；與 **§8** RES-06 抽測併用）；**`docs/scheduling-policy-edge-function-contract.md`**（Seq 29 院舍政策 **`scheduling-policy-*`**；實作部署後併 **§8** 抽測）。**無 Supabase 建置**時系統設定前向煙霧：**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`** **二之一**（**`npm run test:e2e:system-settings-policy`**／**`npm run test:e2e:smoke`** **`#system-settings`**；細目 **`docs/seq29-system-settings-pdf02-traceability.md`** 第 4 節）。
+- [ ] 已確認 Edge 契約：**`docs/residents-edge-function-contract.md`**（院友 CRUD／匯入）；**`docs/assessment-completion-records-contract.md`**（評估完成／審計；與 **§8** RES-06 抽測併用）；**`docs/scheduling-policy-edge-function-contract.md`**（Seq 29 院舍政策 **`scheduling-policy-*`**；實作部署後併 **§8** 抽測）。**無 Supabase 建置**時系統設定前向煙霧：**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`** **二之一**（**`npm run test:e2e:system-settings-policy`**／**`npm run test:e2e:smoke`** **`#system-settings`**；細目 **`docs/seq29-system-settings-pdf02-traceability.md`** 第 4 節；**工程維護**併讀 **`README.md`** 常用指令 **CI**、**`docs/feature-list.md`** §8 第 3／7 點、**`docs/pdf03-cursorrules-alignment.md`** §3／§4、**`docs/seq29-system-settings-pdf02-traceability.md`** §5）。
 - [ ] 若儲存失敗，先看前端錯誤訊息，再查 function logs 與 SQL 寫入狀態。
 
 ## 6. 憑證與安全（必做）
