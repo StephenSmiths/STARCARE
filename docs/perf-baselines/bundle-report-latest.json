@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-05-10T14:53:33.843Z",
+  "generatedAt": "2026-05-13T11:38:22.539Z",
   "keyChunks": [
     {
-      "fileName": "index-BkxSHdgR.js",
+      "fileName": "index-BEB2Ex5i.js",
       "bytes": 40847
     },
     {
@@ -14,19 +14,19 @@
       "bytes": 100184
     },
     {
-      "fileName": "scheduling-Ctr-KyZD.js",
-      "bytes": 42529
+      "fileName": "scheduling-Bu06wasI.js",
+      "bytes": 42559
     },
     {
-      "fileName": "residents-DPQKVTtw.js",
+      "fileName": "residents-BPrhPGw6.js",
       "bytes": 37423
     },
     {
-      "fileName": "AppMainViews-JEWKB98J.js",
-      "bytes": 8156
+      "fileName": "AppMainViews-cdz1QxPu.js",
+      "bytes": 8236
     }
   ],
-  "totalBytes": 982064,
+  "totalBytes": 1026011,
   "budgets": {
     "maxIndexKB": null,
     "maxTotalKB": null
