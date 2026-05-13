@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test'
 
 /**
  * 可選登入 E2E：建置時 **保留** `VITE_SUPABASE_*`（讀取執行環境／`.env`），與 `playwright.config.ts` 之 demo bundle 分離。
- * 執行：`E2E_AUTH_EMAIL`、`E2E_AUTH_PASSWORD` 已設定時跑 `npm run test:e2e:auth`；未設定則測試標記為 skip。登入步驟見 `e2e/helpers/authLogin.ts`；案例分 **`auth-login.spec.ts`**（儀表盤～排班）與 **`auth-login.staff-modules.spec.ts`**（其餘 hash）；涵蓋 `#service-forms`…`#user-manual`（預設 **Staff** 可進；無 **`view:work-analysis-review`**／**`view:system-settings`**）。
+ * 執行：`E2E_AUTH_EMAIL`、`E2E_AUTH_PASSWORD` 已設定時跑 `npm run test:e2e:auth`；未設定則測試標記為 skip。登入步驟見 `e2e/helpers/authLogin.ts`；案例分 **`auth-login.spec.ts`**（儀表盤～排班）與 **`auth-login.staff-modules.spec.ts`**（其餘 hash）；**`auth-login.system-settings-p2.spec.ts`**（**`#system-settings`** **P2** **h3**；優先 **`E2E_AUTH_TEAMLEAD_*`**，否則 **`E2E_AUTH_ADMIN_*`**，與 **`VITE_SUPABASE_*`**）；涵蓋 `#service-forms`…`#user-manual`（預設 **Staff** 可進；無 **`view:work-analysis-review`**／**`view:system-settings`**）。
  */
 export default defineConfig({
   testDir: 'e2e',

@@ -3,6 +3,7 @@ import { expect, test } from '@playwright/test'
 /**
  * Demo 建置（`VITE_SUPABASE_*` 清空）：與 **`npm run test:e2e:smoke`** 同型 preview；
  * 驗證 Seq 29 P1：兩個 **Pdf16 大節**（智能排班／復康服務）；**`ListSectionPanel`**：**排班時間設定**／**排班規則設定（P1）**（**`h3`**、預設展開、**`aria-controls`**）與 **資助復康**（於復康大節內篩選、預設收合、**`hidden`**）；**政策版本** **`ListSectionPanel`**（**`section[aria-labelledby]`**、預設展開、**收合**／**展開** 與 **`hidden`**）；五處 **`aria-controls`** 目標 **`id`** 全相異；**審計** landmark、**審計** **展開**／**收合**（**`aria-controls`**、**`hidden`**、搜尋 **`placeholder`**）與無 Edge 時之本機說明（對照 UAT 未設 env 預期）。
+ * **P2** 標題：**Vitest** **`SystemSettingsHome.policyP2Titles.test.tsx`**（mock **`edgeEnabled`**）；可選 **`npm run test:e2e:auth`** **`e2e/auth-login.system-settings-p2.spec.ts`**（優先 **`E2E_AUTH_TEAMLEAD_*`**，否則 **`E2E_AUTH_ADMIN_*`**＋**`VITE_SUPABASE_*`**）；**UAT** **二之二** Staging 手動。
  */
 test.describe('system-settings policy P1（demo 無 Supabase）', () => {
   test('政策區塊標題與本機儲存說明可見', async ({ page }) => {

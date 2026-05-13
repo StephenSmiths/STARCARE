@@ -1,6 +1,6 @@
 # `pdf-sequenced-gap-checklist` 修訂紀錄歸檔（p5：2026-05-03 續列）
 
-> **對照**：主修訂日誌 **`docs/pdf-sequenced-gap-checklist-revision-log.md`**；**2026-05-01a** 同日最早列 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**；**p2**～**p4** 見 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p3.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p4.md`**。本檔收錄自該主日誌再拆出之原列 **12–35**（**2026-05-03**：運維與工程、**`npm run ci`**、憑證、**`.cursorrules`** §3、**`acceptance:*`** 與多檔 **對照** 句之批量列），以符合主日誌單檔 ≤200 行。
+> **對照**：主修訂日誌 **`docs/pdf-sequenced-gap-checklist-revision-log.md`**；**2026-05-01a** 同日最早列 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**；**p2**～**p4** 見 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p3.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p4.md`**；**Archive seq29-2026-05-09b**（**Seq 29** 互鏈批量列）見 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-seq29-2026-05-09b.md`**。本檔收錄自該主日誌再拆出之原列 **12–35**（**2026-05-03**：運維與工程、**`npm run ci`**、憑證、**`.cursorrules`** §3、**`acceptance:*`** 與多檔 **對照** 句之批量列），以符合主日誌單檔 ≤200 行。
 
 ---
 

@@ -1,7 +1,7 @@
 # Seq 29：系統設定（PDF 02【16】）修訂紀錄
 
 > **對照**：技術對照骨架 **`docs/seq29-system-settings-pdf02-traceability.md`**（**§1–§6**）；序號總表 **`docs/pdf-sequenced-gap-checklist.md`** Seq **29**；**`docs/pdf03-cursorrules-alignment.md`** §4 **Seq 29** 維護項。  
-> **全案收尾與證據留痕**：**`README.md`**「專案收尾」（**`docs/business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**）；**`docs/project-completion-*.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log.md`** 及歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p3.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p4.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p5.md`**）；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**；Gate A 自動證據固定入口 **`docs/evidence/gate-a-latest.md`**（檔內 **Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／**`npm run gatea:evidence:preflight:strict`**；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**（**`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段））；多數 **`gatea:evidence:*`** 終端 stdout 頁尾 **`scripts/gate-a-markdown-footer.mjs`**（**Export 契約**）。
+> **全案收尾與證據留痕**：**`README.md`**「專案收尾」（**`docs/business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**）；**`docs/project-completion-*.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log.md`** 及歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p3.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p4.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p5.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-seq29-2026-05-09b.md`**）；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**；Gate A 自動證據固定入口 **`docs/evidence/gate-a-latest.md`**（檔內 **Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／**`npm run gatea:evidence:preflight:strict`**；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**（**`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段））；多數 **`gatea:evidence:*`** 終端 stdout 頁尾 **`scripts/gate-a-markdown-footer.mjs`**（**Export 契約**）。
 
 ---
 
@@ -9,6 +9,8 @@
 
 | 日期 | 說明 |
 |------|------|
+| 2026-05-09 | **§4**／開首 **Demo E2E**：**`e2e/auth-login.system-settings-p2.spec.ts`**（**`npm run test:e2e:auth`**、優先 **`E2E_AUTH_TEAMLEAD_*`**／**`E2E_AUTH_ADMIN_*`**、**`VITE_SUPABASE_*`**）；**`.env.example`** 註解；**`playwright.auth.config.ts`** 檔首；併 **Vitest** **`SystemSettingsHome.policyP2Titles.test.tsx`** 列。 |
+| 2026-05-09 | **UAT** 增 **二之二**（**P2** Staging）；**§4** **demo E2E** 列補 **P2** 手動；**§5** 維護句併 **二之二**；開首 **UAT** 括註 **P1**／**P2**；**`business-logic.md`** §0、**`pdf03-cursorrules-alignment.md`**、**`feature-list.md`**、**`client-delivery-remediation-plan.md`**、**`pdf-alignment-p0-backlog.md`** 全鏈互鏈；**Vitest** **`SystemSettingsHome.policyP2Titles.test.tsx`**（**P2** **h3**）。 |
 | 2026-05-04 | 初版：Seq 29 **對照骨架**（02【16】末序）；與 Seq 28 互鏈。 |
 | 2026-05-04 | §5：補 **Seq 35～38**（03／C 區）對照骨架互鏈。 |
 | 2026-05-09 | §6：院舍政策版本 PRD／Schema／Edge 契約／migration（**153000** 表、**153100** RLS）；客戶回函定案互鏈。 |
@@ -102,3 +104,10 @@
 | 2026-05-09 | **PRD** 開首：**既有對照骨架**／**Demo E2E** 併本檔路徑（**`system-settings-policy-prd-2026-05-09.md`**）。 |
 | 2026-05-09 | **Edge 契約** 開首：**對照**／**前端 demo 煙霧** 併本檔路徑（**`scheduling-policy-edge-function-contract.md`**）。 |
 | 2026-05-09 | **`npm run ci` 與 Actions 對齊**：**`package.json`** **`ci`** 併 **`perf:bundle:ci`**、**`list-section-collapse`** **Playwright**；**`ci.yml`** 檔首、**`README`**、**`feature-list`** §8、**`pdf03`** §4、本檔 **CI（Seq 29）** 句。 |
+| 2026-05-09 | **UAT** **二之二**／**`pdf03`**：**`system-settings-policy-p1-uat-and-staging-2026-05-09.md`** 前提段補 **`test:e2e:auth`** **`e2e/auth-login.system-settings-p2.spec.ts`**；**`pdf03-cursorrules-alignment.md`** §3／§4 **Seq 29** 維護句併 **`test:e2e:auth`**、Vitest **`SystemSettingsHome.policyP2Titles.test.tsx`**（與 **§4** **P2** 列並讀）。 |
+| 2026-05-09 | **Seq 29／P2 auth E2E TeamLead**：**`e2e/auth-login.system-settings-p2.spec.ts`** 優先 **`E2E_AUTH_TEAMLEAD_*`**，否則 **`E2E_AUTH_ADMIN_*`**；**`.env.example`**、**`seq29-system-settings-pdf02-traceability.md`** 開首／§4、**`playwright.auth.config.ts`**、**`.github/workflows/ci.yml`**、**`feature-list.md`** §8 第 6 點、**`pdf03-cursorrules-alignment.md`** §3／§4、**`uat/...`** **二之二** 對齊。 |
+| 2026-05-09 | **README**／**`go-live-checklist`** §1.1／§5／**`runbook`** §6：**`npm run test:e2e:auth`**、**P2** **`h3`**、**`E2E_AUTH_TEAMLEAD_*`** 優先之可發現性互鏈（與 **`e2e/auth-login.system-settings-p2.spec.ts`**、**`seq29`** 開首並讀）。 |
+| 2026-05-09 | **`business-logic.md`** §0 院舍政策段：**`test:e2e:auth`** **`auth-login.system-settings-p2`** 前向（**`seq29`** 開首、**`go-live-checklist`** §1.1）；**`business-logic-revision-log.md`**。 |
+| 2026-05-09 | **§5** 維護句：**`business-logic.md`** §0 **院舍政策** 段併 **`test:e2e:auth`** **P2** **`h3`** 前向。 |
+| 2026-05-09 | **主修訂日誌歸檔**：**`pdf-sequenced-gap-checklist-revision-log.md`** 同日 **Seq 29** 互鏈批量 **16** 列移出至 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-seq29-2026-05-09b.md`**（主檔 ≤200 行）；開首 **註**／blockquote 補 **`archive-seq29-2026-05-09b`** 入口。 |
+| 2026-05-09 | 開首 **全案收尾** blockquote 長鏈補 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-seq29-2026-05-09b.md`**；與 **`pdf-sequenced-gap-checklist-revision-log.md`** **歸檔副檔 seq29 互鏈全案（跨檔補鏈）** 列併讀。 |
