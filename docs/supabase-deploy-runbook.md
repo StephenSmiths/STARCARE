@@ -22,7 +22,7 @@ npm run ops:deploy:all
 若需單支除錯，可改 **`npx supabase functions deploy <function-name>`**（名稱與 **`ops:deploy:all`** 內之 **`deploy …`** 一致）。
 
 - 遠端若曾以**舊版** **`ops:deploy:all`**（未含 **`service-forms-list`**／**`upsert`**／**`soft-delete`**）部署，請再執行一次 **`npm run ops:deploy:all`** 以補齊服務表單 Edge；變更說明見 **`docs/pdf-sequenced-gap-checklist.md`**（**2026-05-03**）。
-- **Seq 29 院舍政策 Edge**：契約見 **`docs/scheduling-policy-edge-function-contract.md`**；**`scheduling-policy-current-get`**、**`scheduling-policy-at-get`**、**`scheduling-policy-versions-list`**、**`scheduling-policy-version-validate`**、**`scheduling-policy-version-commit`** 五支須列於 **`package.json`** 之 **`ops:deploy:all`** 並部署；DB 見 **`supabase/migrations/20260509153000_facility_scheduling_policy_versioned_skeleton.sql`**（表）＋**`20260509153100_facility_scheduling_policy_versioned_rls.sql`**（RLS）；先 **`db push`**。上線前 **Edge 契約／前向煙霧** 與 **`docs/go-live-checklist.md`** §5、**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`** **二之一** 併讀。
+- **Seq 29 院舍政策 Edge**：契約見 **`docs/scheduling-policy-edge-function-contract.md`**；**`scheduling-policy-current-get`**、**`scheduling-policy-at-get`**、**`scheduling-policy-versions-list`**、**`scheduling-policy-version-validate`**、**`scheduling-policy-version-commit`** 五支須列於 **`package.json`** 之 **`ops:deploy:all`** 並部署；DB 見 **`supabase/migrations/20260509153000_facility_scheduling_policy_versioned_skeleton.sql`**（表）＋**`20260509153100_facility_scheduling_policy_versioned_rls.sql`**（RLS）；先 **`db push`**。上線前 **Edge 契約／前向煙霧** 與 **`docs/go-live-checklist.md`** §5、**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`** **二之一**（段末 **工程維護互鏈**）併讀。
 
 ## 3) 快速狀態檢查
 ```bash
@@ -76,7 +76,7 @@ limit 20;
 
 ## 6) 前端儲存庫 CI 煙霧（可選，與遠端驗收併用）
 - 於前端 repo 執行 **`npm run ci`**：含 **`lint`**、**`typecheck`**、**`vitest`**、**`npm run build:demo`**（清空 **`VITE_SUPABASE_*`** 之 bundle）與 Playwright demo 全套，驗骨幹路由與審計標題；與 **`.github/workflows/ci.yml`** 同源（該 workflow 為分步執行、指令集合相同），**不需**遠端 Supabase 已連線亦可先跑。
-- **Seq 29 系統設定（無 Supabase bundle）**：專項 **`npm run test:e2e:system-settings-policy`**／**`npm run test:e2e:smoke`**（**`hash #system-settings`**）見 **`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`** **二之一**；與 **`docs/go-live-checklist.md`** §5 併讀。
+- **Seq 29 系統設定（無 Supabase bundle）**：專項 **`npm run test:e2e:system-settings-policy`**／**`npm run test:e2e:smoke`**（**`hash #system-settings`**）見 **`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`** **二之一**（段末 **工程維護互鏈**）；與 **`docs/go-live-checklist.md`** §5 併讀。
 - 可選登入真實專案：**`npm run test:e2e:auth`**（**`playwright.auth.config.ts`** 使用 **`npm run build`** 保留 **`VITE_*`**），環境變數見 **`.env.example`**（**`E2E_AUTH_*`**）。
 - 審計 **`audit_events`** 與 UI 之正式庫抽測勾選項見 **`docs/go-live-checklist.md`** §8。
 - PAT／部署後自檢（含可選 **`npm run ci`**、**`acceptance:*`**／全閘對照）見 **`docs/security-token-rotation-checklist.md`** **§D**、**`docs/go-live-checklist.md`** §6。

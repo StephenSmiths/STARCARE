@@ -78,7 +78,7 @@
 
 - 變更 **`SystemSettingsSnapshot`** 欄位、**驗證規則**或 **審計 `detail`** 時：同步本檔、**`docs/seq15-scheduling-pdf02-traceability.md`**（排班域）、**`pdf-sequenced-gap-checklist.md`** Seq 29、**`pdf-sequenced-gap-checklist-revision-log.md`**（**`docs/pdf03-cursorrules-alignment.md`** §4）。
 - 變更 **`scheduling-policy-*`** 部署敘述（**`docs/supabase-deploy-runbook.md`** §2 **Seq 29**、§6）或 **`docs/go-live-checklist.md`** §5（Edge 契約／前向煙霧）時：維持與 **本檔** §4、**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`** **二之一**（段末 **工程維護互鏈**）一致。
-- 變更 **`npm run ci`**、**`.github/workflows/ci.yml`**、**`e2e/smoke.spec.ts`**、**`e2e/system-settings-policy-p1-demo.spec.ts`** 或 **`package.json`** **`test:e2e:*`** 指令敘述時：維持 **`.github/workflows/ci.yml`** 檔首 **Seq 29【16】** 專段註解與 **本檔** §4、**UAT** **二之一**、**`docs/pdf03-cursorrules-alignment.md`** §3、**`docs/feature-list.md`** §8 第 3 點（**README**／**CI**）一致。
+- 變更 **`npm run ci`**、**`.github/workflows/ci.yml`**、**`e2e/smoke.spec.ts`**、**`e2e/system-settings-policy-p1-demo.spec.ts`** 或 **`package.json`** **`test:e2e:*`** 指令敘述時：維持 **`.github/workflows/ci.yml`** 檔首 **Seq 29【16】** 專段註解與 **本檔** §4、**UAT** **二之一**（段末 **工程維護互鏈**）、**`docs/pdf03-cursorrules-alignment.md`** §3、**`docs/feature-list.md`** §8 第 3 點（**README**／**CI**）一致。
 - **下一序號（02 模組鏈結束）**：母本 **03** 工程治理 **Seq 35** — **`docs/seq35-pdf03-cursorrules-alignment-traceability.md`**（對 **`docs/pdf03-cursorrules-alignment.md`** 換版差異與閉環）；鏈 **Seq 36～38** 見該檔與 **`pdf-sequenced-gap-checklist.md`** **C 區**。
 
 ---
@@ -178,3 +178,4 @@
 | 2026-05-12 | 開首增 **CI（Seq 29）** 對照（**`ci.yml`**、**`npm run ci`**、**`pdf03`** §3、本檔 **§5**）；**`README.md`** 常用指令 **CI** 列互鏈 **pdf03**／本檔第 4 節。 |
 | 2026-05-13 | **`feature-list.md`** §8 第 3 點：**README** **CI** 短列補 **Seq 29**／**`pdf03`** §3／本檔第 4 節；**`pdf03`** §4：**README** 維護句併 **CI** 列；**Seq 29** 維護檢視句併 **`feature-list`** §8 第 3 點；**§5** **CI／E2E** 維護句併 **`feature-list`** §8 第 3 點。 |
 | 2026-05-14 | **UAT** **二之一** 段末 **工程維護互鏈**；**`go-live-checklist`** §5 前向煙霧句併 **工程維護**；開首 **UAT** 括註對齊；**§5** **runbook**／**go-live** 維護句併 **二之一** 段末互鏈。 |
+| 2026-05-15 | **全鏈括註**：**`runbook`** §2／§6、**`business-logic`** §0、**Edge 契約** 開首、**P0 backlog** Seq 29、**`feature-list`** Edge 表、**PRD** 開首、**`pdf03`** §3、**§5** **CI／E2E** 句之 **UAT** **二之一**（段末 **工程維護互鏈**）。 |

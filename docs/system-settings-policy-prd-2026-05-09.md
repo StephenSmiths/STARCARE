@@ -7,7 +7,7 @@
 > **資料結構詳述**：`docs/system-settings-policy-schema-2026-05-09.md`。  
 > **SQL 骨架**：**`supabase/migrations/20260509153000_facility_scheduling_policy_versioned_skeleton.sql`**（表／觸發器）、**`supabase/migrations/20260509153100_facility_scheduling_policy_versioned_rls.sql`**（RLS）。  
 > **既有對照骨架**：`docs/seq29-system-settings-pdf02-traceability.md`（本 PRD 為其 **院舍後端政策** 延伸）。  
-> **Demo E2E（無 Supabase）**：**`npm run test:e2e:system-settings-policy`**（**`e2e/system-settings-policy-p1-demo.spec.ts`**）、**`npm run test:e2e:smoke`**（**`hash #system-settings`**）；指令對照 **UAT** **二之一**：**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`**；見 **`docs/seq29-system-settings-pdf02-traceability.md`** 第 4 節。
+> **Demo E2E（無 Supabase）**：**`npm run test:e2e:system-settings-policy`**（**`e2e/system-settings-policy-p1-demo.spec.ts`**）、**`npm run test:e2e:smoke`**（**`hash #system-settings`**）；指令對照 **UAT** **二之一**（段末 **工程維護互鏈**）：**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`**；見 **`docs/seq29-system-settings-pdf02-traceability.md`** 第 4 節。
 
 ---
 
@@ -91,5 +91,6 @@
 | 2026-05-09 | 增列對客回覆範本互鏈：**`docs/system-settings-policy-customer-reply-2026-05-09.md`**。 |
 | 2026-05-12 | 開首 Edge 列舉補 **`scheduling-policy-versions-list`**（§4 版本列唯讀）；與 **`docs/scheduling-policy-edge-function-contract.md`** §4.2a 對齊。 |
 | 2026-05-23 | §6 **P1** 列：**UAT** 補 **二之一**（無 env **E2E** 指令表）。 |
+| 2026-05-15 | 開首 **Demo E2E**：**UAT** **二之一** 補括註「段末 **工程維護互鏈**」。 |
 | 2026-05-13 | 開首 **Demo E2E** 併列 **`test:e2e:smoke`**；互鏈 **UAT** **二之一** 與 **seq29** 第 4 節。 |
 | 2026-05-12 | 開首互鏈補 **Demo E2E**（**`test:e2e:system-settings-policy`**／**seq29** §4）。 |
