@@ -22,6 +22,7 @@ const { validDraft } = vi.hoisted(() => {
     specialCareTherapistOnly: false,
     policyFixedActivities: [],
     policySubsidizedPassOrder: [],
+    policySubsidizedTiers: [],
   }
   return { validDraft: d }
 })

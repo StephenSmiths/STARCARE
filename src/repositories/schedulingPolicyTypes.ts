@@ -10,6 +10,14 @@ export type PolicySubsidizedPassOrderRow = {
   fundingTier: PolicySubsidizedFundingTier
 }
 
+/** PDF 02【16】／`facility_policy_subsidized_tier`（P2：甲一／院舍券／私位列） */
+export type PolicySubsidizedTierRow = {
+  fundingTier: PolicySubsidizedFundingTier
+  enabled: boolean
+  weeklyMinSessions: number
+  specialCareTherapistOnly: boolean
+}
+
 /** PDF 02【16】／`facility_policy_fixed_activities`（P2 固定活動多筆） */
 export type PolicyFixedActivityRow = {
   serviceType: string
@@ -42,7 +50,7 @@ export type SchedulingPolicyBundle = {
     groupParticipantCap: number
   }
   fixedActivities: PolicyFixedActivityRow[]
-  subsidizedTiers: unknown[]
+  subsidizedTiers: PolicySubsidizedTierRow[]
   subsidizedRoleOfferings: unknown[]
   subsidizedPassOrder: PolicySubsidizedPassOrderRow[]
   dementiaCore: unknown | null

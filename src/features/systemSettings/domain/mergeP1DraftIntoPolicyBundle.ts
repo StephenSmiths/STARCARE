@@ -1,6 +1,7 @@
 import type { SchedulingPolicyBundle } from '../../../repositories/schedulingPolicyTypes'
 import { draftFixedActivitiesToBundle } from './policyFixedActivityDraft'
 import { bundlePassOrderToDraft, draftPassOrderToBundle } from './policyPassOrderDraft'
+import { draftTiersToBundle } from './policySubsidizedTierDraft'
 import type { SystemSettingsSnapshot } from '../types'
 import { shiftPrepSlotTimes } from './shiftPrepWindow'
 
@@ -28,7 +29,17 @@ const mergedFixedActivities = (
   return base.fixedActivities ?? []
 }
 
-/** 以目前 bundle 為底，覆寫 P1（非治療時段、開工準備、數字上限）；P2 固定活動見 `mergedFixedActivities`；P2 Pass 次序見 `mergedSubsidizedPassOrder` */
+const mergedSubsidizedTiers = (
+  draft: SystemSettingsSnapshot,
+  base: SchedulingPolicyBundle | null,
+): SchedulingPolicyBundle['subsidizedTiers'] => {
+  if (draft.policySubsidizedTiersHydrated === true || !base) {
+    return draftTiersToBundle(draft.policySubsidizedTiers)
+  }
+  return base.subsidizedTiers ?? []
+}
+
+/** 以目前 bundle 為底，覆寫 P1（非治療時段、開工準備、數字上限）；P2 固定活動見 `mergedFixedActivities`；P2 Pass 次序見 `mergedSubsidizedPassOrder`；P2 資助三列見 `mergedSubsidizedTiers` */
 export const mergeP1DraftIntoPolicyBundle = (
   draft: SystemSettingsSnapshot,
   base: SchedulingPolicyBundle | null,
@@ -54,6 +65,7 @@ export const mergeP1DraftIntoPolicyBundle = (
       numericLimits,
       subsidizedPassOrder: mergedSubsidizedPassOrder(draft, base),
       fixedActivities: mergedFixedActivities(draft, base),
+      subsidizedTiers: mergedSubsidizedTiers(draft, base),
     }
   }
   return {
@@ -62,7 +74,7 @@ export const mergeP1DraftIntoPolicyBundle = (
     nonTherapySlots: slots,
     numericLimits,
     fixedActivities: mergedFixedActivities(draft, null),
-    subsidizedTiers: [],
+    subsidizedTiers: mergedSubsidizedTiers(draft, null),
     subsidizedRoleOfferings: [],
     subsidizedPassOrder: mergedSubsidizedPassOrder(draft, null),
     dementiaCore: null,

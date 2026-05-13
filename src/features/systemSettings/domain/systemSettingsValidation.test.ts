@@ -17,6 +17,7 @@ const base = (): SystemSettingsSnapshot => ({
   specialCareTherapistOnly: false,
   policyFixedActivities: [],
   policySubsidizedPassOrder: [],
+  policySubsidizedTiers: [],
 })
 
 describe('systemSettingsValidation', () => {
@@ -69,6 +70,18 @@ describe('systemSettingsValidation', () => {
     const r = validateSystemSettings(bad)
     expect(r.ok).toBe(false)
     expect(r.errors.some((e) => e.includes('Pass'))).toBe(true)
+  })
+
+  it('validateSystemSettings：資助三列不完整時須報錯', () => {
+    const bad = {
+      ...base(),
+      policySubsidizedTiers: [
+        { fundingTier: 'GradeA_Subsidized' as const, enabled: true, weeklyMinSessions: 0, specialCareTherapistOnly: false },
+      ],
+    }
+    const r = validateSystemSettings(bad)
+    expect(r.ok).toBe(false)
+    expect(r.errors.some((e) => e.includes('資助復康三列'))).toBe(true)
   })
 
   it('validateSystemSettings：合法快照通過', () => {

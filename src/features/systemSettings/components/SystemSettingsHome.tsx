@@ -7,6 +7,7 @@ import { useSystemSettings } from '../hooks/useSystemSettings'
 import { useSystemSettingsPolicySync } from '../hooks/useSystemSettingsPolicySync'
 import { SystemSettingsFixedActivitiesCard } from './SystemSettingsFixedActivitiesCard'
 import { SystemSettingsPassOrderCard } from './SystemSettingsPassOrderCard'
+import { SystemSettingsSubsidizedTiersCard } from './SystemSettingsSubsidizedTiersCard'
 import { SystemSettingsNumericCapsCard } from './SystemSettingsNumericCapsCard'
 import { SystemSettingsPdf16Section } from './SystemSettingsPdf16Section'
 import { SystemSettingsCurrentPolicyVersionCard } from './SystemSettingsCurrentPolicyVersionCard'
@@ -59,6 +60,11 @@ export const SystemSettingsHome = () => {
           <ListSectionPanel title="資助復康服務與認知障礙症服務（P1）" titleHeadingLevel={3} defaultExpanded={false}>
             <SystemSettingsSpecialCareCard draft={draft} setField={setField} />
           </ListSectionPanel>
+          {policySync.edgeEnabled ? (
+            <ListSectionPanel title="資助復康三列（雲端政策 P2）" titleHeadingLevel={3} defaultExpanded={false}>
+              <SystemSettingsSubsidizedTiersCard draft={draft} setField={setField} />
+            </ListSectionPanel>
+          ) : null}
           {policySync.edgeEnabled ? (
             <ListSectionPanel title="資助 Pass 優先次序（雲端政策 P2）" titleHeadingLevel={3} defaultExpanded={false}>
               <SystemSettingsPassOrderCard draft={draft} setField={setField} />

@@ -1,6 +1,6 @@
 import { SYSTEM_SETTINGS_STORAGE_KEY } from '../localStorageKeys'
 import { bumpSystemSettingsExternalVersion } from '../systemSettingsExternalStore'
-import type { PolicyFixedActivityRow, PolicySubsidizedPassOrderRow } from '../../../repositories/schedulingPolicyTypes'
+import type { PolicyFixedActivityRow, PolicySubsidizedPassOrderRow, PolicySubsidizedTierRow } from '../../../repositories/schedulingPolicyTypes'
 import { POLICY_SUBSIDIZED_FUNDING_TIERS } from '../../../repositories/schedulingPolicyTypes'
 import type { SystemSettingsSnapshot } from '../types'
 
@@ -44,6 +44,24 @@ const parsePolicySubsidizedPassOrder = (raw: unknown): PolicySubsidizedPassOrder
   return out
 }
 
+const parsePolicySubsidizedTiers = (raw: unknown): PolicySubsidizedTierRow[] => {
+  if (!Array.isArray(raw)) return []
+  const out: PolicySubsidizedTierRow[] = []
+  for (const x of raw) {
+    if (!isRecord(x)) continue
+    const fundingTier = String(x.fundingTier ?? x.funding_tier ?? '')
+    if (!FUNDING_TIER_PARSE.has(fundingTier)) continue
+    const w = Number(x.weeklyMinSessions ?? x.weekly_min_sessions ?? 0)
+    out.push({
+      fundingTier: fundingTier as PolicySubsidizedTierRow['fundingTier'],
+      enabled: Boolean(x.enabled ?? true),
+      weeklyMinSessions: Number.isInteger(w) ? w : NaN,
+      specialCareTherapistOnly: Boolean(x.specialCareTherapistOnly ?? x.special_care_therapist_only),
+    })
+  }
+  return out
+}
+
 export const DEFAULT_SYSTEM_SETTINGS: SystemSettingsSnapshot = {
   schedulingWindowStart: '07:00',
   schedulingWindowEnd: '22:00',
@@ -59,6 +77,7 @@ export const DEFAULT_SYSTEM_SETTINGS: SystemSettingsSnapshot = {
   specialCareTherapistOnly: false,
   policyFixedActivities: [],
   policySubsidizedPassOrder: [],
+  policySubsidizedTiers: [],
 }
 
 const isRecord = (v: unknown): v is Record<string, unknown> =>
@@ -93,6 +112,8 @@ export const parseStoredSnapshot = (raw: string | null): SystemSettingsSnapshot 
     const policyFixedActivitiesHydrated = g('policyFixedActivitiesHydrated') === true
     const policySubsidizedPassOrderRaw = g('policySubsidizedPassOrder')
     const policySubsidizedPassOrderHydrated = g('policySubsidizedPassOrderHydrated') === true
+    const policySubsidizedTiersRaw = g('policySubsidizedTiers')
+    const policySubsidizedTiersHydrated = g('policySubsidizedTiersHydrated') === true
     if (
       typeof schedulingWindowStart !== 'string' ||
       typeof schedulingWindowEnd !== 'string' ||
@@ -107,6 +128,7 @@ export const parseStoredSnapshot = (raw: string | null): SystemSettingsSnapshot 
     }
     const policyFixedActivities = parsePolicyFixedActivities(policyFixedActivitiesRaw)
     const policySubsidizedPassOrder = parsePolicySubsidizedPassOrder(policySubsidizedPassOrderRaw)
+    const policySubsidizedTiers = parsePolicySubsidizedTiers(policySubsidizedTiersRaw)
     return {
       schedulingWindowStart,
       schedulingWindowEnd,
@@ -122,8 +144,10 @@ export const parseStoredSnapshot = (raw: string | null): SystemSettingsSnapshot 
       specialCareTherapistOnly,
       policyFixedActivities,
       policySubsidizedPassOrder,
+      policySubsidizedTiers,
       ...(policyFixedActivitiesHydrated ? { policyFixedActivitiesHydrated: true as const } : {}),
       ...(policySubsidizedPassOrderHydrated ? { policySubsidizedPassOrderHydrated: true as const } : {}),
+      ...(policySubsidizedTiersHydrated ? { policySubsidizedTiersHydrated: true as const } : {}),
     }
   } catch {
     return null

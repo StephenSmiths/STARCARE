@@ -41,4 +41,19 @@ describe('p1FieldsFromPolicyBundle', () => {
     expect(p.policySubsidizedPassOrderHydrated).toBe(true)
     expect(p.policySubsidizedPassOrder?.map((x) => x.fundingTier)).toEqual(['Voucher', 'Private', 'GradeA_Subsidized'])
   })
+
+  it('併入資助三列並標記 hydrated（P2）', () => {
+    const b = {
+      ...minimalSchedulingPolicyBundle,
+      nonTherapySlots: [],
+      subsidizedTiers: [
+        { fundingTier: 'GradeA_Subsidized' as const, enabled: true, weeklyMinSessions: 0, specialCareTherapistOnly: false },
+        { fundingTier: 'Voucher' as const, enabled: true, weeklyMinSessions: 5, specialCareTherapistOnly: false },
+        { fundingTier: 'Private' as const, enabled: false, weeklyMinSessions: 2, specialCareTherapistOnly: true },
+      ],
+    }
+    const p = p1FieldsFromPolicyBundle(b)
+    expect(p.policySubsidizedTiersHydrated).toBe(true)
+    expect(p.policySubsidizedTiers?.find((x) => x.fundingTier === 'Voucher')?.weeklyMinSessions).toBe(5)
+  })
 })

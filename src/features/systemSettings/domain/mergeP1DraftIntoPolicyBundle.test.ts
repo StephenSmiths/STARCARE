@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { minimalSchedulingPolicyBundle } from '../../../repositories/schedulingPolicyRepository.fixtures'
 import { DEFAULT_POLICY_SUBSIDIZED_PASS_ORDER } from './policyPassOrderDraft'
+import { DEFAULT_POLICY_SUBSIDIZED_TIER_ROWS } from './policySubsidizedTierDraft'
 import { POLICY_SYNC_VALID_DRAFT } from '../hooks/policySyncTestDraft'
 import { mergeP1DraftIntoPolicyBundle } from './mergeP1DraftIntoPolicyBundle'
 
@@ -20,6 +21,17 @@ const serverPass = [
   { sortOrder: 1, fundingTier: 'Private' as const },
   { sortOrder: 2, fundingTier: 'GradeA_Subsidized' as const },
   { sortOrder: 3, fundingTier: 'Voucher' as const },
+]
+
+const serverTiers = [
+  {
+    fundingTier: 'GradeA_Subsidized' as const,
+    enabled: false,
+    weeklyMinSessions: 3,
+    specialCareTherapistOnly: true,
+  },
+  { fundingTier: 'Voucher' as const, enabled: true, weeklyMinSessions: 0, specialCareTherapistOnly: false },
+  { fundingTier: 'Private' as const, enabled: true, weeklyMinSessions: 1, specialCareTherapistOnly: false },
 ]
 
 describe('mergeP1DraftIntoPolicyBundle', () => {
@@ -71,5 +83,25 @@ describe('mergeP1DraftIntoPolicyBundle', () => {
     }
     const out = mergeP1DraftIntoPolicyBundle(draft, base, 'facility-main')
     expect(out.subsidizedPassOrder[0]?.fundingTier).toBe('GradeA_Subsidized')
+  })
+
+  it('雲端資助三列、未 hydrated、草稿空時保留雲端（P2）', () => {
+    const base = { ...minimalSchedulingPolicyBundle, subsidizedTiers: serverTiers }
+    const draft = { ...POLICY_SYNC_VALID_DRAFT, policySubsidizedTiers: [] }
+    const out = mergeP1DraftIntoPolicyBundle(draft, base, 'facility-main')
+    const g = out.subsidizedTiers.find((t) => t.fundingTier === 'GradeA_Subsidized')
+    expect(g?.weeklyMinSessions).toBe(3)
+    expect(g?.enabled).toBe(false)
+  })
+
+  it('已 hydrated 時以草稿資助三列覆寫（P2）', () => {
+    const base = { ...minimalSchedulingPolicyBundle, subsidizedTiers: serverTiers }
+    const draft = {
+      ...POLICY_SYNC_VALID_DRAFT,
+      policySubsidizedTiers: [...DEFAULT_POLICY_SUBSIDIZED_TIER_ROWS],
+      policySubsidizedTiersHydrated: true,
+    }
+    const out = mergeP1DraftIntoPolicyBundle(draft, base, 'facility-main')
+    expect(out.subsidizedTiers.find((t) => t.fundingTier === 'GradeA_Subsidized')?.enabled).toBe(true)
   })
 })

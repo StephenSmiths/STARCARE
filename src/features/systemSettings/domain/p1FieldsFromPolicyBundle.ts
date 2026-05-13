@@ -1,6 +1,7 @@
 import type { SchedulingPolicyBundle } from '../../../repositories/schedulingPolicyTypes'
 import { bundleFixedActivitiesToDraft } from './policyFixedActivityDraft'
 import { bundlePassOrderToDraft } from './policyPassOrderDraft'
+import { bundleTiersToDraft } from './policySubsidizedTierDraft'
 import { DEFAULT_SYSTEM_SETTINGS } from '../repository/systemSettingsRepository'
 import type { SystemSettingsSnapshot } from '../types'
 
@@ -19,5 +20,7 @@ export const p1FieldsFromPolicyBundle = (b: SchedulingPolicyBundle): Partial<Sys
     policyFixedActivitiesHydrated: true,
     policySubsidizedPassOrder: bundlePassOrderToDraft(b.subsidizedPassOrder),
     policySubsidizedPassOrderHydrated: true,
+    policySubsidizedTiers: bundleTiersToDraft(b.subsidizedTiers ?? []),
+    policySubsidizedTiersHydrated: true,
   }
 }
