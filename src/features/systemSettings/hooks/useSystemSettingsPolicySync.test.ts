@@ -184,4 +184,38 @@ describe('useSystemSettingsPolicySync', () => {
     expect(mockRepo.listPolicyVersionSummaries).toHaveBeenCalledTimes(2)
     expect(result.current.submitMessage).toContain('已建立政策版本')
   })
+
+  it('validate 通過但 commit 回 errors 時寫入 validateErrors（HTTP 400 與 validate 同形）', async () => {
+    vi.mocked(getSupabaseBrowserCredentials).mockReturnValue({
+      supabaseUrl: 'https://x.supabase.co',
+      anonKey: 'anon',
+    })
+    vi.mocked(mockRepo.getCurrentBundle).mockResolvedValue(minimalSchedulingPolicyBundle)
+    vi.mocked(mockRepo.listPolicyVersionSummaries).mockResolvedValue([])
+    vi.mocked(mockRepo.commitBundle).mockResolvedValue({
+      ok: false,
+      errors: [{ code: 'BAD_TIER_COUNT', message: 'subsidizedTiers 須恰好 3 筆或留空' }],
+    })
+
+    const { result } = renderHook(() =>
+      useSystemSettingsPolicySync({ draft: POLICY_SYNC_VALID_DRAFT, hydrateP1FromBundle: vi.fn() }),
+    )
+    await waitFor(() => expect(result.current.isPolicyLoading).toBe(false))
+
+    await act(async () => {
+      await result.current.submitPolicyVersion({
+        effectiveFromLocal: '2030-06-15T14:00',
+        changeSummary: '調整',
+        confirmed: true,
+      })
+    })
+
+    expect(mockRepo.validateBundle).toHaveBeenCalledTimes(1)
+    expect(mockRepo.commitBundle).toHaveBeenCalledTimes(1)
+    expect(result.current.validateErrors).toEqual([
+      { code: 'BAD_TIER_COUNT', message: 'subsidizedTiers 須恰好 3 筆或留空' },
+    ])
+    expect(result.current.submitMessage).toBeNull()
+    expect(vi.mocked(bumpSystemSettingsExternalVersion)).not.toHaveBeenCalled()
+  })
 })

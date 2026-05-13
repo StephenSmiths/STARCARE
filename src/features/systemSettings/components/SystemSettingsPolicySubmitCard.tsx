@@ -80,7 +80,14 @@ export const SystemSettingsPolicySubmitCard = ({
           ))}
         </ul>
       ) : null}
-      {submitMessage ? <p className={uiTokens.inlineSuccessText}>{submitMessage}</p> : null}
+      {submitMessage ? (
+        <p
+          role={submitMessage.includes('已建立') ? 'status' : 'alert'}
+          className={submitMessage.includes('已建立') ? uiTokens.inlineSuccessText : 'text-sm text-amber-200'}
+        >
+          {submitMessage}
+        </p>
+      ) : null}
       <button
         type="button"
         className={uiTokens.btnPrimary}

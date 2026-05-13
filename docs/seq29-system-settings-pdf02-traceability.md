@@ -79,7 +79,7 @@
 | `useSystemSettingsPolicySync.submitLockLoadPolicy.test.ts`（Vitest） | **`lockRef`** 期間 **`reloadPolicy`** 不觸發額外讀取；**`bypassSubmitLock`** 供提交後刷新 |
 | `SystemSettingsPolicyVersionsListCard.test.tsx`（Vitest） | **`loadError`** 引導、重載鈕、**`aria-busy`**、**`isSubmitting`**；未啟用 Edge 不渲染 |
 | `SystemSettingsCurrentPolicyVersionCard.test.tsx`（Vitest） | **`aria-busy`**（載入中／提交中） |
-| `SystemSettingsPolicySubmitCard.test.tsx`（Vitest） | **`isPolicyLoading`**／**`isSubmitting`** 時提交鈕 **disabled**、**`aria-busy`** 與 **`role="status"`** |
+| `SystemSettingsPolicySubmitCard.test.tsx`（Vitest） | **`isPolicyLoading`**／**`isSubmitting`** 時提交鈕 **disabled**、**`aria-busy`** 與 **`role="status"`**；**`validateErrors`** 為 **`role="alert"`**；**`submitMessage`** 非「已建立」時 **`role="alert"`**（**`commit` HTTP 400** 之 **`errors`** 經 **`validateErrors`** 呈現） |
 
 ---
 

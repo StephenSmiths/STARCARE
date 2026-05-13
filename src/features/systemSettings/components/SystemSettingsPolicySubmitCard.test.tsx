@@ -60,6 +60,21 @@ describe('SystemSettingsPolicySubmitCard', () => {
     expect(document.querySelector('article')?.getAttribute('aria-busy')).toBe('true')
   })
 
+  it('validateErrors 呈現時為 role=alert', () => {
+    render(
+      <SystemSettingsPolicySubmitCard
+        edgeEnabled
+        loadError={null}
+        isPolicyLoading={false}
+        validateErrors={[{ code: 'BAD_DEM_CORE', message: 'weeklyMinSessions 須為非負整數' }]}
+        submitMessage={null}
+        isSubmitting={false}
+        onSubmit={vi.fn()}
+      />,
+    )
+    expect(screen.getByRole('alert').textContent).toContain('BAD_DEM_CORE')
+  })
+
   it('非載入、非提交中時提交鈕可點', () => {
     render(
       <SystemSettingsPolicySubmitCard
