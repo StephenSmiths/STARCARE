@@ -72,6 +72,7 @@ describe('SystemSettingsPolicySubmitCard', () => {
         onSubmit={vi.fn()}
       />,
     )
+    expect(screen.getByText(/雲端校驗結果/)).toBeTruthy()
     expect(screen.getByRole('alert').textContent).toContain('BAD_DEM_CORE')
   })
 

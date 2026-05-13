@@ -50,9 +50,11 @@
 
 1. Team Lead／Admin 進入 **系統設定**，選擇院舍（單院舍 MVP 可固定 `facility-main`）。  
 2. 顯示 **目前生效版本** 摘要；可檢視 **已排程未來版本** 列表（唯讀或編輯未生效者，依實作策略）。  
-3. **新建版本**：填寫參數 → 指定 `effective_from`（僅未來或現在）→ 填 **變更原因** → **二次確認** → 寫入 DB。  
+3. **新建版本**：填寫參數 → 指定 `effective_from`（僅未來或現在）→ 填 **變更原因** → **二次確認** → 經 Edge **`validate`**／**`commit`** 寫入 DB。  
 4. 背景或由 **排班讀取 API** 在 `effective_from` 到點後，將舊版標記為已取代、新版標記為生效（實作可採「讀取時惰性結算」或「排程 Job」，須另定 ADR）。  
 5. 寫入 **Audit Trail**（操作者、時間、版本 id、摘要；細部欄位 diff 可第二階段強化）。
+
+**Edge 回傳（與 **`docs/scheduling-policy-edge-function-contract.md`** §4.3／§4.4 一致）**：**`scheduling-policy-version-validate`** 失敗時 **HTTP 200**、**`ok: false`**、**`errors[]`**。**`scheduling-policy-version-commit`** 於寫入前再校驗失敗時 **HTTP 400**、同樣可帶 **`errors[]`**；前端於提交卡以同一列表呈現。
 
 ---
 
@@ -89,6 +91,7 @@
 |------|------|
 | 2026-05-09 | 初版：依客戶回函定稿 R1～R7、分期 P1／P2、與 seq29／遷移骨架互鏈。 |
 | 2026-05-09 | 增列對客回覆範本互鏈：**`docs/system-settings-policy-customer-reply-2026-05-09.md`**。 |
+| 2026-05-09 | §4 補 **validate**（HTTP 200）與 **commit**（HTTP 400）錯誤物件一致、前端同一列表呈現；互鏈 Edge 契約 **§4.3**／**§4.4**。 |
 | 2026-05-12 | 開首 Edge 列舉補 **`scheduling-policy-versions-list`**（§4 版本列唯讀）；與 **`docs/scheduling-policy-edge-function-contract.md`** §4.2a 對齊。 |
 | 2026-05-23 | §6 **P1** 列：**UAT** 補 **二之一**（無 env **E2E** 指令表）。 |
 | 2026-05-15 | 開首 **Demo E2E**：**UAT** **二之一** 補括註「段末 **工程維護互鏈**」。 |

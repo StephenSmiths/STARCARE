@@ -72,13 +72,18 @@ export const SystemSettingsPolicySubmitCard = ({
         </label>
       </div>
       {validateErrors.length > 0 ? (
-        <ul className={uiTokens.listDiscInsideTight} role="alert">
-          {validateErrors.map((er) => (
-            <li key={`${er.code}-${er.message}`}>
-              {er.code}：{er.message}
-            </li>
-          ))}
-        </ul>
+        <div className={uiTokens.stackVertical}>
+          <p className={uiTokens.sectionHelp}>
+            以下為雲端校驗結果（**`scheduling-policy-version-validate`** 或 **`scheduling-policy-version-commit`**）；請依 code／訊息修正草稿後再試。
+          </p>
+          <ul className={uiTokens.listDiscInsideTight} role="alert">
+            {validateErrors.map((er) => (
+              <li key={`${er.code}-${er.message}`}>
+                {er.code}：{er.message}
+              </li>
+            ))}
+          </ul>
+        </div>
       ) : null}
       {submitMessage ? (
         <p
