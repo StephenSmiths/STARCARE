@@ -6,8 +6,8 @@
 > **客戶定案日**：2026-05-09（多表存放、`effectiveFrom`、版本不重疊、分期驗收）。  
 > **資料結構詳述**：`docs/system-settings-policy-schema-2026-05-09.md`。  
 > **SQL 骨架**：**`supabase/migrations/20260509153000_facility_scheduling_policy_versioned_skeleton.sql`**（表／觸發器）、**`supabase/migrations/20260509153100_facility_scheduling_policy_versioned_rls.sql`**（RLS）。  
-> **既有對照骨架**：`docs/seq29-system-settings-pdf02-traceability.md`（本 PRD 為其 **院舍後端政策** 延伸）。  
-> **Demo E2E（無 Supabase）**：**`npm run test:e2e:system-settings-policy`**（**`e2e/system-settings-policy-p1-demo.spec.ts`**）、**`npm run test:e2e:smoke`**（**`hash #system-settings`**）；指令對照 **UAT** **二之一**（段末 **工程維護互鏈**）：**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`**；見 **`docs/seq29-system-settings-pdf02-traceability.md`** 第 4 節。
+> **既有對照骨架**：**`docs/seq29-system-settings-pdf02-traceability.md`**、**`docs/seq29-system-settings-pdf02-traceability-revision-log.md`**（本 PRD 為其 **院舍後端政策** 延伸）。  
+> **Demo E2E（無 Supabase）**：**`npm run test:e2e:system-settings-policy`**（**`e2e/system-settings-policy-p1-demo.spec.ts`**）、**`npm run test:e2e:smoke`**（**`hash #system-settings`**）；指令對照 **UAT** **二之一**（段末 **工程維護互鏈**）：**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`**；見 **`docs/seq29-system-settings-pdf02-traceability.md`** 第 4 節、**`docs/seq29-system-settings-pdf02-traceability-revision-log.md`**。
 
 ---
 
@@ -97,4 +97,5 @@
 | 2026-05-15 | 開首 **Demo E2E**：**UAT** **二之一** 補括註「段末 **工程維護互鏈**」。 |
 | 2026-05-16 | §6 **P1** 列：**UAT** **二之一** 補「段末 **工程維護互鏈**」。 |
 | 2026-05-13 | 開首 **Demo E2E** 併列 **`test:e2e:smoke`**；互鏈 **UAT** **二之一** 與 **seq29** 第 4 節。 |
+| 2026-05-09 | 開首 **既有對照骨架**／**Demo E2E** 併 **`docs/seq29-system-settings-pdf02-traceability-revision-log.md`**。 |
 | 2026-05-12 | 開首互鏈補 **Demo E2E**（**`test:e2e:system-settings-policy`**／**seq29** §4）。 |
