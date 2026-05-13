@@ -69,7 +69,7 @@
 
 | 階段 | 交付內容 | 驗收要點 |
 |------|----------|----------|
-| **P1** | 非治療時段列、開工準備開關、數字上限（小組節數／人數） | R1～R5、多表寫入、稽核、RLS 讀寫分離；`scheduling-rules-get` 可讀到 **現行有效** 聚合結果（或並行過渡期）。**Staging／UAT**：**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`**（**二之一** 無 env **E2E** 指令表）。 |
+| **P1** | 非治療時段列、開工準備開關、數字上限（小組節數／人數） | R1～R5、多表寫入、稽核、RLS 讀寫分離；`scheduling-rules-get` 可讀到 **現行有效** 聚合結果（或並行過渡期）。**Staging／UAT**：**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`**（**二之一** 無 env **E2E** 指令表；段末 **工程維護互鏈**）。 |
 | **P2** | 固定活動多筆、資助三列＋職類矩陣、Pass 順序、認知障礙區塊 | R2～R4 全鏈（含歷史報表對版）；與 PDF 逐欄對表簽核。 |
 
 ---
@@ -92,5 +92,6 @@
 | 2026-05-12 | 開首 Edge 列舉補 **`scheduling-policy-versions-list`**（§4 版本列唯讀）；與 **`docs/scheduling-policy-edge-function-contract.md`** §4.2a 對齊。 |
 | 2026-05-23 | §6 **P1** 列：**UAT** 補 **二之一**（無 env **E2E** 指令表）。 |
 | 2026-05-15 | 開首 **Demo E2E**：**UAT** **二之一** 補括註「段末 **工程維護互鏈**」。 |
+| 2026-05-16 | §6 **P1** 列：**UAT** **二之一** 補「段末 **工程維護互鏈**」。 |
 | 2026-05-13 | 開首 **Demo E2E** 併列 **`test:e2e:smoke`**；互鏈 **UAT** **二之一** 與 **seq29** 第 4 節。 |
 | 2026-05-12 | 開首互鏈補 **Demo E2E**（**`test:e2e:system-settings-policy`**／**seq29** §4）。 |

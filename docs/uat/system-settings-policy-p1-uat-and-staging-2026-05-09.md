@@ -63,6 +63,7 @@
 |------|------|
 | 2026-05-23 | **二之一**：補 **上線勾單** 與 **`go-live-checklist`** §5、**`supabase-deploy-runbook`** §2／§6 互鏈。 |
 | 2026-05-15 | **二之一**／**`runbook`** §2／§6、**`business-logic`** §0、**Edge 契約**、**P0 backlog**、**`feature-list`** Edge 表、**PRD**：**UAT** **二之一** 括註「段末 **工程維護互鏈**」對齊。 |
+| 2026-05-16 | **Schema**／**對客範本**／**PRD** §6、**`feature-list`** §8 第 5 點、**`README`**、**`pdf-sequenced`** 主表 Seq 29：**二之一** 補「段末 **工程維護互鏈**」。 |
 | 2026-05-14 | **二之一** 段末增 **工程維護互鏈**（**`README`** **CI**、**`feature-list`** §8 第 3／7 點、**`pdf03`** §3／§4、**`seq29`** §5、**`ci.yml`** **Seq 29【16】**）；**`go-live-checklist`** §5 前向煙霧句併 **工程維護**；**`seq29`** 開首 **UAT** 括註、**§5** **runbook**／**go-live** 維護句對齊。 |
 | 2026-05-13 | 增 **二之一**：無 Supabase 建置下 **`test:e2e:system-settings-policy`**／**`test:e2e:smoke`**（**`#system-settings`**）與 **U1**、**seq29** §4 對照。 |
 | 2026-05-12 | Staging 前置 Edge 增 **`scheduling-policy-versions-list`**；U1 預期含版本列表；增 **U7**；本機 demo E2E：**`npm run test:e2e:system-settings-policy`**（**`e2e/system-settings-policy-p1-demo.spec.ts`**）。 |
