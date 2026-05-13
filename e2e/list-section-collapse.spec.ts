@@ -6,6 +6,8 @@ const toggleListSection = async (
   expectDefaultExpanded: boolean,
   revealText: RegExp,
 ) => {
+  // 各視圖為 lazy：`PageShell` 標題可先於內容區塊出現，須待標題進入 a11y 樹再操作（避免 CI 並行載入競態）。
+  await expect(page.getByRole('heading', { name: headingName })).toBeVisible({ timeout: 20_000 })
   const sections = page.locator('section').filter({
     has: page.getByRole('heading', { name: headingName }),
   })
