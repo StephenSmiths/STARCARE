@@ -95,4 +95,24 @@ describe('p1FieldsFromPolicyBundle', () => {
       true,
     )
   })
+
+  it('多段 nonTherapySlots 還原為 subsidizedRehabNonTherapyIntervals（依開始時間排序）', () => {
+    const b = {
+      ...minimalSchedulingPolicyBundle,
+      nonTherapySlots: [
+        { slotKind: 'LUNCH', timeStart: '12:00', timeEnd: '13:00' },
+        { slotKind: 'MORNING_DOC', timeStart: '10:00', timeEnd: '10:30' },
+        { slotKind: 'SHIFT_PREP_BLOCK', timeStart: '07:00', timeEnd: '07:30' },
+      ],
+    }
+    const p = p1FieldsFromPolicyBundle(b)
+    expect(p.nonTherapyWindowStart).toBe('12:00')
+    expect(p.nonTherapyWindowEnd).toBe('13:00')
+    expect(p.shiftPrepBlockEnabled).toBe(true)
+    expect(p.subsidizedRehabNonTherapyIntervals?.map((x) => `${x.timeStart}-${x.timeEnd}`)).toEqual([
+      '07:00-07:30',
+      '10:00-10:30',
+      '12:00-13:00',
+    ])
+  })
 })

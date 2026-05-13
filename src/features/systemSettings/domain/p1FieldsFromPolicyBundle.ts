@@ -4,6 +4,7 @@ import { bundlePassOrderToDraft } from './policyPassOrderDraft'
 import { bundleTiersToDraft } from './policySubsidizedTierDraft'
 import { bundleRoleOfferingsToDraft } from './policySubsidizedRoleOfferingDraft'
 import { bundleDementiaCoreToDraft, bundleDementiaRoleOfferingsToDraft } from './policyDementiaDraft'
+import { intervalsFromPolicyNonTherapySlots } from './subsidizedRehabNonTherapyIntervals'
 import { DEFAULT_SYSTEM_SETTINGS } from '../repository/systemSettingsRepository'
 import type { SystemSettingsSnapshot } from '../types'
 
@@ -11,9 +12,11 @@ import type { SystemSettingsSnapshot } from '../types'
 export const p1FieldsFromPolicyBundle = (b: SchedulingPolicyBundle): Partial<SystemSettingsSnapshot> => {
   const lunch = b.nonTherapySlots.find((s) => s.slotKind === 'LUNCH')
   const prep = b.nonTherapySlots.some((s) => s.slotKind === 'SHIFT_PREP_BLOCK')
+  const subsidizedRehabNonTherapyIntervals = intervalsFromPolicyNonTherapySlots(b.nonTherapySlots ?? [])
   return {
     nonTherapyWindowStart: lunch?.timeStart ?? DEFAULT_SYSTEM_SETTINGS.nonTherapyWindowStart,
     nonTherapyWindowEnd: lunch?.timeEnd ?? DEFAULT_SYSTEM_SETTINGS.nonTherapyWindowEnd,
+    subsidizedRehabNonTherapyIntervals,
     shiftPrepBlockEnabled: prep,
     therapistGroupSessionsDailyCap: b.numericLimits.therapistGroupSessionsDailyCap,
     assistantGroupSessionsDailyCap: b.numericLimits.assistantGroupSessionsDailyCap,

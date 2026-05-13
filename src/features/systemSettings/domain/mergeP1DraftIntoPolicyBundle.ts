@@ -4,6 +4,7 @@ import { bundlePassOrderToDraft, draftPassOrderToBundle } from './policyPassOrde
 import { draftTiersToBundle } from './policySubsidizedTierDraft'
 import { draftRoleOfferingsToBundle } from './policySubsidizedRoleOfferingDraft'
 import { draftDementiaCoreToBundle, draftDementiaRoleOfferingsToBundle } from './policyDementiaDraft'
+import { PRESERVED_NON_THERAPY_SLOT_KINDS } from './subsidizedRehabNonTherapyIntervals'
 import type { SystemSettingsSnapshot } from '../types'
 import { shiftPrepSlotTimes } from './shiftPrepWindow'
 
@@ -77,13 +78,17 @@ export const mergeP1DraftIntoPolicyBundle = (
   base: SchedulingPolicyBundle | null,
   facilityId: string,
 ): SchedulingPolicyBundle => {
-  const slots: SchedulingPolicyBundle['nonTherapySlots'] = [
+  const slotsFromDraft: SchedulingPolicyBundle['nonTherapySlots'] = [
     { slotKind: 'LUNCH', timeStart: draft.nonTherapyWindowStart.trim(), timeEnd: draft.nonTherapyWindowEnd.trim() },
   ]
   if (draft.shiftPrepBlockEnabled) {
     const { timeStart, timeEnd } = shiftPrepSlotTimes(draft.schedulingWindowStart, draft.schedulingWindowEnd)
-    slots.push({ slotKind: 'SHIFT_PREP_BLOCK', timeStart, timeEnd })
+    slotsFromDraft.push({ slotKind: 'SHIFT_PREP_BLOCK', timeStart, timeEnd })
   }
+  const preservedSlots = (base?.nonTherapySlots ?? []).filter((row) =>
+    PRESERVED_NON_THERAPY_SLOT_KINDS.has(String(row.slotKind)),
+  )
+  const nonTherapySlots: SchedulingPolicyBundle['nonTherapySlots'] = [...slotsFromDraft, ...preservedSlots]
   const numericLimits = {
     therapistGroupSessionsDailyCap: draft.therapistGroupSessionsDailyCap,
     assistantGroupSessionsDailyCap: draft.assistantGroupSessionsDailyCap,
@@ -93,7 +98,7 @@ export const mergeP1DraftIntoPolicyBundle = (
     return {
       ...base,
       facilityId,
-      nonTherapySlots: slots,
+      nonTherapySlots,
       numericLimits,
       subsidizedPassOrder: mergedSubsidizedPassOrder(draft, base),
       fixedActivities: mergedFixedActivities(draft, base),
@@ -106,7 +111,7 @@ export const mergeP1DraftIntoPolicyBundle = (
   return {
     facilityId,
     policyVersion: null,
-    nonTherapySlots: slots,
+    nonTherapySlots,
     numericLimits,
     fixedActivities: mergedFixedActivities(draft, null),
     subsidizedTiers: mergedSubsidizedTiers(draft, null),

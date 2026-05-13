@@ -29,7 +29,13 @@ export const useSystemSettings = (actorId: string): UseSystemSettingsResult => {
     key: K,
     value: SystemSettingsSnapshot[K],
   ) => {
-    setDraft((prev) => ({ ...prev, [key]: value }))
+    setDraft((prev) => {
+      const next: SystemSettingsSnapshot = { ...prev, [key]: value }
+      if (key === 'nonTherapyWindowStart' || key === 'nonTherapyWindowEnd') {
+        delete (next as Record<string, unknown>).subsidizedRehabNonTherapyIntervals
+      }
+      return next
+    })
     setSavedMessage(null)
   }, [])
 

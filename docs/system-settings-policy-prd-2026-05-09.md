@@ -102,3 +102,4 @@
 | 2026-05-09 | 開首 **既有對照骨架**／**Demo E2E** 併 **`docs/seq29-system-settings-pdf02-traceability-revision-log.md`**。 |
 | 2026-05-12 | 開首互鏈補 **Demo E2E**（**`test:e2e:system-settings-policy`**／**seq29** §4）。 |
 | 2026-05-09 | §7：補 **路徑 B** 已落地之 **`scheduling-rules-get`**／**`groupCapacityLimit`** 合併敘述；互鏈 Edge 契約、**ADR-0001**、Seq 29 主表。 |
+| 2026-05-09 | **資助復康多段非治療**：**`facility_policy_non_therapy_slots`** 全列還原至 **`subsidizedRehabNonTherapyIntervals`** 並驅動 **`filterSchedulingSessionsForSubsidizedEngine`**；**`mergeP1DraftIntoPolicyBundle`** 提交保留 **MORNING_DOC**／**AFTERNOON_DOC**／**OTHER**；互鏈 **Seq 29** 主表／**`seq29`** §3／主修訂日誌。 |

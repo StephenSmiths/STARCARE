@@ -71,4 +71,22 @@ describe('schedulingSessionWindowFilterService（PDF 02【16】Seq 29）', () =>
     const out = filterSchedulingSessionsForSubsidizedEngine(sessions, baseSnap())
     expect(out).toHaveLength(0)
   })
+
+  it('subsidizedRehabNonTherapyIntervals 多段時，資助復康於任一段內皆剔除', () => {
+    const snap: SystemSettingsSnapshot = {
+      ...baseSnap(),
+      subsidizedRehabNonTherapyIntervals: [
+        { timeStart: '10:00', timeEnd: '10:30' },
+        { timeStart: '12:00', timeEnd: '14:00' },
+      ],
+    }
+    const sessions = [
+      rehab('a', '10:15'),
+      rehab('b', '13:00'),
+      rehab('c', '09:00'),
+      { ...rehab('d', '13:00'), id: 'd', serviceType: 'Dementia_Service' as const },
+    ]
+    const out = filterSchedulingSessionsForSubsidizedEngine(sessions, snap)
+    expect(out.map((s) => s.id).sort()).toEqual(['c', 'd'].sort())
+  })
 })

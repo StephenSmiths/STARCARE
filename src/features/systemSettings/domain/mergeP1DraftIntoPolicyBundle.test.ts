@@ -183,4 +183,27 @@ describe('mergeP1DraftIntoPolicyBundle', () => {
     expect(out.dementiaCore?.weeklyMinSessions).toBe(1)
     expect(out.dementiaCore?.enabled).toBe(false)
   })
+
+  it('合併 P1 時保留雲端 MORNING_DOC／AFTERNOON_DOC／OTHER 非治療列（午休由草稿覆寫）', () => {
+    const base = {
+      ...minimalSchedulingPolicyBundle,
+      nonTherapySlots: [
+        { slotKind: 'LUNCH', timeStart: '11:00', timeEnd: '12:00' },
+        { slotKind: 'MORNING_DOC', timeStart: '09:00', timeEnd: '09:30' },
+      ],
+    }
+    const draft = {
+      ...POLICY_SYNC_VALID_DRAFT,
+      nonTherapyWindowStart: '12:30',
+      nonTherapyWindowEnd: '13:30',
+    }
+    const out = mergeP1DraftIntoPolicyBundle(draft, base, 'facility-main')
+    const kinds = out.nonTherapySlots.map((s) => s.slotKind)
+    expect(kinds.filter((k) => k === 'LUNCH')).toHaveLength(1)
+    expect(out.nonTherapySlots.find((s) => s.slotKind === 'LUNCH')).toMatchObject({
+      timeStart: '12:30',
+      timeEnd: '13:30',
+    })
+    expect(out.nonTherapySlots.some((s) => s.slotKind === 'MORNING_DOC' && s.timeStart === '09:00')).toBe(true)
+  })
 })

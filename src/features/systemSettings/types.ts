@@ -7,6 +7,9 @@ import type {
   PolicySubsidizedTierRow,
 } from '../../repositories/schedulingPolicyTypes'
 
+/** P1：資助復康引擎排除之多段 HH:mm（與 `facility_policy_non_therapy_slots` 對齊） */
+export type SubsidizedRehabNonTherapyInterval = { timeStart: string; timeEnd: string }
+
 /**
  * PDF 02【16】Seq 29：系統設定快照（排班視窗、非治療時段、啟用開關與 SC 規則占位）。
  * 數值皆為字串 HH:mm，供 UI 與本地 JSON 序列化一致。
@@ -16,6 +19,11 @@ export interface SystemSettingsSnapshot {
   schedulingWindowEnd: string
   nonTherapyWindowStart: string
   nonTherapyWindowEnd: string
+  /**
+   * P1：資助復康 Pass 前過濾用「非治療排除」多段區間（通常來自 `scheduling-policy-current-get` 全列 slots）。
+   * 未設定時以 `nonTherapyWindowStart`／`nonTherapyWindowEnd` 單段相容舊本機資料。
+   */
+  subsidizedRehabNonTherapyIntervals?: SubsidizedRehabNonTherapyInterval[]
   /** P1：開工準備時段（SHIFT_PREP_BLOCK）是否寫入政策版本 */
   shiftPrepBlockEnabled: boolean
   /** P1：與 Edge `numericLimits` 對齊 */

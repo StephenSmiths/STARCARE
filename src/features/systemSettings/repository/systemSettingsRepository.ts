@@ -15,6 +15,7 @@ import {
   POLICY_SLOT_VARIANTS,
 } from '../../../repositories/schedulingPolicyTypes'
 import { DEFAULT_POLICY_DEMENTIA_CORE } from '../domain/policyDementiaDraft'
+import { parseSubsidizedRehabNonTherapyIntervals } from '../domain/subsidizedRehabNonTherapyIntervals'
 import type { SystemSettingsSnapshot } from '../types'
 
 const parsePolicyFixedActivities = (raw: unknown): PolicyFixedActivityRow[] => {
@@ -187,6 +188,9 @@ export const parseStoredSnapshot = (raw: string | null): SystemSettingsSnapshot 
     const policyDementiaCoreHydrated = g('policyDementiaCoreHydrated') === true
     const policyDementiaRoleOfferingsRaw = g('policyDementiaRoleOfferings')
     const policyDementiaRoleOfferingsHydrated = g('policyDementiaRoleOfferingsHydrated') === true
+    const subsidizedRehabNonTherapyIntervals = parseSubsidizedRehabNonTherapyIntervals(
+      g('subsidizedRehabNonTherapyIntervals'),
+    )
     if (
       typeof schedulingWindowStart !== 'string' ||
       typeof schedulingWindowEnd !== 'string' ||
@@ -224,6 +228,7 @@ export const parseStoredSnapshot = (raw: string | null): SystemSettingsSnapshot 
       policySubsidizedRoleOfferings,
       policyDementiaCore,
       policyDementiaRoleOfferings,
+      ...(subsidizedRehabNonTherapyIntervals ? { subsidizedRehabNonTherapyIntervals } : {}),
       ...(policyFixedActivitiesHydrated ? { policyFixedActivitiesHydrated: true as const } : {}),
       ...(policySubsidizedPassOrderHydrated ? { policySubsidizedPassOrderHydrated: true as const } : {}),
       ...(policySubsidizedTiersHydrated ? { policySubsidizedTiersHydrated: true as const } : {}),

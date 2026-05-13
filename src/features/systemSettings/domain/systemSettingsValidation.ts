@@ -42,6 +42,17 @@ export const validateSystemSettings = (input: SystemSettingsSnapshot): Validatio
   ) {
     errors.push('非治療開始須早於非治療結束')
   }
+  const intervals = input.subsidizedRehabNonTherapyIntervals
+  if (intervals && intervals.length > 0) {
+    intervals.forEach((row, i) => {
+      const idx = i + 1
+      if (!isValidHm(row.timeStart) || !isValidHm(row.timeEnd)) {
+        errors.push(`資助復康非治療排除第 ${idx} 段：須為 HH:mm（24 小時制）`)
+      } else if (!hmLessThan(row.timeStart, row.timeEnd)) {
+        errors.push(`資助復康非治療排除第 ${idx} 段：開始須早於結束`)
+      }
+    })
+  }
   const t = input.therapistGroupSessionsDailyCap
   const a = input.assistantGroupSessionsDailyCap
   const g = input.groupParticipantCap

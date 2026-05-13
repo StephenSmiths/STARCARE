@@ -11,6 +11,7 @@ import {
   loadSystemSettings,
   type SystemSettingsSnapshot,
 } from '../../systemSettings'
+import { resolveSubsidizedRehabNonTherapyIntervalsForFilter } from '../../systemSettings/domain/subsidizedRehabNonTherapyIntervals'
 
 /** PDF 01 §3：資助復康 Pass 引擎輸入僅保留 `Subsidized_Rehab`（與認知軌 `Dementia_Service` 永不混用） */
 export const filterToSubsidizedRehabServiceOnly = (sessions: SchedulingSession[]): SchedulingSession[] =>
@@ -38,16 +39,21 @@ export const filterSchedulingSessionsForSubsidizedEngine = (
 
   const ws = s.schedulingWindowStart.trim()
   const we = s.schedulingWindowEnd.trim()
-  const ns = s.nonTherapyWindowStart.trim()
-  const ne = s.nonTherapyWindowEnd.trim()
   if (!isValidHm(ws) || !isValidHm(we) || !hmLessThan(ws, we)) return [...sessions]
-  if (!isValidHm(ns) || !isValidHm(ne) || !hmLessThan(ns, ne)) return [...sessions]
+
+  const nonTherapyIntervals = resolveSubsidizedRehabNonTherapyIntervalsForFilter(s)
+  if (nonTherapyIntervals.length === 0) return [...sessions]
 
   return sessions.filter((row) => {
     const hm = parseSlotStartHm(row.timeSlot)
     if (!hm) return true
     if (!inHalfOpenHm(hm, ws, we)) return false
-    if (row.serviceType === 'Subsidized_Rehab' && inHalfOpenHm(hm, ns, ne)) return false
+    if (
+      row.serviceType === 'Subsidized_Rehab' &&
+      nonTherapyIntervals.some(({ timeStart, timeEnd }) => inHalfOpenHm(hm, timeStart, timeEnd))
+    ) {
+      return false
+    }
     return true
   })
 }
