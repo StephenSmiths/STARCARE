@@ -111,3 +111,4 @@
 | 2026-05-09 | **§5** 維護句：**`business-logic.md`** §0 **院舍政策** 段併 **`test:e2e:auth`** **P2** **`h3`** 前向。 |
 | 2026-05-09 | **主修訂日誌歸檔**：**`pdf-sequenced-gap-checklist-revision-log.md`** 同日 **Seq 29** 互鏈批量 **16** 列移出至 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-seq29-2026-05-09b.md`**（主檔 ≤200 行）；開首 **註**／blockquote 補 **`archive-seq29-2026-05-09b`** 入口。 |
 | 2026-05-09 | 開首 **全案收尾** blockquote 長鏈補 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-seq29-2026-05-09b.md`**；與 **`pdf-sequenced-gap-checklist-revision-log.md`** **歸檔副檔 seq29 互鏈全案（跨檔補鏈）** 列併讀。 |
+| 2026-05-09 | **PRD** §7／**ADR-0001**：補 **`scheduling-rules-get`** **路徑 B** **`groupCapacityLimit`** 合併實作進度與附註（與 **`scheduling-policy-edge-function-contract.md`**、主修訂日誌、**`seq29-system-settings-pdf02-traceability.md`** §3 並讀）。 |

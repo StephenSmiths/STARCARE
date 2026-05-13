@@ -82,6 +82,7 @@
 - **目標**：新政策表為 **權威**；過渡期可二選一：  
   - **A**：`scheduling-rules-get` 改為 **JOIN 現行 `facility_scheduling_policy_versions` ＋子表**，並對舊列做一次性遷移；或  
   - **B**：短期內 **新表優先**，缺欄時 fallback `scheduling_rules`（寫入 `docs/adr-*` 決策）。  
+- **實作進度（路徑 B）**：**`scheduling-rules-get`** 於 **`facility_scheduling_policy_versions`** 對「現在」有適用列時，以 **`facility_policy_numeric_limits.group_participant_cap`** 覆寫回應之 **`groupCapacityLimit`**（與 **`scheduling-policy-current-get`** **`numericLimits.groupParticipantCap`** 同源）；其餘扁平欄仍取自 **`scheduling_rules`**。細節見 **`docs/scheduling-policy-edge-function-contract.md`** 開首 **既有讀規則**、**`docs/adr-0001-scheduling-logic-placement.md`** 與 Seq 29 主表。
 
 ---
 
@@ -100,3 +101,4 @@
 | 2026-05-13 | 開首 **Demo E2E** 併列 **`test:e2e:smoke`**；互鏈 **UAT** **二之一** 與 **seq29** 第 4 節。 |
 | 2026-05-09 | 開首 **既有對照骨架**／**Demo E2E** 併 **`docs/seq29-system-settings-pdf02-traceability-revision-log.md`**。 |
 | 2026-05-12 | 開首互鏈補 **Demo E2E**（**`test:e2e:system-settings-policy`**／**seq29** §4）。 |
+| 2026-05-09 | §7：補 **路徑 B** 已落地之 **`scheduling-rules-get`**／**`groupCapacityLimit`** 合併敘述；互鏈 Edge 契約、**ADR-0001**、Seq 29 主表。 |
