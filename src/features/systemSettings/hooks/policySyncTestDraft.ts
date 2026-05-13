@@ -14,4 +14,5 @@ export const POLICY_SYNC_VALID_DRAFT: SystemSettingsSnapshot = {
   fixedActivitiesEnabled: false,
   serviceTypesEnabled: false,
   specialCareTherapistOnly: false,
+  policyFixedActivities: [],
 }

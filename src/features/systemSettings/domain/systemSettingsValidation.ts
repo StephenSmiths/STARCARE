@@ -44,5 +44,18 @@ export const validateSystemSettings = (input: SystemSettingsSnapshot): Validatio
   if (!Number.isFinite(t) || !Number.isInteger(t) || t < 0) errors.push('治療師小組每日上限須為非負整數')
   if (!Number.isFinite(a) || !Number.isInteger(a) || a < 0) errors.push('治療助理小組每日上限須為非負整數')
   if (!Number.isFinite(g) || !Number.isInteger(g) || g < 1) errors.push('小組人數上限須為至少 1 之整數')
+
+  const policySvc = new Set(['Subsidized_Rehab', 'Dementia_Care'])
+  const policyDel = new Set(['Individual', 'Group'])
+  input.policyFixedActivities.forEach((r, i) => {
+    const idx = i + 1
+    if (!policySvc.has(r.serviceType)) errors.push(`固定活動第 ${idx} 筆：服務類型須為 Subsidized_Rehab 或 Dementia_Care`)
+    if (!policyDel.has(r.deliveryMode)) errors.push(`固定活動第 ${idx} 筆：模式須為 Individual 或 Group`)
+    if (!isValidHm(r.timeStart) || !isValidHm(r.timeEnd)) errors.push(`固定活動第 ${idx} 筆：時段須為 HH:mm`)
+    if (isValidHm(r.timeStart) && isValidHm(r.timeEnd) && !hmLessThan(r.timeStart, r.timeEnd)) {
+      errors.push(`固定活動第 ${idx} 筆：開始須早於結束`)
+    }
+  })
+
   return { ok: errors.length === 0, errors }
 }

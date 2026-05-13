@@ -15,6 +15,7 @@ const base = (): SystemSettingsSnapshot => ({
   fixedActivitiesEnabled: true,
   serviceTypesEnabled: true,
   specialCareTherapistOnly: false,
+  policyFixedActivities: [],
 })
 
 describe('systemSettingsValidation', () => {
@@ -28,6 +29,28 @@ describe('systemSettingsValidation', () => {
   it('hmLessThan 可比較同日時段字串', () => {
     expect(hmLessThan('07:00', '22:00')).toBe(true)
     expect(hmLessThan('22:00', '07:00')).toBe(false)
+  })
+
+  it('validateSystemSettings：固定活動 serviceType 須合法', () => {
+    const bad = {
+      ...base(),
+      policyFixedActivities: [
+        {
+          serviceType: 'Invalid',
+          timeStart: '09:00',
+          timeEnd: '10:00',
+          deliveryMode: 'Group',
+          activityName: '',
+          rolePt: true,
+          rolePta: false,
+          roleOt: false,
+          roleOta: false,
+        },
+      ],
+    }
+    const r = validateSystemSettings(bad)
+    expect(r.ok).toBe(false)
+    expect(r.errors.some((e) => e.includes('固定活動'))).toBe(true)
   })
 
   it('validateSystemSettings：區間須開始早於結束', () => {

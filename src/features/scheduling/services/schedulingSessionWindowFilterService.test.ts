@@ -20,6 +20,7 @@ const baseSnap = (): SystemSettingsSnapshot => ({
   fixedActivitiesEnabled: true,
   serviceTypesEnabled: true,
   specialCareTherapistOnly: false,
+  policyFixedActivities: [],
 })
 
 const rehab = (id: string, timeSlot: string): SchedulingSession => ({

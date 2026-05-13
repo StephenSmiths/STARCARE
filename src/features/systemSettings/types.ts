@@ -1,3 +1,5 @@
+import type { PolicyFixedActivityRow } from '../../repositories/schedulingPolicyTypes'
+
 /**
  * PDF 02【16】Seq 29：系統設定快照（排班視窗、非治療時段、啟用開關與 SC 規則占位）。
  * 數值皆為字串 HH:mm，供 UI 與本地 JSON 序列化一致。
@@ -18,4 +20,8 @@ export interface SystemSettingsSnapshot {
   serviceTypesEnabled: boolean
   /** SpecialCare：是否僅允許治療師（占位，待與排班引擎對齊） */
   specialCareTherapistOnly: boolean
+  /** P2：雲端政策 `facility_policy_fixed_activities` 多筆草稿（與 Edge bundle 對齊） */
+  policyFixedActivities: PolicyFixedActivityRow[]
+  /** 曾自 `scheduling-policy-current-get` 併入固定活動列後為 true；舊本機資料未帶此鍵時，提交合併仍以雲端既有列為準 */
+  policyFixedActivitiesHydrated?: boolean
 }

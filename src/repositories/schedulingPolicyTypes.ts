@@ -1,5 +1,18 @@
 /** 與 Edge `scheduling-policy-*` 回應對齊之最小型別（前端 P1 合併用） */
 
+/** PDF 02【16】／`facility_policy_fixed_activities`（P2 固定活動多筆） */
+export type PolicyFixedActivityRow = {
+  serviceType: string
+  timeStart: string
+  timeEnd: string
+  deliveryMode: string
+  activityName: string
+  rolePt: boolean
+  rolePta: boolean
+  roleOt: boolean
+  roleOta: boolean
+}
+
 export type SchedulingPolicyVersionSummary = {
   id: string
   effectiveFrom: string
@@ -18,7 +31,7 @@ export type SchedulingPolicyBundle = {
     assistantGroupSessionsDailyCap: number
     groupParticipantCap: number
   }
-  fixedActivities: unknown[]
+  fixedActivities: PolicyFixedActivityRow[]
   subsidizedTiers: unknown[]
   subsidizedRoleOfferings: unknown[]
   subsidizedPassOrder: Array<{ sortOrder: number; fundingTier: string }>

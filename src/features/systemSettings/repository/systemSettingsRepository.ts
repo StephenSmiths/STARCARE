@@ -1,6 +1,32 @@
 import { SYSTEM_SETTINGS_STORAGE_KEY } from '../localStorageKeys'
 import { bumpSystemSettingsExternalVersion } from '../systemSettingsExternalStore'
+import type { PolicyFixedActivityRow } from '../../../repositories/schedulingPolicyTypes'
 import type { SystemSettingsSnapshot } from '../types'
+
+const parsePolicyFixedActivities = (raw: unknown): PolicyFixedActivityRow[] => {
+  if (!Array.isArray(raw)) return []
+  const out: PolicyFixedActivityRow[] = []
+  for (const x of raw) {
+    if (!isRecord(x)) continue
+    const serviceType = String(x.serviceType ?? x.service_type ?? '')
+    const deliveryMode = String(x.deliveryMode ?? x.delivery_mode ?? '')
+    const timeStart = String(x.timeStart ?? x.time_start ?? '')
+    const timeEnd = String(x.timeEnd ?? x.time_end ?? '')
+    if (!serviceType || !deliveryMode || !timeStart || !timeEnd) continue
+    out.push({
+      serviceType,
+      timeStart,
+      timeEnd,
+      deliveryMode,
+      activityName: String(x.activityName ?? x.activity_name ?? ''),
+      rolePt: Boolean(x.rolePt ?? x.role_pt),
+      rolePta: Boolean(x.rolePta ?? x.role_pta),
+      roleOt: Boolean(x.roleOt ?? x.role_ot),
+      roleOta: Boolean(x.roleOta ?? x.role_ota),
+    })
+  }
+  return out
+}
 
 export const DEFAULT_SYSTEM_SETTINGS: SystemSettingsSnapshot = {
   schedulingWindowStart: '07:00',
@@ -15,6 +41,7 @@ export const DEFAULT_SYSTEM_SETTINGS: SystemSettingsSnapshot = {
   fixedActivitiesEnabled: true,
   serviceTypesEnabled: true,
   specialCareTherapistOnly: false,
+  policyFixedActivities: [],
 }
 
 const isRecord = (v: unknown): v is Record<string, unknown> =>
@@ -45,6 +72,8 @@ export const parseStoredSnapshot = (raw: string | null): SystemSettingsSnapshot 
     const fixedActivitiesEnabled = g('fixedActivitiesEnabled')
     const serviceTypesEnabled = g('serviceTypesEnabled')
     const specialCareTherapistOnly = g('specialCareTherapistOnly')
+    const policyFixedActivitiesRaw = g('policyFixedActivities')
+    const policyFixedActivitiesHydrated = g('policyFixedActivitiesHydrated') === true
     if (
       typeof schedulingWindowStart !== 'string' ||
       typeof schedulingWindowEnd !== 'string' ||
@@ -57,6 +86,7 @@ export const parseStoredSnapshot = (raw: string | null): SystemSettingsSnapshot 
     ) {
       return null
     }
+    const policyFixedActivities = parsePolicyFixedActivities(policyFixedActivitiesRaw)
     return {
       schedulingWindowStart,
       schedulingWindowEnd,
@@ -70,6 +100,8 @@ export const parseStoredSnapshot = (raw: string | null): SystemSettingsSnapshot 
       fixedActivitiesEnabled,
       serviceTypesEnabled,
       specialCareTherapistOnly,
+      policyFixedActivities,
+      ...(policyFixedActivitiesHydrated ? { policyFixedActivitiesHydrated: true as const } : {}),
     }
   } catch {
     return null

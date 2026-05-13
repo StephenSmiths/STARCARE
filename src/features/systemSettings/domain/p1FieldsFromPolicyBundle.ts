@@ -1,4 +1,5 @@
 import type { SchedulingPolicyBundle } from '../../../repositories/schedulingPolicyTypes'
+import { bundleFixedActivitiesToDraft } from './policyFixedActivityDraft'
 import { DEFAULT_SYSTEM_SETTINGS } from '../repository/systemSettingsRepository'
 import type { SystemSettingsSnapshot } from '../types'
 
@@ -13,5 +14,7 @@ export const p1FieldsFromPolicyBundle = (b: SchedulingPolicyBundle): Partial<Sys
     therapistGroupSessionsDailyCap: b.numericLimits.therapistGroupSessionsDailyCap,
     assistantGroupSessionsDailyCap: b.numericLimits.assistantGroupSessionsDailyCap,
     groupParticipantCap: b.numericLimits.groupParticipantCap,
+    policyFixedActivities: bundleFixedActivitiesToDraft(b.fixedActivities ?? []),
+    policyFixedActivitiesHydrated: true,
   }
 }

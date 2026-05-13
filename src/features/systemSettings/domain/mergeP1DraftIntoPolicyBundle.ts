@@ -1,4 +1,5 @@
 import type { SchedulingPolicyBundle } from '../../../repositories/schedulingPolicyTypes'
+import { draftFixedActivitiesToBundle } from './policyFixedActivityDraft'
 import type { SystemSettingsSnapshot } from '../types'
 import { shiftPrepSlotTimes } from './shiftPrepWindow'
 
@@ -13,7 +14,17 @@ const passOrderOrDefault = (base: SchedulingPolicyBundle | null): Array<{ sortOr
   return p && p.length === 3 ? p : DEFAULT_PASS
 }
 
-/** 以目前 bundle 為底，覆寫 P1（非治療時段、開工準備、數字上限），保留 P2 子表 */
+const mergedFixedActivities = (
+  draft: SystemSettingsSnapshot,
+  base: SchedulingPolicyBundle | null,
+): SchedulingPolicyBundle['fixedActivities'] => {
+  if (draft.policyFixedActivitiesHydrated === true || !base) {
+    return draftFixedActivitiesToBundle(draft.policyFixedActivities)
+  }
+  return base.fixedActivities ?? []
+}
+
+/** 以目前 bundle 為底，覆寫 P1（非治療時段、開工準備、數字上限）；P2 固定活動列見 `mergedFixedActivities` */
 export const mergeP1DraftIntoPolicyBundle = (
   draft: SystemSettingsSnapshot,
   base: SchedulingPolicyBundle | null,
@@ -38,6 +49,7 @@ export const mergeP1DraftIntoPolicyBundle = (
       nonTherapySlots: slots,
       numericLimits,
       subsidizedPassOrder: passOrderOrDefault(base),
+      fixedActivities: mergedFixedActivities(draft, base),
     }
   }
   return {
@@ -45,7 +57,7 @@ export const mergeP1DraftIntoPolicyBundle = (
     policyVersion: null,
     nonTherapySlots: slots,
     numericLimits,
-    fixedActivities: [],
+    fixedActivities: mergedFixedActivities(draft, null),
     subsidizedTiers: [],
     subsidizedRoleOfferings: [],
     subsidizedPassOrder: DEFAULT_PASS,

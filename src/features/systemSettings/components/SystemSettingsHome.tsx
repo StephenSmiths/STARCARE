@@ -5,6 +5,7 @@ import { useAuditTrailList } from '../../shared/hooks/useAuditTrailList'
 import { uiTokens } from '../../shared/ui/uiTokens'
 import { useSystemSettings } from '../hooks/useSystemSettings'
 import { useSystemSettingsPolicySync } from '../hooks/useSystemSettingsPolicySync'
+import { SystemSettingsFixedActivitiesCard } from './SystemSettingsFixedActivitiesCard'
 import { SystemSettingsNumericCapsCard } from './SystemSettingsNumericCapsCard'
 import { SystemSettingsPdf16Section } from './SystemSettingsPdf16Section'
 import { SystemSettingsCurrentPolicyVersionCard } from './SystemSettingsCurrentPolicyVersionCard'
@@ -43,6 +44,11 @@ export const SystemSettingsHome = () => {
               <SystemSettingsRulesTogglesCard draft={draft} setField={setField} />
             </div>
           </ListSectionPanel>
+          {policySync.edgeEnabled ? (
+            <ListSectionPanel title="固定活動（雲端政策 P2）" titleHeadingLevel={3} defaultExpanded={false}>
+              <SystemSettingsFixedActivitiesCard draft={draft} setField={setField} />
+            </ListSectionPanel>
+          ) : null}
         </SystemSettingsPdf16Section>
 
         <SystemSettingsPdf16Section

@@ -20,6 +20,7 @@ const { validDraft } = vi.hoisted(() => {
     fixedActivitiesEnabled: false,
     serviceTypesEnabled: false,
     specialCareTherapistOnly: false,
+    policyFixedActivities: [],
   }
   return { validDraft: d }
 })
