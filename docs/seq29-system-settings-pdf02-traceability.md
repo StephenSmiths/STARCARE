@@ -1,6 +1,7 @@
 # Seq 29：系統設定（PDF 02【16】）對照骨架
 
 > **對照**：母本 **`docs/pdf/02-STARCARE-智能院舍照護管理系統.pdf`** **【16】**；條文整理 **`docs/business-logic.md`**（排班視窗與 **Seq 15** 引擎）；序號總表 **`docs/pdf-sequenced-gap-checklist.md`** Seq **29**；P0 **`docs/pdf-alignment-p0-backlog.md`** Seq **29**。  
+> **修訂留痕**：日期列見 **`docs/seq29-system-settings-pdf02-traceability-revision-log.md`**（與本檔末節 **修訂紀錄** blockquote 併讀）。  
 > **上一序號**：**`docs/seq28-user-manual-pdf02-traceability.md`**（用戶手冊【15】）。  
 > **用途**：將 **排班視窗、非治療時段、規則／服務開關、SC 僅治療師、本機儲存、審計、跨模組重載** 與母本對表；標示 **院舍設定後端 API** 與 **PDF 逐欄簽核** 缺口。  
 > **UAT／Staging（P1）**：**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`**（含 **二之一** 無 Supabase 建置之 **Playwright** 指令對照與段末 **工程維護互鏈**）；**對客範本**：**`docs/system-settings-policy-customer-reply-2026-05-09.md`**。  

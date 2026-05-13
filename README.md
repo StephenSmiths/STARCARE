@@ -14,6 +14,7 @@
 | [docs/adr-0001-scheduling-logic-placement.md](docs/adr-0001-scheduling-logic-placement.md) | ADR：排班演算放置（前端 vs Edge／DB，Seq 36） |
 | [docs/residents-edge-function-contract.md](docs/residents-edge-function-contract.md) | 院友 Edge（CRUD／匯入）契約 |
 | [docs/scheduling-policy-edge-function-contract.md](docs/scheduling-policy-edge-function-contract.md) | Seq 29 院舍排班政策 Edge（`scheduling-policy-*`）契約；實作後併 `ops:deploy:all`；上線／本機煙霧互鏈 [go-live-checklist.md](docs/go-live-checklist.md) §5、[system-settings-policy-p1-uat-and-staging-2026-05-09.md](docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md) **二之一**（段末 **工程維護互鏈**） |
+| [docs/seq29-system-settings-pdf02-traceability.md](docs/seq29-system-settings-pdf02-traceability.md) | PDF 02【16】系統設定對照骨架（§1–§6）；歷史修訂列 [seq29-system-settings-pdf02-traceability-revision-log.md](docs/seq29-system-settings-pdf02-traceability-revision-log.md) |
 | [docs/assessment-completion-records-contract.md](docs/assessment-completion-records-contract.md) | 評估完成紀錄 Edge 契約與審計（Seq 22） |
 | [docs/client-delivery-remediation-plan.md](docs/client-delivery-remediation-plan.md) | 對客戶補強與分期交付說明 |
 | [docs/phase4-day4-delivery-index.md](docs/phase4-day4-delivery-index.md)、[docs/phase5-day1-delivery-index.md](docs/phase5-day1-delivery-index.md) | 分階交付索引；**`acceptance:*`** 與 **`npm run ci`** 對照（見 [docs/feature-list.md](docs/feature-list.md) §8）；同目錄 **`phase*`**／**`stage*`** 開首 **對照** 互鏈 [pdf-sequenced-gap-checklist.md](docs/pdf-sequenced-gap-checklist.md)「**運維與工程**」列 |
