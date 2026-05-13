@@ -5,6 +5,7 @@
 > **用途**：將 **排班視窗、非治療時段、規則／服務開關、SC 僅治療師、本機儲存、審計、跨模組重載** 與母本對表；標示 **院舍設定後端 API** 與 **PDF 逐欄簽核** 缺口。  
 > **UAT／Staging（P1）**：**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`**（含 **二之一** 無 Supabase 建置之 **Playwright** 指令對照）；**對客範本**：**`docs/system-settings-policy-customer-reply-2026-05-09.md`**。  
 > **Demo E2E（無 Supabase）**：**`npm run test:e2e:system-settings-policy`**（**`e2e/system-settings-policy-p1-demo.spec.ts`**）、**`npm run test:e2e:smoke`**（**`hash #system-settings`**）；與 **`README.md`** 常用指令並列。
+> **CI（Seq 29）**：**`.github/workflows/ci.yml`** 檔首專段併 **`npm run ci`** 內 **`e2e/smoke`**；變更時對照 **`docs/pdf03-cursorrules-alignment.md`** §3、本檔 **§5**。
 
 > **全案收尾與證據留痕**：**`README.md`**「專案收尾」（**`docs/business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**）；**`docs/project-completion-*.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log.md`** 及歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p2.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p3.md`**、**`docs/pdf-sequenced-gap-checklist-revision-log-archive-p4.md`**）；**`docs/project-completion-evidence-index-2026-05.md`**；**`docs/project-completion-kickoff-checklist-2026-05.md`**；Gate A 自動證據固定入口 **`docs/evidence/gate-a-latest.md`**（檔內 **Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:list`**／**`npm run gatea:evidence:refresh`**／**`npm run gatea:evidence:preflight:strict`**；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**（**`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段））；多數 **`gatea:evidence:*`** 終端 stdout 頁尾 **`scripts/gate-a-markdown-footer.mjs`**（**Export 契約**）。
 
@@ -174,3 +175,4 @@
 | 2026-05-09 | §4：**`e2e/smoke`** 於 **`#system-settings`** 補 **政策版本**／**審計** **`section[aria-labelledby]`**（與 **policy P1 demo E2E** 對齊）。 |
 | 2026-05-09 | **§5**：維護閉環增 **`.github/workflows/ci.yml`** 檔首 **Seq 29【16】** 專段；**`scheduling-policy-edge-function-contract.md`** §7 初版「四端點」修訂列括註（嗣後五支 Edge）。 |
 | 2026-05-09 | **`pdf03-cursorrules-alignment.md`** §3 **文件入口**／§4 **Seq 29** 維護與 **`feature-list.md`** §8 第 7 點：**`ci.yml`** **Seq 29【16】** 專段與 **UAT** **二之一**／本檔 §4 對齊敘述。 |
+| 2026-05-12 | 開首增 **CI（Seq 29）** 對照（**`ci.yml`**、**`npm run ci`**、**`pdf03`** §3、本檔 **§5**）；**`README.md`** 常用指令 **CI** 列互鏈 **pdf03**／本檔第 4 節。 |
