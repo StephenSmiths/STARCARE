@@ -21,6 +21,7 @@ const baseSnap = (): SystemSettingsSnapshot => ({
   serviceTypesEnabled: true,
   specialCareTherapistOnly: false,
   policyFixedActivities: [],
+  policySubsidizedPassOrder: [],
 })
 
 const rehab = (id: string, timeSlot: string): SchedulingSession => ({

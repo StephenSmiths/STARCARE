@@ -26,4 +26,19 @@ describe('p1FieldsFromPolicyBundle', () => {
     expect(p.policyFixedActivities).toHaveLength(1)
     expect(p.policyFixedActivities?.[0]?.activityName).toBe('早操')
   })
+
+  it('併入 Pass 次序並標記 hydrated（P2）', () => {
+    const b = {
+      ...minimalSchedulingPolicyBundle,
+      nonTherapySlots: [],
+      subsidizedPassOrder: [
+        { sortOrder: 1, fundingTier: 'Voucher' as const },
+        { sortOrder: 2, fundingTier: 'Private' as const },
+        { sortOrder: 3, fundingTier: 'GradeA_Subsidized' as const },
+      ],
+    }
+    const p = p1FieldsFromPolicyBundle(b)
+    expect(p.policySubsidizedPassOrderHydrated).toBe(true)
+    expect(p.policySubsidizedPassOrder?.map((x) => x.fundingTier)).toEqual(['Voucher', 'Private', 'GradeA_Subsidized'])
+  })
 })

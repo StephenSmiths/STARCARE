@@ -1,17 +1,21 @@
 import type { SchedulingPolicyBundle } from '../../../repositories/schedulingPolicyTypes'
 import { draftFixedActivitiesToBundle } from './policyFixedActivityDraft'
+import { bundlePassOrderToDraft, draftPassOrderToBundle } from './policyPassOrderDraft'
 import type { SystemSettingsSnapshot } from '../types'
 import { shiftPrepSlotTimes } from './shiftPrepWindow'
 
-const DEFAULT_PASS: Array<{ sortOrder: number; fundingTier: string }> = [
-  { sortOrder: 1, fundingTier: 'GradeA_Subsidized' },
-  { sortOrder: 2, fundingTier: 'Voucher' },
-  { sortOrder: 3, fundingTier: 'Private' },
-]
+/** 雲端 bundle 之 Pass 次序；不足或無效時回預設（與 `policyPassOrderDraft` 一致） */
+const passOrderFromBaseBundle = (base: SchedulingPolicyBundle | null): SchedulingPolicyBundle['subsidizedPassOrder'] =>
+  bundlePassOrderToDraft(base?.subsidizedPassOrder)
 
-const passOrderOrDefault = (base: SchedulingPolicyBundle | null): Array<{ sortOrder: number; fundingTier: string }> => {
-  const p = base?.subsidizedPassOrder
-  return p && p.length === 3 ? p : DEFAULT_PASS
+const mergedSubsidizedPassOrder = (
+  draft: SystemSettingsSnapshot,
+  base: SchedulingPolicyBundle | null,
+): SchedulingPolicyBundle['subsidizedPassOrder'] => {
+  if (draft.policySubsidizedPassOrderHydrated === true || !base) {
+    return draftPassOrderToBundle(draft.policySubsidizedPassOrder)
+  }
+  return passOrderFromBaseBundle(base)
 }
 
 const mergedFixedActivities = (
@@ -24,7 +28,7 @@ const mergedFixedActivities = (
   return base.fixedActivities ?? []
 }
 
-/** 以目前 bundle 為底，覆寫 P1（非治療時段、開工準備、數字上限）；P2 固定活動列見 `mergedFixedActivities` */
+/** 以目前 bundle 為底，覆寫 P1（非治療時段、開工準備、數字上限）；P2 固定活動見 `mergedFixedActivities`；P2 Pass 次序見 `mergedSubsidizedPassOrder` */
 export const mergeP1DraftIntoPolicyBundle = (
   draft: SystemSettingsSnapshot,
   base: SchedulingPolicyBundle | null,
@@ -48,7 +52,7 @@ export const mergeP1DraftIntoPolicyBundle = (
       facilityId,
       nonTherapySlots: slots,
       numericLimits,
-      subsidizedPassOrder: passOrderOrDefault(base),
+      subsidizedPassOrder: mergedSubsidizedPassOrder(draft, base),
       fixedActivities: mergedFixedActivities(draft, base),
     }
   }
@@ -60,7 +64,7 @@ export const mergeP1DraftIntoPolicyBundle = (
     fixedActivities: mergedFixedActivities(draft, null),
     subsidizedTiers: [],
     subsidizedRoleOfferings: [],
-    subsidizedPassOrder: DEFAULT_PASS,
+    subsidizedPassOrder: mergedSubsidizedPassOrder(draft, null),
     dementiaCore: null,
     dementiaRoleOfferings: [],
     legacySchedulingRules: null,

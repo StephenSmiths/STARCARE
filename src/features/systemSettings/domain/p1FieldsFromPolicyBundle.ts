@@ -1,5 +1,6 @@
 import type { SchedulingPolicyBundle } from '../../../repositories/schedulingPolicyTypes'
 import { bundleFixedActivitiesToDraft } from './policyFixedActivityDraft'
+import { bundlePassOrderToDraft } from './policyPassOrderDraft'
 import { DEFAULT_SYSTEM_SETTINGS } from '../repository/systemSettingsRepository'
 import type { SystemSettingsSnapshot } from '../types'
 
@@ -16,5 +17,7 @@ export const p1FieldsFromPolicyBundle = (b: SchedulingPolicyBundle): Partial<Sys
     groupParticipantCap: b.numericLimits.groupParticipantCap,
     policyFixedActivities: bundleFixedActivitiesToDraft(b.fixedActivities ?? []),
     policyFixedActivitiesHydrated: true,
+    policySubsidizedPassOrder: bundlePassOrderToDraft(b.subsidizedPassOrder),
+    policySubsidizedPassOrderHydrated: true,
   }
 }

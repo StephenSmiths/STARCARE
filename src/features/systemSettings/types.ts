@@ -1,4 +1,4 @@
-import type { PolicyFixedActivityRow } from '../../repositories/schedulingPolicyTypes'
+import type { PolicyFixedActivityRow, PolicySubsidizedPassOrderRow } from '../../repositories/schedulingPolicyTypes'
 
 /**
  * PDF 02【16】Seq 29：系統設定快照（排班視窗、非治療時段、啟用開關與 SC 規則占位）。
@@ -24,4 +24,8 @@ export interface SystemSettingsSnapshot {
   policyFixedActivities: PolicyFixedActivityRow[]
   /** 曾自 `scheduling-policy-current-get` 併入固定活動列後為 true；舊本機資料未帶此鍵時，提交合併仍以雲端既有列為準 */
   policyFixedActivitiesHydrated?: boolean
+  /** P2：雲端 `facility_policy_subsidized_pass_order`（Pass 1–3；與 Edge bundle 對齊） */
+  policySubsidizedPassOrder: PolicySubsidizedPassOrderRow[]
+  /** 曾自 `scheduling-policy-current-get` 併入 Pass 次序後為 true；未帶此鍵時合併仍以雲端／預設為準 */
+  policySubsidizedPassOrderHydrated?: boolean
 }

@@ -1,5 +1,15 @@
 /** 與 Edge `scheduling-policy-*` 回應對齊之最小型別（前端 P1 合併用） */
 
+/** 資助列（與 Edge `FUNDING_TIERS`、院友 `funding_type` 對齊） */
+export const POLICY_SUBSIDIZED_FUNDING_TIERS = ['GradeA_Subsidized', 'Voucher', 'Private'] as const
+export type PolicySubsidizedFundingTier = (typeof POLICY_SUBSIDIZED_FUNDING_TIERS)[number]
+
+/** PDF 02【16】／`facility_policy_subsidized_pass_order`（P2：Pass 1–3 次序） */
+export type PolicySubsidizedPassOrderRow = {
+  sortOrder: number
+  fundingTier: PolicySubsidizedFundingTier
+}
+
 /** PDF 02【16】／`facility_policy_fixed_activities`（P2 固定活動多筆） */
 export type PolicyFixedActivityRow = {
   serviceType: string
@@ -34,7 +44,7 @@ export type SchedulingPolicyBundle = {
   fixedActivities: PolicyFixedActivityRow[]
   subsidizedTiers: unknown[]
   subsidizedRoleOfferings: unknown[]
-  subsidizedPassOrder: Array<{ sortOrder: number; fundingTier: string }>
+  subsidizedPassOrder: PolicySubsidizedPassOrderRow[]
   dementiaCore: unknown | null
   dementiaRoleOfferings: unknown[]
   legacySchedulingRules: unknown | null

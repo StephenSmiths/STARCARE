@@ -1,4 +1,5 @@
 import type { SystemSettingsSnapshot } from '../types'
+import { isValidPolicySubsidizedPassOrder } from './policyPassOrderDraft'
 
 /** HH:mm，24 小時制 */
 const HM = /^([01]\d|2[0-3]):[0-5]\d$/
@@ -56,6 +57,14 @@ export const validateSystemSettings = (input: SystemSettingsSnapshot): Validatio
       errors.push(`固定活動第 ${idx} 筆：開始須早於結束`)
     }
   })
+
+  const passNeedsValidation =
+    input.policySubsidizedPassOrderHydrated === true || input.policySubsidizedPassOrder.length > 0
+  if (passNeedsValidation && !isValidPolicySubsidizedPassOrder(input.policySubsidizedPassOrder)) {
+    errors.push(
+      '資助復康 Pass 優先次序須為三筆：sortOrder 須為 1、2、3 各一，且 fundingTier 須為 GradeA_Subsidized、Voucher、Private 各出現一次（PDF 02【16】facility_policy_subsidized_pass_order）',
+    )
+  }
 
   return { ok: errors.length === 0, errors }
 }

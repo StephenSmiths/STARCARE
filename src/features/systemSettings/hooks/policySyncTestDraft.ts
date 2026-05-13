@@ -15,4 +15,5 @@ export const POLICY_SYNC_VALID_DRAFT: SystemSettingsSnapshot = {
   serviceTypesEnabled: false,
   specialCareTherapistOnly: false,
   policyFixedActivities: [],
+  policySubsidizedPassOrder: [],
 }
