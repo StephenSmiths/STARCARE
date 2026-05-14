@@ -55,7 +55,7 @@
 
 ## 5. 維護閉環
 
-- 變更 **`runSubsidizedRehabScheduling`** 契約、**`filterToDementiaServiceOnly`**、**`DEMENTIA_WEEKLY_TARGET`** 或 **`RehabTrackSection`** 欄位時：同步本檔、**`docs/seq15-scheduling-pdf02-traceability.md`**（排班域）、**`pdf-sequenced-gap-checklist.md`** Seq 21、**`pdf-sequenced-gap-checklist-revision-log.md`**（**`docs/pdf03-cursorrules-alignment.md`** §4）。
+- 變更 **`runSubsidizedRehabScheduling`** 契約、**`buildSubsidizedRehabTrackSnapshot`**／**`buildDementiaServiceTrackSnapshot`**（**`conflictSampleLines`**／**`REHAB_TRACK_CONFLICT_SAMPLE_LIMIT`**）、**`formatSchedulingConflictLine`**、**`filterToDementiaServiceOnly`**、**`DEMENTIA_WEEKLY_TARGET`** 或 **`RehabTrackSection`** 欄位時：同步本檔、**`docs/seq15-scheduling-pdf02-traceability.md`**（排班域）、**`pdf-sequenced-gap-checklist.md`** Seq 21、**`pdf-sequenced-gap-checklist-revision-log.md`**（**`docs/pdf03-cursorrules-alignment.md`** §4）。
 - **下一序號**：評估管理 **Seq 22**（02【9】）— **`docs/seq22-assessment-management-pdf02-traceability.md`**（互鏈本序號）。
 
 ---
@@ -65,3 +65,4 @@
 | 2026-05-04 | 初版：Seq 21 **對照骨架**；與 Seq 20 互鏈。 |
 | 2026-05-04 | §5：與 **`seq22-assessment-management-pdf02-traceability.md`** 互鏈。 |
 | 2026-05-09 | §1／§2：`RehabTrackSection` 衝突節錄、**`conflictSampleLines`**／**`REHAB_TRACK_CONFLICT_SAMPLE_LIMIT`** 對照。 |
+| 2026-05-09 | §5：維護閉環補快照建構子與衝突標籤格式化錨點。 |
