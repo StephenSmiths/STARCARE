@@ -56,7 +56,7 @@
 2. 執行 `npm run gatea:evidence:http`（若有 `GATEA_STAFF_ACCESS_TOKEN` 可自動產生 403 文字證據）。  
    - 取 token 方式見：`docs/gate-a-evidence-capture-2026-05-06.md` §0.1  
 3. 在排班頁做一次「一鍵儲存排班結果」，截圖成功提示。  
-4. 將截圖依 `docs/gate-a-manual-evidence-checklist-2026-05-06.md` 檔名存到 `docs/evidence/`；自動引用區會由 `gatea:evidence:all` 或 `gatea:evidence:refresh` 更新。另跑 `npm run gatea:evidence:doctor` 確認是否齊備。
+4. 將截圖依 **`docs/gate-a-manual-evidence-checklist-2026-05-06.md`** 檔名存到 **`docs/evidence/`**；自動引用區會由 **`gatea:evidence:all`** 或 **`gatea:evidence:refresh`** 更新（**HTTP 嚴格** 與 **`gate-a-latest`** 一致時用 **`npm run gatea:evidence:refresh:strict-http`** 或 **`GATEA_STRICT_HTTP=1`**，見該勾選表開首）。另跑 **`npm run gatea:evidence:doctor`** 確認是否齊備。
 
 > 完成以上 4 件後，即可由文件面進行 Gate A 判定收斂。
 
