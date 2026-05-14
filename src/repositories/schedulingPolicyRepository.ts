@@ -48,21 +48,29 @@ export class EdgeSchedulingPolicyRepository implements SchedulingPolicyRepositor
     this.anonKey = config.anonKey
   }
 
+  /** 與排班域其他 Edge Repository 一致：`fetch`／`response.json()` 連線或解析失敗包裝；「請先登入」原樣上拋。 */
+  private throwIfNetworkFailure(error: unknown): never {
+    if (error instanceof Error && error.message === '請先登入') {
+      throw error
+    }
+    throw new Error('無法連線至後端，請檢查網路或 Supabase 設定。', { cause: error })
+  }
+
   async getCurrentBundle(facilityId: string = STARCARE_DEFAULT_FACILITY_ID): Promise<SchedulingPolicyBundle | null> {
     let response: Response
-    // 與排班域其他 Edge Repository 一致：連線失敗包裝；「請先登入」原樣上拋。
     try {
       const headers = await buildEdgeInvokeHeaders(this.anonKey)
       const url = `${this.supabaseUrl}/functions/v1/scheduling-policy-current-get?facilityId=${encodeURIComponent(facilityId)}`
       response = await fetch(url, { headers })
     } catch (error) {
-      if (error instanceof Error && error.message === '請先登入') {
-        throw error
-      }
-      throw new Error('無法連線至後端，請檢查網路或 Supabase 設定。', { cause: error })
+      this.throwIfNetworkFailure(error)
     }
     if (!response.ok) throw new Error(`載入院舍政策失敗（HTTP ${response.status}）`)
-    return (await response.json()) as SchedulingPolicyBundle
+    try {
+      return (await response.json()) as SchedulingPolicyBundle
+    } catch (error) {
+      this.throwIfNetworkFailure(error)
+    }
   }
 
   async listPolicyVersionSummaries(
@@ -79,14 +87,15 @@ export class EdgeSchedulingPolicyRepository implements SchedulingPolicyRepositor
       const url = `${this.supabaseUrl}/functions/v1/scheduling-policy-versions-list?${q.toString()}`
       response = await fetch(url, { headers })
     } catch (error) {
-      if (error instanceof Error && error.message === '請先登入') {
-        throw error
-      }
-      throw new Error('無法連線至後端，請檢查網路或 Supabase 設定。', { cause: error })
+      this.throwIfNetworkFailure(error)
     }
     if (!response.ok) throw new Error(`載入政策版本列表失敗（HTTP ${response.status}）`)
-    const data = (await response.json()) as { versions?: SchedulingPolicyVersionSummary[] }
-    return Array.isArray(data.versions) ? data.versions : []
+    try {
+      const data = (await response.json()) as { versions?: SchedulingPolicyVersionSummary[] }
+      return Array.isArray(data.versions) ? data.versions : []
+    } catch (error) {
+      this.throwIfNetworkFailure(error)
+    }
   }
 
   async validateBundle(body: Record<string, unknown>): Promise<PolicyValidateResponse> {
@@ -99,13 +108,14 @@ export class EdgeSchedulingPolicyRepository implements SchedulingPolicyRepositor
         body: JSON.stringify(body),
       })
     } catch (error) {
-      if (error instanceof Error && error.message === '請先登入') {
-        throw error
-      }
-      throw new Error('無法連線至後端，請檢查網路或 Supabase 設定。', { cause: error })
+      this.throwIfNetworkFailure(error)
     }
     if (!response.ok) throw new Error(`驗證政策失敗（HTTP ${response.status}）`)
-    return (await response.json()) as PolicyValidateResponse
+    try {
+      return (await response.json()) as PolicyValidateResponse
+    } catch (error) {
+      this.throwIfNetworkFailure(error)
+    }
   }
 
   async commitBundle(body: Record<string, unknown>, idempotencyKey: string): Promise<PolicyCommitResponse> {
@@ -126,10 +136,7 @@ export class EdgeSchedulingPolicyRepository implements SchedulingPolicyRepositor
         error?: string
       }
     } catch (error) {
-      if (error instanceof Error && error.message === '請先登入') {
-        throw error
-      }
-      throw new Error('無法連線至後端，請檢查網路或 Supabase 設定。', { cause: error })
+      this.throwIfNetworkFailure(error)
     }
     if (response.status === 409) {
       return {
