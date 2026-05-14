@@ -51,6 +51,7 @@
 | 時段過濾 | **`schedulingSessionWindowFilterService`**（**`subsidizedRehabNonTherapyIntervals`** 多段聯集排除資助復康；無鍵時 **`nonTherapyWindow*`**）、**`buildEngineConstraintsFromRulesAndUi`**（**`scheduling/hooks/schedulingHookHelpers`**）；**資助復康乾跑**另見 **`schedulingWindowSnapshotService.resolveSchedulingWindowSnapshot`**（有 **`policyVersion`** 時合併雲端 P1） |
 | 扁平規則讀取與 P1 上限 | **`scheduling-rules-get`**：以 **`scheduling_rules`** 為基準列；現行政策版本存在時 **`groupCapacityLimit`** 以 P1 **`group_participant_cap`** 覆寫，**`enableSubsidizedRehab`**／**`enableDementiaCare`**／**`allowScTherapistOnly`** 與資助階／認知核心子表合併（與 **`scheduling-policy-current-get`** 子表語意一致；PRD §7 **B**）；**`therapistGroupSessionsDailyCap`**／**`assistantGroupSessionsDailyCap`** 取自 **`numericLimits`**（**`scheduling_rules`** 無對應欄）；**`dailySameServiceLimit`** 等其餘扁平欄仍取自 **`scheduling_rules`** |
 | SC 僅治療師 | 與 **`pickSession`**、時段 **`staffRoleType`** 對齊（主檔 Seq 29 敘述） |
+| P1 小組每日場次上限（資助復康引擎） | **`evalSessionCoreForPick`**（**`schedulingCoreSessionGates`**）：**`capacity > 1`** 之互異 **`Subsidized_Rehab`** 時段計；逾 **`therapistGroupSessionsDailyCap`**／**`assistantGroupSessionsDailyCap`**（職類分派）回 **`STAFF_GROUP_DAILY_CAP`**；**`mapRulesToConstraints`** 自 **`SchedulingRules`** 帶入 |
 
 ---
 

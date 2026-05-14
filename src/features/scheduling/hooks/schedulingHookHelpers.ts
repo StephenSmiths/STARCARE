@@ -13,6 +13,8 @@ export const mapRulesToConstraints = (rules: SchedulingRules | null): Scheduling
   minGapDaysSameService: rules?.minGapDaysSameService ?? 1,
   groupCapacityLimit: rules?.groupCapacityLimit ?? Number.POSITIVE_INFINITY,
   allowScTherapistOnly: rules?.allowScTherapistOnly ?? false,
+  therapistGroupSessionsDailyCap: rules?.therapistGroupSessionsDailyCap,
+  assistantGroupSessionsDailyCap: rules?.assistantGroupSessionsDailyCap,
 })
 
 /** 合併 DB 排班規則與本機系統設定（PDF 02【16】）；任一方要求「僅治療師」即啟用 */

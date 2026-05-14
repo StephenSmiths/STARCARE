@@ -117,3 +117,4 @@
 | 2026-05-09 | **`scheduling-rules-get`** 延伸：**`enableSubsidizedRehab`**／**`enableDementiaCare`**／**`allowScTherapistOnly`** 與子表合併；**`e2e/system-settings-policy-p1-demo.spec.ts`** 多段 **`checkbox`**；**§3** 扁平規則列、**§4** **E2E** 列；Edge 契約／主修訂日誌／主表 Seq 29 列。 |
 | 2026-05-09 | **`e2e/smoke.spec.ts`** **`#system-settings`**：與 **P1 demo** 對齊，**排班時間設定** 內 **資助復康非治療排除** 多段 **`checkbox`** 可見；**§4** **smoke** 列。 |
 | 2026-05-09 | **`scheduling-rules-get`**：**`therapistGroupSessionsDailyCap`**／**`assistantGroupSessionsDailyCap`**（**`numericLimits`**）；**`schedulingRulesRepository`** 型別；**§3** 扁平規則列。 |
+| 2026-05-09 | **引擎 P1 小組場次**：**`evalSessionCoreForPick`** **STAFF_GROUP_DAILY_CAP**、**`countStaffSubsidizedGroupSessionsOnDate`**、**`mapRulesToConstraints`**；**`schedulingCoreSessionGates.test`**；**§3** 表列。 |

@@ -52,6 +52,7 @@ export const executePass = (
       context.sessionUsage,
       context.staffSlotSet,
       constraints,
+      context.assignments,
     )
     if (!attempt.session) {
       context.conflicts.push({
@@ -87,6 +88,7 @@ const pickSession = (
   sessionUsage: Map<string, number>,
   staffSlotSet: Set<string>,
   constraints: SchedulingConstraints,
+  committedAssignments: SchedulingAssignment[],
 ): { session: SchedulingSession | null; conflictType: ConflictType; reason: string } => {
   let lastConflict: { conflictType: ConflictType; reason: string } = {
     conflictType: 'NO_ELIGIBLE_SESSION',
@@ -95,7 +97,15 @@ const pickSession = (
 
   const tryPick = (relaxInterval: boolean, recordCoreFailures: boolean): SchedulingSession | null => {
     for (const session of sessions) {
-      const core = evalSessionCoreForPick(resident, session, sessionUsage, staffSlotSet, constraints)
+      const core = evalSessionCoreForPick(
+        resident,
+        session,
+        sessionUsage,
+        staffSlotSet,
+        constraints,
+        committedAssignments,
+        sessions,
+      )
       if (core.tag === 'skip') continue
       if (core.tag === 'fail') {
         if (recordCoreFailures) {

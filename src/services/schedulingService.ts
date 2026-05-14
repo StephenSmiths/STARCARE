@@ -14,6 +14,7 @@ export type ConflictType =
   | 'STAFF_SLOT_DUPLICATED'
   | 'SKILL_MISMATCH'
   | 'NO_ELIGIBLE_SESSION'
+  | 'STAFF_GROUP_DAILY_CAP'
 
 export interface SchedulingResident {
   id: string
@@ -64,6 +65,10 @@ export interface SchedulingConstraints {
   groupCapacityLimit: number
   /** 與 `scheduling_rules.allow_sc_therapist_only`＋系統設定「SC 僅治療師」合併後傳入；true 時 SC 院友不可使用 PTA／OTA／TeamLead 時段（有職類主檔時） */
   allowScTherapistOnly?: boolean
+  /** PDF 02【16】P1：註冊治療師（PT／OT／TeamLead／未標）小組活動（capacity>1）每日互異場次上限；未設定則不限制 */
+  therapistGroupSessionsDailyCap?: number
+  /** PDF 02【16】P1：治療助理（PTA／OTA）同上 */
+  assistantGroupSessionsDailyCap?: number
 }
 
 export class SchedulingService {
