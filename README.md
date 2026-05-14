@@ -53,6 +53,7 @@
 | [pdf-sequenced-gap-checklist-revision-log-archive-p4.md](docs/pdf-sequenced-gap-checklist-revision-log-archive-p4.md) | 修訂日誌歸檔（p4：2026-05-01～05-03 前段；與主日誌並讀） |
 | [pdf-sequenced-gap-checklist-revision-log-archive-p5.md](docs/pdf-sequenced-gap-checklist-revision-log-archive-p5.md) | 修訂日誌歸檔（p5：2026-05-03 續列；與主日誌並讀） |
 | [pdf-sequenced-gap-checklist-revision-log-archive-seq29-2026-05-09b.md](docs/pdf-sequenced-gap-checklist-revision-log-archive-seq29-2026-05-09b.md) | 修訂日誌歸檔（Seq 29：2026-05-09 互鏈批量列；與主日誌並讀） |
+| [pdf-sequenced-gap-checklist-revision-log-archive-gate-a-stdout-2026-05-09.md](docs/pdf-sequenced-gap-checklist-revision-log-archive-gate-a-stdout-2026-05-09.md) | 修訂日誌歸檔（Gate A／stdout：2026-05-09 細列；與主日誌並讀） |
 
 ## 常用指令
 

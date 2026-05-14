@@ -1,6 +1,6 @@
 # `pdf-sequenced-gap-checklist` 修訂紀錄歸檔（Seq 29／2026-05-09 互鏈批量 b）
 
-> **對照**：主修訂日誌 **`docs/pdf-sequenced-gap-checklist-revision-log.md`**；**2026-05-01a**、**`archive-p2`**～**`archive-p5`** 見既有歸檔檔。本檔收錄自該主日誌 **2026-05-09** 同日移出之 **Seq 29** 互鏈批量列（原主日誌 **182–186**、**190–200** 行段），及 **2026-05-09** 為容納 **Seq 21** 主日誌列而自主日誌末尾續移出之 **Seq 29** **引擎**／**認知軌 P1** 兩列（與主日誌 **Seq 21** 列括註互鏈），以符合主日誌單檔 **≤200** 行；細目仍以 **`docs/seq29-system-settings-pdf02-traceability-revision-log.md`** 為 **Seq 29** 修訂權威補述。表末續列 **政策 Repository** **Edge** **try／catch**／Vitest（主日誌 **註** 互鏈，**2026-05-09**）；表末次列補 **validate** **`fetch`** 拒絕／**commit** **請先登入** 單測擴充；第三列補 **`response.json()`** 解析包裝。
+> **對照**：主修訂日誌 **`docs/pdf-sequenced-gap-checklist-revision-log.md`**；**2026-05-01a**、**`archive-p2`**～**`archive-p5`** 見既有歸檔檔。本檔收錄自該主日誌 **2026-05-09** 同日移出之 **Seq 29** 互鏈批量列（原主日誌 **182–186**、**190–200** 行段），及 **2026-05-09** 為容納 **Seq 21** 主日誌列而自主日誌末尾續移出之 **Seq 29** **引擎**／**認知軌 P1** 兩列（與主日誌 **Seq 21** 列括註互鏈；**Seq 21** 列全文已另歸 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-gate-a-stdout-2026-05-09.md`**），以符合主日誌單檔 **≤200** 行；細目仍以 **`docs/seq29-system-settings-pdf02-traceability-revision-log.md`** 為 **Seq 29** 修訂權威補述。表末續列 **政策 Repository** **Edge** **try／catch**／Vitest（主日誌 **註** 互鏈，**2026-05-09**）；表末次列補 **validate** **`fetch`** 拒絕／**commit** **請先登入** 單測擴充；第三列補 **`response.json()`** 解析包裝。
 
 ---
 
