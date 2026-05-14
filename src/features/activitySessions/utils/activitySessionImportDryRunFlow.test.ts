@@ -138,4 +138,14 @@ describe('commitActivitySessionCsvPreview', () => {
       expect(r.summary).toMatchObject({ stage: 'commit', total: 1, success: 0, failed: 1 })
     }
   })
+
+  it('commitRows 拋出 Error 時 userMessage 為錯誤訊息', async () => {
+    vi.mocked(activitySessionImportService.commitRows).mockRejectedValue(new Error('RLS 阻擋'))
+    const r = await commitActivitySessionCsvPreview('actor-1', preview)
+    expect(r.kind).toBe('failure')
+    if (r.kind === 'failure') {
+      expect(r.userMessage).toBe('RLS 阻擋')
+      expect(r.summary).toMatchObject({ stage: 'commit', total: 1, success: 0, failed: 1 })
+    }
+  })
 })

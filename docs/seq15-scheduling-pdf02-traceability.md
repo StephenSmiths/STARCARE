@@ -56,7 +56,7 @@
 | `src/features/scheduling/utils/weeklyRosterStaffLookup.test.ts` | **`buildWeeklyRosterStaffProfileLookup`**（姓名＋Tab＋職位→**`staff_profiles.id`**；略過 **TeamLead**；歧義鍵） |
 | `src/features/scheduling/utils/weeklyRosterImportParseText.test.ts` | **`normalizeWeeklyRosterHm`**／**`parseWeeklyRosterSheetText`**／**`weeklyRosterDraftsToImportRows`**（週更表 CSV→草稿→**`ActivitySessionImportRow`**） |
 | `src/features/scheduling/utils/runWeeklyRosterActivityImportDryRun.test.ts` | **`runWeeklyRosterActivityImportDryRun`**（**`parse_errors`**（表頭／歧義／主檔對照）／**`empty_rows`**／**`throw`**、**`validated`** 委派 **`runActivitySessionRowsDryRun`**；**`importOriginal`** partial mock **`parseWeeklyRosterSheetText`**） |
-| `src/features/activitySessions/utils/activitySessionImportDryRunFlow.test.ts` | **`runActivitySessionRowsDryRun`**／**`runActivitySessionCsvDryRun`**／**`commitActivitySessionCsvPreview`**（週更表與活動 CSV 共用預檢／提交鏈） |
+| `src/features/activitySessions/utils/activitySessionImportDryRunFlow.test.ts` | **`runActivitySessionRowsDryRun`**／**`runActivitySessionCsvDryRun`**／**`commitActivitySessionCsvPreview`**（預檢鏈；提交失敗 **Error**／非 **Error** **`userMessage`**） |
 | `src/features/scheduling/utils/residentTableFundingPresentation.test.ts` | **`residentFundingLabel`**／**`residentFundingBadgeClass`**（院友表資助類別與 **`uiTokens`** 徽章樣式） |
 | `src/features/scheduling/utils/mapResidentToSchedulingResident.test.ts` | **`mapResidentToSchedulingResident`**（主檔→**`SchedulingResident`**；本週次數與指派日期歸零） |
 | `src/features/scheduling/utils/mapActiveResidentsToSubsidizedSchedulingResidents.test.ts` | **`mapActiveResidentsToSubsidizedSchedulingResidents`**（**PDF 01** 資助復康合規族群過濾；**`Both`**／純 **`Dementia_Service`**） |
@@ -189,3 +189,4 @@
 | 2026-05-09 | §4／§5：補 **`AppMainViews.test.tsx`**（主視圖 **scheduling**／**`view:scheduling`**、**`Suspense`**／**`lazy`**）。 |
 | 2026-05-09 | §4：擴 **`runWeeklyRosterActivityImportDryRun.test.ts`**（主檔歧義、**`weeklyRosterDraftsToImportRows`** 錯誤、**`validated`** 委派；**`importOriginal`** partial mock）。 |
 | 2026-05-09 | §4／§5：補 **`activitySessionImportDryRunFlow.test.ts`**（活動時段預檢／提交鏈；與週更預檢 **`runActivitySessionRowsDryRun`** 對齊）；§5 維護閉環補 **`activitySessionImportDryRunFlow.ts`**。 |
+| 2026-05-09 | §4：擴 **`activitySessionImportDryRunFlow.test.ts`**（**`commitActivitySessionCsvPreview`**：**`Error`** 時 **`userMessage`** 透傳）。 |
