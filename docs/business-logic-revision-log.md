@@ -85,3 +85,4 @@
 | 2026-05-09 | 本檔開首 **全案收尾與證據留痕** blockquote：於 **Export 契約** 後補 **`docs/gate-a-manual-evidence-checklist-2026-05-06.md`** 開首（strict-http／keep=1；**`go-live-checklist.md`** §0.1）；與 **`pdf-sequenced-gap-checklist-revision-log.md`** 同日「全案收尾 blockquote 批量」列併讀。 |
 | 2026-05-09 | §0「全案收尾執行」句 Gate A 段：stdout 維護句補 **`gateAStandardCloseoutBlockquotes`**（第二行併 **人工／strict-http／keep=1**）；與 **`go-live-checklist.md`** §0.1、**`gate-a-markdown-footer.mjs`** 註解、**`pdf-sequenced-gap-checklist-revision-log.md`** 同日列並讀。 |
 | 2026-05-09 | 本檔開首 **全案收尾與證據留痕** blockquote：stdout 句同上列 **`gateAStandardCloseoutBlockquotes`** 維護敘述；併讀 **`pdf-sequenced-gap-checklist-revision-log.md`**「**全案收尾長鏈（stdout 用語）**」列。 |
+| 2026-05-09 | **`README.md`** 開首短鏈、**`.github/workflows/ci.yml`** Gate A 註解：stdout 用語改 **`gateAStandardCloseoutBlockquotes`**（與 **`pdf-sequenced-gap-checklist-revision-log.md`** 同日列、**`README`**「Gate A 終端頁尾（維護）」並讀）。 |
