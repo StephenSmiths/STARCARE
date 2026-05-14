@@ -59,6 +59,10 @@
 | `src/features/scheduling/utils/mapResidentToSchedulingResident.test.ts` | **`mapResidentToSchedulingResident`**（主檔→**`SchedulingResident`**；本週次數與指派日期歸零） |
 | `src/features/scheduling/utils/mapActiveResidentsToSubsidizedSchedulingResidents.test.ts` | **`mapActiveResidentsToSubsidizedSchedulingResidents`**（**PDF 01** 資助復康合規族群過濾；**`Both`**／純 **`Dementia_Service`**） |
 | `src/features/scheduling/utils/buildSchedulingWorkspaceReturn.test.ts` | **`buildSchedulingWorkspaceReturn`**（**`canSave`**＝有指派且無衝突；儀表回傳組字） |
+| `src/features/scheduling/constants/weeklyRosterImportConstants.test.ts` | **`WEEKLY_ROSTER_REQUIRED_HEADERS`**／**`WEEKLY_ROSTER_SERVICE_TYPE_TO_ACTIVITY_ID`**／**`WEEKLY_ROSTER_DEFAULT_CAPACITY`**（週更表欄位與種子活動 id 契約） |
+| `src/features/scheduling/config/schedulingNavConfig.test.ts` | **`SCHEDULING_NAV_GROUPS`**（**`#scheduling`**／**`view:scheduling`**；側欄項目結構） |
+| `src/features/scheduling/services/schedulingDataLoadMessage.test.ts` | **`SCHEDULING_DATA_LOAD_ERROR_MESSAGE`**（載入失敗固定句） |
+| `src/features/scheduling/hooks/schedulingWorkspaceDefaults.test.ts` | **`SCHEDULING_WORKSPACE_FACILITY_ID`**（與 **`STARCARE_DEFAULT_FACILITY_ID`** 一致） |
 | `e2e/smoke.spec.ts`（`#scheduling`） | 模組與審計標題可見 |
 | `e2e/auth-login.spec.ts`（若含 `#scheduling`） | 登入後排班頁 |
 
@@ -67,6 +71,7 @@
 ## 5. 維護閉環
 
 - 變更 **`SchedulingWorkflowStepper`** 文案、**`buildSchedulingWorkflowUiModel`** 條件、**`useScheduling`** 儲存條件、**`buildWeeklyRosterStaffProfileLookup`**、**`parseWeeklyRosterSheetText`**／**`weeklyRosterDraftsToImportRows`**（**`weeklyRosterImportParseText.ts`**／**`weeklyRosterStaffLookup.ts`**）、**`mapActiveResidentsToSubsidizedSchedulingResidents.ts`**、**`residentTableFundingPresentation.ts`**、**`mapResidentToSchedulingResident.ts`**、**`buildSchedulingWorkspaceReturn.ts`** 或 **`buildEngineConstraintsFromRulesAndUi`**／**`mapRulesToConstraints`**（**`schedulingHookHelpers.ts`**）時：同步本檔、**`pdf-sequenced-gap-checklist.md`** Seq 15、**`pdf-sequenced-gap-checklist-revision-log.md`**（**`docs/pdf03-cursorrules-alignment.md`** §4）。
+- 變更 **`weeklyRosterImportConstants.ts`**（週更表欄位字面／活動主檔對照）、**`schedulingNavConfig.ts`**（側欄 **#scheduling** 與 **`view:scheduling`**）、**`schedulingDataLoadMessage.ts`**、**`schedulingWorkspaceDefaults.ts`** 時：同步本檔、**`pdf-sequenced-gap-checklist.md`** Seq 15、**`pdf-sequenced-gap-checklist-revision-log.md`**（**`docs/pdf03-cursorrules-alignment.md`** §4）。
 - **下一序號**：**Seq 16** **`docs/seq16-work-session-plans-pdf02-traceability.md`**（工作計劃【4】）→ **Seq 17** **`docs/seq17-service-forms-pdf02-traceability.md`**（填寫表單【5】）→ **Seq 18** **`docs/seq18-shift-start-handover-pdf02-traceability.md`**（開工接更【5b】）→ **Seq 19** **`docs/seq19-end-shift-handover-pdf02-traceability.md`**（收工交更【6】）→ **Seq 20** **`docs/seq20-work-analysis-review-pdf02-traceability.md`**（工作分析【7】）→ **Seq 21** **`docs/seq21-rehab-activity-tracking-pdf02-traceability.md`**（復康追蹤【8】）→ **Seq 22** **`docs/seq22-assessment-management-pdf02-traceability.md`**（評估管理【9】）→ **Seq 23** **`docs/seq23-historical-documents-pdf02-traceability.md`**（歷史文件【10】）→ **Seq 24** **`docs/seq24-ai-report-center-pdf02-traceability.md`**（AI 報告【11】）→ **Seq 25** **`docs/seq25-residents-management-pdf02-traceability.md`**（院友管理【12】）→ **Seq 26** **`docs/seq26-staff-management-pdf02-traceability.md`**（員工管理【13】）→ **Seq 27** **`docs/seq27-notification-center-pdf02-traceability.md`**（通知中心【14】）→ **Seq 28** **`docs/seq28-user-manual-pdf02-traceability.md`**（用戶手冊【15】）→ **Seq 29** **`docs/seq29-system-settings-pdf02-traceability.md`**（系統設定【16】）。
 
 ---
@@ -109,3 +114,4 @@
 | 2026-05-09 | §4／§6：擴 **`weeklyRosterImportParseText.test.ts`**（**`weeklyRosterDraftsToImportRows`** 與主檔 Map 合併）。 |
 | 2026-05-09 | §4／§5：補 **`residentTableFundingPresentation.test.ts`**、**`mapResidentToSchedulingResident.test.ts`**（院友表資助呈現與主檔→引擎映射）。 |
 | 2026-05-09 | §4：擴 **`mapActiveResidentsToSubsidizedSchedulingResidents.test.ts`**；補 **`buildSchedulingWorkspaceReturn.test.ts`**（**`canSave`** 與儀表回傳透傳）。 |
+| 2026-05-09 | §4／§5：補週更表常數、側欄導覽、載入錯句、工作區預設院舍之 Vitest（**`weeklyRosterImportConstants`**／**`schedulingNavConfig`**／**`schedulingDataLoadMessage`**／**`schedulingWorkspaceDefaults`**）。 |
