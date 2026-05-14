@@ -9,6 +9,7 @@
 
 | 日期 | 說明 |
 |------|------|
+| 2026-05-09 | §5：**`seq29-system-settings-pdf02-traceability.md`** 維護閉環補 **`pdf03-cursorrules-alignment.md`** §3 **validate／commit** 檢核列與三 **`schedulingPolicyRepository.*.test.ts`** 檔名（與上列 **pdf03** 修訂列併讀）。 |
 | 2026-05-09 | §4／§5：**`pdf03-cursorrules-alignment.md`** §3 PR 檢核／§4 **Seq 29** 維護：政策 **Vitest** 列補 **`schedulingPolicyRepository.listPolicyVersionSummaries.test.ts`**／**`schedulingPolicyRepository.edgeResponseJson.test.ts`**（與 **`seq29-system-settings-pdf02-traceability.md`** §4 並讀）。 |
 | 2026-05-09 | §4／§5：**`schedulingPolicyRepository.ts`** **`throwIfNetworkFailure`**；**getCurrent**／**list**／**validate**／**commit** **`response.json()`** 解析失敗併連線包裝（與上列 **pdf03** **Vitest** 列併讀）。 |
 | 2026-05-09 | §4／§5：**`schedulingPolicyRepository.ts`** **`EdgeSchedulingPolicyRepository`** 四方法 **`fetch`** **try／catch**（**請先登入** 原樣拋出；其餘統一連線訊息與 **`cause`**）；Vitest **`schedulingPolicyRepository.edgeReadWrite.test.ts`**／**`schedulingPolicyRepository.listPolicyVersionSummaries.test.ts`** **連線包裝**；**`seq15-scheduling-pdf02-traceability.md`** §4／§5；主修訂日誌 **註** 併 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-seq29-2026-05-09b.md`** 表末列。 |
