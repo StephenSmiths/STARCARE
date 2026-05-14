@@ -89,4 +89,32 @@ describe('schedulingSessionWindowFilterService（PDF 02【16】Seq 29）', () =>
     const out = filterSchedulingSessionsForSubsidizedEngine(sessions, snap)
     expect(out.map((s) => s.id).sort()).toEqual(['c', 'd'].sort())
   })
+
+  it('排班視窗起迄無效或倒序時不過濾', () => {
+    const sessions = [rehab('late', '23:00'), rehab('ok', '10:00')]
+    const snap: SystemSettingsSnapshot = { ...baseSnap(), schedulingWindowStart: '18:00', schedulingWindowEnd: '07:00' }
+    expect(filterSchedulingSessionsForSubsidizedEngine(sessions, snap)).toEqual(sessions)
+  })
+
+  it('排班視窗起點非合法 HH:mm 時不過濾', () => {
+    const sessions = [rehab('a', '23:00')]
+    const snap: SystemSettingsSnapshot = { ...baseSnap(), schedulingWindowStart: 'xx', schedulingWindowEnd: '22:00' }
+    expect(filterSchedulingSessionsForSubsidizedEngine(sessions, snap)).toEqual(sessions)
+  })
+
+  it('無有效非治療排除區間時不過濾', () => {
+    const sessions = [rehab('mid', '13:00')]
+    const snap: SystemSettingsSnapshot = {
+      ...baseSnap(),
+      nonTherapyWindowStart: 'xx',
+      nonTherapyWindowEnd: 'yy',
+    }
+    expect(filterSchedulingSessionsForSubsidizedEngine(sessions, snap)).toEqual(sessions)
+  })
+
+  it('timeSlot 起點無法解析為 HH:mm 時保留該列', () => {
+    const sessions = [rehab('odd', 'nope')]
+    const out = filterSchedulingSessionsForSubsidizedEngine(sessions, baseSnap())
+    expect(out.map((s) => s.id)).toEqual(['odd'])
+  })
 })
