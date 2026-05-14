@@ -8,7 +8,7 @@
 
 <a id="gate-a-appendix-inherit"></a>
 
-> **終端 stdout 頁尾**：`gatea:evidence:http` 末段附 **全案收尾**／**§5** 兩行 blockquote（`scripts/gate-a-http-evidence.mjs`）。`gatea:evidence:http:auth` 以 **`stdio: inherit`** 委派子程序，頁尾由子程序輸出、**不重複列印**（`scripts/gate-a-http-evidence-auth.mjs`）；字串權威與例外見 `scripts/gate-a-markdown-footer.mjs` 檔首 **Export 契約**。
+> **終端 stdout 頁尾**：`gatea:evidence:http` 末段附 **`gateAStandardCloseoutBlockquotes`** 兩行 blockquote（第二行併 **人工／strict-http／keep=1** 互鏈 **`docs/gate-a-manual-evidence-checklist-2026-05-06.md`** 開首與 **`docs/go-live-checklist.md`** §0.1；`scripts/gate-a-http-evidence.mjs`）。`gatea:evidence:http:auth` 以 **`stdio: inherit`** 委派子程序，頁尾由子程序輸出、**不重複列印**（`scripts/gate-a-http-evidence-auth.mjs`）；字串權威與例外見 `scripts/gate-a-markdown-footer.mjs` 檔首 **Export 契約**。
 
 ```bash
 npm run gatea:evidence:summary
@@ -70,7 +70,7 @@ npm run gatea:evidence:decision-ref
 npm run gatea:evidence:decision-ref -- --write
 ```
 
-判定稿快速指令（decision-mini：ref／snippet／HTTP 嚴格；末行全案收尾／§5 速查）：
+判定稿快速指令（decision-mini：ref／snippet／HTTP 嚴格；末第四行為 **`gateAAutoRefClosingHintLine()`** 之 **全案收尾與指令速查**（含 **人工／strict-http／keep=1**））：
 
 ```bash
 npm run gatea:evidence:decision-mini
@@ -82,7 +82,7 @@ npm run gatea:evidence:decision-mini
 npm run gatea:evidence:decision-sync
 ```
 
-> `decision-sync`（`gate-a-sync-decision-draft.mjs`）stdout 在 mini 區塊與 **`[updated]`**／**`[skip]`** 列之後附 **全案收尾**／**§5** 兩行 blockquote（與 **`docs-sync`** 末段同源字串）。
+> `decision-sync`（`gate-a-sync-decision-draft.mjs`）stdout 在 mini 區塊與 **`[updated]`**／**`[skip]`** 列之後附 **`gateAStandardCloseoutBlockquotes`** 兩行 blockquote（第二行併 **人工／strict-http／keep=1** 互鏈 **`docs/gate-a-manual-evidence-checklist-2026-05-06.md`** 開首與 **`docs/go-live-checklist.md`** §0.1；與 **`docs-sync`** 末段同源字串）。
 
 若已在 `.env` 設好 `GATEA_STAFF_EMAIL` / `GATEA_STAFF_PASSWORD`，可直接一鍵：
 
@@ -169,7 +169,7 @@ npm run gatea:evidence:doctor -- --write
 npm run gatea:evidence:latest
 ```
 
-> `latest`（`gate-a-update-latest-pointer.mjs`）stdout 在 **`[updated]`** 列之後附 **全案收尾**／**§5** 兩行 blockquote；寫入 **`gate-a-latest.md`** 之頁尾則為 **`gateALatestMarkdownFooterLines`** 之四行 blockquote（固定入口＋上列兩行＋**stdout 頁尾**一行，見 **`scripts/gate-a-markdown-footer.mjs`** **Export 契約**），與終端 stdout 略異。
+> `latest`（`gate-a-update-latest-pointer.mjs`）stdout 在 **`[updated]`** 列之後附 **`gateAStandardCloseoutBlockquotes`** 兩行 blockquote（第二行併 **人工／strict-http／keep=1** 互鏈 **`docs/gate-a-manual-evidence-checklist-2026-05-06.md`** 開首與 **`docs/go-live-checklist.md`** §0.1）；寫入 **`gate-a-latest.md`** 之頁尾則為 **`gateALatestMarkdownFooterLines`** 之四行 blockquote（固定入口＋上列兩行＋**stdout 頁尾**一行，見 **`scripts/gate-a-markdown-footer.mjs`** **Export 契約**），與終端 stdout 略異。
 
 僅同步證據索引／日誌／追蹤板／啟動清單（與 `gatea:evidence:all` 內同一批次；建議先跑一次 `doctor --write` 再執行）：
 
@@ -177,7 +177,7 @@ npm run gatea:evidence:latest
 npm run gatea:evidence:docs-sync
 ```
 
-> `docs-sync`（`gate-a-sync-all-markdown.mjs`）stdout 末段會附 **全案收尾**／**§5** 兩行 blockquote（與 **`gatea:evidence:summary`** 同源）；**`gatea:evidence:all`** 內嵌呼叫時傳 **`--suppress-closeout-footer`**，避免緊接在 **`summary`** 之後重複同一頁尾。
+> `docs-sync`（`gate-a-sync-all-markdown.mjs`）stdout 末段會附 **`gateAStandardCloseoutBlockquotes`** 兩行 blockquote（第二行併 **人工／strict-http／keep=1** 互鏈 **`docs/gate-a-manual-evidence-checklist-2026-05-06.md`** 開首與 **`docs/go-live-checklist.md`** §0.1；與 **`gatea:evidence:summary`** 同源）；**`gatea:evidence:all`** 內嵌呼叫時傳 **`--suppress-closeout-footer`**，避免緊接在 **`summary`** 之後重複同一頁尾。
 
 清理 `docs/evidence` 內舊的自動快照（預設 dry-run，實際刪除需 `--apply`）：
 

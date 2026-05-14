@@ -41,6 +41,7 @@
 | 2026-05-09 | **§4**：**`gate-a-markdown-footer.mjs`** **`gateAStandardCloseoutBlockquotes`**／**`gateAAutoRefClosingHintLine`** 併 **人工勾選表**；**`pdf03`** §4 **Gate A** 維護項括註與 **`pdf-sequenced-gap-checklist-revision-log.md`** 同日列。 |
 | 2026-05-09 | **人工表** 開首第二則 blockquote 與 **`gateAStandardCloseoutBlockquotes`** 第二行對齊；**`README`**「Gate A 終端頁尾」、**`.cursorrules`** §3 stdout 敘述同補。 |
 | 2026-05-09 | **`gate-a-evidence-fill-template`**／**`gate-a-evidence-capture`** 開首互鏈與 stdout 句同上列 **人工表** 對齊。 |
+| 2026-05-09 | **`commands-appendix`**：**inherit**／**`latest`**／**`docs-sync`**／**`decision-sync`** stdout 段與 **`decision-mini`** 括註對齊 **`gate-a-markdown-footer`**（**`gateAStandardCloseoutBlockquotes`**／**`gateAAutoRefClosingHintLine`**）；**`go-live`** §0.1、**`feature-list`** §8 第 25 點。 |
 | 2026-05-14 | 開首「全案收尾」長段後增一行：**Gate A 人工**／**`npm run gatea:evidence:refresh:strict-http`** 互鏈 **`docs/gate-a-manual-evidence-checklist-2026-05-06.md`** 開首與 **`docs/go-live-checklist.md`** §0.1。 |
 | 2026-05-09 | **主表**：**`pdf-sequenced-gap-checklist.md`** §C Seq **35**「與現況對照」列補 **`pdf03`** **§3**／**§4** 與 **`seq35`** **§1**／**§3**／**`seq29`** 敘述；**`pdf-sequenced-gap-checklist-revision-log.md`** **註** 併 **§C** 括註。 |
 | 2026-05-09 | §1：權威表 **`pdf03`** 列補 **§3** PR 檢核與 **§4** 維護閉環分述；**`seq29-system-settings-pdf02-traceability.md`** 開首 **CI** 句併 **本檔** §3。 |
