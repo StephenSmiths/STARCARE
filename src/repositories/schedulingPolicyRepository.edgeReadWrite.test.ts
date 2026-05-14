@@ -152,4 +152,32 @@ describe('EdgeSchedulingPolicyRepository（current／validate／commit）', () =
 
     expect(out).toEqual({ ok: false, error: '伺服器忙碌' })
   })
+
+  describe('連線包裝', () => {
+    it('getCurrentBundle：請先登入時不呼叫 fetch', async () => {
+      vi.mocked(buildEdgeInvokeHeaders).mockRejectedValueOnce(new Error('請先登入'))
+      const fetchFn = vi.fn()
+      vi.stubGlobal('fetch', fetchFn)
+      await expect(repo.getCurrentBundle('f')).rejects.toThrow('請先登入')
+      expect(fetchFn).not.toHaveBeenCalled()
+    })
+
+    it('getCurrentBundle：fetch 失敗包裝', async () => {
+      vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new TypeError('offline')))
+      await expect(repo.getCurrentBundle()).rejects.toThrow('無法連線至後端，請檢查網路或 Supabase 設定。')
+    })
+
+    it('validateBundle：請先登入時不呼叫 fetch', async () => {
+      vi.mocked(buildEdgeInvokeHeaders).mockRejectedValueOnce(new Error('請先登入'))
+      const fetchFn = vi.fn()
+      vi.stubGlobal('fetch', fetchFn)
+      await expect(repo.validateBundle({})).rejects.toThrow('請先登入')
+      expect(fetchFn).not.toHaveBeenCalled()
+    })
+
+    it('commitBundle：fetch 失敗包裝', async () => {
+      vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new TypeError('offline')))
+      await expect(repo.commitBundle({}, 'k')).rejects.toThrow('無法連線至後端，請檢查網路或 Supabase 設定。')
+    })
+  })
 })

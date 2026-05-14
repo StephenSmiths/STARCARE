@@ -49,9 +49,18 @@ export class EdgeSchedulingPolicyRepository implements SchedulingPolicyRepositor
   }
 
   async getCurrentBundle(facilityId: string = STARCARE_DEFAULT_FACILITY_ID): Promise<SchedulingPolicyBundle | null> {
-    const headers = await buildEdgeInvokeHeaders(this.anonKey)
-    const url = `${this.supabaseUrl}/functions/v1/scheduling-policy-current-get?facilityId=${encodeURIComponent(facilityId)}`
-    const response = await fetch(url, { headers })
+    let response: Response
+    // 與排班域其他 Edge Repository 一致：連線失敗包裝；「請先登入」原樣上拋。
+    try {
+      const headers = await buildEdgeInvokeHeaders(this.anonKey)
+      const url = `${this.supabaseUrl}/functions/v1/scheduling-policy-current-get?facilityId=${encodeURIComponent(facilityId)}`
+      response = await fetch(url, { headers })
+    } catch (error) {
+      if (error instanceof Error && error.message === '請先登入') {
+        throw error
+      }
+      throw new Error('無法連線至後端，請檢查網路或 Supabase 設定。', { cause: error })
+    }
     if (!response.ok) throw new Error(`載入院舍政策失敗（HTTP ${response.status}）`)
     return (await response.json()) as SchedulingPolicyBundle
   }
@@ -60,39 +69,67 @@ export class EdgeSchedulingPolicyRepository implements SchedulingPolicyRepositor
     facilityId: string = STARCARE_DEFAULT_FACILITY_ID,
     limit = 50,
   ): Promise<SchedulingPolicyVersionSummary[]> {
-    const headers = await buildEdgeInvokeHeaders(this.anonKey)
-    const q = new URLSearchParams({
-      facilityId,
-      limit: String(limit),
-    })
-    const url = `${this.supabaseUrl}/functions/v1/scheduling-policy-versions-list?${q.toString()}`
-    const response = await fetch(url, { headers })
+    let response: Response
+    try {
+      const headers = await buildEdgeInvokeHeaders(this.anonKey)
+      const q = new URLSearchParams({
+        facilityId,
+        limit: String(limit),
+      })
+      const url = `${this.supabaseUrl}/functions/v1/scheduling-policy-versions-list?${q.toString()}`
+      response = await fetch(url, { headers })
+    } catch (error) {
+      if (error instanceof Error && error.message === '請先登入') {
+        throw error
+      }
+      throw new Error('無法連線至後端，請檢查網路或 Supabase 設定。', { cause: error })
+    }
     if (!response.ok) throw new Error(`載入政策版本列表失敗（HTTP ${response.status}）`)
     const data = (await response.json()) as { versions?: SchedulingPolicyVersionSummary[] }
     return Array.isArray(data.versions) ? data.versions : []
   }
 
   async validateBundle(body: Record<string, unknown>): Promise<PolicyValidateResponse> {
-    const headers = await buildEdgeInvokeHeaders(this.anonKey)
-    const response = await fetch(`${this.supabaseUrl}/functions/v1/scheduling-policy-version-validate`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(body),
-    })
+    let response: Response
+    try {
+      const headers = await buildEdgeInvokeHeaders(this.anonKey)
+      response = await fetch(`${this.supabaseUrl}/functions/v1/scheduling-policy-version-validate`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(body),
+      })
+    } catch (error) {
+      if (error instanceof Error && error.message === '請先登入') {
+        throw error
+      }
+      throw new Error('無法連線至後端，請檢查網路或 Supabase 設定。', { cause: error })
+    }
     if (!response.ok) throw new Error(`驗證政策失敗（HTTP ${response.status}）`)
     return (await response.json()) as PolicyValidateResponse
   }
 
   async commitBundle(body: Record<string, unknown>, idempotencyKey: string): Promise<PolicyCommitResponse> {
-    const headers = await buildEdgeInvokeHeaders(this.anonKey, idempotencyKey)
-    const response = await fetch(`${this.supabaseUrl}/functions/v1/scheduling-policy-version-commit`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify(body),
-    })
-    const data = (await response.json()) as PolicyCommitResponse & {
+    let response: Response
+    let data: PolicyCommitResponse & {
       errors?: { code: string; message: string }[]
       error?: string
+    }
+    try {
+      const headers = await buildEdgeInvokeHeaders(this.anonKey, idempotencyKey)
+      response = await fetch(`${this.supabaseUrl}/functions/v1/scheduling-policy-version-commit`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(body),
+      })
+      data = (await response.json()) as PolicyCommitResponse & {
+        errors?: { code: string; message: string }[]
+        error?: string
+      }
+    } catch (error) {
+      if (error instanceof Error && error.message === '請先登入') {
+        throw error
+      }
+      throw new Error('無法連線至後端，請檢查網路或 Supabase 設定。', { cause: error })
     }
     if (response.status === 409) {
       return {

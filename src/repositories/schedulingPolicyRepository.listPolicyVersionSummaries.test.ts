@@ -1,7 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { STARCARE_DEFAULT_FACILITY_ID } from '../constants/starcareDefaultFacilityId'
 import { samplePolicyVersionSummary } from './schedulingPolicyRepository.fixtures'
-import { EdgeSchedulingPolicyRepository } from './schedulingPolicyRepository'
 
 vi.mock('./edgeFunctionHeaders', () => ({
   buildEdgeInvokeHeaders: vi.fn(async () => ({
@@ -10,6 +9,9 @@ vi.mock('./edgeFunctionHeaders', () => ({
     'Content-Type': 'application/json',
   })),
 }))
+
+import { buildEdgeInvokeHeaders } from './edgeFunctionHeaders'
+import { EdgeSchedulingPolicyRepository } from './schedulingPolicyRepository'
 
 describe('EdgeSchedulingPolicyRepository.listPolicyVersionSummaries', () => {
   const repo = new EdgeSchedulingPolicyRepository({
@@ -76,5 +78,18 @@ describe('EdgeSchedulingPolicyRepository.listPolicyVersionSummaries', () => {
       }),
     )
     await expect(repo.listPolicyVersionSummaries()).rejects.toThrow('404')
+  })
+
+  it('請先登入時不呼叫 fetch', async () => {
+    vi.mocked(buildEdgeInvokeHeaders).mockRejectedValueOnce(new Error('請先登入'))
+    const fetchFn = vi.fn()
+    vi.stubGlobal('fetch', fetchFn)
+    await expect(repo.listPolicyVersionSummaries()).rejects.toThrow('請先登入')
+    expect(fetchFn).not.toHaveBeenCalled()
+  })
+
+  it('fetch 失敗時包裝固定中文訊息', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new TypeError('offline')))
+    await expect(repo.listPolicyVersionSummaries()).rejects.toThrow('無法連線至後端，請檢查網路或 Supabase 設定。')
   })
 })
