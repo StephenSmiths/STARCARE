@@ -1,6 +1,6 @@
 # Gate A 收證指令與旗標速查（2026-05-06）
 
-> **對照**：主狀態板 **`docs/gate-a-status-2026-05-06.md`**；取證速跑 **`docs/gate-a-evidence-capture-2026-05-06.md`**；固定入口 **`docs/evidence/gate-a-latest.md`**（檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**，見下文 **`latest`** 段）；人工全流程與 **HTTP 嚴格取證**／**`--keep=1`**：**`docs/gate-a-manual-evidence-checklist-2026-05-06.md`** 開首（**`docs/go-live-checklist.md`** §0.1）。
+> **對照**：主狀態板 **`docs/gate-a-status-2026-05-06.md`**；取證速跑 **`docs/gate-a-evidence-capture-2026-05-06.md`**；固定入口 **`docs/evidence/gate-a-latest.md`**（檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**，見下文 **`latest`** 段）；人工全流程與 **HTTP 嚴格取證**／**`--keep=1`**：**`docs/gate-a-manual-evidence-checklist-2026-05-06.md`** 開首（**`docs/go-live-checklist.md`** §0.1）。序號主檔修訂日誌 **`docs/pdf-sequenced-gap-checklist-revision-log.md`** 之 **Gate A／stdout** 細列歸檔見 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-gate-a-stdout-2026-05-09.md`**（與主日誌 **Archive gate-a-stdout-2026-05-09** 列並讀）。
 
 ## 1) 每次收證後快速檢查
 
