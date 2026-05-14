@@ -39,4 +39,24 @@ describe('schedulingTargets', () => {
     expect(buildTopUpQueue([lowDeficit, highDeficit]).map((r) => r.id)).toEqual(['r-high', 'r-low'])
     expect(buildTopUpQueue([])).toEqual([])
   })
+
+  it('buildTopUpQueue 略過已達標者', () => {
+    const met: SchedulingResident = {
+      id: 'r-met',
+      name: '',
+      fundingType: 'Private',
+      isSpecialCareCase: false,
+      weeklyCompletedCount: 1,
+      assignedDates: [],
+    }
+    const unmet: SchedulingResident = {
+      id: 'r-unmet',
+      name: '',
+      fundingType: 'GradeA_Subsidized',
+      isSpecialCareCase: false,
+      weeklyCompletedCount: 1,
+      assignedDates: [],
+    }
+    expect(buildTopUpQueue([met, unmet]).map((r) => r.id)).toEqual(['r-unmet'])
+  })
 })
