@@ -104,6 +104,19 @@ describe('EdgeSchedulingKpiHistoryRepository.listHistory', () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false, status: 502 }))
     await expect(makeRepo().listHistory('f')).rejects.toThrow('無法讀取 KPI 歷史（HTTP 502）')
   })
+
+  it('請先登入時不呼叫 fetch', async () => {
+    vi.mocked(buildEdgeInvokeHeaders).mockRejectedValue(new Error('請先登入'))
+    const fetchFn = vi.fn()
+    vi.stubGlobal('fetch', fetchFn)
+    await expect(makeRepo().listHistory('f')).rejects.toThrow('請先登入')
+    expect(fetchFn).not.toHaveBeenCalled()
+  })
+
+  it('fetch 失敗時包裝固定中文訊息', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new TypeError('offline')))
+    await expect(makeRepo().listHistory('f')).rejects.toThrow('無法連線至後端，請檢查網路或 Supabase 設定。')
+  })
 })
 
 describe('EdgeSchedulingKpiHistoryRepository.appendRecord', () => {
@@ -123,6 +136,21 @@ describe('EdgeSchedulingKpiHistoryRepository.appendRecord', () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false, status: 400 }))
     await expect(makeRepo().appendRecord('fac', sampleRecord)).rejects.toThrow('無法儲存 KPI 歷史（HTTP 400）')
   })
+
+  it('請先登入時不呼叫 fetch', async () => {
+    vi.mocked(buildEdgeInvokeHeaders).mockRejectedValue(new Error('請先登入'))
+    const fetchFn = vi.fn()
+    vi.stubGlobal('fetch', fetchFn)
+    await expect(makeRepo().appendRecord('fac', sampleRecord)).rejects.toThrow('請先登入')
+    expect(fetchFn).not.toHaveBeenCalled()
+  })
+
+  it('fetch 失敗時包裝固定中文訊息', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new TypeError('offline')))
+    await expect(makeRepo().appendRecord('fac', sampleRecord)).rejects.toThrow(
+      '無法連線至後端，請檢查網路或 Supabase 設定。',
+    )
+  })
 })
 
 describe('EdgeSchedulingKpiHistoryRepository.clearHistory', () => {
@@ -141,5 +169,18 @@ describe('EdgeSchedulingKpiHistoryRepository.clearHistory', () => {
   it('HTTP 非 2xx 時拋錯', async () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false, status: 503 }))
     await expect(makeRepo().clearHistory('f')).rejects.toThrow('無法清除 KPI 歷史（HTTP 503）')
+  })
+
+  it('請先登入時不呼叫 fetch', async () => {
+    vi.mocked(buildEdgeInvokeHeaders).mockRejectedValue(new Error('請先登入'))
+    const fetchFn = vi.fn()
+    vi.stubGlobal('fetch', fetchFn)
+    await expect(makeRepo().clearHistory('f')).rejects.toThrow('請先登入')
+    expect(fetchFn).not.toHaveBeenCalled()
+  })
+
+  it('fetch 失敗時包裝固定中文訊息', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new TypeError('offline')))
+    await expect(makeRepo().clearHistory('f')).rejects.toThrow('無法連線至後端，請檢查網路或 Supabase 設定。')
   })
 })

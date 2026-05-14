@@ -65,7 +65,7 @@
 | `src/features/scheduling/hooks/schedulingHookHelpers.test.ts` | **`mapRulesToConstraints`**／**`buildEngineConstraintsFromRulesAndUi`**（DB **`SchedulingRules`** 與本機 **SC 僅治療師** OR；PDF 02【16】）；**`cloneResidents`**／**`cloneSessions`** |
 | `src/features/scheduling/hooks/schedulingKpiHistoryFilter.test.ts` | **`EMPTY_SCHEDULING_KPI_HISTORY_FILTER`**／**`toSchedulingKpiHistoryQuery`**（空字串→**`undefined`**、**`limit`**＝**`SCHEDULING_KPI_HISTORY_LIMIT`**） |
 | `src/repositories/schedulingKpiHistoryRepository.test.ts` | **`InMemorySchedulingKpiHistoryRepository`**（**`appendRecord`** 最多 **10** 筆、**`clearHistory`**、**`listHistory`** **from／to**、**`limit`** **1～50** 夾擠）；**`createSchedulingKpiHistoryRepository`**（**InMemory**／**Edge**） |
-| `src/repositories/schedulingKpiHistoryRepository.edge.test.ts` | **`EdgeSchedulingKpiHistoryRepository`** **`listHistory`**／**`appendRecord`**／**`clearHistory`**（**snake_case** 映射、**query**、**HTTP** 錯） |
+| `src/repositories/schedulingKpiHistoryRepository.edge.test.ts` | **`EdgeSchedulingKpiHistoryRepository`** **`listHistory`**／**`appendRecord`**／**`clearHistory`**（**snake_case** 映射、**query**、**HTTP** 錯、**請先登入**、連線包裝錯） |
 | `src/features/scheduling/utils/weeklyRosterStaffLookup.test.ts` | **`buildWeeklyRosterStaffProfileLookup`**（姓名＋Tab＋職位→**`staff_profiles.id`**；略過 **TeamLead**；歧義鍵） |
 | `src/features/scheduling/utils/weeklyRosterImportParseText.test.ts` | **`normalizeWeeklyRosterHm`**／**`parseWeeklyRosterSheetText`**／**`weeklyRosterDraftsToImportRows`**（週更表 CSV→草稿→**`ActivitySessionImportRow`**） |
 | `src/features/scheduling/utils/runWeeklyRosterActivityImportDryRun.test.ts` | **`runWeeklyRosterActivityImportDryRun`**（**`parse_errors`**（表頭／歧義／主檔對照）／**`empty_rows`**／**`throw`**、**`validated`** 委派 **`runActivitySessionRowsDryRun`**；**`importOriginal`** partial mock **`parseWeeklyRosterSheetText`**） |
@@ -231,3 +231,4 @@
 | 2026-05-09 | §4／§5：補 **`runSchedulingKpiHistoryRetryFlow.test.ts`** 錨點（**clear**＋待上傳併發順序）；§5 維護閉環補 **`runSchedulingKpiHistoryRetryFlow.ts`**。 |
 | 2026-05-09 | §4：擴 **`schedulingKpiHistoryRepository.test.ts`**（**`listHistory`** **limit** 夾擠）；§5 維護閉環補 **`schedulingKpiHistoryRepository.ts`**（KPI 趨勢本機／Edge）。 |
 | 2026-05-09 | §4：補 **`schedulingKpiHistoryRepository.edge.test.ts`**（**Edge** **list**／**upsert**／**clear**）；擴 **`schedulingKpiHistoryRepository.test.ts`**（**`createSchedulingKpiHistoryRepository`**）。 |
+| 2026-05-09 | §4：**`schedulingKpiHistoryRepository.edge.test.ts`** 擴（**請先登入**／連線包裝錯）；**`schedulingKpiHistoryRepository.ts`** Edge 三方法 **try／catch**（與 **`schedule-assignments-batch`** 訊息一致）。 |

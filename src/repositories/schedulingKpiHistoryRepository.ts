@@ -83,52 +83,77 @@ export class EdgeSchedulingKpiHistoryRepository implements SchedulingKpiHistoryR
   }
 
   async listHistory(facilityId: string, query?: SchedulingKpiHistoryQuery): Promise<SchedulingKpiRunRecord[]> {
-    const headers = await buildEdgeInvokeHeaders(this.anonKey)
-    const search = new URLSearchParams({
-      facility_id: facilityId,
-      limit: String(query?.limit ?? 10),
-    })
-    if (query?.from) search.set('from', query.from)
-    if (query?.to) search.set('to', query.to)
-    if (query?.actorId) search.set('actor_id', query.actorId)
-    const response = await fetch(
-      `${this.supabaseUrl}/functions/v1/scheduling-kpi-history-list?${search.toString()}`,
-      { headers },
-    )
+    let response: Response
+    // 與其他排班 Edge Repository 一致：連線失敗包裝；「請先登入」原樣上拋。
+    try {
+      const headers = await buildEdgeInvokeHeaders(this.anonKey)
+      const search = new URLSearchParams({
+        facility_id: facilityId,
+        limit: String(query?.limit ?? 10),
+      })
+      if (query?.from) search.set('from', query.from)
+      if (query?.to) search.set('to', query.to)
+      if (query?.actorId) search.set('actor_id', query.actorId)
+      response = await fetch(
+        `${this.supabaseUrl}/functions/v1/scheduling-kpi-history-list?${search.toString()}`,
+        { headers },
+      )
+    } catch (error) {
+      if (error instanceof Error && error.message === '請先登入') {
+        throw error
+      }
+      throw new Error('無法連線至後端，請檢查網路或 Supabase 設定。', { cause: error })
+    }
     if (!response.ok) throw new Error(`無法讀取 KPI 歷史（HTTP ${response.status}）`)
     const data = (await response.json()) as { rows?: EdgeListRow[] }
     return (data.rows ?? []).map(mapEdgeRow)
   }
 
   async appendRecord(facilityId: string, record: SchedulingKpiRunRecord): Promise<void> {
-    const headers = await buildEdgeInvokeHeaders(this.anonKey)
-    const response = await fetch(`${this.supabaseUrl}/functions/v1/scheduling-kpi-history-upsert`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        facilityId,
-        record: {
-          ranAt: record.ranAt,
-          coverageRate: record.kpis.coverageRate,
-          conflictRatePer100: record.kpis.conflictRatePer100,
-          averageAssignmentsPerResident: record.kpis.averageAssignmentsPerResident,
-          underTargetRate: record.kpis.underTargetRate,
-          residentCount: record.residentCount,
-          assignmentCount: record.assignmentCount,
-          conflictCount: record.conflictCount,
-        },
-      }),
-    })
+    let response: Response
+    try {
+      const headers = await buildEdgeInvokeHeaders(this.anonKey)
+      response = await fetch(`${this.supabaseUrl}/functions/v1/scheduling-kpi-history-upsert`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          facilityId,
+          record: {
+            ranAt: record.ranAt,
+            coverageRate: record.kpis.coverageRate,
+            conflictRatePer100: record.kpis.conflictRatePer100,
+            averageAssignmentsPerResident: record.kpis.averageAssignmentsPerResident,
+            underTargetRate: record.kpis.underTargetRate,
+            residentCount: record.residentCount,
+            assignmentCount: record.assignmentCount,
+            conflictCount: record.conflictCount,
+          },
+        }),
+      })
+    } catch (error) {
+      if (error instanceof Error && error.message === '請先登入') {
+        throw error
+      }
+      throw new Error('無法連線至後端，請檢查網路或 Supabase 設定。', { cause: error })
+    }
     if (!response.ok) throw new Error(`無法儲存 KPI 歷史（HTTP ${response.status}）`)
   }
 
   async clearHistory(facilityId: string): Promise<void> {
-    const headers = await buildEdgeInvokeHeaders(this.anonKey)
-    const response = await fetch(`${this.supabaseUrl}/functions/v1/scheduling-kpi-history-clear`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({ facilityId }),
-    })
+    let response: Response
+    try {
+      const headers = await buildEdgeInvokeHeaders(this.anonKey)
+      response = await fetch(`${this.supabaseUrl}/functions/v1/scheduling-kpi-history-clear`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ facilityId }),
+      })
+    } catch (error) {
+      if (error instanceof Error && error.message === '請先登入') {
+        throw error
+      }
+      throw new Error('無法連線至後端，請檢查網路或 Supabase 設定。', { cause: error })
+    }
     if (!response.ok) throw new Error(`無法清除 KPI 歷史（HTTP ${response.status}）`)
   }
 }
