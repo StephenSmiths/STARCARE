@@ -6,7 +6,7 @@
 > 證據固定入口（檔名隨取證變更）：`docs/evidence/gate-a-latest.md`（**Next Command** 與 **`npm run gatea:evidence:preflight:strict`** 並列；與 README／go-live 並讀；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段）；一鍵收證＋修剪＋同步：`npm run gatea:evidence:refresh`；指令總表：`npm run gatea:evidence:list`；指令／旗標細部見 **`docs/gate-a-status-2026-05-06.md`** **§5**／**`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`**。
 > 多數 `npm run gatea:evidence:*` 終端 stdout 末附 **全案收尾**／**§5** 兩行 blockquote；字串權威與 **`decision-mini`** 等例外見 **`scripts/gate-a-markdown-footer.mjs`** 檔首 **Export 契約**；**`http:auth`** **`inherit`** 頁尾見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-inherit`**。
 > SQL 一鍵查詢：`docs/sql/gate-a-evidence-queries-2026-05-06.sql`
-> 人工勾選表：`docs/gate-a-manual-evidence-checklist-2026-05-06.md`
+> 人工勾選表：`docs/gate-a-manual-evidence-checklist-2026-05-06.md`（開首：**HTTP 嚴格取證** 全流程、**`--keep=1`**、僅 prune 後須補跑 **`latest`／`docs-sync`／`decision-sync`** 並帶 **`--strict-http`**）。
 
 ## 0) 前置確認（已完成）
 
