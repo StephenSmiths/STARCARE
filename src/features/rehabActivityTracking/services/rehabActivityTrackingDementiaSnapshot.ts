@@ -12,7 +12,11 @@ import {
 } from '../../scheduling/services/schedulingSessionWindowFilterService'
 import type { SystemSettingsSnapshot } from '../../systemSettings/types'
 import { DEMENTIA_WEEKLY_TARGET, runDementiaTrackDryRun } from './dementiaTrackDryRunService'
-import type { RehabActivityTrackRow, RehabActivityTrackSnapshot } from './rehabActivityTrackingSnapshotTypes'
+import {
+  REHAB_TRACK_CONFLICT_SAMPLE_LIMIT,
+  type RehabActivityTrackRow,
+  type RehabActivityTrackSnapshot,
+} from './rehabActivityTrackingSnapshotTypes'
 
 const dementiaSeverityRank = (level: Resident['dementiaLevel']): number => {
   if (level === 'Severe') return 0
@@ -61,7 +65,7 @@ export const buildDementiaServiceTrackSnapshot = (
     dementiaLevel: levelById.get(r.id),
   }))
   const conflictSampleLines =
-    conflicts.length > 0 ? conflicts.slice(0, 10).map((c) => formatSchedulingConflictLine(c)) : undefined
+    conflicts.length > 0 ? conflicts.slice(0, REHAB_TRACK_CONFLICT_SAMPLE_LIMIT).map((c) => formatSchedulingConflictLine(c)) : undefined
   return {
     trackLabel: '認知障礙症服務',
     cohortCount: cohort.length,

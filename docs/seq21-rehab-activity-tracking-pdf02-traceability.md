@@ -13,7 +13,7 @@
 | 區塊 | 元件／Hook | 說明 |
 |------|------------|------|
 | 頁殼 | `RehabActivityTrackingHome` | 載入／錯誤／重試；說明為 **乾跑預覽**（未儲存排班、不寫 **`SCHEDULING_RUN`**）。 |
-| 軌道區 | `RehabTrackSection` ×2 | **資助復康**（`showDementiaColumn={false}`）、**認知障礙症服務**（`showDementiaColumn`）。 |
+| 軌道區 | `RehabTrackSection` ×2 | **資助復康**（`showDementiaColumn={false}`）、**認知障礙症服務**（`showDementiaColumn`）；有衝突時以 `<details>` 顯示 **`conflictSampleLines`** 節錄（與 **`REHAB_TRACK_CONFLICT_SAMPLE_LIMIT`** 一致之上限）。 |
 | 資料 | `useRehabActivityTracking` | `residentService.listActiveResidents`、`schedulingConfigService.listSchedulingSessions`／`getRules`；**`useInvalidateOnSystemSettingsExternalChange`**。 |
 | 審計 | `AuditTrailPanel` | 全域排班／匯出等；本頁乾跑不寫 **`SCHEDULING_RUN`**（見面板 **help**）。 |
 
@@ -28,7 +28,7 @@
 | `buildSubsidizedRehabTrackSnapshot` | 資助復康 | `runSubsidizedRehabScheduling`（**`recordAudit: false`**） | `mapActiveResidentsToSubsidizedSchedulingResidents`、**`windowSnapshot`**（**`resolveSchedulingWindowSnapshot`**）經 **`filterSchedulingSessionsForSubsidizedEngine`** |
 | `buildDementiaServiceTrackSnapshot` | 認知 | `runDementiaTrackDryRun` | **`isDementiaCareCohort`**、**`windowSnapshot`** 同上、**`filterToDementiaServiceOnly`**、**`DEMENTIA_WEEKLY_TARGET`**（**01 §3.3／§4** 與復康分離） |
 
-**型別**：**`RehabActivityTrackSnapshot`**、**`RehabActivityTrackRow`**（週目標、預覽完成、達標、可選 **`dementiaLevel`**）。
+**型別**：**`RehabActivityTrackSnapshot`**、**`RehabActivityTrackRow`**（週目標、預覽完成、達標、可選 **`dementiaLevel`**）；快照可選 **`conflictSampleLines`**（**`formatSchedulingConflictLine`**，至多 **`REHAB_TRACK_CONFLICT_SAMPLE_LIMIT`** 筆，見 **`rehabActivityTrackingSnapshotTypes.ts`**）。
 
 ---
 
@@ -64,3 +64,4 @@
 |------|------|
 | 2026-05-04 | 初版：Seq 21 **對照骨架**；與 Seq 20 互鏈。 |
 | 2026-05-04 | §5：與 **`seq22-assessment-management-pdf02-traceability.md`** 互鏈。 |
+| 2026-05-09 | §1／§2：`RehabTrackSection` 衝突節錄、**`conflictSampleLines`**／**`REHAB_TRACK_CONFLICT_SAMPLE_LIMIT`** 對照。 |

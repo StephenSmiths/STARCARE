@@ -99,4 +99,33 @@ describe('rehabActivityTrackingSnapshotService (PDF 02【8】)', () => {
     expect(snap.conflictCount).toBeGreaterThan(0)
     expect(snap.conflictSampleLines?.some((line) => line.includes('小組活動每日場次上限'))).toBe(true)
   })
+
+  it('資助復康軌衝突節錄附中文類型標籤（P1 小組每日場次上限）', () => {
+    const capped = { ...constraints, therapistGroupSessionsDailyCap: 1 }
+    const residents = [
+      baseResident({ id: 'a', serviceType: 'Subsidized_Rehab' }),
+      baseResident({ id: 'b', serviceType: 'Subsidized_Rehab' }),
+    ]
+    const rehabGroup = (id: string, timeSlot: string): SchedulingSession =>
+      ({
+        id,
+        staffId: 's1',
+        staffName: 'OT',
+        date: '2026-06-01',
+        timeSlot,
+        serviceType: 'Subsidized_Rehab',
+        capacity: 4,
+        staffRoleType: 'OT',
+      }) as SchedulingSession
+    const snap = buildSubsidizedRehabTrackSnapshot(
+      'actor-1',
+      residents,
+      [rehabGroup('g1', '09:00'), rehabGroup('g2', '10:00')],
+      capped,
+      DEFAULT_SYSTEM_SETTINGS,
+    )
+    expect(snap.conflictCount).toBeGreaterThan(0)
+    expect(snap.conflictSampleLines?.length).toBeGreaterThan(0)
+    expect(snap.conflictSampleLines?.some((line) => line.includes('小組活動每日場次上限'))).toBe(true)
+  })
 })

@@ -1,6 +1,6 @@
 # `pdf-sequenced-gap-checklist` 修訂紀錄歸檔（Seq 29／2026-05-09 互鏈批量 b）
 
-> **對照**：主修訂日誌 **`docs/pdf-sequenced-gap-checklist-revision-log.md`**；**2026-05-01a**、**`archive-p2`**～**`archive-p5`** 見既有歸檔檔。本檔收錄自該主日誌 **2026-05-09** 同日移出之 **Seq 29** 互鏈批量列（原主日誌 **182–186**、**190–200** 行段），以符合主日誌單檔 **≤200** 行；細目仍以 **`docs/seq29-system-settings-pdf02-traceability-revision-log.md`** 為 **Seq 29** 修訂權威補述。
+> **對照**：主修訂日誌 **`docs/pdf-sequenced-gap-checklist-revision-log.md`**；**2026-05-01a**、**`archive-p2`**～**`archive-p5`** 見既有歸檔檔。本檔收錄自該主日誌 **2026-05-09** 同日移出之 **Seq 29** 互鏈批量列（原主日誌 **182–186**、**190–200** 行段），及 **2026-05-09** 為容納 **Seq 21** 主日誌列而自主日誌末尾續移出之 **Seq 29** **引擎**／**認知軌 P1** 兩列（與主日誌 **Seq 21** 列括註互鏈），以符合主日誌單檔 **≤200** 行；細目仍以 **`docs/seq29-system-settings-pdf02-traceability-revision-log.md`** 為 **Seq 29** 修訂權威補述。
 
 ---
 
@@ -24,3 +24,5 @@
 | 2026-05-09 | **Seq 29／P2 可選登入 E2E**：**`system-settings-policy-p1-uat-and-staging-2026-05-09.md`** **二之二** 前提段補 **`npm run test:e2e:auth`** **`e2e/auth-login.system-settings-p2.spec.ts`**；**`pdf03-cursorrules-alignment.md`** §3 **Seq 29【16】政策 P1（demo E2E）**、§4 **Seq 29**／**README** 維護句併 **`test:e2e:auth`**、**`auth-login.system-settings-p2`**、Vitest **`SystemSettingsHome.policyP2Titles.test.tsx`**（與 **`seq29`**／**`feature-list`**／**`ci.yml`** 既有列並讀）。 |
 | 2026-05-09 | **Seq 29／P2 auth E2E TeamLead**：**`e2e/auth-login.system-settings-p2.spec.ts`** 優先 **`E2E_AUTH_TEAMLEAD_*`**；**`.env.example`**、**`pdf03`** §3／§4、**`seq29`** 開首／§4、**`seq29-system-settings-pdf02-traceability-revision-log.md`**、**`uat`** **二之二**、**`feature-list`** §8 第 6 點、**`ci.yml`** **Seq 29【16】** 註解對齊。 |
 | 2026-05-09 | **Seq 29／`business-logic.md`** §0：院舍政策段正文補 **`test:e2e:auth`** **`auth-login.system-settings-p2`** 前向（**`seq29`** 開首、**`go-live-checklist`** §1.1）；**`business-logic-revision-log.md`**。 |
+| 2026-05-09 | **Seq 29／引擎（主日誌移出）**：資助復康 **`evalSessionCoreForPick`** **P1** 小組活動每日場次上限（**`STAFF_GROUP_DAILY_CAP`**）；**`schedulingCoreSessionGates.test`**；**`seq29`** §3、**`seq29-system-settings-pdf02-traceability-revision-log.md`**。 |
+| 2026-05-09 | **Seq 29／認知軌 P1 小組場次（主日誌移出）**：**`pickDementiaSession`**／**`runDementiaTrackDryRun`** 與資助軌共用 **`countStaffGroupSessionsOnDate`**；**`dementiaTrackDryRunService.test`**；**`seq29`** §3。 |

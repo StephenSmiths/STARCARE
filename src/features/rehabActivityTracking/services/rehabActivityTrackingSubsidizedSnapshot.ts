@@ -11,7 +11,11 @@ import { mapActiveResidentsToSubsidizedSchedulingResidents } from '../../schedul
 import { cloneResidents, cloneSessions } from '../../scheduling/hooks/schedulingHookHelpers'
 import { filterSchedulingSessionsForSubsidizedEngine } from '../../scheduling/services/schedulingSessionWindowFilterService'
 import type { SystemSettingsSnapshot } from '../../systemSettings/types'
-import type { RehabActivityTrackRow, RehabActivityTrackSnapshot } from './rehabActivityTrackingSnapshotTypes'
+import {
+  REHAB_TRACK_CONFLICT_SAMPLE_LIMIT,
+  type RehabActivityTrackRow,
+  type RehabActivityTrackSnapshot,
+} from './rehabActivityTrackingSnapshotTypes'
 
 /** 資助復康軌：乾跑智能排班但不寫 SCHEDULING_RUN 審計（Seq 21）；時段過濾用 `windowSnapshot`（雲端 P1 合併見 `resolveSchedulingWindowSnapshot`） */
 export const buildSubsidizedRehabTrackSnapshot = (
@@ -44,7 +48,7 @@ export const buildSubsidizedRehabTrackSnapshot = (
   })
   const conflictSampleLines =
     result.conflicts.length > 0
-      ? result.conflicts.slice(0, 10).map((c) => formatSchedulingConflictLine(c))
+      ? result.conflicts.slice(0, REHAB_TRACK_CONFLICT_SAMPLE_LIMIT).map((c) => formatSchedulingConflictLine(c))
       : undefined
   return {
     trackLabel: '資助復康服務',
