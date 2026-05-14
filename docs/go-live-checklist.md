@@ -13,8 +13,9 @@
 ### 0.1 Gate A 取證入口（2026-05-06）
 - 取證步驟：**`docs/gate-a-evidence-capture-2026-05-06.md`**
 - 回填模板：**`docs/gate-a-evidence-fill-template-2026-05-06.md`**
+- 人工證據勾選表：**`docs/gate-a-manual-evidence-checklist-2026-05-06.md`**（開首：**HTTP 嚴格取證** 全流程、**`--keep=1`**、僅 prune 後 **`latest`／`docs-sync`／`decision-sync`** 並帶 **`--strict-http`**；與上兩檔互鏈）
 - 即時證據固定入口（檔名會隨每次取證變更；檔內 **Next Command** 與 **`preflight:strict`** 並列；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段）：**`docs/evidence/gate-a-latest.md`**
-- 一鍵：全流程 → 修剪舊快照 → 刷新上列入口 → 同步收尾 markdown／判定稿：**`npm run gatea:evidence:refresh`**（見 **`docs/gate-a-status-2026-05-06.md`** **§5**、**`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`**）
+- 一鍵：全流程 → 修剪舊快照 → 刷新上列入口 → 同步收尾 markdown／判定稿：**`npm run gatea:evidence:refresh`**；須 **HTTP 狀態嚴格**（401／403）且 **`gate-a-latest`**／收尾四檔自動引用區之 **HTTP 嚴格取證** 與當次一致時，用 **`npm run gatea:evidence:refresh:strict-http`**（或合併環境 **`GATEA_STRICT_HTTP=1`** 後 **`npm run gatea:evidence:refresh`**；見 **`docs/gate-a-status-2026-05-06.md`** **§5**、**`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`**）
 - 由 `package.json` 列出所有 **`gatea:evidence:*`**：**`npm run gatea:evidence:list`**
 - 取證前環境／目錄：`npm run gatea:evidence:preflight`；嚴格（缺 VITE_* 或無 `docs/evidence` 即非 0）：**`npm run gatea:evidence:preflight:strict`**
 - 終端 stdout 末兩行 blockquote（**全案收尾**／**§5**）之維護：**`scripts/gate-a-markdown-footer.mjs`**（檔首 **Export 契約**；**`http:auth`** 見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-inherit`** **inherit** 說明）；**`README.md`**「Gate A 終端頁尾（維護）」列並讀。
