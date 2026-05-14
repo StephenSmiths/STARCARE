@@ -19,7 +19,7 @@ const lines = []
 lines.push('# Gate A npm 指令一覽（package.json）')
 lines.push('')
 lines.push(
-  `- 共 ${keys.length} 條；證據固定入口 docs/evidence/gate-a-latest.md（Next Command 與 preflight:strict 並列；檔尾 blockquote 四行：gateALatestMarkdownFooterLines，見 docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment 下文 latest 段）；詳見 README、docs/gate-a-status-2026-05-06.md（§5 指令速查 commands-appendix）、docs/gate-a-evidence-capture-2026-05-06.md。`,
+  `- 共 ${keys.length} 條；證據固定入口 docs/evidence/gate-a-latest.md（Next Command 與 preflight:strict 並列；檔尾 blockquote 四行：gateALatestMarkdownFooterLines，見 docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment 下文 latest 段）；人工／strict-http／keep=1：docs/gate-a-manual-evidence-checklist-2026-05-06.md 開首；詳見 README、docs/gate-a-status-2026-05-06.md（§5 指令速查 commands-appendix）、docs/gate-a-evidence-capture-2026-05-06.md。`,
 )
 lines.push('')
 for (const k of keys) {
