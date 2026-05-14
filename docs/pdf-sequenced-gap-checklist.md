@@ -59,7 +59,7 @@
 
 | Seq | PDF／條款 | 補回項目／缺漏細節 | 與現況對照（摘要） | 驗收提示 |
 |-----|------------|--------------------|-------------------|----------|
-| 35 | 03 | 與 `.cursorrules` **並讀**；若有衝突，**客戶簽核 PDF 優先** | 已補 `docs/pdf03-cursorrules-alignment.md`（對照矩陣＋維護說明）；**`docs/seq35-pdf03-cursorrules-alignment-traceability.md`** 已建 **對照骨架**；仍待客戶 PDF 換版後覆核 | 差異表 |
+| 35 | 03 | 與 `.cursorrules` **並讀**；若有衝突，**客戶簽核 PDF 優先** | 已補 **`docs/pdf03-cursorrules-alignment.md`**（對照矩陣；**§3** PR 檢核；**§4** 維護說明）；**`docs/seq35-pdf03-cursorrules-alignment-traceability.md`** **對照骨架**（**§1** 權威表；**§3** 與 **Seq 29** **`pdf03`** 政策 **Vitest**／**`seq29`** 互鏈）；仍待客戶 PDF 換版後覆核 | 差異表 |
 | 36 | 03＋01 | 「複雜邏輯優先 Edge／DB」vs 現行**前端排班** | 已補 `docs/adr-0001-scheduling-logic-placement.md`（MVP 前端／上線後端權威之遷移原則）；**`docs/seq36-adr0001-scheduling-logic-placement-traceability.md`** 已建 **對照骨架** | 書面架構決策 |
 | 37 | 03 | 閉環／SRP／200 行等工程約束於**新模組**落實 | 已於 `docs/pdf03-cursorrules-alignment.md` §3 納入 PR 檢核表（含 CI／E2E 變更時 **`build:demo`**／**`.env.example`** 同步項；**新 Edge** 時 **`ops:deploy:all`**／**`feature-list.md` §7**／日誌；**排班權威／`adr-0001`** 時 Seq 36 摘要）；**`docs/seq37-pdf03-engineering-constraints-traceability.md`** 已建 **對照骨架**；**Dependabot** `.github/dependabot.yml`（npm 週一檢查、上限 8 PR）；既有碼仍漸進收斂 | Code review 規則 |
 | 38 | 全份 | **三 PDF 版本號／日期**寫入 `docs/business-logic.md` 修訂或獨立 `VERSIONS` | 已補 `docs/business-logic.md` §0.1（含三份母本 SHA-256）；**`docs/seq38-pdf-versions-traceability.md`** 已建 **對照骨架**；等待客戶補版次／日期 | 客戶確認信 |
