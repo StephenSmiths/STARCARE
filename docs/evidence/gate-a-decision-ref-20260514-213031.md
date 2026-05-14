@@ -2,10 +2,10 @@
 
 - HTTP 嚴格取證（產生當下合併環境）：OFF
 - 建議貼到：`docs/gate-a-decision-draft-2026-05-06.md` 的「依據（已完成）」之後
-- fill snippet：`docs/evidence/gate-a-fill-snippet-20260507-060827.md`
-- auto 證據：`docs/evidence/gate-a-auto-evidence-2026-05-07-070801.md`
-- 401 證據：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-07-060825.9.txt`
-- 403 證據：`docs/evidence/gate-a-d2-403-admin-user-role-set-2026-05-07-060825.9.txt`
+- fill snippet：`docs/evidence/gate-a-fill-snippet-20260514-213031.md`
+- auto 證據：`docs/evidence/gate-a-auto-evidence-2026-05-14-223001.md`
+- 401 證據：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-14-213028.9.txt`
+- 403 證據：`docs/evidence/gate-a-d2-403-admin-user-role-set-2026-05-14-213028.9.txt`
 
 > 若 403 顯示待補，請先執行 `npm run gatea:evidence:http:auth` 或帶 token 執行 `npm run gatea:evidence:http`。
 

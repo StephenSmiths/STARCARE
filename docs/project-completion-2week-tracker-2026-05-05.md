@@ -120,13 +120,13 @@ limit 20;
 <!-- gatea-tracker-auto-ref:start -->
 - 可否判定：`READY`
 - HTTP 嚴格取證：OFF
-- auto evidence：`docs/evidence/gate-a-auto-evidence-2026-05-07-070851.md`
-- 401 text：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-07-062725.3.txt`
-- 403 text：`docs/evidence/gate-a-d2-403-admin-user-role-set-2026-05-07-062725.3.txt`
-- decision ref：`docs/evidence/gate-a-decision-ref-20260507-060920.md`
-- fill snippet：`docs/evidence/gate-a-fill-snippet-20260507-060920.md`
-- doctor report：`docs/evidence/gate-a-evidence-doctor-20260507-094807.md`
-- report：`docs/evidence/gate-a-report-20260514-212242.md`
+- auto evidence：`docs/evidence/gate-a-auto-evidence-2026-05-14-223001.md`
+- 401 text：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-14-213028.9.txt`
+- 403 text：`docs/evidence/gate-a-d2-403-admin-user-role-set-2026-05-14-213028.9.txt`
+- decision ref：`docs/evidence/gate-a-decision-ref-20260514-213031.md`
+- fill snippet：`docs/evidence/gate-a-fill-snippet-20260514-213031.md`
+- doctor report：`docs/evidence/gate-a-evidence-doctor-20260514-213031.md`
+- report：`docs/evidence/gate-a-report-20260514-213031.md`
 - `npm run gatea:evidence:preflight:strict`（取證前嚴格環境檢查；與 README／go-live 並讀）
 - **全案收尾與指令速查**：`docs/go-live-checklist.md`（開首長鏈）；`docs/gate-a-status-2026-05-06.md` **§5**／`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`。
 <!-- gatea-tracker-auto-ref:end -->
