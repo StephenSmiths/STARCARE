@@ -1,6 +1,6 @@
 /** @vitest-environment happy-dom */
 /** PDF 02【3】：智能排班儀表板主內容（Seq 15；`useSchedulingDashboardViewModel` 窄 mock）。 */
-import { cleanup, render, screen } from '@testing-library/react'
+import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { AuthContextValue } from '../../auth/context/authContext'
 import type { AuditTrailRecord } from '../../../services/auditTrailService'
@@ -134,5 +134,19 @@ describe('SchedulingDashboard', () => {
     const runBtn = screen.getByRole('button', { name: '啟動智能排班' }) as HTMLButtonElement
     expect(runBtn.disabled).toBe(true)
     expect(runBtn.getAttribute('title')).toBe('請先完成步驟②')
+  })
+
+  it('勾選週更確認會呼叫 setRosterConfirmed', () => {
+    const setRosterConfirmed = vi.fn()
+    vi.mocked(useSchedulingDashboardViewModel).mockReturnValue({
+      ...vmBase(),
+      rosterConfirmed: false,
+      setRosterConfirmed,
+    })
+    render(<SchedulingDashboard />)
+    const box = screen.getByRole('checkbox', { name: /我已確認本週更表/ }) as HTMLInputElement
+    expect(box.disabled).toBe(false)
+    fireEvent.click(box)
+    expect(setRosterConfirmed).toHaveBeenCalledWith(true)
   })
 })
