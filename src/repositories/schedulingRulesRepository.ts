@@ -11,6 +11,10 @@ export type SchedulingRules = {
   scPriorityEnabled: boolean
   allowScTherapistOnly: boolean
   groupCapacityLimit: number
+  /** PDF 02【16】P1：治療師小組活動每日上限（facility_policy_numeric_limits；與 scheduling-policy-current-get.numericLimits 同源；scheduling_rules 無對應欄）。 */
+  therapistGroupSessionsDailyCap: number
+  /** PDF 02【16】P1：治療助理小組活動每日上限（同上）。 */
+  assistantGroupSessionsDailyCap: number
 }
 
 export interface SchedulingRulesRepository {
@@ -28,6 +32,8 @@ class InMemorySchedulingRulesRepository implements SchedulingRulesRepository {
       scPriorityEnabled: true,
       allowScTherapistOnly: true,
       groupCapacityLimit: 6,
+      therapistGroupSessionsDailyCap: 8,
+      assistantGroupSessionsDailyCap: 8,
     }
   }
 }

@@ -32,7 +32,7 @@ Deno.serve(async (req) => {
     if (error) return json({ error: error.message }, 400)
     if (!data) return json({ error: '找不到排班規則' }, 404)
     const row = data as RuleRow
-    // PDF 02【16】Seq 29／PRD §7 **B**：無生效政策版本時以 `scheduling_rules` 為準；有版本時 P1 小組人數上限與下列子表欄位與 `scheduling-policy-current-get` 子表語意對齊（其餘扁平欄仍取自本列）。
+    // PDF 02【16】Seq 29／PRD §7 **B**：無生效政策版本時以 `scheduling_rules` 為準；有版本時 P1 小組人數上限與啟用／SC 旗標與 `scheduling-policy-current-get` 子表語意對齊。`therapistGroupSessionsDailyCap`／`assistantGroupSessionsDailyCap` 僅見於 P1 **`facility_policy_numeric_limits`**（`public.scheduling_rules` 無對應欄），一律自 **`loadSchedulingPolicyBundle`** 之 **`numericLimits`** 輸出（無版本時與骨架預設 8 對齊）。
     const bundle = await loadSchedulingPolicyBundle(supabase, facilityId, new Date())
     const hasPolicy = bundle.policyVersion != null
     const groupCapacityLimit = hasPolicy ? bundle.numericLimits.groupParticipantCap : row.group_capacity_limit
@@ -59,6 +59,8 @@ Deno.serve(async (req) => {
       scPriorityEnabled: row.sc_priority_enabled,
       allowScTherapistOnly,
       groupCapacityLimit,
+      therapistGroupSessionsDailyCap: bundle.numericLimits.therapistGroupSessionsDailyCap,
+      assistantGroupSessionsDailyCap: bundle.numericLimits.assistantGroupSessionsDailyCap,
     }
     return new Response(JSON.stringify(mapped), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
