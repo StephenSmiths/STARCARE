@@ -1,6 +1,6 @@
 # STARCARE System
 
-智能院舍照護管理前端（React + TypeScript + Vite）。業務母本與缺口追蹤見 `docs/pdf/` 與下列文件。工程規範與部署／驗收閘門見專案根目錄 **`.cursorrules`**（**§3**）及 **`docs/business-logic.md`** §0；序號清單主檔「**運維與工程**」路徑彙列見 **`docs/pdf-sequenced-gap-checklist.md`**（與 **§0**／**§3** 對齊）。**全案收尾**見下方「專案收尾」小節（表內含 Gate A **`docs/evidence/gate-a-latest.md`**；檔內 **Next Command** 與 **`preflight:strict`** 並列；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段），並與 **`docs/business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**），**`docs/pdf-sequenced-gap-checklist.md`** 開首「全案收尾執行與證據留痕」並讀。**`docs/phase*.md`**／**`stage*.md`** 分階與歷史交付文件開首 **對照** 均互鏈該主檔「**運維與工程**」列。
+智能院舍照護管理前端（React + TypeScript + Vite）。業務母本與缺口追蹤見 `docs/pdf/` 與下列文件。工程規範與部署／驗收閘門見專案根目錄 **`.cursorrules`**（**§3**）及 **`docs/business-logic.md`** §0；序號清單主檔「**運維與工程**」路徑彙列見 **`docs/pdf-sequenced-gap-checklist.md`**（與 **§0**／**§3** 對齊）。**全案收尾**見下方「專案收尾」小節（表內含 Gate A **`docs/evidence/gate-a-latest.md`**；檔內 **Next Command** 與 **`preflight:strict`** 並列；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段）；人工 **`docs/gate-a-manual-evidence-checklist-2026-05-06.md`** 開首（strict-http／keep=1；**`docs/go-live-checklist.md`** §0.1），並與 **`docs/business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**），**`docs/pdf-sequenced-gap-checklist.md`** 開首「全案收尾執行與證據留痕」並讀。**`docs/phase*.md`**／**`stage*.md`** 分階與歷史交付文件開首 **對照** 均互鏈該主檔「**運維與工程**」列。
 
 ## 文件入口
 
@@ -31,7 +31,7 @@
 
 ### 專案收尾（全案完成度，2026-05）
 
-建議順序：可選先跑 [project-completion-kickoff-checklist-2026-05.md](docs/project-completion-kickoff-checklist-2026-05.md)（約 30 分鐘）→ [docs/evidence/gate-a-latest.md](docs/evidence/gate-a-latest.md)（Gate A 自動證據；**Next Command** 與 **`preflight:strict`** 並列於該檔；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**，見 [docs/gate-a-status-2026-05-06-commands-appendix.md](docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment) 下文 **`latest`** 段；細部見 [go-live-checklist.md](docs/go-live-checklist.md) 開首 Gate A 取證）→ 盤點 → 兩週計畫 → 追蹤板 → 日誌 → 證據索引。
+建議順序：可選先跑 [project-completion-kickoff-checklist-2026-05.md](docs/project-completion-kickoff-checklist-2026-05.md)（約 30 分鐘）→ [docs/evidence/gate-a-latest.md](docs/evidence/gate-a-latest.md)（Gate A 自動證據；**Next Command** 與 **`preflight:strict`** 並列於該檔；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**，見 [docs/gate-a-status-2026-05-06-commands-appendix.md](docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment) 下文 **`latest`** 段；細部見 [go-live-checklist.md](docs/go-live-checklist.md) 開首 Gate A 取證）→ [docs/gate-a-manual-evidence-checklist-2026-05-06.md](docs/gate-a-manual-evidence-checklist-2026-05-06.md)（strict-http／keep=1／僅 prune 後同步）→ 盤點 → 兩週計畫 → 追蹤板 → 日誌 → 證據索引。
 
 執行時同步對照 [go-live-checklist.md](docs/go-live-checklist.md)、[supabase-deploy-runbook.md](docs/supabase-deploy-runbook.md)、[security-token-rotation-checklist.md](docs/security-token-rotation-checklist.md)。運維總覽 [business-logic.md](docs/business-logic.md) §0；序號主檔「運維與工程」列見 [pdf-sequenced-gap-checklist.md](docs/pdf-sequenced-gap-checklist.md)。
 
@@ -44,7 +44,7 @@
 | [project-completion-2week-tracker-2026-05-05.md](docs/project-completion-2week-tracker-2026-05-05.md) | 進度板與開工指令 |
 | [project-completion-daily-log-2026-05.md](docs/project-completion-daily-log-2026-05.md) | EOD 與風險 |
 | [project-completion-evidence-index-2026-05.md](docs/project-completion-evidence-index-2026-05.md) | PR／CI／SQL／截圖證據 |
-| [docs/evidence/gate-a-latest.md](docs/evidence/gate-a-latest.md) | Gate A 證據固定入口（**Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:latest`**／**`refresh`** 更新；檔尾四行：**`gateALatestMarkdownFooterLines`**，見 [docs/gate-a-status-2026-05-06-commands-appendix.md](docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment) 下文 **`latest`** 段） |
+| [docs/evidence/gate-a-latest.md](docs/evidence/gate-a-latest.md) | Gate A 證據固定入口（**Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:latest`**／**`refresh`** 更新；檔尾四行：**`gateALatestMarkdownFooterLines`**，見 [docs/gate-a-status-2026-05-06-commands-appendix.md](docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment) 下文 **`latest`** 段）；人工與 strict-http／keep=1 見 [docs/gate-a-manual-evidence-checklist-2026-05-06.md](docs/gate-a-manual-evidence-checklist-2026-05-06.md) 開首 |
 | [project-completion-kickoff-checklist-2026-05.md](docs/project-completion-kickoff-checklist-2026-05.md) | 新成員 30 分鐘收尾啟動清單 |
 | [pdf-sequenced-gap-checklist-revision-log.md](docs/pdf-sequenced-gap-checklist-revision-log.md) | 序號主檔修訂日誌（最新留痕） |
 | [pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md](docs/pdf-sequenced-gap-checklist-revision-log-2026-05-01a.md) | 修訂日誌歸檔（2026-05-01 前段；與主日誌並讀） |
