@@ -100,4 +100,55 @@ describe('useSchedulingKpiHistoryMountHydrate', () => {
       expect(setSyncError).toHaveBeenCalledWith('KPI 歷史同步失敗，目前顯示本機快取。')
     })
   })
+
+  it('hydrate 成功 resolve 前已 unmount 則不更新 state', async () => {
+    let resolveHydrate!: (rows: SchedulingKpiRunRecord[]) => void
+    const hydratePromise = new Promise<SchedulingKpiRunRecord[]>((resolve) => {
+      resolveHydrate = resolve
+    })
+    vi.mocked(schedulingKpiHistorySyncService.hydrateFromServer).mockReturnValue(hydratePromise)
+
+    const setKpiRunHistory = vi.fn()
+    const setSyncError = vi.fn()
+    const setSyncNotice = vi.fn()
+    const { unmount } = renderHook(() =>
+      useSchedulingKpiHistoryMountHydrate('fac-h', setKpiRunHistory, setSyncError, setSyncNotice),
+    )
+
+    unmount()
+
+    await act(async () => {
+      resolveHydrate([row])
+      await Promise.resolve()
+    })
+
+    expect(setKpiRunHistory).not.toHaveBeenCalled()
+    expect(setSyncError).not.toHaveBeenCalled()
+    expect(setSyncNotice).not.toHaveBeenCalled()
+  })
+
+  it('hydrate 在進入 catch 前已 unmount 則不寫入錯誤句', async () => {
+    let rejectHydrate!: (err: Error) => void
+    const hydratePromise = new Promise<SchedulingKpiRunRecord[]>((_, reject) => {
+      rejectHydrate = reject
+    })
+    vi.mocked(schedulingKpiHistorySyncService.hydrateFromServer).mockReturnValue(hydratePromise)
+
+    const setKpiRunHistory = vi.fn()
+    const setSyncError = vi.fn()
+    const setSyncNotice = vi.fn()
+    const { unmount } = renderHook(() =>
+      useSchedulingKpiHistoryMountHydrate('fac-h', setKpiRunHistory, setSyncError, setSyncNotice),
+    )
+
+    unmount()
+
+    await act(async () => {
+      rejectHydrate(new Error('net'))
+      await Promise.resolve()
+    })
+
+    expect(setSyncError).not.toHaveBeenCalled()
+    expect(setKpiRunHistory).not.toHaveBeenCalled()
+  })
 })

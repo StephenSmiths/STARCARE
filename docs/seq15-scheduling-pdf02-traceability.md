@@ -77,7 +77,7 @@
 | `src/features/scheduling/hooks/useSchedulingDashboardViewModel.test.tsx` | **`useSchedulingDashboardViewModel`**（**`runBlockedReason`** 步驟①②與院友 gate、**`sessionCount`** 歸零重設勾選；**`happy-dom`**） |
 | `src/features/scheduling/hooks/useSchedulingRunAndSave.test.tsx` | **`useSchedulingRunAndSave`**（委派 **`useSchedulingRunDryRun`**／**`useSchedulingSaveAssignments`** 參數與回傳；**`happy-dom`**） |
 | `src/features/scheduling/hooks/useSchedulingKpiHistory.test.tsx` | **`useSchedulingKpiHistory`**（**`loadLocal`** 初始化與子 hook 註冊；effects／mutations mock） |
-| `src/features/scheduling/hooks/useSchedulingKpiHistoryEffects.test.tsx` | **`usePersistSchedulingKpiRunHistory`**／**`useAutoClearKpiSyncNotice`**／**`useSchedulingKpiHistoryMountHydrate`**（KPI 歷史持久化、同步提示計時、掛載 hydrate；**`happy-dom`**） |
+| `src/features/scheduling/hooks/useSchedulingKpiHistoryEffects.test.tsx` | **`usePersistSchedulingKpiRunHistory`**／**`useAutoClearKpiSyncNotice`**／**`useSchedulingKpiHistoryMountHydrate`**（KPI 歷史持久化、同步提示計時、掛載 hydrate、**unmount 後不寫 state**；**`happy-dom`**） |
 | `src/features/scheduling/hooks/useSchedulingKpiHistoryMutations.test.tsx` | **`appendKpiRunRecord`**／**`exportKpiTrendCsv`**／**`clearKpiTrendHistory`**／**`retryKpiSync`**（KPI 歷史同步／匯出／重試；**`happy-dom`**） |
 | `src/features/scheduling/hooks/useSchedulingWorkspace.test.tsx` | **`useSchedulingWorkspace`**（預設院舍與子 hook 參數組裝、**`buildSchedulingWorkspaceReturn`** 透傳；**`happy-dom`**） |
 | `src/features/scheduling/services/runSubsidizedRehabSchedulingOrchestration.test.ts` | **`runSubsidizedRehabSchedulingOrchestration`**（**ok**／**empty**／**error**；引擎與資料載入 mock） |
@@ -142,3 +142,4 @@
 | 2026-05-09 | §4：補 **`useSchedulingRunAndSave.test.tsx`**、**`useSchedulingKpiHistory.test.tsx`**（乾跑＋儲存委派、KPI 歷史組裝）。 |
 | 2026-05-09 | §4／§5：補 **`useSchedulingKpiHistoryEffects.test.tsx`**、**`useSchedulingKpiHistoryMutations.test.tsx`**（KPI 歷史持久化／hydrate／同步提示與 append／匯出／清除／重試）。 |
 | 2026-05-09 | §4：補 **`useSchedulingWorkspace.test.tsx`**（工作區組裝層與 **`SCHEDULING_WORKSPACE_FACILITY_ID`** 傳遞）。 |
+| 2026-05-09 | §4：擴 **`useSchedulingKpiHistoryEffects.test.tsx`**（**`useSchedulingKpiHistoryMountHydrate`**：成功／失敗 **Promise 落點前 unmount** 不觸發 setter）。 |
