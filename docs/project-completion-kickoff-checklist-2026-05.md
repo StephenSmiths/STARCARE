@@ -91,5 +91,5 @@ npm run perf:bundle:ci:summary
 - doctor report：`docs/evidence/gate-a-evidence-doctor-20260514-213804.md`
 - report：`docs/evidence/gate-a-report-20260514-213804.md`
 - `npm run gatea:evidence:preflight:strict`（取證前嚴格環境檢查；與 README／go-live 並讀）
-- **全案收尾與指令速查**：`docs/go-live-checklist.md`（開首長鏈）；`docs/gate-a-status-2026-05-06.md` **§5**／`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`；人工／strict-http／keep=1：`docs/gate-a-manual-evidence-checklist-2026-05-06.md` 開首。
+- **全案收尾與指令速查**：`docs/go-live-checklist.md`（開首長鏈）；`docs/gate-a-status-2026-05-06.md` **§5**／`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`；人工／strict-http／keep=1：`docs/gate-a-manual-evidence-checklist-2026-05-06.md` 開首；主日誌 **Gate A／stdout** 細列：`docs/pdf-sequenced-gap-checklist-revision-log-archive-gate-a-stdout-2026-05-09.md`（併主日誌 **Archive gate-a-stdout-2026-05-09** 列）。
 <!-- gatea-kickoff-auto-ref:end -->
