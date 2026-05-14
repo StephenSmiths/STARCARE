@@ -112,6 +112,7 @@
 | `src/features/scheduling/hooks/useSchedulingRunDryRun.test.tsx` | **`useSchedulingRunDryRun`**（乾跑成功／empty／error／連點鎖；**`happy-dom`**） |
 | `src/features/scheduling/hooks/useSchedulingSaveAssignments.test.tsx` | **`useSchedulingSaveAssignments`**（落庫成功／錯誤訊息／連點鎖；**`happy-dom`**） |
 | `src/features/scheduling/hooks/useSchedulingBatchUndo.test.tsx` | **`useSchedulingBatchUndo`**（本機批次 id、撤銷呼叫 **`softDeleteSchedulingHistoryBatch`**；**`happy-dom`**） |
+| `src/features/scheduling/services/schedulingHistoryBatchSoftDeleteService.test.ts` | **`assertCanSoftDeleteSchedulingHistoryBatch`**（**Staff** gate）；**`softDeleteSchedulingHistoryBatch`**（空／純空白 **`batch_id`**、**`trim`**、**Repository**／**`clearLastSchedulingBatchId`**／**`recordAuditTrailThenHydrate`**／**`isSupabaseBrowserConfigured`**） |
 | `src/features/scheduling/hooks/useSchedulingFacilityReload.test.tsx` | **`useSchedulingFacilityReload`**（掛載重載、**`clearPreview`** 轉發、**`useInvalidateOnSystemSettingsExternalChange`**；**`happy-dom`**） |
 | `src/features/scheduling/hooks/useSchedulingResidentTable.test.tsx` | **`useSchedulingResidentTable`**（關鍵字／狀態篩選／**`safePage`**／**`resetPage`**；**`happy-dom`**） |
 | `src/features/scheduling/hooks/useSchedulingRunPreviewState.test.tsx` | **`useSchedulingRunPreviewState`**（**`clearPreviewState`** 清空試算與儲存旗標；**`happy-dom`**） |
@@ -223,3 +224,4 @@
 | 2026-05-09 | §4／§5：補 **`scheduleAssignmentRepository.test.ts`**（批量寫入／批次軟刪 **Edge**／**InMemory**）；§5 維護閉環補 **`scheduleAssignmentRepository.ts`**。 |
 | 2026-05-09 | §4：擴 **`schedulingRulesRepository.test.ts`**（**`getRules`** 連線包裝錯）；**`schedulingRulesRepository.ts`** Edge **`fetch`** 與 **`scheduling-sessions-list`** 一致之 **try／catch**（**請先登入** 原樣拋出）。 |
 | 2026-05-09 | §4／§5：**`softDeleteHistoryBatch`** Edge **try／catch**（與 **`saveBatch`** 連線訊息一致）；**`scheduleAssignmentRepository.edge.test.ts`** 自 **`scheduleAssignmentRepository.test.ts`** 拆出（**200** 行上限）。 |
+| 2026-05-09 | §4：擴 **`schedulingHistoryBatchSoftDeleteService.test.ts`**（**`softDeleteSchedulingHistoryBatch`** 閉環 mock）；§5 維護閉環補 **`schedulingHistoryBatchSoftDeleteService.ts`**（與 **`useSchedulingBatchUndo`** 對齊）。 |
