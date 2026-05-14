@@ -55,6 +55,8 @@
 | `src/features/scheduling/hooks/schedulingKpiHistoryFilter.test.ts` | **`EMPTY_SCHEDULING_KPI_HISTORY_FILTER`**／**`toSchedulingKpiHistoryQuery`**（空字串→**`undefined`**、**`limit`**＝**`SCHEDULING_KPI_HISTORY_LIMIT`**） |
 | `src/features/scheduling/utils/weeklyRosterStaffLookup.test.ts` | **`buildWeeklyRosterStaffProfileLookup`**（姓名＋Tab＋職位→**`staff_profiles.id`**；略過 **TeamLead**；歧義鍵） |
 | `src/features/scheduling/utils/weeklyRosterImportParseText.test.ts` | **`normalizeWeeklyRosterHm`**／**`parseWeeklyRosterSheetText`**／**`weeklyRosterDraftsToImportRows`**（週更表 CSV→草稿→**`ActivitySessionImportRow`**） |
+| `src/features/scheduling/utils/residentTableFundingPresentation.test.ts` | **`residentFundingLabel`**／**`residentFundingBadgeClass`**（院友表資助類別與 **`uiTokens`** 徽章樣式） |
+| `src/features/scheduling/utils/mapResidentToSchedulingResident.test.ts` | **`mapResidentToSchedulingResident`**（主檔→**`SchedulingResident`**；本週次數與指派日期歸零） |
 | `e2e/smoke.spec.ts`（`#scheduling`） | 模組與審計標題可見 |
 | `e2e/auth-login.spec.ts`（若含 `#scheduling`） | 登入後排班頁 |
 
@@ -103,3 +105,4 @@
 | 2026-05-09 | §4：補 **`schedulingHookHelpers.test.ts`**（**`buildEngineConstraintsFromRulesAndUi`**／**`mapRulesToConstraints`**；**SC 僅治療師** 與雲端規則 OR；**`cloneResidents`**／**`cloneSessions`**）；**`schedulingKpiHistoryFilter.test.ts`**（**`toSchedulingKpiHistoryQuery`**）。 |
 | 2026-05-09 | §4／§6：補 **`weeklyRosterStaffLookup.test.ts`**（**`buildWeeklyRosterStaffProfileLookup`**；週更表姓名＋職位對主檔）。 |
 | 2026-05-09 | §4／§6：擴 **`weeklyRosterImportParseText.test.ts`**（**`weeklyRosterDraftsToImportRows`** 與主檔 Map 合併）。 |
+| 2026-05-09 | §4／§5：補 **`residentTableFundingPresentation.test.ts`**、**`mapResidentToSchedulingResident.test.ts`**（院友表資助呈現與主檔→引擎映射）。 |
