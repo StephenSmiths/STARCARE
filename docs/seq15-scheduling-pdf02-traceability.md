@@ -236,3 +236,4 @@
 | 2026-05-09 | §4：**`schedulingPolicyRepository.edgeReadWrite.test.ts`** 連線包裝補 **validate** **`fetch`** 拒絕、**commit** **請先登入** 不觸 **`fetch`**（**Seq 29** §4 併讀）。 |
 | 2026-05-09 | §4／§5：**`schedulingPolicyRepository.ts`** **`throwIfNetworkFailure`** 與 **`response.json()`** 解析失敗包裝；**`schedulingPolicyRepository.edgeResponseJson.test.ts`**（**Seq 29** §4 併讀）。 |
 | 2026-05-09 | §4：**`SchedulingDashboard.test.tsx`**／**`SchedulingWeeklyRosterPanel.test.tsx`**／**`useSchedulingKpiHistoryMutations.test.tsx`**／**`useSchedulingWorkspace.test.tsx`**／**`weeklyRosterImportParseText.test.ts`**／**`schedulingRulesRepository.test.ts`**：單測型別與 **`tsc -b`** 對齊（**`setRosterConfirmed`** **`Dispatch`**、**`ActivitySessionImportValidationResult`**、**`buildEdgeInvokeHeaders`** **`Record<string, string>`** 等）。 |
+| 2026-05-09 | §4／§5：**`pdf-sequenced-gap-checklist-revision-log.md`** **「註」** 補 **Seq 15** 排班單測 **`tsc`** 互鏈 **`seq15-scheduling-pdf02-traceability.md`** 修訂表（與上列 **單測型別** 列並讀）。 |
