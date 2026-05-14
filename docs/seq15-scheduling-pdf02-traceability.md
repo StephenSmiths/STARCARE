@@ -233,3 +233,4 @@
 | 2026-05-09 | §4：補 **`schedulingKpiHistoryRepository.edge.test.ts`**（**Edge** **list**／**upsert**／**clear**）；擴 **`schedulingKpiHistoryRepository.test.ts`**（**`createSchedulingKpiHistoryRepository`**）。 |
 | 2026-05-09 | §4：**`schedulingKpiHistoryRepository.edge.test.ts`** 擴（**請先登入**／連線包裝錯）；**`schedulingKpiHistoryRepository.ts`** Edge 三方法 **try／catch**（與 **`schedule-assignments-batch`** 訊息一致）。 |
 | 2026-05-09 | §5：維護閉環補 **`schedulingPolicyRepository.ts`**（**Seq 29** **`EdgeSchedulingPolicyRepository`** **fetch** **try／catch**；與 **`resolveSchedulingWindowSnapshot`** 鏈一致）。 |
+| 2026-05-09 | §4：**`schedulingPolicyRepository.edgeReadWrite.test.ts`** 連線包裝補 **validate** **`fetch`** 拒絕、**commit** **請先登入** 不觸 **`fetch`**（**Seq 29** §4 併讀）。 |

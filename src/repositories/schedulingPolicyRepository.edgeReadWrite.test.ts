@@ -175,6 +175,19 @@ describe('EdgeSchedulingPolicyRepository（current／validate／commit）', () =
       expect(fetchFn).not.toHaveBeenCalled()
     })
 
+    it('validateBundle：fetch 失敗包裝', async () => {
+      vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new TypeError('offline')))
+      await expect(repo.validateBundle({ a: 1 })).rejects.toThrow('無法連線至後端，請檢查網路或 Supabase 設定。')
+    })
+
+    it('commitBundle：請先登入時不呼叫 fetch', async () => {
+      vi.mocked(buildEdgeInvokeHeaders).mockRejectedValueOnce(new Error('請先登入'))
+      const fetchFn = vi.fn()
+      vi.stubGlobal('fetch', fetchFn)
+      await expect(repo.commitBundle({}, 'idem-x')).rejects.toThrow('請先登入')
+      expect(fetchFn).not.toHaveBeenCalled()
+    })
+
     it('commitBundle：fetch 失敗包裝', async () => {
       vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new TypeError('offline')))
       await expect(repo.commitBundle({}, 'k')).rejects.toThrow('無法連線至後端，請檢查網路或 Supabase 設定。')
