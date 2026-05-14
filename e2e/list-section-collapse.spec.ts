@@ -70,9 +70,8 @@ test.describe('list section collapse', () => {
 
   test('user-manual：文件章節可展開', async ({ page }) => {
     await page.goto('/#user-manual')
-    const manualIntro = page.getByText(/此頁提供站內操作摘要/)
-    test.skip((await manualIntro.count()) === 0, '預覽資料未開放用戶手冊視圖，跳過此案例')
-    await expect(manualIntro).toBeVisible()
+    // 與 `smoke.spec.ts` 一致：先等模組標題，避免 lazy 尚未掛載時誤判無內容而 skip。
+    await expect(page.getByRole('heading', { name: '用戶手冊', exact: true })).toBeVisible({ timeout: 20_000 })
     await toggleListSection(page, /快速上手/, true, /左側選單已分組/)
   })
 })
