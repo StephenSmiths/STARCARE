@@ -82,7 +82,7 @@
 
 <!-- gatea-daily-auto-ref:start -->
 - Gate A 可否判定：`READY`
-- Gate A HTTP 嚴格取證：ON
+- Gate A HTTP 嚴格取證：OFF
 - Gate A 自動證據：`docs/evidence/gate-a-auto-evidence-2026-05-14-223738.md`
 - Gate A 401：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-14-213803.6.txt`
 - Gate A 403：`docs/evidence/gate-a-d2-403-admin-user-role-set-2026-05-14-213803.6.txt`
@@ -90,7 +90,7 @@
 - Gate A fill snippet：`docs/evidence/gate-a-fill-snippet-20260514-213804.md`
 - Gate A report：`docs/evidence/gate-a-report-20260514-213804.md`
 - `npm run gatea:evidence:preflight:strict`（取證前嚴格環境檢查；與 README／go-live 並讀）
-- **全案收尾與指令速查**：`docs/go-live-checklist.md`（開首長鏈）；`docs/gate-a-status-2026-05-06.md` **§5**／`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`。
+- **全案收尾與指令速查**：`docs/go-live-checklist.md`（開首長鏈）；`docs/gate-a-status-2026-05-06.md` **§5**／`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`；人工／strict-http／keep=1：`docs/gate-a-manual-evidence-checklist-2026-05-06.md` 開首。
 <!-- gatea-daily-auto-ref:end -->
 
 ### 明日計畫（Day 3～Day 5）

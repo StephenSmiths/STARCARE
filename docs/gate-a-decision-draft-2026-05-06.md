@@ -2,7 +2,7 @@
 
 > 對照：`docs/project-completion-2week-tracker-2026-05-05.md`、`docs/go-live-checklist.md`、`docs/project-completion-evidence-index-2026-05.md`、`docs/gate-a-manual-evidence-checklist-2026-05-06.md`  
 > **全案收尾與證據留痕**：見 **`docs/go-live-checklist.md`** 開首 **全案收尾與證據留痕**（**`README.md`**「專案收尾」、**`docs/business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**））。  
-> **收證指令／旗標細部**：**`docs/gate-a-status-2026-05-06.md`** **§5**、**`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`**。
+> **收證指令／旗標細部**：**`docs/gate-a-status-2026-05-06.md`** **§5**、**`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`**；**人工／strict-http／keep=1**：**`docs/gate-a-manual-evidence-checklist-2026-05-06.md`** 開首（**`docs/go-live-checklist.md`** §0.1）。
 > 多數 **`gatea:evidence:*`** 終端 stdout 末兩行 blockquote 維護：**`scripts/gate-a-markdown-footer.mjs`**（**Export 契約**；**`README.md`**「Gate A 終端頁尾（維護）」）。
 
 ## 判定建議
@@ -16,11 +16,11 @@ npm run gatea:evidence:decision-mini
 ```
 
 > 將輸出直接貼到本段下方，作為最新留痕引用（含 HTTP 嚴格 ON／OFF）；或使用 `npm run gatea:evidence:decision-sync` 自動回填。  
-> 自動證據主檔彙總入口：`docs/evidence/gate-a-latest.md`（檔內 **Next Command** 與 **`preflight:strict`** 並列；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段）。下列 `decision ref`／`fill snippet`／`HTTP 嚴格取證` 前三行由 `gate-a-sync-decision-draft.mjs` 於 `refresh`／`all` 時覆寫；末行與 **`scripts/gate-a-markdown-footer.mjs`** 之 **`gateAAutoRefClosingHintLine()`** 一致（全案收尾／**status** **§5**／**commands-appendix**）。
+> 自動證據主檔彙總入口：`docs/evidence/gate-a-latest.md`（檔內 **Next Command** 與 **`preflight:strict`** 並列；檔尾 blockquote 四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段）。下列 `decision ref`／`fill snippet`／`HTTP 嚴格取證` 前三行由 `gate-a-sync-decision-draft.mjs` 於 `refresh`／`all` 時覆寫；末行與 **`scripts/gate-a-markdown-footer.mjs`** 之 **`gateAAutoRefClosingHintLine()`** 一致（全案收尾／**status** **§5**／**commands-appendix**／**人工勾選表**）。
 - decision ref：`docs/evidence/gate-a-decision-ref-20260514-213804.md`
 - fill snippet：`docs/evidence/gate-a-fill-snippet-20260514-213804.md`
-- HTTP 嚴格取證：ON
-- **全案收尾與指令速查**：`docs/go-live-checklist.md`（開首長鏈）；`docs/gate-a-status-2026-05-06.md` **§5**／`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`。
+- HTTP 嚴格取證：OFF
+- **全案收尾與指令速查**：`docs/go-live-checklist.md`（開首長鏈）；`docs/gate-a-status-2026-05-06.md` **§5**／`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`；人工／strict-http／keep=1：`docs/gate-a-manual-evidence-checklist-2026-05-06.md` 開首。
 
 ## 依據（已完成）
 

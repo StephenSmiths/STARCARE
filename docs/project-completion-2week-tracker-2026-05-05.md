@@ -121,7 +121,7 @@ limit 20;
 
 <!-- gatea-tracker-auto-ref:start -->
 - 可否判定：`READY`
-- HTTP 嚴格取證：ON
+- HTTP 嚴格取證：OFF
 - auto evidence：`docs/evidence/gate-a-auto-evidence-2026-05-14-223738.md`
 - 401 text：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-14-213803.6.txt`
 - 403 text：`docs/evidence/gate-a-d2-403-admin-user-role-set-2026-05-14-213803.6.txt`
@@ -130,7 +130,7 @@ limit 20;
 - doctor report：`docs/evidence/gate-a-evidence-doctor-20260514-213804.md`
 - report：`docs/evidence/gate-a-report-20260514-213804.md`
 - `npm run gatea:evidence:preflight:strict`（取證前嚴格環境檢查；與 README／go-live 並讀）
-- **全案收尾與指令速查**：`docs/go-live-checklist.md`（開首長鏈）；`docs/gate-a-status-2026-05-06.md` **§5**／`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`。
+- **全案收尾與指令速查**：`docs/go-live-checklist.md`（開首長鏈）；`docs/gate-a-status-2026-05-06.md` **§5**／`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`；人工／strict-http／keep=1：`docs/gate-a-manual-evidence-checklist-2026-05-06.md` 開首。
 <!-- gatea-tracker-auto-ref:end -->
 
 ## 缺陷收斂板（上線範圍）

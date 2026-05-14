@@ -38,6 +38,7 @@
 | 日期 | 說明 |
 |------|------|
 | 2026-05-09 | 人工段補 **`--keep=1`**；與 **`go-live-checklist.md`** §0.1、**`README`** 開首／專案收尾表、**`pdf-sequenced-gap-checklist.md`**「**全案收尾執行與證據留痕**」句對齊。 |
+| 2026-05-09 | **§4**：**`gate-a-markdown-footer.mjs`** **`gateAStandardCloseoutBlockquotes`**／**`gateAAutoRefClosingHintLine`** 併 **人工勾選表**；**`pdf03`** §4 **Gate A** 維護項括註與 **`pdf-sequenced-gap-checklist-revision-log.md`** 同日列。 |
 | 2026-05-14 | 開首「全案收尾」長段後增一行：**Gate A 人工**／**`npm run gatea:evidence:refresh:strict-http`** 互鏈 **`docs/gate-a-manual-evidence-checklist-2026-05-06.md`** 開首與 **`docs/go-live-checklist.md`** §0.1。 |
 | 2026-05-09 | **主表**：**`pdf-sequenced-gap-checklist.md`** §C Seq **35**「與現況對照」列補 **`pdf03`** **§3**／**§4** 與 **`seq35`** **§1**／**§3**／**`seq29`** 敘述；**`pdf-sequenced-gap-checklist-revision-log.md`** **註** 併 **§C** 括註。 |
 | 2026-05-09 | §1：權威表 **`pdf03`** 列補 **§3** PR 檢核與 **§4** 維護閉環分述；**`seq29-system-settings-pdf02-traceability.md`** 開首 **CI** 句併 **本檔** §3。 |
