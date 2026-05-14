@@ -6,7 +6,7 @@
 > **HTTP 嚴格取證（401／403）與現況指標**：全流程請用 **`npm run gatea:evidence:refresh:strict-http`**（或合併環境設 **`GATEA_STRICT_HTTP`** 後跑 **`gatea:evidence:refresh`**）；**`docs/evidence/gate-a-latest.md`** 與收尾四檔 **`<!-- gatea-*-auto-ref -->`** 內之 **HTTP 嚴格取證** 會與該次旗標一致。若 **`docs/evidence`** 僅想保留最新一輪檔案，可用 **`npm run gatea:evidence:refresh:strict-http -- --keep=1`**；若僅手動 prune 而未重跑全流程，請接續 **`npm run gatea:evidence:latest -- --strict-http`**、**`npm run gatea:evidence:docs-sync -- --strict-http`**、**`npm run gatea:evidence:decision-sync -- --strict-http`** 以免 **latest**／引用區仍指向已刪檔名。  
 > **全案收尾與證據留痕**：見 **`docs/go-live-checklist.md`** 開首 **全案收尾與證據留痕**（**`README.md`**「專案收尾」、**`docs/business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引（含各檔 **對照**／**全案收尾母索引**））。  
 > **收證指令／旗標細部**：**`docs/gate-a-status-2026-05-06.md`** **§5**、**`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`**；**人工／strict-http／keep=1**：**`docs/gate-a-manual-evidence-checklist-2026-05-06.md`** 開首（**`docs/go-live-checklist.md`** §0.1）。
-> 多數 **`gatea:evidence:*`** 終端 stdout 末兩行 blockquote 維護：**`scripts/gate-a-markdown-footer.mjs`**（**Export 契約**；**`README.md`**「Gate A 終端頁尾（維護）」）。
+> 多數 **`gatea:evidence:*`** 終端 stdout 末兩行 **`gateAStandardCloseoutBlockquotes`**（第二行併 **人工／strict-http／keep=1**）維護：**`scripts/gate-a-markdown-footer.mjs`**（**Export 契約**；**`README.md`**「Gate A 終端頁尾（維護）」）。
 
 ## A. go-live §1（Auth/RLS）
 
