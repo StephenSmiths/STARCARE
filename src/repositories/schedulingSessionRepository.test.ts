@@ -79,4 +79,44 @@ describe('EdgeSchedulingSessionRepository', () => {
       expect.objectContaining({ headers: expect.any(Object) }),
     )
   })
+
+  it('listSessions 遇 HTTP 非 2xx 時拋錯含狀態碼', async () => {
+    vi.mocked(buildEdgeInvokeHeaders).mockResolvedValue({
+      Authorization: 'Bearer t',
+      apikey: 'anon',
+      'Content-Type': 'application/json',
+    })
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false, status: 503 }))
+    const repo = new EdgeSchedulingSessionRepository({
+      supabaseUrl: 'https://proj.supabase.co',
+      anonKey: 'anon',
+    })
+    await expect(repo.listSessions()).rejects.toThrow('無法載入可排時段（HTTP 503）')
+  })
+
+  it('listSessions 遇請先登入時原樣拋出', async () => {
+    vi.mocked(buildEdgeInvokeHeaders).mockRejectedValue(new Error('請先登入'))
+    const fetchFn = vi.fn()
+    vi.stubGlobal('fetch', fetchFn)
+    const repo = new EdgeSchedulingSessionRepository({
+      supabaseUrl: 'https://proj.supabase.co',
+      anonKey: 'anon',
+    })
+    await expect(repo.listSessions()).rejects.toThrow('請先登入')
+    expect(fetchFn).not.toHaveBeenCalled()
+  })
+
+  it('listSessions 連線失敗時包裝固定中文訊息', async () => {
+    vi.mocked(buildEdgeInvokeHeaders).mockResolvedValue({
+      Authorization: 'Bearer t',
+      apikey: 'anon',
+      'Content-Type': 'application/json',
+    })
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new TypeError('Failed to fetch')))
+    const repo = new EdgeSchedulingSessionRepository({
+      supabaseUrl: 'https://proj.supabase.co',
+      anonKey: 'anon',
+    })
+    await expect(repo.listSessions()).rejects.toThrow('無法連線載入可排時段，請檢查網路或 Supabase 設定。')
+  })
 })
