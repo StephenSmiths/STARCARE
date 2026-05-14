@@ -82,4 +82,20 @@ describe('runSchedulingKpiHistoryRetryFlow', () => {
       mocks.hydrateFromServer.mock.invocationCallOrder[0] ?? 999,
     )
   })
+
+  it('pendingClear 與待上傳併存：先 clear、再由舊到新 append、最後 hydrate', async () => {
+    const newer = recordAt('2026-05-04T02:00:00.000Z')
+    const older = recordAt('2026-05-04T01:00:00.000Z')
+    await runSchedulingKpiHistoryRetryFlow('fac-1', true, [newer, older], EMPTY_SCHEDULING_KPI_HISTORY_FILTER)
+    expect(mocks.clearHistory).toHaveBeenCalledTimes(1)
+    expect(mocks.clearHistory.mock.invocationCallOrder[0]).toBeLessThan(
+      mocks.appendRecord.mock.invocationCallOrder[0] ?? 999,
+    )
+    expect(mocks.appendRecord).toHaveBeenCalledTimes(2)
+    expect(mocks.appendRecord.mock.calls[0]).toEqual(['fac-1', older])
+    expect(mocks.appendRecord.mock.calls[1]).toEqual(['fac-1', newer])
+    expect(mocks.appendRecord.mock.invocationCallOrder[1]).toBeLessThan(
+      mocks.hydrateFromServer.mock.invocationCallOrder[0] ?? 999,
+    )
+  })
 })
