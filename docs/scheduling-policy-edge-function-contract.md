@@ -5,7 +5,7 @@
 
 > **前端 demo 煙霧（無 Supabase）**：**`npm run test:e2e:system-settings-policy`**、**`npm run test:e2e:smoke`**（**`hash #system-settings`**）；**UAT** **二之一**（段末 **工程維護互鏈**）：**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`**；細目 **`docs/seq29-system-settings-pdf02-traceability.md`** 第 4 節、**`docs/seq29-system-settings-pdf02-traceability-revision-log.md`**。
 
-**全案收尾與證據留痕**：**`README.md`**「專案收尾」（**`docs/business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引）；**`docs/project-completion-*.md`**；Gate A **`docs/evidence/gate-a-latest.md`**（**Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:preflight:strict`**）。
+**全案收尾與證據留痕**：**`README.md`**「專案收尾」（**`docs/business-logic.md`** §0 **全案收尾執行** 併述 **README** 表前互鏈指引）；**`docs/project-completion-*.md`**；Gate A **`docs/evidence/gate-a-latest.md`**（**Next Command** 與 **`preflight:strict`** 並列；**`npm run gatea:evidence:preflight:strict`**）；人工 **`docs/gate-a-manual-evidence-checklist-2026-05-06.md`** 開首（**`docs/go-live-checklist.md`** §0.1、strict-http／**`npm run gatea:evidence:refresh:strict-http`**／**`--keep=1`**）。
 
 ## 1. 目標與範圍
 
