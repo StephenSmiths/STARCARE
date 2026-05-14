@@ -1,5 +1,12 @@
 import { describe, expect, it } from 'vitest'
-import { normalizeWeeklyRosterHm, parseWeeklyRosterSheetText } from './weeklyRosterImportParseText'
+import { ACTIVITY_SESSIONS_WORKSPACE_FACILITY_ID } from '../../activitySessions/constants/activitySessionsWorkspaceDefaults'
+import { WEEKLY_ROSTER_DEFAULT_CAPACITY } from '../constants/weeklyRosterImportConstants'
+import {
+  normalizeWeeklyRosterHm,
+  parseWeeklyRosterSheetText,
+  weeklyRosterDraftsToImportRows,
+  type WeeklyRosterDraftRow,
+} from './weeklyRosterImportParseText'
 
 describe('normalizeWeeklyRosterHm', () => {
   it('正規化為兩位小時', () => {
@@ -32,5 +39,51 @@ describe('parseWeeklyRosterSheetText', () => {
     const { drafts, errors } = parseWeeklyRosterSheetText(bad)
     expect(drafts).toHaveLength(0)
     expect(errors.some((e) => e.message.includes('服務類型'))).toBe(true)
+  })
+})
+
+const rosterDraft = (over: Partial<WeeklyRosterDraftRow>): WeeklyRosterDraftRow => ({
+  rowIndex: 2,
+  serviceLabel: '資助復康服務',
+  role: 'PT',
+  displayName: '王小明',
+  sessionDate: '2026-05-10',
+  startHm: '09:00',
+  endHm: '10:00',
+  residentScope: '全院',
+  ...over,
+})
+
+describe('weeklyRosterDraftsToImportRows（草稿＋主檔 Map→匯入列）', () => {
+  it('空草稿回傳空列', () => {
+    const { rows, errors } = weeklyRosterDraftsToImportRows([], new Map())
+    expect(rows).toEqual([])
+    expect(errors).toEqual([])
+  })
+
+  it('主檔鍵為 trim(姓名)+Tab+職位；寫入 activityId／facilityId／預設容量', () => {
+    const staffMap = new Map<string, string>([['王小明\tPT', 'staff-profile-1']])
+    const { rows, errors } = weeklyRosterDraftsToImportRows([rosterDraft({ displayName: '  王小明  ' })], staffMap)
+    expect(errors).toHaveLength(0)
+    expect(rows).toHaveLength(1)
+    expect(rows[0]).toMatchObject({
+      facilityId: ACTIVITY_SESSIONS_WORKSPACE_FACILITY_ID,
+      activityId: 'activity-rehab-01',
+      staffProfileId: 'staff-profile-1',
+      sessionDate: '2026-05-10',
+      timeSlot: '09:00-10:00',
+      capacity: WEEKLY_ROSTER_DEFAULT_CAPACITY,
+      startTime: '09:00',
+      endTime: '10:00',
+      activityDetail: '全院',
+    })
+  })
+
+  it('主檔無對應列時回錯誤且不產生該列', () => {
+    const { rows, errors } = weeklyRosterDraftsToImportRows([rosterDraft()], new Map())
+    expect(rows).toHaveLength(0)
+    expect(errors).toHaveLength(1)
+    expect(errors[0]?.rowIndex).toBe(2)
+    expect(errors[0]?.message).toContain('找不到')
   })
 })
