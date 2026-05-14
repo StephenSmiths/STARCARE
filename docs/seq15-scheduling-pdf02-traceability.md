@@ -55,7 +55,7 @@
 | `src/features/scheduling/hooks/schedulingKpiHistoryFilter.test.ts` | **`EMPTY_SCHEDULING_KPI_HISTORY_FILTER`**／**`toSchedulingKpiHistoryQuery`**（空字串→**`undefined`**、**`limit`**＝**`SCHEDULING_KPI_HISTORY_LIMIT`**） |
 | `src/features/scheduling/utils/weeklyRosterStaffLookup.test.ts` | **`buildWeeklyRosterStaffProfileLookup`**（姓名＋Tab＋職位→**`staff_profiles.id`**；略過 **TeamLead**；歧義鍵） |
 | `src/features/scheduling/utils/weeklyRosterImportParseText.test.ts` | **`normalizeWeeklyRosterHm`**／**`parseWeeklyRosterSheetText`**／**`weeklyRosterDraftsToImportRows`**（週更表 CSV→草稿→**`ActivitySessionImportRow`**） |
-| `src/features/scheduling/utils/runWeeklyRosterActivityImportDryRun.test.ts` | **`runWeeklyRosterActivityImportDryRun`**（**`parse_errors`**／**`empty_rows`**／**`throw`**；週更→活動預檢編排） |
+| `src/features/scheduling/utils/runWeeklyRosterActivityImportDryRun.test.ts` | **`runWeeklyRosterActivityImportDryRun`**（**`parse_errors`**（表頭／歧義／主檔對照）／**`empty_rows`**／**`throw`**、**`validated`** 委派 **`runActivitySessionRowsDryRun`**；**`importOriginal`** partial mock **`parseWeeklyRosterSheetText`**） |
 | `src/features/scheduling/utils/residentTableFundingPresentation.test.ts` | **`residentFundingLabel`**／**`residentFundingBadgeClass`**（院友表資助類別與 **`uiTokens`** 徽章樣式） |
 | `src/features/scheduling/utils/mapResidentToSchedulingResident.test.ts` | **`mapResidentToSchedulingResident`**（主檔→**`SchedulingResident`**；本週次數與指派日期歸零） |
 | `src/features/scheduling/utils/mapActiveResidentsToSubsidizedSchedulingResidents.test.ts` | **`mapActiveResidentsToSubsidizedSchedulingResidents`**（**PDF 01** 資助復康合規族群過濾；**`Both`**／純 **`Dementia_Service`**） |
@@ -186,3 +186,4 @@
 | 2026-05-09 | §4：補 **`index.test.ts`**；擴 **`SchedulingDashboard.test.tsx`**（週更確認勾選 **`setRosterConfirmed`**）。 |
 | 2026-05-09 | §4／§5：補 **`runWeeklyRosterActivityImportDryRun.test.ts`**（週更活動預檢：**`parse_errors`**／**`empty_rows`**／**`throw`**）。 |
 | 2026-05-09 | §4／§5：補 **`AppMainViews.test.tsx`**（主視圖 **scheduling**／**`view:scheduling`**、**`Suspense`**／**`lazy`**）。 |
+| 2026-05-09 | §4：擴 **`runWeeklyRosterActivityImportDryRun.test.ts`**（主檔歧義、**`weeklyRosterDraftsToImportRows`** 錯誤、**`validated`** 委派；**`importOriginal`** partial mock）。 |
