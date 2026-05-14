@@ -1,12 +1,23 @@
 import { describe, expect, it } from 'vitest'
+import type { ConflictType } from './schedulingService'
 import {
   formatSchedulingConflictLine,
   schedulingConflictTypeLabel,
 } from './schedulingConflictLabels'
 
+const conflictTypeCases: [ConflictType, string][] = [
+  ['NO_CAPACITY', '容量已滿'],
+  ['DAILY_LIMIT', '同日服務上限'],
+  ['INTERVAL_LIMIT', '相鄰日間隔'],
+  ['STAFF_SLOT_DUPLICATED', '員工時段重複'],
+  ['SKILL_MISMATCH', '技能／職類不符'],
+  ['NO_ELIGIBLE_SESSION', '無可用時段'],
+  ['STAFF_GROUP_DAILY_CAP', '小組活動每日場次上限'],
+]
+
 describe('schedulingConflictLabels', () => {
-  it('STAFF_GROUP_DAILY_CAP 有中文標籤', () => {
-    expect(schedulingConflictTypeLabel('STAFF_GROUP_DAILY_CAP')).toBe('小組活動每日場次上限')
+  it.each(conflictTypeCases)('schedulingConflictTypeLabel(%s) → %s', (type, label) => {
+    expect(schedulingConflictTypeLabel(type)).toBe(label)
   })
 
   it('formatSchedulingConflictLine 併院友名與理由', () => {
