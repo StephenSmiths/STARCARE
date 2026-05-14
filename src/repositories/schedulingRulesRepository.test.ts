@@ -121,4 +121,15 @@ describe('createSchedulingRulesRepository', () => {
     await expect(repo.getRules()).rejects.toThrow('請先登入')
     expect(fetchFn).not.toHaveBeenCalled()
   })
+
+  it('Edge getRules 連線失敗時包裝固定中文訊息', async () => {
+    vi.mocked(getSupabaseBrowserCredentials).mockReturnValue({
+      supabaseUrl: 'https://proj.supabase.co',
+      anonKey: 'anon-key',
+    })
+    vi.mocked(buildEdgeInvokeHeaders).mockResolvedValue({} as HeadersInit)
+    vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new TypeError('Failed to fetch')))
+    const repo = createSchedulingRulesRepository()
+    await expect(repo.getRules('fac-net')).rejects.toThrow('無法連線載入排班規則，請檢查網路或 Supabase 設定。')
+  })
 })

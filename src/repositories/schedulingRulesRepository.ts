@@ -48,11 +48,20 @@ class EdgeSchedulingRulesRepository implements SchedulingRulesRepository {
   }
 
   async getRules(facilityId: string = STARCARE_DEFAULT_FACILITY_ID): Promise<SchedulingRules | null> {
-    const headers = await buildEdgeInvokeHeaders(this.anonKey)
-    const response = await fetch(
-      `${this.supabaseUrl}/functions/v1/scheduling-rules-get?facilityId=${encodeURIComponent(facilityId)}`,
-      { headers },
-    )
+    let response: Response
+    // 與 `EdgeSchedulingSessionRepository.listSessions` 一致：連線失敗包裝；「請先登入」原樣上拋。
+    try {
+      const headers = await buildEdgeInvokeHeaders(this.anonKey)
+      response = await fetch(
+        `${this.supabaseUrl}/functions/v1/scheduling-rules-get?facilityId=${encodeURIComponent(facilityId)}`,
+        { headers },
+      )
+    } catch (error) {
+      if (error instanceof Error && error.message === '請先登入') {
+        throw error
+      }
+      throw new Error('無法連線載入排班規則，請檢查網路或 Supabase 設定。', { cause: error })
+    }
     if (response.status === 404) return null
     if (!response.ok) throw new Error(`載入排班規則失敗（HTTP ${response.status}）`)
     return (await response.json()) as SchedulingRules
