@@ -31,12 +31,13 @@
 |--------|------|
 | **`e2e/smoke.spec.ts`** | **`/#user-manual`**、`heading` **用戶手冊**、**快速上手** |
 | **`e2e/auth-login.staff-modules.spec.ts`** | 登入後 **`/#user-manual`** |
+| **`e2e/list-section-collapse.spec.ts`** | **`#user-manual`**：先待模組 **`heading` 用戶手冊**（與 smoke 一致），再測 **快速上手** **`ListSectionPanel`** 收合／展開與內文可見 |
 
 ---
 
 ## 4. 維護閉環
 
-- 變更 **側欄分組說明**、**閉環流程文案**或 **文件參考路徑**時：同步本檔、**`pdf-sequenced-gap-checklist.md`** Seq 28、**`pdf-sequenced-gap-checklist-revision-log.md`**（**`docs/pdf03-cursorrules-alignment.md`** §4）；並核 **`README.md`**／**`feature-list.md`** 文件表是否需同句更新。
+- 變更 **側欄分組說明**、**閉環流程文案**、**文件參考路徑**或 **`UserManualHome`** 章節標題／**`ListSectionPanel`** 預設收合時：同步本檔、**`e2e/list-section-collapse.spec.ts`**（**`#user-manual`**）、**`pdf-sequenced-gap-checklist.md`** Seq 28、**`pdf-sequenced-gap-checklist-revision-log.md`**（**`docs/pdf03-cursorrules-alignment.md`** §4）；並核 **`README.md`**／**`feature-list.md`** 文件表是否需同句更新。
 - **下一序號**：系統設定 **Seq 29**（02【16】）— **`docs/seq29-system-settings-pdf02-traceability.md`**（互鏈本序號）。
 
 ---
@@ -45,3 +46,4 @@
 |------|------|
 | 2026-05-04 | 初版：Seq 28 **對照骨架**；與 Seq 27 互鏈。 |
 | 2026-05-04 | §6：與 **`seq29-system-settings-pdf02-traceability.md`** 互鏈。 |
+| 2026-05-09 | §3／§4：**`list-section-collapse`** 與 **`#user-manual`** E2E 錨點及維護句（lazy 載入後再斷言）。 |
