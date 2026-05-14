@@ -1,4 +1,5 @@
 import type { Resident } from '../../residents/types/resident'
+import { formatSchedulingConflictLine } from '../../../services/schedulingConflictLabels'
 import { isDementiaCareCohort } from '../../residents/utils/residentCareTrackCohort'
 import type {
   SchedulingConstraints,
@@ -59,6 +60,8 @@ export const buildDementiaServiceTrackSnapshot = (
     isCompliant: r.weeklyCompletedCount >= DEMENTIA_WEEKLY_TARGET,
     dementiaLevel: levelById.get(r.id),
   }))
+  const conflictSampleLines =
+    conflicts.length > 0 ? conflicts.slice(0, 10).map((c) => formatSchedulingConflictLine(c)) : undefined
   return {
     trackLabel: '認知障礙症服務',
     cohortCount: cohort.length,
@@ -66,6 +69,7 @@ export const buildDementiaServiceTrackSnapshot = (
     compliantCount,
     assignmentCount: assignments.length,
     conflictCount: conflicts.length,
+    conflictSampleLines,
     rows,
   }
 }

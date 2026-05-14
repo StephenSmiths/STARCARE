@@ -30,6 +30,21 @@ export const RehabTrackSection = ({ snapshot, showDementiaColumn }: Props) => {
         納入院友 {snapshot.cohortCount} 人｜本週可用時段 {snapshot.sessionCount} 個｜乾跑指派 {snapshot.assignmentCount}{' '}
         筆｜未滿足 {snapshot.conflictCount} 筆｜達標 {snapshot.compliantCount} 人（兩軌分開計算，與 01 §4 一致）。
       </p>
+      {snapshot.conflictCount > 0 && snapshot.conflictSampleLines && snapshot.conflictSampleLines.length > 0 ? (
+        <details className={`${uiTokens.textSubtleXs} mb-3`}>
+          <summary className="cursor-pointer select-none">
+            衝突節錄（展示 {snapshot.conflictSampleLines.length}/{snapshot.conflictCount} 筆）
+          </summary>
+          <ul className="mt-2 list-disc pl-5">
+            {snapshot.conflictSampleLines.map((line, i) => (
+              <li key={`cf-${i}-${line.slice(0, 24)}`}>{line}</li>
+            ))}
+          </ul>
+          {snapshot.conflictCount > snapshot.conflictSampleLines.length ? (
+            <p className="mt-1">其餘 {snapshot.conflictCount - snapshot.conflictSampleLines.length} 筆未列出。</p>
+          ) : null}
+        </details>
+      ) : null}
       {hasMoreRows ? (
         <div className={uiTokens.layoutFlexBetweenGap2}>
           <p className={uiTokens.textSubtleXs}>

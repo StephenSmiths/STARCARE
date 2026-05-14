@@ -72,4 +72,31 @@ describe('rehabActivityTrackingSnapshotService (PDF 02【8】)', () => {
     expect(snap.cohortCount).toBe(1)
     expect(snap.rows[0]?.id).toBe('d1')
   })
+
+  it('衝突節錄附中文類型標籤（P1 小組每日場次上限）', () => {
+    const capped = { ...constraints, therapistGroupSessionsDailyCap: 1 }
+    const residents = [
+      baseResident({ id: 'a', serviceType: 'Dementia_Service', dementiaLevel: 'Mild' }),
+      baseResident({ id: 'b', serviceType: 'Dementia_Service', dementiaLevel: 'Moderate' }),
+    ]
+    const cogGroup = (id: string, timeSlot: string): SchedulingSession =>
+      ({
+        id,
+        staffId: 's1',
+        staffName: 'OT',
+        date: '2026-06-01',
+        timeSlot,
+        serviceType: 'Dementia_Service',
+        capacity: 4,
+        staffRoleType: 'OT',
+      }) as SchedulingSession
+    const snap = buildDementiaServiceTrackSnapshot(
+      residents,
+      [cogGroup('g1', '09:00'), cogGroup('g2', '10:00')],
+      capped,
+      DEFAULT_SYSTEM_SETTINGS,
+    )
+    expect(snap.conflictCount).toBeGreaterThan(0)
+    expect(snap.conflictSampleLines?.some((line) => line.includes('小組活動每日場次上限'))).toBe(true)
+  })
 })

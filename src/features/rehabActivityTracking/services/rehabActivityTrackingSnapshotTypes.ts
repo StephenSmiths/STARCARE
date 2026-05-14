@@ -18,5 +18,7 @@ export type RehabActivityTrackSnapshot = {
   compliantCount: number
   assignmentCount: number
   conflictCount: number
+  /** 乾跑衝突前 10 筆（`formatSchedulingConflictLine`）；與 `conflictCount` 併讀 */
+  conflictSampleLines?: readonly string[]
   rows: RehabActivityTrackRow[]
 }

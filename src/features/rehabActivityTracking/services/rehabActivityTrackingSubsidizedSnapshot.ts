@@ -1,4 +1,5 @@
 import type { Resident } from '../../residents/types/resident'
+import { formatSchedulingConflictLine } from '../../../services/schedulingConflictLabels'
 import type { SchedulingConstraints } from '../../../services/schedulingService'
 import {
   schedulingService,
@@ -41,6 +42,10 @@ export const buildSubsidizedRehabTrackSnapshot = (
       isCompliant: r.weeklyCompletedCount >= t,
     }
   })
+  const conflictSampleLines =
+    result.conflicts.length > 0
+      ? result.conflicts.slice(0, 10).map((c) => formatSchedulingConflictLine(c))
+      : undefined
   return {
     trackLabel: '資助復康服務',
     cohortCount: mappedBase.length,
@@ -48,6 +53,7 @@ export const buildSubsidizedRehabTrackSnapshot = (
     compliantCount,
     assignmentCount: result.assignments.length,
     conflictCount: result.conflicts.length,
+    conflictSampleLines,
     rows,
   }
 }
