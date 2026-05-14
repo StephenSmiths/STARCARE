@@ -9,7 +9,8 @@
 
 | 日期 | 說明 |
 |------|------|
-| 2026-05-09 | §4／§5：**`schedulingPolicyRepository.ts`** **`throwIfNetworkFailure`**；**getCurrent**／**list**／**validate**／**commit** **`response.json()`** 解析失敗併連線包裝；Vitest **`schedulingPolicyRepository.edgeResponseJson.test.ts`**。 |
+| 2026-05-09 | §4／§5：**`pdf03-cursorrules-alignment.md`** §3 PR 檢核／§4 **Seq 29** 維護：政策 **Vitest** 列補 **`schedulingPolicyRepository.listPolicyVersionSummaries.test.ts`**／**`schedulingPolicyRepository.edgeResponseJson.test.ts`**（與 **`seq29-system-settings-pdf02-traceability.md`** §4 並讀）。 |
+| 2026-05-09 | §4／§5：**`schedulingPolicyRepository.ts`** **`throwIfNetworkFailure`**；**getCurrent**／**list**／**validate**／**commit** **`response.json()`** 解析失敗併連線包裝（與上列 **pdf03** **Vitest** 列併讀）。 |
 | 2026-05-09 | §4／§5：**`schedulingPolicyRepository.ts`** **`EdgeSchedulingPolicyRepository`** 四方法 **`fetch`** **try／catch**（**請先登入** 原樣拋出；其餘統一連線訊息與 **`cause`**）；Vitest **`schedulingPolicyRepository.edgeReadWrite.test.ts`**／**`schedulingPolicyRepository.listPolicyVersionSummaries.test.ts`** **連線包裝**；**`seq15-scheduling-pdf02-traceability.md`** §4／§5；主修訂日誌 **註** 併 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-seq29-2026-05-09b.md`** 表末列。 |
 | 2026-05-09 | §4：**`schedulingPolicyRepository.edgeReadWrite.test.ts`** 連線包裝補 **validate** **`fetch`** 拒絕、**commit** **請先登入** 不觸 **`fetch`**（與上列 **Edge** **try／catch** 併讀）。 |
 | 2026-05-09 | **§4**／開首 **Demo E2E**：**`e2e/auth-login.system-settings-p2.spec.ts`**（**`npm run test:e2e:auth`**、優先 **`E2E_AUTH_TEAMLEAD_*`**／**`E2E_AUTH_ADMIN_*`**、**`VITE_SUPABASE_*`**）；**`.env.example`** 註解；**`playwright.auth.config.ts`** 檔首；併 **Vitest** **`SystemSettingsHome.policyP2Titles.test.tsx`** 列。 |
