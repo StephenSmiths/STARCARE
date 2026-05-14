@@ -51,6 +51,7 @@
 | 測試／E2E | 涵蓋範圍 |
 |-----------|----------|
 | `src/services/schedulingService*.test.ts`、`src/features/scheduling/services/schedulingWorkflowStepService.test.ts` | 排班規則與五步 UI 訊號 |
+| `src/features/scheduling/hooks/schedulingHookHelpers.test.ts` | **`mapRulesToConstraints`**／**`buildEngineConstraintsFromRulesAndUi`**（DB **`SchedulingRules`** 與本機 **SC 僅治療師** OR；PDF 02【16】） |
 | `e2e/smoke.spec.ts`（`#scheduling`） | 模組與審計標題可見 |
 | `e2e/auth-login.spec.ts`（若含 `#scheduling`） | 登入後排班頁 |
 
@@ -58,7 +59,7 @@
 
 ## 5. 維護閉環
 
-- 變更 **`SchedulingWorkflowStepper`** 文案、**`buildSchedulingWorkflowUiModel`** 條件或 **`useScheduling`** 儲存條件時：同步本檔、**`pdf-sequenced-gap-checklist.md`** Seq 15、**`pdf-sequenced-gap-checklist-revision-log.md`**（**`docs/pdf03-cursorrules-alignment.md`** §4）。
+- 變更 **`SchedulingWorkflowStepper`** 文案、**`buildSchedulingWorkflowUiModel`** 條件、**`useScheduling`** 儲存條件或 **`buildEngineConstraintsFromRulesAndUi`**／**`mapRulesToConstraints`**（**`schedulingHookHelpers.ts`**）時：同步本檔、**`pdf-sequenced-gap-checklist.md`** Seq 15、**`pdf-sequenced-gap-checklist-revision-log.md`**（**`docs/pdf03-cursorrules-alignment.md`** §4）。
 - **下一序號**：**Seq 16** **`docs/seq16-work-session-plans-pdf02-traceability.md`**（工作計劃【4】）→ **Seq 17** **`docs/seq17-service-forms-pdf02-traceability.md`**（填寫表單【5】）→ **Seq 18** **`docs/seq18-shift-start-handover-pdf02-traceability.md`**（開工接更【5b】）→ **Seq 19** **`docs/seq19-end-shift-handover-pdf02-traceability.md`**（收工交更【6】）→ **Seq 20** **`docs/seq20-work-analysis-review-pdf02-traceability.md`**（工作分析【7】）→ **Seq 21** **`docs/seq21-rehab-activity-tracking-pdf02-traceability.md`**（復康追蹤【8】）→ **Seq 22** **`docs/seq22-assessment-management-pdf02-traceability.md`**（評估管理【9】）→ **Seq 23** **`docs/seq23-historical-documents-pdf02-traceability.md`**（歷史文件【10】）→ **Seq 24** **`docs/seq24-ai-report-center-pdf02-traceability.md`**（AI 報告【11】）→ **Seq 25** **`docs/seq25-residents-management-pdf02-traceability.md`**（院友管理【12】）→ **Seq 26** **`docs/seq26-staff-management-pdf02-traceability.md`**（員工管理【13】）→ **Seq 27** **`docs/seq27-notification-center-pdf02-traceability.md`**（通知中心【14】）→ **Seq 28** **`docs/seq28-user-manual-pdf02-traceability.md`**（用戶手冊【15】）→ **Seq 29** **`docs/seq29-system-settings-pdf02-traceability.md`**（系統設定【16】）。
 
 ---
@@ -96,3 +97,4 @@
 | 2026-05-04 | §5「下一序號」擴至 **Seq 27** **`docs/seq27-notification-center-pdf02-traceability.md`**。 |
 | 2026-05-04 | §5「下一序號」擴至 **Seq 28** **`docs/seq28-user-manual-pdf02-traceability.md`**。 |
 | 2026-05-04 | §5「下一序號」擴至 **Seq 29** **`docs/seq29-system-settings-pdf02-traceability.md`**。 |
+| 2026-05-09 | §4：補 **`schedulingHookHelpers.test.ts`**（**`buildEngineConstraintsFromRulesAndUi`**／**`mapRulesToConstraints`**；**SC 僅治療師** 與雲端規則 OR）。 |
