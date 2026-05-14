@@ -1,7 +1,35 @@
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { STARCARE_DEFAULT_FACILITY_ID } from '../constants/starcareDefaultFacilityId'
+import { getSupabaseBrowserCredentials } from '../services/supabaseBrowserEnv'
 import type { SchedulingKpiRunRecord } from '../services/schedulingKpiService'
-import { InMemorySchedulingKpiHistoryRepository } from './schedulingKpiHistoryRepository'
+import {
+  createSchedulingKpiHistoryRepository,
+  EdgeSchedulingKpiHistoryRepository,
+  InMemorySchedulingKpiHistoryRepository,
+} from './schedulingKpiHistoryRepository'
+
+vi.mock('../services/supabaseBrowserEnv', () => ({
+  getSupabaseBrowserCredentials: vi.fn(),
+}))
+
+beforeEach(() => {
+  vi.clearAllMocks()
+})
+
+describe('createSchedulingKpiHistoryRepository', () => {
+  it('無憑證時回傳 InMemorySchedulingKpiHistoryRepository', () => {
+    vi.mocked(getSupabaseBrowserCredentials).mockReturnValue(null)
+    expect(createSchedulingKpiHistoryRepository()).toBeInstanceOf(InMemorySchedulingKpiHistoryRepository)
+  })
+
+  it('有憑證時回傳 EdgeSchedulingKpiHistoryRepository', () => {
+    vi.mocked(getSupabaseBrowserCredentials).mockReturnValue({
+      supabaseUrl: 'https://proj.supabase.co',
+      anonKey: 'anon',
+    })
+    expect(createSchedulingKpiHistoryRepository()).toBeInstanceOf(EdgeSchedulingKpiHistoryRepository)
+  })
+})
 
 const makeRecord = (index: number): SchedulingKpiRunRecord => ({
   ranAt: `2026-05-${String(index + 1).padStart(2, '0')}T10:00:00.000Z`,
