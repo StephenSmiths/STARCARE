@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { STARCARE_DEFAULT_FACILITY_ID } from '../../../constants/starcareDefaultFacilityId'
 import { SCHEDULING_DATA_LOAD_ERROR_MESSAGE } from './schedulingDataLoadMessage'
 import { runSchedulingReloadPageData } from './schedulingReloadPageData'
@@ -86,5 +86,37 @@ describe('runSchedulingReloadPageData', () => {
     if (!out.ok) {
       expect(out.loadError).toBe(SCHEDULING_DATA_LOAD_ERROR_MESSAGE)
     }
+  })
+
+  it('listSchedulingSessions 拋錯時回 loadError', async () => {
+    const out = await runSchedulingReloadPageData(STARCARE_DEFAULT_FACILITY_ID, {
+      listActiveResidents: async () => [resident],
+      listSchedulingSessions: async () => {
+        throw new Error('sessions')
+      },
+      prefetchRules: () => {},
+    })
+    expect(out).toEqual({ ok: false, loadError: SCHEDULING_DATA_LOAD_ERROR_MESSAGE })
+  })
+
+  it('prefetchRules 拋錯時回 loadError', async () => {
+    const out = await runSchedulingReloadPageData(STARCARE_DEFAULT_FACILITY_ID, {
+      listActiveResidents: async () => [resident],
+      listSchedulingSessions: async () => [session],
+      prefetchRules: () => {
+        throw new Error('prefetch')
+      },
+    })
+    expect(out).toEqual({ ok: false, loadError: SCHEDULING_DATA_LOAD_ERROR_MESSAGE })
+  })
+
+  it('prefetchRules 以 facilityId 呼叫', async () => {
+    const prefetchRules = vi.fn()
+    await runSchedulingReloadPageData('fac-x', {
+      listActiveResidents: async () => [resident],
+      listSchedulingSessions: async () => [],
+      prefetchRules,
+    })
+    expect(prefetchRules).toHaveBeenCalledWith('fac-x')
   })
 })
