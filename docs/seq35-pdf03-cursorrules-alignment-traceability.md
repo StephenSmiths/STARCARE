@@ -12,7 +12,7 @@
 
 | 檔案 | 角色 |
 |------|------|
-| **`docs/pdf03-cursorrules-alignment.md`** | **03** 與 **`.cursorrules`** 對照矩陣＋**§4 維護閉環**（含修訂日誌寫入 **`pdf-sequenced-gap-checklist-revision-log.md`**） |
+| **`docs/pdf03-cursorrules-alignment.md`** | **03** 與 **`.cursorrules`** 對照矩陣；**§3** PR 檢核（含 **Seq 29【16】政策 validate／commit**）；**§4** **維護閉環**（含修訂日誌寫入 **`pdf-sequenced-gap-checklist-revision-log.md`**） |
 | **`/.cursorrules`** | 專案工程鐵律（與 **03** 並讀；爭議以 **簽核 PDF** 為準） |
 
 ---
@@ -36,5 +36,6 @@
 
 | 日期 | 說明 |
 |------|------|
+| 2026-05-09 | §1：權威表 **`pdf03`** 列補 **§3** PR 檢核與 **§4** 維護閉環分述；**`seq29-system-settings-pdf02-traceability.md`** 開首 **CI** 句併 **本檔** §3。 |
 | 2026-05-09 | §3：補 **pdf03** §3／§4 **Seq 29** 政策 **Vitest** PR 檢核與 **`seq29`** 主檔／修訂表互鏈（**02 鏈**→**03**）。 |
 | 2026-05-04 | 初版：Seq 35 **對照骨架**；與 Seq 29（02 末序）互鏈。 |
