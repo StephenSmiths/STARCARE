@@ -15,7 +15,7 @@ process.stdout.write(`\nRESULT: ${s.ready ? 'READY' : 'NOT_READY'}\n`)
 
 if (!s.ready) {
   process.stdout.write(
-    'hint: run `npm run gatea:evidence:all` and complete manual screenshots per checklist.\n',
+    '提示：可執行 `npm run gatea:evidence:all`；人工截圖與 HTTP 嚴格取證／`--keep=1` 見 docs/gate-a-manual-evidence-checklist-2026-05-06.md 開首。\n',
   )
 }
 

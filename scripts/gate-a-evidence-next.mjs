@@ -15,7 +15,7 @@ if (s.ready) {
   lines.push('- 進行 Gate A 判定與簽核。')
   lines.push(`- 建議先跑：\`${rec.command}\`（${rec.reason}）`)
   lines.push(
-    '- 再確認：`npm run gatea:evidence:latest`（寫入 `docs/evidence/gate-a-latest.md`；檔尾 blockquote 四行：`gateALatestMarkdownFooterLines`，敘述見 `docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment` 下文 `latest` 段）',
+    '- 再確認：`npm run gatea:evidence:latest`（寫入 `docs/evidence/gate-a-latest.md`；檔尾 blockquote 四行：`gateALatestMarkdownFooterLines`，敘述見 `docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment` 下文 `latest` 段）；人工／strict-http／keep=1：`docs/gate-a-manual-evidence-checklist-2026-05-06.md` 開首',
   )
 } else {
   lines.push('## 缺口導向')
@@ -27,6 +27,7 @@ if (s.ready) {
   lines.push('- 跑總流程：`npm run gatea:evidence:all`')
   lines.push(`- doctor 完成度：${s.doctorTotal > 0 ? `${s.doctorDone}/${s.doctorTotal}` : '未找到 doctor'}`)
   lines.push('- 補人工截圖後再檢查：`npm run gatea:evidence:ready -- --strict`')
+  lines.push('- 人工／strict-http／keep=1：`docs/gate-a-manual-evidence-checklist-2026-05-06.md` 開首')
 }
 
 lines.push(``)

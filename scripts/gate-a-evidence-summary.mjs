@@ -53,7 +53,7 @@ for (const c of checks) {
 lines.push(``)
 lines.push(`## 其他自動落檔（不計入上分母）`)
 lines.push(
-  `- latest pointer：docs/evidence/gate-a-latest.md（檔尾 blockquote 四行：gateALatestMarkdownFooterLines；見 docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment 下文 latest 段）`,
+  `- latest pointer：docs/evidence/gate-a-latest.md（檔尾 blockquote 四行：gateALatestMarkdownFooterLines；見 docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment 下文 latest 段）；人工／strict-http／keep=1：docs/gate-a-manual-evidence-checklist-2026-05-06.md 開首`,
 )
 lines.push(`- doctor 快照：${rel(latestName('gate-a-evidence-doctor-'))}`)
 lines.push(`- report：${rel(latestName('gate-a-report-'))}`)
@@ -62,7 +62,7 @@ lines.push(`- decision ref：${rel(latestName('gate-a-decision-ref-'))}`)
 lines.push(`- next command：\`${rec.command}\`（${rec.reason}）`)
 lines.push(`- preflight：${gateAPreflightStrictNextMarkdownLine().replace(/^- /, '')}`)
 lines.push(``)
-lines.push(`> 人工證據仍需依 docs/gate-a-manual-evidence-checklist-2026-05-06.md 補齊。`)
+lines.push(`> 人工證據截圖與勾選項仍須依 **docs/gate-a-manual-evidence-checklist-2026-05-06.md** 各節補齊。`)
 lines.push(``)
 lines.push(...gateAStandardCloseoutBlockquotes())
 
