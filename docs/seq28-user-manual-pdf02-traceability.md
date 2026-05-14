@@ -46,4 +46,4 @@
 |------|------|
 | 2026-05-04 | 初版：Seq 28 **對照骨架**；與 Seq 27 互鏈。 |
 | 2026-05-04 | §6：與 **`seq29-system-settings-pdf02-traceability.md`** 互鏈。 |
-| 2026-05-09 | §3／§4：**`list-section-collapse`** 與 **`#user-manual`** E2E 錨點及維護句（lazy 載入後再斷言）。 |
+| 2026-05-09 | §3／§4：**`list-section-collapse`** 與 **`#user-manual`** E2E 錨點及維護句（lazy 載入後再斷言）；**`pdf-sequenced-gap-checklist.md`** 主表 Seq 28 列補 E2E。 |
