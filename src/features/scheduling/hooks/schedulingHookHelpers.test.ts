@@ -1,8 +1,14 @@
 /** @vitest-environment happy-dom */
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import type { SchedulingRules } from '../../../repositories/schedulingRulesRepository'
+import type { SchedulingResident, SchedulingSession } from '../../../services/schedulingService'
 import { DEFAULT_SYSTEM_SETTINGS } from '../../systemSettings/repository/systemSettingsRepository'
-import { buildEngineConstraintsFromRulesAndUi, mapRulesToConstraints } from './schedulingHookHelpers'
+import {
+  buildEngineConstraintsFromRulesAndUi,
+  cloneResidents,
+  cloneSessions,
+  mapRulesToConstraints,
+} from './schedulingHookHelpers'
 
 const loadSystemSettingsMock = vi.hoisted(() => vi.fn())
 
@@ -84,5 +90,41 @@ describe('schedulingHookHelpers（PDF 02【16】規則→引擎約束）', () =>
       const rules = baseRules({ allowScTherapistOnly: false })
       expect(buildEngineConstraintsFromRulesAndUi(rules).allowScTherapistOnly).toBe(true)
     })
+  })
+})
+
+describe('cloneResidents／cloneSessions（乾跑前複製，避免引擎修改汙染來源）', () => {
+  it('cloneResidents 複製 assignedDates 陣列', () => {
+    const source: SchedulingResident[] = [
+      {
+        id: 'r1',
+        name: '院友',
+        fundingType: 'Private',
+        isSpecialCareCase: false,
+        weeklyCompletedCount: 0,
+        assignedDates: ['2026-06-01'],
+      },
+    ]
+    const cloned = cloneResidents(source)
+    cloned[0].assignedDates.push('2026-06-02')
+    expect(source[0].assignedDates).toEqual(['2026-06-01'])
+    expect(cloned[0].assignedDates).toEqual(['2026-06-01', '2026-06-02'])
+  })
+
+  it('cloneSessions 產生新陣列與淺複製元素', () => {
+    const session: SchedulingSession = {
+      id: 's1',
+      staffId: 'st1',
+      staffName: 'OT',
+      date: '2026-06-01',
+      timeSlot: '09:00',
+      serviceType: 'Subsidized_Rehab',
+      capacity: 2,
+    }
+    const source = [session]
+    const cloned = cloneSessions(source)
+    expect(cloned).not.toBe(source)
+    expect(cloned[0]).not.toBe(session)
+    expect(cloned[0]).toStrictEqual(session)
   })
 })
