@@ -29,10 +29,12 @@
 ## 3. 維護閉環
 
 - **03** 或 **`.cursorrules`** 改版：先更新 **`pdf03-cursorrules-alignment.md`**，再寫 **`pdf-sequenced-gap-checklist-revision-log.md`**；並核 **本檔**、**`pdf-sequenced-gap-checklist.md`** Seq **35**。
+- 變更 **`pdf03-cursorrules-alignment.md`** §3 **Seq 29【16】政策 validate／commit 與錯誤 UX** PR 檢核或 §4 **Seq 29** 維護句（**`schedulingPolicyRepository.*.test.ts`** 等）時：視需要核 **`docs/seq29-system-settings-pdf02-traceability.md`** §4／§5 與 **`docs/seq29-system-settings-pdf02-traceability-revision-log.md`**（與 **上一序號（02 鏈）** 互鏈）。
 - **下一序號**：排班邏輯權威 **Seq 36**（03＋01）— **`docs/seq36-adr0001-scheduling-logic-placement-traceability.md`**。
 
 ---
 
 | 日期 | 說明 |
 |------|------|
+| 2026-05-09 | §3：補 **pdf03** §3／§4 **Seq 29** 政策 **Vitest** PR 檢核與 **`seq29`** 主檔／修訂表互鏈（**02 鏈**→**03**）。 |
 | 2026-05-04 | 初版：Seq 35 **對照骨架**；與 Seq 29（02 末序）互鏈。 |
