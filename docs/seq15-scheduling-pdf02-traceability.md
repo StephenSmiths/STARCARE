@@ -67,6 +67,7 @@
 | `src/features/scheduling/hooks/schedulingPageReloadExecutor.test.ts` | **`executeSchedulingPageReload`**（成功／失敗／**`clearPreview`** 與 **`runSchedulingReloadPageData`** 閉環） |
 | `src/features/scheduling/hooks/useSchedulingDerived.test.tsx` | **`useSchedulingDerived`**（**`stats`**／**`tableRows`**／**`complianceAlerts`** 與週目標；**`happy-dom`**） |
 | `src/features/scheduling/components/SchedulingWorkflowSection.test.tsx` | **`SchedulingWorkflowSection`**（確認勾選、無時段 **disabled**、週更表 **`onRosterImportCommitted`**；**`happy-dom`**） |
+| `src/features/scheduling/components/SchedulingWorkflowStepper.test.tsx` | **`SchedulingWorkflowStepper`**（時段徽章、五步 **hint**、**`aria-label`**、完成勾前綴；**`happy-dom`**） |
 | `src/features/scheduling/hooks/useSchedulingCsvExports.test.tsx` | **`useSchedulingCsvExports`**（週合規／週三警示 CSV 與審計呼叫；**`happy-dom`**） |
 | `src/features/scheduling/hooks/useSchedulingRunDryRun.test.tsx` | **`useSchedulingRunDryRun`**（乾跑成功／empty／error／連點鎖；**`happy-dom`**） |
 | `src/features/scheduling/hooks/useSchedulingSaveAssignments.test.tsx` | **`useSchedulingSaveAssignments`**（落庫成功／錯誤訊息／連點鎖；**`happy-dom`**） |
@@ -147,3 +148,4 @@
 | 2026-05-09 | §4：擴 **`useSchedulingKpiHistoryEffects.test.tsx`**（**`useSchedulingKpiHistoryMountHydrate`**：成功／失敗 **Promise 落點前 unmount** 不觸發 setter）。 |
 | 2026-05-09 | §4：補 **`useScheduling.test.ts`**（**`useScheduling`** 與 **`useSchedulingWorkspace`** 同一參照）。 |
 | 2026-05-09 | §4：補 **`SchedulingWorkflowSection.test.tsx`**；擴 **`schedulingWorkflowStepService.test.ts`**（**`step5Done`**／**`saveSuccess`**）。 |
+| 2026-05-09 | §4：補 **`SchedulingWorkflowStepper.test.tsx`**（五步進度列呈現與 **`aria-label`**）。 |
