@@ -9,6 +9,7 @@
 
 | 日期 | 說明 |
 |------|------|
+| 2026-05-09 | §4／§5：**`schedulingPolicyRepository.ts`** **`EdgeSchedulingPolicyRepository`** 四方法 **`fetch`** **try／catch**（**請先登入** 原樣拋出；其餘統一連線訊息與 **`cause`**）；Vitest **`schedulingPolicyRepository.edgeReadWrite.test.ts`**／**`schedulingPolicyRepository.listPolicyVersionSummaries.test.ts`** **連線包裝**；**`seq15-scheduling-pdf02-traceability.md`** §4／§5；主修訂日誌 **註** 併 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-seq29-2026-05-09b.md`** 表末列。 |
 | 2026-05-09 | **§4**／開首 **Demo E2E**：**`e2e/auth-login.system-settings-p2.spec.ts`**（**`npm run test:e2e:auth`**、優先 **`E2E_AUTH_TEAMLEAD_*`**／**`E2E_AUTH_ADMIN_*`**、**`VITE_SUPABASE_*`**）；**`.env.example`** 註解；**`playwright.auth.config.ts`** 檔首；併 **Vitest** **`SystemSettingsHome.policyP2Titles.test.tsx`** 列。 |
 | 2026-05-09 | **UAT** 增 **二之二**（**P2** Staging）；**§4** **demo E2E** 列補 **P2** 手動；**§5** 維護句併 **二之二**；開首 **UAT** 括註 **P1**／**P2**；**`business-logic.md`** §0、**`pdf03-cursorrules-alignment.md`**、**`feature-list.md`**、**`client-delivery-remediation-plan.md`**、**`pdf-alignment-p0-backlog.md`** 全鏈互鏈；**Vitest** **`SystemSettingsHome.policyP2Titles.test.tsx`**（**P2** **h3**）。 |
 | 2026-05-04 | 初版：Seq 29 **對照骨架**（02【16】末序）；與 Seq 28 互鏈。 |
