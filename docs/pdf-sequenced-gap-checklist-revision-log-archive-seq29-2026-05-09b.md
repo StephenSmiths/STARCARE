@@ -1,6 +1,6 @@
 # `pdf-sequenced-gap-checklist` 修訂紀錄歸檔（Seq 29／2026-05-09 互鏈批量 b）
 
-> **對照**：主修訂日誌 **`docs/pdf-sequenced-gap-checklist-revision-log.md`**；**2026-05-01a**、**`archive-p2`**～**`archive-p5`** 見既有歸檔檔。本檔收錄自該主日誌 **2026-05-09** 同日移出之 **Seq 29** 互鏈批量列（原主日誌 **182–186**、**190–200** 行段），及 **2026-05-09** 為容納 **Seq 21** 主日誌列而自主日誌末尾續移出之 **Seq 29** **引擎**／**認知軌 P1** 兩列（與主日誌 **Seq 21** 列括註互鏈），以符合主日誌單檔 **≤200** 行；細目仍以 **`docs/seq29-system-settings-pdf02-traceability-revision-log.md`** 為 **Seq 29** 修訂權威補述。表末續列 **政策 Repository** **Edge** **try／catch**／Vitest（主日誌 **註** 互鏈，**2026-05-09**）。
+> **對照**：主修訂日誌 **`docs/pdf-sequenced-gap-checklist-revision-log.md`**；**2026-05-01a**、**`archive-p2`**～**`archive-p5`** 見既有歸檔檔。本檔收錄自該主日誌 **2026-05-09** 同日移出之 **Seq 29** 互鏈批量列（原主日誌 **182–186**、**190–200** 行段），及 **2026-05-09** 為容納 **Seq 21** 主日誌列而自主日誌末尾續移出之 **Seq 29** **引擎**／**認知軌 P1** 兩列（與主日誌 **Seq 21** 列括註互鏈），以符合主日誌單檔 **≤200** 行；細目仍以 **`docs/seq29-system-settings-pdf02-traceability-revision-log.md`** 為 **Seq 29** 修訂權威補述。表末續列 **政策 Repository** **Edge** **try／catch**／Vitest（主日誌 **註** 互鏈，**2026-05-09**）；表末次列補 **validate** **`fetch`** 拒絕／**commit** **請先登入** 單測擴充。
 
 ---
 
@@ -27,3 +27,4 @@
 | 2026-05-09 | **Seq 29／引擎（主日誌移出）**：資助復康 **`evalSessionCoreForPick`** **P1** 小組活動每日場次上限（**`STAFF_GROUP_DAILY_CAP`**）；**`schedulingCoreSessionGates.test`**；**`seq29`** §3、**`seq29-system-settings-pdf02-traceability-revision-log.md`**。 |
 | 2026-05-09 | **Seq 29／認知軌 P1 小組場次（主日誌移出）**：**`pickDementiaSession`**／**`runDementiaTrackDryRun`** 與資助軌共用 **`countStaffGroupSessionsOnDate`**；**`dementiaTrackDryRunService.test`**；**`seq29`** §3。 |
 | 2026-05-09 | **Seq 29／政策 Repository Edge 連線**：**`schedulingPolicyRepository.ts`** **`EdgeSchedulingPolicyRepository`** **`getCurrentBundle`**／**`listPolicyVersionSummaries`**／**`validateBundle`**／**`commitBundle`** **`fetch`** **try／catch**（**請先登入** 原樣；其餘連線訊息與 **`cause`**）；Vitest **`schedulingPolicyRepository.edgeReadWrite.test.ts`**／**`schedulingPolicyRepository.listPolicyVersionSummaries.test.ts`**；**`seq29-system-settings-pdf02-traceability.md`** §4／§5、**`seq15-scheduling-pdf02-traceability.md`**；**`seq29-system-settings-pdf02-traceability-revision-log.md`** 表首列。 |
+| 2026-05-09 | **Seq 29／政策 Vitest 連線包裝擴充**：**`schedulingPolicyRepository.edgeReadWrite.test.ts`** 補 **validate** **`fetch`** 拒絕、**commit** **請先登入** 不觸 **`fetch`**；**`seq29-system-settings-pdf02-traceability.md`** §4、**`seq29-system-settings-pdf02-traceability-revision-log.md`**、**`seq15-scheduling-pdf02-traceability.md`** 修訂表（與上列 **政策 Repository Edge 連線** 列並讀）。 |
