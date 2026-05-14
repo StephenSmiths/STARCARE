@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 /**
  * 與 `src/app/viewRouting.ts` 模組標題、各頁 **`AuditTrailPanel`** 標題對齊（demo 無 Supabase，Seq 3）。
  * 審計收合測試並斷言 **`aria-controls`** 與 **`hidden`**（Seq 12；與 Vitest 一致）。
- * **`#system-settings`** 另斷言本機草稿 **group**（**`aria-busy="false"`** 閒置）、**Pdf16 智能排班** 內 **排班時間設定**／**排班規則設定（P1）** **`ListSectionPanel`**（**`aria-controls`**、無 **`hidden`**、兩區 **`id`** 有別）、**Pdf16 復康** 內 **資助復康服務（P1）** **`ListSectionPanel`** 預設收合（**展開**、**`aria-controls`**、**`hidden`**）、**政策版本** **`ListSectionPanel`** 預設展開、**收合**／**展開** 與 **`section[aria-labelledby]`**、**審計** **`section[aria-labelledby]`** 與 **展開審計**／**收合審計**（**`aria-controls`**、**`hidden`**、搜尋 **`placeholder`**）、**排班時間／規則／資助復康／政策／審計** 五區 **`aria-controls`** 目標 **`id`** 全相異（**`Set.size === 5`**）、**本機儲存** 鈕與無 Edge 說明（Seq 29 P1）。
+ * **`#system-settings`** 另斷言本機草稿 **group**（**`aria-busy="false"`** 閒置）、**Pdf16 智能排班** 內 **排班時間設定**（含 **資助復康非治療排除** 多段 **`checkbox`**）／**排班規則設定（P1）** **`ListSectionPanel`**（**`aria-controls`**、無 **`hidden`**、兩區 **`id`** 有別）、**Pdf16 復康** 內 **資助復康服務（P1）** **`ListSectionPanel`** 預設收合（**展開**、**`aria-controls`**、**`hidden`**）、**政策版本** **`ListSectionPanel`** 預設展開、**收合**／**展開** 與 **`section[aria-labelledby]`**、**審計** **`section[aria-labelledby]`** 與 **展開審計**／**收合審計**（**`aria-controls`**、**`hidden`**、搜尋 **`placeholder`**）、**排班時間／規則／資助復康／政策／審計** 五區 **`aria-controls`** 目標 **`id`** 全相異（**`Set.size === 5`**）、**本機儲存** 鈕與無 Edge 說明（Seq 29 P1）。
  * 不含 `#dashboard`（首屏另測）、不含 `#user-manual`（無審計區，另測）。
  */
 const HASH_AUDIT_CASES: ReadonlyArray<{
@@ -94,6 +94,9 @@ test.describe('smoke', () => {
         const scheduleTimeContentId = await collapseScheduleTime.getAttribute('aria-controls')
         expect(scheduleTimeContentId).toBeTruthy()
         await expect(page.locator(`[id="${scheduleTimeContentId}"]`)).not.toHaveAttribute('hidden')
+        await expect(
+          scheduleTimePanel.getByRole('checkbox', { name: /資助復康非治療排除/ }),
+        ).toBeVisible()
         const rulesHeading = page.getByRole('heading', { name: '排班規則設定（P1）', exact: true })
         await expect(rulesHeading).toBeVisible()
         const rulesPanel = schedulingPdfSection.locator('section').filter({ has: rulesHeading })
