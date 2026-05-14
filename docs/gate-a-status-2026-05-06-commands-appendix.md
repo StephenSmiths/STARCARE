@@ -70,7 +70,7 @@ npm run gatea:evidence:decision-ref
 npm run gatea:evidence:decision-ref -- --write
 ```
 
-判定稿快速指令（decision-mini：ref／snippet／HTTP 嚴格；末第四行為 **`gateAAutoRefClosingHintLine()`** 之 **全案收尾與指令速查**（含 **人工／strict-http／keep=1**））：
+判定稿快速指令（decision-mini：ref／snippet／HTTP 嚴格；末第四行為 **`gateAAutoRefClosingHintLine()`** 之 **全案收尾與指令速查**（含 **人工／strict-http／keep=1**、主日誌 **Gate A／stdout** 歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-gate-a-stdout-2026-05-09.md`**））：
 
 ```bash
 npm run gatea:evidence:decision-mini
