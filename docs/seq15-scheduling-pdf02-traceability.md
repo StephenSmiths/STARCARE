@@ -52,6 +52,7 @@
 |-----------|----------|
 | `src/services/schedulingService*.test.ts`、`src/features/scheduling/services/schedulingWorkflowStepService.test.ts` | 排班規則與五步 UI 訊號 |
 | `src/features/scheduling/hooks/schedulingHookHelpers.test.ts` | **`mapRulesToConstraints`**／**`buildEngineConstraintsFromRulesAndUi`**（DB **`SchedulingRules`** 與本機 **SC 僅治療師** OR；PDF 02【16】）；**`cloneResidents`**／**`cloneSessions`** |
+| `src/features/scheduling/hooks/schedulingKpiHistoryFilter.test.ts` | **`EMPTY_SCHEDULING_KPI_HISTORY_FILTER`**／**`toSchedulingKpiHistoryQuery`**（空字串→**`undefined`**、**`limit`**＝**`SCHEDULING_KPI_HISTORY_LIMIT`**） |
 | `e2e/smoke.spec.ts`（`#scheduling`） | 模組與審計標題可見 |
 | `e2e/auth-login.spec.ts`（若含 `#scheduling`） | 登入後排班頁 |
 
@@ -97,4 +98,4 @@
 | 2026-05-04 | §5「下一序號」擴至 **Seq 27** **`docs/seq27-notification-center-pdf02-traceability.md`**。 |
 | 2026-05-04 | §5「下一序號」擴至 **Seq 28** **`docs/seq28-user-manual-pdf02-traceability.md`**。 |
 | 2026-05-04 | §5「下一序號」擴至 **Seq 29** **`docs/seq29-system-settings-pdf02-traceability.md`**。 |
-| 2026-05-09 | §4：補 **`schedulingHookHelpers.test.ts`**（**`buildEngineConstraintsFromRulesAndUi`**／**`mapRulesToConstraints`**；**SC 僅治療師** 與雲端規則 OR；**`cloneResidents`**／**`cloneSessions`**）。 |
+| 2026-05-09 | §4：補 **`schedulingHookHelpers.test.ts`**（**`buildEngineConstraintsFromRulesAndUi`**／**`mapRulesToConstraints`**；**SC 僅治療師** 與雲端規則 OR；**`cloneResidents`**／**`cloneSessions`**）；**`schedulingKpiHistoryFilter.test.ts`**（**`toSchedulingKpiHistoryQuery`**）。 |
