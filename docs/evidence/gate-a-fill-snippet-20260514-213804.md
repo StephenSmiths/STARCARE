@@ -1,10 +1,10 @@
 ## Gate A 回填片段（自動產生）
 
-- HTTP 嚴格取證（產生當下合併環境）：OFF
+- HTTP 嚴格取證（產生當下合併環境）：ON
 - D2（§1）：
-  - auto 證據：`docs/evidence/gate-a-auto-evidence-2026-05-07-070851.md`
-  - 401 證據：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-07-060918.9.txt`
-  - 403 證據：`docs/evidence/gate-a-d2-403-admin-user-role-set-2026-05-07-060918.9.txt`
+  - auto 證據：`docs/evidence/gate-a-auto-evidence-2026-05-14-223738.md`
+  - 401 證據：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-14-213803.6.txt`
+  - 403 證據：`docs/evidence/gate-a-d2-403-admin-user-role-set-2026-05-14-213803.6.txt`
 - D3（§3）：
   - `<gateA-d3-scheduling-save-success-2026-05-06.png>`
   - `<gateA-d3-scheduling-history-sql-2026-05-06.png>`

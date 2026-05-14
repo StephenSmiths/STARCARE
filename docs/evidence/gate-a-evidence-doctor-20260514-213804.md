@@ -1,6 +1,6 @@
 # Gate A Evidence Doctor
 
-- HTTP 嚴格取證（執行當下合併環境）：OFF
+- HTTP 嚴格取證（執行當下合併環境）：ON
 - 完成度：12 / 12
 - 缺口數：0
 

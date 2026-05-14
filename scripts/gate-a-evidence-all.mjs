@@ -1,16 +1,18 @@
 /**
- * Gate A 全流程 orchestrator。內嵌 **`gate-a-sync-all-markdown.mjs`** 時傳 **`--suppress-closeout-footer`**，避免緊接 **`gate-a-evidence-summary`** 之兩行 blockquote 重複；其餘子程序 stdout 頁尾見各腳本／**`gate-a-markdown-footer.mjs`** 註解。
+ * Gate A 全流程 orchestrator。內嵌 **`gate-a-sync-all-markdown.mjs`** 時傳 **`--suppress-closeout-footer`**，避免緊接 **`gate-a-evidence-summary`** 之兩行 blockquote 重複；**`--strict-http`**（或 **`GATEA_STRICT_HTTP`**）時併傳子程序，使 preflight／產物／**`gate-a-latest.md`**／引用區之 **HTTP 嚴格取證** 敘述一致。其餘子程序 stdout 頁尾見各腳本／**`gate-a-markdown-footer.mjs`** 註解。
  */
 import { spawnSync } from 'node:child_process'
 
 import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
 
 const baseEnv = buildSpawnBaseEnv()
+const strictHttp = gateAStrictHttpEnabled(process.argv, baseEnv)
+const strictForward = strictHttp ? ['--strict-http'] : []
 
 const skipPreflight = process.argv.includes('--no-preflight')
 if (!skipPreflight) {
   process.stdout.write('\n== gatea preflight (strict) ==\n')
-  const pre = spawnSync('node', ['scripts/gate-a-evidence-preflight.mjs', '--strict'], {
+  const pre = spawnSync('node', ['scripts/gate-a-evidence-preflight.mjs', '--strict', ...strictForward], {
     stdio: 'inherit',
     env: baseEnv,
   })
@@ -32,8 +34,7 @@ const run = (label, cmd, args, extraEnv = {}) => {
 }
 
 let failed = false
-const strictHttp = gateAStrictHttpEnabled(process.argv, baseEnv)
-const httpEvidenceArgs = strictHttp ? ['--strict-http'] : []
+const httpEvidenceArgs = strictForward
 
 const mergedEnv = {
   GATEA_STAFF_EMAIL: baseEnv.GATEA_STAFF_EMAIL || '',
@@ -65,31 +66,31 @@ if (hasStaffCreds) {
   }
 }
 
-if (run('fill snippet', 'node', ['scripts/gate-a-generate-fill-snippet.mjs', '--write']) !== 0) {
+if (run('fill snippet', 'node', ['scripts/gate-a-generate-fill-snippet.mjs', '--write', ...strictForward]) !== 0) {
   failed = true
 }
 
-if (run('decision reference', 'node', ['scripts/gate-a-generate-decision-reference.mjs', '--write']) !== 0) {
+if (run('decision reference', 'node', ['scripts/gate-a-generate-decision-reference.mjs', '--write', ...strictForward]) !== 0) {
   failed = true
 }
 
-if (run('decision draft sync', 'node', ['scripts/gate-a-sync-decision-draft.mjs']) !== 0) {
+if (run('decision draft sync', 'node', ['scripts/gate-a-sync-decision-draft.mjs', ...strictForward]) !== 0) {
   failed = true
 }
 
 // 須早於 markdown 自動引用區同步：區塊內會寫入「最新 doctor 報告」檔名
-run('evidence doctor', 'node', ['scripts/gate-a-evidence-doctor.mjs', '--write'])
+run('evidence doctor', 'node', ['scripts/gate-a-evidence-doctor.mjs', '--write', ...strictForward])
 
-if (run('gate a report snapshot', 'node', ['scripts/gate-a-evidence-report.mjs']) !== 0) {
+if (run('gate a report snapshot', 'node', ['scripts/gate-a-evidence-report.mjs', ...strictForward]) !== 0) {
   failed = true
 }
 
 // 置於 doctor／report 落檔之後，彙總與 READY 解析才與當輪產物一致
-if (run('evidence summary', 'node', ['scripts/gate-a-evidence-summary.mjs']) !== 0) {
+if (run('evidence summary', 'node', ['scripts/gate-a-evidence-summary.mjs', ...strictForward]) !== 0) {
   failed = true
 }
 
-if (run('latest pointer refresh', 'node', ['scripts/gate-a-update-latest-pointer.mjs']) !== 0) {
+if (run('latest pointer refresh', 'node', ['scripts/gate-a-update-latest-pointer.mjs', ...strictForward]) !== 0) {
   failed = true
 }
 
@@ -98,6 +99,7 @@ if (
   run('markdown docs sync bundle', 'node', [
     'scripts/gate-a-sync-all-markdown.mjs',
     '--suppress-closeout-footer',
+    ...strictForward,
   ]) !== 0
 ) {
   failed = true
