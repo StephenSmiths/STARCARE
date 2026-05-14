@@ -1,6 +1,11 @@
-import { isWithinGapDays } from '../../../services/schedulingCoreSessionGates'
+import {
+  countStaffGroupSessionsOnDate,
+  isWithinGapDays,
+  resolveStaffGroupDailyCap,
+} from '../../../services/schedulingCoreSessionGates'
 import type {
   ConflictType,
+  SchedulingAssignment,
   SchedulingConstraints,
   SchedulingResident,
   SchedulingSession,
@@ -8,6 +13,7 @@ import type {
 
 /**
  * PDF 01 §3.1：與資助軌相同之二階段（先間隔，別無他選再放寬相鄰日）。
+ * PDF 02【16】P1：小組活動（**`capacity > 1`**）每日場次上限與 **`evalSessionCoreForPick`** 共用 **`resolveStaffGroupDailyCap`**／**`countStaffGroupSessionsOnDate`**（**`Dementia_Service`**）。
  * 若母本提高週次，`pickDementiaSession` 之二階段間隔放寬與資助軌一致（01 §3.3）。
  */
 export const pickDementiaSession = (
@@ -16,6 +22,7 @@ export const pickDementiaSession = (
   sessionUsage: Map<string, number>,
   staffSlotSet: Set<string>,
   constraints: SchedulingConstraints,
+  committedAssignments: readonly SchedulingAssignment[] = [],
 ): { session: SchedulingSession | null; conflictType: ConflictType; reason: string } => {
   let lastConflict: { conflictType: ConflictType; reason: string } = {
     conflictType: 'NO_ELIGIBLE_SESSION',
@@ -44,6 +51,30 @@ export const pickDementiaSession = (
           lastConflict = { conflictType: 'DAILY_LIMIT', reason: '院友同日不可重複安排同類服務' }
         }
         continue
+      }
+      if (session.capacity > 1 && sessions.length > 0) {
+        const roleCap = resolveStaffGroupDailyCap(session.staffRoleType, constraints)
+        if (roleCap !== undefined && Number.isFinite(roleCap)) {
+          const byId = new Map(sessions.map((s) => [s.id, s]))
+          const used = countStaffGroupSessionsOnDate(
+            committedAssignments,
+            byId,
+            session.staffId,
+            session.date,
+            'Dementia_Service',
+          )
+          const alreadyThisSlot = committedAssignments.some((a) => a.sessionId === session.id)
+          const prospective = alreadyThisSlot ? used : used + 1
+          if (prospective > roleCap) {
+            if (recordCoreFailures) {
+              lastConflict = {
+                conflictType: 'STAFF_GROUP_DAILY_CAP',
+                reason: '該員工於此日之小組活動場次已達每日上限',
+              }
+            }
+            continue
+          }
+        }
       }
       const intervalBlocked =
         !!resident.lastServiceDate &&

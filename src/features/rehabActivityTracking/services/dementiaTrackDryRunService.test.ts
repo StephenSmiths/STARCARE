@@ -28,6 +28,17 @@ const cog = (id: string, date: string, staffId: string): SchedulingSession => ({
   staffRoleType: 'OT',
 })
 
+const cogGroup = (id: string, date: string, staffId: string, timeSlot: string): SchedulingSession => ({
+  id,
+  staffId,
+  staffName: 'OT',
+  date,
+  timeSlot,
+  serviceType: 'Dementia_Service',
+  capacity: 4,
+  staffRoleType: 'OT',
+})
+
 /** PDF 01 §3.3／Seq 7：認知軌乾跑與資助類別、時段類型隔離 */
 describe('dementiaTrackDryRunService', () => {
   it('略過資助復康時段，僅指派 Dementia_Service', () => {
@@ -66,5 +77,16 @@ describe('dementiaTrackDryRunService', () => {
     expect(r.assignments).toHaveLength(1)
     expect(r.assignments[0]?.residentId).toBe('first')
     expect(r.conflicts.some((c) => c.residentId === 'second')).toBe(true)
+  })
+
+  it('PDF 02【16】P1：認知小組活動每日場次上限（與資助軌同一套 numeric）', () => {
+    const capped: SchedulingConstraints = { ...constraints, therapistGroupSessionsDailyCap: 1 }
+    const sessions = [
+      cogGroup('dg1', '2026-05-21', 's1', '09:00'),
+      cogGroup('dg2', '2026-05-21', 's1', '10:00'),
+    ]
+    const r = runDementiaTrackDryRun([resident('a', 'Private'), resident('b', 'Private')], sessions, capped)
+    expect(r.assignments).toHaveLength(1)
+    expect(r.conflicts.some((c) => c.type === 'STAFF_GROUP_DAILY_CAP')).toBe(true)
   })
 })

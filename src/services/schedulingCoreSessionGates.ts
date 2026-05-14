@@ -14,25 +14,26 @@ export const isRegisteredTherapistRole = (role: StaffProfileRoleType): boolean =
 /** 小組活動：活動時段原容量大於 1（與 P1「小組節數」語意對齊） */
 const isGroupCapacitySession = (session: SchedulingSession): boolean => session.capacity > 1
 
-/** 已指派列中，該員工於該曆日已佔用之互異「資助復康小組」時段數（sessionId 去重） */
-export const countStaffSubsidizedGroupSessionsOnDate = (
+/** 已指派列中，該員工於該曆日已佔用之互異「小組活動」時段數（依 **`serviceType`** 過濾；**`sessionId`** 去重） */
+export const countStaffGroupSessionsOnDate = (
   assignments: readonly SchedulingAssignment[],
   sessionsById: ReadonlyMap<string, SchedulingSession>,
   staffId: string,
   date: string,
+  serviceType: SchedulingSession['serviceType'],
 ): number => {
   const seen = new Set<string>()
   for (const a of assignments) {
     const s = sessionsById.get(a.sessionId)
     if (!s || s.staffId !== staffId || s.date !== date) continue
-    if (s.serviceType !== 'Subsidized_Rehab') continue
+    if (s.serviceType !== serviceType) continue
     if (!isGroupCapacitySession(s)) continue
     seen.add(s.id)
   }
   return seen.size
 }
 
-const resolveStaffGroupDailyCap = (
+export const resolveStaffGroupDailyCap = (
   role: StaffProfileRoleType | undefined,
   constraints: SchedulingConstraints,
 ): number | undefined => {
@@ -91,7 +92,13 @@ export const evalSessionCoreForPick = (
     const cap = resolveStaffGroupDailyCap(session.staffRoleType, constraints)
     if (cap !== undefined && Number.isFinite(cap)) {
       const byId = new Map(sessionsCatalog.map((s) => [s.id, s]))
-      const used = countStaffSubsidizedGroupSessionsOnDate(committedAssignments, byId, session.staffId, session.date)
+      const used = countStaffGroupSessionsOnDate(
+        committedAssignments,
+        byId,
+        session.staffId,
+        session.date,
+        'Subsidized_Rehab',
+      )
       const alreadyThisSlot = committedAssignments.some((a) => a.sessionId === session.id)
       const prospective = alreadyThisSlot ? used : used + 1
       if (prospective > cap) {

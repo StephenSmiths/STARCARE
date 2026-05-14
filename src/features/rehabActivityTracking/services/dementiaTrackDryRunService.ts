@@ -35,7 +35,14 @@ export const runDementiaTrackDryRun = (
 
   for (const resident of clone) {
     while (resident.weeklyCompletedCount < DEMENTIA_WEEKLY_TARGET) {
-      const attempt = pickDementiaSession(resident, dementiaSessions, sessionUsage, staffSlotSet, constraints)
+      const attempt = pickDementiaSession(
+        resident,
+        dementiaSessions,
+        sessionUsage,
+        staffSlotSet,
+        constraints,
+        assignments,
+      )
       if (!attempt.session) {
         conflicts.push({
           residentId: resident.id,

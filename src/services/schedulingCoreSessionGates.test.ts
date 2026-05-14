@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
-  countStaffSubsidizedGroupSessionsOnDate,
+  countStaffGroupSessionsOnDate,
   evalSessionCoreForPick,
 } from './schedulingCoreSessionGates'
 import type {
@@ -75,7 +75,7 @@ describe('schedulingCoreSessionGates（PDF 01 §3 服務類型隔離）', () => 
     const committed: SchedulingAssignment[] = [
       { residentId: 'rx', residentName: 'X', sessionId: 'g-a', staffId: 'st-ot', pass: 1 },
     ]
-    expect(countStaffSubsidizedGroupSessionsOnDate(committed, byId, 'st-ot', '2026-05-20')).toBe(1)
+    expect(countStaffGroupSessionsOnDate(committed, byId, 'st-ot', '2026-05-20', 'Subsidized_Rehab')).toBe(1)
     const usage = new Map<string, number>([['g-a', 0]])
     const slots = new Set<string>()
     const capConstraints: SchedulingConstraints = {
