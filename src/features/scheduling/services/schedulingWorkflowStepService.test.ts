@@ -59,5 +59,18 @@ describe('schedulingWorkflowStepService (Seq 15)', () => {
     })
     expect(m.activeStep).toBe(5)
     expect(m.step4Done).toBe(true)
+    expect(m.step5Done).toBe(false)
+  })
+
+  it('儲存成功時 step5Done 為 true（activeStep 仍為 5）', () => {
+    const m = buildSchedulingWorkflowUiModel({
+      sessionCount: 1,
+      rosterConfirmed: true,
+      assignmentCount: 2,
+      conflictCount: 0,
+      saveSuccess: true,
+    })
+    expect(m.activeStep).toBe(5)
+    expect(m.step5Done).toBe(true)
   })
 })
