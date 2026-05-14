@@ -35,7 +35,7 @@
 
 `schedulingSessionWindowFilterService` 為 **引擎輸入過濾**；未來若後端接管，應在 **同一層級**（Edge 入參或 DB view）複製規則，並以 **契約測試** 對齊前端舊行為。  
 **院舍政策版本化**（多表＋`effective_from`）之 Edge 契約見 **`docs/scheduling-policy-edge-function-contract.md`**；與 **`scheduling-rules-get`** 合併／遷移策略見 **`docs/system-settings-policy-prd-2026-05-09.md`** §7。  
-**附註（2026-05-09）**：已依 PRD §7 **路徑 B** 於 **`scheduling-rules-get`** 合併 **P1** **`group_participant_cap` → `groupCapacityLimit`**（生效版本存在時）；其餘扁平欄仍 **`scheduling_rules`**，見契約開首 **既有讀規則**。
+**附註（2026-05-09）**：已依 PRD §7 **路徑 B** 於 **`scheduling-rules-get`** 合併 **P1** **`group_participant_cap` → `groupCapacityLimit`**（生效版本存在時）；並合併 **`enableSubsidizedRehab`**（資助階子表有列時）、**`enableDementiaCare`**（認知核心有列時）、**`allowScTherapistOnly`**（legacy **OR** 子表 **specialCareTherapistOnly**）。**`dailySameServiceLimit`** 等其餘扁平欄仍 **`scheduling_rules`**，見契約開首 **既有讀規則**。
 
 ---
 

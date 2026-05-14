@@ -32,18 +32,32 @@ Deno.serve(async (req) => {
     if (error) return json({ error: error.message }, 400)
     if (!data) return json({ error: '找不到排班規則' }, 404)
     const row = data as RuleRow
-    // PDF 02【16】Seq 29／PRD §7 **B**：`scheduling_rules` 仍為啟用旗標等扁平權威；若存在現行政策版本，P1 小組人數上限以版本化子表覆寫（與 `scheduling-policy-current-get` 之 `numericLimits` 對齊）。
+    // PDF 02【16】Seq 29／PRD §7 **B**：無生效政策版本時以 `scheduling_rules` 為準；有版本時 P1 小組人數上限與下列子表欄位與 `scheduling-policy-current-get` 子表語意對齊（其餘扁平欄仍取自本列）。
     const bundle = await loadSchedulingPolicyBundle(supabase, facilityId, new Date())
-    const groupCapacityLimit =
-      bundle.policyVersion != null ? bundle.numericLimits.groupParticipantCap : row.group_capacity_limit
+    const hasPolicy = bundle.policyVersion != null
+    const groupCapacityLimit = hasPolicy ? bundle.numericLimits.groupParticipantCap : row.group_capacity_limit
+    const tiers = bundle.subsidizedTiers ?? []
+    let enableSubsidizedRehab = row.enable_subsidized_rehab
+    if (hasPolicy && tiers.length > 0) {
+      enableSubsidizedRehab = tiers.some((t) => t.enabled)
+    }
+    let enableDementiaCare = row.enable_dementia_care
+    if (hasPolicy && bundle.dementiaCore != null) {
+      enableDementiaCare = bundle.dementiaCore.enabled
+    }
+    const specialCareTherapistOnlyFromPolicy =
+      tiers.some((t) => t.specialCareTherapistOnly) || Boolean(bundle.dementiaCore?.specialCareTherapistOnly)
+    const allowScTherapistOnly = hasPolicy
+      ? row.allow_sc_therapist_only || specialCareTherapistOnlyFromPolicy
+      : row.allow_sc_therapist_only
     const mapped = {
       facilityId: row.facility_id,
-      enableSubsidizedRehab: row.enable_subsidized_rehab,
-      enableDementiaCare: row.enable_dementia_care,
+      enableSubsidizedRehab,
+      enableDementiaCare,
       dailySameServiceLimit: row.daily_same_service_limit,
       minGapDaysSameService: row.min_gap_days_same_service,
       scPriorityEnabled: row.sc_priority_enabled,
-      allowScTherapistOnly: row.allow_sc_therapist_only,
+      allowScTherapistOnly,
       groupCapacityLimit,
     }
     return new Response(JSON.stringify(mapped), {

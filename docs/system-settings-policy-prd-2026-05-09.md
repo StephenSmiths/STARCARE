@@ -82,7 +82,7 @@
 - **目標**：新政策表為 **權威**；過渡期可二選一：  
   - **A**：`scheduling-rules-get` 改為 **JOIN 現行 `facility_scheduling_policy_versions` ＋子表**，並對舊列做一次性遷移；或  
   - **B**：短期內 **新表優先**，缺欄時 fallback `scheduling_rules`（寫入 `docs/adr-*` 決策）。  
-- **實作進度（路徑 B）**：**`scheduling-rules-get`** 於 **`facility_scheduling_policy_versions`** 對「現在」有適用列時，以 **`facility_policy_numeric_limits.group_participant_cap`** 覆寫回應之 **`groupCapacityLimit`**（與 **`scheduling-policy-current-get`** **`numericLimits.groupParticipantCap`** 同源）；其餘扁平欄仍取自 **`scheduling_rules`**。細節見 **`docs/scheduling-policy-edge-function-contract.md`** 開首 **既有讀規則**、**`docs/adr-0001-scheduling-logic-placement.md`** 與 Seq 29 主表。
+- **實作進度（路徑 B）**：**`scheduling-rules-get`** 於 **`facility_scheduling_policy_versions`** 對「現在」有適用列時：（1）以 **`facility_policy_numeric_limits.group_participant_cap`** 覆寫 **`groupCapacityLimit`**（與 **`scheduling-policy-current-get`** **`numericLimits.groupParticipantCap`** 同源）；（2）若 **`facility_policy_subsidized_tier`** 至少一筆，**`enableSubsidizedRehab`** 取自「任一 **`enabled`**」，否則仍用 **`scheduling_rules`**；（3）若存在 **`facility_policy_dementia_core`** 列，**`enableDementiaCare`** 取自該列 **`enabled`**，否則仍用 **`scheduling_rules`**；（4）**`allowScTherapistOnly`** 為 **`scheduling_rules.allow_sc_therapist_only` OR** 任一資助階／認知核心之 **`special_care_therapist_only`**。**`dailySameServiceLimit`**、**`minGapDaysSameService`**、**`scPriorityEnabled`** 等仍取自 **`scheduling_rules`**。細節見 **`docs/scheduling-policy-edge-function-contract.md`** 開首 **既有讀規則**、**`docs/adr-0001-scheduling-logic-placement.md`** 與 Seq 29 主表。
 
 ---
 
@@ -102,5 +102,6 @@
 | 2026-05-09 | 開首 **既有對照骨架**／**Demo E2E** 併 **`docs/seq29-system-settings-pdf02-traceability-revision-log.md`**。 |
 | 2026-05-12 | 開首互鏈補 **Demo E2E**（**`test:e2e:system-settings-policy`**／**seq29** §4）。 |
 | 2026-05-09 | §7：補 **路徑 B** 已落地之 **`scheduling-rules-get`**／**`groupCapacityLimit`** 合併敘述；互鏈 Edge 契約、**ADR-0001**、Seq 29 主表。 |
+| 2026-05-09 | §7：**`scheduling-rules-get`** 補 **`enableSubsidizedRehab`**／**`enableDementiaCare`**／**`allowScTherapistOnly`** 與子表合併敘述；互鏈 Edge 契約、**`seq29`** §3。 |
 | 2026-05-09 | **資助復康多段非治療**：**`facility_policy_non_therapy_slots`** 全列還原至 **`subsidizedRehabNonTherapyIntervals`** 並驅動 **`filterSchedulingSessionsForSubsidizedEngine`**；**`mergeP1DraftIntoPolicyBundle`** 提交保留 **MORNING_DOC**／**AFTERNOON_DOC**／**OTHER**；互鏈 **Seq 29** 主表／**`seq29`** §3／主修訂日誌。 |
 | 2026-05-09 | **多段 UI**：**`SystemSettingsNonTherapyIntervalsEditor`**（**`#system-settings`** 排班時間設定）；**`p1FieldsFromPolicyBundle`** 條件附加 **`subsidizedRehabNonTherapyIntervals`**；**`useSystemSettings.setField`** **`undefined`** 刪鍵；互鏈 **§7** 實作進度。 |
