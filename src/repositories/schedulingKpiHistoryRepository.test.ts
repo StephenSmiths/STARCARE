@@ -49,4 +49,14 @@ describe('InMemorySchedulingKpiHistoryRepository', () => {
     expect(rows[0].ranAt).toBe('2026-05-04T10:00:00.000Z')
     expect(rows[1].ranAt).toBe('2026-05-03T10:00:00.000Z')
   })
+
+  it('listHistory 將 limit 夾在 1～50（預設 10）', async () => {
+    const repo = new InMemorySchedulingKpiHistoryRepository()
+    for (let i = 0; i < 10; i += 1) {
+      await repo.appendRecord(STARCARE_DEFAULT_FACILITY_ID, makeRecord(i))
+    }
+    expect(await repo.listHistory(STARCARE_DEFAULT_FACILITY_ID, { limit: 3 })).toHaveLength(3)
+    expect(await repo.listHistory(STARCARE_DEFAULT_FACILITY_ID, { limit: 0 })).toHaveLength(1)
+    expect(await repo.listHistory(STARCARE_DEFAULT_FACILITY_ID, { limit: 999 })).toHaveLength(10)
+  })
 })
