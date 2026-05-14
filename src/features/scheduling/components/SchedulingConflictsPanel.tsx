@@ -1,4 +1,5 @@
 import type { SchedulingConflict } from '../../../services/schedulingService'
+import { formatSchedulingConflictLine } from '../../../services/schedulingConflictLabels'
 import { uiTokens } from '../../shared/ui/uiTokens'
 
 interface SchedulingConflictsPanelProps {
@@ -16,7 +17,7 @@ export const SchedulingConflictsPanel = ({ conflicts }: SchedulingConflictsPanel
       <ul className={uiTokens.conflictBulletList}>
         {conflicts.map((conflict) => (
           <li key={`${conflict.residentId}-${conflict.type}-${conflict.reason}`}>
-            {conflict.residentName}：{conflict.type}（{conflict.reason}）
+            {formatSchedulingConflictLine(conflict)}
           </li>
         ))}
       </ul>
