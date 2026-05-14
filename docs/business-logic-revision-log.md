@@ -95,3 +95,4 @@
 | 2026-05-15 | **`README.md`** 開首／「Gate A 終端頁尾（維護）」與 **`.cursorrules`** §3：**`gateAStandardCloseoutBlockquotes`** 兩行敘述補 **第一行**主日誌 **stdout** 歸檔；**`seq35-pdf03-cursorrules-alignment-traceability.md`** 修訂表；**`archive-gate-a-stdout-2026-05-09`** 歸檔列。 |
 | 2026-05-15 | **`business-logic.md`** §0 Gate A stdout 句：**`gateAStandardCloseoutBlockquotes`** **第一行**歸檔敘述（與 **`README`**／**`.cursorrules`**、上列 **2026-05-15** 列並讀）。 |
 | 2026-05-16 | **`pdf03-cursorrules-alignment.md`** §4：「全案收尾／Gate A」維護項補 stdout 摘述與 **`gate-a-markdown-footer.mjs`** **Export 契約** 對齊句（**`archive-gate-a-stdout-2026-05-09`**）；與上列 **2026-05-15** 列並讀。 |
+| 2026-05-15 | **`go-live-checklist.md`** 開首／§0.1：**`gateAStandardCloseoutBlockquotes`** **第一行** stdout 歸檔敘述與 **`README.md`**／**`business-logic.md`** §0／**Export 契約** 對齊；**`pdf-sequenced-gap-checklist-revision-log-archive-gate-a-stdout-2026-05-09.md`** 歸檔列。 |
