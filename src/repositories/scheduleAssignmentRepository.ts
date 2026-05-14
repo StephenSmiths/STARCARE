@@ -77,15 +77,24 @@ export class EdgeScheduleAssignmentRepository implements ScheduleAssignmentRepos
   }
 
   async softDeleteHistoryBatch(batchId: string): Promise<void> {
-    const headers = await buildEdgeInvokeHeaders(
-      this.anonKey,
-      `scheduling-history-soft-delete:${batchId}:${crypto.randomUUID()}`,
-    )
-    const response = await fetch(`${this.supabaseUrl}/functions/v1/scheduling-history-soft-delete`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({ batch_id: batchId }),
-    })
+    let response: Response
+    // 與 `saveBatch` 相同：連線失敗包裝；「請先登入」原樣上拋。
+    try {
+      const headers = await buildEdgeInvokeHeaders(
+        this.anonKey,
+        `scheduling-history-soft-delete:${batchId}:${crypto.randomUUID()}`,
+      )
+      response = await fetch(`${this.supabaseUrl}/functions/v1/scheduling-history-soft-delete`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ batch_id: batchId }),
+      })
+    } catch (error) {
+      if (error instanceof Error && error.message === '請先登入') {
+        throw error
+      }
+      throw new Error('無法連線至後端，請檢查網路或 Supabase 設定。', { cause: error })
+    }
     if (!response.ok) {
       throw new Error((await response.text()) || `軟刪除批次失敗（HTTP ${response.status}）`)
     }

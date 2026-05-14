@@ -60,7 +60,8 @@
 | `src/services/schedulingTargets.test.ts` | **`getWeeklyTargetByFundingType`**／**`hasUnmetTarget`**／**`buildTopUpQueue`**（PDF 01 §3.2；補位排序與已達標略過） |
 | `src/repositories/schedulingSessionRepository.test.ts` | **`InMemorySchedulingSessionRepository`** 淺拷貝；**`createSchedulingSessionRepository`**（無憑證→**InMemory**／有憑證→**Edge**）；**`EdgeSchedulingSessionRepository.listSessions`**（成功／**HTTP** 錯／**請先登入**／連線包裝錯；**`fetch`**／**`buildEdgeInvokeHeaders`** mock） |
 | `src/repositories/schedulingRulesRepository.test.ts` | **`createSchedulingRulesRepository`**（無憑證→內存 **`getRules`**／有憑證→**Edge**）；**`getRules`**（**JSON**、**facilityId** 查詢、**404**→**null**、**HTTP** 錯、**請先登入**、連線包裝錯） |
-| `src/repositories/scheduleAssignmentRepository.test.ts` | **`InMemoryScheduleAssignmentRepository`**（**`saveBatch`**／**`softDeleteHistoryBatch`**）；**`createScheduleAssignmentRepository`**；**`EdgeScheduleAssignmentRepository`**（**`schedule-assignments-batch`**／**`scheduling-history-soft-delete`**、**HTTP** 錯、**請先登入**、連線包裝、空列 **actor**） |
+| `src/repositories/scheduleAssignmentRepository.test.ts` | **`InMemoryScheduleAssignmentRepository`**；**`createScheduleAssignmentRepository`**（**InMemory**／**Edge** 型別） |
+| `src/repositories/scheduleAssignmentRepository.edge.test.ts` | **`EdgeScheduleAssignmentRepository`** **`saveBatch`**／**`softDeleteHistoryBatch`**（**POST**、**HTTP**、**請先登入**、**連線包裝**、空列 **actor**） |
 | `src/features/scheduling/hooks/schedulingHookHelpers.test.ts` | **`mapRulesToConstraints`**／**`buildEngineConstraintsFromRulesAndUi`**（DB **`SchedulingRules`** 與本機 **SC 僅治療師** OR；PDF 02【16】）；**`cloneResidents`**／**`cloneSessions`** |
 | `src/features/scheduling/hooks/schedulingKpiHistoryFilter.test.ts` | **`EMPTY_SCHEDULING_KPI_HISTORY_FILTER`**／**`toSchedulingKpiHistoryQuery`**（空字串→**`undefined`**、**`limit`**＝**`SCHEDULING_KPI_HISTORY_LIMIT`**） |
 | `src/features/scheduling/utils/weeklyRosterStaffLookup.test.ts` | **`buildWeeklyRosterStaffProfileLookup`**（姓名＋Tab＋職位→**`staff_profiles.id`**；略過 **TeamLead**；歧義鍵） |
@@ -221,3 +222,4 @@
 | 2026-05-09 | §4／§5：補 **`schedulingRulesRepository.test.ts`**（**`scheduling-rules-get`**、**404**→**null**）；§5 維護閉環補 **`schedulingRulesRepository.ts`**。 |
 | 2026-05-09 | §4／§5：補 **`scheduleAssignmentRepository.test.ts`**（批量寫入／批次軟刪 **Edge**／**InMemory**）；§5 維護閉環補 **`scheduleAssignmentRepository.ts`**。 |
 | 2026-05-09 | §4：擴 **`schedulingRulesRepository.test.ts`**（**`getRules`** 連線包裝錯）；**`schedulingRulesRepository.ts`** Edge **`fetch`** 與 **`scheduling-sessions-list`** 一致之 **try／catch**（**請先登入** 原樣拋出）。 |
+| 2026-05-09 | §4／§5：**`softDeleteHistoryBatch`** Edge **try／catch**（與 **`saveBatch`** 連線訊息一致）；**`scheduleAssignmentRepository.edge.test.ts`** 自 **`scheduleAssignmentRepository.test.ts`** 拆出（**200** 行上限）。 |
