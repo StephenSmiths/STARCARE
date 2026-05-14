@@ -92,7 +92,7 @@ describe('createSchedulingRulesRepository', () => {
       supabaseUrl: 'https://proj.supabase.co',
       anonKey: 'anon-key',
     })
-    vi.mocked(buildEdgeInvokeHeaders).mockResolvedValue({} as HeadersInit)
+    vi.mocked(buildEdgeInvokeHeaders).mockResolvedValue({} as Record<string, string>)
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ status: 404, ok: false }))
     const repo = createSchedulingRulesRepository()
     await expect(repo.getRules('x')).resolves.toBeNull()
@@ -103,7 +103,7 @@ describe('createSchedulingRulesRepository', () => {
       supabaseUrl: 'https://proj.supabase.co',
       anonKey: 'anon-key',
     })
-    vi.mocked(buildEdgeInvokeHeaders).mockResolvedValue({} as HeadersInit)
+    vi.mocked(buildEdgeInvokeHeaders).mockResolvedValue({} as Record<string, string>)
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: false, status: 502 }))
     const repo = createSchedulingRulesRepository()
     await expect(repo.getRules()).rejects.toThrow('載入排班規則失敗（HTTP 502）')
@@ -127,7 +127,7 @@ describe('createSchedulingRulesRepository', () => {
       supabaseUrl: 'https://proj.supabase.co',
       anonKey: 'anon-key',
     })
-    vi.mocked(buildEdgeInvokeHeaders).mockResolvedValue({} as HeadersInit)
+    vi.mocked(buildEdgeInvokeHeaders).mockResolvedValue({} as Record<string, string>)
     vi.stubGlobal('fetch', vi.fn().mockRejectedValue(new TypeError('Failed to fetch')))
     const repo = createSchedulingRulesRepository()
     await expect(repo.getRules('fac-net')).rejects.toThrow('無法連線載入排班規則，請檢查網路或 Supabase 設定。')

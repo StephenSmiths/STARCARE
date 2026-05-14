@@ -80,7 +80,7 @@ describe('weeklyRosterDraftsToImportRows（草稿＋主檔 Map→匯入列）', 
   })
 
   it('主檔無對應列時回錯誤且不產生該列', () => {
-    const { rows, errors } = weeklyRosterDraftsToImportRows([rosterDraft()], new Map())
+    const { rows, errors } = weeklyRosterDraftsToImportRows([rosterDraft({})], new Map())
     expect(rows).toHaveLength(0)
     expect(errors).toHaveLength(1)
     expect(errors[0]?.rowIndex).toBe(2)

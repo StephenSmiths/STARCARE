@@ -15,6 +15,7 @@ vi.mock('../../staff/utils/parseStaffImportFile', () => ({
   parseStaffImportFileToCsvText: vi.fn(),
 }))
 
+import type { ActivitySessionImportValidationResult } from '../../../repositories/activitySessionImportRepository'
 import { useActivitySessionImportDryRun } from '../../activitySessions/hooks/useActivitySessionImportDryRun'
 import { parseStaffImportFileToCsvText } from '../../staff/utils/parseStaffImportFile'
 import { SchedulingWeeklyRosterPanel } from './SchedulingWeeklyRosterPanel'
@@ -23,11 +24,7 @@ const dryRunDefaults = () => ({
   isBusy: false,
   errorMessage: '',
   parseErrors: [] as { rowIndex: number; message: string }[],
-  result: null as {
-    summary: { total: number; valid: number; invalid: number }
-    errors: { rowIndex: number; field: string; message: string }[]
-    preview: unknown[]
-  } | null,
+  result: null as ActivitySessionImportValidationResult | null,
   commitMessage: '',
   lastRunSummary: null,
   runHistory: [],
@@ -86,6 +83,7 @@ describe('SchedulingWeeklyRosterPanel', () => {
     vi.mocked(useActivitySessionImportDryRun).mockReturnValue({
       ...dryRunDefaults(),
       result: {
+        ok: false,
         summary: { total: 16, valid: 0, invalid: 16 },
         errors,
         preview: [],
@@ -102,9 +100,19 @@ describe('SchedulingWeeklyRosterPanel', () => {
     vi.mocked(useActivitySessionImportDryRun).mockReturnValue({
       ...dryRunDefaults(),
       result: {
+        ok: true,
         summary: { total: 1, valid: 1, invalid: 0 },
         errors: [],
-        preview: [{ stub: true }],
+        preview: [
+          {
+            facility_id: 'f',
+            activity_id: 'a',
+            staff_profile_id: 's',
+            session_date: '2026-05-10',
+            time_slot: '09:00-10:00',
+            capacity: 1,
+          },
+        ],
       },
       commitValidatedRows,
     } as ReturnType<typeof useActivitySessionImportDryRun>)

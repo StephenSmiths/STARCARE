@@ -1,6 +1,7 @@
 /** @vitest-environment happy-dom */
 /** PDF 02【3】：智能排班儀表板主內容（Seq 15；`useSchedulingDashboardViewModel` 窄 mock）。 */
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import type { Dispatch, SetStateAction } from 'react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import type { AuthContextValue } from '../../auth/context/authContext'
 import type { AuditTrailRecord } from '../../../services/auditTrailService'
@@ -37,7 +38,7 @@ import { useSchedulingDashboardViewModel } from '../hooks/useSchedulingDashboard
 
 type DashboardVm = SchedulingWorkspaceReturn & {
   rosterConfirmed: boolean
-  setRosterConfirmed: (v: boolean) => void
+  setRosterConfirmed: Dispatch<SetStateAction<boolean>>
   runBlockedReason: string | undefined
   auditTrail: AuditTrailRecord[]
 }
@@ -94,7 +95,7 @@ const vmBase = (): DashboardVm => ({
   isUndoingSchedulingBatch: false,
   staffProfilesLoadDegraded: false,
   rosterConfirmed: true,
-  setRosterConfirmed: vi.fn(),
+  setRosterConfirmed: vi.fn() as Dispatch<SetStateAction<boolean>>,
   runBlockedReason: undefined,
   auditTrail: [],
 })
@@ -137,7 +138,7 @@ describe('SchedulingDashboard', () => {
   })
 
   it('勾選週更確認會呼叫 setRosterConfirmed', () => {
-    const setRosterConfirmed = vi.fn()
+    const setRosterConfirmed = vi.fn() as Dispatch<SetStateAction<boolean>>
     vi.mocked(useSchedulingDashboardViewModel).mockReturnValue({
       ...vmBase(),
       rosterConfirmed: false,

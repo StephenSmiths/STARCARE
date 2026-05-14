@@ -5,7 +5,7 @@ import { describe, expect, it, vi } from 'vitest'
 import type { SchedulingViewModel } from '../types/schedule'
 import { SCHEDULING_WORKSPACE_FACILITY_ID } from './schedulingWorkspaceDefaults'
 
-const { emptyResult, previewSlice, batchUndoSlice, kpiSlice, facilitySlice, derivedSlice, csvSlice, runSaveSlice } =
+const { previewSlice, batchUndoSlice, kpiSlice, facilitySlice, derivedSlice, csvSlice, runSaveSlice } =
   vi.hoisted(() => {
     const emptyResult: SchedulingViewModel = {
       assignments: [],
@@ -129,6 +129,7 @@ describe('useSchedulingWorkspace', () => {
 
     expect(useAuthActorId).toHaveBeenCalled()
     expect(useAuth).toHaveBeenCalled()
+    expect(useSchedulingRunPreviewState).toHaveBeenCalled()
     expect(useSchedulingBatchUndo).toHaveBeenCalledWith('actor-ws', 'Admin')
     expect(useSchedulingKpiHistory).toHaveBeenCalledWith(SCHEDULING_WORKSPACE_FACILITY_ID)
     expect(useSchedulingFacilityReload).toHaveBeenCalledWith(

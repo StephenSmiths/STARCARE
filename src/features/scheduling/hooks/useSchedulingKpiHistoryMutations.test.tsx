@@ -88,8 +88,8 @@ describe('useSchedulingKpiHistoryMutations', () => {
   it('exportKpiTrendCsv：帶 facility 與目前列', () => {
     function useExportHarness() {
       const [kpiRunHistory, setKpiRunHistory] = useState<SchedulingKpiRunRecord[]>([record])
-      const [syncError, setSyncError] = useState('')
-      const [syncNotice, setSyncNotice] = useState('')
+      const [, setSyncError] = useState('')
+      const [, setSyncNotice] = useState('')
       const m = useSchedulingKpiHistoryMutations({
         facilityId: 'fac-m',
         kpiRunHistory,
