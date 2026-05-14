@@ -42,6 +42,15 @@ describe('createSchedulingSessionRepository', () => {
     const repo = createSchedulingSessionRepository()
     expect(repo).toBeInstanceOf(InMemorySchedulingSessionRepository)
   })
+
+  it('有 Supabase 憑證時回傳 EdgeSchedulingSessionRepository', () => {
+    vi.mocked(getSupabaseBrowserCredentials).mockReturnValue({
+      supabaseUrl: 'https://proj.supabase.co',
+      anonKey: 'anon-key',
+    })
+    const repo = createSchedulingSessionRepository()
+    expect(repo).toBeInstanceOf(EdgeSchedulingSessionRepository)
+  })
 })
 
 describe('EdgeSchedulingSessionRepository', () => {
