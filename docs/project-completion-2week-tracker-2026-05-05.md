@@ -113,7 +113,7 @@ limit 20;
 |---|---|---|---|---|
 | Gate A | D5 | go-live §1/§3/§8 證據齊全、RES-06 有結論 | [x] | 2026-05-15 PASS（READY） |
 | Gate B | D8 | P0/P1=0、RC 可重複部署、CI 綠燈 | [x] | 2026-05-15 工程收斂（`c3755ad`） |
-| Gate C | D10 | go-live checklist 可簽核、回滾路徑可用 | [ ] |  |
+| Gate C | D10 | go-live checklist 可簽核、回滾路徑可用 | [ ] | 草稿 **`gate-c-go-live-signoff-draft-2026-05-15`**；缺 PAT／§7／e2e:auth |
 
 ### Gate A 自動引用（由腳本同步）
 

@@ -14,6 +14,10 @@
 - 劇本：**`docs/uat/scheduling-intelligent-uat-2026-05-15.md`**（S1～S10；建議先完成系統設定 UAT 再跑排班）。
 - 業務釋義：**`docs/business-logic-pdf02-scheduling-clarification-2026-05-09.md`**。
 
+### 0.3 Gate C 簽核草稿（D10，2026-05-15）
+- 草稿：**`docs/gate-c-go-live-signoff-draft-2026-05-15.md`**（§6 PAT、§7 簽名表、Go/No-Go）。
+- `test:e2e:auth` 嘗試：**`docs/evidence/gate-c-e2e-auth-attempt-2026-05-15.md`**（15 skipped；待 **`E2E_AUTH_*`**）。
+
 ### 0.1 Gate A 取證入口（2026-05-06）
 - 取證步驟：**`docs/gate-a-evidence-capture-2026-05-06.md`**
 - 回填模板：**`docs/gate-a-evidence-fill-template-2026-05-06.md`**
@@ -33,9 +37,9 @@
 ### 1.1 可選：Playwright（demo 煙霧／登入，本機或 CI）
 - [x] 本機 **`npm run ci`**（`lint`→`typecheck`→`vitest`→**`build:demo`**（清空 `VITE_SUPABASE_*` 建置）→`PW_PREVIEW_ONLY=1` 之 Playwright demo 全套）已通過；與 GitHub Actions 對照見 `docs/feature-list.md` §8。（2026-05-15 exit 0）
 - [x] `.env` 已設 `VITE_SUPABASE_URL`、`VITE_SUPABASE_ANON_KEY`（Gate A preflight／部署取證已用）；**`E2E_AUTH_*` 未設**時 `test:e2e:auth` 會 skip（見 `.env.example`）。
-- [ ] `npm run test:e2e:auth` 通過（`playwright.auth.config.ts`：登入後見儀表盤審計區、側欄「登出」；`/#service-forms` 見 **Staff／待審** 與審計標題且無「無法載入時段或院友資料」；`/#work-session-plans` 見 **我的工作計劃** 與審計標題且無「無法載入工作計劃時段，請稍後重試。」；`/#residents` 見 **院友資料概覽** 與 **最近審計紀錄** 且無「無法載入院友名單，請稍後重試。」；`/#scheduling` 見 **本次排班指派** 與 **排班與相關操作審計** 且無「無法連線載入院友或時段資料，請檢查網路與 API 設定。」；`/#notification-center` 見 **未讀通知** 與 **審計紀錄節錄**；`/#historical-documents` 見 **母本要求僅展示** 與 **匯出審計**；並涵蓋 **開工／收工交更**、**復康追蹤**、**評估管理**、**用戶手冊**、**使用者角色（Admin）** 之 `#user-role-admin`（admin 成功提交 + staff API 403，見 `e2e/auth-login.user-role-admin.spec.ts`）；或本機一鍵 **`npm run test:e2e:all`**（先 demo 煙霧再可選登入）。
-- [ ] （選填）**Seq 29【16】** **`#system-settings`** **P2** 五小節 **`h3`**：本機 **`npm run test:e2e:auth`** 含 **`e2e/auth-login.system-settings-p2.spec.ts`**（需 **`VITE_SUPABASE_URL`**／**`VITE_SUPABASE_ANON_KEY`**；**`E2E_AUTH_TEAMLEAD_*`** 優先或 **`E2E_AUTH_ADMIN_*`**；與 **`docs/seq29-system-settings-pdf02-traceability.md`** 開首、**`.env.example`** 並讀）。
-- [ ] 若僅需補 `user-role-admin` 權限證據，可先跑 **`npm run test:e2e:auth:user-role-admin`**（較快，適合 Gate A 補測）；完整路徑再跑 `npm run test:e2e:auth`。
+- [ ] `npm run test:e2e:auth` 通過（`playwright.auth.config.ts`：登入後見儀表盤審計區、側欄「登出」；`/#service-forms`～`#scheduling` 等真庫載入無錯誤；含 `#user-role-admin` admin 提交 + staff 403）。**2026-05-15**：已執行 → **15 skipped**（`.env` 無 **`E2E_AUTH_*`**）；exit 0 ≠ 通過 → **`docs/evidence/gate-c-e2e-auth-attempt-2026-05-15.md`**、**`docs/gate-c-go-live-signoff-draft-2026-05-15.md`** §3。
+- [ ] （選填）**Seq 29【16】** **`#system-settings`** **P2** 五小節 **`h3`**：同上 auth 套件；需 **`E2E_AUTH_TEAMLEAD_*`** 或 **`E2E_AUTH_ADMIN_*`**（2026-05-15：skip）。
+- [ ] 若僅需補 `user-role-admin` 權限證據：**`npm run test:e2e:auth:user-role-admin`**（2026-05-15：未設 Admin/Staff 憑證則 skip）。
 
 ## 2. 部署與版本一致性（DB / Functions）
 - [x] `npx supabase migration list`：`Local` 與 `Remote` 完全一致（亦可 **`npm run ops:verify`** 併查，見 **`docs/supabase-deploy-runbook.md`** §3）。  
@@ -107,7 +111,7 @@ limit 20;
 - [ ] 不在聊天與文件中貼出新 PAT/service role key。
 
 ## 7. 上線簽核（簡版）
-- [ ] 產品/業務確認：排班結果符合預期。
+- [ ] 產品/業務確認：排班結果符合預期。（簽名表：**`docs/gate-c-go-live-signoff-draft-2026-05-15.md`** §4）
 - [ ] 技術確認：部署、RLS、審計資料正常（審計 UI／DB／RLS 抽測勾選項見 **§8**）。
 - [ ] 決策人確認：允許正式上線。
 

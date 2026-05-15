@@ -126,6 +126,10 @@
 ### 明日計畫
 - PAT 輪替與 go-live §7 簽核；Gate C 收斂
 
+### Gate C 接續（同日）
+- [x] `npm run test:e2e:auth`：15 skipped（無 `E2E_AUTH_*`）；紀錄 **`docs/evidence/gate-c-e2e-auth-attempt-2026-05-15.md`**
+- [x] 簽核草稿：**`docs/gate-c-go-live-signoff-draft-2026-05-15.md`**；go-live **§0.3** 互鏈
+
 ---
 
 ## 日誌模板（複製此段新增日期）

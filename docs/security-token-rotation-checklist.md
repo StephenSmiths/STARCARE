@@ -13,6 +13,8 @@
 2. 以新 PAT 驗證可部署後，停用舊 PAT。
 3. 確認本機終端未長期保存舊 PAT（必要時關閉舊 shell session）。
 
+**Gate C 記錄表**：**`docs/gate-c-go-live-signoff-draft-2026-05-15.md`** §5（與 **`docs/go-live-checklist.md`** §6 同步勾選）。
+
 ## B. 專案設定（已完成）
 - `.gitignore` 已加入：
   - `.env`
