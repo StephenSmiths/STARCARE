@@ -2,7 +2,7 @@
 
 > **簽核草稿**：**`docs/gate-c-go-live-signoff-draft-2026-05-15.md`**  
 > **診斷**：`npm run gatec:preflight`  
-> **狀態**：2026-05-15 — Gate A/B 已過；Gate C 待 PAT、簽名、E2E auth。
+> **狀態**：2026-05-15 — 工程 **READY**；待 **PAT**、**§7 簽名**、客戶 UAT。
 
 ---
 
@@ -19,12 +19,7 @@
 
 ## 階段 B — PAT 輪替（OPS，約 15 分鐘）
 
-依 **`docs/security-token-rotation-checklist.md`** §A：
-
-1. Dashboard 建立新 PAT。
-2. `SUPABASE_ACCESS_TOKEN="<新PAT>" npm run ops:verify`（或 deploy smoke）。
-3. 停用舊 PAT；關閉含舊 token 的 shell。
-4. 填簽核草稿 **§5** 表格。
+依 **`docs/gate-c-pat-ops-runbook-2026-05-15.md`**（含勾選表與失敗處置）。
 
 ---
 
@@ -38,7 +33,7 @@
 
 ## 階段 D — 簽核與 Go-Live
 
-1. 三方填 **`docs/gate-c-go-live-signoff-draft-2026-05-15.md`** §4。
+1. 三方填 **`docs/gate-c-go-live-signoff-draft-2026-05-15.md`** §4（用語 **`docs/gate-c-section7-signoff-wording-2026-05-15.md`**）。
 2. 勾選 **`docs/go-live-checklist.md`** §6、§7。
 3. **Go** 條件見簽核草稿 §6；否則維持 Staging UAT。
 

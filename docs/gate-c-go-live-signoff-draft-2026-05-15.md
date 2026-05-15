@@ -28,8 +28,8 @@
 | P0 | §7 三方簽名 | 業務／技術／決策 | 本檔 **§4** 簽核表 |
 | P1 | §1 `residents`／`scheduling_history` RLS 書面紀錄 | QA | SQL＋角色帳號抽測 |
 | P1 | §8 `audit_events` SQL 抽樣 | QA | go-live §8 查詢 |
-| P2 | **`npm run test:e2e:auth`** 非 skip 全綠 | 工程 | 本檔 **§3**；2026-05-15 為 **15 skipped** |
 | P2 | 客戶 UAT | 業務 | **`docs/uat/scheduling-intelligent-uat-2026-05-15.md`** |
+| 可選 | `test:e2e:auth` 全角色 0 skipped | 工程 | 補 **`E2E_AUTH_TEAMLEAD_*`** 後重跑 |
 
 ---
 
@@ -79,17 +79,21 @@ SQL 抽測：**`docs/sql/gate-c-go-live-verification.sql`**。
 
 ## 4. §7 上線簽核表（待簽）
 
+**複製用語（三方段落）**：**`docs/gate-c-section7-signoff-wording-2026-05-15.md`**
+
 | 角色 | 姓名 | 日期 | 確認內容 | 簽名 |
 |------|------|------|----------|------|
-| 產品／業務 | | | 智能排班與系統設定 UAT 符合 PDF 02【3】【16】預期（含已知限制） | |
-| 技術（TL） | | | §1～§5、§8 勾選完成；PAT 已輪替；RLS／審計抽測無異常 | |
-| 決策人 | | | 批准正式環境 go-live | |
+| 產品／業務 | | | 見用語檔「產品／業務」 | |
+| 技術（TL） | | | 見用語檔「技術負責人」（工程 READY；PAT 可後補勾選） | |
+| 決策人 | | | 見用語檔「決策人」（**須 PAT 完成後**） | |
 
-**業務 UAT 參考**：**`docs/uat/scheduling-intelligent-uat-2026-05-15.md`**、**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`**。
+**業務 UAT**：**`docs/uat/scheduling-intelligent-uat-2026-05-15.md`**、**`docs/uat/uat-kickoff-email-draft-2026-05-15.md`**
 
 ---
 
 ## 5. §6 PAT 輪替記錄（OPS 填寫）
+
+**逐步指令**：**`docs/gate-c-pat-ops-runbook-2026-05-15.md`**
 
 | 步驟 | 完成 | 日期 | 操作者 | 備註 |
 |------|------|------|--------|------|
@@ -112,8 +116,10 @@ SQL 抽測：**`docs/sql/gate-c-go-live-verification.sql`**。
 
 ## 7. 證據附件清單（簽核包）
 
+- **`docs/evidence/gate-c-latest.md`**（固定入口）
 - **`docs/evidence/gate-a-latest.md`**
+- **`docs/evidence/gate-c-e2e-auth-latest.md`**
+- **`docs/evidence/gate-c-engineering-baseline-latest.md`**
 - **`docs/gate-a-manual-evidence-checklist-2026-05-06.md`**
-- Gate B：`npm run ci` 2026-05-15（tracker **`c3755ad`**）
-- D9：部署日誌（**`docs/project-completion-daily-log-2026-05.md`** 2026-05-15）
-- （補）`test:e2e:auth` 終端輸出／Playwright report
+- Gate B：`npm run ci` 2026-05-15（**`c3755ad`**）
+- D9：**`docs/project-completion-daily-log-2026-05.md`** 2026-05-15

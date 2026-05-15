@@ -21,6 +21,7 @@
 - SQL 抽測：**`docs/sql/gate-c-go-live-verification.sql`**。
 - UAT 開測郵件：**`docs/uat/uat-kickoff-email-draft-2026-05-15.md`**。
 - 工程基線：**`docs/evidence/gate-c-engineering-baseline-latest.md`**（Staff E2E + Gate A；**`npm run gatec:baseline:accept`**）。
+- §7 簽核用語：**`docs/gate-c-section7-signoff-wording-2026-05-15.md`**；PAT：**`docs/gate-c-pat-ops-runbook-2026-05-15.md`**。
 - 首次嘗試紀錄：**`docs/evidence/gate-c-e2e-auth-attempt-2026-05-15.md`**。
 
 ### 0.1 Gate A 取證入口（2026-05-06）
@@ -117,9 +118,9 @@ limit 20;
 - [ ] 不在聊天與文件中貼出新 PAT/service role key。
 
 ## 7. 上線簽核（簡版）
-- [ ] 產品/業務確認：排班結果符合預期。（簽名表：**`docs/gate-c-go-live-signoff-draft-2026-05-15.md`** §4）
-- [ ] 技術確認：部署、RLS、審計資料正常（審計 UI／DB／RLS 抽測勾選項見 **§8**）。
-- [ ] 決策人確認：允許正式上線。
+- [ ] 產品/業務確認：排班結果符合預期。（用語：**`docs/gate-c-section7-signoff-wording-2026-05-15.md`**）
+- [ ] 技術確認：部署、RLS、審計資料正常（工程 READY 見 **`docs/evidence/gate-c-latest.md`**；PAT 見 **§6**）。
+- [ ] 決策人確認：允許正式上線（**須 §6 PAT 完成後**）。
 
 ## 8. 審計紀錄（RES-06）正式庫抽測
 與 **`docs/feature-list.md`** 之 **RES-06** 對照；本節勾選完成後，可將該功能列狀態改為 **`已完成`**。  
