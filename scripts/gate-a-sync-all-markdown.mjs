@@ -1,3 +1,7 @@
+/**
+ * **`npm run gatea:evidence:docs-sync`**：批量刷新四份 **`project-completion-*`** **`gatea-*-auto-ref`**；可傳 **`--suppress-closeout-footer`**（供 **`gate-a-evidence-all`** 避免與 **summary** 重複頁尾）。
+ * stdout 末段附 **`gateAStandardCloseoutBlockquotes`** 兩行 blockquote（**第一行**併主日誌 **Gate A／stdout** 細列歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-gate-a-stdout-2026-05-09.md`**；**第二行** 人工／strict-http／keep=1；**Export 契約**）。細目見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** **`docs-sync`** 段。
+ */
 import {
   artifacts,
   blockEvidenceIndex,

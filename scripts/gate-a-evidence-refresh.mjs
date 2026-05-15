@@ -1,6 +1,7 @@
 /**
  * 一鍵：全流程取證 → 修剪舊快照 → 刷新 gate-a-latest.md（檔尾四行：gateALatestMarkdownFooterLines）→ 四份 markdown 引用區 → 判定稿引用行。
  * 選項：`--keep=N`（僅給 prune，預設 2）；其餘旗標轉給 `gate-a-evidence-all.mjs`（如 `--no-preflight`、`--strict-http`）。`--strict-http` 或合併環境 `GATEA_STRICT_HTTP` 時，末段 `latest`／`docs-sync`／`decision-sync` 一併帶入，使 **`gate-a-latest.md`** 與收尾引用區之 **HTTP 嚴格取證** 與全流程一致。
+ * 子程序收尾後本腳本 stdout 最末仍附 **`gateAStandardCloseoutBlockquotes`** 兩行（**`scripts/gate-a-markdown-footer.mjs`** **Export 契約**；與 **docs-sync** 末段同源）。
  */
 import { spawnSync } from 'node:child_process'
 

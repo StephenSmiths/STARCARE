@@ -1,3 +1,6 @@
+/**
+ * Gate A 證據索引摘要 stdout（**latest pointer** 列併 **`gateALatestMarkdownFooterLines`**／**`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`**）；末段附 **`gateAStandardCloseoutBlockquotes`** 兩行 blockquote（**第一行** stdout 歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-gate-a-stdout-2026-05-09.md`**；**第二行** 人工／strict-http／keep=1；**Export 契約**）。
+ */
 import { readdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 

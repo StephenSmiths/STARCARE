@@ -1,3 +1,6 @@
+/**
+ * 由 **`docs/evidence`** 既有檔案產出 **decision ref** Markdown；檔末附 **`gateAStandardCloseoutBlockquotes`**（**`scripts/gate-a-markdown-footer.mjs`** **Export 契約**）。
+ */
 import { readdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 

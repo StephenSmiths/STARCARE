@@ -1,5 +1,6 @@
 /**
  * 取證前快速診斷：合併環境鍵是否齊備（不輸出密值）、證據目錄與 READY 相關缺口。
+ * stdout 末段附 **`gateAStandardCloseoutBlockquotes`** 兩行 blockquote（**第一行**併主日誌 **Gate A／stdout** 細列歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-gate-a-stdout-2026-05-09.md`**；**第二行**併 **人工／strict-http／keep=1**；**`scripts/gate-a-markdown-footer.mjs`** **Export 契約**）。**`--strict`** 與 **NOT_READY** 語意見 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** **`preflight`** 段。
  */
 import { existsSync } from 'node:fs'
 import { resolve } from 'node:path'

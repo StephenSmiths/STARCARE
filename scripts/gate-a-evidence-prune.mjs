@@ -1,3 +1,6 @@
+/**
+ * **`docs/evidence`** 快照修剪（**`--apply`**／**`--keep=N`**）；stdout 末段附 **`gateAStandardCloseoutBlockquotes`** 兩行（**第一行** stdout 歸檔、**第二行** 人工／strict-http／keep=1；**`scripts/gate-a-markdown-footer.mjs`** **Export 契約**）。
+ */
 import { readdirSync, rmSync } from 'node:fs'
 import { resolve } from 'node:path'
 

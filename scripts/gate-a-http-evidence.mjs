@@ -1,3 +1,6 @@
+/**
+ * Gate A **HTTP** 取證（401／403 等）；stdout 末段附 **`gateAStandardCloseoutBlockquotes`** 兩行 blockquote（**第一行**併 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-gate-a-stdout-2026-05-09.md`**；**第二行**併 **人工／strict-http／keep=1**；**`scripts/gate-a-markdown-footer.mjs`** **Export 契約**）。**`http:auth`** 委派見 **`gate-a-http-evidence-auth.mjs`**；細目 **`docs/gate-a-status-2026-05-06-commands-appendix.md`** **`http`** 段。
+ */
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 

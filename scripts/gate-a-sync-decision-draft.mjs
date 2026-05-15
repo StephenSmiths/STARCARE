@@ -1,3 +1,6 @@
+/**
+ * **`npm run gatea:evidence:decision-sync`**：更新 **`docs/gate-a-decision-draft-2026-05-06.md`** mini 區塊與 **`[updated]`** 列；stdout 於 mini／**`[updated]`** 之後附 **`gateAStandardCloseoutBlockquotes`** 兩行；marker 末行可為 **`gateAAutoRefClosingHintLine()`**（**`scripts/gate-a-markdown-footer.mjs`** **Export 契約**；**`docs/gate-a-status-2026-05-06-commands-appendix.md`** **`decision-sync`** 段）。
+ */
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 

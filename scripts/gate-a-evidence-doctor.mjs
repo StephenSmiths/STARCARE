@@ -1,3 +1,6 @@
+/**
+ * Gate A **doctor** 完整度檢查（可 **`--write`** 落檔）；stdout／落檔末段附 **`gateAStandardCloseoutBlockquotes`**（**`scripts/gate-a-markdown-footer.mjs`** **Export 契約**）。
+ */
 import { readdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 

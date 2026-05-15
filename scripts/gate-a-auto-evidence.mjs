@@ -1,3 +1,6 @@
+/**
+ * 產出 **`docs/evidence/gate-a-auto-evidence-*.md`** 環境快照；檔末附 **`gateAStandardCloseoutBlockquotes`**（**`scripts/gate-a-markdown-footer.mjs`** **Export 契約**）。
+ */
 import { execSync } from 'node:child_process'
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'

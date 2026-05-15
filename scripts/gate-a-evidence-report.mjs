@@ -1,3 +1,6 @@
+/**
+ * Gate A 自動化收斂報告 stdout／落檔；末段附 **`gateAStandardCloseoutBlockquotes`**（**`scripts/gate-a-markdown-footer.mjs`** **Export 契約**）。
+ */
 import { writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { buildSpawnBaseEnv, gateAStrictHttpEnabled } from './gate-a-env-lib.mjs'
