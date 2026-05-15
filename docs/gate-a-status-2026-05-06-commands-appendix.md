@@ -135,7 +135,7 @@ npm run gatea:evidence:list
 
 > `gatea:evidence:next` 與 `gatea:evidence:summary` 內之「next」行，會依 `{ .env ∪ process.env }` 判斷：有 staff 帳密則建議 `gatea:evidence:http:auth`；僅有 `GATEA_STAFF_ACCESS_TOKEN` 則建議 `gatea:evidence:http`。
 
-> `gatea:evidence:next`：狀態為 **READY** 時會建議再跑 `gatea:evidence:latest`；該步驟寫入 **`docs/evidence/gate-a-latest.md`**，檔尾 blockquote 四行出自 **`gateALatestMarkdownFooterLines`**（細目見下文 **`latest`** 段）。本指令 stdout 末兩行仍為 **`gateAStandardCloseoutBlockquotes`**（**`scripts/gate-a-markdown-footer.mjs`** **Export 契約**）。
+> `gatea:evidence:next`：狀態為 **READY** 時會建議再跑 `gatea:evidence:latest`；該步驟寫入 **`docs/evidence/gate-a-latest.md`**，檔尾 blockquote 四行出自 **`gateALatestMarkdownFooterLines`**（細目見下文 **`latest`** 段）。本指令 stdout 末兩行仍附 **`gateAStandardCloseoutBlockquotes`** 兩行 blockquote（**第一行**併主日誌 **Gate A／stdout** 細列歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-gate-a-stdout-2026-05-09.md`**；**第二行**併 **人工／strict-http／keep=1** 互鏈 **`docs/gate-a-manual-evidence-checklist-2026-05-06.md`** 開首與 **`docs/go-live-checklist.md`** §0.1），與上文 **`http`**／**`docs-sync`** 末段同源；字串權威見 **`scripts/gate-a-markdown-footer.mjs`** **Export 契約**。
 
 規則實作單點：`scripts/gate-a-ready-core.mjs`（`gatea:evidence:latest`、`gatea:evidence:report`、終端 READY 輸出共用）。
 

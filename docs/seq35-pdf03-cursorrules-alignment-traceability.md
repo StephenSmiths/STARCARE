@@ -57,6 +57,7 @@
 | 2026-05-16 | **`pdf03-cursorrules-alignment.md`** §4：「全案收尾／Gate A」維護項補 **README**／**`.cursorrules`**／**`business-logic.md`** §0 stdout 摘述與 **Export 契約** 對齊（**`archive-gate-a-stdout-2026-05-09`**）；**`pdf-sequenced-gap-checklist-revision-log-archive-gate-a-stdout-2026-05-09.md`** 歸檔列。 |
 | 2026-05-15 | **`go-live-checklist.md`**：**`gateAStandardCloseoutBlockquotes`** **第一行**主日誌 **stdout** 歸檔句（開首 **對照**／長段／§0.1）；與 **`README`**／**`business-logic`** §0、**`archive-gate-a-stdout-2026-05-09`** 歸檔列並讀。 |
 | 2026-05-15 | **全案收尾長鏈 stdout**：**`seq*.md`**／**`phase*.md`**／**`stage*.md`**、**`feature-list`**、**`gate-a-*`**（**`commands-appendix`**）、**`project-completion-*`**、**`.env.example`**／**`ci.yml`** 等 **`gateAStandardCloseoutBlockquotes`** 補 **第一行**歸檔敘述；**`archive-gate-a-stdout-2026-05-09`** 歸檔列（主日誌 **2026-08-07**～**08-09** 列維持歷史原文）。 |
+| 2026-05-15 | **`commands-appendix`** **`gatea:evidence:next`** 段：**`gateAStandardCloseoutBlockquotes`** 兩行分工敘述與 **`http`**／**`docs-sync`** 末段對齊；**`archive-gate-a-stdout-2026-05-09`** 歸檔列。 |
 | 2026-05-09 | **主表**：**`pdf-sequenced-gap-checklist.md`** §C Seq **35**「與現況對照」列補 **`pdf03`** **§3**／**§4** 與 **`seq35`** **§1**／**§3**／**`seq29`** 敘述；**`pdf-sequenced-gap-checklist-revision-log.md`** **註** 併 **§C** 括註。 |
 | 2026-05-09 | §1：權威表 **`pdf03`** 列補 **§3** PR 檢核與 **§4** 維護閉環分述；**`seq29-system-settings-pdf02-traceability.md`** 開首 **CI** 句併 **本檔** §3。 |
 | 2026-05-09 | §3：補 **pdf03** §3／§4 **Seq 29** 政策 **Vitest** PR 檢核與 **`seq29`** 主檔／修訂表互鏈（**02 鏈**→**03**）。 |
