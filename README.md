@@ -22,7 +22,8 @@
 
 Gate C 指令：`npm run gatec:preflight` · `npm run gatec:e2e:auth` · `npm run gatec:baseline:accept` · `npm run gatec:evidence:sync`  
 Gate C：**[gate-c-closeout-checklist-2026-05-15.md](docs/gate-c-closeout-checklist-2026-05-15.md)** · 簽核 **[gate-c-section7-signoff-wording-2026-05-15.md](docs/gate-c-section7-signoff-wording-2026-05-15.md)** · PAT **[gate-c-pat-ops-runbook-2026-05-15.md](docs/gate-c-pat-ops-runbook-2026-05-15.md)**（**`npm run gatec:ops:verify`**）  
-UAT：**[uat-staging-access-guide-2026-05-15.md](docs/uat/uat-staging-access-guide-2026-05-15.md)** · **[uat-facilitator-runbook-2026-05-15.md](docs/uat/uat-facilitator-runbook-2026-05-15.md)** · **`npm run gatec:staging:preview`** · **`npm run gatec:uat:kickoff`**
+UAT：**[uat-staging-access-guide-2026-05-15.md](docs/uat/uat-staging-access-guide-2026-05-15.md)** · **[uat-facilitator-runbook-2026-05-15.md](docs/uat/uat-facilitator-runbook-2026-05-15.md)** · **`npm run gatec:staging:preview`** · **`npm run gatec:uat:kickoff`**  
+狀態：**`npm run gatec:status`** · 管理層 **[gate-c-executive-status-2026-05-15.md](docs/gate-c-executive-status-2026-05-15.md)**
 | [docs/seq29-system-settings-pdf02-traceability.md](docs/seq29-system-settings-pdf02-traceability.md) | PDF 02【16】系統設定對照骨架（§1–§6）；歷史修訂列 [seq29-system-settings-pdf02-traceability-revision-log.md](docs/seq29-system-settings-pdf02-traceability-revision-log.md) |
 | [docs/assessment-completion-records-contract.md](docs/assessment-completion-records-contract.md) | 評估完成紀錄 Edge 契約與審計（Seq 22） |
 | [docs/client-delivery-remediation-plan.md](docs/client-delivery-remediation-plan.md) | 對客戶補強與分期交付說明 |

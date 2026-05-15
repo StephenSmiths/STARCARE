@@ -99,6 +99,7 @@
     "gatec:uat:kickoff": "node scripts/gate-c-print-uat-kickoff.mjs",
     "gatec:staging:preview": "npm run build && npm run preview -- --host 0.0.0.0 --port 4173",
     "gatec:ops:verify": "node scripts/gate-c-ops-verify-if-token.mjs",
+    "gatec:status": "node scripts/gate-c-status.mjs",
     "gatea:evidence:list": "node scripts/gate-a-evidence-list.mjs",
     "gateb:evidence:doctor": "node scripts/gate-b-evidence-doctor.mjs",
     "gateb:evidence:ready": "node scripts/gate-b-evidence-ready.mjs",

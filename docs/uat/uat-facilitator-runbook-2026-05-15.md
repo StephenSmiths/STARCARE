@@ -8,7 +8,7 @@
 
 - [ ] Preview 已啟動：`npm run gatec:staging:preview`（或 Vercel URL 可開）
 - [ ] TL／Admin 已登入成功一次
-- [ ] 週更 CSV 樣本備妥（或確認院舍已有時段資料）
+- [ ] 週更 CSV 樣本備妥：**`docs/uat/weekly-roster-uat-sample.csv`**（或院舍實際更表；表頭須含「服務類型、職位、姓名…」）
 - [ ] 投影／螢幕共享就緒
 
 ## 流程（建議順序）
