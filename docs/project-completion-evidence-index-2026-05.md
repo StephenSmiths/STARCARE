@@ -22,7 +22,7 @@
 | 2026-05-15 | D5 | Gate A 結論 | Gate A | `20d356f` / `233737b` | `npm run gatea:evidence:gate` PASS；`gatea:evidence:refresh:strict-http` | — | **`docs/evidence/gate-a-report-20260515-031147.md`**、**`docs/gate-a-status-2026-05-06.md`** | TL/QA | **READY**；HTTP 嚴格取證 ON |
 | 2026-05-12 | D6 | 回歸 A（residents/staff/import） | Plan D6 |  |  |  |  | FE/QA |  |
 | 2026-05-13 | D7 | 回歸 B（scheduling/forms/handover） | Plan D7 |  |  |  |  | FE/QA |  |
-| 2026-05-14 | D8 | RC + 缺陷收斂 | Gate B |  |  |  |  | TL/FE/BE |  |
+| 2026-05-15 | D8 | RC + 缺陷收斂 | Gate B | `069931f` | `npm run ci`（2026-05-15 exit 0） | — | lint/typecheck/607 tests/build:demo/perf/e2e 全過 | TL/FE/BE | P0/P1 仍待清單簽核；RC 併 D9 |
 | 2026-05-15 | D9 | 部署/回滾/憑證 | go-live §2/§6 | `bd920cb` | `npm run ops:deploy:all`、`npm run ops:verify`（2026-05-15） | migration `20260509201000` 已落遠端 | 終端：`ops:verify` Local/Remote 一致；Edge 全數 ACTIVE（含 `scheduling-rules-get`、`scheduling-policy-*` v2） | OPS/BE | PAT 輪替仍依 **`docs/security-token-rotation-checklist.md`** §D |
 | 2026-05-16 | D10 | 最終簽核 | Gate C |  |  |  |  | TL/QA/業務 |  |
 
@@ -78,9 +78,9 @@
 - [x] `RES-06` 有明確結論（完成/阻塞）
 
 ### Gate B（D8）
-- [ ] P0/P1 為 0
-- [ ] RC 可重複部署
-- [ ] CI 穩定綠燈（含 E2E/perf）
+- [ ] P0/P1 為 0（待 TL/QA 缺陷清單簽核）
+- [x] RC 可重複部署（D9：`ops:deploy:all` + `ops:verify`，2026-05-15）
+- [x] CI 穩定綠燈（含 E2E/perf）（`npm run ci` 本機 2026-05-15 exit 0；607 Vitest + 44 Playwright + perf budget PASSED）
 
 ### Gate C（D10）
 - [ ] go-live checklist 完成簽核
