@@ -1,6 +1,7 @@
 # 院舍政策 P1：Staging 檢查與 UAT 劇本
 
 > **對照**：**`docs/system-settings-policy-prd-2026-05-09.md`** §6 **P1**／**P2**、**`docs/scheduling-policy-edge-function-contract.md`**、**`docs/supabase-deploy-runbook.md`**。  
+> **智能排班 UAT（客戶）**：**`docs/uat/scheduling-intelligent-uat-2026-05-15.md`**（PDF 02【3】五步；建議先完成本檔 U1～U2 再跑排班 S1～S10）。  
 > **前端**：**`#system-settings`**（系統設定）— **智能排班設定**、**復康服務基本設定**、**政策版本（雲端提交）**（用語對齊 PDF 02【16】）；已設 **`VITE_SUPABASE_*`** 且 Edge 可用時 **P2** 雲端卡與 **二之二** 手動抽測對齊 **`SystemSettingsHome`** **`edgeEnabled`**（見 **`docs/seq29-system-settings-pdf02-traceability.md`** §1）。
 
 ---

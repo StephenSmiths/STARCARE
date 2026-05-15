@@ -3,7 +3,7 @@
 > **權威鏈**：本附錄為 **`docs/business-logic.md`** **§3** 之補充；與 **`docs/pdf/02-STARCARE-智能院舍照護管理系統.pdf`** **【3】** 並讀。若與 01 母本衝突，依 **`business-logic.md`** §0 裁定流程。  
 > **工程對照骨架**：**`docs/seq15-scheduling-pdf02-traceability.md`**。  
 > **系統設定（非治療／開工準備等）**：**`docs/business-logic.md`** §0 **02【16】** 段與 **`docs/seq29-system-settings-pdf02-traceability.md`**。  
-> **客戶 UAT 一頁檢查表**：**`docs/uat/scheduling-intelligent-uat-checklist-2026-05-15.md`**（含測試環境交付清單）。
+> **客戶 UAT（智能排班）**：**`docs/uat/scheduling-intelligent-uat-2026-05-15.md`**（PDF【3】五步；含帳號表與簽核）。
 
 ---
 

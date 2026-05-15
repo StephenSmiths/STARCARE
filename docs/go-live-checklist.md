@@ -10,6 +10,10 @@
 - [ ] 完成安全收尾（PAT 輪替、舊 PAT 停用；見 **`docs/security-token-rotation-checklist.md`**；**§D** 可選 **`npm run ci`**）
 - [x] 完成部署狀態確認（migration/functions；見 **`docs/supabase-deploy-runbook.md`** §2／§3）（2026-05-15：`ops:deploy:all`、`ops:verify`）
 
+### 0.2 智能排班客戶 UAT（2026-05-15）
+- 劇本：**`docs/uat/scheduling-intelligent-uat-2026-05-15.md`**（S1～S10；建議先完成系統設定 UAT 再跑排班）。
+- 業務釋義：**`docs/business-logic-pdf02-scheduling-clarification-2026-05-09.md`**。
+
 ### 0.1 Gate A 取證入口（2026-05-06）
 - 取證步驟：**`docs/gate-a-evidence-capture-2026-05-06.md`**
 - 回填模板：**`docs/gate-a-evidence-fill-template-2026-05-06.md`**
@@ -21,14 +25,14 @@
 - 終端 stdout 末兩行 blockquote 與 **`scripts/gate-a-markdown-footer.mjs`** **`gateAStandardCloseoutBlockquotes`** 同源（**第一行**併主日誌 **Gate A／stdout** 歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-gate-a-stdout-2026-05-09.md`**；**第二行**併 **人工／strict-http／keep=1**，見本節上文勾選表與 **`docs/gate-a-manual-evidence-checklist-2026-05-06.md`** 開首）；維護見該腳本檔首 **Export 契約**；**`http:auth`** 見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-inherit`**；**`README.md`**「Gate A 終端頁尾（維護）」列並讀。
 
 ## 1. 身分與授權（Auth / RLS）
-- [ ] 至少有 1 位 `admin` 與 1 位 `staff` 可成功登入。
-- [ ] `public.user_roles` 可查到對應 `user_id` 與 `role`。
-- [ ] 未授權帳號呼叫 Edge API 時，回應 `401/403`（抽測至少 1 次）。
-- [ ] `residents` / `scheduling_history` 的讀取符合 RLS 預期。
+- [x] 至少有 1 位 `admin` 與 1 位 `staff` 可成功登入。（Gate A：`gateA-d2-admin-login`／`gateA-d2-staff-login` 截圖）
+- [x] `public.user_roles` 可查到對應 `user_id` 與 `role`。（Gate A：`gateA-d2-user-roles-sql` 截圖）
+- [x] 未授權帳號呼叫 Edge API 時，回應 `401/403`（抽測至少 1 次）。（**`docs/evidence/gate-a-latest.md`** 401/403 文字證據；strict-http refresh 2026-05-15）
+- [ ] `residents` / `scheduling_history` 的讀取符合 RLS 預期。（待正式庫 RLS 抽測紀錄；審計 RLS 見 **§8**）
 
 ### 1.1 可選：Playwright（demo 煙霧／登入，本機或 CI）
 - [x] 本機 **`npm run ci`**（`lint`→`typecheck`→`vitest`→**`build:demo`**（清空 `VITE_SUPABASE_*` 建置）→`PW_PREVIEW_ONLY=1` 之 Playwright demo 全套）已通過；與 GitHub Actions 對照見 `docs/feature-list.md` §8。（2026-05-15 exit 0）
-- [ ] `.env` 已設 `VITE_SUPABASE_URL`、`VITE_SUPABASE_ANON_KEY`，並設測試帳號之 `E2E_AUTH_EMAIL`、`E2E_AUTH_PASSWORD`（見 `.env.example`）；若執行 `user-role-admin` 權限抽測，另設 `E2E_AUTH_ADMIN_*`、`E2E_AUTH_STAFF_*`。
+- [x] `.env` 已設 `VITE_SUPABASE_URL`、`VITE_SUPABASE_ANON_KEY`（Gate A preflight／部署取證已用）；**`E2E_AUTH_*` 未設**時 `test:e2e:auth` 會 skip（見 `.env.example`）。
 - [ ] `npm run test:e2e:auth` 通過（`playwright.auth.config.ts`：登入後見儀表盤審計區、側欄「登出」；`/#service-forms` 見 **Staff／待審** 與審計標題且無「無法載入時段或院友資料」；`/#work-session-plans` 見 **我的工作計劃** 與審計標題且無「無法載入工作計劃時段，請稍後重試。」；`/#residents` 見 **院友資料概覽** 與 **最近審計紀錄** 且無「無法載入院友名單，請稍後重試。」；`/#scheduling` 見 **本次排班指派** 與 **排班與相關操作審計** 且無「無法連線載入院友或時段資料，請檢查網路與 API 設定。」；`/#notification-center` 見 **未讀通知** 與 **審計紀錄節錄**；`/#historical-documents` 見 **母本要求僅展示** 與 **匯出審計**；並涵蓋 **開工／收工交更**、**復康追蹤**、**評估管理**、**用戶手冊**、**使用者角色（Admin）** 之 `#user-role-admin`（admin 成功提交 + staff API 403，見 `e2e/auth-login.user-role-admin.spec.ts`）；或本機一鍵 **`npm run test:e2e:all`**（先 demo 煙霧再可選登入）。
 - [ ] （選填）**Seq 29【16】** **`#system-settings`** **P2** 五小節 **`h3`**：本機 **`npm run test:e2e:auth`** 含 **`e2e/auth-login.system-settings-p2.spec.ts`**（需 **`VITE_SUPABASE_URL`**／**`VITE_SUPABASE_ANON_KEY`**；**`E2E_AUTH_TEAMLEAD_*`** 優先或 **`E2E_AUTH_ADMIN_*`**；與 **`docs/seq29-system-settings-pdf02-traceability.md`** 開首、**`.env.example`** 並讀）。
 - [ ] 若僅需補 `user-role-admin` 權限證據，可先跑 **`npm run test:e2e:auth:user-role-admin`**（較快，適合 Gate A 補測）；完整路徑再跑 `npm run test:e2e:auth`。
@@ -41,12 +45,12 @@
 - [ ] 本次上線時間與操作者已記錄（留存於內部紀錄）。
 
 ## 3. 智能排班閉環驗收（業務）
-- [ ] 新增 1 位院友（含 funding_type）。
-- [ ] 按「啟動智能排班」可產生指派（Pass 結果可見）。
-- [ ] 無衝突時可按「一鍵儲存排班結果」。
-- [ ] 前端出現儲存成功提示。
-- [ ] `public.scheduling_history` 有新增資料列。
-- [ ] `actor_id` 對應目前登入使用者 UUID（非 `TeamLead_demo`）。
+- [ ] 新增 1 位院友（含 funding_type）。（UAT 當日可測；見 **`docs/uat/scheduling-intelligent-uat-2026-05-15.md`**）
+- [ ] 按「啟動智能排班」可產生指派（Pass 結果可見）。（**S5**）
+- [x] 無衝突時可按「一鍵儲存排班結果」。（Gate A 已驗；**S8**）
+- [x] 前端出現儲存成功提示。（Gate A：`gateA-d3-scheduling-save-success` 截圖）
+- [x] `public.scheduling_history` 有新增資料列。（Gate A：`gateA-d3-scheduling-history-sql` 截圖）
+- [x] `actor_id` 對應目前登入使用者 UUID（非 `TeamLead_demo`）。（Gate A 人工核對；**`docs/gate-a-manual-evidence-checklist-2026-05-06.md`** §B）
 
 ## 4. 資料驗證 SQL（上線當天必跑）
 ```sql
@@ -93,7 +97,7 @@ limit 20;
 
 ## 5. 風險與回復方案
 - [x] 已備妥回復路徑：`docs/supabase-deploy-runbook.md`（含可選 **`npm run ci`** 與審計 §8 交叉引用；2026-05-15 **`npm run ci`** 已通過）。
-- [ ] 已確認 Edge 契約：**`docs/residents-edge-function-contract.md`**（院友 CRUD／匯入）；**`docs/assessment-completion-records-contract.md`**（評估完成／審計；與 **§8** RES-06 抽測併用）；**`docs/scheduling-policy-edge-function-contract.md`**（Seq 29 院舍政策 **`scheduling-policy-*`**；實作部署後併 **§8** 抽測）。**無 Supabase 建置**時系統設定前向煙霧：**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`** **二之一**（**`npm run test:e2e:system-settings-policy`**／**`npm run test:e2e:smoke`** **`#system-settings`**；細目 **`docs/seq29-system-settings-pdf02-traceability.md`** 第 4 節；**工程維護**併讀 **`README.md`** 常用指令 **CI**、**`docs/feature-list.md`** §8 第 3／7 點、**`docs/pdf03-cursorrules-alignment.md`** §3／§4、**`docs/seq29-system-settings-pdf02-traceability.md`** §5、**`docs/seq29-system-settings-pdf02-traceability-revision-log.md`**）。**已設 env 之 Staging** 可增跑同檔 **二之二** **P2** 區塊可視化與提交合併語意抽測；**P2** 小節 **`h3`** 可選 **`npm run test:e2e:auth`**（**§1.1** 選填項、**`seq29`** 開首）。
+- [x] 已確認 Edge 契約（文件就緒且相關 functions 已 **ACTIVE**；2026-05-15 部署）：**`docs/residents-edge-function-contract.md`**（院友 CRUD／匯入）；**`docs/assessment-completion-records-contract.md`**（評估完成／審計；與 **§8** RES-06 抽測併用）；**`docs/scheduling-policy-edge-function-contract.md`**（Seq 29 院舍政策 **`scheduling-policy-*`**；實作部署後併 **§8** 抽測）。**無 Supabase 建置**時系統設定前向煙霧：**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`** **二之一**（**`npm run test:e2e:system-settings-policy`**／**`npm run test:e2e:smoke`** **`#system-settings`**；細目 **`docs/seq29-system-settings-pdf02-traceability.md`** 第 4 節；**工程維護**併讀 **`README.md`** 常用指令 **CI**、**`docs/feature-list.md`** §8 第 3／7 點、**`docs/pdf03-cursorrules-alignment.md`** §3／§4、**`docs/seq29-system-settings-pdf02-traceability.md`** §5、**`docs/seq29-system-settings-pdf02-traceability-revision-log.md`**）。**已設 env 之 Staging** 可增跑同檔 **二之二** **P2** 區塊可視化與提交合併語意抽測；**P2** 小節 **`h3`** 可選 **`npm run test:e2e:auth`**（**§1.1** 選填項、**`seq29`** 開首）。
 - [ ] 若儲存失敗，先看前端錯誤訊息，再查 function logs 與 SQL 寫入狀態。
 
 ## 6. 憑證與安全（必做）
