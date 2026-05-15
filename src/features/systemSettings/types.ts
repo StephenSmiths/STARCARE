@@ -35,6 +35,14 @@ export interface SystemSettingsSnapshot {
   serviceTypesEnabled: boolean
   /** SpecialCare：是否僅允許治療師（占位，待與排班引擎對齊） */
   specialCareTherapistOnly: boolean
+  /**
+   * 排班細節參數（預留）：待客戶補充 PDF 對照與欄位定義後再接軌引擎／雲端政策；目前僅本機 JSON 與審計，不影響 `mergeP1DraftIntoPolicyBundle`。
+   */
+  schedulingDetailPresetParam1: boolean
+  /** 同上（第二項預留） */
+  schedulingDetailPresetParam2: boolean
+  /** 同上（第三項預留） */
+  schedulingDetailPresetParam3: boolean
   /** P2：雲端政策 `facility_policy_fixed_activities` 多筆草稿（與 Edge bundle 對齊） */
   policyFixedActivities: PolicyFixedActivityRow[]
   /** 曾自 `scheduling-policy-current-get` 併入固定活動列後為 true；舊本機資料未帶此鍵時，提交合併仍以雲端既有列為準 */

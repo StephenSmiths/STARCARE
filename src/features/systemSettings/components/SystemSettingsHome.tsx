@@ -10,12 +10,17 @@ import { SystemSettingsPassOrderCard } from './SystemSettingsPassOrderCard'
 import { SystemSettingsSubsidizedTiersCard } from './SystemSettingsSubsidizedTiersCard'
 import { SystemSettingsSubsidizedRoleOfferingsCard } from './SystemSettingsSubsidizedRoleOfferingsCard'
 import { SystemSettingsNumericCapsCard } from './SystemSettingsNumericCapsCard'
+import {
+  SystemSettingsPdf16RehabBasicsAlignmentNote,
+  SystemSettingsPdf16SmartSchedulingAlignmentNote,
+} from './SystemSettingsPdf16AlignmentNotes'
 import { SystemSettingsPdf16Section } from './SystemSettingsPdf16Section'
 import { SystemSettingsCurrentPolicyVersionCard } from './SystemSettingsCurrentPolicyVersionCard'
 import { SystemSettingsDementiaPolicyCard } from './SystemSettingsDementiaPolicyCard'
 import { SystemSettingsPolicyVersionsListCard } from './SystemSettingsPolicyVersionsListCard'
 import { SystemSettingsPolicySubmitCard } from './SystemSettingsPolicySubmitCard'
 import { SystemSettingsRulesTogglesCard } from './SystemSettingsRulesTogglesCard'
+import { SystemSettingsSchedulingDetailPresetsCard } from './SystemSettingsSchedulingDetailPresetsCard'
 import { SystemSettingsSchedulingWindowsCard } from './SystemSettingsSchedulingWindowsCard'
 import { SystemSettingsNonTherapyIntervalsEditor } from './SystemSettingsNonTherapyIntervalsEditor'
 import { SystemSettingsSpecialCareCard } from './SystemSettingsSpecialCareCard'
@@ -38,7 +43,8 @@ export const SystemSettingsHome = () => {
       >
         <SystemSettingsPdf16Section
           title="智能排班設定"
-          description="母本 PDF 02【16】§3.1：排班時間設定、排班規則設定（P1 已含之欄位見下）"
+          description="母本 PDF 02【16】第 3.1 節：排班時間設定、排班規則設定（第一階 P1 已涵蓋之項目見下方各區）"
+          alignmentNote={<SystemSettingsPdf16SmartSchedulingAlignmentNote />}
         >
           <ListSectionPanel title="排班時間設定" titleHeadingLevel={3} defaultExpanded>
             <SystemSettingsSchedulingWindowsCard draft={draft} setField={setField} />
@@ -50,6 +56,9 @@ export const SystemSettingsHome = () => {
               <SystemSettingsRulesTogglesCard draft={draft} setField={setField} />
             </div>
           </ListSectionPanel>
+          <ListSectionPanel title="排班細節參數（預留）" titleHeadingLevel={3} defaultExpanded={false}>
+            <SystemSettingsSchedulingDetailPresetsCard draft={draft} setField={setField} />
+          </ListSectionPanel>
           {policySync.edgeEnabled ? (
             <ListSectionPanel title="固定活動（雲端政策 P2）" titleHeadingLevel={3} defaultExpanded={false}>
               <SystemSettingsFixedActivitiesCard draft={draft} setField={setField} />
@@ -59,7 +68,8 @@ export const SystemSettingsHome = () => {
 
         <SystemSettingsPdf16Section
           title="復康服務基本設定"
-          description="母本 PDF 02【16】§3.2：資助復康服務、認知障礙症服務等；P1 先含可交付子項"
+          description="母本 PDF 02【16】第 3.2 節：資助復康服務、認知障礙症服務等（第一階 P1 先含可即時驗收之子項）"
+          alignmentNote={<SystemSettingsPdf16RehabBasicsAlignmentNote />}
         >
           <ListSectionPanel title="資助復康服務與認知障礙症服務（P1）" titleHeadingLevel={3} defaultExpanded={false}>
             <SystemSettingsSpecialCareCard draft={draft} setField={setField} />

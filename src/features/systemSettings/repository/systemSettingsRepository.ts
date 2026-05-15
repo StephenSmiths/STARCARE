@@ -140,6 +140,9 @@ export const DEFAULT_SYSTEM_SETTINGS: SystemSettingsSnapshot = {
   fixedActivitiesEnabled: true,
   serviceTypesEnabled: true,
   specialCareTherapistOnly: false,
+  schedulingDetailPresetParam1: false,
+  schedulingDetailPresetParam2: false,
+  schedulingDetailPresetParam3: false,
   policyFixedActivities: [],
   policySubsidizedPassOrder: [],
   policySubsidizedTiers: [],
@@ -176,6 +179,15 @@ export const parseStoredSnapshot = (raw: string | null): SystemSettingsSnapshot 
     const fixedActivitiesEnabled = g('fixedActivitiesEnabled')
     const serviceTypesEnabled = g('serviceTypesEnabled')
     const specialCareTherapistOnly = g('specialCareTherapistOnly')
+    const preset1Raw = g('schedulingDetailPresetParam1')
+    const preset2Raw = g('schedulingDetailPresetParam2')
+    const preset3Raw = g('schedulingDetailPresetParam3')
+    const schedulingDetailPresetParam1 =
+      typeof preset1Raw === 'boolean' ? preset1Raw : DEFAULT_SYSTEM_SETTINGS.schedulingDetailPresetParam1
+    const schedulingDetailPresetParam2 =
+      typeof preset2Raw === 'boolean' ? preset2Raw : DEFAULT_SYSTEM_SETTINGS.schedulingDetailPresetParam2
+    const schedulingDetailPresetParam3 =
+      typeof preset3Raw === 'boolean' ? preset3Raw : DEFAULT_SYSTEM_SETTINGS.schedulingDetailPresetParam3
     const policyFixedActivitiesRaw = g('policyFixedActivities')
     const policyFixedActivitiesHydrated = g('policyFixedActivitiesHydrated') === true
     const policySubsidizedPassOrderRaw = g('policySubsidizedPassOrder')
@@ -222,6 +234,9 @@ export const parseStoredSnapshot = (raw: string | null): SystemSettingsSnapshot 
       fixedActivitiesEnabled,
       serviceTypesEnabled,
       specialCareTherapistOnly,
+      schedulingDetailPresetParam1,
+      schedulingDetailPresetParam2,
+      schedulingDetailPresetParam3,
       policyFixedActivities,
       policySubsidizedPassOrder,
       policySubsidizedTiers,
