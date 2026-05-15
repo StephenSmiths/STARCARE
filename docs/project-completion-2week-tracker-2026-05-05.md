@@ -104,7 +104,7 @@ limit 20;
 | D6 | 回歸 A：residents/staff/import | FE + QA | todo |  |  | [ ] |
 | D7 | 回歸 B：scheduling/forms/handover | FE + QA | todo |  |  | [ ] |
 | D8 | 缺陷收斂、產出 RC、風險清單 v2 | FE + BE + TL | todo |  |  | [ ] |
-| D9 | 部署/回滾演練、PAT/部署一致性 | OPS + BE | todo |  |  | [ ] |
+| D9 | 部署/回滾演練、PAT/部署一致性 | OPS + BE | done | — | `npm run db:push`（`20260509201000`）、`npm run ops:deploy:all`、`npm run ops:verify`（2026-05-15；Local/Remote 一致、Functions ACTIVE） | [x] |
 | D10 | 最終簽核（go/no-go） | TL + QA + 業務 | todo |  |  | [ ] |
 
 ## Gate 檢核（Hard Gates）

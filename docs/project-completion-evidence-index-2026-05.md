@@ -23,7 +23,7 @@
 | 2026-05-12 | D6 | 回歸 A（residents/staff/import） | Plan D6 |  |  |  |  | FE/QA |  |
 | 2026-05-13 | D7 | 回歸 B（scheduling/forms/handover） | Plan D7 |  |  |  |  | FE/QA |  |
 | 2026-05-14 | D8 | RC + 缺陷收斂 | Gate B |  |  |  |  | TL/FE/BE |  |
-| 2026-05-15 | D9 | 部署/回滾/憑證 | go-live §2/§6 |  |  |  |  | OPS/BE |  |
+| 2026-05-15 | D9 | 部署/回滾/憑證 | go-live §2/§6 | `bd920cb` | `npm run ops:deploy:all`、`npm run ops:verify`（2026-05-15） | migration `20260509201000` 已落遠端 | 終端：`ops:verify` Local/Remote 一致；Edge 全數 ACTIVE（含 `scheduling-rules-get`、`scheduling-policy-*` v2） | OPS/BE | PAT 輪替仍依 **`docs/security-token-rotation-checklist.md`** §D |
 | 2026-05-16 | D10 | 最終簽核 | Gate C |  |  |  |  | TL/QA/業務 |  |
 
 > **Gate A 證據檔名**：上表 2026-05-06 列括號內之歷史檔名僅供追溯；**現況**以 `docs/evidence/gate-a-latest.md`（檔尾四行：**`gateALatestMarkdownFooterLines`**，見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段）及本文件下方「Gate A 自動引用」區塊（`docs-sync`／`refresh` 覆寫）為準。若已執行 **`npm run gatea:evidence:refresh`**（內含 **`prune --apply`**），舊自動快照可能自 `docs/evidence/` 實體刪除，上表括號內檔名仍保留作稽核對照。
