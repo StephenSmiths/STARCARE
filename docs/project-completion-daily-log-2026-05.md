@@ -102,6 +102,32 @@
 
 ---
 
+## 2026-05-15（D8／D9）
+
+### 今日完成
+- [x] Gate A 狀態板 PASS；RES-06→已完成；週更表 migration 上遠端
+- [x] D9：`ops:deploy:all`、`ops:verify`
+- [x] Gate B：`npm run ci` 全過；缺陷板無 P0/P1；RC 工程收斂
+
+### 未完成（原因）
+- go-live §6 PAT 輪替（需 OPS 手動；見 **`docs/security-token-rotation-checklist.md`** §A）
+- go-live §7 業務／決策人簽核
+
+### Gate 影響
+- Gate A：**通過**
+- Gate B：**通過**（工程）
+- Gate C：**進行中**（缺 PAT + §7）
+
+### 證據連結
+- CI：`npm run ci`（2026-05-15）
+- 部署：`ops:deploy:all`、`ops:verify`
+- Gate A：`docs/evidence/gate-a-latest.md`
+
+### 明日計畫
+- PAT 輪替與 go-live §7 簽核；Gate C 收斂
+
+---
+
 ## 日誌模板（複製此段新增日期）
 
 ```md

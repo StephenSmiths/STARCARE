@@ -103,7 +103,7 @@ limit 20;
 | D5 | Week1 Gate：判定 RES-06、整理 P0/P1/P2 | TL + QA | done | — | Gate A PASS（**`docs/gate-a-status-2026-05-06.md`**、**`docs/evidence/gate-a-latest.md`**）；RES-06→**已完成** | [x] |
 | D6 | 回歸 A：residents/staff/import | FE + QA | todo |  |  | [ ] |
 | D7 | 回歸 B：scheduling/forms/handover | FE + QA | todo |  |  | [ ] |
-| D8 | 缺陷收斂、產出 RC、風險清單 v2 | FE + BE + TL | doing | P0/P1 清單待 TL 簽核 | `npm run ci` 綠燈（2026-05-15）；RC 部署見 D9 | [ ] |
+| D8 | 缺陷收斂、產出 RC、風險清單 v2 | FE + BE + TL | done | — | `npm run ci`（2026-05-15）；缺陷板無 P0/P1；RC 見 D9 | [x] |
 | D9 | 部署/回滾演練、PAT/部署一致性 | OPS + BE | done | — | `npm run db:push`（`20260509201000`）、`npm run ops:deploy:all`、`npm run ops:verify`（2026-05-15；Local/Remote 一致、Functions ACTIVE） | [x] |
 | D10 | 最終簽核（go/no-go） | TL + QA + 業務 | todo |  |  | [ ] |
 
@@ -112,7 +112,7 @@ limit 20;
 | Gate | 時點 | 必要條件 | 是否通過 | 備註 |
 |---|---|---|---|---|
 | Gate A | D5 | go-live §1/§3/§8 證據齊全、RES-06 有結論 | [x] | 2026-05-15 PASS（READY） |
-| Gate B | D8 | P0/P1=0、RC 可重複部署、CI 綠燈 | [ ] | CI+RC 已過（2026-05-15）；P0/P1 待簽 |
+| Gate B | D8 | P0/P1=0、RC 可重複部署、CI 綠燈 | [x] | 2026-05-15 工程收斂（`c3755ad`） |
 | Gate C | D10 | go-live checklist 可簽核、回滾路徑可用 | [ ] |  |
 
 ### Gate A 自動引用（由腳本同步）
@@ -137,9 +137,9 @@ limit 20;
 
 | ID | 模組 | 嚴重度 | 現況 | Owner | 目標日 | 備註 |
 |---|---|---|---|---|---|---|
-| BUG-001 |  | P0/P1/P2 | todo |  |  |  |
-| BUG-002 |  | P0/P1/P2 | todo |  |  |  |
-| BUG-003 |  | P0/P1/P2 | todo |  |  |  |
+| — | （RC 範圍） | — | closed | TL/QA | 2026-05-15 | 無登記 P0/P1；CI 綠燈；P2 進 backlog |
+| BUG-001 |  | — | n/a |  |  | 保留列（未使用） |
+| BUG-002 |  | — | n/a |  |  | 保留列（未使用） |
 
 ## 每日 EOD 總結模板
 

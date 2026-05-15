@@ -6,9 +6,9 @@
 **兩週執行與日誌**：**`docs/project-completion-2week-plan-2026-05-05.md`**、**`docs/project-completion-2week-tracker-2026-05-05.md`**、**`docs/project-completion-daily-log-2026-05.md`**。
 
 ## 0. 今日上線目標
-- [ ] 完成最小閉環驗收（登入 -> 排班 -> 儲存 -> DB 驗證）
+- [x] 完成最小閉環驗收（登入 -> 排班 -> 儲存 -> DB 驗證）（Gate A §3 證據；**`docs/gate-a-manual-evidence-checklist-2026-05-06.md`** §B）
 - [ ] 完成安全收尾（PAT 輪替、舊 PAT 停用；見 **`docs/security-token-rotation-checklist.md`**；**§D** 可選 **`npm run ci`**）
-- [ ] 完成部署狀態確認（migration/functions；見 **`docs/supabase-deploy-runbook.md`** §2／§3）
+- [x] 完成部署狀態確認（migration/functions；見 **`docs/supabase-deploy-runbook.md`** §2／§3）（2026-05-15：`ops:deploy:all`、`ops:verify`）
 
 ### 0.1 Gate A 取證入口（2026-05-06）
 - 取證步驟：**`docs/gate-a-evidence-capture-2026-05-06.md`**
@@ -27,7 +27,7 @@
 - [ ] `residents` / `scheduling_history` 的讀取符合 RLS 預期。
 
 ### 1.1 可選：Playwright（demo 煙霧／登入，本機或 CI）
-- [ ] 本機 **`npm run ci`**（`lint`→`typecheck`→`vitest`→**`build:demo`**（清空 `VITE_SUPABASE_*` 建置）→`PW_PREVIEW_ONLY=1` 之 Playwright demo 全套）已通過；與 GitHub Actions 對照見 `docs/feature-list.md` §8。
+- [x] 本機 **`npm run ci`**（`lint`→`typecheck`→`vitest`→**`build:demo`**（清空 `VITE_SUPABASE_*` 建置）→`PW_PREVIEW_ONLY=1` 之 Playwright demo 全套）已通過；與 GitHub Actions 對照見 `docs/feature-list.md` §8。（2026-05-15 exit 0）
 - [ ] `.env` 已設 `VITE_SUPABASE_URL`、`VITE_SUPABASE_ANON_KEY`，並設測試帳號之 `E2E_AUTH_EMAIL`、`E2E_AUTH_PASSWORD`（見 `.env.example`）；若執行 `user-role-admin` 權限抽測，另設 `E2E_AUTH_ADMIN_*`、`E2E_AUTH_STAFF_*`。
 - [ ] `npm run test:e2e:auth` 通過（`playwright.auth.config.ts`：登入後見儀表盤審計區、側欄「登出」；`/#service-forms` 見 **Staff／待審** 與審計標題且無「無法載入時段或院友資料」；`/#work-session-plans` 見 **我的工作計劃** 與審計標題且無「無法載入工作計劃時段，請稍後重試。」；`/#residents` 見 **院友資料概覽** 與 **最近審計紀錄** 且無「無法載入院友名單，請稍後重試。」；`/#scheduling` 見 **本次排班指派** 與 **排班與相關操作審計** 且無「無法連線載入院友或時段資料，請檢查網路與 API 設定。」；`/#notification-center` 見 **未讀通知** 與 **審計紀錄節錄**；`/#historical-documents` 見 **母本要求僅展示** 與 **匯出審計**；並涵蓋 **開工／收工交更**、**復康追蹤**、**評估管理**、**用戶手冊**、**使用者角色（Admin）** 之 `#user-role-admin`（admin 成功提交 + staff API 403，見 `e2e/auth-login.user-role-admin.spec.ts`）；或本機一鍵 **`npm run test:e2e:all`**（先 demo 煙霧再可選登入）。
 - [ ] （選填）**Seq 29【16】** **`#system-settings`** **P2** 五小節 **`h3`**：本機 **`npm run test:e2e:auth`** 含 **`e2e/auth-login.system-settings-p2.spec.ts`**（需 **`VITE_SUPABASE_URL`**／**`VITE_SUPABASE_ANON_KEY`**；**`E2E_AUTH_TEAMLEAD_*`** 優先或 **`E2E_AUTH_ADMIN_*`**；與 **`docs/seq29-system-settings-pdf02-traceability.md`** 開首、**`.env.example`** 並讀）。
@@ -92,14 +92,14 @@ limit 20;
   - `docs/phase3-day5-acceptance-result-2026-04-30.md`
 
 ## 5. 風險與回復方案
-- [ ] 已備妥回復路徑：`docs/supabase-deploy-runbook.md`（含可選 **`npm run ci`** 與審計 §8 交叉引用）。
+- [x] 已備妥回復路徑：`docs/supabase-deploy-runbook.md`（含可選 **`npm run ci`** 與審計 §8 交叉引用；2026-05-15 **`npm run ci`** 已通過）。
 - [ ] 已確認 Edge 契約：**`docs/residents-edge-function-contract.md`**（院友 CRUD／匯入）；**`docs/assessment-completion-records-contract.md`**（評估完成／審計；與 **§8** RES-06 抽測併用）；**`docs/scheduling-policy-edge-function-contract.md`**（Seq 29 院舍政策 **`scheduling-policy-*`**；實作部署後併 **§8** 抽測）。**無 Supabase 建置**時系統設定前向煙霧：**`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`** **二之一**（**`npm run test:e2e:system-settings-policy`**／**`npm run test:e2e:smoke`** **`#system-settings`**；細目 **`docs/seq29-system-settings-pdf02-traceability.md`** 第 4 節；**工程維護**併讀 **`README.md`** 常用指令 **CI**、**`docs/feature-list.md`** §8 第 3／7 點、**`docs/pdf03-cursorrules-alignment.md`** §3／§4、**`docs/seq29-system-settings-pdf02-traceability.md`** §5、**`docs/seq29-system-settings-pdf02-traceability-revision-log.md`**）。**已設 env 之 Staging** 可增跑同檔 **二之二** **P2** 區塊可視化與提交合併語意抽測；**P2** 小節 **`h3`** 可選 **`npm run test:e2e:auth`**（**§1.1** 選填項、**`seq29`** 開首）。
 - [ ] 若儲存失敗，先看前端錯誤訊息，再查 function logs 與 SQL 寫入狀態。
 
 ## 6. 憑證與安全（必做）
 - [ ] 產生新 PAT 後，完成驗證部署（細節與部署後自檢見 **`docs/security-token-rotation-checklist.md`**；**§D** 含可選 **`npm run ci`**（與 **`.github/workflows/ci.yml`** 同源）及 **`acceptance:*`**／全閘對照鏈結）。
 - [ ] 停用舊 PAT。
-- [ ] 確認 `.env` 未入版控（`.gitignore` 生效）。
+- [x] 確認 `.env` 未入版控（`.gitignore` 生效）。
 - [ ] 不在聊天與文件中貼出新 PAT/service role key。
 
 ## 7. 上線簽核（簡版）
