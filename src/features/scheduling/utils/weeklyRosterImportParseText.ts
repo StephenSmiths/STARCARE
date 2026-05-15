@@ -1,4 +1,5 @@
 import type { ActivitySessionImportRow } from '../../../repositories/activitySessionImportRepository'
+import type { Activity } from '../../../repositories/activityRepository'
 import { splitCsvLine } from '../../activitySessions/utils/activitySessionCsvParser'
 import { ACTIVITY_SESSIONS_WORKSPACE_FACILITY_ID } from '../../activitySessions/constants/activitySessionsWorkspaceDefaults'
 import {
@@ -14,6 +15,7 @@ import {
   WEEKLY_ROSTER_SERVICE_TYPE_TO_ACTIVITY_ID,
   WEEKLY_ROSTER_VALID_SERVICE_LABELS,
 } from '../constants/weeklyRosterImportConstants'
+import { pickWeeklyRosterActivityId } from './weeklyRosterActivityIdPick'
 
 type ParseErr = { rowIndex: number; message: string }
 
@@ -133,10 +135,11 @@ export const parseWeeklyRosterSheetText = (
   return { drafts, errors }
 }
 
-/** 草稿列＋員工主檔解析為 Edge 預檢用 `ActivitySessionImportRow`。 */
+/** 草稿列＋員工主檔解析為 Edge 預檢用 `ActivitySessionImportRow`。若傳入 `activities`，活動 id 依 PDF 02【3】附錄自目錄∩主檔擇定；否則沿用固定對照表。 */
 export const weeklyRosterDraftsToImportRows = (
   drafts: WeeklyRosterDraftRow[],
   staffByNameRole: Map<string, string>,
+  activities?: readonly Activity[],
 ): { rows: ActivitySessionImportRow[]; errors: ParseErr[] } => {
   const rows: ActivitySessionImportRow[] = []
   const errors: ParseErr[] = []
@@ -150,7 +153,17 @@ export const weeklyRosterDraftsToImportRows = (
       })
       continue
     }
-    const activityId = WEEKLY_ROSTER_SERVICE_TYPE_TO_ACTIVITY_ID[d.serviceLabel] ?? ''
+    const activityId =
+      activities !== undefined && activities.length > 0
+        ? pickWeeklyRosterActivityId(
+            d.serviceLabel,
+            d.role,
+            staffProfileId,
+            d.sessionDate,
+            d.rowIndex,
+            activities,
+          )
+        : WEEKLY_ROSTER_SERVICE_TYPE_TO_ACTIVITY_ID[d.serviceLabel] ?? ''
     rows.push({
       facilityId: ACTIVITY_SESSIONS_WORKSPACE_FACILITY_ID,
       activityId,

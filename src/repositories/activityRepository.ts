@@ -28,6 +28,60 @@ const DEMO_ACTIVITIES: Activity[] = [
     minDurationMinutes: 30,
   },
   {
+    id: 'activity-rehab-02',
+    facilityId: STARCARE_DEFAULT_FACILITY_ID,
+    name: '平衡訓練',
+    serviceType: 'Subsidized_Rehab',
+    activityKind: 'Training',
+    deliveryMode: 'Group',
+    minDurationMinutes: 30,
+  },
+  {
+    id: 'activity-rehab-03',
+    facilityId: STARCARE_DEFAULT_FACILITY_ID,
+    name: '主動伸展',
+    serviceType: 'Subsidized_Rehab',
+    activityKind: 'Training',
+    deliveryMode: 'Group',
+    minDurationMinutes: 60,
+  },
+  {
+    id: 'activity-rehab-ot-1',
+    facilityId: STARCARE_DEFAULT_FACILITY_ID,
+    name: '懷舊治療小組',
+    serviceType: 'Subsidized_Rehab',
+    activityKind: 'Training',
+    deliveryMode: 'Group',
+    minDurationMinutes: 60,
+  },
+  {
+    id: 'activity-rehab-ota-1',
+    facilityId: STARCARE_DEFAULT_FACILITY_ID,
+    name: '日常生活技能小組',
+    serviceType: 'Subsidized_Rehab',
+    activityKind: 'Training',
+    deliveryMode: 'Group',
+    minDurationMinutes: 30,
+  },
+  {
+    id: 'activity-rehab-pt-ind-1',
+    facilityId: STARCARE_DEFAULT_FACILITY_ID,
+    name: '肌力訓練',
+    serviceType: 'Subsidized_Rehab',
+    activityKind: 'Training',
+    deliveryMode: 'Individual',
+    minDurationMinutes: 15,
+  },
+  {
+    id: 'activity-rehab-ot-ind-1',
+    facilityId: STARCARE_DEFAULT_FACILITY_ID,
+    name: '日常生活活動訓練',
+    serviceType: 'Subsidized_Rehab',
+    activityKind: 'Training',
+    deliveryMode: 'Individual',
+    minDurationMinutes: 30,
+  },
+  {
     id: 'activity-dementia-01',
     facilityId: STARCARE_DEFAULT_FACILITY_ID,
     name: '認知刺激小組',
@@ -35,6 +89,15 @@ const DEMO_ACTIVITIES: Activity[] = [
     activityKind: 'Training',
     deliveryMode: 'Group',
     minDurationMinutes: 45,
+  },
+  {
+    id: 'activity-dementia-02',
+    facilityId: STARCARE_DEFAULT_FACILITY_ID,
+    name: '認知訓練小組',
+    serviceType: 'Dementia_Care',
+    activityKind: 'Training',
+    deliveryMode: 'Group',
+    minDurationMinutes: 60,
   },
 ]
 
@@ -70,3 +133,6 @@ export const createActivityRepository = (): ActivityRepository => {
   }
   return new EdgeActivityRepository({ supabaseUrl: creds.supabaseUrl, anonKey: creds.anonKey })
 }
+
+/** 與離線 `DEMO_ACTIVITIES` 同源；週更表擇 id 於 Edge 不可用時回退，或供 Vitest 避免誤走 Edge。 */
+export const getStarcareDemoActivities = (): Activity[] => [...DEMO_ACTIVITIES]

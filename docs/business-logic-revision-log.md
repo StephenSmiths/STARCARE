@@ -9,6 +9,8 @@
 
 | 日期 | 說明 |
 |------|------|
+| 2026-05-09 | §3：增 **3.0** 與法規附錄 **`docs/business-logic-pdf02-scheduling-clarification-2026-05-09.md`**（PDF 02【3】、工作節／`workPlanCascadeCatalog`／`SKILL_MISMATCH`）；§3.2 Pass 2 改述院舍券每週 **2 次**；§7：`schedulingTargets` 註解；**`listSchedulingSessions`** 併目錄職位門檻放寬 **`skillMatched`**（**`schedulingWorkPlanCatalogSkill.ts`**）；§7 補週更表 **`pickWeeklyRosterActivityId`**／**`getStarcareDemoActivities`**（**`weeklyRosterActivityIdPick.ts`**、**`runWeeklyRosterActivityImportDryRun.ts`**）。 |
+| 2026-05-09 | §7：週更表 **`pickWeeklyRosterActivityId`** 候選擴為 **Group∪Individual**（仍 **`Training`**）；**`activityRepository`** 種子與 migration 補 **`activity-rehab-pt-ind-1`**、**`activity-rehab-ot-ind-1`**；**`seq15-scheduling-pdf02-traceability.md`** §4 補 **`weeklyRosterActivityIdPick.test.ts`** 列；附錄 **`business-logic-pdf02-scheduling-clarification-2026-05-09.md`** §7.2 同步。 |
 | 2026-05-01 | 依根目錄 PDF `# STARCare 系統核心業務邏輯與 SOP 規範 (business-logic).pdf` 全文整理並增列程式對照／落差；取代先前僅占位之版本。 |
 | 2026-05-01 | §7：§3.1「無其他可用時段」間隔例外已對齊 `schedulingCore.pickSession` 二階段邏輯；測試見 `schedulingService.section31.test.ts`。 |
 | 2026-05-01 | §7：補 §3.2 週目標常數（Seq 6）與 `schedulingTargets.test.ts` 說明。 |

@@ -4,6 +4,7 @@ import {
   type ActivitySessionDryRunParseBlocked,
   type ActivitySessionDryRunValidateOk,
 } from '../../activitySessions/utils/activitySessionImportDryRunFlow'
+import { createActivityRepository, getStarcareDemoActivities } from '../../../repositories/activityRepository'
 import {
   parseWeeklyRosterSheetText,
   weeklyRosterDraftsToImportRows,
@@ -49,7 +50,14 @@ export async function runWeeklyRosterActivityImportDryRun(
       }
     }
 
-    const { rows, errors: resolveErrors } = weeklyRosterDraftsToImportRows(drafts, map)
+    let activities
+    try {
+      activities = await createActivityRepository().listActivities(facilityId)
+    } catch {
+      /** Edge 未登入或網路失敗時仍允許預檢（PDF 02【3】週更表；與離線 demo 活動主檔對齊） */
+      activities = getStarcareDemoActivities()
+    }
+    const { rows, errors: resolveErrors } = weeklyRosterDraftsToImportRows(drafts, map, activities)
     const mergedParse = resolveErrors
     if (mergedParse.length > 0) {
       return {

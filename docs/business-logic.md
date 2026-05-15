@@ -78,6 +78,12 @@
 
 當 **TeamLead** 觸發「智能排班」時，後端工作流 **必須（MUST）** 遵守 **雙軌排班邏輯**：員工更表／班次已標明 **服務類型**，系統須依該類型選擇對應排班引擎。
 
+### 3.0 母本【3】與客戶補充（工作節、`workPlanCascadeCatalog`、`SKILL_MISMATCH`）
+
+- **母本**：`docs/pdf/02-STARCARE-智能院舍照護管理系統.pdf` **【3】**（五步 SOP、資助 Pass、認知軌、兩軌先後與時間上不可同時接受兩服務）。  
+- **客戶補充釋義**（工作節定義、每節必備欄位、時長聯動、活動內容**惟依職位**之 `workPlanCascadeCatalog`、暫以隨機匹配、智能排班路徑下 **`SKILL_MISMATCH`／`staff_skills` 之放寬**）：**必須（MUST）** 與 **`docs/business-logic-pdf02-scheduling-clarification-2026-05-09.md`** 一致；該檔為本節**法規附錄**。  
+- **與 §2.1**：手動或智能產生之工作節，皆適用同一狀態機；智能產生者仍須符合 §3 全域與雙軌約束。
+
 ### 3.1 基礎約束（Global Constraints）
 
 - **服務類型隔離（Service Type Isolation）**  
@@ -99,7 +105,7 @@
 | Pass | 對象 | 目標／說明 |
 |------|------|------------|
 | **Pass 1** | 甲一買位（EA1） | 優先排班；**每週須滿足 2 次服務**。 |
-| **Pass 2** | 院舍券（Voucher） | 依院友**評估等級**，滿足其 **每週／每月** 最低服務次數。 |
+| **Pass 2** | 院舍券（Voucher） | **每週須滿足 2 次**（與 PDF 02【3】／客戶 2026-05-09 補充一致）；未來若改為依評估動態次數，須另綁 assessment 並同步程式。 |
 | **Pass 3** | 私位（Private） | 班次尚有剩餘工時時，最後才分配。 |
 
 ### 3.3 軌道 B：「認知障礙症服務」（Dementia Service Logic）
@@ -173,7 +179,9 @@
 | **§2 Session／Form 狀態機** | 若產品範圍含「工作節／服務表單審批」，需確認是否已有對應模組與 DB；**目前主畫面以排班／匯入／院友為主**。 |
 | **§3 後端 MUST 雙軌排班** | PDF 要求後端工作流；現行 **排班演算主要於前端 `schedulingService`**（與「優先 Edge／DB」工程規範有張力）。**建議**：文件化架構決策或規劃搬移後端。 |
 | **§3.1 間隔限制例外**（無其他時段） | 已於 `schedulingCore.pickSession` 二階段選時段：先滿足相鄰日限制，若無任何可排時段再放寬相鄰限制；`schedulingService.section31.test.ts` 有單元測試。 |
-| **§3.2 週目標常數（Seq 6）** | `schedulingTargets.getWeeklyTargetByFundingType`：甲一／券=**2**、私位=**1**；券之「依評估」仍為固定 2（待 assessment）；私位若 02 訂「每週最多 2」須客戶裁定後再改程式。測試：`schedulingTargets.test.ts`。 |
+| **§3.2 週目標常數（Seq 6）** | `schedulingTargets.getWeeklyTargetByFundingType`：甲一／券=**2**、私位=**1**；券與 PDF 02【3】Pass 2 對齊為固定 2；私位若 02 訂「每週最多 2」須客戶裁定後再改程式。測試：`schedulingTargets.test.ts`。 |
+| **§3 週更表 `activity_id`（PDF 02【3】附錄）** | **`weeklyRosterActivityIdPick`**＋**`weeklyRosterDraftsToImportRows`**：活動主檔∩`workPlanCascadeCatalog`（**Group／Individual**、`Training`）雜湊擇一；**`runWeeklyRosterActivityImportDryRun`** 於 Edge 載入失敗時 **`getStarcareDemoActivities`** 回退。測試：**`weeklyRosterActivityIdPick.test.ts`**、**`weeklyRosterImportParseText.test.ts`**、**`runWeeklyRosterActivityImportDryRun.test.ts`**。 |
+| **§3 `SKILL_MISMATCH`／`workPlanCascadeCatalog`（附錄 §7）** | `schedulingConfigService.listSchedulingSessions`：`skillMatched` 於 `staff_skills` 命中或 **`schedulingWorkPlanCatalogSkill`**（職位＋目錄選項／細項名稱比對）為真；`evalSessionCoreForPick`／認知軌仍依 `skillMatched`。測試：`schedulingWorkPlanCatalogSkill.test.ts`、`schedulingConfigService.test.ts`。 |
 | **§3 雙軌隔離（Seq 4）** | 資助復康乾跑：`filterToSubsidizedRehabServiceOnly`＋`runSubsidizedRehabSchedulingOrchestration`；引擎內 `evalSessionCoreForPick` 對非 `Subsidized_Rehab` 為 `skip`。測試：`schedulingService.dualTrack.test.ts`、`schedulingCoreSessionGates.test.ts`、`schedulingSessionWindowFilterService.test.ts`。認知乾跑仍見 `dementiaTrackDryRunService`。 |
 | **§3.3 認知軌（Seq 7）** | `filterToDementiaServiceOnly`＋`buildDementiaServiceTrackSnapshot` 先依 `dementiaSeverityRank` 排序；`runDementiaTrackDryRun` 用 `isWithinGapDays` 與二階段間隔；`mapResidentToDementiaSchedulingResident` 固定 `fundingType: Private` 使週標不依資助類型。測試：`dementiaTrackDryRunService.test.ts`。廣泛覆蓋／週目標數仍待 PDF。 |
 | **§4.1 資助週三警示／排班名單（Seq 8）** | `residentCareTrackCohort.isSubsidizedRehabCohort` 經 **`mapActiveResidentsToSubsidizedSchedulingResidents`** 統一：`runSchedulingReloadPageData`、`runSubsidizedRehabSchedulingOrchestration`、`useDashboardOverview`（週三警示）、`buildSubsidizedRehabTrackSnapshot`；純 `Dementia_Service` 院友不混入資助復康合規計算；`DashboardTeamLeadWednesdayCard`；**`DashboardSummary.subsidizedRehabCohortCount`**／**`DashboardOverviewPanel`** 與全院友總數分示。測試：`residentCareTrackCohort.test.ts`、`schedulingReloadPageData.test.ts`、`mapActiveResidentsToSubsidizedSchedulingResidents.test.ts`。 |

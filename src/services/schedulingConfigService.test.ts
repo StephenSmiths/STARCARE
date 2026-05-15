@@ -164,3 +164,47 @@ describe('SchedulingConfigService.getRules', () => {
     expect(m.getRules).toHaveBeenCalledWith(fac)
   })
 })
+
+describe('SchedulingConfigService.listSchedulingSessions catalog skill bypass', () => {
+  it('無 staff_skills 但活動名稱在 workPlanCascadeCatalog 範圍內時 skillMatched 為 true', async () => {
+    const activities = [
+      {
+        id: 'act-ot-g',
+        facilityId: fac,
+        name: '懷舊治療小組',
+        serviceType: 'Dementia_Care' as const,
+        activityKind: 'Training' as const,
+        deliveryMode: 'Group' as const,
+        minDurationMinutes: 40,
+      },
+    ]
+    m.listActivities.mockResolvedValue(activities)
+    m.listActivitySessions.mockResolvedValue([
+      {
+        id: 'sess-cat',
+        facilityId: fac,
+        activityId: 'act-ot-g',
+        staffProfileId: 'sp-ot',
+        staffName: '李 OT',
+        sessionDate: '2026-05-20',
+        timeSlot: '09:00-10:00',
+        capacity: 8,
+        serviceType: 'Dementia_Care',
+      },
+    ])
+    m.listStaffSkills.mockResolvedValue([])
+    m.listStaffProfiles.mockResolvedValue([
+      {
+        id: 'sp-ot',
+        facilityId: fac,
+        displayName: '李 OT',
+        roleType: 'OT',
+        serviceScope: 'Dementia_Care',
+      },
+    ])
+    const rows = await schedulingConfigService.listSchedulingSessions(fac)
+    expect(rows).toHaveLength(1)
+    expect(rows[0]?.skillMatched).toBe(true)
+    expect(rows[0]?.staffRoleType).toBe('OT')
+  })
+})

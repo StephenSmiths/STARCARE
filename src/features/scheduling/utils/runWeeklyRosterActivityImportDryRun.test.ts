@@ -148,9 +148,14 @@ describe('runWeeklyRosterActivityImportDryRun', () => {
     expect(rows).toHaveLength(1)
     expect(rows[0]).toMatchObject({
       staffProfileId: 'sp-1',
-      activityId: 'activity-rehab-01',
       sessionDate: '2026-05-10',
       timeSlot: '09:00-10:00',
     })
+    expect([
+      'activity-rehab-01',
+      'activity-rehab-02',
+      'activity-rehab-03',
+      'activity-rehab-pt-ind-1',
+    ]).toContain(rows[0]?.activityId)
   })
 })

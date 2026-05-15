@@ -1,6 +1,6 @@
 # Seq 15：智能排班（PDF 02【3】）逐步對照骨架
 
-> **對照**：母本 **`docs/pdf/02-STARCARE-智能院舍照護管理系統.pdf`** **【3】**；條文整理 **`docs/business-logic.md`**（§3 排班流程、§4 雙軌）；序號總表 **`docs/pdf-sequenced-gap-checklist.md`** Seq **15**；P0 **`docs/pdf-alignment-p0-backlog.md`**（Seq 15 兩列：逐步 UI、週更表欄位客製）。  
+> **對照**：母本 **`docs/pdf/02-STARCARE-智能院舍照護管理系統.pdf`** **【3】**；條文整理 **`docs/business-logic.md`**（§3 排班流程、§4 雙軌）與客戶補充附錄 **`docs/business-logic-pdf02-scheduling-clarification-2026-05-09.md`**（工作節、`workPlanCascadeCatalog`、`SKILL_MISMATCH`）；序號總表 **`docs/pdf-sequenced-gap-checklist.md`** Seq **15**；P0 **`docs/pdf-alignment-p0-backlog.md`**（Seq 15 兩列：逐步 UI、週更表欄位客製）。  
 > **上一序號**：**`docs/seq14-work-plan-pdf02-traceability.md`**。  
 > **用途**：將 **02【3】** 每一步與畫面／引擎／儲存鏈結；**§6** 專列週更表 CSV 與母本欄位是否一致（客製需求入口）。
 
@@ -67,7 +67,8 @@
 | `src/repositories/schedulingKpiHistoryRepository.test.ts` | **`InMemorySchedulingKpiHistoryRepository`**（**`appendRecord`** 最多 **10** 筆、**`clearHistory`**、**`listHistory`** **from／to**、**`limit`** **1～50** 夾擠）；**`createSchedulingKpiHistoryRepository`**（**InMemory**／**Edge**） |
 | `src/repositories/schedulingKpiHistoryRepository.edge.test.ts` | **`EdgeSchedulingKpiHistoryRepository`** **`listHistory`**／**`appendRecord`**／**`clearHistory`**（**snake_case** 映射、**query**、**HTTP** 錯、**請先登入**、連線包裝錯） |
 | `src/features/scheduling/utils/weeklyRosterStaffLookup.test.ts` | **`buildWeeklyRosterStaffProfileLookup`**（姓名＋Tab＋職位→**`staff_profiles.id`**；略過 **TeamLead**；歧義鍵） |
-| `src/features/scheduling/utils/weeklyRosterImportParseText.test.ts` | **`normalizeWeeklyRosterHm`**／**`parseWeeklyRosterSheetText`**／**`weeklyRosterDraftsToImportRows`**（週更表 CSV→草稿→**`ActivitySessionImportRow`**） |
+| `src/features/scheduling/utils/weeklyRosterImportParseText.test.ts` | **`normalizeWeeklyRosterHm`**／**`parseWeeklyRosterSheetText`**／**`weeklyRosterDraftsToImportRows`**（週更表 CSV→草稿→**`ActivitySessionImportRow`**；活動 id 目錄擇一） |
+| `src/features/scheduling/utils/weeklyRosterActivityIdPick.test.ts` | **`pickWeeklyRosterActivityId`**／**`weeklyRosterActivityPickHash`**（資助／認知、職位、`workPlanCascadeCatalog`、fallback） |
 | `src/features/scheduling/utils/runWeeklyRosterActivityImportDryRun.test.ts` | **`runWeeklyRosterActivityImportDryRun`**（**`parse_errors`**（表頭／歧義／主檔對照）／**`empty_rows`**／**`throw`**、**`validated`** 委派 **`runActivitySessionRowsDryRun`**；**`importOriginal`** partial mock **`parseWeeklyRosterSheetText`**） |
 | `src/features/activitySessions/utils/activitySessionImportDryRunFlow.test.ts` | **`runActivitySessionRowsDryRun`**／**`runActivitySessionCsvDryRun`**／**`commitActivitySessionCsvPreview`**（預檢鏈；提交失敗 **Error**／非 **Error** **`userMessage`**） |
 | `src/features/scheduling/utils/residentTableFundingPresentation.test.ts` | **`residentFundingLabel`**／**`residentFundingBadgeClass`**（院友表資助類別與 **`uiTokens`** 徽章樣式） |
@@ -237,3 +238,4 @@
 | 2026-05-09 | §4／§5：**`schedulingPolicyRepository.ts`** **`throwIfNetworkFailure`** 與 **`response.json()`** 解析失敗包裝；**`schedulingPolicyRepository.edgeResponseJson.test.ts`**（**Seq 29** §4 併讀）。 |
 | 2026-05-09 | §4：**`SchedulingDashboard.test.tsx`**／**`SchedulingWeeklyRosterPanel.test.tsx`**／**`useSchedulingKpiHistoryMutations.test.tsx`**／**`useSchedulingWorkspace.test.tsx`**／**`weeklyRosterImportParseText.test.ts`**／**`schedulingRulesRepository.test.ts`**：單測型別與 **`tsc -b`** 對齊（**`setRosterConfirmed`** **`Dispatch`**、**`ActivitySessionImportValidationResult`**、**`buildEdgeInvokeHeaders`** **`Record<string, string>`** 等）。 |
 | 2026-05-09 | §4／§5：**`pdf-sequenced-gap-checklist-revision-log.md`** **「註」** 補 **Seq 15** 排班單測 **`tsc`** 互鏈 **`seq15-scheduling-pdf02-traceability.md`** 修訂表（與上列 **單測型別** 列並讀）。 |
+| 2026-05-09 | §4／§6：**`weeklyRosterActivityIdPick`** 候選含 **Individual**／**Group**；補 **`weeklyRosterActivityIdPick.test.ts`** 列；擴 **`weeklyRosterImportParseText.test.ts`** 列說明；種子／migration **`activity-rehab-pt-ind-1`**、**`activity-rehab-ot-ind-1`**。 |

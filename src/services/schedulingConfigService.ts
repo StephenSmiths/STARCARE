@@ -8,6 +8,7 @@ import {
   type StaffProfileListRow,
 } from '../repositories/staffProfilesListRepository'
 import { STARCARE_DEFAULT_FACILITY_ID } from '../constants/starcareDefaultFacilityId'
+import { isActivityPermittedByWorkPlanCatalogForStaffRole } from './schedulingWorkPlanCatalogSkill'
 import type { SchedulingSession } from './schedulingService'
 
 const activityRepository = createActivityRepository()
@@ -44,20 +45,27 @@ export class SchedulingConfigService {
       staffProfilesUnavailableLastList = false
       return (await fallbackSessionRepository.listSessions()).map((item) => ({ ...item, skillMatched: true }))
     }
-    const activityServiceMap = new Map(activities.map((item) => [item.id, item.serviceType] as const))
+    const activityById = new Map(activities.map((a) => [a.id, a] as const))
     const staffSkillPairs = new Set(staffSkills.map((item) => `${item.staffProfileId}|${item.activityId}`))
     const roleByStaffId = new Map(staffProfiles.map((p) => [p.id, p.roleType] as const))
-    return activitySessions.map((item) => ({
-      id: item.id,
-      staffId: item.staffProfileId,
-      staffName: item.staffName,
-      date: item.sessionDate,
-      timeSlot: item.timeSlot,
-      serviceType: mapServiceType(activityServiceMap.get(item.activityId) ?? item.serviceType),
-      capacity: item.capacity,
-      skillMatched: staffSkillPairs.has(`${item.staffProfileId}|${item.activityId}`),
-      staffRoleType: roleByStaffId.get(item.staffProfileId),
-    }))
+    return activitySessions.map((item) => {
+      const activity = activityById.get(item.activityId)
+      const staffRoleType = roleByStaffId.get(item.staffProfileId)
+      const fromSkills = staffSkillPairs.has(`${item.staffProfileId}|${item.activityId}`)
+      const fromCatalog =
+        activity !== undefined && isActivityPermittedByWorkPlanCatalogForStaffRole(activity, staffRoleType)
+      return {
+        id: item.id,
+        staffId: item.staffProfileId,
+        staffName: item.staffName,
+        date: item.sessionDate,
+        timeSlot: item.timeSlot,
+        serviceType: mapServiceType(activity?.serviceType ?? item.serviceType),
+        capacity: item.capacity,
+        skillMatched: fromSkills || fromCatalog,
+        staffRoleType,
+      }
+    })
   }
 
   async getRules(facilityId: string = STARCARE_DEFAULT_FACILITY_ID): Promise<SchedulingRules | null> {

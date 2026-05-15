@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { getStarcareDemoActivities } from '../../../repositories/activityRepository'
 import { ACTIVITY_SESSIONS_WORKSPACE_FACILITY_ID } from '../../activitySessions/constants/activitySessionsWorkspaceDefaults'
 import { WEEKLY_ROSTER_DEFAULT_CAPACITY } from '../constants/weeklyRosterImportConstants'
 import {
@@ -61,14 +62,14 @@ describe('weeklyRosterDraftsToImportRows（草稿＋主檔 Map→匯入列）', 
     expect(errors).toEqual([])
   })
 
-  it('主檔鍵為 trim(姓名)+Tab+職位；寫入 activityId／facilityId／預設容量', () => {
+  it('主檔鍵為 trim(姓名)+Tab+職位；寫入 activityId／facilityId／預設容量（有活動主檔時依目錄擇一）', async () => {
     const staffMap = new Map<string, string>([['王小明\tPT', 'staff-profile-1']])
-    const { rows, errors } = weeklyRosterDraftsToImportRows([rosterDraft({ displayName: '  王小明  ' })], staffMap)
+    const activities = getStarcareDemoActivities()
+    const { rows, errors } = weeklyRosterDraftsToImportRows([rosterDraft({ displayName: '  王小明  ' })], staffMap, activities)
     expect(errors).toHaveLength(0)
     expect(rows).toHaveLength(1)
     expect(rows[0]).toMatchObject({
       facilityId: ACTIVITY_SESSIONS_WORKSPACE_FACILITY_ID,
-      activityId: 'activity-rehab-01',
       staffProfileId: 'staff-profile-1',
       sessionDate: '2026-05-10',
       timeSlot: '09:00-10:00',
@@ -77,6 +78,12 @@ describe('weeklyRosterDraftsToImportRows（草稿＋主檔 Map→匯入列）', 
       endTime: '10:00',
       activityDetail: '全院',
     })
+    expect([
+      'activity-rehab-01',
+      'activity-rehab-02',
+      'activity-rehab-03',
+      'activity-rehab-pt-ind-1',
+    ]).toContain(rows[0]?.activityId)
   })
 
   it('主檔無對應列時回錯誤且不產生該列', () => {
