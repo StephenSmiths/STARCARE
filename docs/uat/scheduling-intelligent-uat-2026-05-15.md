@@ -28,8 +28,8 @@
 
 | 項目 | 值 |
 |------|-----|
-| 前端 URL | |
-| Supabase 專案 | |
+| 前端 URL | 見 **`docs/uat/uat-staging-access-guide-2026-05-15.md`** |
+| Supabase 專案 ref | `qrrreijvihiypgpagnln`（對照用） |
 | 預設院舍 | `facility-main`（或實際院舍 id） |
 
 ---
