@@ -1,6 +1,8 @@
 # UAT 開測通知（郵件草稿）
 
-> 寄出前替換 `{STAGING_URL}`、`{CONTACT}`、帳號表；**勿在郵件內附密碼**（改電話／加密通道交付）。
+> 寄出前替換 `{STAGING_URL}`、`{CONTACT}`、帳號表；**勿在郵件內附密碼**（改電話／加密通道交付）。  
+> **一鍵產生**：`FRONTEND_URL=https://your-staging.vercel.app UAT_CONTACT=姓名 npm run gatec:uat:kickoff`  
+> 帳號表：**`docs/uat/uat-account-handoff-template-2026-05-15.md`**
 
 ---
 

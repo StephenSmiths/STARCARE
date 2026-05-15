@@ -25,7 +25,8 @@
 
 ## 階段 C — 業務 UAT（1～2 天）
 
-1. 發送 **`docs/uat/uat-kickoff-email-draft-2026-05-15.md`**（改實際 URL／帳號）。
+1. `FRONTEND_URL=... UAT_CONTACT=... npm run gatec:uat:kickoff`（或編輯 **`docs/uat/uat-kickoff-email-draft-2026-05-15.md`**）。
+2. 附件帳號表：**`docs/uat/uat-account-handoff-template-2026-05-15.md`**（密碼分開交付）。
 2. 系統設定 UAT → 智能排班 UAT（劇本互鏈）。
 3. 缺陷記錄於 UAT 檔 **§六**；P0/P1 清零後進簽核。
 

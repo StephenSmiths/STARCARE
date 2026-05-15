@@ -21,7 +21,7 @@
 | [.env.gate-c.example](.env.gate-c.example) | Gate C E2E／PAT／簽核完成標記範本 |
 
 Gate C 指令：`npm run gatec:preflight` · `npm run gatec:e2e:auth` · `npm run gatec:baseline:accept` · `npm run gatec:evidence:sync`  
-Gate C 簽核／PAT：**[gate-c-section7-signoff-wording-2026-05-15.md](docs/gate-c-section7-signoff-wording-2026-05-15.md)** · **[gate-c-pat-ops-runbook-2026-05-15.md](docs/gate-c-pat-ops-runbook-2026-05-15.md)**
+Gate C 簽核／PAT：**[gate-c-section7-signoff-wording-2026-05-15.md](docs/gate-c-section7-signoff-wording-2026-05-15.md)** · **[gate-c-pat-ops-runbook-2026-05-15.md](docs/gate-c-pat-ops-runbook-2026-05-15.md)** · 收尾 **[gate-c-closeout-checklist-2026-05-15.md](docs/gate-c-closeout-checklist-2026-05-15.md)** · UAT 信 **`npm run gatec:uat:kickoff`**
 | [docs/seq29-system-settings-pdf02-traceability.md](docs/seq29-system-settings-pdf02-traceability.md) | PDF 02【16】系統設定對照骨架（§1–§6）；歷史修訂列 [seq29-system-settings-pdf02-traceability-revision-log.md](docs/seq29-system-settings-pdf02-traceability-revision-log.md) |
 | [docs/assessment-completion-records-contract.md](docs/assessment-completion-records-contract.md) | 評估完成紀錄 Edge 契約與審計（Seq 22） |
 | [docs/client-delivery-remediation-plan.md](docs/client-delivery-remediation-plan.md) | 對客戶補強與分期交付說明 |
