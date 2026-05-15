@@ -1,6 +1,6 @@
 /**
  * 由 package.json 列出所有 `gatea:evidence:*` 指令（與倉庫實際腳本同源，免文件漂移）。
- * stdout 末段與多數取證／同步腳本同附 **`gateAStandardCloseoutBlockquotes`**（例外見 **`gate-a-markdown-footer.mjs`** 檔首「未匯入本檔之腳本」）。
+ * stdout 末段與多數取證／同步腳本同附 **`gateAStandardCloseoutBlockquotes`** 兩行（**第一行**併主日誌 **Gate A／stdout** 歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-gate-a-stdout-2026-05-09.md`**；**第二行**併 **人工／strict-http／keep=1**；**`scripts/gate-a-markdown-footer.mjs`** **Export 契約**；例外見該檔首「未匯入本檔之腳本」）。
  */
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'

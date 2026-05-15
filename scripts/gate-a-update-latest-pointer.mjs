@@ -1,6 +1,6 @@
 /**
  * 產出 `docs/evidence/gate-a-latest.md`；檔尾 blockquote 列由 **`gateALatestMarkdownFooterLines`**（四行）寫入。
- * 本腳本之終端 stdout 僅附 **`gateAStandardCloseoutBlockquotes`** 兩行（與檔內頁尾列數不同；見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段）。
+ * 本腳本之終端 stdout 僅附 **`gateAStandardCloseoutBlockquotes`** 兩行 blockquote（**第一行**併主日誌 **Gate A／stdout** 細列歸檔 **`docs/pdf-sequenced-gap-checklist-revision-log-archive-gate-a-stdout-2026-05-09.md`**；**第二行**併 **人工／strict-http／keep=1** 互鏈人工表與 **go-live** §0.1；字串見 **`scripts/gate-a-markdown-footer.mjs`** **Export 契約**）。與檔內頁尾列數不同；細目見 **`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段。
  */
 import { writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
