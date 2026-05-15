@@ -60,11 +60,12 @@ if (blockers.length) {
 lines.push('')
 lines.push('## 建議下一步')
 if (!e2eMain) {
-  lines.push('- 於 `.env` 設 `E2E_AUTH_EMAIL`／`E2E_AUTH_PASSWORD`（見 `.env.example`、`docs/gate-c-go-live-signoff-draft-2026-05-15.md` §3）')
-  lines.push('- `npm run test:e2e:auth`')
+  lines.push('- 複製 `.env.gate-c.example` 至 `.env` 並填入 `E2E_AUTH_*`')
+  lines.push('- `npm run gatec:e2e:auth`')
 } else {
-  lines.push('- `npm run test:e2e:auth`（憑證已齊）')
+  lines.push('- `npm run gatec:e2e:auth`（憑證已齊；全 skip 會失敗）')
 }
+lines.push('- `npm run gatec:evidence:sync`（刷新 `docs/evidence/gate-c-latest.md`）')
 if (!e2eAdmin || !e2eStaff) lines.push('- 補 Admin/Staff 後：`npm run test:e2e:auth:user-role-admin`')
 lines.push('- SQL 抽測：`docs/sql/gate-c-go-live-verification.sql`（結果貼簽核包）')
 lines.push('- 營運步驟：`docs/gate-c-operator-runbook-2026-05-15.md`')

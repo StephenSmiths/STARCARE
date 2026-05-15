@@ -15,11 +15,12 @@
 - 業務釋義：**`docs/business-logic-pdf02-scheduling-clarification-2026-05-09.md`**。
 
 ### 0.3 Gate C 簽核草稿（D10，2026-05-15）
+- 固定入口：**`docs/evidence/gate-c-latest.md`**（**`npm run gatec:evidence:sync`**）。
 - 草稿：**`docs/gate-c-go-live-signoff-draft-2026-05-15.md`**（§6 PAT、§7 簽名表、Go/No-Go）。
-- 營運手冊：**`docs/gate-c-operator-runbook-2026-05-15.md`**；診斷：**`npm run gatec:preflight`**。
+- 營運手冊：**`docs/gate-c-operator-runbook-2026-05-15.md`**；診斷：**`npm run gatec:preflight`**；真庫 E2E：**`npm run gatec:e2e:auth`**（**`.env.gate-c.example`**）。
 - SQL 抽測：**`docs/sql/gate-c-go-live-verification.sql`**。
 - UAT 開測郵件：**`docs/uat/uat-kickoff-email-draft-2026-05-15.md`**。
-- `test:e2e:auth` 嘗試：**`docs/evidence/gate-c-e2e-auth-attempt-2026-05-15.md`**（15 skipped；待 **`E2E_AUTH_*`**）。
+- 首次嘗試紀錄：**`docs/evidence/gate-c-e2e-auth-attempt-2026-05-15.md`**（15 skipped；待 **`E2E_AUTH_*`**）。
 
 ### 0.1 Gate A 取證入口（2026-05-06）
 - 取證步驟：**`docs/gate-a-evidence-capture-2026-05-06.md`**

@@ -9,8 +9,8 @@
 ## 階段 A — 工程自檢（約 30 分鐘）
 
 1. `npm run gatec:preflight` — 確認 E2E／Gate A 狀態。
-2. 於 `.env` 設 Staging **`E2E_AUTH_*`**（勿 commit）。
-3. `npm run test:e2e:auth` — 須 **0 failed**（非 15 skipped）。
+2. 複製 **`.env.gate-c.example`** 所列至 `.env`（勿 commit）。
+3. `npm run gatec:e2e:auth` — 須 **passed > 0**（全 skip 會 exit 1）；證據 **`docs/evidence/gate-c-e2e-auth-latest.md`**。
 4. 可選：`npm run test:e2e:auth:user-role-admin`（Admin+Staff 憑證）。
 5. `npm run ops:verify` — migration／functions 一致。
 6. Supabase SQL Editor 執行 **`docs/sql/gate-c-go-live-verification.sql`**，截圖貼簽核包。

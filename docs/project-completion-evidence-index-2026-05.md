@@ -87,7 +87,8 @@
 - [x] 部署與回滾路徑確認（D9 + **`docs/supabase-deploy-runbook.md`**）
 - [ ] 憑證輪替與安全收尾完成（**`docs/security-token-rotation-checklist.md`** §A）
 - [x] Gate C 簽核草稿：**`docs/gate-c-go-live-signoff-draft-2026-05-15.md`**
-- [ ] `test:e2e:auth` 真庫全綠（2026-05-15：**15 skipped**，見 **`docs/evidence/gate-c-e2e-auth-attempt-2026-05-15.md`**）
+- [x] Gate C 固定入口：**`docs/evidence/gate-c-latest.md`**（**`npm run gatec:evidence:sync`**）
+- [ ] `test:e2e:auth` 真庫全綠（**`npm run gatec:e2e:auth`**；2026-05-15 仍 **15 skipped**）
 
 ## 相關文件
 
