@@ -34,3 +34,4 @@
 | 2026-05-15 | **`gate-a-status-2026-05-06-commands-appendix.md`** **`gatea:evidence:next`** 說明段：**`gateAStandardCloseoutBlockquotes`** 補 **第一行**／**第二行**分工（與 **`http`**／**`docs-sync`**／**`latest`** 末段、**`scripts/gate-a-markdown-footer.mjs`** **Export 契約** 併讀）。 |
 | 2026-05-15 | **`gate-a-update-latest-pointer.mjs`**／**`gate-a-evidence-list.mjs`** 檔首註解：**`gateAStandardCloseoutBlockquotes`** 兩行分工與 **`commands-appendix`** **`latest`**／**`list`** 敘述、**Export 契約** 對齊。 |
 | 2026-05-09 | **`seq35-pdf03-cursorrules-alignment-traceability.md`**／**`business-logic-revision-log.md`** 修訂表：補上列腳本註解變更之 **Seq 35**／**§8 修訂表** 交叉追溯列（與上列 **2026-05-15** 列併讀）。 |
+| 2026-05-09 | **`gate-a-evidence-next.mjs`**／**`gate-a-evidence-ready.mjs`**／**`gate-a-evidence-gate.mjs`** 檔首註解：**`gateAStandardCloseoutBlockquotes`** 兩行分工與 **`commands-appendix`** **next**／**ready**／**gate**、**Export 契約** 對齊；**`seq35`**／**`business-logic-revision-log`** 修訂表（與上列 **seq35／business-logic** 交叉追溯列併讀）。 |
