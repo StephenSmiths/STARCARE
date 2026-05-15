@@ -17,7 +17,7 @@
 | 2 | PAT 輪替 | OPS | `gate-c-pat-ops-runbook` |
 | 3 | 設 `GATE_C_PAT_DONE=1` + sync | 工程 | `npm run gatec:evidence:sync` |
 | 4 | 發 UAT 開測信 | PM/TL | `gatec:uat:kickoff`；Preview 已煙霧 **`gate-c-staging-preview-smoke`** |
-| 5 | 客戶跑 UAT + 簽名 | 業務 | `scheduling-intelligent-uat` |
+| 5 | 客戶跑 UAT + 簽名 | 業務 | **`uat-facilitator-runbook`** + 排班劇本 |
 | 6 | 決策人 Go（PAT 後） | 決策 | `go-live` §7 |
 | 7 | 設 `GATE_C_SIGNOFF_DONE=1` + sync | 工程 | `gatec:evidence:sync` |
 

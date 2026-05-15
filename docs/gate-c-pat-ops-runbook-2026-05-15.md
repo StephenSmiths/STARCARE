@@ -25,7 +25,8 @@
 
 ```bash
 export SUPABASE_ACCESS_TOKEN="<新PAT>"
-npm run ops:verify
+npm run gatec:ops:verify
+# 等同 npm run ops:verify（勿將 token 寫入 .env）
 ```
 
 **通過標準：** migration Local/Remote 一致；目標 functions 為 **ACTIVE**。
