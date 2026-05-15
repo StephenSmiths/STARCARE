@@ -89,7 +89,8 @@
 - [x] Gate C 簽核草稿：**`docs/gate-c-go-live-signoff-draft-2026-05-15.md`**
 - [x] Gate C 固定入口：**`docs/evidence/gate-c-latest.md`**（**`npm run gatec:evidence:sync`**）
 - [x] `gatec:e2e:auth` Staff 路徑（11 passed；**`docs/evidence/gate-c-e2e-auth-latest.md`**）
-- [ ] `test:e2e:auth` 全角色（TL／Admin；residents／P2／user-role-admin）
+- [x] 工程基線認可（**`docs/evidence/gate-c-engineering-baseline-latest.md`**；`gate-c-latest` engineering READY）
+- [ ] `test:e2e:auth` 全角色 0 skipped（可選；TL／Admin 憑證）
 
 ## 相關文件
 

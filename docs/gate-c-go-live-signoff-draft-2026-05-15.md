@@ -2,7 +2,7 @@
 
 > **對照**：**`docs/go-live-checklist.md`**、**`docs/security-token-rotation-checklist.md`**、**`docs/project-completion-evidence-index-2026-05.md`**（Gate C 區）。  
 > **前置**：Gate A **PASS**（**`docs/evidence/gate-a-latest.md`**）；Gate B 工程 **通過**（**`npm run ci`** 2026-05-15）。  
-> **狀態（2026-05-15）**：**不可 go-live** — 待 §6 PAT、§7 三方簽名、可選 **`test:e2e:auth`** 真庫綠燈。
+> **狀態（2026-05-15）**：**工程 READY**（Staff E2E + Gate A 基線）；**不可 go-live** — 待 §6 PAT、§7 三方簽名。見 **`docs/evidence/gate-c-latest.md`**。
 
 ---
 
@@ -104,8 +104,9 @@ SQL 抽測：**`docs/sql/gate-c-go-live-verification.sql`**。
 
 | 決策 | 條件 |
 |------|------|
-| **No-Go（現況）** | §6、§7 未完成；`test:e2e:auth` 未真跑 |
-| **Go（建議門檻）** | §6 全勾；§7 三方簽名；§1 RLS 紀錄；§8 audit_events SQL；UAT 簽核；`test:e2e:auth` **0 failed**（或書面豁免附 Gate A 人工證據） |
+| **No-Go（現況）** | §6 PAT、§7 簽名未完成 |
+| **工程可簽（TL）** | `gate-c-latest` engineering **READY**；基線 **`gate-c-engineering-baseline-latest.md`** |
+| **Go（建議門檻）** | §6 全勾；§7 三方簽名；UAT 簽核；可選 TL 帳號 **0 skipped** 重跑 `gatec:e2e:auth` |
 
 ---
 

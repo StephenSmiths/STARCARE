@@ -20,7 +20,8 @@
 - 營運手冊：**`docs/gate-c-operator-runbook-2026-05-15.md`**；診斷：**`npm run gatec:preflight`**；真庫 E2E：**`npm run gatec:e2e:auth`**（**`.env.gate-c.example`**）。
 - SQL 抽測：**`docs/sql/gate-c-go-live-verification.sql`**。
 - UAT 開測郵件：**`docs/uat/uat-kickoff-email-draft-2026-05-15.md`**。
-- 首次嘗試紀錄：**`docs/evidence/gate-c-e2e-auth-attempt-2026-05-15.md`**（15 skipped；待 **`E2E_AUTH_*`**）。
+- 工程基線：**`docs/evidence/gate-c-engineering-baseline-latest.md`**（Staff E2E + Gate A；**`npm run gatec:baseline:accept`**）。
+- 首次嘗試紀錄：**`docs/evidence/gate-c-e2e-auth-attempt-2026-05-15.md`**。
 
 ### 0.1 Gate A 取證入口（2026-05-06）
 - 取證步驟：**`docs/gate-a-evidence-capture-2026-05-06.md`**
