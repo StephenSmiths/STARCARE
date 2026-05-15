@@ -35,14 +35,14 @@
 
 ## 3. `test:e2e:auth` 補測（真庫 Playwright）
 
-### 3.1 2026-05-15 執行紀錄
+### 3.1 執行紀錄
 
-| 指令 | 結果 | 說明 |
-|------|------|------|
-| `npm run test:e2e:auth` | exit **0** | **15 skipped**（`.env` 未設任何 **`E2E_AUTH_*`**） |
-| `VITE_SUPABASE_*` | 已設 | preflight／Gate A 已用 |
+| 日期 | 指令 | 結果 | 說明 |
+|------|------|------|------|
+| 2026-05-15 AM | `test:e2e:auth` | 15 skipped | 無 **`E2E_AUTH_*`** → **`gate-c-e2e-auth-attempt-2026-05-15.md`** |
+| 2026-05-15 PM | `npm run gatec:e2e:auth` | **PASS** | **11 passed**，0 failed，4 skipped；**`GATEA_STAFF_*`→`E2E_AUTH_*`** → **`gate-c-e2e-auth-latest.md`** |
 
-**結論**：腳本與 preview 建置正常，**尚不能**勾 go-live §1.1「auth 全綠」— 需補憑證後重跑。
+**結論**：Staff 主路徑已綠燈；**TL／Admin 專項**（院友、系統設定 P2、user-role-admin）仍 skip，建議 UAT 前補 **`E2E_AUTH_TEAMLEAD_*`** 再跑一輪。
 
 ### 3.2 `.env` 設定（勿提交密碼）
 

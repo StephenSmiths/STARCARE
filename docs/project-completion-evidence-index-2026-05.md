@@ -88,7 +88,8 @@
 - [ ] 憑證輪替與安全收尾完成（**`docs/security-token-rotation-checklist.md`** §A）
 - [x] Gate C 簽核草稿：**`docs/gate-c-go-live-signoff-draft-2026-05-15.md`**
 - [x] Gate C 固定入口：**`docs/evidence/gate-c-latest.md`**（**`npm run gatec:evidence:sync`**）
-- [ ] `test:e2e:auth` 真庫全綠（**`npm run gatec:e2e:auth`**；2026-05-15 仍 **15 skipped**）
+- [x] `gatec:e2e:auth` Staff 路徑（11 passed；**`docs/evidence/gate-c-e2e-auth-latest.md`**）
+- [ ] `test:e2e:auth` 全角色（TL／Admin；residents／P2／user-role-admin）
 
 ## 相關文件
 

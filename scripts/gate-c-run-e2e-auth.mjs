@@ -7,16 +7,21 @@ import { resolve } from 'node:path'
 
 import { buildSpawnBaseEnv } from './gate-a-env-lib.mjs'
 import { computeGateCReadyState } from './gate-c-ready-core.mjs'
+import { resolveGateCE2EEnv } from './gate-c-resolve-e2e-env.mjs'
 
-const e = buildSpawnBaseEnv()
+const base = buildSpawnBaseEnv()
+const { env: e, notes } = resolveGateCE2EEnv(base)
 const email = String(e.E2E_AUTH_EMAIL ?? '').trim()
 const password = String(e.E2E_AUTH_PASSWORD ?? '').trim()
 if (!email || !password) {
   process.stderr.write(
-    '[gatec:e2e:auth] 略過：未設 E2E_AUTH_EMAIL／E2E_AUTH_PASSWORD。請複製 .env.gate-c.example → .env 並填入 Staging 測試帳。\n',
+    '[gatec:e2e:auth] 略過：未設 E2E_AUTH_* 且無 GATEA_STAFF_* 可補。見 .env.gate-c.example。\n',
   )
   process.exitCode = 2
   process.exit(2)
+}
+if (notes.length) {
+  process.stderr.write(`[gatec:e2e:auth] 使用環境補齊：${notes.join('；')}\n`)
 }
 
 const r = spawnSync('npm', ['run', 'test:e2e:auth'], {
@@ -52,6 +57,7 @@ const body = [
   `- failed：${failed}`,
   `- skipped：${skipped}`,
   '- 指令：`npm run gatec:e2e:auth`',
+  ...(notes.length ? [`- 環境補齊：${notes.join('；')}`] : []),
   '',
   '## 摘要（末段）',
   '```',

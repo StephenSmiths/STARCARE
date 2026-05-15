@@ -5,6 +5,7 @@ import { existsSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
 import { buildSpawnBaseEnv } from './gate-a-env-lib.mjs'
+import { resolveGateCE2EEnv } from './gate-c-resolve-e2e-env.mjs'
 
 function pairReady(e, prefix) {
   return Boolean(String(e[`${prefix}_EMAIL`] ?? '').trim() && String(e[`${prefix}_PASSWORD`] ?? '').trim())
@@ -24,7 +25,7 @@ function e2ePassEvidence(cwd) {
 
 /** @param {string} [cwd] */
 export function computeGateCReadyState(cwd = process.cwd()) {
-  const e = buildSpawnBaseEnv(cwd)
+  const e = resolveGateCE2EEnv(buildSpawnBaseEnv(cwd)).env
   const e2eMain = pairReady(e, 'E2E_AUTH')
   const e2eAdmin = pairReady(e, 'E2E_AUTH_ADMIN')
   const e2eStaff = pairReady(e, 'E2E_AUTH_STAFF')

@@ -6,9 +6,11 @@ import { existsSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
 import { buildSpawnBaseEnv } from './gate-a-env-lib.mjs'
+import { resolveGateCE2EEnv } from './gate-c-resolve-e2e-env.mjs'
 
 const strict = process.argv.includes('--strict')
-const e = buildSpawnBaseEnv()
+const resolved = resolveGateCE2EEnv(buildSpawnBaseEnv())
+const e = resolved.env
 const pick = (key) => (String(e[key] ?? '').trim() ? 'SET' : 'MISSING')
 
 /** 成對鍵須皆 SET 才視為就緒。 */
@@ -39,6 +41,9 @@ lines.push(`- E2E_AUTH（主路徑）：${e2eMain ? 'READY' : 'MISSING'}`)
 lines.push(`- E2E_AUTH_ADMIN：${e2eAdmin ? 'READY' : 'MISSING'}`)
 lines.push(`- E2E_AUTH_STAFF：${e2eStaff ? 'READY' : 'MISSING'}`)
 lines.push(`- E2E_AUTH_TEAMLEAD：${e2eTl ? 'READY' : 'MISSING'}`)
+if (resolved.notes.length) {
+  lines.push(`- 環境補齊（執行時生效）：${resolved.notes.join('；')}`)
+}
 lines.push('')
 lines.push('## 前置閘')
 lines.push(`- Gate A latest：\`${gateAReady ? 'READY' : 'NOT_READY'}\`（\`docs/evidence/gate-a-latest.md\`）`)

@@ -41,9 +41,10 @@
 ### 1.1 可選：Playwright（demo 煙霧／登入，本機或 CI）
 - [x] 本機 **`npm run ci`**（`lint`→`typecheck`→`vitest`→**`build:demo`**（清空 `VITE_SUPABASE_*` 建置）→`PW_PREVIEW_ONLY=1` 之 Playwright demo 全套）已通過；與 GitHub Actions 對照見 `docs/feature-list.md` §8。（2026-05-15 exit 0）
 - [x] `.env` 已設 `VITE_SUPABASE_URL`、`VITE_SUPABASE_ANON_KEY`（Gate A preflight／部署取證已用）；**`E2E_AUTH_*` 未設**時 `test:e2e:auth` 會 skip（見 `.env.example`）。
-- [ ] `npm run test:e2e:auth` 通過（`playwright.auth.config.ts`：登入後見儀表盤審計區、側欄「登出」；`/#service-forms`～`#scheduling` 等真庫載入無錯誤；含 `#user-role-admin` admin 提交 + staff 403）。**2026-05-15**：已執行 → **15 skipped**（`.env` 無 **`E2E_AUTH_*`**）；exit 0 ≠ 通過 → **`docs/evidence/gate-c-e2e-auth-attempt-2026-05-15.md`**、**`docs/gate-c-go-live-signoff-draft-2026-05-15.md`** §3。
-- [ ] （選填）**Seq 29【16】** **`#system-settings`** **P2** 五小節 **`h3`**：同上 auth 套件；需 **`E2E_AUTH_TEAMLEAD_*`** 或 **`E2E_AUTH_ADMIN_*`**（2026-05-15：skip）。
-- [ ] 若僅需補 `user-role-admin` 權限證據：**`npm run test:e2e:auth:user-role-admin`**（2026-05-15：未設 Admin/Staff 憑證則 skip）。
+- [x] `npm run gatec:e2e:auth` **Staff 路徑**通過（**11 passed**，0 failed，4 skipped；`GATEA_STAFF_*` 補齊 **`E2E_AUTH_*`**；2026-05-15）→ **`docs/evidence/gate-c-e2e-auth-latest.md`**。
+- [ ] `test:e2e:auth` **全角色**（含 `#residents`、`#system-settings` P2、`#user-role-admin`）：需 **`E2E_AUTH_TEAMLEAD_*`**／**`E2E_AUTH_ADMIN_*`**（見 **`.env.gate-c.example`**）。
+- [ ] （選填）**Seq 29【16】** P2 五 **`h3`**：併上列全角色 auth。
+- [ ] 若僅補 `user-role-admin`：**`npm run test:e2e:auth:user-role-admin`**（需 Admin+Staff 憑證）。
 
 ## 2. 部署與版本一致性（DB / Functions）
 - [x] `npx supabase migration list`：`Local` 與 `Remote` 完全一致（亦可 **`npm run ops:verify`** 併查，見 **`docs/supabase-deploy-runbook.md`** §3）。  
