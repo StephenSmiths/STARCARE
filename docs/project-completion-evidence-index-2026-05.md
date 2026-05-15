@@ -18,8 +18,8 @@
 | 2026-05-05 | D1 | 驗收範圍與版本基線 | Plan D1 |  |  |  |  | TL |  |
 | 2026-05-06 | D2 | Auth / RLS 初檢 | go-live §1 | `3f1652d` / `d970f84` | 本機 typecheck/lint/vitest 通過；`ops:verify` 成功（2026-05-06 13:45 BST）；自動證據現況見 `docs/evidence/gate-a-latest.md`（當日首次快照檔名曾為 `gate-a-auto-evidence-2026-05-06-152954.md`） | `user_roles` SQL（待補截圖） | 管理員登入＋`#user-role-admin` 操作截圖（已留存）；401 文字證據現況見 `docs/evidence/gate-a-latest.md` 與下方「Gate A 自動引用」（當日曾留存 `gate-a-d2-401-admin-user-role-set-2026-05-06-143013.7.txt`） | FE/BE | `admin-user-role-set` 已部署至 `qrrreijvihiypgpagnln`；functions 清單顯示 ACTIVE、`admin-user-role-set` v2；sandbox 內 `test:e2e:auth` Chromium SIGSEGV，需本機補測 |
 | 2026-05-07 | D3 | 排班閉環 | go-live §3 | `d970f84` | `ops:verify` 成功（環境一致） | `scheduling_history` SQL（待補截圖） | 排班儲存成功提示截圖（待補） | FE/BE/QA | 待補一次當日最新批次 `batch_id` 與 `actor_id` 對照 |
-| 2026-05-08 | D4 | 審計抽測（RES-06） | go-live §8 | `3f1652d` / `d970f84` | `npm run db:push`、`npm run ops:verify`（2026-05-06） | `audit_events` 約束修正 SQL（含 `Auth`）與 migration `20260505160000` 已落遠端 | `USER_RBAC_ROLE_SET` 審計列出現在角色頁審計區截圖 | FE/BE | staff/teamlead/admin 可見性差異抽測仍待補齊 |
-| 2026-05-09 | D5 | Gate A 結論 | Gate A |  |  |  |  | TL/QA |  |
+| 2026-05-08 | D4 | 審計抽測（RES-06） | go-live §8 | `3f1652d` / `d970f84` | `npm run db:push`、`npm run ops:verify`（2026-05-06） | `audit_events` 約束修正 SQL（含 `Auth`）與 migration `20260505160000` 已落遠端 | `gateA-d4-*` 截圖（審計 UI／SQL／RLS staff／teamlead／admin）；見 **`docs/gate-a-manual-evidence-checklist-2026-05-06.md`** §C | FE/BE | RES-06 已標 **已完成**（**`docs/feature-list.md`**）；go-live §8 已勾選 |
+| 2026-05-15 | D5 | Gate A 結論 | Gate A | `20d356f` / `233737b` | `npm run gatea:evidence:gate` PASS；`gatea:evidence:refresh:strict-http` | — | **`docs/evidence/gate-a-report-20260515-031147.md`**、**`docs/gate-a-status-2026-05-06.md`** | TL/QA | **READY**；HTTP 嚴格取證 ON |
 | 2026-05-12 | D6 | 回歸 A（residents/staff/import） | Plan D6 |  |  |  |  | FE/QA |  |
 | 2026-05-13 | D7 | 回歸 B（scheduling/forms/handover） | Plan D7 |  |  |  |  | FE/QA |  |
 | 2026-05-14 | D8 | RC + 缺陷收斂 | Gate B |  |  |  |  | TL/FE/BE |  |
@@ -72,10 +72,10 @@
 ## Gate 快速核對
 
 ### Gate A（D5）
-- [ ] go-live §1 證據齊全
-- [ ] go-live §3 證據齊全
-- [ ] go-live §8 證據齊全
-- [ ] `RES-06` 有明確結論（完成/阻塞）
+- [x] go-live §1 證據齊全
+- [x] go-live §3 證據齊全
+- [x] go-live §8 證據齊全
+- [x] `RES-06` 有明確結論（完成/阻塞）
 
 ### Gate B（D8）
 - [ ] P0/P1 為 0

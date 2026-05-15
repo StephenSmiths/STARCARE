@@ -97,10 +97,10 @@ limit 20;
 | Day | 任務 | Owner | 狀態 | 阻塞 | 證據連結（PR/SQL/截圖/Artifact） | 完成勾選 |
 |---|---|---|---|---|---|---|
 | D1 | 凍結驗收範圍、版本鎖定、風險清單 v1 | TL + QA | doing | 風險清單 v1 尚待 TL/QA 確認 | 基線提交：`d970f84`（含角色治理修正） | [ ] |
-| D2 | go-live §1：Auth/RLS 初檢（admin/staff/401/403） | FE + BE | doing | 仍待補 401/403 截圖證據；`test:e2e:auth` 於 sandbox Chromium 啟動 SIGSEGV，需本機終端補測 | 管理員登入與角色頁驗證、`admin-user-role-set` 已部署（Supabase Functions）；`ops:verify` 已確認 functions ACTIVE；執行手順：`docs/gate-a-evidence-capture-2026-05-06.md`；勾選表：`docs/gate-a-manual-evidence-checklist-2026-05-06.md` | [ ] |
-| D3 | go-live §3：排班閉環（排班→儲存→DB） | FE + BE + QA | doing | 待補 `scheduling_history` SQL 查詢結果截圖 | 系統設定頁審計顯示 `SCHEDULE_BATCH_SAVE`（2026-05-06）；執行手順：`docs/gate-a-evidence-capture-2026-05-06.md`；勾選表：`docs/gate-a-manual-evidence-checklist-2026-05-06.md` | [ ] |
-| D4 | go-live §8：審計抽測（含 RLS 可見性） | FE + BE | doing | staff/teamlead/admin 可見性差異仍待完整抽測 | 已修復 `audit_events_entity_type_check`（含 `Auth`）並成功寫入 `USER_RBAC_ROLE_SET`；`db:push` + `ops:verify` 已完成一致性確認（含 migration `20260505160000`）；執行手順：`docs/gate-a-evidence-capture-2026-05-06.md`；勾選表：`docs/gate-a-manual-evidence-checklist-2026-05-06.md` | [ ] |
-| D5 | Week1 Gate：判定 RES-06、整理 P0/P1/P2 | TL + QA | todo |  |  | [ ] |
+| D2 | go-live §1：Auth/RLS 初檢（admin/staff/401/403） | FE + BE | done | — | Gate A §1 證據（**`docs/gate-a-manual-evidence-checklist-2026-05-06.md`** §A）；401/403 文字證據見 **`docs/evidence/gate-a-latest.md`** | [x] |
+| D3 | go-live §3：排班閉環（排班→儲存→DB） | FE + BE + QA | done | — | Gate A §3 證據（排班儲存、`scheduling_history` SQL）；**`docs/gate-a-manual-evidence-checklist-2026-05-06.md`** §B | [x] |
+| D4 | go-live §8：審計抽測（含 RLS 可見性） | FE + BE | done | — | RES-06 **已完成**；RLS 三角色截圖見 Gate A §C | [x] |
+| D5 | Week1 Gate：判定 RES-06、整理 P0/P1/P2 | TL + QA | done | — | Gate A PASS（**`docs/gate-a-status-2026-05-06.md`**、**`docs/evidence/gate-a-latest.md`**）；RES-06→**已完成** | [x] |
 | D6 | 回歸 A：residents/staff/import | FE + QA | todo |  |  | [ ] |
 | D7 | 回歸 B：scheduling/forms/handover | FE + QA | todo |  |  | [ ] |
 | D8 | 缺陷收斂、產出 RC、風險清單 v2 | FE + BE + TL | todo |  |  | [ ] |
@@ -111,7 +111,7 @@ limit 20;
 
 | Gate | 時點 | 必要條件 | 是否通過 | 備註 |
 |---|---|---|---|---|
-| Gate A | D5 | go-live §1/§3/§8 證據齊全、RES-06 有結論 | [ ] |  |
+| Gate A | D5 | go-live §1/§3/§8 證據齊全、RES-06 有結論 | [x] | 2026-05-15 PASS（READY） |
 | Gate B | D8 | P0/P1=0、RC 可重複部署、CI 綠燈 | [ ] |  |
 | Gate C | D10 | go-live checklist 可簽核、回滾路徑可用 | [ ] |  |
 
