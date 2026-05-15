@@ -1,0 +1,25 @@
+HTTP 403
+access-control-allow-headers: authorization, x-client-info, apikey, content-type, x-idempotency-key
+access-control-allow-methods: GET, POST, PUT, PATCH, DELETE, OPTIONS
+access-control-allow-origin: *
+alt-svc: h3=":443"; ma=86400
+cf-cache-status: DYNAMIC
+cf-ray: 9fbef2282eeb62c0-LHR
+connection: keep-alive
+content-encoding: gzip
+content-length: 78
+content-type: application/json
+date: Fri, 15 May 2026 03:09:49 GMT
+endpoint-load-metrics: application_utilization:2,named_metrics.queue_depth:2
+sb-gateway-version: 1
+sb-project-ref: qrrreijvihiypgpagnln
+sb-request-id: 019e299c-9517-7778-aeaa-6fc54ccb73bb
+server: cloudflare
+set-cookie: __cf_bm=xj8gjq64nOUD0pe47kGlM6NmzRCSwhhJCYBysrtKalY-1778814588.1813385-1.0.1.1-IrXLx648lJBrZsVUfoMd.n2JnEOQ3fip9C73HcdgxAdruogxAn3MrORzUsKP.4c_ZOOmlorWA.1QTYXXmLlIPcQwbHvnpA8YqCBusdA7W9dr9W7ZHI23Ta_gNb0oPpmo; HttpOnly; SameSite=None; Secure; Path=/; Domain=supabase.co; Expires=Fri, 15 May 2026 03:39:49 GMT
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+vary: Accept-Encoding
+x-deno-execution-id: bdf4b61f-dec9-4360-bbf5-ed93343b2290
+x-sb-edge-region: eu-west-2
+x-served-by: supabase-edge-runtime
+
+{"error":"僅 Admin 可變更使用者 STARCARE 角色"}

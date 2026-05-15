@@ -1,15 +1,15 @@
 # Gate A Latest Pointers
 
-- 更新時間：2026-05-15T03:06:47.392Z
+- 更新時間：2026-05-15T03:09:49.602Z
 - 判定狀態：`READY`
 - HTTP 嚴格取證：OFF
-- auto evidence：`docs/evidence/gate-a-auto-evidence-2026-05-14-223738.md`
-- 401：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-14-213803.6.txt`
-- 403：`docs/evidence/gate-a-d2-403-admin-user-role-set-2026-05-14-213803.6.txt`
-- doctor：`docs/evidence/gate-a-evidence-doctor-20260514-213804.md`
-- report：`docs/evidence/gate-a-report-20260515-030641.md`
-- fill snippet：`docs/evidence/gate-a-fill-snippet-20260514-213804.md`
-- decision ref：`docs/evidence/gate-a-decision-ref-20260514-213804.md`
+- auto evidence：`docs/evidence/gate-a-auto-evidence-2026-05-15-040920.md`
+- 401：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-15-030947.8.txt`
+- 403：`docs/evidence/gate-a-d2-403-admin-user-role-set-2026-05-15-030947.8.txt`
+- doctor：`docs/evidence/gate-a-evidence-doctor-20260515-030949.md`
+- report：`docs/evidence/gate-a-report-20260515-030949.md`
+- fill snippet：`docs/evidence/gate-a-fill-snippet-20260515-030949.md`
+- decision ref：`docs/evidence/gate-a-decision-ref-20260515-030949.md`
 
 ## Next Command
 - `npm run gatea:evidence:report`（已 READY，更新單檔收斂快照供簽核引用）
