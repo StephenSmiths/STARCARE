@@ -16,6 +16,7 @@
 | [docs/scheduling-policy-edge-function-contract.md](docs/scheduling-policy-edge-function-contract.md) | Seq 29 院舍排班政策 Edge（`scheduling-policy-*`）契約；實作後併 `ops:deploy:all`；上線／本機煙霧互鏈 [go-live-checklist.md](docs/go-live-checklist.md) §5、[system-settings-policy-p1-uat-and-staging-2026-05-09.md](docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md) **二之一**（段末 **工程維護互鏈**） |
 | [docs/uat/scheduling-intelligent-uat-2026-05-15.md](docs/uat/scheduling-intelligent-uat-2026-05-15.md) | 智能排班 Staging UAT 劇本（客戶／TL；PDF 02【3】） |
 | [docs/gate-c-go-live-signoff-draft-2026-05-15.md](docs/gate-c-go-live-signoff-draft-2026-05-15.md) | Gate C 上線簽核草稿（§6 PAT、§7、Go/No-Go） |
+| [docs/gate-c-operator-runbook-2026-05-15.md](docs/gate-c-operator-runbook-2026-05-15.md) | Gate C 營運手冊（`npm run gatec:preflight`、PAT、UAT、簽核） |
 | [docs/seq29-system-settings-pdf02-traceability.md](docs/seq29-system-settings-pdf02-traceability.md) | PDF 02【16】系統設定對照骨架（§1–§6）；歷史修訂列 [seq29-system-settings-pdf02-traceability-revision-log.md](docs/seq29-system-settings-pdf02-traceability-revision-log.md) |
 | [docs/assessment-completion-records-contract.md](docs/assessment-completion-records-contract.md) | 評估完成紀錄 Edge 契約與審計（Seq 22） |
 | [docs/client-delivery-remediation-plan.md](docs/client-delivery-remediation-plan.md) | 對客戶補強與分期交付說明 |

@@ -71,6 +71,10 @@ npm run test:e2e:auth
 
 通過後：將終端摘要（passed 數、0 failed）貼入 **§5 證據**，並勾 **`docs/go-live-checklist.md`** §1.1。
 
+診斷指令：`npm run gatec:preflight`（嚴格：`npm run gatec:preflight:strict`）。  
+SQL 抽測：**`docs/sql/gate-c-go-live-verification.sql`**。  
+營運步驟：**`docs/gate-c-operator-runbook-2026-05-15.md`**。
+
 ---
 
 ## 4. §7 上線簽核表（待簽）

@@ -16,6 +16,9 @@
 
 ### 0.3 Gate C 簽核草稿（D10，2026-05-15）
 - 草稿：**`docs/gate-c-go-live-signoff-draft-2026-05-15.md`**（§6 PAT、§7 簽名表、Go/No-Go）。
+- 營運手冊：**`docs/gate-c-operator-runbook-2026-05-15.md`**；診斷：**`npm run gatec:preflight`**。
+- SQL 抽測：**`docs/sql/gate-c-go-live-verification.sql`**。
+- UAT 開測郵件：**`docs/uat/uat-kickoff-email-draft-2026-05-15.md`**。
 - `test:e2e:auth` 嘗試：**`docs/evidence/gate-c-e2e-auth-attempt-2026-05-15.md`**（15 skipped；待 **`E2E_AUTH_*`**）。
 
 ### 0.1 Gate A 取證入口（2026-05-06）

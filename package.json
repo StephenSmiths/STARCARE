@@ -90,6 +90,8 @@
     "gatea:evidence:next": "node scripts/gate-a-evidence-next.mjs",
     "gatea:evidence:preflight": "node scripts/gate-a-evidence-preflight.mjs",
     "gatea:evidence:preflight:strict": "node scripts/gate-a-evidence-preflight.mjs --strict",
+    "gatec:preflight": "node scripts/gate-c-preflight.mjs",
+    "gatec:preflight:strict": "node scripts/gate-c-preflight.mjs --strict",
     "gatea:evidence:list": "node scripts/gate-a-evidence-list.mjs",
     "gateb:evidence:doctor": "node scripts/gate-b-evidence-doctor.mjs",
     "gateb:evidence:ready": "node scripts/gate-b-evidence-ready.mjs",

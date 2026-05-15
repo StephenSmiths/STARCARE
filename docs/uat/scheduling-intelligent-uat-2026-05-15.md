@@ -2,7 +2,8 @@
 
 > **對照**：PDF 02【3】、**`docs/business-logic-pdf02-scheduling-clarification-2026-05-09.md`**、**`docs/seq15-scheduling-pdf02-traceability.md`**。  
 > **系統設定（政策）**：併讀 **`docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md`**。  
-> **狀態（2026-05-15）**：遠端 DB／Edge 已部署；工程 Gate A/B 已過；**可開始 UAT**（正式 go-live 仍待 PAT 與管理層簽核）。
+> **狀態（2026-05-15）**：遠端 DB／Edge 已部署；工程 Gate A/B 已過；**可開始 UAT**（正式 go-live 仍待 PAT 與管理層簽核）。  
+> **開測通知草稿**：**`docs/uat/uat-kickoff-email-draft-2026-05-15.md`**；工程簽核：**`docs/gate-c-go-live-signoff-draft-2026-05-15.md`** §4。
 
 ---
 

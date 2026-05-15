@@ -129,6 +129,7 @@
 ### Gate C 接續（同日）
 - [x] `npm run test:e2e:auth`：15 skipped（無 `E2E_AUTH_*`）；紀錄 **`docs/evidence/gate-c-e2e-auth-attempt-2026-05-15.md`**
 - [x] 簽核草稿：**`docs/gate-c-go-live-signoff-draft-2026-05-15.md`**；go-live **§0.3** 互鏈
+- [x] `npm run gatec:preflight`；營運手冊、SQL 驗證、UAT 開測郵件草稿
 
 ---
 
