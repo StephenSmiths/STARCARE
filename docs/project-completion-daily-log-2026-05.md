@@ -82,13 +82,13 @@
 
 <!-- gatea-daily-auto-ref:start -->
 - Gate A 可否判定：`READY`
-- Gate A HTTP 嚴格取證：OFF
-- Gate A 自動證據：`docs/evidence/gate-a-auto-evidence-2026-05-15-040920.md`
-- Gate A 401：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-15-030947.8.txt`
-- Gate A 403：`docs/evidence/gate-a-d2-403-admin-user-role-set-2026-05-15-030947.8.txt`
-- Gate A decision ref：`docs/evidence/gate-a-decision-ref-20260515-030949.md`
-- Gate A fill snippet：`docs/evidence/gate-a-fill-snippet-20260515-030949.md`
-- Gate A report：`docs/evidence/gate-a-report-20260515-030949.md`
+- Gate A HTTP 嚴格取證：ON
+- Gate A 自動證據：`docs/evidence/gate-a-auto-evidence-2026-05-15-041120.md`
+- Gate A 401：`docs/evidence/gate-a-d2-401-admin-user-role-set-2026-05-15-031146.1.txt`
+- Gate A 403：`docs/evidence/gate-a-d2-403-admin-user-role-set-2026-05-15-031146.1.txt`
+- Gate A decision ref：`docs/evidence/gate-a-decision-ref-20260515-031147.md`
+- Gate A fill snippet：`docs/evidence/gate-a-fill-snippet-20260515-031147.md`
+- Gate A report：`docs/evidence/gate-a-report-20260515-031147.md`
 - `npm run gatea:evidence:preflight:strict`（取證前嚴格環境檢查；與 README／go-live 並讀）
 - **全案收尾與指令速查**：`docs/go-live-checklist.md`（開首長鏈）；`docs/gate-a-status-2026-05-06.md` **§5**／`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`；人工／strict-http／keep=1：`docs/gate-a-manual-evidence-checklist-2026-05-06.md` 開首；主日誌 **Gate A／stdout** 細列：`docs/pdf-sequenced-gap-checklist-revision-log-archive-gate-a-stdout-2026-05-09.md`（併主日誌 **Archive gate-a-stdout-2026-05-09** 列）。
 <!-- gatea-daily-auto-ref:end -->
