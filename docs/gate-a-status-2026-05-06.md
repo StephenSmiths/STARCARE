@@ -23,39 +23,43 @@
 目前完成度（自動證據面）：請以 `npm run gatea:evidence:summary` 為準（含 `READY`／`NOT_READY`、HTTP 嚴格 ON／OFF、`next command`，以及 doctor／report／snippet／decision ref 指向；`gate-a-latest.md`／`gate-a-report-*.md` 亦含 HTTP 嚴格狀態；`gate-a-latest.md` 檔尾 blockquote 四行定義：**`gateALatestMarkdownFooterLines`**（**`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段））
 
 ### go-live §1 Auth / RLS
-- [ ] admin/staff 登入截圖
+
+- [x] admin/staff 登入截圖
 - [x] 401 證據（文字檔）已取得（實際路徑見 `docs/evidence/gate-a-latest.md` 之 `401 text` 列，或 `npm run gatea:evidence:summary`；檔尾四行見 **`gateALatestMarkdownFooterLines`**／**`docs/gate-a-status-2026-05-06-commands-appendix.md#gate-a-appendix-latest-segment`** 下文 **`latest`** 段））
-- [ ] 403 截圖（staff 呼叫 admin-only API）
-- [ ] `user_roles` SQL 截圖
+- [x] 403 截圖（staff 呼叫 admin-only API）
+- [x] `user_roles` SQL 截圖
 
 ### go-live §3 排班閉環
-- [ ] 排班儲存成功提示截圖
-- [ ] `scheduling_history` SQL 截圖
-- [ ] `actor_id` 與登入者一致核對
+
+- [x] 排班儲存成功提示截圖
+- [x] `scheduling_history` SQL 截圖
+- [x] `actor_id` 與登入者一致核對
 
 ### go-live §8 審計 / 可見性
-- [ ] `USER_RBAC_ROLE_SET` 操作與成功提示截圖
-- [ ] `audit_events` SQL 截圖
-- [ ] staff/teamlead/admin 可見性差異截圖（3 張）
+
+- [x] `USER_RBAC_ROLE_SET` 操作與成功提示截圖
+- [x] `audit_events` SQL 截圖
+- [x] staff/teamlead/admin 可見性差異截圖（3 張）
 
 ## 3) Gate A 判定門檻
 
-- [ ] §1 證據齊全
-- [ ] §3 證據齊全
-- [ ] §8 證據齊全
-- [ ] `RES-06` 明確結論（完成或阻塞）
+- [x] §1 證據齊全
+- [x] §3 證據齊全
+- [x] §8 證據齊全
+- [x] `RES-06` 明確結論（完成或阻塞）
 
 ### 判定結論（待填）
-- 結論：`待判定`
+
+- 結論：`完成（Gate A PASS：READY）`
 - 缺口 owner：`FE/BE/QA`
-- 預計完成：`2026-05-06 <待填時間> BST`
+- 預計完成：`2026-05-15 BST`
 
 ## 4) 立即下一步（只做這 4 件）
 
-1. 依 `docs/sql/gate-a-evidence-queries-2026-05-06.sql` 跑三段 SQL，截圖存檔。  
-2. 執行 `npm run gatea:evidence:http`（若有 `GATEA_STAFF_ACCESS_TOKEN` 可自動產生 403 文字證據）。  
-   - 取 token 方式見：`docs/gate-a-evidence-capture-2026-05-06.md` §0.1  
-3. 在排班頁做一次「一鍵儲存排班結果」，截圖成功提示。  
+1. 依 `docs/sql/gate-a-evidence-queries-2026-05-06.sql` 跑三段 SQL，截圖存檔。
+2. 執行 `npm run gatea:evidence:http`（若有 `GATEA_STAFF_ACCESS_TOKEN` 可自動產生 403 文字證據）。
+   - 取 token 方式見：`docs/gate-a-evidence-capture-2026-05-06.md` §0.1
+3. 在排班頁做一次「一鍵儲存排班結果」，截圖成功提示。
 4. 將截圖依 **`docs/gate-a-manual-evidence-checklist-2026-05-06.md`** 檔名存到 **`docs/evidence/`**；自動引用區會由 **`gatea:evidence:all`** 或 **`gatea:evidence:refresh`** 更新（**HTTP 嚴格** 與 **`gate-a-latest`** 一致時用 **`npm run gatea:evidence:refresh:strict-http`** 或 **`GATEA_STRICT_HTTP=1`**，見該勾選表開首）。另跑 **`npm run gatea:evidence:doctor`** 確認是否齊備。
 
 > 完成以上 4 件後，即可由文件面進行 Gate A 判定收斂。
