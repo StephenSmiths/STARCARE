@@ -1,0 +1,29 @@
+
+> starcare-system@0.1.2 gatec:uat:kickoff
+> node scripts/gate-c-print-uat-kickoff.mjs
+
+主旨：STARCARE Staging UAT 開測 — 系統設定與智能排班
+
+各位好，
+
+Staging 後端與 Edge 已部署（Gate A/B 工程驗收通過），現邀請進行 UAT。
+
+【環境】
+- 前端（請用此 URL 登入）：http://127.0.0.1:4173
+- Supabase 專案 ref（工程對照用）：qrrreijvihiypgpagnln
+- 測試帳號：見附件「UAT 帳號表」（僅 email）
+- 密碼：另以 STARCARE 工程 提供（勿經 email 明文）
+
+【劇本順序】
+1. 系統設定 → 2. 週更表匯入 → 3. 智能排班 → 4. 儲存
+- 智能排班：docs/uat/scheduling-intelligent-uat-2026-05-15.md（S1～S10）
+- 系統設定：docs/uat/system-settings-policy-p1-uat-and-staging-2026-05-09.md
+
+【已知限制】
+- 週更擇活動依目錄職位門檻；私位週目標仍為 1；排班演算於前端。
+- 正式 go-live 待 PAT 與管理層簽核。
+
+【時程】2026-05-16 ～ 2026-05-23
+【聯絡】STARCARE 工程
+
+謝謝。

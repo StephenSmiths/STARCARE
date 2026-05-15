@@ -20,6 +20,8 @@
 
 ## 方案 B — 本機 Preview（內網 UAT／工程帶測）
 
+> 煙霧紀錄（2026-05-15）：**`docs/evidence/gate-c-staging-preview-smoke-2026-05-15.md`**（build + preview HTTP 200）。
+
 適用：客戶到場、或 VPN 存取工程師筆電／內網主機。
 
 ```bash
