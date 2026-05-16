@@ -45,6 +45,26 @@ describe('schedulingTargets', () => {
     expect(buildTopUpQueue([])).toEqual([])
   })
 
+  it('buildPass12TopUpQueue 甲一優先於院舍券', () => {
+    const voucher: SchedulingResident = {
+      id: 'r-voucher',
+      name: '',
+      fundingType: 'Voucher',
+      isSpecialCareCase: false,
+      weeklyCompletedCount: 1,
+      assignedDates: [],
+    }
+    const ea1: SchedulingResident = {
+      id: 'r-ea1',
+      name: '',
+      fundingType: 'GradeA_Subsidized',
+      isSpecialCareCase: false,
+      weeklyCompletedCount: 1,
+      assignedDates: [],
+    }
+    expect(buildPass12TopUpQueue([voucher, ea1]).map((r) => r.id)).toEqual(['r-ea1', 'r-voucher'])
+  })
+
   it('buildPass12TopUpQueue 排除私位（由 Pass 3 處理）', () => {
     const privateUnmet: SchedulingResident = {
       id: 'r-private',

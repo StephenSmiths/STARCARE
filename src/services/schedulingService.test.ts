@@ -55,6 +55,45 @@ describe('schedulingService 補齊邏輯', () => {
     expect(result.underTargetResidents.some((item) => item.residentId === 'r-ea1')).toBe(false)
   })
 
+  it('甲一／券未達標時不執行 Pass 3（私位不搶先佔用時段）', () => {
+    const service = new SchedulingService(new AuditTrailService())
+    const residents: SchedulingResident[] = [
+      {
+        id: 'r-ea1',
+        name: '甲一院友',
+        fundingType: 'GradeA_Subsidized',
+        isSpecialCareCase: false,
+        weeklyCompletedCount: 0,
+        assignedDates: [],
+      },
+      {
+        id: 'r-private',
+        name: '私位院友',
+        fundingType: 'Private',
+        isSpecialCareCase: false,
+        weeklyCompletedCount: 0,
+        assignedDates: [],
+      },
+    ]
+    const sessions: SchedulingSession[] = [
+      {
+        id: 's1',
+        staffId: 'st1',
+        staffName: 'OT A',
+        date: '2026-05-01',
+        timeSlot: '09:00',
+        serviceType: 'Subsidized_Rehab',
+        capacity: 1,
+        staffRoleType: 'OT',
+      },
+    ]
+
+    const result = service.runSubsidizedRehabScheduling('TeamLead_test', residents, sessions)
+
+    expect(result.assignments.filter((item) => item.residentId === 'r-private')).toHaveLength(0)
+    expect(result.assignments.filter((item) => item.residentId === 'r-ea1')).toHaveLength(1)
+  })
+
   it('Pass 3 僅對未達標私位指派，且不超過週目標 1 次', () => {
     const service = new SchedulingService(new AuditTrailService())
     const residents: SchedulingResident[] = [
@@ -88,13 +127,23 @@ describe('schedulingService 補齊邏輯', () => {
         capacity: 1,
         staffRoleType: 'OT',
       },
+      {
+        id: 's3',
+        staffId: 'st3',
+        staffName: 'OT C',
+        date: '2026-05-05',
+        timeSlot: '09:00',
+        serviceType: 'Subsidized_Rehab',
+        capacity: 1,
+        staffRoleType: 'OT',
+      },
     ]
 
     const result = service.runSubsidizedRehabScheduling('TeamLead_test', residents, sessions)
     const privateAssigned = result.assignments.filter((item) => item.residentId === 'r-private').length
 
     expect(privateAssigned).toBe(1)
-    expect(result.assignments.every((item) => item.pass === 3)).toBe(true)
+    expect(result.assignments.filter((item) => item.pass === 3)).toHaveLength(1)
   })
 
   it('SC＋allowScTherapistOnly：僅 PTA 時段時不指派（PDF 02【16】）', () => {

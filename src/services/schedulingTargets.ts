@@ -14,8 +14,19 @@ export const hasUnmetTarget = (resident: SchedulingResident): boolean => {
   return resident.weeklyCompletedCount < getWeeklyTargetByFundingType(resident.fundingType)
 }
 
+const pass12FundingPriority = (fundingType: FundingType): number => {
+  if (fundingType === 'GradeA_Subsidized') return 0
+  if (fundingType === 'Voucher') return 1
+  return 2
+}
+
 const sortResidentsByTargetDeficit = (residents: SchedulingResident[]): SchedulingResident[] => {
   return [...residents].sort((a, b) => {
+    const fundingOrder =
+      pass12FundingPriority(a.fundingType) - pass12FundingPriority(b.fundingType)
+    if (fundingOrder !== 0) return fundingOrder
+    const scOrder = Number(b.isSpecialCareCase) - Number(a.isSpecialCareCase)
+    if (scOrder !== 0) return scOrder
     const deficitA = getWeeklyTargetByFundingType(a.fundingType) - a.weeklyCompletedCount
     const deficitB = getWeeklyTargetByFundingType(b.fundingType) - b.weeklyCompletedCount
     return deficitB - deficitA

@@ -1,5 +1,7 @@
-import { buildPass12TopUpQueue, hasUnmetTarget } from './schedulingTargets'
+import { hasUnmetTarget } from './schedulingTargets'
 import { yieldToMain } from './schedulingYield'
+import { runPassUntilTarget } from './schedulingCorePassLoop'
+import { sortBySC } from './schedulingResidentSort'
 import { assignResidentInPass } from './schedulingCoreResidentAssign'
 import type { PassContext } from './schedulingPassContext'
 import type { SchedulingConstraints, SchedulingResident } from './schedulingService'
@@ -20,7 +22,8 @@ export const executePassAsync = async (
   }
 }
 
-export const fillWeeklyTargetsAsync = async (
+export const runPassUntilTargetAsync = async (
+  pass: 1 | 2,
   residents: SchedulingResident[],
   context: PassContext,
   constraints: SchedulingConstraints,
@@ -30,12 +33,13 @@ export const fillWeeklyTargetsAsync = async (
   while (shouldContinue) {
     shouldContinue = false
     round += 1
-    const topUpQueue = buildPass12TopUpQueue(residents)
-    for (let index = 0; index < topUpQueue.length; index += 1) {
+    const candidates = sortBySC(residents.filter(hasUnmetTarget))
+    if (candidates.length === 0) break
+    for (let index = 0; index < candidates.length; index += 1) {
       if (index > 0 && index % RESIDENT_YIELD_BATCH === 0) await yieldToMain()
-      const resident = topUpQueue[index]
+      const resident = candidates[index]
       const before = resident.weeklyCompletedCount
-      assignResidentInPass(3, resident, context, constraints)
+      assignResidentInPass(pass, resident, context, constraints)
       if (resident.weeklyCompletedCount > before) shouldContinue = true
     }
     if (round % 2 === 0) await yieldToMain()

@@ -1,8 +1,9 @@
 import { recordAuditTrailThenHydrateWithService } from './auditTrailHydrationService'
 import { AuditTrailService, globalAuditTrailService } from './auditTrailService'
 import { getWeeklyTargetByFundingType, hasUnmetTarget } from './schedulingTargets'
-import { executePassAsync, fillWeeklyTargetsAsync } from './schedulingCoreAsync'
-import { executePass, fillWeeklyTargets, sortBySC } from './schedulingCore'
+import { executePassAsync, runPassUntilTargetAsync } from './schedulingCoreAsync'
+import { executePass, runPassUntilTarget, sortBySC } from './schedulingCore'
+import { hasPass12ResidentsUnmet } from './schedulingPass12Compliance'
 import { createPassContext } from './schedulingPassContext'
 
 export type FundingType = 'GradeA_Subsidized' | 'Voucher' | 'Private'
@@ -130,11 +131,12 @@ export class SchedulingService {
     const pass3Base = [...residents.filter((item) => item.fundingType === 'Private')].sort(
       (a, b) => a.weeklyCompletedCount - b.weeklyCompletedCount,
     )
-    // PDF 01 §3.2：Pass 1 甲一 → Pass 2 券 → fillWeeklyTargets（僅甲一／券）→ Pass 3 未達標私位；SC 於 sortBySC 內最高優先。
-    executePass(1, pass1, sessions, context, constraints)
-    executePass(2, pass2, sessions, context, constraints)
-    fillWeeklyTargets(sessions, residents, context, constraints)
-    executePass(3, pass3Base, sessions, context, constraints)
+    // PDF 01 §3.2：Pass 1／2 各自補滿週目標後，僅當甲一／券皆達標才執行 Pass 3 私位。
+    runPassUntilTarget(1, pass1, context, constraints)
+    runPassUntilTarget(2, pass2, context, constraints)
+    if (!hasPass12ResidentsUnmet(residents)) {
+      executePass(3, pass3Base, sessions, context, constraints)
+    }
   }
 
   private async runSubsidizedRehabPassesAsync(
@@ -148,10 +150,11 @@ export class SchedulingService {
     const pass3Base = [...residents.filter((item) => item.fundingType === 'Private')].sort(
       (a, b) => a.weeklyCompletedCount - b.weeklyCompletedCount,
     )
-    await executePassAsync(1, pass1, context, constraints)
-    await executePassAsync(2, pass2, context, constraints)
-    await fillWeeklyTargetsAsync(residents, context, constraints)
-    await executePassAsync(3, pass3Base, context, constraints)
+    await runPassUntilTargetAsync(1, pass1, context, constraints)
+    await runPassUntilTargetAsync(2, pass2, context, constraints)
+    if (!hasPass12ResidentsUnmet(residents)) {
+      await executePassAsync(3, pass3Base, context, constraints)
+    }
   }
 
   private finalizeSchedulingRun(
