@@ -6,6 +6,7 @@ import { bundleRoleOfferingsToDraft } from './policySubsidizedRoleOfferingDraft'
 import { bundleDementiaCoreToDraft, bundleDementiaRoleOfferingsToDraft } from './policyDementiaDraft'
 import { intervalsFromPolicyNonTherapySlots, shouldAttachSubsidizedRehabNonTherapyIntervalsFromPolicy } from './subsidizedRehabNonTherapyIntervals'
 import { DEFAULT_SYSTEM_SETTINGS } from '../repository/systemSettingsRepository'
+import { specialCareTherapistOnlyFromPolicyBundle } from './specialCareTherapistOnlyFromPolicy'
 import type { SystemSettingsSnapshot } from '../types'
 
 /** 自伺服器 bundle 還原本機草稿之 P1 欄位（其餘欄位保留 prev） */
@@ -23,6 +24,7 @@ export const p1FieldsFromPolicyBundle = (b: SchedulingPolicyBundle): Partial<Sys
     therapistGroupSessionsDailyCap: b.numericLimits.therapistGroupSessionsDailyCap,
     assistantGroupSessionsDailyCap: b.numericLimits.assistantGroupSessionsDailyCap,
     groupParticipantCap: b.numericLimits.groupParticipantCap,
+    specialCareTherapistOnly: specialCareTherapistOnlyFromPolicyBundle(b),
     policyFixedActivities: bundleFixedActivitiesToDraft(b.fixedActivities ?? []),
     policyFixedActivitiesHydrated: true,
     policySubsidizedPassOrder: bundlePassOrderToDraft(b.subsidizedPassOrder),

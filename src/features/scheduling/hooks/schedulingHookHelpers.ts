@@ -17,13 +17,16 @@ export const mapRulesToConstraints = (rules: SchedulingRules | null): Scheduling
   assistantGroupSessionsDailyCap: rules?.assistantGroupSessionsDailyCap,
 })
 
-/** 合併 DB 排班規則與本機系統設定（PDF 02【16】）；任一方要求「僅治療師」即啟用 */
+/** 合併 DB 排班規則與本機 P1「SC 僅治療師」；關閉時覆寫雲端，開啟時與 scheduling-rules-get OR 合併 */
 export const buildEngineConstraintsFromRulesAndUi = (rules: SchedulingRules | null): SchedulingConstraints => {
   const base = mapRulesToConstraints(rules)
-  const uiOnly =
+  const uiScTherapistOnly =
     typeof window !== 'undefined' ? loadSystemSettings().specialCareTherapistOnly : false
+  const allowScTherapistOnly = uiScTherapistOnly
+    ? Boolean(base.allowScTherapistOnly) || uiScTherapistOnly
+    : false
   return {
     ...base,
-    allowScTherapistOnly: Boolean(base.allowScTherapistOnly) || uiOnly,
+    allowScTherapistOnly,
   }
 }

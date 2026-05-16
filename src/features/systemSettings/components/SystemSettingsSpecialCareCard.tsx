@@ -11,7 +11,7 @@ export type SystemSettingsSpecialCareCardProps = {
 export const SystemSettingsSpecialCareCard = ({ draft, setField }: SystemSettingsSpecialCareCardProps) => (
   <article className={uiTokens.surfaceCard}>
     <p className={uiTokens.sectionHelp}>
-      PDF 02【16】§3.2：資助復康服務與認知障礙症服務項下之「Special Care 是否只限治療師」；與排班規則及員工主檔職類併用。
+      PDF 02【16】§3.2：資助復康服務與認知障礙症服務項下之「Special Care 是否只限治療師」；與排班規則及員工主檔職類併用。變更後請先按本頁「儲存」，再回智能排班重新執行乾跑。
     </p>
     <label className={uiTokens.formToggleLabelMt4}>
       <input

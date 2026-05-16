@@ -77,9 +77,9 @@ describe('schedulingHookHelpers（PDF 02【16】規則→引擎約束）', () =>
       expect(buildEngineConstraintsFromRulesAndUi(rules).allowScTherapistOnly).toBe(false)
     })
 
-    it('規則為 true 時啟用（本機 false）', () => {
+    it('本機 P1 關閉時覆寫雲端規則為 true', () => {
       const rules = baseRules({ allowScTherapistOnly: true })
-      expect(buildEngineConstraintsFromRulesAndUi(rules).allowScTherapistOnly).toBe(true)
+      expect(buildEngineConstraintsFromRulesAndUi(rules).allowScTherapistOnly).toBe(false)
     })
 
     it('本機 specialCareTherapistOnly 為 true 時與規則 OR 合併', () => {
