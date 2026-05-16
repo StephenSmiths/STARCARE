@@ -1,7 +1,9 @@
 import { recordAuditTrailThenHydrateWithService } from './auditTrailHydrationService'
 import { AuditTrailService, globalAuditTrailService } from './auditTrailService'
 import { getWeeklyTargetByFundingType, hasUnmetTarget } from './schedulingTargets'
+import { executePassAsync, fillWeeklyTargetsAsync } from './schedulingCoreAsync'
 import { executePass, fillWeeklyTargets, sortBySC } from './schedulingCore'
+import { createPassContext } from './schedulingPassContext'
 
 export type FundingType = 'GradeA_Subsidized' | 'Voucher' | 'Private'
 export type ServiceType = 'Subsidized_Rehab' | 'Dementia_Service'
@@ -94,25 +96,71 @@ export class SchedulingService {
     },
     options?: { recordAudit?: boolean },
   ): SchedulingResult {
-    const context = {
-      assignments: [] as SchedulingAssignment[],
-      conflicts: [] as SchedulingConflict[],
-      sessionUsage: new Map<string, number>(),
-      staffSlotSet: new Set<string>(),
-    }
+    const context = createPassContext(sessions)
+    this.runSubsidizedRehabPasses(residents, sessions, context, constraints)
+    return this.finalizeSchedulingRun(actorId, residents, sessions, context, options)
+  }
 
+  /** 大量院友／時段時讓出主執行緒，供智能排班乾跑使用 */
+  async runSubsidizedRehabSchedulingAsync(
+    actorId: string,
+    residents: SchedulingResident[],
+    sessions: SchedulingSession[],
+    constraints: SchedulingConstraints = {
+      dailySameServiceLimit: 1,
+      minGapDaysSameService: 1,
+      groupCapacityLimit: Number.POSITIVE_INFINITY,
+      allowScTherapistOnly: false,
+    },
+    options?: { recordAudit?: boolean },
+  ): Promise<SchedulingResult> {
+    const context = createPassContext(sessions)
+    await this.runSubsidizedRehabPassesAsync(residents, sessions, context, constraints)
+    return this.finalizeSchedulingRun(actorId, residents, sessions, context, options)
+  }
+
+  private runSubsidizedRehabPasses(
+    residents: SchedulingResident[],
+    sessions: SchedulingSession[],
+    context: ReturnType<typeof createPassContext>,
+    constraints: SchedulingConstraints,
+  ): void {
     const pass1 = sortBySC(residents.filter((item) => item.fundingType === 'GradeA_Subsidized'))
     const pass2 = sortBySC(residents.filter((item) => item.fundingType === 'Voucher'))
     const pass3Base = [...residents.filter((item) => item.fundingType === 'Private')].sort(
       (a, b) => a.weeklyCompletedCount - b.weeklyCompletedCount,
     )
-
-    // PDF 01 §3.2：Pass 1 甲一（EA1）→ Pass 2 院舍券 → fillWeeklyTargets 補週標 → Pass 3 私位；SC 於 sortBySC 內最高優先。
+    // PDF 01 §3.2：Pass 1 甲一 → Pass 2 券 → fillWeeklyTargets（僅甲一／券）→ Pass 3 未達標私位；SC 於 sortBySC 內最高優先。
     executePass(1, pass1, sessions, context, constraints)
     executePass(2, pass2, sessions, context, constraints)
     fillWeeklyTargets(sessions, residents, context, constraints)
     executePass(3, pass3Base, sessions, context, constraints)
+  }
 
+  private async runSubsidizedRehabPassesAsync(
+    residents: SchedulingResident[],
+    sessions: SchedulingSession[],
+    context: ReturnType<typeof createPassContext>,
+    constraints: SchedulingConstraints,
+  ): Promise<void> {
+    const pass1 = sortBySC(residents.filter((item) => item.fundingType === 'GradeA_Subsidized'))
+    const pass2 = sortBySC(residents.filter((item) => item.fundingType === 'Voucher'))
+    const pass3Base = [...residents.filter((item) => item.fundingType === 'Private')].sort(
+      (a, b) => a.weeklyCompletedCount - b.weeklyCompletedCount,
+    )
+    await executePassAsync(1, pass1, context, constraints)
+    await executePassAsync(2, pass2, context, constraints)
+    await fillWeeklyTargetsAsync(residents, context, constraints)
+    await executePassAsync(3, pass3Base, context, constraints)
+  }
+
+  private finalizeSchedulingRun(
+    actorId: string,
+    residents: SchedulingResident[],
+    sessions: SchedulingSession[],
+    context: ReturnType<typeof createPassContext>,
+    options?: { recordAudit?: boolean },
+  ): SchedulingResult {
     const underTargetResidents = residents
       .filter(hasUnmetTarget)
       .map((resident) => ({

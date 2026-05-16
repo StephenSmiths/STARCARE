@@ -54,7 +54,7 @@ export const runSubsidizedRehabSchedulingOrchestration = async (
       policyBundle,
     )
     const sessionCopy = cloneSessions(sessionExpanded)
-    const output = schedulingService.runSubsidizedRehabScheduling(
+    const output = await schedulingService.runSubsidizedRehabSchedulingAsync(
       actorId,
       nextResidents,
       sessionCopy,

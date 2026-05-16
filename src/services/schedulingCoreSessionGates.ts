@@ -8,8 +8,17 @@ import type {
   StaffProfileRoleType,
 } from './schedulingService'
 
+import type { StaffGroupDailyCache } from './schedulingStaffGroupDailyCache'
+import { getStaffGroupSessionCount } from './schedulingStaffGroupDailyCache'
+
 /** PDF 02【16】／01 §3：SC「僅治療師」時可承接之職類（註冊 PT／OT） */
 export const isRegisteredTherapistRole = (role: StaffProfileRoleType): boolean => role === 'PT' || role === 'OT'
+
+export type EvalSessionPickCache = {
+  sessionsById?: ReadonlyMap<string, SchedulingSession>
+  staffGroupDailyCache?: StaffGroupDailyCache
+  assignedSessionIds?: ReadonlySet<string>
+}
 
 /** 小組活動：活動時段原容量大於 1（與 P1「小組節數」語意對齊） */
 const isGroupCapacitySession = (session: SchedulingSession): boolean => session.capacity > 1
@@ -60,6 +69,7 @@ export const evalSessionCoreForPick = (
   constraints: SchedulingConstraints,
   committedAssignments: readonly SchedulingAssignment[] = [],
   sessionsCatalog: readonly SchedulingSession[] = [],
+  pickCache: EvalSessionPickCache = {},
 ):
   | { tag: 'skip' }
   | { tag: 'fail'; conflictType: ConflictType; reason: string }
@@ -88,18 +98,24 @@ export const evalSessionCoreForPick = (
   if (sameDayCount >= constraints.dailySameServiceLimit) {
     return { tag: 'fail', conflictType: 'DAILY_LIMIT', reason: '院友同日不可重複安排同類服務' }
   }
-  if (isGroupCapacitySession(session) && sessionsCatalog.length > 0) {
+  const catalogForCap =
+    pickCache.sessionsById ??
+    (sessionsCatalog.length > 0 ? new Map(sessionsCatalog.map((s) => [s.id, s])) : undefined)
+  if (isGroupCapacitySession(session) && catalogForCap) {
     const cap = resolveStaffGroupDailyCap(session.staffRoleType, constraints)
     if (cap !== undefined && Number.isFinite(cap)) {
-      const byId = new Map(sessionsCatalog.map((s) => [s.id, s]))
-      const used = countStaffGroupSessionsOnDate(
-        committedAssignments,
-        byId,
-        session.staffId,
-        session.date,
-        'Subsidized_Rehab',
-      )
-      const alreadyThisSlot = committedAssignments.some((a) => a.sessionId === session.id)
+      const used = pickCache.staffGroupDailyCache
+        ? getStaffGroupSessionCount(pickCache.staffGroupDailyCache, session.staffId, session.date)
+        : countStaffGroupSessionsOnDate(
+            committedAssignments,
+            catalogForCap,
+            session.staffId,
+            session.date,
+            'Subsidized_Rehab',
+          )
+      const alreadyThisSlot = pickCache.assignedSessionIds
+        ? pickCache.assignedSessionIds.has(session.id)
+        : committedAssignments.some((a) => a.sessionId === session.id)
       const prospective = alreadyThisSlot ? used : used + 1
       if (prospective > cap) {
         return {
@@ -112,7 +128,9 @@ export const evalSessionCoreForPick = (
   }
   const staffSlotKey = `${session.staffId}|${session.date}|${session.timeSlot}`
   if (staffSlotSet.has(staffSlotKey)) {
-    const alreadyOnThisSession = committedAssignments.some((a) => a.sessionId === session.id)
+    const alreadyOnThisSession = pickCache.assignedSessionIds
+      ? pickCache.assignedSessionIds.has(session.id)
+      : committedAssignments.some((a) => a.sessionId === session.id)
     if (!alreadyOnThisSession) {
       return { tag: 'fail', conflictType: 'STAFF_SLOT_DUPLICATED', reason: '同一員工同一時段不可重複安排' }
     }

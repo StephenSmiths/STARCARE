@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import { buildTopUpQueue, getWeeklyTargetByFundingType, hasUnmetTarget } from './schedulingTargets'
+import {
+  buildPass12TopUpQueue,
+  buildTopUpQueue,
+  getWeeklyTargetByFundingType,
+  hasUnmetTarget,
+} from './schedulingTargets'
 import type { SchedulingResident } from './schedulingService'
 
 /** PDF 01 §3.2／Seq 6：週目標常數與補位排序之迴歸錨點（對表簽核仍待產品） */
@@ -38,6 +43,26 @@ describe('schedulingTargets', () => {
     const highDeficit: SchedulingResident = { id: 'r-high', ...base, weeklyCompletedCount: 0 }
     expect(buildTopUpQueue([lowDeficit, highDeficit]).map((r) => r.id)).toEqual(['r-high', 'r-low'])
     expect(buildTopUpQueue([])).toEqual([])
+  })
+
+  it('buildPass12TopUpQueue 排除私位（由 Pass 3 處理）', () => {
+    const privateUnmet: SchedulingResident = {
+      id: 'r-private',
+      name: '',
+      fundingType: 'Private',
+      isSpecialCareCase: false,
+      weeklyCompletedCount: 0,
+      assignedDates: [],
+    }
+    const ea1Unmet: SchedulingResident = {
+      id: 'r-ea1',
+      name: '',
+      fundingType: 'GradeA_Subsidized',
+      isSpecialCareCase: false,
+      weeklyCompletedCount: 1,
+      assignedDates: [],
+    }
+    expect(buildPass12TopUpQueue([privateUnmet, ea1Unmet]).map((r) => r.id)).toEqual(['r-ea1'])
   })
 
   it('buildTopUpQueue 略過已達標者', () => {

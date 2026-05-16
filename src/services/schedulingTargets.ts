@@ -14,12 +14,21 @@ export const hasUnmetTarget = (resident: SchedulingResident): boolean => {
   return resident.weeklyCompletedCount < getWeeklyTargetByFundingType(resident.fundingType)
 }
 
+const sortResidentsByTargetDeficit = (residents: SchedulingResident[]): SchedulingResident[] => {
+  return [...residents].sort((a, b) => {
+    const deficitA = getWeeklyTargetByFundingType(a.fundingType) - a.weeklyCompletedCount
+    const deficitB = getWeeklyTargetByFundingType(b.fundingType) - b.weeklyCompletedCount
+    return deficitB - deficitA
+  })
+}
+
 export const buildTopUpQueue = (residents: SchedulingResident[]): SchedulingResident[] => {
-  return [...residents]
-    .filter(hasUnmetTarget)
-    .sort((a, b) => {
-      const deficitA = getWeeklyTargetByFundingType(a.fundingType) - a.weeklyCompletedCount
-      const deficitB = getWeeklyTargetByFundingType(b.fundingType) - b.weeklyCompletedCount
-      return deficitB - deficitA
-    })
+  return sortResidentsByTargetDeficit(residents.filter(hasUnmetTarget))
+}
+
+/** PDF 01 §3.2：`fillWeeklyTargets` 僅補甲一／院舍券週目標；私位由 Pass 3 處理 */
+export const buildPass12TopUpQueue = (residents: SchedulingResident[]): SchedulingResident[] => {
+  return sortResidentsByTargetDeficit(
+    residents.filter((resident) => hasUnmetTarget(resident) && resident.fundingType !== 'Private'),
+  )
 }

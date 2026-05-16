@@ -55,6 +55,48 @@ describe('schedulingService 補齊邏輯', () => {
     expect(result.underTargetResidents.some((item) => item.residentId === 'r-ea1')).toBe(false)
   })
 
+  it('Pass 3 僅對未達標私位指派，且不超過週目標 1 次', () => {
+    const service = new SchedulingService(new AuditTrailService())
+    const residents: SchedulingResident[] = [
+      {
+        id: 'r-private',
+        name: '私位院友',
+        fundingType: 'Private',
+        isSpecialCareCase: false,
+        weeklyCompletedCount: 0,
+        assignedDates: [],
+      },
+    ]
+    const sessions: SchedulingSession[] = [
+      {
+        id: 's1',
+        staffId: 'st1',
+        staffName: 'OT A',
+        date: '2026-05-01',
+        timeSlot: '09:00',
+        serviceType: 'Subsidized_Rehab',
+        capacity: 1,
+        staffRoleType: 'OT',
+      },
+      {
+        id: 's2',
+        staffId: 'st2',
+        staffName: 'OT B',
+        date: '2026-05-03',
+        timeSlot: '09:00',
+        serviceType: 'Subsidized_Rehab',
+        capacity: 1,
+        staffRoleType: 'OT',
+      },
+    ]
+
+    const result = service.runSubsidizedRehabScheduling('TeamLead_test', residents, sessions)
+    const privateAssigned = result.assignments.filter((item) => item.residentId === 'r-private').length
+
+    expect(privateAssigned).toBe(1)
+    expect(result.assignments.every((item) => item.pass === 3)).toBe(true)
+  })
+
   it('SC＋allowScTherapistOnly：僅 PTA 時段時不指派（PDF 02【16】）', () => {
     const service = new SchedulingService(new AuditTrailService())
     const residents: SchedulingResident[] = [

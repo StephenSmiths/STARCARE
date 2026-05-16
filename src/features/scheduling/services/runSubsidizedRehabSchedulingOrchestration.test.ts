@@ -27,7 +27,7 @@ vi.mock('../../../services/schedulingWindowSnapshotService', () => ({
 }))
 
 vi.mock('../../../services/schedulingService', () => ({
-  schedulingService: { runSubsidizedRehabScheduling: vi.fn() },
+  schedulingService: { runSubsidizedRehabSchedulingAsync: vi.fn() },
 }))
 
 vi.mock('../../../repositories/schedulingPolicyRepository', () => ({
@@ -71,7 +71,7 @@ describe('runSubsidizedRehabSchedulingOrchestration', () => {
     vi.mocked(schedulingConfigService.listSchedulingSessions).mockReset()
     vi.mocked(schedulingConfigService.getRules).mockReset()
     vi.mocked(resolveSchedulingWindowSnapshot).mockReset()
-    vi.mocked(schedulingService.runSubsidizedRehabScheduling).mockReset()
+    vi.mocked(schedulingService.runSubsidizedRehabSchedulingAsync).mockReset()
     vi.mocked(schedulingConfigService.listSchedulingSessions).mockResolvedValue([session])
     vi.mocked(schedulingConfigService.getRules).mockResolvedValue(null)
     vi.mocked(resolveSchedulingWindowSnapshot).mockResolvedValue(snapshotNoWindowFilter)
@@ -79,7 +79,7 @@ describe('runSubsidizedRehabSchedulingOrchestration', () => {
 
   it('ok：呼叫引擎並回傳 viewModel 與 KPI 列', async () => {
     vi.mocked(residentService.listActiveResidents).mockResolvedValue([rehabResident])
-    vi.mocked(schedulingService.runSubsidizedRehabScheduling).mockReturnValue({
+    vi.mocked(schedulingService.runSubsidizedRehabSchedulingAsync).mockResolvedValue({
       assignments: [],
       conflicts: [],
       underTargetResidents: [],
@@ -94,7 +94,7 @@ describe('runSubsidizedRehabSchedulingOrchestration', () => {
       expect(out.kpiRecord.actorId).toBe('actor-z')
       expect(out.kpiRecord.residentCount).toBe(1)
     }
-    expect(schedulingService.runSubsidizedRehabScheduling).toHaveBeenCalledWith(
+    expect(schedulingService.runSubsidizedRehabSchedulingAsync).toHaveBeenCalledWith(
       'actor-z',
       expect.any(Array),
       expect.any(Array),
@@ -108,7 +108,7 @@ describe('runSubsidizedRehabSchedulingOrchestration', () => {
     ])
     const out = await runSubsidizedRehabSchedulingOrchestration('actor-z', 'facility-main')
     expect(out).toEqual({ kind: 'empty' })
-    expect(schedulingService.runSubsidizedRehabScheduling).not.toHaveBeenCalled()
+    expect(schedulingService.runSubsidizedRehabSchedulingAsync).not.toHaveBeenCalled()
   })
 
   it('error：依賴拋錯時回傳 error', async () => {
