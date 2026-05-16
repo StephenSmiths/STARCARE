@@ -9,12 +9,13 @@ export const useSchedulingRunPreviewState = () => {
     assignments: [],
     conflicts: [],
     underTargetResidents: [],
+    previewSessions: [],
   })
   const [isRunning, setIsRunning] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
 
   const clearPreviewState = useCallback(() => {
-    setResult({ assignments: [], conflicts: [], underTargetResidents: [] })
+    setResult({ assignments: [], conflicts: [], underTargetResidents: [], previewSessions: [] })
     setSaveSuccess(false)
     setSaveError('')
   }, [])

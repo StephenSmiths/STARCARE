@@ -11,6 +11,7 @@ const { previewSlice, batchUndoSlice, kpiSlice, facilitySlice, derivedSlice, csv
       assignments: [],
       conflicts: [],
       underTargetResidents: [],
+      previewSessions: [],
     }
     return {
       emptyResult,

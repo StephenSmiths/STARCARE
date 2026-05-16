@@ -84,6 +84,7 @@ describe('runSubsidizedRehabSchedulingOrchestration', () => {
       expect(out.nextResidents).toHaveLength(1)
       expect(out.nextResidents[0]?.id).toBe('r-1')
       expect(out.viewModel.assignments).toEqual([])
+      expect(out.viewModel.previewSessions).toEqual([session])
       expect(out.kpiRecord.actorId).toBe('actor-z')
       expect(out.kpiRecord.residentCount).toBe(1)
     }

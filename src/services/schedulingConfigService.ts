@@ -64,6 +64,8 @@ export class SchedulingConfigService {
         capacity: item.capacity,
         skillMatched: fromSkills || fromCatalog,
         staffRoleType,
+        activityId: item.activityId,
+        activityName: activity?.name,
       }
     })
   }

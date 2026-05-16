@@ -9,6 +9,7 @@ const emptyResult: SchedulingViewModel = {
   assignments: [],
   conflicts: [],
   underTargetResidents: [],
+  previewSessions: [],
 }
 
 const res = (over: Partial<SchedulingResident>): SchedulingResident => ({

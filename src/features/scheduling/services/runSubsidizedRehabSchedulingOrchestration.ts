@@ -69,6 +69,7 @@ export const runSubsidizedRehabSchedulingOrchestration = async (
         assignments: output.assignments,
         conflicts: output.conflicts,
         underTargetResidents: output.underTargetResidents,
+        previewSessions: sessionCopy,
       },
       kpiRecord,
     }

@@ -1,6 +1,7 @@
 import type {
   SchedulingAssignment,
   SchedulingConflict,
+  SchedulingSession,
 } from '../../../services/schedulingService'
 
 export type UnderTargetResident = {
@@ -22,4 +23,6 @@ export interface SchedulingViewModel {
   assignments: SchedulingAssignment[]
   conflicts: SchedulingConflict[]
   underTargetResidents: UnderTargetResident[]
+  /** 最近一次乾跑所用時段快照（供 TL 員工工作表預覽；PDF 02【3】第一期） */
+  previewSessions: SchedulingSession[]
 }

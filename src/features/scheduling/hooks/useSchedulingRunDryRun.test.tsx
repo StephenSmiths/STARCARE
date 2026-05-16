@@ -27,6 +27,7 @@ const viewModel: SchedulingViewModel = {
   assignments: [{ residentId: 'r1', residentName: '測', sessionId: 's1', staffId: 'st', pass: 1 }],
   conflicts: [],
   underTargetResidents: [],
+  previewSessions: [],
 }
 
 const kpiRecord: SchedulingKpiRunRecord = {
@@ -116,6 +117,7 @@ describe('useSchedulingRunDryRun', () => {
       assignments: [],
       conflicts: [],
       underTargetResidents: [],
+  previewSessions: [],
     })
     expect(h.setKpiRunHistory).toHaveBeenCalledWith([])
     expect(h.appendKpiRunRecord).not.toHaveBeenCalled()

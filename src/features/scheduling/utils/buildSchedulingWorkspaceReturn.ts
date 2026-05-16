@@ -58,6 +58,7 @@ export const buildSchedulingWorkspaceReturn = (input: BuildSchedulingWorkspaceRe
     assignments: result.assignments,
     conflicts: result.conflicts,
     underTargetResidents: result.underTargetResidents,
+    previewSessions: result.previewSessions,
     runScheduling: input.runScheduling,
     saveScheduleAssignments: input.saveScheduleAssignments,
     isRunning: input.isRunning,

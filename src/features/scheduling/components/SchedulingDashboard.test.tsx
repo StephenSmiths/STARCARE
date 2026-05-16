@@ -66,6 +66,7 @@ const vmBase = (): DashboardVm => ({
   assignments: [],
   conflicts: [],
   underTargetResidents: [],
+  previewSessions: [],
   runScheduling: vi.fn(),
   saveScheduleAssignments: vi.fn(),
   isRunning: false,

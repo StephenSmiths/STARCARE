@@ -36,6 +36,10 @@ export interface SchedulingSession {
   capacity: number
   skillMatched?: boolean
   staffRoleType?: StaffProfileRoleType
+  /** 活動時段主檔 id（預覽工作表顯示活動內容；PDF 02【3】§7） */
+  activityId?: string
+  /** 活動主檔名稱；無則由 catalog 規則於展示層補述 */
+  activityName?: string
 }
 
 export interface SchedulingAssignment {

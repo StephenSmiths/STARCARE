@@ -41,6 +41,7 @@ describe('useSchedulingRunAndSave', () => {
       assignments: [],
       conflicts: [],
       underTargetResidents: [],
+      previewSessions: [],
     }
 
     const { result: hook } = renderHook(() =>

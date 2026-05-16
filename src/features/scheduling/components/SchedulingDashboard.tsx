@@ -71,7 +71,7 @@ export const SchedulingDashboard = () => {
         alertDisabled={vm.complianceAlerts.length === 0}
       />
       <SchedulingResidentTable rows={vm.tableRows} />
-      <SchedulingAssignmentsList assignments={vm.assignments} />
+      <SchedulingAssignmentsList assignments={vm.assignments} previewSessions={vm.previewSessions} />
       <SchedulingConflictsPanel conflicts={vm.conflicts} />
       <SchedulingSavePanel
         canSave={vm.canSave}

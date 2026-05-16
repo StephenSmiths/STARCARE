@@ -23,7 +23,7 @@ const workspace = (patch: Partial<SchedulingWorkspaceReturn>): SchedulingWorkspa
     sessionCount: 1,
     reloadSchedulingData: vi.fn(),
     tableRows: [],
-    result: { assignments: [], conflicts: [], underTargetResidents: [] },
+    result: { assignments: [], conflicts: [], underTargetResidents: [], previewSessions: [] },
     runScheduling: vi.fn(),
     saveScheduleAssignments: vi.fn(),
     isRunning: false,

@@ -12,6 +12,7 @@ describe('useSchedulingRunPreviewState', () => {
         assignments: [{ residentId: 'r1', residentName: '甲', sessionId: 's1', staffId: 'st', pass: 1 }],
         conflicts: [],
         underTargetResidents: [],
+        previewSessions: [],
       })
       result.current.setSaveSuccess(true)
       result.current.setSaveError('舊錯')

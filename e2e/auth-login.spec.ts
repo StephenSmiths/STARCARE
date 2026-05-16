@@ -69,7 +69,7 @@ test.describe('auth-login（可選，Seq 3 登入後路徑）', () => {
     await page.goto('/#scheduling')
     await expect(page).toHaveURL(/#scheduling/)
     await expect(page.getByRole('heading', { name: '智能排班', exact: true })).toBeVisible()
-    await expect(page.getByRole('heading', { name: '本次排班指派' })).toBeVisible({ timeout: 25_000 })
+    await expect(page.getByRole('heading', { name: /本次排班指派/ })).toBeVisible({ timeout: 25_000 })
     await expect(page.getByText(SCHEDULING_DATA_LOAD_ERROR_MESSAGE)).toHaveCount(0)
     await expect(page.getByRole('heading', { name: /排班與相關操作審計/ })).toBeVisible()
   })

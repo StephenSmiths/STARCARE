@@ -36,7 +36,7 @@ export const useSchedulingRunDryRun = (
       }
       if (outcome.kind === 'empty') {
         setResidents([])
-        setResult({ assignments: [], conflicts: [], underTargetResidents: [] })
+        setResult({ assignments: [], conflicts: [], underTargetResidents: [], previewSessions: [] })
         setKpiRunHistory([])
         return
       }

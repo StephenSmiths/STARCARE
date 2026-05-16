@@ -23,7 +23,12 @@ const minimalInput = (over: Partial<BuildSchedulingWorkspaceReturnInput>): Build
   sessionCount: 0,
   reloadSchedulingData: asyncNoop,
   tableRows: [] as ResidentTableRow[],
-  result: { assignments: [], conflicts: [], underTargetResidents: [] } satisfies SchedulingViewModel,
+  result: {
+    assignments: [],
+    conflicts: [],
+    underTargetResidents: [],
+    previewSessions: [],
+  } satisfies SchedulingViewModel,
   runScheduling: asyncNoop,
   saveScheduleAssignments: asyncNoop,
   isRunning: false,
@@ -65,7 +70,7 @@ describe('buildSchedulingWorkspaceReturn', () => {
     }
     const ret = buildSchedulingWorkspaceReturn(
       minimalInput({
-        result: { assignments: [a], conflicts: [], underTargetResidents: [] },
+        result: { assignments: [a], conflicts: [], underTargetResidents: [], previewSessions: [] },
       }),
     )
     expect(ret.canSave).toBe(true)
@@ -94,6 +99,7 @@ describe('buildSchedulingWorkspaceReturn', () => {
           ],
           conflicts: [c],
           underTargetResidents: [],
+          previewSessions: [],
         },
       }),
     )

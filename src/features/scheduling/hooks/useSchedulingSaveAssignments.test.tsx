@@ -15,6 +15,7 @@ const viewModel: SchedulingViewModel = {
   assignments: [{ residentId: 'r1', residentName: '甲', sessionId: 's1', staffId: 'st', pass: 1 }],
   conflicts: [],
   underTargetResidents: [],
+  previewSessions: [],
 }
 
 const makeHook = (result: SchedulingViewModel = viewModel) => {
