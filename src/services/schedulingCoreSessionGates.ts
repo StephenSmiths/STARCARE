@@ -110,8 +110,12 @@ export const evalSessionCoreForPick = (
       }
     }
   }
-  if (staffSlotSet.has(`${session.staffId}|${session.date}|${session.timeSlot}`)) {
-    return { tag: 'fail', conflictType: 'STAFF_SLOT_DUPLICATED', reason: '同一員工同一時段不可重複安排' }
+  const staffSlotKey = `${session.staffId}|${session.date}|${session.timeSlot}`
+  if (staffSlotSet.has(staffSlotKey)) {
+    const alreadyOnThisSession = committedAssignments.some((a) => a.sessionId === session.id)
+    if (!alreadyOnThisSession) {
+      return { tag: 'fail', conflictType: 'STAFF_SLOT_DUPLICATED', reason: '同一員工同一時段不可重複安排' }
+    }
   }
   return { tag: 'core-ok' }
 }

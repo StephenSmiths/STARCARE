@@ -14,6 +14,12 @@ vi.mock('../../../repositories/staffProfilesListRepository', () => ({
   createStaffProfilesListRepository: vi.fn(),
 }))
 
+vi.mock('../../../repositories/schedulingPolicyRepository', () => ({
+  createSchedulingPolicyRepository: vi.fn(() => ({
+    getCurrentBundle: vi.fn().mockResolvedValue(null),
+  })),
+}))
+
 vi.mock('../../activitySessions/utils/activitySessionImportDryRunFlow', () => ({
   runActivitySessionRowsDryRun: vi.fn(),
 }))
@@ -123,7 +129,10 @@ describe('runWeeklyRosterActivityImportDryRun', () => {
   })
 
   it('對照成功時委派 runActivitySessionRowsDryRun', async () => {
-    vi.mocked(parseWeeklyRosterSheetText).mockReturnValue({ drafts: [baseDraft({})], errors: [] })
+    vi.mocked(parseWeeklyRosterSheetText).mockReturnValue({
+      drafts: [baseDraft({ startHm: '09:00', endHm: '09:30' })],
+      errors: [],
+    })
     vi.mocked(createStaffProfilesListRepository).mockReturnValue({
       listStaffProfiles: vi.fn().mockResolvedValue([staffPt('sp-1')]),
     })
@@ -149,7 +158,7 @@ describe('runWeeklyRosterActivityImportDryRun', () => {
     expect(rows[0]).toMatchObject({
       staffProfileId: 'sp-1',
       sessionDate: '2026-05-10',
-      timeSlot: '09:00-10:00',
+      timeSlot: '09:00-09:30',
     })
     expect([
       'activity-rehab-01',

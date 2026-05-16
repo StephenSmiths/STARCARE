@@ -10,7 +10,7 @@
 | **職位** | **`PT`、`PTA`、`OT`、`OTA` 四選一**（必填英文代碼） |
 | 姓名 | 須與系統 **員工主檔** 之 `display_name` 一致 |
 | 計劃日期 | `yyyy-mm-dd` |
-| 時間 | `hh:mm` |
+| 時間 | `hh:mm`（可為**整日工作時段**，見下節） |
 | 負責院友範圍 | 自由文字（例：`全院`） |
 
 ## 預檢兩階段
@@ -20,7 +20,13 @@
 
 若第 2 步失敗：至 **員工管理** 查實際姓名，改 CSV 後重新上傳。
 
+## 整日工作時段與 P2 節長（需求）
+
+- 週更表**可以**用單列表示員工當日上班時段（例：`08:00`–`17:00`），**毋須**人工拆成多行。
+- 匯入預檢／提交時，系統依 **系統設定 P2「資助職類矩陣」** 之節長（15／30／60 分鐘等）**自動切分**為多個 **活動時段（工作節）**。
+- **P2 未啟用或未提交政策** 時，預設以 **30 分鐘** 切分。
+- 智能排班時：**小組活動** 同一節次可安排**多位院友**（不超過容量）。
+
 ## 程式對照
 
-`src/features/scheduling/constants/weeklyRosterImportConstants.ts`  
-`src/features/scheduling/utils/weeklyRosterImportParseText.ts`（`ROLE_SET`）
+`weeklyRosterDraftSlotSplit.ts` · `schedulingSessionSlotExpand.ts` · `policySlotChunkMinutes.ts`

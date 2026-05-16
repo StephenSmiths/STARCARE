@@ -1,3 +1,4 @@
+import { createSchedulingPolicyRepository } from '../../../repositories/schedulingPolicyRepository'
 import { createStaffProfilesListRepository } from '../../../repositories/staffProfilesListRepository'
 import {
   runActivitySessionRowsDryRun,
@@ -10,6 +11,7 @@ import {
   weeklyRosterDraftsToImportRows,
 } from './weeklyRosterImportParseText'
 import { buildWeeklyRosterStaffProfileLookup } from './weeklyRosterStaffLookup'
+import { expandWeeklyRosterDraftsByPolicySlotDuration } from './weeklyRosterDraftSlotSplit'
 
 type ThrowOutcome = { kind: 'throw'; error: unknown }
 
@@ -57,7 +59,11 @@ export async function runWeeklyRosterActivityImportDryRun(
       /** Edge 未登入或網路失敗時仍允許預檢（PDF 02【3】週更表；與離線 demo 活動主檔對齊） */
       activities = getStarcareDemoActivities()
     }
-    const { rows, errors: resolveErrors } = weeklyRosterDraftsToImportRows(drafts, map, activities)
+    const policyBundle = await createSchedulingPolicyRepository()
+      .getCurrentBundle(facilityId)
+      .catch(() => null)
+    const expandedDrafts = expandWeeklyRosterDraftsByPolicySlotDuration(drafts, policyBundle)
+    const { rows, errors: resolveErrors } = weeklyRosterDraftsToImportRows(expandedDrafts, map, activities)
     const mergedParse = resolveErrors
     if (mergedParse.length > 0) {
       return {

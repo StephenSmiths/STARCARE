@@ -4,7 +4,9 @@
  */
 import { schedulingService } from '../../../services/schedulingService'
 import type { SchedulingResident } from '../../../services/schedulingService'
+import { createSchedulingPolicyRepository } from '../../../repositories/schedulingPolicyRepository'
 import { schedulingConfigService } from '../../../services/schedulingConfigService'
+import { expandSchedulingSessionsByPolicySlotDuration } from '../utils/schedulingSessionSlotExpand'
 import { resolveSchedulingWindowSnapshot } from '../../../services/schedulingWindowSnapshotService'
 import { residentService } from '../../residents/services/residentService'
 import { mapActiveResidentsToSubsidizedSchedulingResidents } from '../utils/mapActiveResidentsToSubsidizedSchedulingResidents'
@@ -31,22 +33,27 @@ export const runSubsidizedRehabSchedulingOrchestration = async (
   facilityId: string,
 ): Promise<SubsidizedRehabRunOutcome> => {
   try {
-    const [residentRows, sessionRows, rules, windowSnapshot] = await Promise.all([
+    const policyRepo = createSchedulingPolicyRepository()
+    const [residentRows, sessionRows, rules, windowSnapshot, policyBundle] = await Promise.all([
       residentService.listActiveResidents(),
       schedulingConfigService.listSchedulingSessions(facilityId),
       schedulingConfigService.getRules(facilityId),
       resolveSchedulingWindowSnapshot(facilityId),
+      policyRepo.getCurrentBundle(facilityId).catch(() => null),
     ])
     const latestResidents = mapActiveResidentsToSubsidizedSchedulingResidents(residentRows)
     if (latestResidents.length === 0) {
       return { kind: 'empty' }
     }
     const nextResidents = cloneResidents(latestResidents)
-    const sessionCopy = cloneSessions(
-      filterToSubsidizedRehabServiceOnly(
-        filterSchedulingSessionsForSubsidizedEngine(sessionRows, windowSnapshot),
-      ),
+    const sessionFiltered = filterToSubsidizedRehabServiceOnly(
+      filterSchedulingSessionsForSubsidizedEngine(sessionRows, windowSnapshot),
     )
+    const sessionExpanded = expandSchedulingSessionsByPolicySlotDuration(
+      sessionFiltered,
+      policyBundle,
+    )
+    const sessionCopy = cloneSessions(sessionExpanded)
     const output = schedulingService.runSubsidizedRehabScheduling(
       actorId,
       nextResidents,

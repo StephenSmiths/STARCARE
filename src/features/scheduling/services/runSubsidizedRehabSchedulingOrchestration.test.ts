@@ -30,6 +30,12 @@ vi.mock('../../../services/schedulingService', () => ({
   schedulingService: { runSubsidizedRehabScheduling: vi.fn() },
 }))
 
+vi.mock('../../../repositories/schedulingPolicyRepository', () => ({
+  createSchedulingPolicyRepository: vi.fn(() => ({
+    getCurrentBundle: vi.fn().mockResolvedValue(null),
+  })),
+}))
+
 const rehabResident: Resident = {
   id: 'r-1',
   name: '資助',

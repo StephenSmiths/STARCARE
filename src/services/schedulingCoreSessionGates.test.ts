@@ -100,4 +100,32 @@ describe('schedulingCoreSessionGates（PDF 01 §3 服務類型隔離）', () => 
     )
     expect(okSecondResident.tag).toBe('core-ok')
   })
+
+  it('小組：staffSlotSet 已鎖定時段但為同一 session 仍允許第二院友', () => {
+    const resident: SchedulingResident = {
+      id: 'r2',
+      name: '院友乙',
+      fundingType: 'GradeA_Subsidized',
+      isSpecialCareCase: false,
+      weeklyCompletedCount: 0,
+      assignedDates: [],
+    }
+    const group: SchedulingSession = {
+      id: 'g-same',
+      staffId: 'st-pt',
+      staffName: 'PT',
+      date: '2026-05-11',
+      timeSlot: '09:00-10:00',
+      serviceType: 'Subsidized_Rehab',
+      capacity: 6,
+      staffRoleType: 'PT',
+    }
+    const committed: SchedulingAssignment[] = [
+      { residentId: 'r1', residentName: '甲', sessionId: 'g-same', staffId: 'st-pt', pass: 1 },
+    ]
+    const usage = new Map([['g-same', 1]])
+    const slots = new Set(['st-pt|2026-05-11|09:00-10:00'])
+    const result = evalSessionCoreForPick(resident, group, usage, slots, constraints, committed, [group])
+    expect(result.tag).toBe('core-ok')
+  })
 })

@@ -47,6 +47,8 @@ export type WeeklyRosterDraftRow = {
   startHm: string
   endHm: string
   residentScope: string
+  /** P2 切分後之子段序（0 起）；用於活動 id 雜湊 */
+  splitPart?: number
 }
 
 /** 由首頁工作表轉出之 CSV 字串解析週更表列（欄名以中文表頭辨識）。 */
@@ -160,7 +162,7 @@ export const weeklyRosterDraftsToImportRows = (
             d.role,
             staffProfileId,
             d.sessionDate,
-            d.rowIndex,
+            d.rowIndex * 1000 + (d.splitPart ?? 0),
             activities,
           )
         : WEEKLY_ROSTER_SERVICE_TYPE_TO_ACTIVITY_ID[d.serviceLabel] ?? ''

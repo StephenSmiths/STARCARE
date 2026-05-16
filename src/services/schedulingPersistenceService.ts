@@ -5,6 +5,7 @@ import {
   createScheduleAssignmentRepository,
   type ScheduleAssignmentRepository,
 } from '../repositories/scheduleAssignmentRepository'
+import { normalizeSchedulingSessionIdForPersistence } from '../features/scheduling/utils/schedulingSessionIdNormalize'
 import { isSupabaseBrowserConfigured } from './supabaseBrowserEnv'
 
 /** 將排班結果批量持久化並寫入審計軌跡 */
@@ -36,7 +37,7 @@ export class SchedulingPersistenceService {
       const batchId = `batch-${crypto.randomUUID()}`
       const rows = assignments.map((a) => ({
         resident_id: a.residentId,
-        session_id: a.sessionId,
+        session_id: normalizeSchedulingSessionIdForPersistence(a.sessionId),
         staff_id: a.staffId,
         pass: a.pass,
         service_type: 'Subsidized_Rehab',
