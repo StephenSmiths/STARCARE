@@ -7,7 +7,7 @@
 
 ## 0. 今日上線目標
 - [x] 完成最小閉環驗收（登入 -> 排班 -> 儲存 -> DB 驗證）（Gate A §3 證據；**`docs/gate-a-manual-evidence-checklist-2026-05-06.md`** §B）
-- [ ] 完成安全收尾（PAT 輪替、舊 PAT 停用；見 **`docs/security-token-rotation-checklist.md`**；**§D** 可選 **`npm run ci`**）
+- [x] 完成安全收尾（PAT 輪替、舊 PAT 停用；見 **`docs/security-token-rotation-checklist.md`**；**§D** 可選 **`npm run ci`**）（2026-05-16：`gatec:ops:verify`；簽核草稿 §5）
 - [x] 完成部署狀態確認（migration/functions；見 **`docs/supabase-deploy-runbook.md`** §2／§3）（2026-05-15：`ops:deploy:all`、`ops:verify`）
 
 ### 0.2 智能排班客戶 UAT（2026-05-15）
@@ -112,14 +112,14 @@ limit 20;
 - [ ] 若儲存失敗，先看前端錯誤訊息，再查 function logs 與 SQL 寫入狀態。
 
 ## 6. 憑證與安全（必做）
-- [ ] 產生新 PAT 後，完成驗證部署（細節與部署後自檢見 **`docs/security-token-rotation-checklist.md`**；**§D** 含可選 **`npm run ci`**（與 **`.github/workflows/ci.yml`** 同源）及 **`acceptance:*`**／全閘對照鏈結）。
-- [ ] 停用舊 PAT。
+- [x] 產生新 PAT 後，完成驗證部署（細節與部署後自檢見 **`docs/security-token-rotation-checklist.md`**；**§D** 含可選 **`npm run ci`**（與 **`.github/workflows/ci.yml`** 同源）及 **`acceptance:*`**／全閘對照鏈結）。（2026-05-16：`npm run gatec:ops:verify`）
+- [x] 停用舊 PAT。（2026-05-16）
 - [x] 確認 `.env` 未入版控（`.gitignore` 生效）。
-- [ ] 不在聊天與文件中貼出新 PAT/service role key。
+- [x] 不在聊天與文件中貼出新 PAT/service role key。（2026-05-16：初次 exposure 後已 rotate #2；現役 token 未再外洩）
 
 ## 7. 上線簽核（簡版）
 - [ ] 產品/業務確認：排班結果符合預期。（用語：**`docs/gate-c-section7-signoff-wording-2026-05-15.md`**）
-- [ ] 技術確認：部署、RLS、審計資料正常（工程 READY 見 **`docs/evidence/gate-c-latest.md`**；PAT 見 **§6**）。
+- [x] 技術確認：部署、RLS、審計資料正常（工程 READY 見 **`docs/evidence/gate-c-latest.md`**；PAT **§6** 已於 2026-05-16 完成；TL 簽 **`docs/gate-c-go-live-signoff-draft-2026-05-15.md`** §4）。
 - [ ] 決策人確認：允許正式上線（**須 §6 PAT 完成後**）。
 
 ## 8. 審計紀錄（RES-06）正式庫抽測

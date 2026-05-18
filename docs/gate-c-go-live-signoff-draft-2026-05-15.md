@@ -2,7 +2,7 @@
 
 > **對照**：**`docs/go-live-checklist.md`**、**`docs/security-token-rotation-checklist.md`**、**`docs/project-completion-evidence-index-2026-05.md`**（Gate C 區）。  
 > **前置**：Gate A **PASS**（**`docs/evidence/gate-a-latest.md`**）；Gate B 工程 **通過**（**`npm run ci`** 2026-05-15）。  
-> **狀態（2026-05-15）**：**工程 READY**（Staff E2E + Gate A 基線）；**不可 go-live** — 待 §6 PAT、§7 三方簽名。見 **`docs/evidence/gate-c-latest.md`**。
+> **狀態（2026-05-16）**：**工程 READY**；**§6 PAT 已完成**（`gatec:ops:verify` 2026-05-16）；**不可 go-live** — 待 §7 三方簽名。見 **`docs/evidence/gate-c-latest.md`**。
 
 ---
 
@@ -24,7 +24,7 @@
 
 | 優先 | 項目 | 責任 | 動作 |
 |------|------|------|------|
-| P0 | §6 新 PAT 驗證部署、停用舊 PAT | OPS／TL | **`docs/security-token-rotation-checklist.md`** §A |
+| — | §6 新 PAT 驗證部署、停用舊 PAT | TL（兼 OPS） | **已完成** 2026-05-16；見本檔 **§5** |
 | P0 | §7 三方簽名 | 業務／技術／決策 | 本檔 **§4** 簽核表 |
 | P1 | §1 `residents`／`scheduling_history` RLS 書面紀錄 | QA | SQL＋角色帳號抽測 |
 | P1 | §8 `audit_events` SQL 抽樣 | QA | go-live §8 查詢 |
@@ -77,15 +77,15 @@ SQL 抽測：**`docs/sql/gate-c-go-live-verification.sql`**。
 
 ---
 
-## 4. §7 上線簽核表（待簽）
+## 4. §7 上線簽核表（TL 已簽；待業務／決策）
 
 **複製用語（三方段落）**：**`docs/gate-c-section7-signoff-wording-2026-05-15.md`**
 
 | 角色 | 姓名 | 日期 | 確認內容 | 簽名 |
 |------|------|------|----------|------|
 | 產品／業務 | | | 見用語檔「產品／業務」 | |
-| 技術（TL） | | | 見用語檔「技術負責人」（工程 READY；PAT 可後補勾選） | |
-| 決策人 | | | 見用語檔「決策人」（**須 PAT 完成後**） | |
+| 技術（TL） | StephenSmiths | 2026-05-16 | Gate A **READY**；Gate B **`npm run ci`**；Gate C 工程 **6/6 READY**（Staff E2E 11 passed）；§6 PAT **已完成**（`gatec:ops:verify` 2026-05-16，rotate #2；見本檔 **§5**）；回滾 **`docs/supabase-deploy-runbook.md`**。**技術簽核不等同正式 go-live**（待 UAT／業務／決策 §7）。 | StephenSmiths |
+| 決策人 | | | 見用語檔「決策人」（**須 PAT 完成後**；PAT 已於 2026-05-16 完成） | |
 
 **業務 UAT**：**`docs/uat/scheduling-intelligent-uat-2026-05-15.md`**、**`docs/uat/uat-kickoff-email-draft-2026-05-15.md`**
 
@@ -97,10 +97,10 @@ SQL 抽測：**`docs/sql/gate-c-go-live-verification.sql`**。
 
 | 步驟 | 完成 | 日期 | 操作者 | 備註 |
 |------|------|------|--------|------|
-| 建立新 PAT | [ ] | | | Dashboard → Account → Tokens |
-| 新 PAT 驗證 `ops:deploy:all` 或 `ops:verify` | [ ] | | | 勿寫入 repo |
-| 停用舊 PAT | [ ] | | | |
-| 確認未於聊天／文件洩漏新 PAT | [ ] | | | |
+| 建立新 PAT | [x] | 2026-05-16 | TL（兼 OPS） | Dashboard → Account → Tokens |
+| 新 PAT 驗證 `ops:deploy:all` 或 `ops:verify` | [x] | 2026-05-16 | TL（兼 OPS） | `npm run gatec:ops:verify`：migration Local/Remote 一致（至 `20260509201000`）；Edge functions 全 **ACTIVE** |
+| 停用舊 PAT | [x] | 2026-05-16 | TL（兼 OPS） | 舊 token 已 Revoke |
+| 確認未於聊天／文件洩漏新 PAT | [x] | 2026-05-16 | TL（兼 OPS） | 初次曾 exposure；同日 **rotate #2** 後 `gatec:ops:verify` 通過；**現役 token 未再外洩** |
 
 ---
 
@@ -108,7 +108,7 @@ SQL 抽測：**`docs/sql/gate-c-go-live-verification.sql`**。
 
 | 決策 | 條件 |
 |------|------|
-| **No-Go（現況）** | §6 PAT、§7 簽名未完成 |
+| **No-Go（現況）** | §7 簽名未完成（§6 PAT 已於 2026-05-16 完成） |
 | **工程可簽（TL）** | `gate-c-latest` engineering **READY**；基線 **`gate-c-engineering-baseline-latest.md`** |
 | **Go（建議門檻）** | §6 全勾；§7 三方簽名；UAT 簽核；可選 TL 帳號 **0 skipped** 重跑 `gatec:e2e:auth` |
 

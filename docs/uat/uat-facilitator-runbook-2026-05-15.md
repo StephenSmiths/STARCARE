@@ -1,7 +1,8 @@
 # UAT 帶領人現場手冊（2～3 小時）
 
 > **環境**：**`docs/uat/uat-staging-access-guide-2026-05-15.md`**  
-> **開測信**：**`docs/uat/uat-kickoff-email-generated-local-2026-05-15.txt`**（或 `npm run gatec:uat:kickoff`）  
+> **開測信（工程）**：**`docs/uat/uat-kickoff-email-generated-2026-05-16.txt`**（或 `npm run gatec:uat:kickoff`）  
+> **開測信（客戶易懂）**：**`docs/uat/uat-kickoff-email-client-2026-05-16.md`** · 現場一頁紙 **`docs/uat/uat-client-session-guide-2026-05-16.md`**  
 > **帳號表**：**`uat-account-handoff-template-2026-05-15.md`**
 
 ## 開場前（15 分鐘）
